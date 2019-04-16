@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Git代码行统计命令集 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="统计某人的代码提交量，包括增加，删除： git?log?–author=”$(git?config?–get?user.name)”?–pretty=tformat:?–numstat?|?gawk?’{?add?+=?$1?;?subs?+=?$2?;?loc?+=?$1?-?$2?}?END?{?printf?”added?lines:?%s?removed?lines?:?%s?total?">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git代码行统计命令集">
+<meta property="og:url" content="http://yoursite.com/2016/02/29/git代码行统计命令集/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="统计某人的代码提交量，包括增加，删除： git?log?–author=”$(git?config?–get?user.name)”?–pretty=tformat:?–numstat?|?gawk?’{?add?+=?$1?;?subs?+=?$2?;?loc?+=?$1?-?$2?}?END?{?printf?”added?lines:?%s?removed?lines?:?%s?total?">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-16T07:59:56.481Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git代码行统计命令集">
+<meta name="twitter:description" content="统计某人的代码提交量，包括增加，删除： git?log?–author=”$(git?config?–get?user.name)”?–pretty=tformat:?–numstat?|?gawk?’{?add?+=?$1?;?subs?+=?$2?;?loc?+=?$1?-?$2?}?END?{?printf?”added?lines:?%s?removed?lines?:?%s?total?">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-git代码行统计命令集" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/02/29/git代码行统计命令集/" class="article-date">
+  <time datetime="2016-02-29T11:12:06.000Z" itemprop="datePublished">2016-02-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-git/">积累________git</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Git代码行统计命令集
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>统计某人的代码提交量，包括增加，删除： git?log?–author=”$(git?config?–get?user.name)”?–pretty=tformat:?–numstat?|?gawk?’{?add?+=?$1?;?subs?+=?$2?;?loc?+=?$1?-?$2?}?END?{?printf?”added?lines:?%s?removed?lines?:?%s?total?lines:?%s\n”,add,subs,loc?}’ ?- 仓库提交者排名前 5（如果看全部，去掉 head 管道即可）： git?log?–pretty=’%aN’?|?sort?|?uniq?-c?|?sort?-k1?-n?-r?|?head?-n?5 仓库提交者（邮箱）排名前 5：这个统计可能不会太准，因为很多人有不同的邮箱，但会使用相同的名字 git?log?–pretty=format:%ae?|?gawk?–?’{?++c[$0];?}?END?{?for(cc?in?c)?printf?”%5d?%s\n”,c[cc],cc;?}’?|?sort?-u?-n?-r?|?head?-n?5 贡献者统计： git?log?–pretty=’%aN’?|?sort?-u?|?wc?-l 提交数统计： git?log?–oneline?|?wc?-l 添加或修改的代码行数： git?log?–stat|perl?-ne?’END?{?print?$c?}?$c?+=?$1?if?/(\d+)?insertions/; git log 参数说明： –author ? 指定作者 –stat ? 显示每次更新的文件修改统计信息，会列出具体文件列表 –shortstat ? ?统计每个commit 的文件修改行数，包括增加，删除，但不列出文件列表： –numstat ? 统计每个commit 的文件修改行数，包括增加，删除，并列出文件列表： -p 选项展开显示每次提交的内容差异，用 -2 则仅显示最近的两次更新 例如：git log -p ?-2 –name-only 仅在提交信息后显示已修改的文件清单 –name-status 显示新增、修改、删除的文件清单 –abbrev-commit 仅显示 SHA-1 的前几个字符，而非所有的 40 个字符 –relative-date 使用较短的相对时间显示（比如，“2 weeks ago”） –graph 显示 ASCII 图形表示的分支合并历史 –pretty 使用其他格式显示历史提交信息。可用的选项包括 oneline，short，full，fuller 和 format（后跟指定格式） 例如： git log –pretty=oneline ; git log –pretty=short ; git log –pretty=full ; git log –pretty=fuller –pretty=tformat: ? 可以定制要显示的记录格式，这样的输出便于后期编程提取分析 例如：git log –pretty=format:””%h - %an, %ar : %s”” 下面列出了常用的格式占位符写法及其代表的意义。 选项 ? ? ? 说明 %H ? ? ?提交对象（commit）的完整哈希字串 %h ? ? ?提交对象的简短哈希字串 %T ? ? ?树对象（tree）的完整哈希字串 %t ? ? ?树对象的简短哈希字串 %P ? ? ?父对象（parent）的完整哈希字串 %p ? ? ?父对象的简短哈希字串 %an ? ? 作者（author）的名字 %ae ? ? 作者的电子邮件地址 %ad ? ? 作者修订日期（可以用 -date= 选项定制格式） %ar ? ? 作者修订日期，按多久以前的方式显示 %cn ? ? 提交者(committer)的名字 %ce ? ? 提交者的电子邮件地址 %cd ? ? 提交日期 %cr ? ? 提交日期，按多久以前的方式显示 %s ? ? ?提交说明 –since ?限制显示输出的范围， 例如： git log –since=2.weeks ? ?显示最近两周的提交 选项 说明 -(n) ? ?仅显示最近的 n 条提交 –since, –after 仅显示指定时间之后的提交。 –until, –before 仅显示指定时间之前的提交。 –author 仅显示指定作者相关的提交。 –committer 仅显示指定提交者相关的提交。 一些例子： git log –until=1.minute.ago // 一分钟之前的所有 log git log –since=1.day.ago //一天之内的log git log –since=1.hour.ago //一个小时之内的 log git log –since=`.month.ago –until=2.weeks.ago //一个月之前到半个月之前的log git log –since ==2013-08.01 –until=2013-09-07 //某个时间段的 log ? git blame 看看某一个文件的相关历史记录 例如：git blame index.html –date short</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/02/29/git代码行统计命令集/" data-id="cjujhyg6i0026ej3jb7grrz2m" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/03/13/mysql-用户管理和权限设置/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          mysql 用户管理和权限设置
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/02/22/solr的一些查询参数/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Solr的一些查询参数</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

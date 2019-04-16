@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>js中apply方法的使用详细解析 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1、对象的继承，一般的做法是复制：Object.extend prototype.js的实现方式是： 复制代码代码如下: Object.extend = function(destination, source) { for (property in source) { destination[property] = source[property]; } return destination;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js中apply方法的使用详细解析">
+<meta property="og:url" content="http://yoursite.com/2016/03/24/js中apply方法的使用详细解析/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1、对象的继承，一般的做法是复制：Object.extend prototype.js的实现方式是： 复制代码代码如下: Object.extend = function(destination, source) { for (property in source) { destination[property] = source[property]; } return destination;">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-16T07:59:56.487Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js中apply方法的使用详细解析">
+<meta name="twitter:description" content="1、对象的继承，一般的做法是复制：Object.extend prototype.js的实现方式是： 复制代码代码如下: Object.extend = function(destination, source) { for (property in source) { destination[property] = source[property]; } return destination;">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-js中apply方法的使用详细解析" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/24/js中apply方法的使用详细解析/" class="article-date">
+  <time datetime="2016-03-24T06:35:28.000Z" itemprop="datePublished">2016-03-24</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-js/">积累________js</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      js中apply方法的使用详细解析
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>1、对象的继承，一般的做法是复制：Object.extend</strong> prototype.js的实现方式是：</p>
+<p>复制代码代码如下:</p>
+<p>Object.extend = function(destination, source) { for (property in source) { destination[property] = source[property]; } return destination; }</p>
+<p>除此之外，还有种方法，就是：Function.apply（当然使用Function.call也是可以的） apply方法能劫持另外一个对象的方法，继承另外一个对象的属性 Function.apply(obj,args)方法能接收两个参数 <strong>obj：</strong>这个对象将代替Function类里this对象 <strong>args：</strong>这个是数组，它将作为参数传给Function（args–&gt;arguments） apply示范代码如下：</p>
+<p>复制代码代码如下:</p>
+<p>function Person(name,age){?? //定义一个类，人类 this.name=name;???? //名字 this.age=age;?????? //年龄 this.sayhello=function(){alert(“hello”)}; } function Print(){??????????? //显示类的属性 this.funcName=”Print”; this.show=function(){ var msg=[]; for(var key in this){ if(typeof(this[key])!=”function”){ msg.push([key,”:”,this[key]].join(“”)); } } alert(msg.join(“ “)); }; } function Student(name,age,grade,school){??? //学生类 Person.apply(this,arguments); Print.apply(this,arguments); this.grade=grade;??????????????? //年级 this.school=school;???????????????? //学校 } var p1=new Person(“jake”,10); p1.sayhello(); var s1=new Student(“tom”,13,6,”清华小学”); s1.show(); s1.sayhello(); alert(s1.funcName);</p>
+<p>学生类本来不具备任何方法，但是在Person.apply(this,arguments)后， 他就具备了Person类的sayhello方法和所有属性。 在Print.apply(this,arguments)后就自动得到了show()方法 <strong>2、利用Apply的参数数组化来提高</strong> Function.apply()在提升程序性能方面的技巧 我们先从Math.max()函数说起，Math.max后面可以接任意个参数，最后返回所有参数中的最大值。 比如 alert(Math.max(5,8))?? //8 alert(Math.max(5,7,9,3,1,6))?? //9 但是在很多情况下，我们需要找出数组中最大的元素。</p>
+<p>复制代码代码如下:</p>
+<p>var arr=[5,7,9,1] alert(Math.max(arr))??? // 这样却是不行的。一定要这样写function getMax(arr){ var arrLen=arr.length; for(var i=0,ret=arr[0];i 这样写麻烦而且低效。如果用 apply呢，看代码：</p>
+<p>复制代码代码如下:</p>
+<p>function getMax2(arr){ return Math.max.apply(null,arr); }</p>
+<p>两段代码达到了同样的目的，但是getMax2却优雅，高效，简洁得多。 再比如数组的push方法。 var arr1=[1,3,4]; var arr2=[3,4,5]; 如果我们要把 arr2展开，然后一个一个追加到arr1中去，最后让arr1=[1,3,4,3,4,5] arr1.push(arr2)显然是不行的。 因为这样做会得到[1,3,4,[3,4,5]] 我们只能用一个循环去一个一个的push(当然也可以用arr1.concat(arr2)，但是concat方法并不改变arr1本身)</p>
+<p>复制代码代码如下:</p>
+<p>var arrLen=arr2.length for(var i=0;i 自从有了Apply,事情就变得如此简单 Array.prototype.push.apply(arr1,arr2)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/03/24/js中apply方法的使用详细解析/" data-id="cjujhyg780030ej3jz7j9jkye" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/04/12/git常用命令-2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Git常用命令
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/03/24/css-选择器笔记/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">CSS - 选择器笔记</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

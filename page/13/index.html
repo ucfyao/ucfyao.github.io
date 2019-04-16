@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/13/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-mysql导入导出sql文件" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/02/22/mysql导入导出sql文件/" class="article-date">
+  <time datetime="2017-02-22T02:33:43.000Z" itemprop="datePublished">2017-02-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-mysql/">积累________mysql</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/22/mysql导入导出sql文件/">mysql导入导出sql文件</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h5><ol>
+<li><p>导出全库备份到本地的目录</p>
+<figure class="highlight plain"><figcaption><span>-u$USER -p$PASSWD -h127.0.0.1 -P3306 --routines --default-character-set</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line">2.  导出指定库到本地的目录(例如mysql库)</span><br><span class="line">    </span><br><span class="line">    ``` mysqldump -u$USER -p$PASSWD -h127.0.0.1 -P3306 --routines --default-character-set=utf8 --databases mysql &gt; db.sql</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="3">
+<li><p>导出某个库的表到本地的目录(例如mysql库的user表)</p>
+<figure class="highlight plain"><figcaption><span>-u$USER -p$PASSWD -h127.0.0.1 -P3306 --routines --default-character-set</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line">4.  导出指定库的表(仅数据)到本地的目录(例如mysql库的user表,带过滤条件)</span><br><span class="line">    </span><br><span class="line">    ``` mysqldump -u$USER -p$PASSWD -h127.0.0.1 -P3306 --routines --default-character-set=utf8 --no-create-db --no-create-info --tables mysql user --where=&quot;host=&apos;localhost&apos;&quot;\&gt; db.table.sql</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="5">
+<li><p>导出某个库的所有表结构</p>
+<figure class="highlight plain"><figcaption><span>-u$USER -p$PASSWD -h127.0.0.1 -P3306 --routines --default-character-set</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line">6.  导出某个查询sql的数据为txt格式文件到本地的目录(各数据值之间用&quot;制表符&quot;分隔) 例如sql为&apos;select user,host,password from mysql.user;&apos;</span><br><span class="line">    </span><br><span class="line">    ``` mysql -u$USER -p$PASSWD -h127.0.0.1 -P3306 --default-character-set=utf8 --skip-column-names -B -e &apos;select user,host,password from mysql.user;&apos; &gt; mysql_user.txt</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="7">
+<li><p>导出某个查询sql的数据为txt格式文件到MySQL服务器. 登录MySQL,将默认的制表符换成逗号.(适应csv格式文件). 指定的路径,mysql要有写的权限.最好用tmp目录,文件用完之后,再删除!</p>
+<figure class="highlight plain"><figcaption><span>user,host,password FROM mysql.user INTO OUTFILE '/tmp/mysql_user.csv' FIELDS TERMINATED BY ','; ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line"></span><br><span class="line">##### 导入</span><br><span class="line"></span><br><span class="line">1.  恢复全库数据到MySQL,因为包含mysql库的权限表,导入完成需要执行FLUSH PRIVILEGES;命令</span><br><span class="line">    </span><br><span class="line">    ``` 第一种方法: mysql -u$USER -p$PASSWD -h127.0.0.1 -P3306 --default-character-set=utf8 &lt; db.all.sql 第二种方法: 登录MySQL,执行source命令,后面的文件名要用绝对路径. ...... mysql&gt; source /tmp/db.all.sql;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="2">
+<li><p>恢复某个库的数据(mysql库的user表)</p>
+<figure class="highlight plain"><figcaption><span>mysql -u$USER -p$PASSWD -h127.0.0.1 -P3306 --default-character-set</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line">3.  恢复MySQL服务器上面的txt格式文件(需要FILE权限,各数据值之间用&quot;制表符&quot;分隔)</span><br><span class="line">    </span><br><span class="line">    ``` mysql -u$USER -p$PASSWD -h127.0.0.1 -P3306 --default-character-set=utf8 ...... mysql&gt; use mysql; mysql&gt; LOAD DATA INFILE &apos;/tmp/mysql_user.txt&apos; INTO TABLE user ;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="4">
+<li><p>恢复MySQL服务器上面的csv格式文件(需要FILE权限,各数据值之间用”逗号”分隔)</p>
+<figure class="highlight plain"><figcaption><span>-u$USER -p$PASSWD -h127.0.0.1 -P3306 --default-character-set</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line">5.  恢复本地的txt或csv文件到MySQL</span><br><span class="line">    </span><br><span class="line">    ``` mysql -u$USER -p$PASSWD -h127.0.0.1 -P3306 --default-character-set=utf8 ...... mysql&gt; use mysql; # txt mysql&gt; LOAD DATA LOCAL INFILE &apos;/tmp/mysql\_user.csv&apos; INTO TABLE user; # csv mysql&gt; LOAD DATA LOCAL INFILE &apos;/tmp/mysql\_user.csv&apos; INTO TABLE user FIELDS TERMINATED BY &apos;,&apos;;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
+<li>关于MySQL连接 -u$USER 用户名 -p$PASSWD 密码 -h127.0.0.1 如果连接远程服务器,请用对应的主机名或者IP地址替换 -P3306 端口 –default-character-set=utf8 指定字符集</li>
+<li>关于mysql参数 –skip-column-names 不显示数据列的名字 -B 以批处理的方式运行mysql程序.查询结果将显示为制表符间隔格式. -e 执行命令后,退出</li>
+<li>关于mysqldump参数 -A 全库备份 –routines 备份存储过程和函数 –default-character-set=utf8 设置字符集 –lock-all-tables 全局一致性锁 –add-drop-database 在每次执行建表语句之前,先执行DROP TABLE IF EXIST语句 –no-create-db 不输出CREATE DATABASE语句 –no-create-info 不输出CREATE TABLE语句 –databases 将后面的参数都解析为库名 –tables 第一个参数为库名 后续为表名</li>
+<li>关于LOAD DATA语法 如果LOAD DATA语句不带LOCAL关键字,就在MySQL的服务器上直接读取文件,且要具有FILE权限. 如果带LOCAL关键字,就在客户端本地读取数据文件,通过网络传到MySQL. LOAD DATA语句,同样被记录到binlog,不过是内部的机制.</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/02/22/mysql导入导出sql文件/" data-id="cjujhyg8g004hej3jb6b3u1ak" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/导入/">导入</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/导出/">导出</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-同源策略和跨域访问" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/02/20/同源策略和跨域访问/" class="article-date">
+  <time datetime="2017-02-20T08:21:37.000Z" itemprop="datePublished">2017-02-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/日常-经验分享/">日常________经验分享</a>►<a class="article-category-link" href="/categories/日常-经验分享/积累-php/">积累________php</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/20/同源策略和跨域访问/">同源策略和跨域访问</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-什么是同源策略"><a href="#1-什么是同源策略" class="headerlink" title="1. 什么是同源策略"></a>1. 什么是同源策略</h3><p>理解跨域首先必须要了解同源策略。同源策略是浏览器上为安全性考虑实施的非常重要的安全策略。 何谓同源: URL由协议、域名、端口和路径组成，如果两个URL的协议、域名和端口相同，则表示他们同源。 同源策略: 浏览器的同源策略，限制了来自不同源的”document”或脚本，对当前”document”读取或设置某些属性。 （白帽子讲web安全[1]） 从一个域上加载的脚本不允许访问另外一个域的文档属性。 举个例子： 比如一个恶意网站的页面通过iframe嵌入了银行的登录页面（二者不同源），如果没有同源限制，恶意网页上的javascript脚本就可以在用户登录银行的时候获取用户名和密码。 在浏览器中，、<img>、<iframe>、<link>等标签都可以加载跨域资源，而不受同源限制，但浏览器限制了JavaScript的权限使其不能读、写加载的内容。 另外同源策略只对网页的HTML文档做了限制，对加载的其他静态资源如javascript、css、图片等仍然认为属于同源。 代码示例（<a href="http://localhost:8080/和http://localhost:8081由于端口不同而不同源）：" target="_blank" rel="noopener">http://localhost:8080/和http://localhost:8081由于端口不同而不同源）：</a> <div class="dp-highlighter bg\_html"> <div class="bar"> <div class="tools"><b>[html]</b> <a class="ViewSource" title="view plain" href="http://blog.csdn.net/shimiso/article/details/21830313#" target="_blank" rel="noopener">view plain</a><span data-mod="popu\_168"> <a class="CopyToClipboard" title="copy" href="http://blog.csdn.net/shimiso/article/details/21830313#" target="_blank" rel="noopener">copy</a></span> <div><embed id="ZeroClipboardMovie\_1" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" type="application/x-shockwave-flash" width="18" height="18" align="middle" name="ZeroClipboardMovie\_1" data-mce-fragment="1"></div> <span class="tracking-ad" data-mod="popu\_167"><a title="在CODE上查看代码片" href="https://code.csdn.net/snippets/251145" target="\_blank"><img src="https://code.csdn.net/assets/CODE\_ico.png" alt="在CODE上查看代码片" width="12" height="12"></a></span><span class="tracking-ad" data-mod="popu\_170"><a title="派生到我的代码片" href="https://code.csdn.net/snippets/251145/fork" target="\_blank"><img src="https://code.csdn.net/assets/ico\_fork.svg" alt="派生到我的代码片" width="12" height="12"></a></span></div> </div> <ol class="dp-xml" start="1"> <li class="alt"><a href="http://localhost:8080/test.html" target="_blank" rel="noopener">http://localhost:8080/test.html</a></li> <li class>        <span class="tag">&lt;</span><span class="tag-name">html</span><span class="tag">&gt;</span></li> <li class="alt">            <span class="tag">&lt;</span><span class="tag-name">head</span><span class="tag">&gt;</span><span class="tag">&lt;</span><span class="tag-name">title</span><span class="tag">&gt;</span>test same origin policy<span class="tag">&lt;/</span><span class="tag-name">title</span><span class="tag">&gt;</span><span class="tag">&lt;/</span><span class="tag-name">head</span><span class="tag">&gt;</span></li> <li class>            <span class="tag">&lt;</span><span class="tag-name">body</span><span class="tag">&gt;</span></li> <li class="alt">                <span class="tag">&lt;</span><span class="tag-name">iframe</span> <span class="attribute">id</span>=<span class="attribute-value">“test”</span> <span class="attribute">src</span>=<span class="attribute-value">“<a href="http://localhost:8081/test2.html&quot;" target="_blank" rel="noopener">http://localhost:8081/test2.html&quot;</a></span><span class="tag">&gt;</span><span class="tag">&lt;/</span><span class="tag-name">iframe</span><span class="tag">&gt;</span></li> <li class>                <span class="tag">&lt;</span><span class="tag-name">script</span> <span class="attribute">type</span>=<span class="attribute-value">“text/javascript”</span><span class="tag">&gt;</span></li> <li class="alt">                    document.getElementById(“test”)<span class="attribute">.contentDocument.body.innerHTML</span> = <span class="attribute-value">“write somthing”</span>;</li> <li class>                <span class="tag">&lt;/</span><span class="tag-name">script</span><span class="tag">&gt;</span></li> <li class="alt">            <span class="tag">&lt;/</span><span class="tag-name">body</span><span class="tag">&gt;</span></li> <li class>        <span class="tag">&lt;/</span><span class="tag-name">html</span><span class="tag">&gt;</span></li> <li class="alt"></li> <li class><a href="http://localhost:8081/test2.html" target="_blank" rel="noopener">http://localhost:8081/test2.html</a></li> <li class="alt">        <span class="tag">&lt;</span><span class="tag-name">html</span><span class="tag">&gt;</span></li> <li class>            <span class="tag">&lt;</span><span class="tag-name">head</span><span class="tag">&gt;</span><span class="tag">&lt;</span><span class="tag-name">title</span><span class="tag">&gt;</span>test same origin policy<span class="tag">&lt;/</span><span class="tag-name">title</span><span class="tag">&gt;</span><span class="tag">&lt;/</span><span class="tag-name">head</span><span class="tag">&gt;</span></li> <li class="alt">            <span class="tag">&lt;</span><span class="tag-name">body</span><span class="tag">&gt;</span></li> <li class>                Testing.</li> <li class="alt">            <span class="tag">&lt;/</span><span class="tag-name">body</span><span class="tag">&gt;</span></li> <li class>        <span class="tag">&lt;/</span><span class="tag-name">html</span><span class="tag">&gt;</span></li> </ol> </div> 在Firefox中会得到如下错误： Error: Permission denied to access property ‘body’ Document对象的domain属性存放着装载文档的服务器的主机名，可以设置它。 例如来自”blog.csdn.net”和来自”bbs.csdn.net”的页面，都将document.domain设置为”csdn.net”，则来自两个子域名的脚本即可相互访问。 出于安全的考虑，不能设置为其他主domain，比如<a href="http://www.csdn.net/不能设置为sina.com" target="_blank" rel="noopener">http://www.csdn.net/不能设置为sina.com</a> <h3><a name="t1"></a>2. Ajax跨域</h3> Ajax (XMLHttpRequest)请求受到同源策略的限制。 Ajax通过XMLHttpRequest能够与远程的服务器进行信息交互，另外XMLHttpRequest是一个纯粹的Javascript对象，这样的交互过程，是在后台进行的，用户不易察觉。 因此，XMLHTTP实际上已经突破了原有的Javascript的安全限制。 举个例子： 假设某网站引用了其它站点的javascript，这个站点被compromise并在javascript中加入获取用户输入并通过ajax提交给其他站点，这样就可以源源不断收集信息。 或者某网站因为存在漏洞导致XSS注入了javascript脚本，这个脚本就可以通过ajax获取用户信息并通过ajax提交给其他站点，这样就可以源源不断收集信息。 如果我们又想利用XMLHTTP的无刷新异步交互能力，又不愿意公然突破Javascript的安全策略，可以选择的方案就是给XMLHTTP加上严格的同源限制。 这样的安全策略，很类似于Applet的安全策略。IFrame的限制还仅仅是不能访问跨域HTMLDOM中的数据，而XMLHTTP则根本上限制了跨域请求的提交。（实际上下面提到了CORS已经放宽了限制） 随着Ajax技术和网络服务的发展，对跨域的要求也越来越强烈。下面介绍Ajax的跨域技术。 <h3><a name="t2"></a>2.1 JSONP</h3> JSONP技术实际和Ajax没有关系。我们知道<script>标签可以加载跨域的javascript脚本，并且被加载的脚本和当前文档属于同一个域。因此在文档中可以调用/访问脚本中的数据和函数。如果javascript脚本中的数据是动态生成的，那么只要在文档中动态创建<script>标签就可以实现和服务端的数据交互。 JSONP就是利用<script>标签的跨域能力实现跨域数据的访问，请求动态生成的JavaScript脚本同时带一个callback函数名作为参数。其中callback函数本地文档的JavaScript函数，服务器端动态生成的脚本会产生数据，并在代码中以产生的数据为参数调用callback函数。当这段脚本加载到本地文档时，callback函数就被调用。 第一个站点的测试页面（<a href="http://localhost:8080/test.html）：">http://localhost:8080/test.html）：</a> <div class="dp-highlighter bg\_html"> <div class="bar"> <div class="tools"><b>[html]</b> <a class="ViewSource" title="view plain" href="http://blog.csdn.net/shimiso/article/details/21830313#">view plain</a><span data-mod="popu\_168"> <a class="CopyToClipboard" title="copy" href="http://blog.csdn.net/shimiso/article/details/21830313#">copy</a></span> <div><embed id="ZeroClipboardMovie\_2" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" type="application/x-shockwave-flash" width="18" height="18" align="middle" name="ZeroClipboardMovie\_2" data-mce-fragment="1"></embed></div> <span class="tracking-ad" data-mod="popu\_167"><a title="在CODE上查看代码片" href="https://code.csdn.net/snippets/251145" target="\_blank"><img src="https://code.csdn.net/assets/CODE\_ico.png" alt="在CODE上查看代码片" width="12" height="12" /></a></span><span class="tracking-ad" data-mod="popu\_170"><a title="派生到我的代码片" href="https://code.csdn.net/snippets/251145/fork" target="\_blank"><img src="https://code.csdn.net/assets/ico\_fork.svg" alt="派生到我的代码片" width="12" height="12" /></a></span></div> </div> <ol class="dp-xml" start="1"> <li class="alt"><span class="tag">&lt;</span><span class="tag-name">script</span> <span class="attribute">src</span>=<span class="attribute-value">“<a href="http://localhost:8081/test\_data.js&quot;">http://localhost:8081/test\_data.js&quot;</a></span><span class="tag">&gt;</span></li> <li class="">    <span class="tag">&lt;</span><span class="tag-name">script</span><span class="tag">&gt;</span></li> <li class="alt">        function test_handler(data) {</li> <li class="">            console.log(data);</li> <li class="alt">        }</li> <li class=""><span class="tag">&lt;/</span><span class="tag-name">script</span><span class="tag">&gt;</span></li> </ol> </div> 服务器端的Javascript脚本（<a href="http://localhost:8081/test\_data.js）：">http://localhost:8081/test\_data.js）：</a> test_handler(‘{“data”: “something”}’); 为了动态实现JSONP请求，可以使用Javascript动态插入<script>标签： <div class="dp-highlighter bg\_html"> <div class="bar"> <div class="tools"><b>[html]</b> <a class="ViewSource" title="view plain" href="http://blog.csdn.net/shimiso/article/details/21830313#">view plain</a><span data-mod="popu\_168"> <a class="CopyToClipboard" title="copy" href="http://blog.csdn.net/shimiso/article/details/21830313#">copy</a></span> <div><embed id="ZeroClipboardMovie\_3" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" type="application/x-shockwave-flash" width="18" height="18" align="middle" name="ZeroClipboardMovie\_3" data-mce-fragment="1"></embed></div> <span class="tracking-ad" data-mod="popu\_167"><a title="在CODE上查看代码片" href="https://code.csdn.net/snippets/251145" target="\_blank"><img src="https://code.csdn.net/assets/CODE\_ico.png" alt="在CODE上查看代码片" width="12" height="12" /></a></span><span class="tracking-ad" data-mod="popu\_170"><a title="派生到我的代码片" href="https://code.csdn.net/snippets/251145/fork" target="\_blank"><img src="https://code.csdn.net/assets/ico\_fork.svg" alt="派生到我的代码片" width="12" height="12" /></a></span></div> </div> <ol class="dp-xml" start="1"> <li class="alt"><span class="tag">&lt;</span><span class="tag-name">script</span> <span class="attribute">type</span>=<span class="attribute-value">“text/javascript”</span><span class="tag">&gt;</span></li> <li class="">        // this shows dynamic script insertion</li> <li class="alt">        var <span class="attribute">script</span> = <span class="attribute-value">document</span>.createElement(‘script’);</li> <li class="">        script.setAttribute(‘src’, url);</li> <li class="alt">        // load the script</li> <li class="">        document.getElementsByTagName(‘head’)[0].appendChild(script);</li> <li class="alt"><span class="tag">&lt;/</span><span class="tag-name">script</span><span class="tag">&gt;</span></li> </ol> </div> JSONP协议封装了上述步骤，jQuery中统一是现在AJAX中(其中data type为JSONP)： <a href="http://localhost:8080/test?callback=test\_handler">http://localhost:8080/test?callback=test\_handler</a> 为了支持JSONP协议，服务器端必须提供特别的支持[2]，另外JSONP只支持GET请求。 <h3><a name="t3"></a>2.2 Proxy</h3> 使用代理方式跨域更加直接，因为SOP的限制是浏览器实现的。如果请求不是从浏览器发起的，就不存在跨域问题了。 使用本方法跨域步骤如下： 1. 把访问其它域的请求替换为本域的请求 2. 本域的请求是服务器端的动态脚本负责转发实际的请求 各种服务器的Reverse Proxy功能都可以非常方便的实现请求的转发，如Apache httpd + mod_proxy。 Eg. 为了通过Ajax从<a href="http://localhost:8080访问http://localhost:8081/api，可以将请求发往http://localhost:8080/api。">http://localhost:8080访问http://localhost:8081/api，可以将请求发往http://localhost:8080/api。</a> 然后利用Apache Web服务器的Reverse Proxy功能做如下配置： ProxyPass /api <a href="http://localhost:8081/api">http://localhost:8081/api</a> <h3><a name="t4"></a>2.3 CORS</h3> <h3><a name="t5"></a>2.3.1 Cross origin resource sharing</h3> “Cross-origin resource sharing (CORS) is a mechanism that allows a web page to make XMLHttpRequests to another domain. Such “cross-domain” requests would otherwise be forbidden by web browsers, per the same origin security policy. CORS defines a way in which the browser and the server can interact to determine whether or not to allow the cross-origin request. It is more powerful than only allowing same-origin requests, but it is more secure than simply allowing all such cross-origin requests.” —-Wikipedia[3] 通过在HTTP Header中加入扩展字段，服务器在相应网页头部加入字段表示允许访问的domain和HTTP method，客户端检查自己的域是否在允许列表中，决定是否处理响应。 实现的基础是JavaScript不能够操作HTTP Header。某些浏览器插件实际上是具有这个能力的。 服务器端在HTTP的响应头中加入（页面层次的控制模式）： Access-Control-Allow-Origin: example.com Access-Control-Request-Method: GET, POST Access-Control-Allow-Headers: Content-Type, Authorization, Accept, Range, Origin Access-Control-Expose-Headers: Content-Range Access-Control-Max-Age: 3600 多个域名之间用逗号分隔，表示对所示域名提供跨域访问权限。”<em>“表示允许所有域名的跨域访问。 客户端可以有两种行为： 1. 发送OPTIONS请求，请求Access-Control信息。如果自己的域名在允许的访问列表中，则发送真正的请求，否则放弃请求发送。 2. 直接发送请求，然后检查response的Access-Control信息，如果自己的域名在允许的访问列表中，则读取response body，否则放弃。 本质上服务端的response内容已经到达本地，JavaScript决定是否要去读取。 Support: [Javascript Web Applications] </em> IE &gt;= 8 (需要安装caveat) <em> Firefox &gt;= 3 </em> Safari 完全支持 <em> Chrome 完全支持 </em> Opera 不支持 <h3><a name="t6"></a> 2.3.2 测试</h3> 测试页面<a href="http://localhost:8080/test3.html使用jquery发送Ajax请求。">http://localhost:8080/test3.html使用jquery发送Ajax请求。</a> <div class="dp-highlighter bg\_html"> <div class="bar"> <div class="tools"><b>[html]</b> <a class="ViewSource" title="view plain" href="http://blog.csdn.net/shimiso/article/details/21830313#">view plain</a><span data-mod="popu\_168"> <a class="CopyToClipboard" title="copy" href="http://blog.csdn.net/shimiso/article/details/21830313#">copy</a></span> <div><embed id="ZeroClipboardMovie\_4" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" type="application/x-shockwave-flash" width="18" height="18" align="middle" name="ZeroClipboardMovie\_4" data-mce-fragment="1"></embed></div> <span class="tracking-ad" data-mod="popu\_167"><a title="在CODE上查看代码片" href="https://code.csdn.net/snippets/251145" target="\_blank"><img src="https://code.csdn.net/assets/CODE\_ico.png" alt="在CODE上查看代码片" width="12" height="12" /></a></span><span class="tracking-ad" data-mod="popu\_170"><a title="派生到我的代码片" href="https://code.csdn.net/snippets/251145/fork" target="\_blank"><img src="https://code.csdn.net/assets/ico\_fork.svg" alt="派生到我的代码片" width="12" height="12" /></a></span></div> </div> <ol class="dp-xml" start="1"> <li class="alt"><span class="tag">&lt;</span><span class="tag-name">html</span><span class="tag">&gt;</span></li> <li class="">        <span class="tag">&lt;</span><span class="tag-name">head</span><span class="tag">&gt;</span><span class="tag">&lt;</span><span class="tag-name">title</span><span class="tag">&gt;</span>testing cross sop<span class="tag">&lt;/</span><span class="tag-name">title</span><span class="tag">&gt;</span><span class="tag">&lt;/</span><span class="tag-name">head</span><span class="tag">&gt;</span></li> <li class="alt">        <span class="tag">&lt;</span><span class="tag-name">body</span><span class="tag">&gt;</span></li> <li class="">            Testing.</li> <li class="alt">            <span class="tag">&lt;</span><span class="tag-name">script</span> <span class="attribute">src</span>=<span class="attribute-value">“jquery-2.0.0.min.js”</span><span class="tag">&gt;</span><span class="tag">&lt;/</span><span class="tag-name">script</span><span class="tag">&gt;</span></li> <li class="">            <span class="tag">&lt;</span><span class="tag-name">script</span> <span class="attribute">type</span>=<span class="attribute-value">‘text/javascript’</span><span class="tag">&gt;</span></li> <li class="alt">                $.ajax({</li> <li class="">                    url: ‘<a href="http://localhost:8000/hello&#39;">http://localhost:8000/hello&#39;</a>,</li> <li class="alt">                    success: function(data) {</li> <li class="">                        alert(data);</li> <li class="alt">                    },</li> <li class="">                    error: function() {</li> <li class="alt">                        alert(‘error’);</li> <li class="">                    }</li> <li class="alt">                });</li> <li class="">            <span class="tag">&lt;/</span><span class="tag-name">script</span><span class="tag">&gt;</span></li> <li class="alt">        <span class="tag">&lt;/</span><span class="tag-name">body</span><span class="tag">&gt;</span></li> <li class=""><span class="tag">&lt;/</span><span class="tag-name">html</span><span class="tag">&gt;</span></li> </ol> </div> 测试Restful API(<a href="http://localhost:8000/hello/{name})使用bottle.py来host。">http://localhost:8000/hello/{name})使用bottle.py来host。</a> from bottle import route, run, response @route(‘/hello’) def index(): return ‘Hello World.’ run(host=’localhost’, port=8000) 测试1： 测试正常的跨域请求的行为。 测试结果： 1. 跨域GET请求已经发出，请求header中带有 Origin    <a href="http://localhost:8080">http://localhost:8080</a> 2. 服务器端正确给出response 3. Javascript拒绝读取数据，在firebug中发现reponse为空，并且触发error回调 测试2： 测试支持CORS的服务器的跨域请求行为。 对Restful API做如下改动，在response中加入header： def index(): #Add CORS header# response.set_header(“Access-Control-Allow-Origin”, “<a href="http://localhost:8080&quot;">http://localhost:8080&quot;</a>) return ‘Hello World.’ 测试结果： 1. 跨域GET请求已经发出，请求header中带有 Origin    <a href="http://localhost:8080">http://localhost:8080</a> 2. 服务器端正确给出response 3. 客户端正常获取数据 测试3： 测试OPTIONS请求获取CORS信息。 对客户端的Ajax请求增加header： <div class="dp-highlighter bg\_html"> <div class="bar"> <div class="tools"><b>[html]</b> <a class="ViewSource" title="view plain" href="http://blog.csdn.net/shimiso/article/details/21830313#">view plain</a><span data-mod="popu\_168"> <a class="CopyToClipboard" title="copy" href="http://blog.csdn.net/shimiso/article/details/21830313#">copy</a></span> <div><embed id="ZeroClipboardMovie\_5" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" type="application/x-shockwave-flash" width="18" height="18" align="middle" name="ZeroClipboardMovie\_5" data-mce-fragment="1"></embed></div> <span class="tracking-ad" data-mod="popu\_167"><a title="在CODE上查看代码片" href="https://code.csdn.net/snippets/251145" target="\_blank"><img src="https://code.csdn.net/assets/CODE\_ico.png" alt="在CODE上查看代码片" width="12" height="12" /></a></span><span class="tracking-ad" data-mod="popu\_170"><a title="派生到我的代码片" href="https://code.csdn.net/snippets/251145/fork" target="\_blank"><img src="https://code.csdn.net/assets/ico\_fork.svg" alt="派生到我的代码片" width="12" height="12" /></a></span></div> </div> <ol class="dp-xml" start="1"> <li class="alt">$.ajax({</li> <li class="">          url: ‘<a href="http://localhost:8000/hello&#39;">http://localhost:8000/hello&#39;</a>,</li> <li class="alt">          headers: {‘Content-Type’: ‘text/html’},</li> <li class="">          success: function(data) {</li> <li class="alt">              alert(data);</li> <li class="">          },</li> <li class="alt">          error: function() {</li> <li class="">              alert(‘error’);</li> <li class="alt">          }</li> <li class="">      });</li> </ol> </div> 对Restful API做如下改动： @route(‘/hello’, method = [‘OPTIONS’, ‘GET’]) def index(): if request.method == ‘OPTIONS’: return ‘’ return ‘Hello World.’ 测试结果： 1. Ajax函数会首先发送OPTIONS请求 2. 针对OPTIONS请求服务器 3. 客户端发现没有CORS header后不会发送GET请求 测试4： 增加服务器端对OPTIONS方法的处理。 对Restful API做如下改动： @route(‘/hello’, method = [‘OPTIONS’, ‘GET’]) def index(): response.headers[‘Access-Control-Allow-Origin’] = ‘<a href="http://localhost:8080&#39;">http://localhost:8080&#39;</a> response.headers[‘Access-Control-Allow-Methods’] = ‘GET, OPTIONS’ response.headers[‘Access-Control-Allow-Headers’] = ‘Origin, Accept, Content-Type’ if request.method == ‘OPTIONS’: return ‘’ return ‘Hello World.’ 测试结果： 1. Ajax函数会首先发送OPTIONS请求 2. 针对OPTIONS请求服务器 3. 客户端匹配CORS header中的allow headers and orgin后会正确发送GET请求并获取结果 测试发现，Access-Control-Allow-Headers是必须的。 CORS协议提升了Ajax的跨域能力，但也增加了风险。一旦网站被注入脚本或XSS攻击，将非常方便的获取用户信息并悄悄传递出去。 <h3><a name="t7"></a>4. Cookie 同源策略</h3> Cookie中的同源只关注域名，忽略协议和端口。所以<a href="https://localhost:8080/和http://localhost:8081/的Cookie是共享的。">https://localhost:8080/和http://localhost:8081/的Cookie是共享的。</a> <h3><a name="t8"></a>5. Flash/SilverLight跨域</h3> 浏览器的各种插件也存在跨域需求。通常是通过在服务器配置crossdomain.xml[4]，设置本服务允许哪些域名的跨域访问。 客户端会首先请求此文件，如果发现自己的域名在访问列表里，就发起真正的请求，否则不发送请求。 &lt;?xml version=”1.0”?&gt; &lt;!DOCTYPE cross-domain-policy SYSTEM “<a href="http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd&quot;&gt;">http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd&quot;&gt;</a> <cross-domain-policy> <allow-access-from domain="*"/> <allow-http-request-headers-from domain="*" headers="*"/> </cross-domain-policy> 通常crossdomain.xml放置在网站根目录。 <h3><a name="t9"></a>6. 总结</h3> 互联网的发展催生了跨域访问的需求，各种跨域方法和协议满足了需求但也增加了各种风险。尤其是XSS和CSRF等攻击的盛行也得益于此。 了解这些技术背景有助于在实际项目中熟练应用并规避各种安全风险。 <h3><a name="t10"></a>Reference</h3> [1] 白帽子讲Web安全: <a href="http://book.douban.com/subject/10546925/">http://book.douban.com/subject/10546925/</a> [2] 使用 JSONP 实现跨域通信: <a href="http://www.ibm.com/developerworks/cn/web/wa-aj-jsonp1/">http://www.ibm.com/developerworks/cn/web/wa-aj-jsonp1/</a> [3] Cross-origin resource sharing: <a href="http://en.wikipedia.org/wiki/Cross-Origin\_Resource\_Sharing">http://en.wikipedia.org/wiki/Cross-Origin\_Resource\_Sharing</a> [4] Cross-domain policy for Flash movies: <a href="http://kb2.adobe.com/cps/142/tn\_14213.html">http://kb2.adobe.com/cps/142/tn\_14213.html</a></x-turndown></p>
+</script></iframe></p>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/02/20/同源策略和跨域访问/" data-id="cjujhyger00bsej3j47p9vou5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-nginx与node-js结合使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/02/16/nginx与node-js结合使用/" class="article-date">
+  <time datetime="2017-02-16T07:30:11.000Z" itemprop="datePublished">2017-02-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-js/">积累________js</a>►<a class="article-category-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/16/nginx与node-js结合使用/">nginx与node.js结合使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>**\[dangerbox title=&quot;标题内容&quot;\]简单例子\[/dangerbox\]**</code> nginx是最好的反向代理服务器。 <a href="http://lib.csdn.net/base/nodejs" title="Node.js知识库" target="_blank" rel="noopener">Node.js</a>是<a href="http://nodejs.org/" target="_blank" rel="noopener">猛击这里</a> 现在小介绍下怎么用nginx和node.js配合使用。 先写个helloworld.js   <code>`var http = require(&#39;http&#39;);` `http.createServer(function (request, response) {` `  response.writeHead(200, {&#39;Content-Type&#39;: &#39;text/plain&#39;});` `  response.end(&#39;hello world\n&#39;);` `}).listen(8000);` `console.log(&#39;Server running at http://127.0.0.1:8000/&#39;);`</code> 然后用node helloworld.js指令开启，这样跑在本地的机子的nodejs的程序就算开起来了，占用的是8000端口，可自己修改。 接着，我们在nginx的vhost.conf里面写一个server</p>
+<p><strong>[python]</strong> <a href="http://blog.csdn.net/soasme/article/details/6713788#" title="view plain" target="_blank" rel="noopener">view plain</a> <a href="http://blog.csdn.net/soasme/article/details/6713788#" title="copy" target="_blank" rel="noopener">copy</a></p>
+<p><a href="http://blog.csdn.net/soasme/article/details/6713788#" title="print" target="_blank" rel="noopener">print</a><a href="http://blog.csdn.net/soasme/article/details/6713788#" title="?" target="_blank" rel="noopener">?</a></p>
+<p>server { listen  80; server_name taqing.me <a href="http://www.taqing.me" target="_blank" rel="noopener">www.taqing.me</a>; location / { proxy_pass <a href="http://127.0.0.1:8000" target="_blank" rel="noopener">http://127.0.0.1:8000</a>; } }</p>
+<p>将网站域名设置好，然后端口设置为80，最后proxy_pass设置为<a href="http://127.0.0.1:8000，将所有从taqing.me:80的请求传递到nodejs程序去。" target="_blank" rel="noopener">http://127.0.0.1:8000，将所有从taqing.me:80的请求传递到nodejs程序去。</a> 重启nginx 访问域名，就可以了看到helloworld了。 虽然node.js本身就可以做服务器是没错啦，比如welcome.js里面设置为80端口就可以了。 但是一个机子跑多个网站，其他网站又是用别的服务器，在80端口已经被占用的情况下，是可以用代理到别的端口来处理的。 <strong>[dangerbox title=”标题内容”]复杂用法[/dangerbox]</strong> Node.js是一个基于Chrome JavaScript运行时建立的平台， 用于方便地搭建响应速度快、易于扩展的网络应用。Node.js 使用事件驱动， 非阻塞I/O 模型而得以轻量和高效，非常适合在分布式设备上运行的数据密集型的实时应用，如实时聊天等等。然而对于gzip编码，静态文件，HTTP缓存，SSL处理，负载平衡和反向代理等，都可以通过<a href="http://www.ttlsa.com/nginx/" title="nginx" target="_blank" rel="noopener">nginx</a>来完成，从而减小node.js的负载，并通过nginx强大的缓存来节省网站的流量从而提高网站的加载速度。</p>
+<h3 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h3><p><a href="http://www.ttlsa.com/wp-content/uploads/nodejs.png" target="_blank" rel="noopener"><img src="http://www.ttlsa.com/wp-content/uploads/nodejs.png" alt="nginx" title="nginx与node.js结合使用"></a></p>
+<h3 id="nginx配置如下："><a href="#nginx配置如下：" class="headerlink" title="nginx配置如下："></a>nginx配置如下：</h3><p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+<p>16</p>
+<p>17</p>
+<p>18</p>
+<p>19</p>
+<p>20</p>
+<p>21</p>
+<p>22</p>
+<p>23</p>
+<p>24</p>
+<p>25</p>
+<p>26</p>
+<p>27</p>
+<p>28</p>
+<p>29</p>
+<p>30</p>
+<p>31</p>
+<p>32</p>
+<p>33</p>
+<p>34</p>
+<p>35</p>
+<p>36</p>
+<p>37</p>
+<p>38</p>
+<p>39</p>
+<p>40</p>
+<p>41</p>
+<p>42</p>
+<p>43</p>
+<p>44</p>
+<p>45</p>
+<p>46</p>
+<p>47</p>
+<p>48</p>
+<p>49</p>
+<p>50</p>
+<p>51</p>
+<p>52</p>
+<p>53</p>
+<p>54</p>
+<p>55</p>
+<p>56</p>
+<p>57</p>
+<p>58</p>
+<p>59</p>
+<p>60</p>
+<p>61</p>
+<p>62</p>
+<p>63</p>
+<p>64</p>
+<p>65</p>
+<p>66</p>
+<p>67</p>
+<p>68</p>
+<p>69</p>
+<p>http {</p>
+<p>proxy_cache_path/var/cache/nginx levels=1:2 keys_zone=one:8m max_size=3000m inactive=600m;</p>
+<p>proxy_temp_path /var/tmp;</p>
+<p>include mime.types;</p>
+<p>default_type  application/octet-stream;</p>
+<p>sendfile        on;</p>
+<p>keepalive_timeout65;</p>
+<p>gzip on;</p>
+<p>gzip_comp_level 6;</p>
+<p>gzip_vary on;</p>
+<p>gzip_min_length1000;</p>
+<p>gzip_proxied any;</p>
+<p>gzip_types text/plain text/html text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;</p>
+<p>gzip_buffers 16 8k;</p>
+<p>ssl_certificate /some/location/sillyfacesociety.com.bundle.crt;</p>
+<p>ssl_certificate_key /some/location/sillyfacesociety.com.key;</p>
+<p>ssl_protocols        SSLv3 TLSv1;</p>
+<p>ssl_ciphers HIGH:!aNULL:!MD5;</p>
+<p>upstream silly_face_society_upstream {</p>
+<p>server 127.0.0.1:61337;</p>
+<p>server 127.0.0.1:61338;</p>
+<p>keepalive 64;</p>
+<p>}</p>
+<p>server {</p>
+<p>listen 80;</p>
+<p>listen 443 ssl;</p>
+<p>server_name sillyfacesociety.com;</p>
+<p>return 301 $scheme://<a href="http://www.sillyfacesociety.com$request_uri" target="_blank" rel="noopener">www.sillyfacesociety.com$request_uri</a>;</p>
+<p>}</p>
+<p>server {</p>
+<p>listen 80;</p>
+<p>listen 443 ssl;</p>
+<p>server_name <a href="http://www.sillyfacesociety.com" target="_blank" rel="noopener">www.sillyfacesociety.com</a>;</p>
+<p>error_page 502/errors/502.html;</p>
+<p>location ~ ^/(images/|img/|javascript/|js/|css/|stylesheets/|flash/|media/|static/|robots.txt|humans.txt|favicon.ico) {</p>
+<p>root /usr/local/silly_face_society/node/public;</p>
+<p>access_log off;</p>
+<p>expires max;</p>
+<p>}</p>
+<p>location /errors {</p>
+<p>internal;</p>
+<p>alias /usr/local/silly_face_society/node/public/errors;</p>
+<p>}</p>
+<p>location / {</p>
+<p>proxy_redirect off;</p>
+<p>proxy_set_header X-Real-IP$remote_addr;</p>
+<p>proxy_set_header X-Forwarded-For$proxy_add_x_forwarded_for;</p>
+<p>proxy_set_header X-Forwarded-Proto $scheme;</p>
+<p>proxy_set_header Host $http_host;</p>
+<p>proxy_set_header X-NginX-Proxy    true;</p>
+<p>proxy_set_header Connection “”;</p>
+<p>proxy_http_version 1.1;</p>
+<p>proxy_cache one;</p>
+<p>proxy_cache_key sfs$request_uri$scheme;</p>
+<p>proxy_pass <a href="http://silly\_face\_society_upstream" target="_blank" rel="noopener">http://silly\_face\_society_upstream</a>;</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<h3 id="配置段说明"><a href="#配置段说明" class="headerlink" title="配置段说明"></a>配置段说明</h3><p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>http {</p>
+<p>…</p>
+<p>upstream silly_face_society_upstream {</p>
+<p>server 127.0.0.1:61337;</p>
+<p>server 127.0.0.1:61338;</p>
+<p>keepalive 64;</p>
+<p>}</p>
+<p>…</p>
+<p>}</p>
+<p>nginx负载均衡多个nodo.js实例。keepalive 64 指示nginx在任何时候保持最少64个HTTP/ 1.1连接到代理服务器。如果有更多的流量nginx将打开更多的连接。</p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+<p>16</p>
+<p>17</p>
+<p>18</p>
+<p>http {</p>
+<p>…</p>
+<p>server {</p>
+<p>…</p>
+<p>location / {</p>
+<p>proxy_redirect off;</p>
+<p>proxy_set_header X-Real-IP$remote_addr;</p>
+<p>proxy_set_header X-Forwarded-For$proxy_add_x_forwarded_for;</p>
+<p>proxy_set_header Host $http_host;</p>
+<p>proxy_set_header X-NginX-Proxy    true;</p>
+<p>…</p>
+<p>proxy_set_header Connection “”;</p>
+<p>proxy_http_version 1.1;</p>
+<p>proxy_pass <a href="http://silly\_face\_society_upstream" target="_blank" rel="noopener">http://silly\_face\_society_upstream</a>;</p>
+<p>}</p>
+<p>…</p>
+<p>}</p>
+<p>}</p>
+<p>将符合哪些的请求发送到代理上。nginx的匹配规则可以取看看前面的文章。 nginx处理静态内容</p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>http {</p>
+<p>…</p>
+<p>server {</p>
+<p>…</p>
+<p>location ~ ^/(images/|img/|javascript/|js/|css/|stylesheets/|flash/|media/|static/|robots.txt|humans.txt|favicon.ico) {</p>
+<p>root /usr/local/silly_face_society/node/public;</p>
+<p>access_log off;</p>
+<p>expires max;</p>
+<p>}</p>
+<p>…</p>
+<p>}</p>
+<p>}</p>
+<p>设置缓存</p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>http {</p>
+<p>…</p>
+<p>proxy_cache_path/var/cache/nginx levels=1:2 keys_zone=one:8m max_size=3000m inactive=600m;</p>
+<p>proxy_temp_path /var/tmp;</p>
+<p>…</p>
+<p>}</p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>http {</p>
+<p>server {</p>
+<p> …</p>
+<p> location / {</p>
+<p>…</p>
+<p>proxy_cache one;</p>
+<p>proxy_cache_key sfs$request_uri$scheme;</p>
+<p>…</p>
+<p> }</p>
+<p> …</p>
+<p>}</p>
+<p>}</p>
+<p>缓存是通过HTTP头部来控制的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/02/16/nginx与node-js结合使用/" data-id="cjujhyg8o004mej3jo2293ej6" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-268" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/02/16/268/" class="article-date">
+  <time datetime="2017-02-16T05:25:03.000Z" itemprop="datePublished">2017-02-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-js/">积累________js</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/16/268/">npm 加速设置镜像站</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>由于 npm官方站总是抽风, 安装时下载速度很慢甚至连接不上, 怎么办呢? 我们可以切换到npm的镜像站点, 方法有二 1.npm install 时临时指定镜像源: $ npm install –registry <a href="http://registry.cnpmjs.org" target="_blank" rel="noopener">http://registry.cnpmjs.org</a> express #从中国镜像安装express 2.永久设置: $ npm config set registry <a href="http://registry.cnpmjs.org" target="_blank" rel="noopener">http://registry.cnpmjs.org</a>  #设置为中国镜像 然后照常使用 npm install express 即可 3.使用cnmp 你可以使用我们定制的 <a href="https://github.com/cnpm/cnpm" target="_blank" rel="noopener">cnpm</a> (gzip 压缩支持) 命令行工具代替默认的 <code>npm</code>: <code>`$ npm install -g cnpm --registry=https://registry.npm.taobao.org`</code> 或者你直接通过添加 <code>npm</code> 参数 <code>alias</code> 一个新命令: <code>`alias cnpm=&quot;npm --registry=https://registry.npm.taobao.org \ --cache=$HOME/.npm/.cache/cnpm \ --disturl=https://npm.taobao.org/dist \ --userconfig=$HOME/.cnpmrc&quot; # Or alias it in .bashrc or .zshrc $ echo &#39;\n#alias for cnpm\nalias cnpm=&quot;npm --registry=https://registry.npm.taobao.org \ --cache=$HOME/.npm/.cache/cnpm \ --disturl=https://npm.taobao.org/dist \ --userconfig=$HOME/.cnpmrc&quot;&#39; &gt;&gt; ~/.zshrc &amp;&amp; source ~/.zshrc`</code> 淘宝镜像cnmp：<a href="https://npm.taobao.org/" target="_blank" rel="noopener">https://npm.taobao.org/</a> 目前已知的npm 镜像源站点: 中国镜像站: <a href="http://registry.cnpmjs.org" target="_blank" rel="noopener">http://registry.cnpmjs.org</a> 官方站: <a href="http://registry.npmjs.org" target="_blank" rel="noopener">http://registry.npmjs.org</a> 各国镜像: <a href="https://registry.nodejitsu.com" target="_blank" rel="noopener">https://registry.nodejitsu.com</a>  美国 <a href="https://npm.strongloop.com" target="_blank" rel="noopener">https://npm.strongloop.com</a> 美国 <a href="http://registry.npmjs.org.au" target="_blank" rel="noopener">http://registry.npmjs.org.au</a> 澳大利亚 <a href="http://registry.npmjs.eu" target="_blank" rel="noopener">http://registry.npmjs.eu</a> 德国</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/02/16/268/" data-id="cjujhyg5m0012ej3j839kg3z6" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-linux下查看文件和文件夹大小" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/02/15/linux下查看文件和文件夹大小/" class="article-date">
+  <time datetime="2017-02-15T11:46:49.000Z" itemprop="datePublished">2017-02-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-linux/">积累________linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/15/linux下查看文件和文件夹大小/">Linux下查看文件和文件夹大小</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当磁盘大小超过标准时会有报警提示，这时如果掌握df和du命令是非常明智的选择。 df可以查看一级文件夹大小、使用比例、档案系统及其挂入点，但对文件却无能为力。 du可以查看文件及文件夹的大小。 两者配合使用，非常有效。比如用df查看哪个一级目录过大，然后用df查看文件夹或文件的大小，如此便可迅速确定症结。   下面分别简要介绍 <strong>df命令可以显示目前所有文件系统的可用空间及使用情形</strong>，请看下列这个例子： 以下是代码片段： [yayug@yayu ~]$ df -h Filesystem            Size  Used Avail Use% Mounted on /dev/sda1             3.9G  300M  3.4G   8% / /dev/sda7             100G  188M   95G   1% /data0 /dev/sdb1             133G   80G   47G  64% /data1 /dev/sda6             7.8G  218M  7.2G   3% /var /dev/sda5             7.8G  166M  7.2G   3% /tmp /dev/sda3             9.7G  2.5G  6.8G  27% /usr tmpfs                 2.0G     0  2.0G   0% /dev/shm     参数 -h 表示使用「Human-readable」的输出，也就是在档案系统大小使用 GB、MB 等易读的格式。 上面的命令输出的第一个字段（Filesystem）及最后一个字段（Mounted on）分别是档案系统及其挂入点。我们可以看到 /dev/sda1 这个分割区被挂在根目录下。 接下来的四个字段 Size、Used、Avail、及 Use% 分别是该分割区的容量、已使用的大小、剩下的大小、及使用的百分比。 FreeBSD下，当硬盘容量已满时，您可能会看到已使用的百分比超过 100%，因为 FreeBSD 会留一些空间给 root，让 root 在档案系统满时，还是可以写东西到该档案系统中，以进行管理。 <strong> du：查询文件或文件夹的磁盘使用空间</strong> 如果当前目录下文件和文件夹很多，使用不带参数du的命令，可以循环列出所有文件和文件夹所使用的空间。这对查看究竟是那个地方过大是不利的，所以得指定深入目录的层数，参数：–max-depth=，这是个极为有用的参数！如下，注意使用“<em>”，可以得到文件的使用空间大小. <strong>提醒</strong>：一向命令比linux复杂的FreeBSD，它的du命令指定深入目录的层数却是比linux简化，为 -d。   以下是代码片段： [root@bsso yayu]# du -h –max-depth=1 work/testing 27M     work/testing/logs 35M     work/testing [root@bsso yayu]# du -h –max-depth=1 work/testing/</em> 8.0K    work/testing/func.php 27M     work/testing/logs 8.1M    work/testing/nohup.out 8.0K    work/testing/testing_c.php 12K     work/testing/testing_func_reg.php 8.0K    work/testing/testing_get.php 8.0K    work/testing/testing_g.php 8.0K    work/testing/var.php [root@bsso yayu]# du -h –max-depth=1 work/testing/logs/ 27M     work/testing/logs/ [root@bsso yayu]# du -h –max-depth=1 work/testing/logs/<em> 24K     work/testing/logs/errdate.log_show.log 8.0K    work/testing/logs/pertime_show.log 27M     work/testing/logs/show.log ubuntu@VM-93-139-ubuntu:~$ du -shc </em> 60M bitcoin 60M total</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/02/15/linux下查看文件和文件夹大小/" data-id="cjujhyg7m003gej3jsty8h217" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mac查看文件夹大小" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/02/15/mac查看文件夹大小/" class="article-date">
+  <time datetime="2017-02-15T11:45:44.000Z" itemprop="datePublished">2017-02-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-mac/">积累________mac</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/15/mac查看文件夹大小/">mac查看文件夹大小</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一、在Finder中查看文件夹大小： 1、Cmd+A选中当前目录下所有文件 2、在右键菜单中选择“显示选项”或者按Cmd+J快捷键 3、选择“计算所有大小”的复选框 然后文件夹的大小就会显示出来了。 参考：<a href="http://osxdaily.com/2011/04/05/show-folder-sizes-in-mac-os-x-list-view/" target="_blank" rel="noopener">http://osxdaily.com/2011/04/05/show-folder-sizes-in-mac-os-x-list-view/</a> 二、在Terminal中查看当前目录下所有文件（包含文件夹）大小： <code>`du -hs *`</code> 或者： <code>`du -shc *`</code> 第二个命令能在最后显示一个Total大小，即当前目录的总大小。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/02/15/mac查看文件夹大小/" data-id="cjujhyg820040ej3jxmg3dswb" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mac/">mac</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-比特币客户端bitcoind的高级用法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/02/15/比特币客户端bitcoind的高级用法/" class="article-date">
+  <time datetime="2017-02-15T10:21:23.000Z" itemprop="datePublished">2017-02-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-btc/">积累________btc</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/15/比特币客户端bitcoind的高级用法/">比特币客户端bitcoind的高级用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>Bitcoin 比特币官方客户端有两个版本：一个是图形界面的版本，通常被称为 Bitcoin（首字母大写），以及一个简洁命令行的版本（称为 bitcoind）。它们相互间是兼容的，有着同样的命令行参数，读取相同的配置文件，也读写相同的数据文件。您可以在一台电脑中运行 Bitcoin 客户端或是 bitcoind 客户端的其中一个（如果您不小心尝试同时运行另外一个客户端，它会提示您已经有一个客户端在运行并且自动退出）。</p>
+</blockquote>
+<p><a href="http://8btc.com/data/attachment/portal/201409/12/131718e0di0l0jjkioe4l5.png" target="_blank" rel="noopener"><img src="http://8btc.com/data/attachment/portal/201409/12/131718e0di0l0jjkioe4l5.png" alt></a></p>
+<h2 id="命令行参数"><a href="#命令行参数" class="headerlink" title="命令行参数"></a><strong>命令行参数</strong></h2><p>使用 -? 或 –help 参数运行 Bitcoin 或 bitcoind，它会提示常用的命令行参数并退出。</p>
+<p>用法：</p>
+<p>  bitcoind [选项]</p>
+<p>  bitcoind [选项] &lt;命令&gt; [参数]  将命令发送到 -server 或 bitcoind</p>
+<p>  bitcoind [选项] help   列出命令</p>
+<p>  bitcoind [选项] help &lt;命令&gt;    获取该命令的帮助</p>
+<p>选项：</p>
+<p>  -conf = &lt;文件名&gt;     指定配置文件（默认：bitcoin.conf）</p>
+<p>  -pid = &lt;文件名&gt;       指定 pid （进程 ID）文件（默认：bitcoind.pid）</p>
+<p>  -gen                             生成比特币</p>
+<p>  -gen=0                       不生成比特币</p>
+<p>  -min                           启动时最小化</p>
+<p>  -splash                       启动时显示启动屏幕（默认：1）</p>
+<p>  -datadir=&lt;目录名&gt;  指定数据目录</p>
+<p>  -dbcache=                  设置数据库缓存大小，单位为兆字节（MB）（默认：25）</p>
+<p>  -dblogsize=                设置数据库磁盘日志大小，单位为兆字节（MB）（默认：100）</p>
+<p>  -timeout=                  设置连接超时，单位为毫秒</p>
+<p>  -proxy= 通过 Socks4 代理链接</p>
+<p>  -dns                             addnode 允许查询 DNS 并连接</p>
+<p>  -port=&lt;端口&gt;            监听 &lt;端口&gt; 上的连接（默认：8333，测试网络 testnet：18333）</p>
+<p>  -maxconnections=   最多维护 个节点连接（默认：125）</p>
+<p>  -addnode=                 添加一个节点以供连接，并尝试保持与该节点的连接</p>
+<p>  -connect=                  仅连接到这里指定的节点</p>
+<p>  -irc                       使用 IRC（因特网中继聊天）查找节点（默认：0）</p>
+<p>  -listen                    接受来自外部的连接（默认：1）</p>
+<p>  -dnsseed                   使用 DNS 查找节点（默认：1）</p>
+<p>  -banscore=                 与行为异常节点断开连接的临界值（默认：100）</p>
+<p>  -bantime=                  重新允许行为异常节点连接所间隔的秒数（默认：86400）</p>
+<p>  -maxreceivebuffer=   最大每连接接收缓存，*1000 字节（默认：10000）</p>
+<p>  -maxsendbuffer=       最大每连接发送缓存，*1000 字节（默认：10000）</p>
+<p>  -upnp                      使用全局即插即用（UPNP）映射监听端口（默认：0）</p>
+<p>  -detachdb                  分离货币块和地址数据库。会增加客户端关闭时间（默认：0）</p>
+<p>  -paytxfee=                 您发送的交易每 KB 字节的手续费</p>
+<p>  -testnet                   使用测试网络</p>
+<p>  -debug                     输出额外的调试信息</p>
+<p>  -logtimestamps           调试信息前添加<a href="http://8btc.com/article-165-1.html" target="_blank" rel="noopener">时间戳</a></p>
+<p>  -printtoconsole           发送跟踪/调试信息到控制台而不是 debug.log 文件</p>
+<p>  -printtodebugger       发送跟踪/调试信息到调试器</p>
+<p>  -rpcuser=&lt;用户名&gt;   JSON-RPC 连接使用的用户名</p>
+<p>  -rpcpassword=&lt;密码&gt;   JSON-RPC 连接使用的密码</p>
+<p>  -rpcport=                 JSON-RPC 连接所监听的 &lt;端口&gt;（默认：8332）</p>
+<p>  -rpcallowip=               允许来自指定 地址的 JSON-RPC 连接</p>
+<p>  -rpcconnect=               发送命令到运行在 地址的节点（默认：127.0.0.1）</p>
+<p>  -blocknotify=&lt;命令&gt; 当最好的货币块改变时执行命令（命令中的 %s 会被替换为货币块哈希值）</p>
+<p>  -upgradewallet             将钱包升级到最新的格式</p>
+<p>  -keypool=                 将密匙池的尺寸设置为 （默认：100）</p>
+<p>  -rescan                    重新扫描货币块链以查找钱包丢失的交易</p>
+<p>  -checkblocks=             启动时检查多少货币块（默认：2500，0 表示全部）</p>
+<p>  -checklevel=               货币块验证的级别（0-6，默认：1）</p>
+<p>SSL 选项：</p>
+<p>  -rpcssl                                        使用 OpenSSL（https）JSON-RPC 连接</p>
+<p>  -rpcsslcertificatechainfile=&lt;文件.cert&gt;   服务器证书文件（默认：server.cert）</p>
+<p>  -rpcsslprivatekeyfile=&lt;文件.pem&gt;          服务器私匙文件（默认：server.pem）</p>
+<p>  -rpcsslciphers=&lt;密码&gt;                   可接受的密码（默认： ）</p>
+<p>bitcoin.conf 配置文件</p>
+<p>除了 -datadir 和 -conf 以外的所有命令行参数都可以通过一个配置文件来设置，而所有配置文件中的选项也都可以在命令行中设置。命令行参数设置的值会覆盖配置文件中的设置。</p>
+<p>配置文件是“设置=值”格式的一个列表，每行一个。您还可以使用 # 符号来编写注释。</p>
+<p>配置文件不会自动创建；您可以使用您喜爱的纯文本编辑器来创建它。默认情况下，Bitcoin（或 bitcoind）会在比特币数据文件夹下查找一个名为“bitcoin.conf”的文件，但是数据文件夹和配置文件的路径都可以分别通过 -datadir 和 -conf 命令行参数分别指定。</p>
+<p>操作系统</p>
+<p>默认数据文件夹</p>
+<p>配置文件路径</p>
+<p>Windows</p>
+<p>%APPDATA%\Bitcoin\</p>
+<p>(XP) C:\Documents and Settings\username\Application Data\Bitcoin\bitcoin.conf</p>
+<p>(Vista, 7) C:\Users\username\AppData\Roaming\Bitcoin\bitcoin.conf</p>
+<p>Linux</p>
+<p>$HOME/.bitcoin/</p>
+<p>/home/username/.bitcoin/bitcoin.conf</p>
+<p>Mac OSX</p>
+<p>$HOME/Library/Application Support/Bitcoin/</p>
+<p>/Users/username/Library/Application Support/Bitcoin/bitcoin.conf</p>
+<p>注意：如果 Bitcoin 比特币客户端测试网模式运行，在数据文件夹下客户端会自动创建名为“testnet”的子文件夹。</p>
+<p>bitcoin.conf 示例</p>
+<p># bitcoin.conf 配置文件。以 # 开头的行是注释。</p>
+<p># 网络相关的设置：</p>
+<p># 在测试网络中运行，而不是在真正的比特币网络</p>
+<p>#testnet=0</p>
+<p># 通过一个 Socks4 代理服务器连接</p>
+<p>#proxy=127.0.0.1:9050</p>
+<p>##############################################################</p>
+<p>##            addnode 与 connect 的区别                                                                                            ##</p>
+<p>##                                                                                                                                                          ##</p>
+<p>##  假设您使用了 addnode=4.2.2.4 参数，那么 addnode 便会与                                           ##</p>
+<p>##  您的节点连接，并且告知您的节点所有与它相连接的其它节点。                                    ##</p>
+<p>##  另外它还会将您的节点信息告知与其相连接的其它节点，这样它                                    ##</p>
+<p>##  们也可以连接到您的节点。                                                                                                      ##</p>
+<p>##                                                                                                                                                          ##</p>
+<p>##  connect 在您的节点“连接”到它的时候并不会做上述工作。仅                                          ##</p>
+<p>##  它会与您连接，而其它节点不会。                                                                                          ##</p>
+<p>##                                                                                                                                                          ##</p>
+<p>##  因此如果您位于防火墙后，或者因为其它原因无法找到节点，则                                    ##</p>
+<p>##  使用“addnode”添加一些节点。                                                                                               ##</p>
+<p>##                                                                                                                                                          ##</p>
+<p>##  如果您想保证隐私，使用“connect”连接到那些您可以“信任”                                            ##</p>
+<p>##  的节点。                                                                                                                                        ##</p>
+<p>##                                                                                                                                                           ##</p>
+<p>##  如果您在一个局域网内运行了多个节点，您不需要让它们建立许多                                 ##</p>
+<p>##  连接。您只需要使用“connect”让它们统一连接到一个已端口转                                        ##</p>
+<p>##  发并拥有多个连接的节点。                                                                                                       ##</p>
+<p>##############################################################</p>
+<p># 您可以在下面使用多个 addnode= 设置来连接到指定的节点</p>
+<p>#addnode=69.164.218.197</p>
+<p>#addnode=10.0.0.2:8333</p>
+<p># … 或使用多个 connect= 设置来仅连接到指定的节点</p>
+<p>#connect=69.164.218.197</p>
+<p>#connect=10.0.0.1:8333</p>
+<p># 不使用因特网中继聊天（IRC）（irc.lfnet.org #bitcoin 频道）</p>
+<p># 来查找其它节点</p>
+<p>#noirc=0</p>
+<p># 入站+出站的最大连接数</p>
+<p>#maxconnections=</p>
+<p># JSON-RPC 选项（用于控制运行中的 Bitcoin/bitcoind 进程）：</p>
+<p># server=1 告知 Bitcoin-QT 接受 JSON-RPC 命令</p>
+<p>#server=0</p>
+<p># 您必须设置 rpcuser 和 rpcpassword 以确保 JSON-RPC 的安全</p>
+<p>#rpcuser=Ulysseys</p>
+<p>#rpcpassword=YourSuperGreatPasswordNumber_DO_NOT_USE_THIS_OR_YOU_WILL_GET_ROBBED_385593</p>
+<p># 客户端在 HTTP 连接建立后，等待多少秒以完成一个 RPC HTTP 请求</p>
+<p>#rpctimeout=30</p>
+<p># 默认仅允许来自本机的 RPC 连接。在这里您可以指定多个</p>
+<p># rpcallowip=，来设置您想允许连接的其它主机 IP 地址。</p>
+<p># 您可以使用 * 作为通配符。</p>
+<p>#rpcallowip=10.1.1.34</p>
+<p>#rpcallowip=192.168.1.*</p>
+<p># 在如下端口监听 RPC 连接</p>
+<p>#rpcport=8332</p>
+<p># 您可以通过如下设置使用 Bitcoin 或 bitcoind 来发送命令到一个在</p>
+<p># 其它主机远程运行的 Bitcoin/bitcoind 客户端</p>
+<p>#rpcconnect=127.0.0.1</p>
+<p># 使用安全套接层（也称为 TLS 或 HTTPS）来</p>
+<p># 连接到 Bitcoin -server 或 bitcoind</p>
+<p>#rpcssl=1</p>
+<p># 当 rpcssl=1 时使用的 OpenSSL 设置</p>
+<p>#rpcsslciphers=TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH</p>
+<p>#rpcsslcertificatechainfile=server.cert</p>
+<p>#rpcsslprivatekeyfile=server.pem</p>
+<p># 其它选项：</p>
+<p># 设置 gen=1 以尝试生成比特币（采矿）</p>
+<p>#gen=0</p>
+<p># 预生成如下数目的公匙和私匙，这样钱包备份便可以对已有的交易以及未来</p>
+<p># 多笔交易有效</p>
+<p>#keypool=100</p>
+<p># 每次您发送比特币的时候支付一个可选的额外的交易手续费。包含手续费的交易</p>
+<p># 会更快的被包含在新生成的货币块中，因此会更快生效</p>
+<p>#paytxfee=0.00</p>
+<p># 允许直接连接，实现“通过 IP 地址支付”功能</p>
+<p>#allowreceivebyip=1</p>
+<p># 用户界面选项：</p>
+<p># 最小化启动比特币客户端</p>
+<p>#min=1</p>
+<p># 最小化到系统托盘</p>
+<p>#minimizetotray=1</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/02/15/比特币客户端bitcoind的高级用法/" data-id="cjujhygdy00bdej3jxz56r9cs" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/btc/">btc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编译/">编译</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-比特币bitcoin源代码安装编译" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/02/15/比特币bitcoin源代码安装编译/" class="article-date">
+  <time datetime="2017-02-15T10:20:07.000Z" itemprop="datePublished">2017-02-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-btc/">积累________btc</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/15/比特币bitcoin源代码安装编译/">比特币Bitcoin源代码安装编译</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>比特币 (货币符号: ฿;英文名：Bitcoin;英文缩写: BTC)，是一种用于开源的P2P软件而产生的电子货币。比特币全局图是这样的： <a href="http://images.cnitblog.com/blog/15172/201406/281536046176377.png" target="_blank" rel="noopener"><img src="http://images.cnitblog.com/blog/15172/201406/281536111643511.png" alt="Bitcoin_Overview" title="Bitcoin_Overview"></a>   在这儿主要介绍Linux下的比特币<a href="https://bitcoin.org/en/" target="_blank" rel="noopener">Bitcoin</a>安装，我们选择<a href="http://www.ubuntu.com/download/" target="_blank" rel="noopener">ubuntu</a> 12.04的环境，安装相对容易得多。Windows下并不推荐，因为基于<a href="http://www.mingw.org/" target="_blank" rel="noopener">mingW</a>配置相以繁琐。 同时也可以参考build<a href="https://github.com/bitcoin/bitcoin/blob/master/doc/build-unix.md" target="_blank" rel="noopener">官方文档</a>。 先拉下源代码：</p>
+<blockquote>
+<p>git clone <a href="https://github.com/bitcoin/bitcoin.git" target="_blank" rel="noopener">https://github.com/bitcoin/bitcoin.git</a></p>
+</blockquote>
+<p>安装Berkeley DB 4.8以上版本：</p>
+<blockquote>
+<p>sudo apt-get install libdb5.1++-dev</p>
+</blockquote>
+<p>然后进入到相关目录：</p>
+<blockquote>
+<p>cd bitcoin ./autogen.sh./configure</p>
+</blockquote>
+<p>如果你遇到这样的提示：configure: error: Found Berkeley DB other than 4.8, required for portable wallets 那就可以这样：</p>
+<blockquote>
+<p>./configure –with-incompatible-bdb</p>
+</blockquote>
+<p>如查遇到到这样的提示：checking for boostlib &gt;= 1.20.0… configure: We could not detect the boost libraries (version 1.20 or higher). 那这样：</p>
+<blockquote>
+<p>sudo apt-get install libboost-all-dev</p>
+</blockquote>
+<p>然后再次configure，如果你需要bitcoin-qt前端，那需要安装</p>
+<blockquote>
+<p>sudo apt-get install libqt4-core libqt4-gui libqt4-dev</p>
+</blockquote>
+<p>再次configure，这次可以了</p>
+<blockquote>
+<p>make</p>
+</blockquote>
+<p>开始编译，大约5分钟，然后安装编译好的二进制文件</p>
+<blockquote>
+<p>make install</p>
+</blockquote>
+<p>想运行前端那执行</p>
+<blockquote>
+<p>bitcoin-qt</p>
+</blockquote>
+<p>服务端是</p>
+<blockquote>
+<p>bitcoind  -server –printtoconcole</p>
+</blockquote>
+<p>  接到下，是否挖矿就看您自己了。以当前时间为起点，连接testnet有9G的blockchain数据需要下载，livesite有35G的数据需要下载。 也可以从这里<a href="http://sourceforge.net/projects/bitcoin/files/Bitcoin/blockchain/" target="_blank" rel="noopener">下载</a>文件，以加快速度。后续会介绍关于比特币的更多内容。有兴趣可以阅读它的源代码。   资料LINK： BitCoin比特币 wiki <a href="https://en.bitcoin.it/wiki/Main_Page" target="_blank" rel="noopener">https://en.bitcoin.it/wiki/Main_Page</a> Bitcoin比特币 源代码文档 <a href="https://dev.visucore.com/bitcoin/doxygen/files.html" target="_blank" rel="noopener">https://dev.visucore.com/bitcoin/doxygen/files.html</a> Bitcoin比特币 源代码git地址 <a href="https://github.com/bitcoin/bitcoin/blob/master/doc/build-unix.md" target="_blank" rel="noopener">https://github.com/bitcoin/bitcoin/blob/master/doc/build-unix.md</a> Bitcoin比特币 中国 <a href="http://www.btcchina.org/" target="_blank" rel="noopener">http://www.btcchina.org</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/02/15/比特币bitcoin源代码安装编译/" data-id="cjujhygbn008iej3jafnnait4" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/btc/">btc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编译/">编译</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-crontab-使用日期时间命名重定向文件" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/12/13/crontab-使用日期时间命名重定向文件/" class="article-date">
+  <time datetime="2016-12-13T07:06:37.000Z" itemprop="datePublished">2016-12-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-linux/">积累________linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/13/crontab-使用日期时间命名重定向文件/">crontab 使用日期时间命名重定向文件</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Linux crontab命令可以实现定时执行任务，最小的执行周期是1分钟 关于crontab的使用可以查看<a href="http://blog.csdn.net/fdipzone/article/details/7263361" title="《Linux crontab定时执行任务 命令格式与详细例子》" target="_blank" rel="noopener">《Linux crontab定时执行任务 命令格式与详细例子》</a> <strong>例：每天12点执行test.PHP，执行的输出会追加到test.log文件</strong> <code>0 12 \* \* \* php /Users/fdipzone/test.php &gt;\&gt; /Users/fdipzone/test.log 2&gt;&amp;1</code> 2&gt;&amp;1 表示把标准错误输出重定向到与标准输出一致，即test.log 每天12点都执行一次，当天的输出就会追加到test.log文件。如果运行了一段很长的时间（如1年)，test.log文件的内容则会很大。 这样不方便查看对应日期的输出记录。 <strong>因此我们需要一个方法，可以按不同时段写入不同的日志文件，例如每日，每周，每月使用一个日志文件（具体根据不同的需求定义）这样就可以方便搜寻。</strong> <strong>例：每天12点执行，使用当天日期来命名重定向文件</strong> <code>0 12 \* \* \* php /Users/fdipzone/test.php &gt;&gt; &quot;/Users/fdipzone/$(date +&quot;\%Y-\%m-\%d&quot;).log&quot; 2&gt;&amp;1</code> 2016-06-06 执行的，会追加入/Users/fdipzone/2016-06-06.log 2016-06-07 执行的，会追加入/Users/fdipzone/2016-06-07.log … 这样可以很方便找到对应日期的定时任务执行日志 如果每天创建的日志内容不多，我们可以使用月份/周为日志命名。如果日志内容很多也可以按小时来命名，以下提供不同时段的命名重定向文件实例。 <strong>使用月份命名</strong> <code>0 12 \* \* \* php /Users/fdipzone/test.php &gt;&gt; &quot;/Users/fdipzone/$(date +&quot;\%Y-\%m&quot;).log&quot; 2&gt;&amp;1</code> <strong>使用周命名</strong> <code>0 12 \* \* \* php /Users/fdipzone/test.php &gt;&gt; &quot;/Users/fdipzone/$(date +&quot;\%Y-W\%W&quot;).log&quot; 2&gt;&amp;1</code> <strong>使用小时命名</strong> <code>\* \* \* \* \* php /Users/fdipzone/test.php &gt;&gt; &quot;/Users/fdipzone/$(date +&quot;\%Y-\%m-\%d_\%H&quot;).log&quot; 2&gt;&amp;1</code>   2017年05月18日16:30:46 总见人问 怎么设置crontab 每分钟定时执行之类的问题 ，今天我就贴了上来方便大家使用，会的同学就飘过吧 不会的就留个脚印。 <code>每五分钟执行  */5 * * * * 每小时执行     0 * * * * 每天执行        0 0 * * * 每周执行        0 0 * * 0 每月执行        0 0 1 * * 每年执行       0 0 1 1 *</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/12/13/crontab-使用日期时间命名重定向文件/" data-id="cjujhyg65001oej3jr81ub9yu" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-git查看、删除、重命名远程分支和tag" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/12/05/git查看、删除、重命名远程分支和tag/" class="article-date">
+  <time datetime="2016-12-05T09:37:05.000Z" itemprop="datePublished">2016-12-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-git/">积累________git</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/05/git查看、删除、重命名远程分支和tag/">Git查看、删除、重命名远程分支和tag</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这篇文章记录我在使用git的过程中碰到远程分支和tag的相关内容，提纲：</p>
+<ol>
+<li>查看远程分支</li>
+<li>删除远程分支和tag</li>
+<li>删除不存在对应远程分支的本地分支</li>
+<li>重命名远程分支</li>
+<li>把本地tag推送到远程</li>
+<li>获取远程tag</li>
+</ol>
+<h2 id="查看远程分支"><a href="#查看远程分支" class="headerlink" title="查看远程分支"></a>查看远程分支</h2><p>加上-a参数可以查看远程分支，远程分支会用红色表示出来（如果你开了颜色支持的话）：</p>
+<figure class="highlight plain"><figcaption><span>git branch -a master remote tungway v1.52 * zrong remotes/origin/master remotes/origin/tungway remotes/origin/v1.52 remotes/origin/zrong ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">删除远程分支和tag</span><br><span class="line">----------</span><br><span class="line"></span><br><span class="line">在Git v1.7.0 之后，可以使用这种语法删除远程分支：</span><br><span class="line"></span><br><span class="line">``` $ git push origin --delete</span><br></pre></td></tr></table></figure>
+<p>删除tag这么用：</p>
+<figure class="highlight plain"><figcaption><span>push origin --delete tag ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">否则，可以使用这种语法，推送一个空分支到远程分支，其实就相当于删除远程分支：</span><br><span class="line"></span><br><span class="line">``` git push origin :</span><br></pre></td></tr></table></figure>
+<p>这是删除tag的方法，推送一个空tag到远程tag：</p>
+<figure class="highlight plain"><figcaption><span>tag -d git push origin :refs/tags/ ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">两种语法作用完全相同。</span><br><span class="line"></span><br><span class="line">删除不存在对应远程分支的本地分支</span><br><span class="line">----------------</span><br><span class="line"></span><br><span class="line">假设这样一种情况：</span><br><span class="line"></span><br><span class="line">1.  我创建了本地分支b1并pull到远程分支 `origin/b1`；</span><br><span class="line">2.  其他人在本地使用fetch或pull创建了本地的b1分支；</span><br><span class="line">3.  我删除了 `origin/b1` 远程分支；</span><br><span class="line">4.  其他人再次执行fetch或者pull并不会删除这个他们本地的 `b1` 分支，运行 `git branch -a` 也不能看出这个branch被删除了，如何处理？</span><br><span class="line"></span><br><span class="line">使用下面的代码查看b1的状态：</span><br><span class="line"></span><br><span class="line">``` $ git remote show origin * remote origin Fetch URL: git@github.com:xxx/xxx.git Push URL: git@github.com:xxx/xxx.git HEAD branch: master Remote branches: master tracked refs/remotes/origin/b1 stale (use &apos;git remote prune&apos; to remove) Local branch configured for &apos;git pull&apos;: master merges with remote master Local ref configured for &apos;git push&apos;: master pushes to master (up to date)</span><br></pre></td></tr></table></figure>
+<p>这时候能够看到b1是stale的，使用 <code>git remote prune origin</code> 可以将其从本地版本库中去除。 更简单的方法是使用这个命令，它在fetch之后删除掉没有与远程分支对应的本地分支：</p>
+<figure class="highlight plain"><figcaption><span>fetch -p ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">重命名远程分支</span><br><span class="line">-------</span><br><span class="line"></span><br><span class="line">在git中重命名远程分支，其实就是先删除远程分支，然后重命名本地分支，再重新提交一个远程分支。 例如下面的例子中，我需要把 devel 分支重命名为 develop 分支：</span><br><span class="line"></span><br><span class="line">``` $ git branch -av * devel 752bb84 Merge pull request #158 from Gwill/devel master 53b27b8 Merge pull request #138 from tdlrobin/master zrong 2ae98d8 modify CCFileUtils, export getFileData remotes/origin/HEAD -&gt; origin/master remotes/origin/add\_build\_script d4a8c4f Merge branch &apos;master&apos; into add\_build\_script remotes/origin/devel 752bb84 Merge pull request #158 from Gwill/devel remotes/origin/devel_qt51 62208f1 update .gitignore remotes/origin/master 53b27b8 Merge pull request #138 from tdlrobin/master remotes/origin/zrong 2ae98d8 modify CCFileUtils, export getFileData</span><br></pre></td></tr></table></figure>
+<p>删除远程分支：</p>
+<figure class="highlight plain"><figcaption><span>git push --delete origin devel To git@github.com:zrong/quick-cocos2d-x.git - \[deleted\] devel ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">重命名本地分支：</span><br><span class="line"></span><br><span class="line">``` git branch -m devel develop</span><br></pre></td></tr></table></figure>
+<p>推送本地分支：</p>
+<figure class="highlight plain"><figcaption><span>git push origin develop Counting objects: 92, done. Delta compression using up to 4 threads. Compressing objects: 100% (48/48), done. Writing objects: 100% (58/58), 1.38 MiB, done. Total 58 (delta 34), reused 12 (delta 5) To git@github.com:zrong/quick-cocos2d-x.git * \[new branch\] develop -> develop ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">然而，在 github 上操作的时候，我在删除远程分支时碰到这个错误：</span><br><span class="line"></span><br><span class="line">``` $ git push --delete origin devel remote: error: refusing to delete the current branch: refs/heads/devel To git@github.com:zrong/quick-cocos2d-x.git ! \[remote rejected\] devel (deletion of the current branch prohibited) error: failed to push some refs to &apos;git@github.com:zrong/quick-cocos2d-x.git&apos;</span><br></pre></td></tr></table></figure>
+<p>这是由于在 github 中，devel 是项目的默认分支。要解决此问题，这样操作：</p>
+<ol>
+<li>进入 github 中该项目的 Settings 页面；</li>
+<li>设置 Default Branch 为其他的分支（例如 master）；</li>
+<li>重新执行删除远程分支命令。</li>
+</ol>
+<h2 id="把本地tag推送到远程"><a href="#把本地tag推送到远程" class="headerlink" title="把本地tag推送到远程"></a>把本地tag推送到远程</h2><figure class="highlight plain"><figcaption><span>push --tags ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">获取远程tag</span><br><span class="line">-------</span><br><span class="line"></span><br><span class="line">``` git fetch origin tag</span><br></pre></td></tr></table></figure>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ul>
+<li><a href="https://makandracards.com/makandra/621-git-delete-a-branch-local-or-remote" target="_blank" rel="noopener">https://makandracards.com/makandra/621-git-delete-a-branch-local-or-remote</a></li>
+<li><a href="http://stackoverflow.com/questions/2003505/how-do-i-delete-a-git-branch-both-locally-and-in-github" target="_blank" rel="noopener">http://stackoverflow.com/questions/2003505/how-do-i-delete-a-git-branch-both-locally-and-in-github</a></li>
+<li><a href="http://www.cnblogs.com/deepnighttwo/archive/2011/06/18/2084438.html" target="_blank" rel="noopener">http://www.cnblogs.com/deepnighttwo/archive/2011/06/18/2084438.html</a></li>
+<li><a href="http://stackoverflow.com/questions/14040754/deleting-remote-master-branch-refused-due-to-being-current-branch" target="_blank" rel="noopener">http://stackoverflow.com/questions/14040754/deleting-remote-master-branch-refused-due-to-being-current-branch</a></li>
+<li><a href="http://weli.iteye.com/blog/1441582" target="_blank" rel="noopener">http://weli.iteye.com/blog/1441582</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/12/05/git查看、删除、重命名远程分支和tag/" data-id="cjujhyg6x002mej3jtart022x" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/12/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/14/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

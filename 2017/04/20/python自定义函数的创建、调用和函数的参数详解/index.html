@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Python自定义函数的创建、调用和函数的参数详解 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="这篇文章主要介绍了Python自定义函数的创建、调用和函数的参数、变量作用域等常见问题,需要的朋友可以参考下  函数是组织好的，可重复使用的，用来实现单一，或相关联功能的代码段。 函数能提高应用的模块性，和代码的重复利用率。你已经知道Python提供了许多内建函数，比如print()。但你也可以自己创见函数，这被叫做用户自定义函数。 一、定义一个函数你可以定义一个由自己想要功能的函数，以下是简单">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python自定义函数的创建、调用和函数的参数详解">
+<meta property="og:url" content="http://yoursite.com/2017/04/20/python自定义函数的创建、调用和函数的参数详解/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="这篇文章主要介绍了Python自定义函数的创建、调用和函数的参数、变量作用域等常见问题,需要的朋友可以参考下  函数是组织好的，可重复使用的，用来实现单一，或相关联功能的代码段。 函数能提高应用的模块性，和代码的重复利用率。你已经知道Python提供了许多内建函数，比如print()。但你也可以自己创见函数，这被叫做用户自定义函数。 一、定义一个函数你可以定义一个由自己想要功能的函数，以下是简单">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-16T07:59:56.808Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python自定义函数的创建、调用和函数的参数详解">
+<meta name="twitter:description" content="这篇文章主要介绍了Python自定义函数的创建、调用和函数的参数、变量作用域等常见问题,需要的朋友可以参考下  函数是组织好的，可重复使用的，用来实现单一，或相关联功能的代码段。 函数能提高应用的模块性，和代码的重复利用率。你已经知道Python提供了许多内建函数，比如print()。但你也可以自己创见函数，这被叫做用户自定义函数。 一、定义一个函数你可以定义一个由自己想要功能的函数，以下是简单">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-python自定义函数的创建、调用和函数的参数详解" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/20/python自定义函数的创建、调用和函数的参数详解/" class="article-date">
+  <time datetime="2017-04-20T07:51:27.000Z" itemprop="datePublished">2017-04-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-python/">积累________python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Python自定义函数的创建、调用和函数的参数详解
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>这篇文章主要介绍了Python自定义函数的创建、调用和函数的参数、变量作用域等常见问题,需要的朋友可以参考下</p>
+</blockquote>
+<p>函数是组织好的，可重复使用的，用来实现单一，或相关联功能的代码段。 函数能提高应用的模块性，和代码的重复利用率。你已经知道Python提供了许多内建函数，比如print()。但你也可以自己创见函数，这被叫做用户自定义函数。</p>
+<h2 id="一、定义一个函数"><a href="#一、定义一个函数" class="headerlink" title="一、定义一个函数"></a>一、定义一个函数</h2><p>你可以定义一个由自己想要功能的函数，以下是简单的规则：</p>
+<ol>
+<li>函数代码块以def关键词开头，后接函数标识符名称和圆括号()。</li>
+<li>任何传入参数和自变量必须放在圆括号中间。圆括号之间可以用于定义参数。</li>
+<li>函数的第一行语句可以选择性地使用文档字符串—用于存放函数说明。</li>
+<li>函数内容以冒号起始，并且缩进。</li>
+<li>Return[expression]结束函数，选择性地返回一个值给调用方。不带表达式的return相当于返回 None。</li>
+</ol>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><figure class="highlight plain"><figcaption><span>functionname( parameters ): "函数_文档字符串" function_suite return \[expression\]``` 默认情况下，参数值和参数名称是按函数声明中定义的的顺序匹配起来的。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 实例</span><br><span class="line"></span><br><span class="line">以下为一个简单的Python函数，它将一个字符串作为传入参数，再打印到标准显示设备上。 ``` def printme( str ): &quot;打印传入的字符串到标准显示设备上&quot; print str return</span><br></pre></td></tr></table></figure>
+<h2 id="二、函数调用"><a href="#二、函数调用" class="headerlink" title="二、函数调用"></a>二、函数调用</h2><p>定义一个函数只给了函数一个名称，指定了函数里包含的参数，和代码块结构。这个函数的基本结构完成以后，你可以通过另一个函数调用执行，也可以直接从Python提示符执行。 如下实例调用了printme（）函数： <figure class="highlight plain"><figcaption><span># Function definition is here def printme( str ): "打印任何传入的字符串" print str; return; # Now you can call printme function printme("我要调用用户自定义函数!"); printme("再次调用同一函数"); # 以上实例输出结果： # 我要调用用户自定义函数! # 再次调用同一函数```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">三、按值传递参数和按引用传递参数</span><br><span class="line">----------------</span><br><span class="line"></span><br><span class="line">所有参数（自变量）在Python里都是按引用传递。如果你在函数里修改了参数，那么在调用这个函数的函数里，原始的参数也被改变了。例如： ``` #!/usr/bin/python # 可写函数说明 def changeme( mylist ): &quot;修改传入的列表&quot; mylist.append(\[1,2,3,4\]); print &quot;函数内取值: &quot;, mylist return # 调用changeme函数 mylist = \[10,20,30\]; changeme( mylist ); print &quot;函数外取值: &quot;, mylist # 传入函数的和在末尾添加新内容的对象用的是同一个引用。故输出结果如下： # 函数内取值: \[10, 20, 30, \[1, 2, 3, 4\]\] # 函数外取值: \[10, 20, 30, \[1, 2, 3, 4\]\]</span><br></pre></td></tr></table></figure></p>
+<h2 id="四、函数的参数"><a href="#四、函数的参数" class="headerlink" title="四、函数的参数"></a>四、函数的参数</h2><p>Python函数可以使用的参数类型： 必备参数、命名参数、缺省参数、不定长参数</p>
+<h3 id="1、必备参数"><a href="#1、必备参数" class="headerlink" title="1、必备参数"></a>1、必备参数</h3><p>必备参数须以正确的顺序传入函数。调用时的数量必须和声明时的一样。 调用printme()函数，你必须传入一个参数，不然会出现语法错误： <figure class="highlight plain"><figcaption><span># 可写函数说明 def printme( str ): "打印任何传入的字符串" print str; return; # 调用printme函数 printme(); # 以上实例输出结果： # Traceback (most recent call last): # File "test.py", line 11, in # printme(); # TypeError: printme() takes exactly 1 argument (0 given)```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 2、命名参数</span><br><span class="line"></span><br><span class="line">命名参数和函数调用关系紧密，调用方用参数的命名确定传入的参数值。你可以跳过不传的参数或者乱序传参，因为Python解释器能够用参数名匹配参数值。用命名参数调用printme()函数： ``` #!/usr/bin/python # 可写函数说明 def printme( str ): &quot;打印任何传入的字符串&quot; print str; return; # 调用printme函数 printme( str = &quot;My string&quot;); # 以上实例输出结果： # My string``` 下例能将命名参数顺序不重要展示得更清楚： ``` #!/usr/bin/python #可写函数说明 def printinfo( name, age ): &quot;打印任何传入的字符串&quot; print &quot;Name: &quot;, name; print &quot;Age &quot;, age; return; # 调用printinfo函数 printinfo( age=50, name=&quot;miki&quot; ); # 以上实例输出结果： # Name: miki # Age 50</span><br></pre></td></tr></table></figure></p>
+<h3 id="3、缺省参数"><a href="#3、缺省参数" class="headerlink" title="3、缺省参数"></a>3、缺省参数</h3><p>调用函数时，缺省参数的值如果没有传入，则被认为是默认值。下例会打印默认的age，如果age没有被传入： <figure class="highlight plain"><figcaption><span># 可写函数说明 def printinfo( name, age </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 4、不定长参数</span><br><span class="line"></span><br><span class="line">你可能需要一个函数能处理比当初声明时更多的参数。这些参数叫做不定长参数，和上述2种参数不同，声明时不会命名。基本语法如下： ``` def functionname(\[formal\_args,\] \*var\_args\_tuple ): &quot;函数\_文档字符串&quot; function_suite return \[expression\]``` 加了星号（\*）的变量名会存放所有未命名的变量参数。选择不多传参数也可。如下实例： ``` #!/usr/bin/python # 可写函数说明 def printinfo( arg1, *vartuple ): &quot;打印任何传入的参数&quot; print &quot;输出: &quot; print arg1 for var in vartuple: print var return; # 调用printinfo 函数 printinfo( 10 ); printinfo( 70, 60, 50 ); # 以上实例输出结果： # 输出: # 10 # 输出: # 70 # 60 # 50</span><br></pre></td></tr></table></figure></p>
+<h2 id="五、匿名函数"><a href="#五、匿名函数" class="headerlink" title="五、匿名函数"></a>五、匿名函数</h2><p>用lambda关键词能创建小型匿名函数。这种函数得名于省略了用def声明函数的标准步骤。 Lambda函数能接收任何数量的参数但只能返回一个表达式的值，同时只能不能包含命令或多个表达式。 匿名函数不能直接调用print，因为lambda需要一个表达式。 lambda函数拥有自己的名字空间，且不能访问自有参数列表之外或全局名字空间里的参数。 虽然lambda函数看起来只能写一行，却不等同于C或C++的内联函数，后者的目的是调用小函数时不占用栈内存从而增加运行效率。</p>
+<h4 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h4><p>lambda函数的语法只包含一个语句，如下： <figure class="highlight plain"><figcaption><span>\[arg1 \[,arg2,.....argn\]\]:expression```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 如下实例：</span><br><span class="line"></span><br><span class="line">``` #!/usr/bin/python # 可写函数说明 sum = lambda arg1, arg2: arg1 + arg2; # 调用sum函数 print &quot;Value of total : &quot;, sum( 10, 20 ) print &quot;Value of total : &quot;, sum( 20, 20 ) # 以上实例输出结果： # Value of total : 30 # Value of total : 40</span><br></pre></td></tr></table></figure></p>
+<h2 id="六、关于return语句"><a href="#六、关于return语句" class="headerlink" title="六、关于return语句"></a>六、关于return语句</h2><p>return语句[表达式]退出函数，选择性地向调用方返回一个表达式。不带参数值的return语句返回None。之前的例子都没有示范如何返回数值，下例便告诉你怎么做： <figure class="highlight plain"><figcaption><span># 可写函数说明 def sum( arg1, arg2 ): # 返回2个参数的和." total </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">七、变量作用域</span><br><span class="line">-------</span><br><span class="line"></span><br><span class="line">一个程序的所有的变量并不是在哪个位置都可以访问的。访问权限决定于这个变量是在哪里赋值的。 变量的作用域决定了在哪一部分程序你可以访问哪个特定的变量名称。两种最基本的变量作用域如下： 1.全局变量 2.局部变量</span><br><span class="line"></span><br><span class="line">八、变量和局部变量</span><br><span class="line">---------</span><br><span class="line"></span><br><span class="line">定义在函数内部的变量拥有一个局部作用域，定义在函数外的拥有全局作用域。 局部变量只能在其被声明的函数内部访问，而全局变量可以在整个程序范围内访问。调用函数时，所有在函数内声明的变量名称都将被加入到作用域中。如下实例： ``` #!/usr/bin/python total = 0; # This is global variable. # 可写函数说明 def sum( arg1, arg2 ): #返回2个参数的和.&quot; total = arg1 + arg2; # total在这里是局部变量. print &quot;Inside the function local total : &quot;, total return total; # 调用sum函数 sum( 10, 20 ); print &quot;Outside the function global total : &quot;, total # 以上实例输出结果： # Inside the function local total : 30 # Outside the function global total : 0</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/20/python自定义函数的创建、调用和函数的参数详解/" data-id="cjujhygdh00arej3jmod4t22x" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/20/python-pdfkit-中文乱码问题处理/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          python pdfkit 中文乱码问题处理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/04/20/python如何导入自定义模块/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">python如何导入自定义模块</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

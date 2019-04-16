@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>DNS 原理入门 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="DNS 是互联网核心协议之一。不管是上网浏览，还是编程开发，都需要了解一点它的知识。 本文详细介绍DNS的原理，以及如何运用工具软件观察它的运作。我的目标是，读完此文后，你就能完全理解DNS。  一、DNS 是什么？DNS （Domain Name System 的缩写）的作用非常简单，就是根据域名查出IP地址。你可以把它想象成一本巨大的电话本。 举例来说，如果你要访问域名math.stackex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DNS 原理入门">
+<meta property="og:url" content="http://yoursite.com/2017/04/13/dns-原理入门/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="DNS 是互联网核心协议之一。不管是上网浏览，还是编程开发，都需要了解一点它的知识。 本文详细介绍DNS的原理，以及如何运用工具软件观察它的运作。我的目标是，读完此文后，你就能完全理解DNS。  一、DNS 是什么？DNS （Domain Name System 的缩写）的作用非常简单，就是根据域名查出IP地址。你可以把它想象成一本巨大的电话本。 举例来说，如果你要访问域名math.stackex">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://www.yaozihao.cn/wp-content/uploads/2017/04/1-1.png">
+<meta property="og:image" content="http://www.yaozihao.cn/wp-content/uploads/2017/04/8.jpg">
+<meta property="og:image" content="http://www.yaozihao.cn/wp-content/uploads/2017/04/10.png">
+<meta property="og:updated_time" content="2019-04-16T07:59:56.137Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DNS 原理入门">
+<meta name="twitter:description" content="DNS 是互联网核心协议之一。不管是上网浏览，还是编程开发，都需要了解一点它的知识。 本文详细介绍DNS的原理，以及如何运用工具软件观察它的运作。我的目标是，读完此文后，你就能完全理解DNS。  一、DNS 是什么？DNS （Domain Name System 的缩写）的作用非常简单，就是根据域名查出IP地址。你可以把它想象成一本巨大的电话本。 举例来说，如果你要访问域名math.stackex">
+<meta name="twitter:image" content="http://www.yaozihao.cn/wp-content/uploads/2017/04/1-1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-dns-原理入门" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/13/dns-原理入门/" class="article-date">
+  <time datetime="2017-04-13T11:38:36.000Z" itemprop="datePublished">2017-04-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/日常-经验分享/">日常________经验分享</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      DNS 原理入门
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>DNS 是互联网核心协议之一。不管是上网浏览，还是编程开发，都需要了解一点它的知识。 本文详细介绍DNS的原理，以及如何运用工具软件观察它的运作。我的目标是，读完此文后，你就能完全理解DNS。 <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/1-1.png" alt></p>
+<h2 id="一、DNS-是什么？"><a href="#一、DNS-是什么？" class="headerlink" title="一、DNS 是什么？"></a>一、DNS 是什么？</h2><p>DNS （Domain Name System 的缩写）的作用非常简单，就是根据域名查出IP地址。你可以把它想象成一本巨大的电话本。 举例来说，如果你要访问域名<code>math.stackexchange.com</code>，首先要通过DNS查出它的IP地址是<code>151.101.129.69</code>。 如果你不清楚为什么一定要查出IP地址，才能进行网络通信，建议先阅读我写的<a href="http://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html" target="_blank" rel="noopener">《互联网协议入门》</a>。</p>
+<h2 id="二、查询过程"><a href="#二、查询过程" class="headerlink" title="二、查询过程"></a>二、查询过程</h2><p>虽然只需要返回一个IP地址，但是DNS的查询过程非常复杂，分成多个步骤。 工具软件<code>dig</code>可以显示整个查询过程。</p>
+<blockquote>
+<figure class="highlight plain"><figcaption><span>dig math.stackexchange.com` ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">上面的命令会输出六段信息。 ![](http://www.yaozihao.cn/wp-content/uploads/2017/04/2-1.png) 第一段是查询参数和统计。 ![](http://www.yaozihao.cn/wp-content/uploads/2017/04/3.png) 第二段是查询内容。 ![](http://www.yaozihao.cn/wp-content/uploads/2017/04/4-1.png) 上面结果表示，查询域名`math.stackexchange.com`的`A`记录，`A`是address的缩写。 第三段是DNS服务器的答复。 ![](http://www.yaozihao.cn/wp-content/uploads/2017/04/5-1.png) 上面结果显示，`math.stackexchange.com`有四个`A`记录，即四个IP地址。`600`是TTL值（Time to live 的缩写），表示缓存时间，即600秒之内不用重新查询。 第四段显示`stackexchange.com`的NS记录（Name Server的缩写），即哪些服务器负责管理`stackexchange.com`的DNS记录。   ![](http://www.yaozihao.cn/wp-content/uploads/2017/04/6-1.png) 上面结果显示`stackexchange.com`共有四条NS记录，即四个域名服务器，向其中任一台查询就能知道`math.stackexchange.com`的IP地址是什么。 第五段是上面四个域名服务器的IP地址，这是随着前一段一起返回的。 ![](http://www.ruanyifeng.com/blogimg/asset/2016/bg2016061506.png) 第六段是DNS服务器的一些传输信息。 ![](http://www.ruanyifeng.com/blogimg/asset/2016/bg2016061514.png) 上面结果显示，本机的DNS服务器是`192.168.1.253`，查询端口是53（DNS服务器的默认端口），以及回应长度是305字节。 如果不想看到这么多内容，可以使用`+short`参数。</span><br><span class="line"></span><br><span class="line">&gt; ``` `$ dig +short math.stackexchange.com 151.101.129.69 151.101.65.69 151.101.193.69 151.101.1.69`</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>上面命令只返回<code>math.stackexchange.com</code>对应的4个IP地址（即<code>A</code>记录）。</p>
+<h2 id="三、DNS服务器"><a href="#三、DNS服务器" class="headerlink" title="三、DNS服务器"></a>三、DNS服务器</h2><p>下面我们根据前面这个例子，一步步还原，本机到底怎么得到域名<code>math.stackexchange.com</code>的IP地址。 首先，本机一定要知道DNS服务器的IP地址，否则上不了网。通过DNS服务器，才能知道某个域名的IP地址到底是什么。 <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/8.jpg" alt> DNS服务器的IP地址，有可能是动态的，每次上网时由网关分配，这叫做DHCP机制；也有可能是事先指定的固定地址。Linux系统里面，DNS服务器的IP地址保存在<code>/etc/resolv.conf</code>文件。 上例的DNS服务器是<code>192.168.1.253</code>，这是一个内网地址。有一些公网的DNS服务器，也可以使用，其中最有名的就是Google的<a href="https://developers.google.com/speed/public-dns/" target="_blank" rel="noopener"><code>8.8.8.8</code></a>和Level 3的<a href="https://www.tummy.com/articles/famous-dns-server/" target="_blank" rel="noopener"><code>4.2.2.2</code></a>。 本机只向自己的DNS服务器查询，<code>dig</code>命令有一个<code>@</code>参数，显示向其他DNS服务器查询的结果。</p>
+<blockquote>
+<figure class="highlight plain"><figcaption><span>dig @4.2.2.2 math.stackexchange.com` ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">上面命令指定向DNS服务器`4.2.2.2`查询。</span><br><span class="line"></span><br><span class="line">四、域名的层级</span><br><span class="line">-------</span><br><span class="line"></span><br><span class="line">DNS服务器怎么会知道每个域名的IP地址呢？答案是分级查询。 请仔细看前面的例子，每个域名的尾部都多了一个点。 ![](http://www.yaozihao.cn/wp-content/uploads/2017/04/9.png) 比如，域名`math.stackexchange.com`显示为`math.stackexchange.com.`。这不是疏忽，而是所有域名的尾部，实际上都有一个根域名。 举例来说，`www.example.com`真正的域名是`www.example.com.root`，简写为`www.example.com.`。因为，根域名`.root`对于所有域名都是一样的，所以平时是省略的。 根域名的下一级，叫做&quot;顶级域名&quot;（top-level domain，缩写为TLD），比如`.com`、`.net`；再下一级叫做&quot;次级域名&quot;（second-level domain，缩写为SLD），比如`www.example.com`里面的`.example`，这一级域名是用户可以注册的；再下一级是主机名（host），比如`www.example.com`里面的`www`，又称为&quot;三级域名&quot;，这是用户在自己的域里面为服务器分配的名称，是用户可以任意分配的。 总结一下，域名的层级结构如下。</span><br><span class="line"></span><br><span class="line">&gt; ``` `主机名.次级域名.顶级域名.根域名 # 即 host.sld.tld.root`</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="五、根域名服务器"><a href="#五、根域名服务器" class="headerlink" title="五、根域名服务器"></a>五、根域名服务器</h2><p>DNS服务器根据域名的层级，进行分级查询。 需要明确的是，每一级域名都有自己的NS记录，NS记录指向该级域名的域名服务器。这些服务器知道下一级域名的各种记录。 所谓”分级查询”，就是从根域名开始，依次查询每一级域名的NS记录，直到查到最终的IP地址，过程大致如下。</p>
+<blockquote>
+<ol>
+<li>从”根域名服务器”查到”顶级域名服务器”的NS记录和A记录（IP地址）</li>
+<li>从”顶级域名服务器”查到”次级域名服务器”的NS记录和A记录（IP地址）</li>
+<li>从”次级域名服务器”查出”主机名”的IP地址</li>
+</ol>
+</blockquote>
+<p>仔细看上面的过程，你可能发现了，没有提到DNS服务器怎么知道”根域名服务器”的IP地址。回答是”根域名服务器”的NS记录和IP地址一般是不会变化的，所以内置在DNS服务器里面。 下面是内置的根域名服务器IP地址的一个<a href="http://www.cyberciti.biz/faq/unix-linux-update-root-hints-data-file/" target="_blank" rel="noopener">例子</a>。 <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/10.png" alt> 上面列表中，列出了根域名（<code>.root</code>）的三条NS记录<code>A.ROOT-SERVERS.NET</code>、<code>B.ROOT-SERVERS.NET</code>和<code>C.ROOT-SERVERS.NET</code>，以及它们的IP地址（即<code>A</code>记录）<code>198.41.0.4</code>、<code>192.228.79.201</code>、<code>192.33.4.12</code>。 另外，可以看到所有记录的TTL值是3600000秒，相当于1000小时。也就是说，每1000小时才查询一次根域名服务器的列表。 目前，世界上一共有十三组根域名服务器，从<code>A.ROOT-SERVERS.NET</code>一直到<code>M.ROOT-SERVERS.NET</code>。</p>
+<h2 id="六、分级查询的实例"><a href="#六、分级查询的实例" class="headerlink" title="六、分级查询的实例"></a>六、分级查询的实例</h2><p><code>dig</code>命令的<code>+trace</code>参数可以显示DNS的整个分级查询过程。</p>
+<blockquote>
+<figure class="highlight plain"><figcaption><span>dig +trace math.stackexchange.com` ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">上面命令的第一段列出根域名`.`的所有NS记录，即所有根域名服务器。 ![](http://www.yaozihao.cn/wp-content/uploads/2017/04/11.png) 根据内置的根域名服务器IP地址，DNS服务器向所有这些IP地址发出查询请求，询问`math.stackexchange.com`的顶级域名服务器`com.`的NS记录。最先回复的根域名服务器将被缓存，以后只向这台服务器发请求。 接着是第二段。 ![](http://www.yaozihao.cn/wp-content/uploads/2017/04/12.png) 上面结果显示`.com`域名的13条NS记录，同时返回的还有每一条记录对应的IP地址。 然后，DNS服务器向这些顶级域名服务器发出查询请求，询问`math.stackexchange.com`的次级域名`stackexchange.com`的NS记录。 ![](http://www.yaozihao.cn/wp-content/uploads/2017/04/13.png) 上面结果显示`stackexchange.com`有四条NS记录，同时返回的还有每一条NS记录对应的IP地址。 然后，DNS服务器向上面这四台NS服务器查询`math.stackexchange.com`的主机名。 ![](http://www.yaozihao.cn/wp-content/uploads/2017/04/14.png) 上面结果显示，`math.stackexchange.com`有4条`A`记录，即这四个IP地址都可以访问到网站。并且还显示，最先返回结果的NS服务器是`ns-463.awsdns-57.com`，IP地址为`205.251.193.207`。</span><br><span class="line"></span><br><span class="line">七、NS 记录的查询</span><br><span class="line">----------</span><br><span class="line"></span><br><span class="line">`dig`命令可以单独查看每一级域名的NS记录。</span><br><span class="line"></span><br><span class="line">&gt; ``` `$ dig ns com $ dig ns stackexchange.com`</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><code>+short</code>参数可以显示简化的结果。</p>
+<blockquote>
+<figure class="highlight plain"><figcaption><span>dig +short ns com $ dig +short ns stackexchange.com` ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">八、DNS的记录类型</span><br><span class="line">----------</span><br><span class="line"></span><br><span class="line">域名与IP之间的对应关系，称为&quot;记录&quot;（record）。根据使用场景，&quot;记录&quot;可以分成不同的类型（type），前面已经看到了有`A`记录和`NS`记录。 常见的DNS记录类型如下。</span><br><span class="line"></span><br><span class="line">&gt; （1） `A`：地址记录（Address），返回域名指向的IP地址。 （2） `NS`：域名服务器记录（Name Server），返回保存下一级域名信息的服务器地址。该记录只能设置为域名，不能设置为IP地址。 （3）`MX`：邮件记录（Mail eXchange），返回接收电子邮件的服务器地址。 （4）`CNAME`：规范名称记录（Canonical Name），返回另一个域名，即当前查询的域名是另一个域名的跳转，详见下文。 （5）`PTR`：逆向查询记录（Pointer Record），只用于从IP地址查询域名，详见下文。</span><br><span class="line"></span><br><span class="line">一般来说，为了服务的安全可靠，至少应该有两条`NS`记录，而`A`记录和`MX`记录也可以有多条，这样就提供了服务的冗余性，防止出现单点失败。 `CNAME`记录主要用于域名的内部跳转，为服务器配置提供灵活性，用户感知不到。举例来说，`facebook.github.io`这个域名就是一个`CNAME`记录。</span><br><span class="line"></span><br><span class="line">&gt; ``` `$ dig facebook.github.io ... ;; ANSWER SECTION: facebook.github.io. 3370 IN CNAME github.map.fastly.net. github.map.fastly.net. 600 IN A 103.245.222.133`</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>上面结果显示，<code>facebook.github.io</code>的CNAME记录指向<code>github.map.fastly.net</code>。也就是说，用户查询<code>facebook.github.io</code>的时候，实际上返回的是<code>github.map.fastly.net</code>的IP地址。这样的好处是，变更服务器IP地址的时候，只要修改<code>github.map.fastly.net</code>这个域名就可以了，用户的<code>facebook.github.io</code>域名不用修改。 由于<code>CNAME</code>记录就是一个替换，所以域名一旦设置<code>CNAME</code>记录以后，就不能再设置其他记录了（比如<code>A</code>记录和<code>MX</code>记录），这是为了防止产生冲突。举例来说，<code>foo.com</code>指向<code>bar.com</code>，而两个域名各有自己的<code>MX</code>记录，如果两者不一致，就会产生问题。由于顶级域名通常要设置<code>MX</code>记录，所以一般不允许用户对顶级域名设置<code>CNAME</code>记录。 <code>PTR</code>记录用于从IP地址反查域名。<code>dig</code>命令的<code>-x</code>参数用于查询<code>PTR</code>记录。</p>
+<blockquote>
+<figure class="highlight plain"><figcaption><span>dig -x 192.30.252.153 ... ;; ANSWER SECTION: 153.252.30.192.in-addr.arpa. 3600 IN PTR pages.github.com.` ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">上面结果显示，`192.30.252.153`这台服务器的域名是`pages.github.com`。 逆向查询的一个应用，是可以防止垃圾邮件，即验证发送邮件的IP地址，是否真的有它所声称的域名。 `dig`命令可以查看指定的记录类型。</span><br><span class="line"></span><br><span class="line">&gt; ``` `$ dig a github.com $ dig ns github.com $ dig mx github.com`</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="九、其他DNS工具"><a href="#九、其他DNS工具" class="headerlink" title="九、其他DNS工具"></a>九、其他DNS工具</h2><p>除了<code>dig</code>，还有一些其他小工具也可以使用。 <strong>（1）host 命令</strong> <code>host</code>命令可以看作<code>dig</code>命令的简化版本，返回当前请求域名的各种记录。</p>
+<blockquote>
+<figure class="highlight plain"><figcaption><span>host github.com github.com has address 192.30.252.121 github.com mail is handled by 5 ALT2.ASPMX.L.GOOGLE.COM. github.com mail is handled by 10 ALT4.ASPMX.L.GOOGLE.COM. github.com mail is handled by 10 ALT3.ASPMX.L.GOOGLE.COM. github.com mail is handled by 5 ALT1.ASPMX.L.GOOGLE.COM. github.com mail is handled by 1 ASPMX.L.GOOGLE.COM. $ host facebook.github.com facebook.github.com is an alias for github.map.fastly.net. github.map.fastly.net has address 103.245.222.133` ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">`host`命令也可以用于逆向查询，即从IP地址查询域名，等同于`dig -x` 。</span><br><span class="line"></span><br><span class="line">&gt; ``` `$ host 192.30.252.153 153.252.30.192.in-addr.arpa domain name pointer pages.github.com.`</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><strong>（2）nslookup 命令</strong> <code>nslookup</code>命令用于互动式地查询域名记录。</p>
+<blockquote>
+<figure class="highlight plain"><figcaption><span>nslookup > facebook.github.io Server: 192.168.1.253 Address: 192.168.1.253#53 Non-authoritative answer: facebook.github.io canonical name </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**（3）whois 命令** `whois`命令用来查看域名的注册情况。</span><br><span class="line"></span><br><span class="line">&gt; ``` `$ whois github.com`</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h1 id="十、参考链接"><a href="#十、参考链接" class="headerlink" title="十、参考链接"></a>十、参考链接</h1><ul>
+<li><a href="https://www.petekeen.net/dns-the-good-parts" target="_blank" rel="noopener">DNS: The Good Parts</a>, by Pete Keen</li>
+<li><a href="http://www.integralist.co.uk/posts/dnsbasics.html" target="_blank" rel="noopener">DNS 101</a>, by Mark McDonnell</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/13/dns-原理入门/" data-id="cjujhygd400aaej3jmh028w8r" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/13/互联网协议入门（一）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          互联网协议入门（一）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/04/13/互联网协议总结/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">互联网协议总结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/18/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-php多线程系列之libevent" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/29/php多线程系列之libevent/" class="article-date">
+  <time datetime="2015-12-29T02:45:10.000Z" itemprop="datePublished">2015-12-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-多线程系列/">积累________多线程系列</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/29/php多线程系列之libevent/">php多线程系列之libevent</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>libevent是一个基于事件驱动的高性能网络库。支持多种 I/O 多路复用技术， epoll、 poll、 dev/poll、 select 和 kqueue 等；支持 I/O，定时器和信号等事件；注册事件优先级。 <strong>PHP libevent扩展安装：</strong> libevent扩展依赖于原始的libevent库，必须先把libevent库安装。 (1)安装libevent库</p>
+<ol>
+<li>wget <a href="http://cloud.github.com/downloads/libevent/libevent/libevent-2.0.20-stable.tar.gz" target="_blank" rel="noopener">http://cloud.github.com/downloads/libevent/libevent/libevent-2.0.20-stable.tar.gz</a></li>
+<li>tar zxvf libevent-2.0.20-stable.tar.gz</li>
+<li>cd libevent-2.0.20-stable/</li>
+<li>./configure –prefix=/usr/local/libevent-2.0.20/</li>
+<li>make</li>
+<li>make install</li>
+</ol>
+<p>(2)安装libevent扩展(<a href="http://pecl.php.net/package/libevent" target="_blank" rel="noopener">http://pecl.php.net/package/libevent</a>)</p>
+<ol>
+<li>wget <a href="http://pecl.php.net/get/libevent-0.1.0.tgz" target="_blank" rel="noopener">http://pecl.php.net/get/libevent-0.1.0.tgz</a></li>
+<li>tar -zxvf libevent-0.1.0.tgz</li>
+<li>cd libevent-0.1.0</li>
+<li>./configure –with-php-config=/usr/local/php54/bin/php-config –with-libevent=/usr/local/libevent-2.0.20/</li>
+<li>make &amp;&amp; make install</li>
+<li>#php.ini添加extension=libevent.so</li>
+</ol>
+<p><strong>PHP Libevent扩展介绍：</strong> (1)常量 <a href="http://www.phpddt.com/attachment/1760/" title="libevent1.png" target="_blank" rel="noopener"><img src="http://www.phpddt.com/usr/uploads/2015/07/1277153156.png" alt="libevent1.png"></a> (2)函数</p>
+<ul>
+<li>event_base_free() 释放资源，这不能销毁绑定事件</li>
+<li>event_base_loop() 处理事件，根据指定的base来处理事件循环</li>
+<li>event_base_loopbreak() 立即取消事件循环，行为各break语句相同</li>
+<li>event_base_loopexit() 在指定的时间后退出循环</li>
+<li>event_base_new() 创建并且初始事件</li>
+<li>event_base_priority_init() 设定事件的优先级</li>
+<li>event_base_set() 关联事件到事件base</li>
+<li>event_buffer_base_set() 关联缓存的事件到event_base</li>
+<li>event_buffer_disable() 禁用一个缓存的事件</li>
+<li>event_buffer_enable() 启用一个指定的缓存的事件</li>
+<li>event_buffer_fd_set() 改变一个缓存的文件系统描述</li>
+<li>event_buffer_free() 释放缓存事件</li>
+<li>event_buffer_new() 建立一个新的缓存事件</li>
+<li>event_buffer_priority_set() 缓存事件的优先级设定</li>
+<li>event_buffer_read() 读取缓存事件中的数据</li>
+<li>event_buffer_set_callback() 给缓存的事件设置或重置回调hansh函数</li>
+<li>event_buffer_timeout_set() 给一个缓存的事件设定超时的读写时间</li>
+<li>event_buffer_watermark_set 设置读写事件的水印标记</li>
+<li>event_buffer_write() 向缓存事件中写入数据</li>
+<li>event_add() 向指定的设置中添加一个执行事件</li>
+<li>event_del() 从设置的事件中移除事件</li>
+<li>event_free() 清空事件句柄</li>
+<li>event_new() 创建一个新的事件</li>
+<li>event_set() 准备想要在event_add中添加事件</li>
+</ul>
+<p><strong>PHP Libevent扩展使用：</strong> 例1:5s后触发callback</p>
+<ol>
+<li>$base = event_base_new();</li>
+<li>$event = event_new();</li>
+<li>?</li>
+<li>event_set($event, 0, EV_TIMEOUT, function() {</li>
+<li>echo “function called”;</li>
+<li>});</li>
+<li>event_base_set($event, $base);</li>
+<li>?</li>
+<li>event_add($event, 5000000);</li>
+<li>event_base_loop($base);</li>
+</ol>
+<p>例2：打印输入流</p>
+<ol>
+<li>function print_line($fd, $events, $arg)</li>
+<li>{</li>
+<li>static $max_requests = 0;</li>
+<li>$max_requests++;</li>
+<li>if ($max_requests == 10) {</li>
+<li>// exit loop after 10 writes</li>
+<li>event_base_loopexit($arg[1]);</li>
+<li>}</li>
+<li>echo fgets($fd);</li>
+<li>}</li>
+<li>?</li>
+<li>// create base and event</li>
+<li>$base = event_base_new();</li>
+<li>$event = event_new();</li>
+<li>?</li>
+<li>$fd = STDIN;</li>
+<li>// set event flags</li>
+<li>event_set($event, $fd, EV_READ | EV_PERSIST, ‘print_line’, array($event, $base));</li>
+<li>// set event base</li>
+<li>event_base_set($event, $base);</li>
+<li>// enable event</li>
+<li>event_add($event);</li>
+<li>// start event loop</li>
+<li>event_base_loop($base);</li>
+</ol>
+<p>例3：实现简单web server 在cli执行后，打开浏览器2000端口试试看。</p>
+<ol>
+<li>$socket = stream_socket_server (‘tcp://0.0.0.0:2000’, $errno, $errstr);</li>
+<li>stream_set_blocking($socket, 0);</li>
+<li>?</li>
+<li>$base = event_base_new();</li>
+<li>$event = event_new();</li>
+<li>event_set($event, $socket, EV_READ | EV_PERSIST, ‘ev_accept’, $base);</li>
+<li>event_base_set($event, $base);</li>
+<li>event_add($event);</li>
+<li>event_base_loop($base);</li>
+<li>?</li>
+<li>function ev_accept($socket, $flag, $base)</li>
+<li>{</li>
+<li>$connection = stream_socket_accept($socket);</li>
+<li>stream_set_blocking($connection, 0);</li>
+<li>?</li>
+<li>$buffer = event_buffer_new($connection, ‘ev_read’, NULL, ‘ev_error’, $connection);</li>
+<li>event_buffer_base_set($buffer, $base);</li>
+<li>event_buffer_timeout_set($buffer, 30, 30);</li>
+<li>event_buffer_watermark_set($buffer, EV_READ, 0, 0xffffff);</li>
+<li>event_buffer_priority_set($buffer, 10);</li>
+<li>event_buffer_enable($buffer, EV_READ | EV_PERSIST);</li>
+<li>?</li>
+<li>$GLOBALS[‘_’] = $buffer; //这个buffer一定要赋给个全局的变量 貌似是传值过程中的bug 或者5.3.8的闭包还是有问题？</li>
+<li>}</li>
+<li>?</li>
+<li>function ev_error($buffer, $error, $connection)</li>
+<li>{</li>
+<li>event_buffer_disable($buffer, EV_READ | EV_WRITE);</li>
+<li>event_buffer_free($buffer);</li>
+<li>fclose($connection);</li>
+<li>}</li>
+<li>?</li>
+<li>function ev_read($buffer, $connection)</li>
+<li>{</li>
+<li>while ($read = event_buffer_read($buffer, 256)) {</li>
+<li>?</li>
+<li>}</li>
+<li>fwrite($connection , date(‘Y-m-d H:i:s’));</li>
+<li>ev_error($buffer , ‘’ , $connection);</li>
+<li>}</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/12/29/php多线程系列之libevent/" data-id="cjujhyg9b0059ej3j9pia5ujv" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-php多线程系列之stream" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/29/php多线程系列之stream/" class="article-date">
+  <time datetime="2015-12-29T02:36:05.000Z" itemprop="datePublished">2015-12-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-多线程系列/">积累________多线程系列</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/29/php多线程系列之stream/">php多线程系列之stream_*</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>stream_bucket_append函数：为队列添加数据 stream_bucket_make_writeable函数：从操作的队列中返回一个数据对象 stream_bucket_new函数：为当前队列创建一个新的数据 stream_bucket_prepend函数：预备数据到队列 stream_context_create函数：创建数据流上下文 stream_context_get_default函数：获取默认的数据流上下文 stream_context_get_options函数：获取数据流的设置 stream_context_set_option函数：对数据流、数据包或者上下文进行设置 stream_context_set_params函数：为数据流、数据包或者上下文设置参数 stream_copy_to_stream函数：在数据流之间进行复制操作 stream_filter_append函数：为数据流添加过滤器 stream_filter_prepend函数：为数据流预备添加过滤器 stream_filter_register函数：注册一个数据流的过滤器并作为PHP类执行 stream_filter_remove函数：从一个数据流中移除过滤器 stream_get_contents函数：读取数据流中的剩余数据到字符串 stream_get_filters函数：返回已经注册的数据流过滤器列表 stream_get_line函数：按照给定的定界符从数据流资源中获取行 stream_get_meta_data函数：从封装协议文件指针中获取报头/元数据 stream_get_transports函数：返回注册的Socket传输列表 stream_get_wrappers函数：返回注册的数据流列表 stream_register_wrapper函数：注册一个用PHP类实现的URL封装协议 stream_select函数：接收数据流数组并等待它们状态的改变 stream_set_blocking函数：将一个数据流设置为堵塞或者非堵塞状态 stream_set_timeout函数：对数据流进行超时设置 stream_set_write_buffer函数：为数据流设置缓冲区 stream_socket_accept函数：接受由函数stream_ socket_server()创建的Socket连接 stream_socket_client函数：打开网络或者UNIX主机的Socket连接 stream_socket_enable_crypto函数：为一个已经连接的Socket打开或者关闭数据加密 stream_socket_get_name函数：获取本地或者网络Socket的名称 stream_socket_pair函数：创建两个无区别的Socket数据流连接 stream_socket_recvfrom函数：从Socket获取数据，不管其连接与否 stream_socket_sendto函数：向Socket发送数据，不管其连接与否 stream_socket_server函数：创建一个网络或者UNIX Socket服务端 stream_wrapper_restore函数：恢复一个事先注销的数据包 stream_wrapper_unregister函数：注销一个URL地址包   实例： PHP使用PCNTL系列的函数也能做到多进程处理一个事务。比如我需要从数据库中获取80w条的数据，再做一系列后续的处理，这个时候，用单进程？你可以等到明年今天了。。。所以应该使用pcntl函数了。 假设我想要启动20个进程，将1-80w的数据分成20份来做，主进程等待所有子进程都结束了才退出：</p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+<p>16</p>
+<p>17</p>
+<p>18</p>
+<p>19</p>
+<p>20</p>
+<p>21</p>
+<p>22</p>
+<p>23</p>
+<p>24</p>
+<p>25</p>
+<p>26</p>
+<p>27</p>
+<p><code>$max</code> <code>= 800000;</code></p>
+<p><code>$workers</code> <code>= 20;</code></p>
+<p><code>$pids</code> <code>=</code> <code>array`</code>();`</p>
+<p><code>for`</code>(<code>$i` `= 0;` `$i` `&lt;` `$workers</code>;<code></code>$i<code></code>++){`</p>
+<p><code>????`</code>$pids<code>[</code>$i<code></code>] = pcntl_fork();`</p>
+<p><code>????`</code>switch<code></code>(<code>$pids</code>[<code>$i</code>]) {`</p>
+<p><code>????????`</code>case<code></code>-1:`</p>
+<p><code>????????????`</code>echo<code></code>“fork error : {$i} \r\n”<code></code>;`</p>
+<p><code>????????????`</code>exit<code></code>;`</p>
+<p><code>????????`</code>case<code></code>0:`</p>
+<p><code>????????????`</code>$param<code></code>=<code></code>array<code></code>(`</p>
+<p><code>????????????????`</code>‘lastid’<code></code>=&gt;<code></code>$max<code></code>/<code></code>$workers<code></code>*<code></code>$i<code></code>,`</p>
+<p><code>????????????????`</code>‘maxid’<code></code>=&gt;<code></code>$max<code></code>/<code></code>$workers<code></code>* (<code>$i</code>+1),`</p>
+<p><code>????????????`</code>);`</p>
+<p><code>????????????`</code>$this<code>-&gt;executeWorker(</code>$input<code>,` `$output</code>,<code></code>$param<code></code>);`</p>
+<p><code>????????????`</code>exit<code></code>;`</p>
+<p><code>????????`</code>default<code></code>:`</p>
+<p><code>????????????`</code>break<code></code>;`</p>
+<p><code>????`</code>}`</p>
+<p><code>}</code></p>
+<p><code>foreach</code> <code>(`</code>$pids<code></code>as<code></code>$i<code></code>=&gt;<code></code>$pid<code></code>) {`</p>
+<p><code>????`</code>if<code>(</code>$pid<code></code>) {`</p>
+<p><code>????????`</code>pcntl_waitpid(<code>$pid</code>,<code></code>$status<code></code>);`</p>
+<p><code>????`</code>}`</p>
+<p><code>}</code></p>
+<p>这里当pcntl_fork出来以后，会返回一个pid值，这个pid在子进程中看是0，在父进程中看是子进程的pid（&gt;0），如果pid为-1说明fork出错了。 使用一个$pids数组就可以让主进程等候所有进程完结之后再结束了</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/12/29/php多线程系列之stream/" data-id="cjujhyg9d005bej3jlmqbv00b" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-119" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/29/119/" class="article-date">
+  <time datetime="2015-12-29T02:31:50.000Z" itemprop="datePublished">2015-12-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-多线程系列/">积累________多线程系列</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/29/119/">php多线程之curl_multi</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>大家都知道php没有多线程，这也是弱于java等高级语言的表现之一。 但有时候我们还是需要php同时做一些操作，这时候我们可以借助服务器的多程线来实现。 自然就会想起 curl_multi_* 系列函数，这些函数说明并不详细，例子也很少。 一般来说，想到要用这些函数时，目的显然应该是要同时请求多个url，而不是一个一个依次请求。 步骤总结如下： 第一步：调用curl_multi_init 第二步：循环调用curl_multi_add_handle 这一步需要注意的是，curl_multi_add_handle的第二个参数是由curl_init而来的子handle。 第三步：持续调用curl_multi_exec 第四步：根据需要循环调用curl_multi_getcontent获取结果 第五步：调用curl_multi_remove_handle，并为每个字handle调用curl_close 第六步：调用curl_multi_close   ————————— 以下例子为本人测试时使用?—————————- 背景: 1.在test数据库下建立test use test; CREATE TABLE `test` ( `id` int(11) NOT NULL auto_increment, `record_date` datetime NOT NULL, PRIMARY KEY? (`id`) ) ENGINE=MyISAM? DEFAULT CHARSET=utf8; 2.在虚拟目录下建立相关测试目录和两个文件 /www/test/curl_multi/index.php &amp; do.php  </p>
+<p><strong>[php]</strong> <a href="http://blog.csdn.net/ewing333/article/details/5929068#" title="view plain" target="_blank" rel="noopener">view plain</a><a href="http://blog.csdn.net/ewing333/article/details/5929068#" title="copy" target="_blank" rel="noopener">copy</a></p>
+<ol start="2">
+<li>/**</li>
+<li>*?@Author:?Ewing</li>
+<li>*?@Date:?2010-10-10</li>
+<li>*?@File:curl/multi/index.php</li>
+<li>*?@Desc:?make?multi?action</li>
+<li>*/</li>
+<li>$t=getTime();</li>
+<li>$total=60;//由测试得少于64个线程运行一次没有延迟，太多的话可能是apache的原因，效果并不理想，大家可以自己输入不同的值测试</li>
+<li>for($i=0;$i&lt;$total;$i++)</li>
+<li><p>????$url_arr[]=”<a href="http://localhost/test/curl_multi/do.php?i=$i&quot;" target="_blank" rel="noopener">http://localhost/test/curl_multi/do.php?i=$i&quot;</a>;</p>
+</li>
+<li><p>$mh?=?curl_multi_init();</p>
+</li>
+<li><p>foreach?($url_arr?as?$i?=&gt;?$url)?{</p>
+</li>
+<li>?????$conn[$i]=curl_init($url);</li>
+<li>??????curl_setopt($conn[$i],CURLOPT_RETURNTRANSFER,1);//设置返回do.php页面输出内容</li>
+<li>??????curl_multi_add_handle?($mh,$conn[$i]);//添加线程</li>
+<li>}</li>
+<li>#—————-执行线程—————-</li>
+<li>//do?{?$n=curl_multi_exec($mh,$active);?}?while?($active);?//网上说些方法有时会让CPU达100%</li>
+<li>do?{</li>
+<li>????????$mrc?=?curl_multi_exec($mh,$active);</li>
+<li>}?while?($mrc?==?CURLM_CALL_MULTI_PERFORM);</li>
+<li>while?($active?and?$mrc?==?CURLM_OK)?{</li>
+<li>????????if?(curl_multi_select($mh)?!=?-1)?{</li>
+<li>????????????????do?{</li>
+<li>????????????????????????$mrc?=?curl_multi_exec($mh,?$active);</li>
+<li>????????????????}?while?($mrc?==?CURLM_CALL_MULTI_PERFORM);</li>
+<li>????????}</li>
+<li>}</li>
+<li>#——————————-</li>
+<li>foreach?($url_arr?as?$i?=&gt;?$url)?{</li>
+<li>??????$res[$i]=curl_multi_getcontent($conn[$i]);//得到页面输入内容</li>
+<li>??????curl_close($conn[$i]);</li>
+<li><p>}</p>
+</li>
+<li><p>foreach($res?as?$k=&gt;$v){</p>
+</li>
+<li>????$k=str_pad($k,2,0);</li>
+<li>????echo?”$k?=&gt;?$v?<br>“;</li>
+<li><p>}</p>
+</li>
+<li><p>runTime($t);</p>
+</li>
+<li>#———–?calculate?time?function-------------</li>
+<li>function?getTime(){</li>
+<li>????$TIME=explode(“?”,microtime());</li>
+<li>????$TIME=$TIME[1].substr($TIME[0],1);</li>
+<li>????return?$TIME;</li>
+<li>}</li>
+<li>function?runTime($t,$l=3){</li>
+<li>????$dif=getTime()-$t;</li>
+<li>????echo?’?’.number_format($dif,$l);</li>
+<li>}</li>
+<li>?&gt;</li>
+</ol>
+<p><strong>[c-sharp]</strong> <a href="http://blog.csdn.net/ewing333/article/details/5929068#" title="view plain" target="_blank" rel="noopener">view plain</a><a href="http://blog.csdn.net/ewing333/article/details/5929068#" title="copy" target="_blank" rel="noopener">copy</a></p>
+<ol start="2">
+<li>/**</li>
+<li>*?@Author:?Ewing</li>
+<li>*?@Date:?2010-10-10</li>
+<li>*?@File:curl/multi/do.php</li>
+<li>*?@Desc:?do?something?here</li>
+<li>*/</li>
+<li>$t=getTime();</li>
+<li>sleep(mt_rand(1,3));//设置延迟</li>
+<li>//数据库处理</li>
+<li>mysql_connect(“localhost”,”root”,”your_password”);</li>
+<li>mysql_select_db(“test”);</li>
+<li><p>mysql_query(“insert?into?test(record_date)?value(NOW())”);</p>
+</li>
+<li><p>//文件处理</p>
+</li>
+<li>$file=’./test.txt’;</li>
+<li>$fp=fopen($file,’a’);</li>
+<li>flock($fp,?LOCK_EX);</li>
+<li>fwrite($fp,date(‘H:i:s’).”/n/r”);</li>
+<li><p>fclose($fp);</p>
+</li>
+<li><p>echo?date(‘H:i:s’);</p>
+</li>
+<li><p>runTime($t);</p>
+</li>
+<li>#————-calculate?time?function————</li>
+<li>function?getTime(){</li>
+<li>????$TIME=explode(“?”,microtime());</li>
+<li>????$TIME=$TIME[1].substr($TIME[0],1);</li>
+<li>????return?$TIME;</li>
+<li>}</li>
+<li>function?runTime($t,$l=3){</li>
+<li>????$dif=getTime()-$t;</li>
+<li>????echo?’?’.number_format($dif,$l);</li>
+<li>}</li>
+<li><p>?&gt;</p>
+<p>在浏览器上打开<a href="http://localhost/test/curl_multi/" target="_blank" rel="noopener">http://localhost/test/curl_multi/</a>?即可看到效果   ps:以上例子只是用于本地处理多线程，用多线程取网页数据也是可以的，只要把index.php中的$url_arr换成外网的url即可。不过建议不要一次拿太多的url，不然会有意想不到的结果哦，想知道是什么？自己试试吧。</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/12/29/119/" data-id="cjujhyg55000zej3j50ilrnsb" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-go项目的目录结构" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/28/go项目的目录结构/" class="article-date">
+  <time datetime="2015-12-28T09:38:57.000Z" itemprop="datePublished">2015-12-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-go/">积累________go</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/28/go项目的目录结构/">Go项目的目录结构</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>项目目录结构如何组织，一般语言都是没有规定。但Go语言这方面做了规定，这样可以保持一致性。 <strong>1、一般的，一个Go项目在GOPATH下，会有如下三个目录：</strong></p>
+<p>复制代码代码如下:</p>
+<p>|–bin |–pkg |–src</p>
+<p>其中，bin存放编译后的可执行文件；pkg存放编译后的包文件；src存放项目源文件。一般，bin和pkg目录可以不创建，go命令会自动创建（如 go install），只需要创建src目录即可。 对于pkg目录，曾经有人问：我把Go中的包放入pkg下面，怎么不行啊？他直接把Go包的源文件放入了pkg中。这显然是不对的。pkg中的文件是Go编译生成的，而不是手动放进去的。（一般文件后缀.a） 对于src目录，存放源文件，Go中源文件以包（package）的形式组织。通常，新建一个包就在src目录中新建一个文件夹。 <strong>2、举例说明</strong> 比如：我新建一个项目，test，开始的目录结构如下：</p>
+<p>复制代码代码如下:</p>
+<p>test–|–src</p>
+<p>为了编译方便，我在其中增加了一个install文件，目录结构：</p>
+<p>复制代码代码如下:</p>
+<p>test/ |– install `– src</p>
+<p>其中install的内容如下：（linux下）</p>
+<p>复制代码代码如下:</p>
+<p>#!/usr/bin/env bashif [ ! -f install ]; then echo ‘install must be run within its container folder’ 1&gt;&amp;2 exit 1 fiCURDIR=`pwd` OLDGOPATH=”$GOPATH” export GOPATH=”$CURDIR” gofmt -w src go install test export GOPATH=”$OLDGOPATH” echo ‘finished’</p>
+<p>之所以加上这个install，是不用配置GOPATH（避免新增一个GO项目就要往GOPATH中增加一个路径） 接下来，增加一个包：config和一个main程序。目录结构如下：</p>
+<p>复制代码代码如下:</p>
+<p>test |– install <code>-- src |-- config |??</code>– config.go <code>-- test</code>– main.go</p>
+<p>注意，config.go中的package名称必须最好和目录config一致，而文件名可以随便。main.go表示main包，文件名建议为main.go。（注：不一致时，生成的.a文件名和目录名一致，这样，在import 时，应该是目录名，而引用包时，需要包名。例如：目录为myconfig，包名为config，则生产的静态包文件是：myconfig.a，引用该包：import “myconfig”，使用包中成员：config.LoadConfig()） config.go和main.go的代码如下： config.go代码</p>
+<p>复制代码代码如下:</p>
+<p>package configfunc LoadConfig() {}</p>
+<p><strong>main.go代码</strong></p>
+<p>复制代码代码如下:</p>
+<p>package mainimport ( “config” “fmt” )func main() { config.LoadConfig() fmt.Println(“Hello, GO!”) }</p>
+<p>接下来，在项目根目录执行./install 这时候的目录结构为：</p>
+<p>复制代码代码如下:</p>
+<p>test |– bin |?? <code>-- test |-- install |-- pkg |??</code>– linux_amd64 |?????? <code>-- config.a</code>– src |– config |?? <code>-- config.go</code>– test `– main.go （linux_amd64表示我使用的操作系统和架构，你的可能不一样）</p>
+<p>其中config.a是包config编译后生成的；bin/test是生成的二进制文件 这个时候可以执行：bin/test了。会输出：Hello, GO! <strong>3、补充说明</strong> 1）包可以多层目录，比如：net/http包，表示源文件在src/net/http目录下面，不过源文件中的包名是最后一个目录的名字，如http 而在import包时，必须完整的路径，如：import “net/http” 2）有时候会见到local import（不建议使用），语法类似这样：</p>
+<p>复制代码代码如下:</p>
+<p>import “./config”</p>
+<p>当代码中有这样的语句时，很多时候都会见到类似这样的错误：local import “./config” in non-local package 我所了解的这种导入方式的使用是：当写一个简单的测试脚本，想要使用go run命令时，可以使用这种导入方式。 比如上面的例子，把test/main.go移到src目录中，test目录删除，修改main.go中的import “config”为import “./config”，然后可以在src目录下执行：go run main.go 可见，local import不依赖于GOPATH <strong>4、Windows下的install.bat</strong></p>
+<p>复制代码代码如下:</p>
+<p>@echo offsetlocalif exist install.bat goto ok echo install.bat must be run from its folder goto end : ok set OLDGOPATH=%GOPATH% set GOPATH=%~dp0 gofmt -w src go install test :end echo finished</p>
+<p>注,冒号和ok之间不应该有空格，但是放在一起总是会被wordpress转成一个表情。汗…… 5:目录名可以和包名不同，但建议一致；将make文件名改为install</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/12/28/go项目的目录结构/" data-id="cjujhyg70002qej3jpe4fci64" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-创建第一个go语言程序hellogo" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/28/创建第一个go语言程序hellogo/" class="article-date">
+  <time datetime="2015-12-28T09:29:24.000Z" itemprop="datePublished">2015-12-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-go/">积累________go</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/28/创建第一个go语言程序hellogo/">创建第一个Go语言程序Hello,Go!</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>建立一个用于编写Go程序的工作目录go-examples，其绝对路径为/home/go-examples.开始编写我们的第一个Go程序。 <strong>一、在go-examples下创建一个文件hello.go</strong></p>
+<p>复制代码代码如下:</p>
+<p>//hello.go package mainimport “fmt”//实现格式化的I/O /*Printf someting*/ func main(){ fmt.Printf(“Hello,GO!\n”) }</p>
+<p>我们来分析下这个程序： 1、程序中的第2行这个是必须的。所有的Go文件以package 开头，对于独立运行的执行文件必须是package main； 2、第4行说需要将”fmt”包加入main。不是main的其他包都被称为库，其他许多编程语言有着类似的概念。 3、第1行和第4行中的//和/<em>—</em>/都是注释 4、package main 必须首先出现，紧跟着是import。在Go中，package 总是首先出现，然后是import，然后是其他所有内容。当Go 程序在执行的时候，首先调用的函数是main.main()，这是从C 中继承而来。这里定义了这个函数； 5、第8行调用了来自于fmt包的函数打印字符串到屏幕 <strong>二、编译和运行代码</strong> 编译该源文件并执行生成的可执行文件</p>
+<p>复制代码代码如下:</p>
+<p>[root@localhost go-examples]# go build hello.go [root@localhost go-examples]# ls hello hello.go [root@localhost go-examples]# ./hello Hello,GO!</p>
+<p>通过go build加上要编译的Go源文件名，我们即可得到一个可执行文件，默认情况下这个文件的名字为源文件名字去掉.go后缀。当然我们也可以通过-o选项来指定其他名字：</p>
+<p>复制代码代码如下:</p>
+<p>[root@localhost go-examples]# go build -o firstgo hello.go [root@localhost go-examples]# ls firstgo hello.go</p>
+<p>如果我们在go-examples目录下直接执行go build命令，后面不带文件名，我们将得到一个与目录名同名的可执行文件：</p>
+<p>复制代码代码如下:</p>
+<p>[root@localhost go-examples]# go build [root@localhost go-examples]# ls go-examples hello.go</p>
+<p><strong>三、程序入口点(entry point)和包(package)</strong> Go保持了与C家族语言一致的风格：即目标为可执行程序的Go源码中务必要有一个名为main的函数，该函数即为可执行程序的入口点。除此之外 Go还增加了一个约束：作为入口点的main函数必须在名为main的package中。正如上面hellogo.go源文件中的那样，在源码第 一行就声明了该文件所归属的package为main。 Go去除了头文件的概念，而借鉴了很多主流语言都采用的package的源码组织方式。package是个逻辑概念，与文件没有一一对应的关系。 如果多个源文件都在开头声明自己属于某个名为foo的包，那这些源文件中的代码在逻辑上都归属于包foo(这些文件最好在同一个目录下，至少目前 的Go版本还无法支持不同目录下的源文件归属于同一个包)。 我们看到hellogo.go中import一个名为fmt的包，并利用该包内的Printf函数输出”Hello, Go!”。直觉告诉我们fmt包似乎是一个标准库中的包。没错，fmt包提供了格式化文本输出以及读取格式化输入的相关函数，与C中的printf或 scanf等类似。我们通过import语句将fmt包导入我们的源文件后就可以使用该fmt包导出(export)的功能函数了(比如 Printf)。 在C中，我们通过static来标识局部函数还是全局函数。而在Go中，包中的函数是否可以被外部调用，要看该函数名的首母是否为大写。这是一种 Go语言固化的约定：首母大写的函数被认为是导出的函数，可以被包之外的代码调用；而小写字母开头的函数则仅能在包内使用。在例子中你也看到了 fmt包的Printf函数其首母就是大写的。 <strong>四、GOPATH</strong> 把上面的hellogo.go稍作改造，拆分成两个文件：main.go和hello.go</p>
+<p>复制代码代码如下:</p>
+<p>//hello.go package hello import “fmt” func Hello(who string){ fmt.Printf(“Hello,%s!\n”, who) }</p>
+<p>复制代码代码如下:</p>
+<p>//main.go package main import “hello” func main(){ hello.Hello(“GO”) }</p>
+<p>用go build编译main.go 结果如下</p>
+<p>复制代码代码如下:</p>
+<p>[root@localhost go-examples]# go build main.go main.go:4:8: import “hello”: cannot find package</p>
+<p>编译器居然提示无法找到hello这个package，而hello.go中明明定义了package hello了。这是怎么回事呢？原来go compiler搜索package的方式与我们常规理解的有不同，Go在这方面也有一套约定，这里面涉及到一个重要的环境变量：GOPATH。我们可以使用go help gopath来查看一下有关gopath的manual。 Go compiler的package搜索顺序是这样的，以搜索hello这个package为例： <em> 首先，Go compiler会在GO安装目录(GOROOT，这里是/home/go/)下查找是否有src/pkg/hello相关包源码；如果没有则继续； </em> 如果export GOPATH=PATH1:PAHT2，则Go compiler会依次查找是否存在PATH1/src/hello、PATH2/src/hello；配置在GOPATH中的PATH1和PATH2被称作workplace； * 如果在上述几个位置均无法找到hello这个package，则提示出错。 在本例子中，我们尚未设置过GOPATH环境变量，也没有建立类似PATH1/src/hello这样的路径，因此Go compiler显然无法找到hello这个package了。我们来设置一下GOPATH变量并建立相关目录：</p>
+<p>复制代码代码如下:</p>
+<p>[root@localhost go-examples]# export GOPATH=/home/go-examples/ [root@localhost go-examples]# mkdir src/hello -p [root@localhost go-examples]# mv hello.go src/hello/ [root@localhost go-examples]# go build main.go [root@localhost go-examples]# ls main main.go src [root@localhost go-examples]# ./main Hello,GO!</p>
+<p><strong>五、Go install</strong> 将main.go移到src/main中，这样这个demo project显得更加合理，所有源码均在src下：</p>
+<p>复制代码代码如下:</p>
+<p>[root@localhost go-examples]# cd src/ [root@localhost src]# ls hello main.go</p>
+<p>Go提供了install命令，与build命令相比，install命令在编译源码后还会将可执行文件或库文件安装到约定的目录下。我们以main目录为例：</p>
+<p>复制代码代码如下:</p>
+<p>[root@localhost src]# cd main/ [root@localhost main]# go install</p>
+<p>install命令执行后，我们发现main目录下没有任何变化，原先build时产生的main可执行文件也不见了踪影。别急，Go install也有一套自己的约定： <em> go install(在src/DIR下)编译出的可执行文件以其所在目录名(DIR)命名 </em> go install将可执行文件安装到与src同级别的bin目录下，bin目录由go install自动创建 * go install将可执行文件依赖的各种package编译后，放在与src同级别的pkg目录下 现在我们来看看bin目录：</p>
+<p>复制代码代码如下:</p>
+<p>[root@localhost go-examples]# ls bin pkg src [root@localhost go-examples]# ls bin/ main</p>
+<p>的确出现一个bin目录，并且刚刚编译的程序main在bin下面。 hello.go编译后并非可执行程序，在编译main的同时，由于main依赖hello package，因此hello也被关联编译了。这与单独在hello目录下执行install的结果是一样的，我们试试：</p>
+<p>复制代码代码如下:</p>
+<p>[root@localhost src]# cd hello/ [root@localhost hello]# go install [root@localhost hello]# ls /home/go-examples/ bin pkg src</p>
+<p>在我们的workspace(go-examples目录)下出现了一个pkg目录，pkg目录下是一个名为linux_386的子目录，其下面有一个文 件：hello.a。这就是我们install的结果。hello.go被编译为hello.a并安装到pkg/linux_386目录下了。 .a这个后缀名让我们想起了静态共享库，但这里的.a却是Go独有的文件格式，与传统的静态共享库并不兼容。但Go语言的设计者使用这个后缀名似乎是希望 这个.a文件也承担起Go语言中”静态共享库”的角色。我们不妨来试试，看看这个hello.a是否可以被Go compiler当作”静态共享库”来对待。我们移除src中的hello目录，然后在main目录下执行go build：</p>
+<p>复制代码代码如下:</p>
+<p>[root@localhost main]# go build main.go:4:8: import “hello”: cannot find package</p>
+<p>Go编译器提示无法找到hello这个包，可见目前版本的Go编译器似乎不理pkg下的.a文件。<a href="http://code.google.com/p/go/issues/detail?id=2775" target="_blank" rel="noopener">http://code.google.com/p/go/issues/detail?id=2775</a> 这个issue也印证了这一点，不过后续Go版本很可能会支持链接.a文件。毕竟我们在使用第三方package的时候，很可能无法得到其源码，并且在每个项目中都保存一份第三方包的源码也十分不利于项目源码的后期维护。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/12/28/创建第一个go语言程序hellogo/" data-id="cjujhygds00b5ej3jaliyv7jc" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-redis常用命令" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/23/redis常用命令/" class="article-date">
+  <time datetime="2015-12-23T02:14:08.000Z" itemprop="datePublished">2015-12-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-redis/">积累________redis</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/23/redis常用命令/">redis常用命令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="一、Key"><a href="#一、Key" class="headerlink" title="一、Key"></a>一、Key</h1><p>Key命令速查：</p>
+<p>命令</p>
+<p>说明</p>
+<p>DEL</p>
+<p>删除给定的一个或多个 key，不存在的 key 会被忽略，返回值：被删除 key 的数量</p>
+<p>DUMP</p>
+<p>序列化给定 key，返回被序列化的值，使用 RESTORE 命令可以将这个值反序列化为 Redis 键</p>
+<p>EXISTS</p>
+<p>检查给定?key?是否存在</p>
+<p>EXPIRE</p>
+<p>为给定key设置有效时间，接受时间点</p>
+<p>EXPIREAT</p>
+<p>为给定key设置有效时间，接受时间戳timestamp</p>
+<p>KEYS</p>
+<p>查找所有符合给定模式?pattern?的?key；KEYS * 匹配数据库中所有 key；KEYS h?llo 匹配 hello，hallo等。KEYS h[ae]llo匹配hello和hallo</p>
+<p>MIGRATE</p>
+<p>将?key?原子性地从当前实例传送到目标实例的指定数据库上，一旦传送成功，?key?保证会出现在目标实例上，而当前实例上的?key?会被删除。执行的时候会阻塞进行迁移的两个实例</p>
+<p>MOVE</p>
+<p>将当前数据库的 key 移动到给定的数据库 db 当中</p>
+<p>OBJECT</p>
+<p>从内部察看给定 key 的 Redis 对象</p>
+<p>PERSIST</p>
+<p>移除给定?key?的有效时间</p>
+<p>PEXPIRE</p>
+<p>以毫秒为单位设置?key?的有效时间</p>
+<p>PEXPIREAT</p>
+<p>以毫秒为单位设置 key 的有效时间(timespan)</p>
+<p>PTTL</p>
+<p>以毫秒为单位返回key的剩余有效时间</p>
+<p>RANDOMKEY</p>
+<p>从当前数据库中随机返回(已使用的)一个key</p>
+<p>RENAME</p>
+<p>将Key改名</p>
+<p>RENAMENX</p>
+<p>当且仅当 newkey 不存在时，将 key 改名为 newkey</p>
+<p>RESTORE</p>
+<p>反序列化给定的序列化值，并将它和给定的 key 关联</p>
+<p>SORT</p>
+<p>返回或保存给定列表、集合、有序集合?key?中经过排序的元素</p>
+<p>TTL</p>
+<p>以秒为单位，返回给定?key?的剩余有效时间</p>
+<p>TYPE</p>
+<p>返回 key 所储存的值的类型</p>
+<p>SCAN</p>
+<p>增量迭代</p>
+<h1 id="二、String"><a href="#二、String" class="headerlink" title="二、String"></a>二、String</h1><p>String命令速查：</p>
+<p>命令</p>
+<p>说明</p>
+<p>APPEND</p>
+<p>将值追加到指定key的值末尾，如果key不存在，则相当于增加操作。</p>
+<p>BITCOUNT</p>
+<p>计算给定字符串中，被设置为?1?的Bit位的数量。</p>
+<p>BITOP</p>
+<p>对一个或多个保存二进制位的字符串?key?进行位元操作</p>
+<p>DECR</p>
+<p>将?key?中储存的数字值减一。Key不存在，则将值置0，key类型不正确返回一个错误。</p>
+<p>DECRBY</p>
+<p>将key所储存的值减去指定数量</p>
+<p>GET</p>
+<p>返回key所关联的字符串值，如果Key储存的值不是字符串类型，返回一个错误。</p>
+<p>GETBIT</p>
+<p>对key所储存的字符串值，获取指定偏移量上的位</p>
+<p>GETRANGE</p>
+<p>返回key中字符串值的子字符串，字符串的截取范围由start和end两个偏移量决定</p>
+<p>GETSET</p>
+<p>将给定key的值设为value，并返回key的旧值。非字符串报错。</p>
+<p>INCR</p>
+<p>将?key?中储存的数字值增一。不能转换为数字则报错。</p>
+<p>INCRBY</p>
+<p>将key所储存的值加上指定增量</p>
+<p>INCRBYFLOAT</p>
+<p>为key中所储存的值加上指定的浮点数增量</p>
+<p>MGET</p>
+<p>返回所有(一个或多个)给定key的值</p>
+<p>MSET</p>
+<p>同时设置一个或多个key-value对</p>
+<p>MSETNX</p>
+<p>同时设置一个或多个key-value对，若一个key已被占用，则全部的执行取消。</p>
+<p>PSETEX</p>
+<p>以毫秒为单位设置 key 的有效时间</p>
+<p>SET</p>
+<p>将字符串值value关联到key</p>
+<p>SETBIT</p>
+<p>对key所储存的字符串值，设置或清除指定偏移量上的位(bit)</p>
+<p>SETEX</p>
+<p>将值value关联到 key，并将key的有效时间(秒)</p>
+<p>SETNX</p>
+<p>当key未被使用时，设置为指定值</p>
+<p>SETRANGE</p>
+<p>用value参数覆写(overwrite)给定key所储存的字符串值，从偏移量 offset 开始</p>
+<p>STRLEN</p>
+<p>返回key所储存的字符串值的长度</p>
+<h1 id="三、Hash"><a href="#三、Hash" class="headerlink" title="三、Hash"></a>三、Hash</h1><p>Hash命令速查：</p>
+<p>命令</p>
+<p>说明</p>
+<p>HDEL</p>
+<p>删除哈希表 key 中的一个或多个指定域，不存在的域将被忽略。</p>
+<p>HEXISTS</p>
+<p>查看哈希表 key 中，给定域 field 是否存在</p>
+<p>HGET</p>
+<p>返回哈希表 key?中给定域?field?的值</p>
+<p>HGETALL</p>
+<p>返回哈希表 key?中，所有的域和值</p>
+<p>HINCRBY</p>
+<p>为哈希表 key?中的域 field 的值加上指定增量</p>
+<p>HINCRBYFLOAT</p>
+<p>为哈希表 key 中的域 field 加上指定的浮点数增量</p>
+<p>HKEYS</p>
+<p>返回哈希表 key 中的所有域</p>
+<p>HLEN</p>
+<p>返回哈希表?key?中域的数量</p>
+<p>HMGET</p>
+<p>返回哈希表 key 中，一个或多个给定域的值</p>
+<p>HMSET</p>
+<p>同时将多个 field-value (域-值)对设置到哈希表 key 中</p>
+<p>HSET</p>
+<p>将哈希表?key?中的域?field?的值设为?value</p>
+<p>HSETNX</p>
+<p>当且仅当域 field 不存在时，将哈希表 key 中的域 field 的值设置为 value</p>
+<p>HVALS</p>
+<p>返回哈希表?key?中所有域的值</p>
+<p>HSCAN</p>
+<p>增量迭代</p>
+<h1 id="四、List"><a href="#四、List" class="headerlink" title="四、List"></a>四、List</h1><p>List命令速查：</p>
+<p>命令</p>
+<p>说明</p>
+<p>BLPOP</p>
+<p>它是 LPOP 命令的阻塞版本，当给定列表内没有任何元素可供弹出的时候，连接将被 BLPOP 命令阻塞，直到等待超时或发现可弹出元素为止</p>
+<p>BRPOP</p>
+<p>与BLPOP同义，弹出位置不同</p>
+<p>BRPOPLPUSH</p>
+<p>当列表 source 为空时， BRPOPLPUSH 命令将阻塞连接，直到等待超时</p>
+<p>LINDEX</p>
+<p>返回列表 key 中，下标为 index 的元素</p>
+<p>LINSERT</p>
+<p>将值?value?插入到列表?key?当中</p>
+<p>LLEN</p>
+<p>返回列表?key?的长度</p>
+<p>LPOP</p>
+<p>移除并返回列表?key?的头元素</p>
+<p>LPUSH</p>
+<p>将一个或多个值?value?插入到列表?key?的表头</p>
+<p>LPUSHX</p>
+<p>将值?value?插入到列表?key?的表头，当且仅当?key?存在并且是一个列表</p>
+<p>LRANGE</p>
+<p>返回列表?key?中指定区间内的元素，区间以偏移量?start?和?stop?指定</p>
+<p>LREM</p>
+<p>根据参数?count?的值，移除列表中与参数?value?相等的元素</p>
+<p>LSET</p>
+<p>将列表?key?下标为?index?的元素的值设置为?value</p>
+<p>LTRIM</p>
+<p>对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除</p>
+<p>RPOP</p>
+<p>移除并返回列表?key?的尾元素</p>
+<p>RPOPLPUSH</p>
+<p>命令 RPOPLPUSH 在一个原子时间内，执行两个动作：1、将列表 source 中的最后一个元素(尾元素)弹出，并返回给客户端。2、将 source 弹出的元素插入到列表 destination ，作为 destination 列表的的头元素。</p>
+<p>RPUSH</p>
+<p>将一个或多个值?value?插入到列表?key?的表尾</p>
+<p>RPUSHX</p>
+<p>将值?value?插入到列表?key?的表尾，当且仅当?key?存在并且是一个列表</p>
+<h1 id="五、Set"><a href="#五、Set" class="headerlink" title="五、Set"></a>五、Set</h1><p>Set命令速查</p>
+<p>命令</p>
+<p>说明</p>
+<p>SADD</p>
+<p>将一个或多个 member 元素加入到集合 key 当中，已经存在于集合的 member 元素将被忽略</p>
+<p>SCARD</p>
+<p>返回集合 key 的集合中元素的数量</p>
+<p>SDIFF</p>
+<p>返回一个集合的全部成员，该集合是所有给定集合之间的差集</p>
+<p>SDIFFSTORE</p>
+<p>这个命令的作用和 SDIFF 类似，但它将结果保存到新集合，而不是简单地返回结果集</p>
+<p>SINTER</p>
+<p>返回一个集合的全部成员，该集合是所有给定集合的交集</p>
+<p>SINTERSTORE</p>
+<p>与SINTER类似，不过可以指定保存到新集合</p>
+<p>SISMEMBER</p>
+<p>判断?member?元素是否集合?key?的成员</p>
+<p>SMEMBERS</p>
+<p>返回集合 key 中的所有成员</p>
+<p>SMOVE</p>
+<p>将 member 元素从一个集合移动到另一个集合</p>
+<p>SPOP</p>
+<p>移除并返回集合中的一个随机元素</p>
+<p>SRANDMEMBER</p>
+<p>仅仅返回随机元素，而不对集合进行任何改动，与SPOP的区别在于不移除</p>
+<p>SREM</p>
+<p>移除集合 key 中的一个或多个 member 元素，不存在的 member 元素会被忽略</p>
+<p>SUNION</p>
+<p>返回一个集合的全部成员，该集合是所有给定集合的并集</p>
+<p>SUNIONSTORE</p>
+<p>与SUNION类似，不过可以指定保存到新集合</p>
+<p>SSCAN</p>
+<p>增量迭代</p>
+<h1 id="六、SortedSet"><a href="#六、SortedSet" class="headerlink" title="六、SortedSet"></a>六、SortedSet</h1><p>SortedSet命令速查：</p>
+<p>命令</p>
+<p>说明</p>
+<p>ZADD</p>
+<p>将一个或多个 member 元素及其 score 值加入到有序集 key 当中</p>
+<p>ZCARD</p>
+<p>返回有序集?key?的基数</p>
+<p>ZCOUNT</p>
+<p>返回有序集 key 中， score 值在 min 和 max 之间(包括 score 值等于 min 或 max )的成员的数量</p>
+<p>ZINCRBY</p>
+<p>为有序集 key 的成员 member 的 score 值加上指定增量</p>
+<p>ZRANGE</p>
+<p>返回有序集 key 中，指定区间内的成员(小到大排列)</p>
+<p>ZRANGEBYSCORE</p>
+<p>返回有序集 key 中，所有 score 值介于 min 和 max 之间(包括等于 min 或 max )的成员</p>
+<p>ZRANK</p>
+<p>返回有序集 key 中成员 member 的排名。其中有序集成员按 score 值递增(从小到大)顺序排列</p>
+<p>ZREM</p>
+<p>移除有序集?key?中的一个或多个成员，不存在的成员将被忽略</p>
+<p>ZREMRANGEBYRANK</p>
+<p>移除有序集?key?中，指定排名(rank)区间内的所有成员</p>
+<p>ZREMRANGEBYSCORE</p>
+<p>移除有序集?key?中，所有?score?值介于?min?和?max?之间(包括等于?min?或?max?)的成员</p>
+<p>ZREVRANGE</p>
+<p>返回有序集?key?中，指定区间内的成员，成员位置按score大到小排列</p>
+<p>ZREVRANGEBYSCORE</p>
+<p>返回有序集 key 中， score 值介于 max 和 min 之间(默认包括等于 max 或 min )的所有的成员。成员按 score 值递减(从大到小)排列</p>
+<p>ZREVRANK</p>
+<p>返回有序集 key 中成员 member 的排名。其中有序集成员按 score 值递减(从大到小)排序</p>
+<p>ZSCORE</p>
+<p>返回有序集 key 中，成员 member 的 score 值</p>
+<p>ZUNIONSTORE</p>
+<p>计算给定的一个或多个有序集的并集，其中给定 key 的数量必须以 numkeys 参数指定，并将该并集(结果集)储存到新集合</p>
+<p>ZINTERSTORE</p>
+<p>计算给定的一个或多个有序集的交集，其中给定 key 的数量必须以 numkeys 参数指定，并将该交集(结果集)储存到新集合</p>
+<p>ZSCAN</p>
+<p>增量迭代</p>
+<h1 id="七、Pub-Sub"><a href="#七、Pub-Sub" class="headerlink" title="七、Pub/Sub"></a>七、Pub/Sub</h1><p>Pub/Sub命令速查：</p>
+<p>命令</p>
+<p>说明</p>
+<p>PSUBSCRIBE</p>
+<p>订阅一个或多个符合给定模式的频道</p>
+<p>PUBLISH</p>
+<p>将信息?message?发送到指定的频道</p>
+<p>PUBSUB</p>
+<p>PUBSUB 是一个查看订阅与发布系统状态的内省命令</p>
+<p>PUNSUBSCRIBE</p>
+<p>指示客户端退订所有给定模式</p>
+<p>SUBSCRIBE</p>
+<p>订阅给定的一个或多个频道的信息</p>
+<p>UNSUBSCRIBE</p>
+<p>指示客户端退订给定的频道</p>
+<h1 id="八、Transaction"><a href="#八、Transaction" class="headerlink" title="八、Transaction"></a>八、Transaction</h1><p>Transaction命令速查：</p>
+<p>命令</p>
+<p>说明</p>
+<p>DISCARD</p>
+<p>取消事务，放弃执行事务块内的所有命令</p>
+<p>EXEC</p>
+<p>执行所有事务块内的命令</p>
+<p>MULTI</p>
+<p>标记一个事务块的开始</p>
+<p>UNWATCH</p>
+<p>取消 WATCH 命令对所有 key 的监视</p>
+<p>WATCH</p>
+<p>监视一个(或多个) key ，如果在事务执行之前这个(或这些) key 被其他命令所改动，那么事务将被打断</p>
+<h1 id="九、Script"><a href="#九、Script" class="headerlink" title="九、Script"></a>九、Script</h1><p>script命令速查：</p>
+<p>命令</p>
+<p>说明</p>
+<p>EVAL</p>
+<p>通过内置的 Lua 解释器，可以使用 EVAL 命令对 Lua 脚本进行求值</p>
+<p>EVALSHA</p>
+<p>根据给定的 sha1 校验码，对缓存在服务器中的脚本进行求值</p>
+<p>SCRIPT EXISTS</p>
+<p>给定一个或多个脚本的 SHA1 校验和，返回一个包含?0?和?1?的列表，表示校验和所指定的脚本是否已经被保存在缓存当中</p>
+<p>SCRIPT FLUSH</p>
+<p>清除所有 Lua 脚本缓存</p>
+<p>SCRIPT KILL</p>
+<p>停止当前正在运行的 Lua 脚本，当且仅当这个脚本没有执行过任何写操作时，这个命令才生效。这个命令主要用于终止运行时间过长的脚本</p>
+<p>SCRIPT LOAD</p>
+<p>将脚本?script?添加到脚本缓存中，但并不立即执行这个脚本</p>
+<h1 id="十、Connection"><a href="#十、Connection" class="headerlink" title="十、Connection"></a>十、Connection</h1><p>connection命令速查:</p>
+<p>命令</p>
+<p>说明</p>
+<p>AUTH</p>
+<p>通过设置配置文件中?requirepass?项的值，可以使用密码来保护 Redis 服务器</p>
+<p>ECHO</p>
+<p>打印一个特定的信息?message?，测试时使用。</p>
+<p>PING</p>
+<p>使用客户端向 Redis 服务器发送一个 PING ，如果服务器运作正常的话，会返回一个 PONG，通常用于测试与服务器的连接是否仍然生效，或者用于测量延迟值</p>
+<p>QUIT</p>
+<p>请求服务器关闭与当前客户端的连接</p>
+<p>SELECT</p>
+<p>切换到指定的数据库，数据库索引号?index?用数字值指定，以?0?作为起始索引值</p>
+<h1 id="十一、Server"><a href="#十一、Server" class="headerlink" title="十一、Server"></a>十一、Server</h1><p>server命令速查：</p>
+<p>命令</p>
+<p>说明</p>
+<p>BGREWRITEAOF</p>
+<p>执行一个 AOF文件 重写操作。重写会创建一个当前 AOF 文件的体积优化版本。</p>
+<p>BGSAVE</p>
+<p>在后台异步(Asynchronously)保存当前数据库的数据到磁盘</p>
+<p>CLIENT GETNAME</p>
+<p>返回 CLIENT SETNAME 命令为连接设置的名字</p>
+<p>CLIENT KILL</p>
+<p>关闭地址为 ip:port 的客户端</p>
+<p>CLIENT LIST</p>
+<p>以人类可读的格式，返回所有连接到服务器的客户端信息和统计数据</p>
+<p>CLIENT SETNAME</p>
+<p>为当前连接分配一个名字</p>
+<p>CONFIG GET</p>
+<p>CONFIG GET 命令用于取得运行中的 Redis 服务器的配置参数</p>
+<p>CONFIG RESETSTAT</p>
+<p>重置 INFO 命令中的某些统计数据</p>
+<p>CONFIG REWRITE</p>
+<p>CONFIG REWRITE 命令对启动 Redis 服务器时所指定的 redis.conf 文件进行改写</p>
+<p>CONFIG SET</p>
+<p>CONFIG SET 命令可以动态地调整 Redis 服务器的配置而无须重启</p>
+<p>DBSIZE</p>
+<p>返回当前数据库的 key 的数量</p>
+<p>DEBUG OBJECT</p>
+<p>DEBUG OBJECT 是一个调试命令，它不应被客户端所使用</p>
+<p>DEBUG SEGFAULT</p>
+<p>执行一个不合法的内存访问从而让 Redis 崩溃，仅在开发时用于 BUG 模拟</p>
+<p>FLUSHALL</p>
+<p>清空整个 Redis 服务器的数据(删除所有数据库的所有 key )</p>
+<p>FLUSHDB</p>
+<p>清空当前数据库中的所有 key</p>
+<p>INFO</p>
+<p>返回关于 Redis 服务器的各种信息和统计数值</p>
+<p>LASTSAVE</p>
+<p>返回最近一次 Redis 成功将数据保存到磁盘上的时间，以 UNIX 时间戳格式表示</p>
+<p>MONITOR</p>
+<p>实时打印出 Redis 服务器接收到的命令，调试用</p>
+<p>PSYNC</p>
+<p>用于复制功能的内部命令</p>
+<p>SAVE</p>
+<p>SAVE 命令执行一个同步保存操作，将当前 Redis 实例的所有数据快照(snapshot)以 RDB 文件的形式保存到硬盘。 一般来说，在生产环境很少执行 SAVE 操作，因为它会阻塞所有客户端，保存数据库的任务通常由 BGSAVE 命令异步地执行。然而，如果负责保存数据的后台子进程不幸出现问题时， SAVE 可以作为保存数据的最后手段来使用。</p>
+<p>SHUTDOWN</p>
+<p>SHUTDOWN 命令执行以下操作： 停止所有客户端 如果有至少一个保存点在等待，执行 SAVE 命令 如果 AOF 选项被打开，更新 AOF 文件 关闭 redis 服务器(server)</p>
+<p>SLAVEOF</p>
+<p>SLAVEOF 命令用于在 Redis 运行时动态地修改复制(replication)功能的行为</p>
+<p>SLOWLOG</p>
+<p>Slow log 是 Redis 用来记录查询执行时间的日志系统</p>
+<p>SYNC</p>
+<p>用于复制功能的内部命令</p>
+<p>TIME</p>
+<p>返回当前服务器时间</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/12/23/redis常用命令/" data-id="cjujhygdi00atej3jfa6xrbo9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-php-调试函数debug-backtrace" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/30/php-调试函数debug-backtrace/" class="article-date">
+  <time datetime="2015-11-30T09:38:39.000Z" itemprop="datePublished">2015-11-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-php/">积累________php</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/30/php-调试函数debug-backtrace/">php 调试函数debug_backtrace</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>debug_print_backtrace(); 会在页面直接输出。可以开启缓冲期 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">ob_flush();缓冲器清除</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ob\_get\_contents();获取缓冲区内容</span><br></pre></td></tr></table></figure>
+<p>ob_end_clean();缓冲器清除<br>这个函数不会输出内部缓冲区的内容而是把它删除！<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">`function getBacktrace() &#123;</span><br><span class="line">  ob_start();</span><br><span class="line">  debug_print_backtrace();</span><br><span class="line">  return ob_get_clean();</span><br><span class="line">&#125;`</span><br></pre></td></tr></table></figure></p>
+<p><code>调用这个函数取得错误堆栈，然后使用file_put_contents(&#39;log_path&#39;, FILE_APPEND);写入日志文件。</code></p>
+<p>debug_backtrace();</p>
+<p>会返回一个数组，支持自己进行logger记录。</p>
+<p>若需进行堆栈信息自行输出。可使用下列自定义的函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">private function print\_stack\_trace()</span><br><span class="line">&#123;</span><br><span class="line">    $array = debug_backtrace();</span><br><span class="line">    unset($array\[0\]);</span><br><span class="line">    foreach($array as $key=&gt;$row)</span><br><span class="line">    &#123;</span><br><span class="line">        $file =  isset($row\[&apos;file&apos;\]) ? $row\[&apos;file&apos;\].&apos; : &apos; : &apos;&apos; ;</span><br><span class="line">        $line =  isset($row\[&apos;line&apos;\]) ? $row\[&apos;line&apos;\].&apos; 行,调用方法 &apos; : &apos;&apos;;</span><br><span class="line">        $function =  isset($row\[&apos;function&apos;\]) ?  $row\[&apos;function&apos;\] :&apos;&apos;;</span><br><span class="line">        Logger::notice($file.$line.$function);</span><br><span class="line">    &#125;</span><br><span class="line">    return true ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>debug_zval_dump();</p>
+<p>该函数与var_dump()的区别是它新增了一个值refcount,及记录变量被引用的次数。同时它还可以打印几个变量。</p>
+<p>php垃圾回收机制引用计数器概念：</p>
+<p><a href="http://www.phpddt.com/php/gc-refcounting-basics.html" target="_blank" rel="noopener">http://www.phpddt.com/php/gc-refcounting-basics.html</a></p>
+<p>xdebug_debug_zval();<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">refcount=2,is_ref=0</span><br></pre></td></tr></table></figure></p>
+<p>debug_zval_dump();<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">refcount(3)</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/11/30/php-调试函数debug-backtrace/" data-id="cjujhyg970057ej3jv4jufxg4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-git上传时忽略不想上传的文件" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/23/git上传时忽略不想上传的文件/" class="article-date">
+  <time datetime="2015-11-23T09:36:10.000Z" itemprop="datePublished">2015-11-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-git/">积累________git</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/23/git上传时忽略不想上传的文件/">git上传时忽略不想上传的文件</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在进行协作开发代码管理的过程中，常常会遇到某些临时文件、配置文件、或者生成文件等，这些文件由于不同的开发端会不一样，如果使用git add . 将所有文件纳入git库中，那么会出现频繁的改动和push，这样会引起开发上的不便。 Git可以很方便的帮助我们解决这个问题，那就是建立项目文件过滤规则。 git中提供两种过滤机制，一种是全局过滤机制，即对所有的git都适用；另一种是针对某个项目使用的过滤规则。个人倾向于第二种。 以我的一个项目为例，该项目用.net开发，.config文件、包括生成的bin/Debug, bin/Release文件等，我希望不加入git管理。 在代码目录下建立.gitignore文件：vim .gitignore ,内容如下：</p>
+<p><strong>[plain]</strong> view plaincopy</p>
+<ol>
+<li>#过滤数据库文件、sln解决方案文件、配置文件</li>
+<li>*.mdb</li>
+<li>*.ldb</li>
+<li>*.sln</li>
+<li><p>*.config</p>
+</li>
+<li><p>#过滤文件夹Debug,Release,obj</p>
+</li>
+<li>Debug/</li>
+<li>Release/</li>
+<li>obj/</li>
+</ol>
+<p>然后调用git add. ，执行 git commit即可。 问题：.gitignore只适用于尚未添加到git库的文件。如果已经添加了，则需用git rm移除后再重新commit。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/11/23/git上传时忽略不想上传的文件/" data-id="cjujhyg6e0022ej3jor9wlngv" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-centos7安装虚拟机后配置网络" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/13/centos7安装虚拟机后配置网络/" class="article-date">
+  <time datetime="2015-11-13T02:46:45.000Z" itemprop="datePublished">2015-11-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-linux/">积累________linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/13/centos7安装虚拟机后配置网络/">虚拟机安装centos7后配置网络</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1：添加网卡2 ? 桥接网卡</p>
+<p><img src="file:///C:/Users/rooter.yao/AppData/Local/YNote/data/ucfyao@163.com/92ea43f6d83747eab398b8770d1d15a5/clipboard.png" alt><a href="http://www.yaozihao.cn/wp-content/uploads/2015/11/clipboard.png" target="_blank" rel="noopener"><img src="http://www.yaozihao.cn/wp-content/uploads/2015/11/clipboard-300x198.png" alt="clipboard"></a></p>
+<p>2：复制网络配置文件</p>
+<p>?<img src="file:///C:/Users/rooter.yao/AppData/Local/YNote/data/ucfyao@163.com/2c9e63d0fd394f3897a03556c92d839c/clipboard.png" alt><a href="http://www.yaozihao.cn/wp-content/uploads/2015/11/clipboard1.png" target="_blank" rel="noopener"><img src="http://www.yaozihao.cn/wp-content/uploads/2015/11/clipboard1-300x14.png" alt="clipboard1"></a></p>
+<p>3：使用ip addr ?看一下本机分配的ip====</p>
+<p>? ?<img src="file:///C:/Users/rooter.yao/AppData/Local/YNote/data/ucfyao@163.com/9c6587384d854c0f89a8880672fad1bf/clipboard.png" alt><a href="http://www.yaozihao.cn/wp-content/uploads/2015/11/clipboard2.png" target="_blank" rel="noopener"><img src="http://www.yaozihao.cn/wp-content/uploads/2015/11/clipboard2-300x141.png" alt="clipboard2"></a></p>
+<p>4：根据本机信息修改配置文件</p>
+<p><a href="http://www.yaozihao.cn/wp-content/uploads/2015/11/clipboard3.png" target="_blank" rel="noopener"><img src="http://www.yaozihao.cn/wp-content/uploads/2015/11/clipboard3-300x15.png" alt="clipboard3"></a></p>
+<p><img src="file:///C:/Users/rooter.yao/AppData/Local/YNote/data/ucfyao@163.com/f58ee61e7d7a4271aaa9f7f598c212af/clipboard.png" alt></p>
+<p><img src="file:///C:/Users/rooter.yao/AppData/Local/YNote/data/ucfyao@163.com/b665fab26a3744fa800bf3914b954bc7/clipboard.png" alt><a href="http://www.yaozihao.cn/wp-content/uploads/2015/11/clipboard4.png" target="_blank" rel="noopener"><img src="http://www.yaozihao.cn/wp-content/uploads/2015/11/clipboard4-300x215.png" alt="clipboard4"></a></p>
+<p>5： 习惯使用ifconfig的话 使用 ?yum -y install ?<strong>net-tools 安装一个网络包</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/11/13/centos7安装虚拟机后配置网络/" data-id="cjujhyg5w001aej3jgj0tzolc" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-git安装" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/28/git安装/" class="article-date">
+  <time datetime="2015-10-28T01:30:06.000Z" itemprop="datePublished">2015-10-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-git/">积累________git</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/28/git安装/">git安装</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-安装Git"><a href="#1-安装Git" class="headerlink" title="1. 安装Git"></a>1. 安装Git</h1><h2 id="1-1-Ubuntu12-04下"><a href="#1-1-Ubuntu12-04下" class="headerlink" title="1.1?Ubuntu12.04下"></a>1.1?Ubuntu12.04下</h2><p>可以使用apt-get方式安装，也可以下载源代码安装【1】，我们这里使用apt-git安装。 但由于直接使用?<code>sudo apt-get install git?</code>安装的版本较老，因此我们参考【2】中给出的PPA源。 <figure class="highlight plain"><figcaption><span>add-apt-repository ppa:git-core/ppa sudo apt-get update sudo apt-get install git``` 安装完成后，检查是否安装成功 ``` git --version``` 显示 git version 2.1.1，表明安装成功。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">1.2 CentOS6.6下</span><br><span class="line">--------------</span><br><span class="line"></span><br><span class="line">在CentOS5的时代，由于yum源中没有git，所以需要预先安装一系列的依赖包。但在CentOS6的yum源中已经有git的版本了，可以直接使用yum源进行安装。</span><br><span class="line"></span><br><span class="line">``` $ sudo yum install git</span><br></pre></td></tr></table></figure></p>
+<p>但是yum源中安装的git版本是1.7.1，太老了，Github等需要的Git版本最低都不能低于1.7.2 。所以我们一般不用上面的方法。而是下载git源码，编译安装。 编译安装的步骤是【4】： （1）首先先更新系统</p>
+<figure class="highlight plain"><figcaption><span>yum update```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">（2）安装依赖的包</span><br><span class="line"></span><br><span class="line">``` sudo yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel gccperl-ExtUtils-MakeMaker</span><br></pre></td></tr></table></figure>
+<p>（3）下载git源码并解压缩 <figure class="highlight plain"><figcaption><span>https://github.com/git/git/archive/v2.5.1.zip``` ``` unzip v2.5.1.zip``` ``` cd git-2.5.1``` （4）编译安装 将其安装在“/usr/local/git”目录下。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">``` make prefix=/usr/local/git all sudo make prefix=/usr/local/git install</span><br></pre></td></tr></table></figure></p>
+<p>（5）此时你如果使用git –version 查看git版本的话，发现git仍然是1.7.1版本。这是因为它默认使用了”/usr/bin”下的git。 你可以用下面的命令查看git所在的路径：</p>
+<figure class="highlight plain"><figcaption><span>whereis git git:</span><a href="/usr/bin/git">/usr/local/git /usr/share/man/man1/git.1.gz```</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">（6）我们要把编译安装的git路径放到环境变量里，让它替换&quot;/usr/bin&quot;下的git。为此我们可以修改“/etc/profile”文件（或者/etc/bashrc文件）。</span><br><span class="line"></span><br><span class="line">``` sudo vim /etc/profile</span><br></pre></td></tr></table></figure>
+<p>然后在文件的最后一行，添加下面的内容，然后保存退出。</p>
+<figure class="highlight plain"><figcaption><span>PATH</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">（7）使用source命令应用修改。</span><br><span class="line"></span><br><span class="line">``` source /etc/profile</span><br></pre></td></tr></table></figure>
+<p>（8）然后再次使用git –version 查看git版本，发现输出2.5.1，表明安装成功。</p>
+<h1 id="2-设置Git"><a href="#2-设置Git" class="headerlink" title="2. 设置Git"></a>2. 设置Git</h1><p>（1）设置用户名和email。 <figure class="highlight plain"><figcaption><span>config --global user.name "Your Name" git config --global user.email "youremail@domain.com"``` 此时，Home目录下会新建一个.gitconfig文件</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">3\. 为GitHub账号添加SSH Keys</span><br><span class="line">=======================</span><br><span class="line"></span><br><span class="line">以公钥认证方式访问SSH协议的Git服务器时无需输入口令，而且更安全。（访问HTTP协议的Git服务器时，比如提交修改，每次都需要输入口令。） （1）创建SSH key ``` $ ssh-keygen -t rsa -C &quot;youremail@163.com&quot;``` 系统会提示key的保存位置（一般是~/.ssh目录）和指定口令，保持默认，连续三次回车即可。 （2）Copy SSH Key 然后用vim打开该文件，id\_rsa.pub文件内的内容，粘帖到github帐号管理的添加SSH key界面中。 ``` vim ~/.ssh/id\_rsa.pub``` （3）添加到GitHub 登录github-&gt; Accounting settings图标-&gt; SSH key-&gt; Add SSH key-&gt; 填写SSH key的名称（可以起一个自己容易区分的），然后将拷贝的~/.ssh/id_rsa.pub文件内容粘帖-&gt; add key”按钮添加。 （4）测试 ``` ssh -T [git@github.com](mailto:git@github.com)</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/10/28/git安装/" data-id="cjujhyg6g0024ej3jsd3shec9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/17/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/19/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

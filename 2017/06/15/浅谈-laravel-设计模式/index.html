@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>浅谈 Laravel 设计模式 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一.什么是 DI依赖注入/IOC控制反转.DI 依赖注入 啥都不说，直接上代码 UserController &amp;#123; private $user; function __construct(UserModel $user) &amp;#123; $this-&amp;gt;user 12345678910111213141516171819### IOC控制反转先说说IOC和DI的区别吧*   IOC是一种设计思">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈 Laravel 设计模式">
+<meta property="og:url" content="http://yoursite.com/2017/06/15/浅谈-laravel-设计模式/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一.什么是 DI依赖注入/IOC控制反转.DI 依赖注入 啥都不说，直接上代码 UserController &amp;#123; private $user; function __construct(UserModel $user) &amp;#123; $this-&amp;gt;user 12345678910111213141516171819### IOC控制反转先说说IOC和DI的区别吧*   IOC是一种设计思">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-16T07:59:57.457Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅谈 Laravel 设计模式">
+<meta name="twitter:description" content="一.什么是 DI依赖注入/IOC控制反转.DI 依赖注入 啥都不说，直接上代码 UserController &amp;#123; private $user; function __construct(UserModel $user) &amp;#123; $this-&amp;gt;user 12345678910111213141516171819### IOC控制反转先说说IOC和DI的区别吧*   IOC是一种设计思">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-浅谈-laravel-设计模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/15/浅谈-laravel-设计模式/" class="article-date">
+  <time datetime="2017-06-15T02:25:00.000Z" itemprop="datePublished">2017-06-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/laravel5/">laravel5</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      浅谈 Laravel 设计模式
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一-什么是-DI依赖注入-IOC控制反转"><a href="#一-什么是-DI依赖注入-IOC控制反转" class="headerlink" title="一.什么是 DI依赖注入/IOC控制反转."></a>一.什么是 DI依赖注入/IOC控制反转.</h2><p>DI 依赖注入 啥都不说，直接上代码 <figure class="highlight plain"><figcaption><span>UserController &#123; private $user; function __construct(UserModel $user) &#123; $this->user </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### IOC控制反转</span><br><span class="line"></span><br><span class="line">先说说IOC和DI的区别吧</span><br><span class="line"></span><br><span class="line">*   IOC是一种设计思想</span><br><span class="line">*   DI是一种设计模式</span><br><span class="line"></span><br><span class="line">所以两者有本质上的区别。DI是IOC的一种实现方法（还有ServiceLocator等其他设计模式）。 所谓的反转，主要指由 **主动依赖** 到 **被动依赖** 。 ``` //主动依赖 function __construct() &#123; $this-&gt;user = new UserModel(); &#125; //被动依赖 function __construct(UserModel $user) &#123; $this-&gt;user = $user; &#125;``` 参考 [浅谈IOC--说清楚IOC是什么](http://www.cnblogs.com/DebugLZQ/archive/2013/06/05/3107957.html)</span><br><span class="line"></span><br><span class="line">二.什么是IOC容器.</span><br><span class="line">-----------</span><br><span class="line"></span><br><span class="line">[IOC容器](https://doc.laravel-china.org/docs/5.1/container) 是Laravel的核心设计模式，对于laravel的应用和理解是非常有必要深入学习的！ IOC思想实现了**高度解耦**，那么，问题来了，如何管理这些分散的模块呢？这就是容器的任务了！ 可以想象成，在IOC容器中，装着（注册）很多模块。当用户需要一个模块的时候，可以从中拿出来。当提取的模块依赖另一个模块的时候，容器会自动注入，再返回给用户（反射机制实现）。 是不是碉堡了？大批互相依赖的模块被完美解耦并统一管理了！</span><br><span class="line"></span><br><span class="line">三.什么是服务提供者（ServiceProvider）</span><br><span class="line">---------------------------</span><br><span class="line"></span><br><span class="line">假设模块一多，那么容器不是越来越大？每次加载，岂不是加载好久？ 能不能弄一条管子，连接着模块，插在容器上，需要再通过管道获取呢？这样子，容器只是装着管头而已，就不怕被撑大了！ 这条管子就是 [服务提供者](https://doc.laravel-china.org/docs/5.1/providers)。 ![](http://www.yaozihao.cn/wp-content/uploads/2017/06/Z0IHfIS7aF.png) 服务提供者本身也是一个类，不过这个类只有启动和注册两个函数。 ``` /\*\* \* Bootstrap the application services. * * @return void */ public function boot() &#123; // &#125; /\*\* \* Register the application services. * * @return void */ public function register() &#123; //绑定到容器 $this-&gt;app-&gt;singleton( &apos;Riak\\Contracts\\Connection&apos;, function ($app) &#123; return new Connection($app\[&apos;config&apos;\]\[&apos;riak&apos;\]); &#125; ); &#125;``` 服务提供者在config/app.php中配置，laravel自动注册到容器中。 ``` &apos;providers&apos; =&gt; \[ /\* \* Laravel Framework Service Providers... */ Illuminate\Auth\AuthServiceProvider::class, Illuminate\Broadcasting\BroadcastServiceProvider::class, ... /\* \* Application Service Providers... */ app\Providers\AppServiceProvider::class, app\Providers\AuthServiceProvider::class, ... \]</span><br></pre></td></tr></table></figure></p>
+<h2 id="四-什么是门面（Facade）"><a href="#四-什么是门面（Facade）" class="headerlink" title="四.什么是门面（Facade）."></a>四.什么是门面（Facade）.</h2><p>程序猿总是偷懒的，每次要模块，都要去容器里面拿，多麻烦啊！找个人代拿行不？这送货小哥就叫Facade门面。文档中叫静态代理。 送货小哥都是在config/app.php 中注册的。 <code>&#39;aliases&#39; =&gt; \[ &#39;App&#39; =&gt; Illuminate\Support\Facades\App::class, &#39;Config&#39; =&gt; Illuminate\Support\Facades\Config::class, &#39;Cookie&#39; =&gt; Illuminate\Support\Facades\Cookie::class, &#39;Crypt&#39; =&gt; Illuminate\Support\Facades\Crypt::class, &#39;DB&#39; =&gt; Illuminate\Support\Facades\DB::class, &#39;Route&#39; =&gt; Illuminate\Support\Facades\Route::class, ... \],</code> 查看Illuminate\Support\Facades\Route代码，可以发现只有getAccessFacade（）方法，这就是交代送啥货的函数，继承了Facade这个小哥基类。 <code>class Route extends Facade { /\*\* \* Get the registered name of the component. * * @return string */ protected static function getFacadeAccessor() { return &#39;router&#39;; } }</code> 注册了Facade门面后，就可以在任意地方使用了！ 文档有详细的使用方式 <a href="https://doc.laravel-china.org/docs/5.1/facades" target="_blank" rel="noopener">Laravel 架构 — Facades</a>。</p>
+<h2 id="五-Application和Kernel"><a href="#五-Application和Kernel" class="headerlink" title="五.Application和Kernel"></a>五.Application和Kernel</h2><p>不难发现，在引导程序开始初始化的时候，也就是在boostrap\app.php文件，里面一来就new了一个 Illuminate\Foundation\Application。下面分别注册了 Http\Kernel、Console\Kernel、Exceptions\Handler等。 这里可以这么理解，new一个Application，可以看作是创造了一个空间，这个空间初始化的时候，就会为自己注入一个容器，也就是在空间中放了一个容器。 在 <strong>Illuminate\Foundation\Application.php</strong> 中的 <strong>registerBaseBindings()</strong> 函数可以查看到容器注入源码。 至于kernel，可以看成是这个空间的工人，有各种各样的工人，每个工人都有自己的工作。好比HttpKernel，负责处理http请求以及控制整个请求流程。</p>
+<h2 id="六-总结"><a href="#六-总结" class="headerlink" title="六.总结"></a>六.总结</h2><p>讲到这里就差不多分享完了，以上是只是个人理解，欢迎提出里面理解不妥当的地方！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/06/15/浅谈-laravel-设计模式/" data-id="cjujhygbs008sej3jro1a92tl" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/15/一篇让你真正理解-laravel-ioc-模式的文章/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          一篇让你真正理解 Laravel IoC 模式的文章
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/13/laravel-自动加载/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Laravel 自动加载</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

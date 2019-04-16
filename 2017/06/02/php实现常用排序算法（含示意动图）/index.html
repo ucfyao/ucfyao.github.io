@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>PHP实现常用排序算法（含示意动图） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="目录  1 快速排序 2 冒泡排序 3 插入排序 4 选择排序 5 归并排序 6 堆排序  7 希尔排序 8 基数排序 总结  作为phper，一般接触算法的编程不多。 但基本的排序算法还是应该掌握。 毕竟算法作为程序的核心，算法的好坏决定了程序的质量。 本文将依次介绍一些常用的排序算法，以及PHP实现。 1 快速排序快速排序是由东尼·霍尔发展的一种排序算法。 在平均状况下，排序n个项目要Ο(n">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP实现常用排序算法（含示意动图）">
+<meta property="og:url" content="http://yoursite.com/2017/06/02/php实现常用排序算法（含示意动图）/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="目录  1 快速排序 2 冒泡排序 3 插入排序 4 选择排序 5 归并排序 6 堆排序  7 希尔排序 8 基数排序 总结  作为phper，一般接触算法的编程不多。 但基本的排序算法还是应该掌握。 毕竟算法作为程序的核心，算法的好坏决定了程序的质量。 本文将依次介绍一些常用的排序算法，以及PHP实现。 1 快速排序快速排序是由东尼·霍尔发展的一种排序算法。 在平均状况下，排序n个项目要Ο(n">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://www.yaozihao.cn/wp-content/uploads/2017/06/Sorting_quicksort_anim.gif">
+<meta property="og:image" content="http://www.yaozihao.cn/wp-content/uploads/2017/06/insert-sort.gif">
+<meta property="og:image" content="http://www.yaozihao.cn/wp-content/uploads/2017/06/Merge_sort_animation2.gif">
+<meta property="og:image" content="http://www.yaozihao.cn/wp-content/uploads/2017/06/Sorting_shellsort_anim.gif">
+<meta property="og:image" content="http://www.yaozihao.cn/wp-content/uploads/2017/06/sort_table.jpg">
+<meta property="og:updated_time" content="2019-04-16T07:59:56.545Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP实现常用排序算法（含示意动图）">
+<meta name="twitter:description" content="目录  1 快速排序 2 冒泡排序 3 插入排序 4 选择排序 5 归并排序 6 堆排序  7 希尔排序 8 基数排序 总结  作为phper，一般接触算法的编程不多。 但基本的排序算法还是应该掌握。 毕竟算法作为程序的核心，算法的好坏决定了程序的质量。 本文将依次介绍一些常用的排序算法，以及PHP实现。 1 快速排序快速排序是由东尼·霍尔发展的一种排序算法。 在平均状况下，排序n个项目要Ο(n">
+<meta name="twitter:image" content="http://www.yaozihao.cn/wp-content/uploads/2017/06/Sorting_quicksort_anim.gif">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-php实现常用排序算法（含示意动图）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/02/php实现常用排序算法（含示意动图）/" class="article-date">
+  <time datetime="2017-06-02T03:20:59.000Z" itemprop="datePublished">2017-06-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-php/">积累________php</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      PHP实现常用排序算法（含示意动图）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>目录</p>
+<ul>
+<li><a href="#1">1 快速排序</a></li>
+<li><a href="#2">2 冒泡排序</a></li>
+<li><a href="#3">3 插入排序</a></li>
+<li><a href="#4">4 选择排序</a></li>
+<li><a href="#5">5 归并排序</a></li>
+<li><a href="#6">6 堆排序</a></li>
+<li><a href="#7"> 7 希尔排序</a></li>
+<li><a href="#8">8 基数排序</a></li>
+<li><a href="#i">总结</a></li>
+</ul>
+<p>作为phper，一般接触算法的编程不多。 但基本的排序算法还是应该掌握。 毕竟算法作为程序的核心，算法的好坏决定了程序的质量。 本文将依次介绍一些常用的排序算法，以及PHP实现。</p>
+<h2 id="1-快速排序"><a href="#1-快速排序" class="headerlink" title="1 快速排序"></a>1 快速排序</h2><p><strong>快速排序</strong>是由<strong><em>东尼·霍尔</em></strong>发展的一种排序算法。 在平均状况下，排序<code>n</code>个项目要<code>Ο(n log n)</code>次比较。 在最坏状况下则需要<code>Ο(n2)</code>次比较，但这种状况并不常见。 事实上，快速排序通常明显比其他<code>Ο(n log n)</code>算法更快，因为它的内部循环可以在大部分的架构上，很有效率地被实现出来。 <img src="http://www.yaozihao.cn/wp-content/uploads/2017/06/Sorting_quicksort_anim.gif" alt> 快速排序采用分治法实现排序，具体步骤：</p>
+<ol>
+<li>从数列中挑出一个数作为<strong>基准元素</strong>。通常选择第一个或最后一个元素。</li>
+<li>扫描数列，<strong>以基准元素为比较对象，把数列分成两个区</strong>。规则是：小的移动到基准元素前面，大的移到后面，相等的前后都可以。分区完成之后，基准元素就处于数列的中间位置。</li>
+<li>然后再用同样的方法，<strong>递归地排序划分的两部分</strong>。</li>
+</ol>
+<p>递归的结束条件是数列的大小是<code>0</code>或<code>1</code>，也就是永远都已经被排序好了。 PHP代码实现： <figure class="highlight plain"><figcaption><span>quickSort($arr) &#123;</span><a href="//">先设定结束条件，判断是否需要继续进行 if(count($arr) <</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">2 冒泡排序</span><br><span class="line">------</span><br><span class="line"></span><br><span class="line">冒泡排序是一种简单的排序算法。 算法重复地走访过要排序的数列，一次**比较两个元素**，如果他们的顺序错误就把他们交换过来。 走访数列的工作重复地进行，直到没有再需要交换，也就是说该数列已经排序完成。 因为排序过程让**较大的数往下沉，较小的往上冒**，故而叫冒泡法。 ![](http://www.yaozihao.cn/wp-content/uploads/2017/06/Bubble_sort_animation.gif) 算法步骤：</span><br><span class="line"></span><br><span class="line">1.  从第一个元素开始，比较相邻的元素，如果第一个比第二个大，就交换他们两个。</span><br><span class="line">2.  从开始第一对到结尾的最后一对，对每一对相邻元素作同样的工作。比较结束后，最后的元素应该会是最大的数。</span><br><span class="line">3.  对所有的元素重复以上的步骤，除了最后一个。</span><br><span class="line">4.  重复上面的步骤，每次比较的对数会越来越少，直到没有任何一对数字需要比较。</span><br><span class="line"></span><br><span class="line">PHP代码实现： ``` function bubbleSort($arr) &#123; $len = count($arr); for($i = 1; $i &lt; $len; $i++) &#123; for($k = 0; $k &lt; $len - $i; $k++) &#123; if($arr\[$k\] &gt; $arr\[$k + 1\]) &#123; $tmp = $arr\[$k + 1\]; $arr\[$k + 1\] = $arr\[$k\]; $arr\[$k\] = $tmp; &#125; &#125; &#125; return $arr; &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="3-插入排序"><a href="#3-插入排序" class="headerlink" title="3 插入排序"></a>3 插入排序</h2><p>插入排序是一种简单直观的排序算法。 插入排序的工作原理是：<strong>将需要排序的数，与前面已经排好序的数据从后往前进行比较，使其插入到相应的位置。</strong> 插入排序在实现上，通常采用in-place排序，即只需用到<code>O(1)</code>的额外空间的排序。 因而，在从后向前扫描过程中，需要反复把已排序元素逐步向后挪位，为最新元素提供插入空间。 <img src="http://www.yaozihao.cn/wp-content/uploads/2017/06/insert-sort.gif" alt> 算法步骤：</p>
+<ol>
+<li>从第一个元素开始，该元素可以认为已经被排序；</li>
+<li>取出下一个元素，在已经排序的元素序列中从后向前扫描；</li>
+<li>如果以排序的元素大于新元素，将该元素移到下一位置；</li>
+<li>重复步骤3，直到找到已排序的元素小于或者等于新元素的位置；</li>
+<li>将新元素插入到该位置中；</li>
+<li>重复步骤2。</li>
+</ol>
+<p>PHP代码实现： <figure class="highlight plain"><figcaption><span>insertSort($arr) &#123; $len </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">4 选择排序</span><br><span class="line">------</span><br><span class="line"></span><br><span class="line">选择排序是一种简单直观的排序算法。 ![](http://www.yaozihao.cn/wp-content/uploads/2017/06/Selection_sort_animation.gif) 算法步骤：</span><br><span class="line"></span><br><span class="line">1.  首先，在序列中找到最小元素，存放到排序序列的起始位置；</span><br><span class="line">2.  接着，从剩余未排序元素中继续寻找最小元素，放到已排序序列的末尾。</span><br><span class="line">3.  重复第二步，直到所有元素均排序完毕。</span><br><span class="line"></span><br><span class="line">PHP代码实现： ``` function selectSort($arr) &#123; $len = count($arr); for ($i = 0; $i &lt; $len; $i++) &#123; $p = $i; for ($j = $i + 1; $j &lt; $len; $j++) &#123; if ($arr\[$p\] &gt; $arr\[$j\]) &#123; $p = $j; &#125; &#125; $tmp = $arr\[$p\]; $arr\[$p\] = $arr\[$i\]; $arr\[$i\] = $tmp; &#125; return $arr; &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="5-归并排序"><a href="#5-归并排序" class="headerlink" title="5 归并排序"></a>5 归并排序</h2><p><strong>归并排序</strong>是建立在归并操作上的一种有效的排序算法。 归并排序将待排序的序列分成若干组，保证每组都有序，然后再进行合并排序，最终使整个序列有序。 该算法是采用分治法的一个非常典型的应用。 算法步骤：</p>
+<ol>
+<li>申请空间，使其大小为两个已经排序序列之和，该空间用来存放合并后的序列；</li>
+<li>设定两个指针，最初位置分别为两个已经排序序列的起始位置</li>
+<li>比较两个指针所指向的元素，选择相对小的元素放入到合并空间，并移动指针到下一位置</li>
+<li>重复步骤3直到某一指针达到序列尾</li>
+<li>将另一序列剩下的所有元素直接复制到合并序列尾</li>
+</ol>
+<p>排序效果： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/06/Merge_sort_animation2.gif" alt> PHP实现代码： <figure class="highlight plain"><figcaption><span>\* 归并排序 \* \* @param array $lists * @return array */ function merge_sort(array $lists) &#123; $n </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">6 堆排序</span><br><span class="line">-----</span><br><span class="line"></span><br><span class="line">堆排序是指利用堆这种数据结构所设计的一种排序算法。 堆积是一个近似完全二叉树的结构，并同时满足堆积的性质：即子结点的键值或索引总是小于（或者大于）它的父节点。 堆排序的平均时间复杂度为`Ο(nlogn)` 。 算法步骤：</span><br><span class="line"></span><br><span class="line">1.  创建一个堆`H[0..n-1]`；</span><br><span class="line">2.  把堆首（最大值）和堆尾互换；</span><br><span class="line">3.  把堆的尺寸缩小`1`，并调用`shift_down(0)`，目的是把新的数组顶端数据调整到相应位置；</span><br><span class="line">4.   重复步骤`2`，直到堆的尺寸为`1`。</span><br><span class="line"></span><br><span class="line">![](http://www.yaozihao.cn/wp-content/uploads/2017/06/Sorting_heapsort_anim.gif) PHP实现代码： ``` /** * 堆排序 * * @param array $lists \* @return array */ function heap_sort(array $lists) &#123; $n = count($lists); build_heap($lists); while (--$n) &#123; $val = $lists\[0\]; $lists\[0\] = $lists\[$n\]; $lists\[$n\] = $val; heap_adjust($lists, 0, $n); //echo &quot;sort: &quot; . $n . &quot;\\t&quot; . implode(&apos;, &apos;, $lists) . PHP_EOL; &#125; return $lists; &#125; function build_heap(array &amp;$lists) &#123; $n = count($lists) \- 1; for ($i = floor(($n \- 1) / 2); $i &gt;= 0; $i--) &#123; heap_adjust($lists, $i, $n \+ 1); //echo &quot;build: &quot; . $i . &quot;\\t&quot; . implode(&apos;, &apos;, $lists) . PHP_EOL; &#125; //echo &quot;build ok: &quot; . implode(&apos;, &apos;, $lists) . PHP_EOL; &#125; function heap_adjust(array &amp;$lists, $i, $num) &#123; if ($i \&gt; $num / 2) &#123; return; &#125; $key = $i; $leftChild = $i \* 2 + 1; $rightChild = $i \* 2 + 2; if ($leftChild &lt; $num &amp;&amp; $lists\[$leftChild\] \&gt; $lists\[$key\]) &#123; $key = $leftChild; &#125; if ($rightChild &lt; $num &amp;&amp; $lists\[$rightChild\] \&gt; $lists\[$key\]) &#123; $key = $rightChild; &#125; if ($key != $i) &#123; $val = $lists\[$i\]; $lists\[$i\] = $lists\[$key\]; $lists\[$key\] = $val; heap_adjust($lists, $key, $num); &#125; &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="7-希尔排序"><a href="#7-希尔排序" class="headerlink" title=" 7 希尔排序"></a> 7 希尔排序</h2><p>希尔排序，也称<strong>递减增量</strong>排序算法，是插入排序的一种更高效的改进版本。 但希尔排序是非稳定排序算法。 希尔排序是基于插入排序的以下两点性质而提出改进方法的：</p>
+<ul>
+<li>插入排序在对几乎已经排好序的数据操作时， 效率高， 即可以达到线性排序的效率</li>
+<li>但插入排序一般来说是低效的， 因为插入排序每次只能将数据移动一位</li>
+</ul>
+<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/06/Sorting_shellsort_anim.gif" alt> 算法步骤：</p>
+<ol>
+<li>先将整个待排序的记录序列分割成为若干子序列，分别进行直接插入排序</li>
+<li>待整个序列中的记录“基本有序”时，再对全体记录进行依次直接插入排序。</li>
+</ol>
+<p>PHP实现代码： <figure class="highlight plain"><figcaption><span>\* 希尔排序 标准 \* \* @param array $lists * @return array */ function shell_sort(array $lists) &#123; $n </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">8 基数排序</span><br><span class="line">------</span><br><span class="line"></span><br><span class="line">基数排序是一种非比较型整数排序算法，其原理是将整数按位数切割成不同的数字，然后按每个位数分别比较。 由于整数也可以表达字符串（比如名字或日期）和特定格式的浮点数，所以基数排序也不是只能使用于整数。 ![](http://www.yaozihao.cn/wp-content/uploads/2017/06/基数排序.gif) 说基数排序之前，我们简单介绍桶排序： 桶排序是将阵列分到有限数量的桶子里。 每个桶子再个别排序，有可能再使用别的排序算法，或是以递回方式继续使用桶排序进行排序。 桶排序是鸽巢排序的一种归纳结果。 当要被排序的阵列内的数值是均匀分配的时候，桶排序使用线性时间`O(n)`。 但桶排序并不是 比较排序，他不受到 `O(n log n)` 下限的影响。 简单来说，就是把数据分组，放在一个个的桶中，然后对每个桶里面的在进行排序。 例如，要对大小为`[1..1000]`范围内的`n`个整数`A[1..n]`排序 首先，可以把桶设为大小为10的范围，具体而言，设集合B\[1\]存储\[1..10\]的整数，集合B\[2\]存储   (10..20\]的整数，……集合B\[i\]存储(   (i-1)\*10,   i\*10\]的整数，i   =   1,2,..100。总共有  100个桶。 然后，对A\[1..n\]从头到尾扫描一遍，把每个A\[i\]放入对应的桶B\[j\]中。  再对这100个桶中每个桶里的数字排序，这时可用冒泡，选择，乃至快排，一般来说任  何排序法都可以。 最后，依次输出每个桶里面的数字，且每个桶中的数字从小到大输出，这  样就得到所有数字排好序的一个序列了。 假设有n个数字，有m个桶，如果数字是平均分布的，则每个桶里面平均有n/m个数字。 如果对每个桶中的数字采用快速排序，那么整个算法的复杂度是 O(n   +   m   *   n/m*log(n/m))   =   O(n   +   nlogn   –   nlogm) 从上式看出，当m接近n的时候，桶排序复杂度接近O(n) 当然，以上复杂度的计算是基于输入的n个数字是平均分布这个假设的。这个假设是很强的  ，实际应用中效果并没有这么好。如果所有的数字都落在同一个桶中，那就退化成一般的排序了。 前面说的几大排序算法 ，大部分时间复杂度都是O（n2），也有部分排序算法时间复杂度是O(nlogn)。而桶式排序却能实现O（n）的时间复杂度。但桶排序的缺点是： 1）首先是空间复杂度比较高，需要的额外开销大。排序有两个数组的空间开销，一个存放待排序数组，一个就是所谓的桶，比如待排序值是从0到m-1，那就需要m个桶，这个桶数组就要至少m个空间。 2）其次待排序的元素都要在一定的范围内等等。 ``` /\*\* \* 基数排序 \* \* @param array $lists * @return array */ function radix_sort(array $lists) &#123; $radix = 10; $max = max($lists); $k = ceil(log($max, $radix)); if ($max == pow($radix, $k)) &#123; $k++; &#125; for ($i = 1; $i &lt;= $k; $i++) &#123; $newLists = array_fill(0, $radix, \[\]); for ($j = 0; $j &lt; count($lists); $j++) &#123; $key = $lists\[$j\] / pow($radix, $i - 1) % $radix; $newLists\[$key\]\[\] = $lists\[$j\]; &#125; $lists = \[\]; for ($j = 0; $j &lt; $radix; $j++) &#123; $lists = array_merge($lists, $newLists\[$j\]); &#125; &#125; return $lists; &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>各种排序的稳定性，时间复杂度、空间复杂度、稳定性总结如下图： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/06/sort_table.jpg" alt> 关于时间复杂度： (1)平方阶(O(n2))排序 各类简单排序:直接插入、直接选择和冒泡排序； (2)线性对数阶(O(nlog2n))排序 　　快速排序、堆排序和归并排序；  (3)O(n1+§))排序,§是介于0和1之间的常数。 希尔排序 (4)线性阶(O(n))排序 基数排序，此外还有桶、箱排序。 关于稳定性： 稳定的排序算法：冒泡排序、插入排序、归并排序和基数排序 不是稳定的排序算法：选择排序、快速排序、希尔排序、堆排序</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/06/02/php实现常用排序算法（含示意动图）/" data-id="cjujhygdc00alej3jrghz5mg2" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/08/629/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Laravel之容器
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/05/31/18考研信息收集分享/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">18考研信息收集分享</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

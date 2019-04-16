@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>量化工具TA-Lib 使用例子 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="官方链接 import tkinter as tk from tkinter import ttk import matplotlib.pyplot as plt import numpy as np import talib as ta series = np.random.choice(\[1, -1\], size=200) close = np.cumsum(series).astype(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="量化工具TA-Lib 使用例子">
+<meta property="og:url" content="http://yoursite.com/2017/10/27/量化工具ta-lib-使用例子/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="官方链接 import tkinter as tk from tkinter import ttk import matplotlib.pyplot as plt import numpy as np import talib as ta series = np.random.choice(\[1, -1\], size=200) close = np.cumsum(series).astype(">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-16T07:59:57.457Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="量化工具TA-Lib 使用例子">
+<meta name="twitter:description" content="官方链接 import tkinter as tk from tkinter import ttk import matplotlib.pyplot as plt import numpy as np import talib as ta series = np.random.choice(\[1, -1\], size=200) close = np.cumsum(series).astype(">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-量化工具ta-lib-使用例子" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/27/量化工具ta-lib-使用例子/" class="article-date">
+  <time datetime="2017-10-27T12:11:07.000Z" itemprop="datePublished">2017-10-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-python/">积累________python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      量化工具TA-Lib 使用例子
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://mrjbq7.github.io/ta-lib/" target="_blank" rel="noopener">官方链接</a> <code>import tkinter as tk from tkinter import ttk import matplotlib.pyplot as plt import numpy as np import talib as ta series = np.random.choice(\[1, -1\], size=200) close = np.cumsum(series).astype(float) # 重叠指标 def overlap\_process(event): print(event.widget.get()) overlap = event.widget.get() upperband, middleband, lowerband = ta.BBANDS(close, timeperiod=5, nbdevup=2, nbdevdn=2, matype=0) fig, axes = plt.subplots(2, 1, sharex=True) ax1, ax2 = axes\[0\], axes\[1\] axes\[0\].plot(close, &#39;rd-&#39;, markersize=3) axes\[0\].plot(upperband, &#39;y-&#39;) axes\[0\].plot(middleband, &#39;b-&#39;) axes\[0\].plot(lowerband, &#39;y-&#39;) axes\[0\].set\_title(overlap, fontproperties=&quot;SimHei&quot;) if overlap == &#39;布林线&#39;: pass elif overlap == &#39;双指数移动平均线&#39;: real = ta.DEMA(close, timeperiod=30) axes\[1\].plot(real, &#39;r-&#39;) elif overlap == &#39;指数移动平均线 &#39;: real = ta.EMA(close, timeperiod=30) axes\[1\].plot(real, &#39;r-&#39;) elif overlap == &#39;希尔伯特变换——瞬时趋势线&#39;: real = ta.HT\_TRENDLINE(close) axes\[1\].plot(real, &#39;r-&#39;) elif overlap == &#39;考夫曼自适应移动平均线&#39;: real = ta.KAMA(close, timeperiod=30) axes\[1\].plot(real, &#39;r-&#39;) elif overlap == &#39;移动平均线&#39;: real = ta.MA(close, timeperiod=30, matype=0) axes\[1\].plot(real, &#39;r-&#39;) elif overlap == &#39;MESA自适应移动平均&#39;: mama, fama = ta.MAMA(close, fastlimit=0, slowlimit=0) axes\[1\].plot(mama, &#39;r-&#39;) axes\[1\].plot(fama, &#39;g-&#39;) elif overlap == &#39;变周期移动平均线&#39;: real = ta.MAVP(close, periods, minperiod=2, maxperiod=30, matype=0) axes\[1\].plot(real, &#39;r-&#39;) elif overlap == &#39;简单移动平均线&#39;: real = ta.SMA(close, timeperiod=30) axes\[1\].plot(real, &#39;r-&#39;) elif overlap == &#39;三指数移动平均线(T3)&#39;: real = ta.T3(close, timeperiod=5, vfactor=0) axes\[1\].plot(real, &#39;r-&#39;) elif overlap == &#39;三指数移动平均线&#39;: real = ta.TEMA(close, timeperiod=30) axes\[1\].plot(real, &#39;r-&#39;) elif overlap == &#39;三角形加权法 &#39;: real = ta.TRIMA(close, timeperiod=30) axes\[1\].plot(real, &#39;r-&#39;) elif overlap == &#39;加权移动平均数&#39;: real = ta.WMA(close, timeperiod=30) axes\[1\].plot(real, &#39;r-&#39;) plt.show() # 动量指标 def momentum\_process(event): print(event.widget.get()) momentum = event.widget.get() upperband, middleband, lowerband = ta.BBANDS(close, timeperiod=5, nbdevup=2, nbdevdn=2, matype=0) fig, axes = plt.subplots(2, 1, sharex=True) ax1, ax2 = axes\[0\], axes\[1\] axes\[0\].plot(close, &#39;rd-&#39;, markersize=3) axes\[0\].plot(upperband, &#39;y-&#39;) axes\[0\].plot(middleband, &#39;b-&#39;) axes\[0\].plot(lowerband, &#39;y-&#39;) axes\[0\].set\_title(momentum, fontproperties=&quot;SimHei&quot;) if momentum == &#39;绝对价格振荡器&#39;: real = ta.APO(close, fastperiod=12, slowperiod=26, matype=0) axes\[1\].plot(real, &#39;r-&#39;) elif momentum == &#39;钱德动量摆动指标&#39;: real = ta.CMO(close, timeperiod=14) axes\[1\].plot(real, &#39;r-&#39;) elif momentum == &#39;移动平均收敛/散度&#39;: macd, macdsignal, macdhist = ta.MACD(close, fastperiod=12, slowperiod=26, signalperiod=9) axes\[1\].plot(macd, &#39;r-&#39;) axes\[1\].plot(macdsignal, &#39;g-&#39;) axes\[1\].plot(macdhist, &#39;b-&#39;) elif momentum == &#39;带可控MA类型的MACD&#39;: macd, macdsignal, macdhist = ta.MACDEXT(close, fastperiod=12, fastmatype=0, slowperiod=26, slowmatype=0, signalperiod=9, signalmatype=0) axes\[1\].plot(macd, &#39;r-&#39;) axes\[1\].plot(macdsignal, &#39;g-&#39;) axes\[1\].plot(macdhist, &#39;b-&#39;) elif momentum == &#39;移动平均收敛/散度 固定 12/26&#39;: macd, macdsignal, macdhist = ta.MACDFIX(close, signalperiod=9) axes\[1\].plot(macd, &#39;r-&#39;) axes\[1\].plot(macdsignal, &#39;g-&#39;) axes\[1\].plot(macdhist, &#39;b-&#39;) elif momentum == &#39;动量&#39;: real = ta.MOM(close, timeperiod=10) axes\[1\].plot(real, &#39;r-&#39;) elif momentum == &#39;比例价格振荡器&#39;: real = ta.PPO(close, fastperiod=12, slowperiod=26, matype=0) axes\[1\].plot(real, &#39;r-&#39;) elif momentum == &#39;变化率&#39;: real = ta.ROC(close, timeperiod=10) axes\[1\].plot(real, &#39;r-&#39;) elif momentum == &#39;变化率百分比&#39;: real = ta.ROCP(close, timeperiod=10) axes\[1\].plot(real, &#39;r-&#39;) elif momentum == &#39;变化率的比率&#39;: real = ta.ROCR(close, timeperiod=10) axes\[1\].plot(real, &#39;r-&#39;) elif momentum == &#39;变化率的比率100倍&#39;: real = ta.ROCR100(close, timeperiod=10) axes\[1\].plot(real, &#39;r-&#39;) elif momentum == &#39;相对强弱指数&#39;: real = ta.RSI(close, timeperiod=14) axes\[1\].plot(real, &#39;r-&#39;) elif momentum == &#39;随机相对强弱指标&#39;: fastk, fastd = ta.STOCHRSI(close, timeperiod=14, fastk\_period=5, fastd\_period=3, fastd\_matype=0) axes\[1\].plot(fastk, &#39;r-&#39;) axes\[1\].plot(fastd, &#39;r-&#39;) elif momentum == &#39;三重光滑EMA的日变化率&#39;: real = ta.TRIX(close, timeperiod=30) axes\[1\].plot(real, &#39;r-&#39;) plt.show() # 周期指标 def cycle\_process(event): print(event.widget.get()) cycle = event.widget.get() upperband, middleband, lowerband = ta.BBANDS(close, timeperiod=5, nbdevup=2, nbdevdn=2, matype=0) fig, axes = plt.subplots(2, 1, sharex=True) ax1, ax2 = axes\[0\], axes\[1\] axes\[0\].plot(close, &#39;rd-&#39;, markersize=3) axes\[0\].plot(upperband, &#39;y-&#39;) axes\[0\].plot(middleband, &#39;b-&#39;) axes\[0\].plot(lowerband, &#39;y-&#39;) axes\[0\].set\_title(cycle, fontproperties=&quot;SimHei&quot;) if cycle == &#39;希尔伯特变换——主要的循环周期&#39;: real = ta.HT\_DCPERIOD(close) axes\[1\].plot(real, &#39;r-&#39;) elif cycle == &#39;希尔伯特变换,占主导地位的周期阶段&#39;: real = ta.HT\_DCPHASE(close) axes\[1\].plot(real, &#39;r-&#39;) elif cycle == &#39;希尔伯特变换——相量组件&#39;: inphase, quadrature = ta.HT\_PHASOR(close) axes\[1\].plot(inphase, &#39;r-&#39;) axes\[1\].plot(quadrature, &#39;g-&#39;) elif cycle == &#39;希尔伯特变换——正弦曲线&#39;: sine, leadsine = ta.HT\_SINE(close) axes\[1\].plot(sine, &#39;r-&#39;) axes\[1\].plot(leadsine, &#39;g-&#39;) elif cycle == &#39;希尔伯特变换——趋势和周期模式&#39;: integer = ta.HT\_TRENDMODE(close) axes\[1\].plot(integer, &#39;r-&#39;) plt.show() # 统计功能 def statistic\_process(event): print(event.widget.get()) statistic = event.widget.get() upperband, middleband, lowerband = ta.BBANDS(close, timeperiod=5, nbdevup=2, nbdevdn=2, matype=0) fig, axes = plt.subplots(2, 1, sharex=True) ax1, ax2 = axes\[0\], axes\[1\] axes\[0\].plot(close, &#39;rd-&#39;, markersize=3) axes\[0\].plot(upperband, &#39;y-&#39;) axes\[0\].plot(middleband, &#39;b-&#39;) axes\[0\].plot(lowerband, &#39;y-&#39;) axes\[0\].set\_title(statistic, fontproperties=&quot;SimHei&quot;) if statistic == &#39;线性回归&#39;: real = ta.LINEARREG(close, timeperiod=14) axes\[1\].plot(real, &#39;r-&#39;) elif statistic == &#39;线性回归角度&#39;: real = ta.LINEARREG\_ANGLE(close, timeperiod=14) axes\[1\].plot(real, &#39;r-&#39;) elif statistic == &#39;线性回归截距&#39;: real = ta.LINEARREG\_INTERCEPT(close, timeperiod=14) axes\[1\].plot(real, &#39;r-&#39;) elif statistic == &#39;线性回归斜率&#39;: real = ta.LINEARREG\_SLOPE(close, timeperiod=14) axes\[1\].plot(real, &#39;r-&#39;) elif statistic == &#39;标准差&#39;: real = ta.STDDEV(close, timeperiod=5, nbdev=1) axes\[1\].plot(real, &#39;r-&#39;) elif statistic == &#39;时间序列预测&#39;: real = ta.TSF(close, timeperiod=14) axes\[1\].plot(real, &#39;r-&#39;) elif statistic == &#39;方差&#39;: real = ta.VAR(close, timeperiod=5, nbdev=1) axes\[1\].plot(real, &#39;r-&#39;) plt.show() # 数学变换 def math\_transform\_process(event): print(event.widget.get()) math\_transform = event.widget.get() upperband, middleband, lowerband = ta.BBANDS(close, timeperiod=5, nbdevup=2, nbdevdn=2, matype=0) fig, axes = plt.subplots(2, 1, sharex=True) ax1, ax2 = axes\[0\], axes\[1\] axes\[0\].plot(close, &#39;rd-&#39;, markersize=3) axes\[0\].plot(upperband, &#39;y-&#39;) axes\[0\].plot(middleband, &#39;b-&#39;) axes\[0\].plot(lowerband, &#39;y-&#39;) axes\[0\].set\_title(math\_transform, fontproperties=&quot;SimHei&quot;) if math\_transform == &#39;反余弦&#39;: real = ta.ACOS(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;反正弦&#39;: real = ta.ASIN(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;反正切&#39;: real = ta.ATAN(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;向上取整&#39;: real = ta.CEIL(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;余弦&#39;: real = ta.COS(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;双曲余弦&#39;: real = ta.COSH(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;指数&#39;: real = ta.EXP(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;向下取整&#39;: real = ta.FLOOR(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;自然对数&#39;: real = ta.LN(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;常用对数&#39;: real = ta.LOG10(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;正弦&#39;: real = ta.SIN(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;双曲正弦&#39;: real = ta.SINH(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;平方根&#39;: real = ta.SQRT(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;正切&#39;: real = ta.TAN(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;双曲正切&#39;: real = ta.TANH(close) axes\[1\].plot(real, &#39;r-&#39;) plt.show() # 数学操作 def math\_operator\_process(event): print(event.widget.get()) math\_operator = event.widget.get() upperband, middleband, lowerband = ta.BBANDS(close, timeperiod=5, nbdevup=2, nbdevdn=2, matype=0) fig, axes = plt.subplots(2, 1, sharex=True) ax1, ax2 = axes\[0\], axes\[1\] axes\[0\].plot(close, &#39;rd-&#39;, markersize=3) axes\[0\].plot(upperband, &#39;y-&#39;) axes\[0\].plot(middleband, &#39;b-&#39;) axes\[0\].plot(lowerband, &#39;y-&#39;) axes\[0\].set\_title(math\_operator, fontproperties=&quot;SimHei&quot;) if math\_operator == &#39;指定的期间的最大值&#39;: real = ta.MAX(close, timeperiod=30) axes\[1\].plot(real, &#39;r-&#39;) elif math\_operator == &#39;指定的期间的最大值的索引&#39;: integer = ta.MAXINDEX(close, timeperiod=30) axes\[1\].plot(integer, &#39;r-&#39;) elif math\_operator == &#39;指定的期间的最小值&#39;: real = ta.MIN(close, timeperiod=30) axes\[1\].plot(real, &#39;r-&#39;) elif math\_operator == &#39;指定的期间的最小值的索引&#39;: integer = ta.MININDEX(close, timeperiod=30) axes\[1\].plot(integer, &#39;r-&#39;) elif math\_operator == &#39;指定的期间的最小和最大值&#39;: min, max = ta.MINMAX(close, timeperiod=30) axes\[1\].plot(min, &#39;r-&#39;) axes\[1\].plot(max, &#39;r-&#39;) elif math\_operator == &#39;指定的期间的最小和最大值的索引&#39;: minidx, maxidx = ta.MINMAXINDEX(close, timeperiod=30) axes\[1\].plot(minidx, &#39;r-&#39;) axes\[1\].plot(maxidx, &#39;r-&#39;) elif math\_operator == &#39;合计&#39;: real = ta.SUM(close, timeperiod=30) axes\[1\].plot(real, &#39;r-&#39;) plt.show() root = tk.Tk() # 第一行：重叠指标 rowframe1 = tk.Frame(root) rowframe1.pack(side=tk.TOP, ipadx=3, ipady=3) tk.Label(rowframe1, text=&quot;重叠指标&quot;).pack(side=tk.LEFT) overlap\_indicator = tk.StringVar() # 重叠指标 combobox1 = ttk.Combobox(rowframe1, textvariable=overlap\_indicator) combobox1\[&#39;values&#39;\] = \[&#39;布林线&#39;,&#39;双指数移动平均线&#39;,&#39;指数移动平均线 &#39;,&#39;希尔伯特变换——瞬时趋势线&#39;, &#39;考夫曼自适应移动平均线&#39;,&#39;移动平均线&#39;,&#39;MESA自适应移动平均&#39;,&#39;变周期移动平均线&#39;, &#39;简单移动平均线&#39;,&#39;三指数移动平均线(T3)&#39;,&#39;三指数移动平均线&#39;,&#39;三角形加权法 &#39;,&#39;加权移动平均数&#39;\] combobox1.current(0) combobox1.pack(side=tk.LEFT) combobox1.bind(&#39;&lt;&gt;&#39;, overlap\_process) # 第二行：动量指标 rowframe2 = tk.Frame(root) rowframe2.pack(side=tk.TOP, ipadx=3, ipady=3) tk.Label(rowframe2, text=&quot;动量指标&quot;).pack(side=tk.LEFT) momentum\_indicator = tk.StringVar() # 动量指标 combobox2 = ttk.Combobox(rowframe2, textvariable=momentum_indicator) combobox2\[&#39;values&#39;\] = \[&#39;绝对价格振荡器&#39;,&#39;钱德动量摆动指标&#39;,&#39;移动平均收敛/散度&#39;,&#39;带可控MA类型的MACD&#39;, &#39;移动平均收敛/散度 固定 12/26&#39;,&#39;动量&#39;,&#39;比例价格振荡器&#39;,&#39;变化率&#39;,&#39;变化率百分比&#39;, &#39;变化率的比率&#39;,&#39;变化率的比率100倍&#39;,&#39;相对强弱指数&#39;,&#39;随机相对强弱指标&#39;,&#39;三重光滑EMA的日变化率&#39;\] combobox2.current(0) combobox2.pack(side=tk.LEFT) combobox2.bind(&#39;&lt;&gt;&#39;, momentum\_process) # 第三行：周期指标 rowframe3 = tk.Frame(root) rowframe3.pack(side=tk.TOP, ipadx=3, ipady=3) tk.Label(rowframe3, text=&quot;周期指标&quot;).pack(side=tk.LEFT) cycle\_indicator = tk.StringVar() # 周期指标 combobox3 = ttk.Combobox(rowframe3, textvariable=cycle_indicator) combobox3\[&#39;values&#39;\] = \[&#39;希尔伯特变换——主要的循环周期&#39;,&#39;希尔伯特变换——主要的周期阶段&#39;,&#39;希尔伯特变换——相量组件&#39;, &#39;希尔伯特变换——正弦曲线&#39;,&#39;希尔伯特变换——趋势和周期模式&#39;\] combobox3.current(0) combobox3.pack(side=tk.LEFT) combobox3.bind(&#39;&lt;&gt;&#39;, cycle\_process) # 第四行：统计功能 rowframe4 = tk.Frame(root) rowframe4.pack(side=tk.TOP, ipadx=3, ipady=3) tk.Label(rowframe4, text=&quot;统计功能&quot;).pack(side=tk.LEFT) statistic\_indicator = tk.StringVar() # 统计功能 combobox4 = ttk.Combobox(rowframe4, textvariable=statistic_indicator) combobox4\[&#39;values&#39;\] = \[&#39;贝塔系数；投资风险与股市风险系数&#39;,&#39;皮尔逊相关系数&#39;,&#39;线性回归&#39;,&#39;线性回归角度&#39;, &#39;线性回归截距&#39;,&#39;线性回归斜率&#39;,&#39;标准差&#39;,&#39;时间序列预测&#39;,&#39;方差&#39;\] combobox4.current(0) combobox4.pack(side=tk.LEFT) combobox4.bind(&#39;&lt;&gt;&#39;, statistic\_process) # 第五行：数学变换 rowframe5 = tk.Frame(root) rowframe5.pack(side=tk.TOP, ipadx=3, ipady=3) tk.Label(rowframe5, text=&quot;数学变换&quot;).pack(side=tk.LEFT) math\_transform = tk.StringVar() # 数学变换 combobox5 = ttk.Combobox(rowframe5, textvariable=math\_transform\_process) combobox5\[&#39;values&#39;\] = \[&#39;反余弦&#39;,&#39;反正弦&#39;,&#39;反正切&#39;,&#39;向上取整&#39;,&#39;余弦&#39;,&#39;双曲余弦&#39;,&#39;指数&#39;,&#39;向下取整&#39;, &#39;自然对数&#39;,&#39;常用对数&#39;,&#39;正弦&#39;,&#39;双曲正弦&#39;,&#39;平方根&#39;,&#39;正切&#39;,&#39;双曲正切&#39;\] combobox5.current(0) combobox5.pack(side=tk.LEFT) combobox5.bind(&#39;&lt;&gt;&#39;, math\_transform\_process) # 第六行：数学操作 rowframe6 = tk.Frame(root) rowframe6.pack(side=tk.TOP, ipadx=3, ipady=3) tk.Label(rowframe6, text=&quot;数学操作&quot;).pack(side=tk.LEFT) math\_operator = tk.StringVar() # 数学操作 combobox6 = ttk.Combobox(rowframe6, textvariable=math\_operator_process) combobox6\[&#39;values&#39;\] = \[&#39;指定期间的最大值&#39;,&#39;指定期间的最大值的索引&#39;,&#39;指定期间的最小值&#39;,&#39;指定期间的最小值的索引&#39;, &#39;指定期间的最小和最大值&#39;,&#39;指定期间的最小和最大值的索引&#39;,&#39;合计&#39;\] combobox6.current(0) combobox6.pack(side=tk.LEFT) combobox6.bind(&#39;&lt;&gt;&#39;, math\_operator\_process) root.mainloop()</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/10/27/量化工具ta-lib-使用例子/" data-id="cjujhyge100biej3jo1crve7j" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/10/27/laravel5-unable-to-prepare-route-for-serialization-uses-closure-2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          laravel5 Unable to prepare route [/] for serialization. Uses Closure.
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/10/10/史上最全quant资源整理（转）/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">史上最全Quant资源整理（转）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

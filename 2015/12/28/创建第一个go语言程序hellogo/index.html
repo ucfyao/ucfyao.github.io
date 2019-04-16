@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>创建第一个Go语言程序Hello,Go! | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="建立一个用于编写Go程序的工作目录go-examples，其绝对路径为/home/go-examples.开始编写我们的第一个Go程序。 一、在go-examples下创建一个文件hello.go 复制代码代码如下: //hello.go package mainimport “fmt”//实现格式化的I/O /*Printf someting*/ func main(){ fmt.Printf(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="创建第一个Go语言程序Hello,Go!">
+<meta property="og:url" content="http://yoursite.com/2015/12/28/创建第一个go语言程序hellogo/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="建立一个用于编写Go程序的工作目录go-examples，其绝对路径为/home/go-examples.开始编写我们的第一个Go程序。 一、在go-examples下创建一个文件hello.go 复制代码代码如下: //hello.go package mainimport “fmt”//实现格式化的I/O /*Printf someting*/ func main(){ fmt.Printf(">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-16T07:59:57.308Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="创建第一个Go语言程序Hello,Go!">
+<meta name="twitter:description" content="建立一个用于编写Go程序的工作目录go-examples，其绝对路径为/home/go-examples.开始编写我们的第一个Go程序。 一、在go-examples下创建一个文件hello.go 复制代码代码如下: //hello.go package mainimport “fmt”//实现格式化的I/O /*Printf someting*/ func main(){ fmt.Printf(">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-创建第一个go语言程序hellogo" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/28/创建第一个go语言程序hellogo/" class="article-date">
+  <time datetime="2015-12-28T09:29:24.000Z" itemprop="datePublished">2015-12-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-go/">积累________go</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      创建第一个Go语言程序Hello,Go!
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>建立一个用于编写Go程序的工作目录go-examples，其绝对路径为/home/go-examples.开始编写我们的第一个Go程序。 <strong>一、在go-examples下创建一个文件hello.go</strong></p>
+<p>复制代码代码如下:</p>
+<p>//hello.go package mainimport “fmt”//实现格式化的I/O /*Printf someting*/ func main(){ fmt.Printf(“Hello,GO!\n”) }</p>
+<p>我们来分析下这个程序： 1、程序中的第2行这个是必须的。所有的Go文件以package 开头，对于独立运行的执行文件必须是package main； 2、第4行说需要将”fmt”包加入main。不是main的其他包都被称为库，其他许多编程语言有着类似的概念。 3、第1行和第4行中的//和/<em>—</em>/都是注释 4、package main 必须首先出现，紧跟着是import。在Go中，package 总是首先出现，然后是import，然后是其他所有内容。当Go 程序在执行的时候，首先调用的函数是main.main()，这是从C 中继承而来。这里定义了这个函数； 5、第8行调用了来自于fmt包的函数打印字符串到屏幕 <strong>二、编译和运行代码</strong> 编译该源文件并执行生成的可执行文件</p>
+<p>复制代码代码如下:</p>
+<p>[root@localhost go-examples]# go build hello.go [root@localhost go-examples]# ls hello hello.go [root@localhost go-examples]# ./hello Hello,GO!</p>
+<p>通过go build加上要编译的Go源文件名，我们即可得到一个可执行文件，默认情况下这个文件的名字为源文件名字去掉.go后缀。当然我们也可以通过-o选项来指定其他名字：</p>
+<p>复制代码代码如下:</p>
+<p>[root@localhost go-examples]# go build -o firstgo hello.go [root@localhost go-examples]# ls firstgo hello.go</p>
+<p>如果我们在go-examples目录下直接执行go build命令，后面不带文件名，我们将得到一个与目录名同名的可执行文件：</p>
+<p>复制代码代码如下:</p>
+<p>[root@localhost go-examples]# go build [root@localhost go-examples]# ls go-examples hello.go</p>
+<p><strong>三、程序入口点(entry point)和包(package)</strong> Go保持了与C家族语言一致的风格：即目标为可执行程序的Go源码中务必要有一个名为main的函数，该函数即为可执行程序的入口点。除此之外 Go还增加了一个约束：作为入口点的main函数必须在名为main的package中。正如上面hellogo.go源文件中的那样，在源码第 一行就声明了该文件所归属的package为main。 Go去除了头文件的概念，而借鉴了很多主流语言都采用的package的源码组织方式。package是个逻辑概念，与文件没有一一对应的关系。 如果多个源文件都在开头声明自己属于某个名为foo的包，那这些源文件中的代码在逻辑上都归属于包foo(这些文件最好在同一个目录下，至少目前 的Go版本还无法支持不同目录下的源文件归属于同一个包)。 我们看到hellogo.go中import一个名为fmt的包，并利用该包内的Printf函数输出”Hello, Go!”。直觉告诉我们fmt包似乎是一个标准库中的包。没错，fmt包提供了格式化文本输出以及读取格式化输入的相关函数，与C中的printf或 scanf等类似。我们通过import语句将fmt包导入我们的源文件后就可以使用该fmt包导出(export)的功能函数了(比如 Printf)。 在C中，我们通过static来标识局部函数还是全局函数。而在Go中，包中的函数是否可以被外部调用，要看该函数名的首母是否为大写。这是一种 Go语言固化的约定：首母大写的函数被认为是导出的函数，可以被包之外的代码调用；而小写字母开头的函数则仅能在包内使用。在例子中你也看到了 fmt包的Printf函数其首母就是大写的。 <strong>四、GOPATH</strong> 把上面的hellogo.go稍作改造，拆分成两个文件：main.go和hello.go</p>
+<p>复制代码代码如下:</p>
+<p>//hello.go package hello import “fmt” func Hello(who string){ fmt.Printf(“Hello,%s!\n”, who) }</p>
+<p>复制代码代码如下:</p>
+<p>//main.go package main import “hello” func main(){ hello.Hello(“GO”) }</p>
+<p>用go build编译main.go 结果如下</p>
+<p>复制代码代码如下:</p>
+<p>[root@localhost go-examples]# go build main.go main.go:4:8: import “hello”: cannot find package</p>
+<p>编译器居然提示无法找到hello这个package，而hello.go中明明定义了package hello了。这是怎么回事呢？原来go compiler搜索package的方式与我们常规理解的有不同，Go在这方面也有一套约定，这里面涉及到一个重要的环境变量：GOPATH。我们可以使用go help gopath来查看一下有关gopath的manual。 Go compiler的package搜索顺序是这样的，以搜索hello这个package为例： <em> 首先，Go compiler会在GO安装目录(GOROOT，这里是/home/go/)下查找是否有src/pkg/hello相关包源码；如果没有则继续； </em> 如果export GOPATH=PATH1:PAHT2，则Go compiler会依次查找是否存在PATH1/src/hello、PATH2/src/hello；配置在GOPATH中的PATH1和PATH2被称作workplace； * 如果在上述几个位置均无法找到hello这个package，则提示出错。 在本例子中，我们尚未设置过GOPATH环境变量，也没有建立类似PATH1/src/hello这样的路径，因此Go compiler显然无法找到hello这个package了。我们来设置一下GOPATH变量并建立相关目录：</p>
+<p>复制代码代码如下:</p>
+<p>[root@localhost go-examples]# export GOPATH=/home/go-examples/ [root@localhost go-examples]# mkdir src/hello -p [root@localhost go-examples]# mv hello.go src/hello/ [root@localhost go-examples]# go build main.go [root@localhost go-examples]# ls main main.go src [root@localhost go-examples]# ./main Hello,GO!</p>
+<p><strong>五、Go install</strong> 将main.go移到src/main中，这样这个demo project显得更加合理，所有源码均在src下：</p>
+<p>复制代码代码如下:</p>
+<p>[root@localhost go-examples]# cd src/ [root@localhost src]# ls hello main.go</p>
+<p>Go提供了install命令，与build命令相比，install命令在编译源码后还会将可执行文件或库文件安装到约定的目录下。我们以main目录为例：</p>
+<p>复制代码代码如下:</p>
+<p>[root@localhost src]# cd main/ [root@localhost main]# go install</p>
+<p>install命令执行后，我们发现main目录下没有任何变化，原先build时产生的main可执行文件也不见了踪影。别急，Go install也有一套自己的约定： <em> go install(在src/DIR下)编译出的可执行文件以其所在目录名(DIR)命名 </em> go install将可执行文件安装到与src同级别的bin目录下，bin目录由go install自动创建 * go install将可执行文件依赖的各种package编译后，放在与src同级别的pkg目录下 现在我们来看看bin目录：</p>
+<p>复制代码代码如下:</p>
+<p>[root@localhost go-examples]# ls bin pkg src [root@localhost go-examples]# ls bin/ main</p>
+<p>的确出现一个bin目录，并且刚刚编译的程序main在bin下面。 hello.go编译后并非可执行程序，在编译main的同时，由于main依赖hello package，因此hello也被关联编译了。这与单独在hello目录下执行install的结果是一样的，我们试试：</p>
+<p>复制代码代码如下:</p>
+<p>[root@localhost src]# cd hello/ [root@localhost hello]# go install [root@localhost hello]# ls /home/go-examples/ bin pkg src</p>
+<p>在我们的workspace(go-examples目录)下出现了一个pkg目录，pkg目录下是一个名为linux_386的子目录，其下面有一个文 件：hello.a。这就是我们install的结果。hello.go被编译为hello.a并安装到pkg/linux_386目录下了。 .a这个后缀名让我们想起了静态共享库，但这里的.a却是Go独有的文件格式，与传统的静态共享库并不兼容。但Go语言的设计者使用这个后缀名似乎是希望 这个.a文件也承担起Go语言中”静态共享库”的角色。我们不妨来试试，看看这个hello.a是否可以被Go compiler当作”静态共享库”来对待。我们移除src中的hello目录，然后在main目录下执行go build：</p>
+<p>复制代码代码如下:</p>
+<p>[root@localhost main]# go build main.go:4:8: import “hello”: cannot find package</p>
+<p>Go编译器提示无法找到hello这个包，可见目前版本的Go编译器似乎不理pkg下的.a文件。<a href="http://code.google.com/p/go/issues/detail?id=2775" target="_blank" rel="noopener">http://code.google.com/p/go/issues/detail?id=2775</a> 这个issue也印证了这一点，不过后续Go版本很可能会支持链接.a文件。毕竟我们在使用第三方package的时候，很可能无法得到其源码，并且在每个项目中都保存一份第三方包的源码也十分不利于项目源码的后期维护。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/12/28/创建第一个go语言程序hellogo/" data-id="cjujhygds00b5ej3jaliyv7jc" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/12/28/go项目的目录结构/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Go项目的目录结构
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/12/23/redis常用命令/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">redis常用命令</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

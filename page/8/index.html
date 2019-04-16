@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-mac下python-使用jupyter-notebook-导出pdf文件的问题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/18/mac下python-使用jupyter-notebook-导出pdf文件的问题/" class="article-date">
+  <time datetime="2017-04-18T09:27:14.000Z" itemprop="datePublished">2017-04-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-python/">积累________python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/18/mac下python-使用jupyter-notebook-导出pdf文件的问题/">mac下python 使用jupyter notebook  导出pdf文件的问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="通过Latex输出中文PDF"><a href="#通过Latex输出中文PDF" class="headerlink" title="通过Latex输出中文PDF"></a>通过Latex输出中文PDF</h2><p>安装latex可以选择完整安装，和安装latex-base版本。完整安装仅安装包就有约2.7G，latex-base是一个基础包，安装包100M左右，安装需要400M不到的空间。我们目前仅需要通过latex输出PDF文档，所以不需要安装完整安装。使用latex-base就可以了。但是latex-base安装后，不能直接使用，还需要一些额外操作才能正常支持中文格式。 Latex在Mac OS中叫<a href="https://tug.org/mactex/" target="_blank" rel="noopener">MacTex</a>.</p>
+<h3 id="安装BasicTex"><a href="#安装BasicTex" class="headerlink" title="安装BasicTex"></a>安装BasicTex</h3><ol>
+<li>从官网下载BaisicTex安装包，下载链接：<a href="http://tug.org/cgi-bin/mactex-download/BasicTeX.pkg" target="_blank" rel="noopener">http://tug.org/cgi-bin/mactex-download/BasicTeX.pkg</a></li>
+<li>下载完成后，直接双击安装即可。 <strong>坑：安装完成后，相应工具集的路径并不会被添加到环境变量中，所以这时直接执行相应工具，或配置编译，会报找不到相应工具的错误。</strong></li>
+<li><p>添加工具路径到环境变量<code>$PATH</code>中。工具路径一般在<code>/usr/local/texlive/2016basic/bin/universal-darwin/</code> (注： ”2016basic“是我安装的版本，如果你安装的版本不同这个文件的名字可能不同。） 1）修改<code>.bash_profile</code>, 添加如下行： <figure class="highlight plain"><figcaption><span>PATH</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 安装一些额外的tex包</span><br><span class="line"></span><br><span class="line">1.  更新tlmgr ``` `sudo tlmgr update --self`</span><br></pre></td></tr></table></figure></p>
+</li>
+<li><p>安装相应的工具 <code>`sudo tlmgr install mathpazo adjustbox sudo tlmgr install courier collectbox ucs sudo tlmgr install palatino`</code></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/18/mac下python-使用jupyter-notebook-导出pdf文件的问题/" data-id="cjujhyg80003wej3jw54a41z3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-matplotlib中文显示的问题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/18/matplotlib中文显示的问题/" class="article-date">
+  <time datetime="2017-04-18T06:55:44.000Z" itemprop="datePublished">2017-04-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-python/">积累________python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/18/matplotlib中文显示的问题/">Matplotlib中文显示的问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code># Matplotlib中文显示有问题,当然可以修改配置文件matplotlibrc ,不过较为麻烦.其实只要在代码中指定字体就可以了 # 第一种方法: # -*- coding: utf-8 -*- from pylab import * mpl.rcParams\[&#39;font.sans-serif&#39;\] = \[&#39;SimHei&#39;\] #指定默认字体 mpl.rcParams\[&#39;axes.unicode\_minus&#39;\] = False #解决保存图像是负号&#39;-&#39;显示为方块的问题 t = arange(-5\*pi, 5\*pi, 0.01) y = sin(t)/t plt.plot(t, y) plt.title(u&#39;这里写的是中文&#39;) plt.xlabel(u&#39;X坐标&#39;) plt.ylabel(u&#39;Y坐标&#39;) plt.show() # 第二种方法 # -*- coding: utf-8 -*- from pylab import * myfont = matplotlib.font\_manager.FontProperties(fname=&#39;C:/Windows/Fonts/msyh.ttf&#39;) mpl.rcParams\[&#39;axes.unicode_minus&#39;\] = False t = arange(-5\*pi, 5\*pi, 0.01) y = sin(t)/t plt.plot(t, y) plt.title(u&#39;这里写的是中文&#39;,fontproperties=myfont) #指定字体 plt.xlabel(u&#39;X坐标&#39;,fontproperties=myfont) plt.ylabel(u&#39;Y坐标&#39;,fontproperties=myfont) plt.show() ![](http://www.yaozihao.cn/wp-content/uploads/2017/04/1-4.png)</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/18/matplotlib中文显示的问题/" data-id="cjujhyg880047ej3j6kb8cdfj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-pandas常用函数之shift" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/17/pandas常用函数之shift/" class="article-date">
+  <time datetime="2017-04-17T05:57:42.000Z" itemprop="datePublished">2017-04-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-python/">积累________python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/17/pandas常用函数之shift/">pandas常用函数之shift</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>shift函数是对数据进行移动的操作，假如现在有一个DataFrame数据df，如下所示：</p>
+<p>index</p>
+<p>value1</p>
+<p>A</p>
+<p>0</p>
+<p>B</p>
+<p>1</p>
+<p>C</p>
+<p>2</p>
+<p>D</p>
+<p>3</p>
+<p>那么如果执行以下代码： <code>`df.shift()`</code> 就会变成如下：</p>
+<p>index</p>
+<p>value1</p>
+<p>A</p>
+<p>NaN</p>
+<p>B</p>
+<p>0</p>
+<p>C</p>
+<p>1</p>
+<p>D</p>
+<p>2</p>
+<p>看一下函数原型： <code>`DataFrame.shift(periods=1, freq=None, axis=0)`</code> <strong>参数</strong></p>
+<ul>
+<li>periods：类型为int，表示移动的幅度，可以是正数，也可以是负数，默认值是1,1就表示移动一次，注意这里移动的都是数据，而索引是不移动的，移动之后没有对应值的，就赋值为NaN。 执行以下代码：</li>
+</ul>
+<p><code>`df.shift(2)`</code> 就会得到：</p>
+<p>index</p>
+<p>value1</p>
+<p>A</p>
+<p>NaN</p>
+<p>B</p>
+<p>NaN</p>
+<p>C</p>
+<p>0</p>
+<p>D</p>
+<p>1</p>
+<p>执行： <code>`df.shift(-1)`</code> 会得到：</p>
+<p>index</p>
+<p>value1</p>
+<p>A</p>
+<p>1</p>
+<p>B</p>
+<p>2</p>
+<p>C</p>
+<p>3</p>
+<p>D</p>
+<p>NaN</p>
+<ul>
+<li>freq： DateOffset, timedelta, or time rule string，可选参数，默认值为None，只适用于时间序列，如果这个参数存在，那么会按照参数值移动时间索引，而数据值没有发生变化。例如现在有df1如下：</li>
+</ul>
+<p>index</p>
+<p>value1</p>
+<p>2016-06-01</p>
+<p>0</p>
+<p>2016-06-02</p>
+<p>1</p>
+<p>2016-06-03</p>
+<p>2</p>
+<p>2016-06-04</p>
+<p>3</p>
+<p>执行： <code>`df1.shift(periods=1,freq=datetime.timedelta(1))`</code> 会得到： index | value1 —-|—- 2016-06-02 | 0 2016-06-03 | 1 2016-06-04 | 2 2016-06-05 | 3</p>
+<ul>
+<li>axis：{0, 1, ‘index’, ‘columns’}，表示移动的方向，如果是0或者’index’表示上下移动，如果是1或者’columns’，则会左右移动。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/17/pandas常用函数之shift/" data-id="cjujhyg8q004pej3jmylttbnk" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-【量化小讲堂-python、pandas系列】如何判断一个策略的好" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/14/【量化小讲堂-python、pandas系列】如何判断一个策略的好/" class="article-date">
+  <time datetime="2017-04-14T03:39:50.000Z" itemprop="datePublished">2017-04-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/14/【量化小讲堂-python、pandas系列】如何判断一个策略的好/">【量化小讲堂 - Python、Pandas系列】如何判断一个策略的好坏？</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>对于一个交易策略，初学者往往认为收益越高越好。收益确实是一个重要的评价指标，但是除了收益之外，还有很多其他重要的角度来衡量一个策略的好坏。例如这个策略的风险性、胜率、交易频率等。</p>
+</blockquote>
+<p><strong>本篇文章以几个常见的交易策略评价指标为案例，向大家介绍pandas的以下几个功能的运用：</strong></p>
+<ul>
+<li>dataframe的合并操作：append()、concat()函数的用法</li>
+<li>按某一列的值排序操作：sort_values()函数的用法</li>
+<li>常见统计指标的方法：mean(), std()等</li>
+<li>pandas画图操作：plot方法</li>
+</ul>
+<p><strong>我将介绍如下几个经典指标</strong></p>
+<ul>
+<li><strong>年化收益</strong> 任何收益都应该转换成年化收益，以进行比较。股神巴菲特投资几十年以来的年化收益是20%左右。美国股市百年来年化收益大概是10%左右。所以我们也不要太贪心，不要动辄就要求每年翻倍的收益。计算公式为：（账户最终价值/账户初始价值）^（250/回测期间总天数）-1</li>
+<li><strong>最大回撤</strong> 最大回撤就是从一个高点到一个低点最大的下跌幅度，用来描述我们的策略可能出现的最糟糕的情况，衡量了最极端可能的亏损。例如一个策略的最大回撤是50%，那么你使用这个策略之前就要掂量掂量，自己是否能经受得起50%的下跌。计算公式为：min(账户当日价值 / 当日之前账户最高价值-1)。我一般认为，年华收益/最大回撤，是个最简单有效的策略判断指标。</li>
+<li><strong>平均涨幅</strong> 平均涨幅衡量了在回测期间资产的平均涨跌情况。计算公式为：账户日收益的平均值。</li>
+<li><strong>上涨概率</strong> 上涨概率衡量了我们投资组合上涨的可能性。计算公式为：上涨天数 / 回测交易日数量。</li>
+<li><strong>最大连续上涨天数</strong> 衡量了我们策略连续盈利的最大天数。</li>
+<li><strong>最大连续下跌天数</strong> 衡量了我们策略连续亏损的最大天数。或者说策略连续失效的次数。这个指标很重要，在实战中，若连续失败的次数多了，会动摇自己的信心，使自己很难跟着策略走下去。</li>
+<li><strong>最大单周期涨幅</strong> 所有日期中最大的涨幅，衡量了资产一天内的最好表现。</li>
+<li><strong>最大单周期跌幅</strong> 所有日期中最大的跌幅，衡量了资产一天内的最差表现。</li>
+<li><strong>收益波动率</strong> 单单追求高收益率是不行的，我们在投资中还必须考虑到潜在的风险。波动太大的策略往往风险也较高。收益波动率就衡量了策略收益的波动情况即风险。计算公式为：账户日收益的年化标准差。</li>
+<li><strong>贝塔(beta)值</strong> 根据经典的资本资产定价理论(CAPM模型)，β系数衡量了资产的回报率对市场变动的敏感程度，代表了该资产的系统性风险，表示策略对大盘的敏感性。计算公式为：账户日收益与参考基准日收益的协方差 / 参考基准日收益的方差。</li>
+<li><strong>阿尔法(alpha)值</strong> 虽然我们的策略会受到大盘的影响，但是每个策略都会有自己市场因素之外的收益，alpha值表示实际风险回报和平均预期风险回报的差额，衡量了投资的非系统性风险。计算公式为：（账户年化收益-无风险收益）-beta*（参考基准年化收益-无风险收益）。</li>
+<li><strong>夏普比率</strong> 理性的投资者将选择并持有有效的投资组合，即那些在给定的风险水平下使期望回报最大的投资组合，夏普比率就是一个可以同时对收益与风险加以综合考虑的经典指标，表示每承受一单位风险，会产生多少的超额回报。计算公式为：（账户年化收益率-无风险利率）/ 收益波动率。</li>
+<li><strong>信息比率</strong> 信息比率以马克维茨的均异模型为基础，用来衡量超额风险所带来的超额收益。它表示单位主动风险所带来的超额收益。计算公式为：（账户日收益 - 参考基准日收益）的年化均值/年化标准差。</li>
+</ul>
+<p>任何策略的结果都是一个收益序列，根据这个收益序列可以得到一条资金曲线。为了简单起见，我们就任选一只股票每天的收益率作为原始数据，来计算上文提到的各种策略评价指标。在<a href="http://bbs.pinggu.org/linkto.php?url=http%3A%2F%2Fyucezhe.com%2Fproduct%3Fname%3Dtrading-data" target="_blank" rel="noopener">http://yucezhe.com/product?name=trading-data</a>可以下载到所有股票的历史日线数据，可以作为我们计算的原始数据。 数据下载下来解压缩打开后，里面有所有股票和几个常见指数的数据。打开其中一个股票文件之后是下图这个样子，每一行是每一天的数据： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/31.png" alt> 数据有以下的字段： <code>【code】股票的代码，上证股票以sh开头，深证股票以sz开头 【date】交易日期 【open】开盘价 【high】最高价 【low】最低价 【close】收盘价 【change】涨跌幅，复权之后的真实涨跌幅，保证准确 【volume】成交量 【money】成交额 【traded\_market\_value】流通市值 【market_value】总市值 【turnover】换手率，成交量/流通股本 【adjust_price】后复权价，复权开始时间为股票上市日，精确到小数点后10位 【report_date】最近一期财务报告实际发布的日期 【report_type】最近一期财务报告的类型，3-31对应一季报，6-30对应半年报，9-30对应三季报，12-31对应年报 【PE_TTM】最近12个月市盈率，股价 / 最近12个月归属母公司的每股收益TTM 【PS_TTM】最近12个月市销率， 股价 / 最近12个月每股营业收入 【PC_TTM】最近12个月市现率， 股价 / 最近12个月每股经营现金流 【PB】市净率，股价 / 最近期财报每股净资产</code> 对于我们来说，只要取【date】以及【change】就行了。下面是代码的截图，这段代码截取指定的股票在指定时间段内的收益率，计算相关指标。代码里面有详细的注释，有问题可以留言，附件中有程序的源码，回复即可下载。  获取数据函数： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/32.png" alt> 计算年化收益率函数： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/33.png" alt> 计算最大回撤函数： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/34.png" alt> 计算平均涨幅： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/35.png" alt> 计算上涨概率： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/36.png" alt> 计算最大连续上涨天数和最大连续下跌天数： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/37.png" alt> 计算最大单周期涨幅和最大单周期跌幅： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/38.png" alt> 计算收益波动率的函数、计算贝塔的函数： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/39.png" alt> 计算alpha的函数： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/40.png" alt> 计算夏普比函数： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/41.png" alt> 计算信息比率函数、计算股票和基准在回测期间的累计收益率并画图： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/42.png" alt> 导入数据运行以上函数： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/43.png" alt> 把数据和代码下载下来后，修改代码中原始数据的地址（也就是选择一个股票），并选定时间段，运行代码，就可以看到输出结果了。假设我们选择万科A，并设定时间段为1991年1月1日到2015年12月31日这25年，得到如下的输出结果:  <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/44.png" alt><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/45.png" alt> 万科A二十几年年年化回报是15%，已经相当不错了，最大回撤为78.9756%，也就是将近跌了80%，发生在08年的股灾。最大连续下跌50天，也是有点猛…</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/14/【量化小讲堂-python、pandas系列】如何判断一个策略的好/" data-id="cjujhyg1z000bej3jbei3rdt0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-【量化小讲堂-python、pandas系列】量化投资中如何处理复" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/14/【量化小讲堂-python、pandas系列】量化投资中如何处理复/" class="article-date">
+  <time datetime="2017-04-14T03:20:06.000Z" itemprop="datePublished">2017-04-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/14/【量化小讲堂-python、pandas系列】量化投资中如何处理复/">【量化小讲堂 - Python、Pandas系列】量化投资中如何处理复权、除权问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近惊讶的发现很多同学对如何在量化投资的实战中如何处理复权、除权等问题，其实不是非常了解，耽误很多事情，所以本文专门来详细的讲一下这个问题。</p>
+<h2 id="【复权计算方法】"><a href="#【复权计算方法】" class="headerlink" title="【复权计算方法】"></a>【复权计算方法】</h2><p>股票会时不时的发生现金分红、送股等一系列股本变动，这会造成股价的非正常变化，导致我们不能直接通过股价来计算股票的涨跌幅。例如一个股票是10元，当他10送10的时候，它的价格会变成5元，但是我们并不能认为这个股票下跌了5 / 10 - 1 = 50%。  下面举一个具体的例子来说明如何计算除权价格以及复权涨跌幅： 易事特(SZ300376)在2015年6月5日的收盘价是89.00元，当天晚上每股分红0.184元，并且每10股转增4股，那么这个股票除权之后的收盘价应该是(89.00 - 0.184) * 10 / (10 + 4) = 63.44元。下一个交易日6月8日的收盘价是57.10，真实涨跌幅应该是57.10 / 63.44 - 1 = -9.993695%，而不是57.10 / 89.00 - 1 = -35.842697%。 其中真实涨跌幅57.10 / 63.44 - 1 = -9.993695%也被称为是复权涨跌幅。</p>
+<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/16.png" alt> <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/17.png" alt></p>
+<h2 id="【复权涨跌幅最重要】"><a href="#【复权涨跌幅最重要】" class="headerlink" title="【复权涨跌幅最重要】"></a><strong>【复权涨跌幅最重要】</strong></h2><p>因为以上除权问题的存在，很多研究量化的同学在寻找股票数据的时候，很在意是否能得到复权之后的价格数据。我想说的是，股票的复权价格并不是最重要的，最重要的是要得到股票复权之后的涨跌幅。 若你有了股票每天的复权涨跌幅，那么知道了股票第一天的价格，通过简单的连乘计算，自然就可以计算出之后每一天的复权价，这个叫做后复权价。例如股票第一天的价格是10元，之后每天的复权涨跌幅是1%、-2%、3%…那么之后每天的复权价格分别是10 <em> (1+1%)、10 </em> (1+1%) <em> (1-2%)、10 </em> (1+1%) <em> (1-2%) \</em> (1+3%)… 同样的，知道了股票最后一天的价格，那么自然也就可以计算出之前每一天的价格，这个叫做前复权价。行情软件中的前后复权价格，其实也是这么算出来的。 若股票数据中只给出了复权价格，这对计算收益的准确性是有很大影响的。例如给出的是前复权价格，那么很久之前的股票价格往往很小的数字，一般又都是精确到两位小数，所以会变成0.45，0.47这样类似的数字。例如万科A(SZ000002)在2006年2月8日的前复权收盘价是0.56，2月9日的前复权收盘价是0.48，那么2月9日的收益是0.48/0.56 - 1 = -14.29%，但是实际上8号、9号的真实收盘价是5.26、5.06，真实的涨幅是-3.80%，与-14.29%相差巨大。</p>
+<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/18.png" alt></p>
+<h2 id="【同花顺、通达信等各家的复权方式不同】"><a href="#【同花顺、通达信等各家的复权方式不同】" class="headerlink" title="【同花顺、通达信等各家的复权方式不同】"></a>【同花顺、通达信等各家的复权方式不同】</h2><p>查看来自不同数据源的数据的时候，会发现它们的复权价格或者复权涨跌幅会有微小的差异，这往往是由不同的复权方式导致的。 例如，复权时对于分红产生的个人所得税，各家的处理方式是不一样的。同花顺、通达信中的复权是不考虑所得税的。上文提到的易事特(SZ300376)每股分红0.184元10股转4股，不考虑所得税的除权公式是(89.00 - 0.184) <em> 10 / (10 + 4) 。 但是实际上，这0.184元不会全部到投资者的口袋里，而是会扣掉10%的所得税（不同投资者扣得税还不一样），所以投资者得到的分红只有0.184 </em> (1 - 10%)，那么更加准确的分红方式应该是：(89.00 - 0.184 * (1 - 10%)) * 10 / (10 + 4) 。一些专业的数据库，例如wind、国泰安，就是这么复权的。</p>
+<h2 id="【其他】"><a href="#【其他】" class="headerlink" title="【其他】"></a>【其他】</h2><ul>
+<li><p>对于分钟或者更小级别的数据，我个人认为是没有必要进行复权的，直接用原始数据就可以了。复权之后反而会对数据准确性造成非常大的影响。</p>
+</li>
+<li><p>不要过分追求准确性。复权其实挺复杂的，之前的例子只提到了分红、转增，其实还有增发、配股、可转债等非常复杂的情况。所以哪怕非常贵的、非常专业的数据库，我都曾发现过它们复权计算中的错误。一开始这让我挺头疼的，但后来也释然了，不再去追究这些细小的误差。</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/14/【量化小讲堂-python、pandas系列】量化投资中如何处理复/" data-id="cjujhyg29000fej3jubezec6p" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-【量化小讲堂-python、pandas系列】通过逐笔数据计算主力" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/14/【量化小讲堂-python、pandas系列】通过逐笔数据计算主力/" class="article-date">
+  <time datetime="2017-04-14T03:13:32.000Z" itemprop="datePublished">2017-04-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/14/【量化小讲堂-python、pandas系列】通过逐笔数据计算主力/">【量化小讲堂 - Python、Pandas系列】通过逐笔数据计算主力资金流数据</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>大家经常会在同花顺大智慧等行情软件，或各类财经媒体上看到主力资金流入流出这个术语。听上去也感觉很牛逼的样子，主力资金流入的股票或者行业是不是就会涨呢？</p>
+<h4 id="本期帖子就教大家如何计算一只股票每天的资金流入流出数据。"><a href="#本期帖子就教大家如何计算一只股票每天的资金流入流出数据。" class="headerlink" title="本期帖子就教大家如何计算一只股票每天的资金流入流出数据。"></a>本期帖子就教大家如何计算一只股票每天的资金流入流出数据。</h4><p>计算资金流数据需要股票的逐笔数据。逐笔数据记录股票每一笔的成交成交数据，是每一笔成交，只要成交就会记录。大家在免费行情软件中看到的成交明细数据，是3-5秒记录一笔的数据，并不是逐笔数据。下图是逐笔数据的截图：</p>
+<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/21-1.png" alt> 图中每一行记录一笔交易，以红框标记出的那行为例，记录在10:32:00秒，以16.81的价格成交了2200股，并且2200股是主动卖盘，记为S（主动买盘记为B）。 <strong>这里讲一下主动买盘和主动卖盘的区别</strong>。炒过股票的人都知道，每一笔成交的双方，必定有一方下的是限价单（即会挂到五档盘口上的单子），另外一方下的是市价单（即主动去和五档盘口上的单子匹配成交的单子），如果一笔成交中的市价单是买入股票，那么这笔交易就是主动买盘，如果一笔成交中的市价单是卖出股票，那么这笔交易就是主动卖盘。 <strong>有了逐笔数据，那资金流入怎么计算呢？</strong>说来很简单，就是这只股票当天所有买盘交易的总成交额。反之，所有卖盘交易的总成交额就是资金流出。 当一笔成交的成交量很大的时候，比如大于500手，成交这样一笔需要比较多的资金，往往认为这笔成交是由机构或者大户完成的，也就是所谓的主力。那么这只股票当天所有成交量大于500手的买盘的总成交额，即为主力资金流入，当天所有成交量大于500手的卖盘的总成交额，即为主力资金流出。（这里的500是随便设定的，也可以设定一个更加合理的数值） 有了这些概念，就可以根据逐笔数据计算资金流数据了。进入这个地址：<a href="http://yucezhe.com/product?name=zhubi-data-push，点击最左边的按钮“数据样本(免费)”，即可下载到2015-05-19这一天所有股票的逐笔数据，注意数据比较大，下载起来可能会比较慢。" target="_blank" rel="noopener">http://yucezhe.com/product?name=zhubi-data-push，点击最左边的按钮“数据样本(免费)”，即可下载到2015-05-19这一天所有股票的逐笔数据，注意数据比较大，下载起来可能会比较慢。</a> 下面就是计算的源代码截图，里面有详细的注释，有问题可以留言。附件中附上了程序的源码，回复即可免费下载： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/22-1.png" alt><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/23-1.png" alt> 下面是最终输出数据的截图： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/24-1.png" alt>  <strong>思考题：</strong> 若有历史每天的逐笔数据，好好的研究下，应该是可以发现不少有价值的东西的。除了计算资金流数据之外，还有什么研究的思路吗？大家可以一起讨论。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/14/【量化小讲堂-python、pandas系列】通过逐笔数据计算主力/" data-id="cjujhyg2h000hej3jj21zz1gb" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-【量化小讲堂-python、pandas系列】数据告诉你：惊人的海" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/14/【量化小讲堂-python、pandas系列】数据告诉你：惊人的海/" class="article-date">
+  <time datetime="2017-04-14T03:07:08.000Z" itemprop="datePublished">2017-04-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/14/【量化小讲堂-python、pandas系列】数据告诉你：惊人的海/">【量化小讲堂 - Python、Pandas系列】数据告诉你：惊人的海龟交易法则</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>海龟交易法则，起源并流行于八十年代的美国，是一套简单有效的交易法则。这个法则以及使用这个法则的人的故事被写成了一本书——《海龟交易法则》。这是一本很好的量化投资入门书（也是我当年的入门书）。在附件中我免费放上了这本书的电子版本，回复可见。</p>
+</blockquote>
+<p>本篇文章使用Python和Pandas实现海龟交易法则，看看在中国市场效果怎么样。并希望通过这个案例，让大家学到pandas的如下功能：</p>
+<ul>
+<li>导入导出数据</li>
+<li>rolling_max() 和 expanding_max()的区别</li>
+<li>空值处理函数fillna()的使用方法</li>
+<li>资金指数的计算方法</li>
+<li>resample()的使用方法</li>
+</ul>
+<h4 id="海龟交易的具体规则是："><a href="#海龟交易的具体规则是：" class="headerlink" title="海龟交易的具体规则是："></a>海龟交易的具体规则是：</h4><ul>
+<li>当今天的收盘价，大于过去20个交易日中的最高价时，以收盘价买入；</li>
+<li>买入后，当收盘价小于过去10个交易日中的最低价时，以收盘价卖出。</li>
+</ul>
+<h4 id="对规则的一些说明："><a href="#对规则的一些说明：" class="headerlink" title="对规则的一些说明："></a>对规则的一些说明：</h4><ul>
+<li>规则基本上就是这么简单，还有一些具体的止损以及仓位控制规则，这几就不介绍了，具体可以看书。</li>
+<li>这套交易规则主要是运用于期货市场，所以还可以有卖空，比如当今天的收盘价小于过去20个交易日中的最低价时，以收盘价开空单，以此类推。</li>
+<li>上述规则针对日线，实际使用中更多的是使用分钟K线，比如5分钟K线的收盘价大于过去20根5分钟线的最高价时买入，以此类推。</li>
+</ul>
+<p>在这篇文章中，我以上证指数作为案例，假设可以买卖上证指数，来试验海龟交易法则，看看效果具体如何。</p>
+<h4 id="下面开始具体正文："><a href="#下面开始具体正文：" class="headerlink" title="下面开始具体正文："></a>下面开始具体正文：</h4><p>要在上证指数上实验海龟交易法则，首先需要上证指数的数据。在<a href="http://bbs.pinggu.org/linkto.php?url=http%3A%2F%2Fyucezhe.com%2Fproduct%3Fname%3Dtrading-data" target="_blank" rel="noopener">这里</a>可以下载到上证指数从1990年至今的数据，如下图所示，每一行是每一天的数据： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/1-3.png" alt> 这个日线数据有以下的字段： <code>【index_code】指数的代码 【date】 交易日期 【open】 开盘价 【high】 最高价 【low】 最低价 【close】 收盘价 【volume】 成交量 【money】 成交额 【change】 涨跌幅</code> 有了原始数据之后就是代码。我本以为用pandas实现这个策略还是稍微有点复杂，结果发现非常的简单，再次赞叹下pandas的方便。下面是代码的截图，里面有详细的注释，有问题可以留言。附件中附上了程序的源码，回复即可免费下载。 <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/2-3.png" alt><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/3-3.png" alt><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/4-2.png" alt> 把数据下载下来，运行代码，就可以看到输出的结果了。下面这张图展示了从1993年1月1日开始，使用海龟交易法则交易上涨指数的资金曲线与原指数的对比，由图中可见，指数从800多点涨到了现在的400点，而海龟交易法则的资金曲线，从同样的800多点，涨到了14000点。 <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/5-2.png" alt> 下面这张图展示了每年上证指数和海龟交易法则资金曲线的收益，左边是上证指数的收益，可以自行把玩： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/6-3.png" alt> <strong>思考题：</strong> 海龟交易法则的默认参数是20，10，可以试试看其他的参数，看看会不会有更好的效果。感兴趣的，可以查看完整版本的海龟交易法则（包含atr止损），并实现它。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/14/【量化小讲堂-python、pandas系列】数据告诉你：惊人的海/" data-id="cjujhyg22000dej3jl4094fdk" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-【量化小讲堂-python、pandas技巧系列】历史数据告诉你：kdj" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/14/【量化小讲堂-python、pandas技巧系列】历史数据告诉你：kdj/" class="article-date">
+  <time datetime="2017-04-14T02:50:29.000Z" itemprop="datePublished">2017-04-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/14/【量化小讲堂-python、pandas技巧系列】历史数据告诉你：kdj/">【量化小讲堂- Python、pandas技巧系列】历史数据告诉你：KDJ指标选股有效吗？</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>KDJ指标是最常用的技术指标之一，它的作用是判断股票未来短期的走势。很多书店里卖的炒股类书籍都会推荐这个指标，并认为KDJ指标低位金叉是一个非常好的买点，还会给出几个很漂亮的K线图形来印证他们的观点。少数的几个例子不能让人信服，KDJ指标低位金叉选股效果到底好不好，一定要用大样本说话。</p>
+</blockquote>
+<p>本篇文章将找出历史上所有股票的全部低位金叉情况，并且统计这些股票在金叉之后若干个交易日内的涨幅，看是否有显著的正收益。通过这个案例将着重向大家介绍pandas的如下功能：</p>
+<ul>
+<li>使用pandas导入股票数据</li>
+<li>如何计算KDJ指标</li>
+<li>如何计算KDJ指标金叉</li>
+<li>shift()函数的用法</li>
+<li>append()函数的用法</li>
+</ul>
+<h4 id="下面开始正文："><a href="#下面开始正文：" class="headerlink" title="下面开始正文："></a>下面开始正文：</h4><h4 id="需要找出历史上所有股票的全部低位金叉情况，那么首先必须要有股票的历史日线交易数据，从这个网站可以下载到所有股票的历史日线数据，可以作为我们计算的原始数据。数据下载下来是下图这个样子："><a href="#需要找出历史上所有股票的全部低位金叉情况，那么首先必须要有股票的历史日线交易数据，从这个网站可以下载到所有股票的历史日线数据，可以作为我们计算的原始数据。数据下载下来是下图这个样子：" class="headerlink" title="需要找出历史上所有股票的全部低位金叉情况，那么首先必须要有股票的历史日线交易数据，从这个网站可以下载到所有股票的历史日线数据，可以作为我们计算的原始数据。数据下载下来是下图这个样子："></a>需要找出历史上所有股票的全部低位金叉情况，那么首先必须要有股票的历史日线交易数据，从这个<a href="http://bbs.pinggu.org/linkto.php?url=http%3A%2F%2Fwww.yucezhe.com%2F" target="_blank" rel="noopener">网站</a>可以下载到所有股票的历史日线数据，可以作为我们计算的原始数据。数据下载下来是下图这个样子：</h4><h4 id="每个股票一个csv文件"><a href="#每个股票一个csv文件" class="headerlink" title="每个股票一个csv文件"></a>每个股票一个csv文件</h4><h4 id="每一行是每一天的数据"><a href="#每一行是每一天的数据" class="headerlink" title="  每一行是每一天的数据"></a><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/21.png" alt>  每一行是每一天的数据</h4><h4 id="这个日线数据有以下的字段："><a href="#这个日线数据有以下的字段：" class="headerlink" title="  这个日线数据有以下的字段："></a><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/22.png" alt>  这个日线数据有以下的字段：</h4><p><code>【code】 股票的代码，上证股票以sh开头，深证股票以sz开头 【date】 交易日期 【open】 开盘价 【high】 最高价 【low】 最低价 【close】 收盘价 【change】 涨跌幅，复权之后的真实涨跌幅，保证准确 【volume】 成交量 【money】 成交额 【traded\_market\_value】 流通市值 【market_value】 总市值 【turnover】 换手率，成交量/流通股本 【adjust_price】 后复权价，复权开始时间为股票上市日，精确到小数点后10位 【report_type】 最近一期财务报告的类型，3-31对应一季报，6-30对应半年报，9-30对应三季报，12-31对应年报 【report_date】 最近一期财务报告实际发布的日期 【PE_TTM】 最近12个月市盈率，股价 / 最近12个月归属母公司的每股收益TTM 【PS_TTM】 最近12个月市销率， 股价 / 最近12个月每股营业收入 【PC_TTM】 最近12个月市现率， 股价 / 最近12个月每股经营现金流 【PB】 市净率，股价 / 最近期财报每股净资产</code> 有了原始数据之后就是代码，下面是代码的截图，里面有详细的注释，有问题可以留言，附件中是程序的源码，回复即可下载。 <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/23.png" alt><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/24.png" alt> 把数据下载下来，直接运行代码，就可以看到输出的结果了。这里就不贴出KDJ选股具体的效果了，这样大家可能更有动力钻研下程序吧~ 反正总体选股效果不大好，在总过出现的51万次KDJ金叉状况下，接下来股票会上涨的概率是50%左右。 <strong>思考题：</strong> 本程序其实是挑出了所有KDJ金叉的股票，并不是低位KDJ金叉。有人认为低位KDJ金叉效果更好，例如D值小于20时的金叉。在现有程序上进行小小的改动就可以挑选出低位KDJ金叉的股票，大家感兴趣可以看看选股效果怎么样，说实话具体怎么样我也没有试过。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/14/【量化小讲堂-python、pandas技巧系列】历史数据告诉你：kdj/" data-id="cjujhyg1u0003ej3jm46wqpmr" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-【量化小讲堂-python、pandas技巧系列】极简方法将日线数" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/14/【量化小讲堂-python、pandas技巧系列】极简方法将日线数/" class="article-date">
+  <time datetime="2017-04-14T02:43:27.000Z" itemprop="datePublished">2017-04-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/14/【量化小讲堂-python、pandas技巧系列】极简方法将日线数/">【量化小讲堂- Python、pandas技巧系列】极简方法将日线数据转为周线、月线或其他周期</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>分析股票数据的时候，往往会用不同的周期进行分析，以期得到更加全面的结果。比如日线、周线、月线，或者5分钟、15分钟、30分钟、60分钟。甚至有的时候会想，为什么的我的周期必须是自然周或者自然月，我能不能每11天或者每24天一个周期。 面对这样的需求，就必须写程序在不同的周期之间进行转换。本篇文章以将日线数据转换为周线数据为案例例，向大家介绍pandas的以下功能：</p>
+<ul>
+<li>使用pandas导入和导出输出</li>
+<li>resample函数的用法</li>
+</ul>
+<p>下面开始正文。 需要把日线转为周线，那么首先必须要有日线数据，从这个<a href="http://bbs.pinggu.org/linkto.php?url=http%3A%2F%2Fyucezhe.com%2Fproduct%3Fname%3Dtrading-data" target="_blank" rel="noopener">网站</a>可以下载到所有股票历史上的日线数据，可以作为我们计算的原始数据。数据下载下来是下图这个样子： 每个股票一个csv文件 <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/10-1.png" alt>  每一行是每一天的数据 <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/11-1.png" alt></p>
+<h4 id="这个日线数据有以下的字段："><a href="#这个日线数据有以下的字段：" class="headerlink" title="这个日线数据有以下的字段："></a>这个日线数据有以下的字段：</h4><p><code>【code】 股票的代码，上证股票以sh开头，深证股票以sz开头 【date】 交易日期 【open】 开盘价 【high】 最高价 【low】 最低价 【close】 收盘价 【change】 涨跌幅，复权之后的真实涨跌幅，保证准确 【volume】 成交量 【money】 成交额 【traded\_market\_value】 流通市值 【market_value】 总市值 【turnover】 换手率，成交量/流通股本 【adjust_price】 后复权价，复权开始时间为股票上市日，精确到小数点后10位 【report_type】 最近一期财务报告的类型，3-31对应一季报，6-30对应半年报，9-30对应三季报，12-31对应年报 【report_date】 最近一期财务报告实际发布的日期 【PE_TTM】 最近12个月市盈率，股价 / 最近12个月归属母公司的每股收益TTM 【PS_TTM】 最近12个月市销率， 股价 / 最近12个月每股营业收入 【PC_TTM】 最近12个月市现率， 股价 / 最近12个月每股经营现金流 【PB】 市净率，股价 / 最近期财报每股净资产</code> 在进行日线周线转换的时候，一定要注意，大部分周线的指标是这个日线指标在这一周最后一个交易日的值。比如周线的【close】应该等于这一周最后一天日线数据的【close】。但是有的指标是例外，比如周线的【high】应该等于这一周所有日线【high】中的最大值，周线的【volume】应该等于这一周所有日线【volume】的和。有了这样的理解之后，直接上程序截图，里面有详细的注释，有问题可以留言。 <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/12-1.png" alt>  把数据和程序下载下来，在程序中修改好文件的路径，应该就可以直接运行了。  <strong>思考题：</strong> 本案例中是将日线数据转换为周线，那么如何将日线数据转换为月线数据呢？ 答案：只要修改代码中的一个字母就行了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/14/【量化小讲堂-python、pandas技巧系列】极简方法将日线数/" data-id="cjujhyg1y0009ej3jtfet91ma" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-【量化小讲堂-python、pandas技巧系列】计算创业板平均市" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/14/【量化小讲堂-python、pandas技巧系列】计算创业板平均市/" class="article-date">
+  <time datetime="2017-04-14T02:38:18.000Z" itemprop="datePublished">2017-04-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/14/【量化小讲堂-python、pandas技巧系列】计算创业板平均市/">【量化小讲堂 - Python、pandas技巧系列】计算创业板平均市盈率</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近创业板表现太猛了，很多人说估值太高，那么估值到底有多高？是否达到了历史上的高点？本案例中程序的功能是计算创业板股票历史上每天的平均市盈率，希望通过这个案例一来解答上述问题，二来向大家介绍pandas以下的几个操作：</p>
+<ul>
+<li>数据的导入以及导出</li>
+<li>对整列数据进行操作</li>
+<li>数据合并的append操作</li>
+<li>groupby语句</li>
+</ul>
+<p>计算创业板股票每天的平均市盈率，那么必须要知道每个股票每天的市盈率。从<a href="http://bbs.pinggu.org/linkto.php?url=http%3A%2F%2Fyucezhe.com%2Fproduct%3Fname%3Dtrading-data" target="_blank" rel="noopener">这里</a>可以下载到所有股票的从上市日起的每天的交易数据、以及市盈率数据，可以作为我们计算的原始数据。数据下载下来是下图这个样子： 每个股票一个csv文件 <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/1-2.png" alt> 每一行是每一天的数据 <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/2-2.png" alt> 有了原始数据之后就是代码了，下面是代码的截图，有详细的注释，附件中可以下载代码文件。 <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/3-2.png" alt> 把数据下载下来，并且直接运行代码，结果就会输出到“创业板平均市盈率.csv”文件。至于创业板股票的现在的平均市盈率是多少，这里就不贴出来啦，大家还是自己运行程序之后看结果吧<img src="http://120.27.111.137/static/image/smiley/default/titter.gif" alt> <strong>思考题：</strong> 本案例中是计算创业板股票的平均市盈率，那么如果计算上证股票的平均市盈率呢？答案：其实只要修改代码中的一个数字就行了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/14/【量化小讲堂-python、pandas技巧系列】计算创业板平均市/" data-id="cjujhyg1w0007ej3jg05ctx0j" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/7/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/9/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

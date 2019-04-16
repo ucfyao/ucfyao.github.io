@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-ubuntu环境搭建-在win10下与linux虚拟机ubuntu建立共享文件夹" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/11/15/ubuntu环境搭建-在win10下与linux虚拟机ubuntu建立共享文件夹/" class="article-date">
+  <time datetime="2017-11-15T06:25:15.000Z" itemprop="datePublished">2017-11-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/日常-经验分享/">日常________经验分享</a>►<a class="article-category-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/15/ubuntu环境搭建-在win10下与linux虚拟机ubuntu建立共享文件夹/">Ubuntu环境搭建-在win10下与linux虚拟机Ubuntu建立共享文件夹</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>  有两种方式。1：samba 2：vm-tool。本次主要介绍vmtool的共享功能。 1. 使用ssh连接系统，需要先安装 <code>apt-get install openssh</code> 2. 查看进程：<code>ps -ef | grep beam</code> 3. 在win10下与linux虚拟机Ubuntu建立共享文件夹：</p>
+<h2 id="1-安装vmtools-for-linux"><a href="#1-安装vmtools-for-linux" class="headerlink" title="1.安装vmtools for linux:"></a>1.安装vmtools for linux:</h2><p>选择vmware workstation程序菜单中VM &gt;install VMware tools… 启动Ubuntu，终端上执行： <figure class="highlight plain"><figcaption><span>/mnt/cdrom mount</span><a href="/dev/cdrom">/mnt/cdrom  #vmtools的安装文件放在vmware虚拟的cdrom中，首先要mount上这个光驱才能找到安装文件 cd /mnt/cdrom tar -zxvf VMwareTools-5.0.0-12124.i386.tar.gz -C /tmp #把安装文件解压到/tmp， VMwareTools-5.0.0-12124.i386.tar.gz，虚拟机自带的，不同版本不一样 cd /tmp/vmware-tools-distrib ./vmware-install.pl``` 安装默认配置vmware tools就可以正常工作，安提示输入yes/No。回车键选择默认配置，20分钟左右。 安装完以后，vmware会添加一个vmhgfs的模块到内核中，可以使用lsmod查看 ，没有的话，建立共享文件夹就会不成功。不过可以从win7下复制文件到虚拟机下，拖动也可以。</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">2.设置win7下共享的目录：</span><br><span class="line">---------------</span><br><span class="line"></span><br><span class="line">在虚拟机桌面，选择vmware workstation程序菜单中 VM&gt;Settings&gt;Options&gt;Shared Folders &gt;Properties 点击对话框右下的“add”按钮，点击“下一步” 在文本框“name”中输入共享目录的名字（这里填写的目录名以后在ghost computer的linux系统中将显示出同样的目录名），假设为share；在“host folder”中填入host computer中windows系统想要共享出来的目录. 下一个对话框是选择共享的方式:Enable this share是指这个共享长期有效，目录可读写；Read-only方式是指这个共享长期有效，目录只读；Disable after this session方式是指下次ghost computer被关闭或挂起后，共享将会失效。一般情况下选择Enable this share然后点击“完成” 自此，shared folder设置完毕</span><br><span class="line"></span><br><span class="line">3.shared folder目录的使用</span><br><span class="line">--------------------</span><br><span class="line"></span><br><span class="line">切换到ghost computer的linux系统，执行：</span><br><span class="line"></span><br><span class="line"> cd /mnt/hgfs</span><br><span class="line"> ls</span><br></pre></td></tr></table></figure></p>
+<p>可以看到share的目录，并且可以用cp等指令实现windows到linux，linux到windows的读写操作了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install open-vm-tools-dkms</span><br><span class="line">sudo mount  -t  vmhgfs  .host:/   /mnt/hgfs</span><br></pre></td></tr></table></figure>
+<h2 id="4-解决每次都要挂载的方法："><a href="#4-解决每次都要挂载的方法：" class="headerlink" title="4.解决每次都要挂载的方法："></a>4.解决每次都要挂载的方法：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#为了每次开机自动挂载共享目录，终端下输入：</span><br><span class="line">sudo gedit /etc/init.d/open-vm-tools</span><br><span class="line">#末尾增加一行： </span><br><span class="line">sudo mount -t vmhgfs .host:/ /mnt/hgfs </span><br><span class="line">#（host:/ 处有空格）</span><br><span class="line"></span><br><span class="line">#或者编辑 /etc/fstab，添加下面一行</span><br><span class="line">.host:/shared     /mnt/hgfs       vmhgfs     defaults  0  0 （按需写）</span><br></pre></td></tr></table></figure>
+<p>tips:</p>
+<p>ubuntu下提示命令用错了，安装了open vm tools以后要用：vmhgfs-fuse .host:/ /mnt/hgfs</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/11/15/ubuntu环境搭建-在win10下与linux虚拟机ubuntu建立共享文件夹/" data-id="cjujhygaq006wej3jeih23p8k" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ssshardowsocksfsfinal-speed带你飞" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/11/14/ssshardowsocksfsfinal-speed带你飞/" class="article-date">
+  <time datetime="2017-11-14T07:03:38.000Z" itemprop="datePublished">2017-11-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/日常-经验分享/">日常________经验分享</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/14/ssshardowsocksfsfinal-speed带你飞/">SS(shardowsocks)+FS(Final speed)带你飞</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>早期我曾通过goagent、xx-net勉强能浏览google学术等（你懂的） 网站，但至今很久没用过了，主要原因这东西是免费的访问速度、稳定性都很受限，当有限资源满足不了现代人类的欲望时，他们会寻求捷径以获得更多资源，我亦如此。三十而立了，越来越有欲望自己搞点什么，结合自己三十年来学到的东西，不追求利益就出于兴趣玩玩，于是乎有了需要查询的需求，于是乎我做了这件事情，留此文。</p>
+<h2 id="1、租用服务器资源"><a href="#1、租用服务器资源" class="headerlink" title="1、租用服务器资源"></a>1、租用服务器资源</h2><p>我在gigsgiscloud上租用了个最便宜的香港vps，2刀一月。 OS：CentOS 6 Men: 512M bandwith:500G/Mon （完全足够） disk: 30G</p>
+<h2 id="2、服务端软件安装"><a href="#2、服务端软件安装" class="headerlink" title="2、服务端软件安装"></a>2、服务端软件安装</h2><p>root用户（ssh）登陆vps 一键安装SS： <code>wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks\_install/master/shadowsocks.sh chmod +x shadowsocks.sh ./shadowsocks.sh 2&gt;&amp;1 | tee shadowsocks.log</code> 安装成功提示： <code>Congratulations, shadowsocks install completed! Your Server IP:your\_server\_ip Your Server Port:8989 Your Password:your\_password Your Local IP:127.0.0.1 Your Local Port:1080 Your Encryption Method:aes-256-cfb Welcome to visit:http://teddysun.com/342.htmlEnjoy it!</code> 用户配置文件： <code>路径/etc/ shadowsocks.json { &quot;server&quot;:&quot;your\_server\_ip&quot;, &quot;server\_port&quot;:8989, &quot;local\_address&quot;:&quot;127.0.0.1&quot;, &quot;local\_port&quot;:1080, &quot;password&quot;:&quot;yourpassword&quot;, &quot;timeout&quot;:300, &quot;method&quot;:&quot;aes-256-cfb&quot;, &quot;fast\_open&quot;: false }</code> 同时可以配置多用户。 启动：<code>/etc/init.d/shadowsocks start</code> 停止：<code>/etc/init.d/shadowsocks stop</code> 重启<code>：/etc/init.d/shadowsocks restart</code> 状态<code>：/etc/init.d/shadowsocks status</code> 一键安装FS，不要装成了XS，XS是收费的： root用户执行以下命令： <code>rm -f install\_fs.sh wget  https://github.com/dupontjoy/customization/raw/master/Rules/Shadowsocks/Finalspeed/install\_fs.sh chmod +x install\_fs.sh ./install\_fs.sh 2&gt;&amp;1 | tee install.log 启动：sh /fs/start.sh 停止：sh /fs/stop.sh</code></p>
+<h2 id="3、客户端配置"><a href="#3、客户端配置" class="headerlink" title="3、客户端配置"></a>3、客户端配置</h2><p>下载SS客户端：<a href="https://github.com/shadowsocks/shadowsocks/wiki/Ports-and-Clients#windows" target="_blank" rel="noopener">https://github.com/shadowsocks/shadowsocks/wiki/Ports-and-Clients#windows</a> 下载安装FS客户端：<a href="https://www.abclite.cn/redirect/aHR0cDovL2ZzLmQxc20ubmV0L2ZpbmFsc3BlZWQvZmluYWxzcGVlZF9pbnN0YWxsMS4wLmV4ZQ==" target="_blank" rel="noopener">https://www.abclite.cn/redirect/aHR0cDovL2ZzLmQxc20ubmV0L2ZpbmFsc3BlZWQvZmluYWxzcGVlZF9pbnN0YWxsMS4wLmV4ZQ==</a> SS+FS配置 注：SS上要配两个服务器，一个连接VPS，一个做FS代理的，如图，密码为/etc/ shadowsocks.json 配置文件中的密码</p>
+<h2 id="4、使用chrome浏览"><a href="#4、使用chrome浏览" class="headerlink" title="4、使用chrome浏览"></a>4、使用chrome浏览</h2><p>配置chrome套接字代理：127.0.0.1  端口1083，还可swichsharp扩展让浏览器在代理非代理模式间快捷切换。 此时若可访问谷歌，且FS显示端口xxx连接成功，代表加速成功，FS着实强大，在与香港ping值达到300-500ms的情况下依然可跑满网络，如此，奔跑吧骚年。 注：以上仅vps每月2刀的租用费用，其他软件都免费。 Reference： <a href="http://blog.csdn.net/str999_cn/article/details/51280834" target="_blank" rel="noopener">http://blog.csdn.net/str999_cn/article/details/51280834</a> <a href="https://www.cmsky.com/finalspeed/" target="_blank" rel="noopener">https://www.cmsky.com/finalspeed/</a> <a href="http://blog.sina.com.cn/s/blog_d30686f70102vxt1.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_d30686f70102vxt1.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/11/14/ssshardowsocksfsfinal-speed带你飞/" data-id="cjujhygal006oej3jxm8anzl0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-dyld-library-not-loaded-usrlocalliblibjpeg-8-dylib-homebrew-php" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/11/10/dyld-library-not-loaded-usrlocalliblibjpeg-8-dylib-homebrew-php/" class="article-date">
+  <time datetime="2017-11-10T05:53:35.000Z" itemprop="datePublished">2017-11-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-php/">积累________php</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/10/dyld-library-not-loaded-usrlocalliblibjpeg-8-dylib-homebrew-php/">dyld: Library not loaded: /usr/local/lib/libjpeg.8.dylib - homebrew php</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>`$ php -v dyld: Library not loaded: /usr/local/lib/libjpeg.8.dylib Referenced from: /usr/local/bin/php Reason: image not found Trace/BPT trap: 5` 1.</code> <code>`wget -c http://www.ijg.org/files/jpegsrc.v8d.tar.gz tar xzf jpegsrc.v8d.tar.gz cd jpeg-8d ./configure make cp ./.libs/libjpeg.8.dylib /usr/local/opt/jpeg/lib` 2.</code> <code>`brew install --build-from-source php56`</code> <code></code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/11/10/dyld-library-not-loaded-usrlocalliblibjpeg-8-dylib-homebrew-php/" data-id="cjujhyg6a001sej3jyrpm4ttq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-三条命令-搭建-shadowsock-服务器" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/11/06/三条命令-搭建-shadowsock-服务器/" class="article-date">
+  <time datetime="2017-11-06T10:39:30.000Z" itemprop="datePublished">2017-11-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/日常-经验分享/">日常________经验分享</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/06/三条命令-搭建-shadowsock-服务器/">三条命令 搭建 shadowsock 服务器</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>vps 环境 ubuntu 14.10 安装docker <code>`apt install docker.io`</code> 下载shadow sock 镜像 <code>`docker pull oddrationale/docker-shadowsocks`</code> 运行镜像 <code>`docker run -d -p 7777:1984 -v /etc/hosts:/etc/hosts oddrationale/docker-shadowsocks -s 0.0.0.0 -p 1984 -k superzhan -m aes-256-cfb`</code> 7777 是shadow sock 连接端口。 superzhan 是shadow sock 的连接密码 aes-256-cfb 连接协议   <strong>hadowSocks服务器端</strong> ShadowSocks有服务器端和客户端，有技术能力的，可以自行搭建服务器端，一般可通过购买海外VPS之后进行搭建，没有技术能力的，可以购买商业ShadowSocks帐号。 有网友做了个服务器端一键安装ShadowSocks的脚本，使用root用户登录，运行以下命令： wget –no-check-certificate <a href="https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-libev.sh" target="_blank" rel="noopener">https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-libev.sh</a> chmod +x shadowsocks-libev.sh ./shadowsocks-libev.sh 2&gt;&amp;1 | tee shadowsocks-libev.log 安装完成后，得到的服务器端口：8989，客户端端口：1080，密码为自己设定的密码。 卸载方法：使用 root 用户登录，运行以下命令： ./shadowsocks-libev.sh uninstall 安装完成后即已后台启动 shadowsocks ，运行： ps -ef | grep ss-server | grep -v ps | grep -v grep 可以查看进程是否存在。此脚本安装完成后，会将 shadowsocks-libev 加入开机自启动。 使用命令： 启动：/etc/init.d/shadowsocks start 停止：/etc/init.d/shadowsocks stop 重启：/etc/init.d/shadowsocks restart 查看状态：/etc/init.d/shadowsocks status 修改端口和加密方式：编辑修改配置文件 /etc/shadowsocks-libev/config.json 每隔1小时重启服务：crontab -u root -e 输入 0 <em>/1 </em> <em> </em> /etc/init.d/shadowsocks restart</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/11/06/三条命令-搭建-shadowsock-服务器/" data-id="cjujhygb0007aej3jl2l2pp0t" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-pandas常用函数" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/11/01/pandas常用函数/" class="article-date">
+  <time datetime="2017-11-01T14:25:40.000Z" itemprop="datePublished">2017-11-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-python/">积累________python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/01/pandas常用函数/">pandas常用函数</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>import numpy as np import pandas as pd import matplotlib.pyplot as plt ---------------numpy----------------------- arr = np.array(\[1,2,3\], dtype=np.float64) np.zeros((3,6)) np.empty((2,3,2)) np.arange(15) arr.dtype arr.ndim arr.shape arr.astype(np.int32) #np.float64 np.string_ np.unicode_ arr * arr arr - arr 1/arr arr= np.arange(32).reshape((8,4)) arr\[1:3, : \] #正常切片 arr\[\[1,2,3\]\] #花式索引 arr.T arr.transpose((...)) arr.swapaxes(...) #转置 arr.dot #矩阵内积 np.sqrt(arr) np.exp(arr) randn(8)＃正态分布值 np.maximum(x,y) np.where(cond, xarr, yarr) ＃当cond为真，取xarr,否则取yarr arr.mean() arr.mean(axis=1) #算术平均数 arr.sum() arr.std() arr.var() #和、标准差、方差 arr.min() arr.max() #最小值、最大值 arr.argmin() arr.argmax() #最小索引、最大索引 arr.cumsum() arr.cumprod() #所有元素的累计和、累计积 arr.all() arr.any() # 检查数组中是否全为真、部分为真 arr.sort() arr.sort(1) #排序、1轴向上排序 arr.unique() #去重 np.in1d(arr1, arr2) #arr1的值是否在arr2中 np.load() np.loadtxt() np.save() np.savez() ＃读取、保存文件 np.concatenate(\[arr, arr\], axis=1) ＃连接两个arr，按行的方向 ---------------pandas----------------------- ser = Series() ser = Series(\[...\], index=\[...\]) #一维数组, 字典可以直接转化为series ser.values ser.index ser.reindex(\[...\], fill\_value=0) #数组的值、数组的索引、重新定义索引 ser.isnull() pd.isnull(ser) pd.notnull(ser) #检测缺失数据 ser.name= ser.index.name= #ser本身的名字、ser索引的名字 ser.drop(&#39;x&#39;) #丢弃索引x对应的值 ser +ser #算术运算 ser.sort\_index() ser.order() ＃按索引排序、按值排序 df = DataFrame(data, columns=\[...\], index=\[...\]) #表结构的数据结构，既有行索引又有列索引 df.ix\[&#39;x&#39;\] #索引为x的值 对于series，直接使用ser\[&#39;x&#39;\] del df\[&#39;ly&#39;\] #用del删除第ly列 df.T #转置 df.index.name df.columns.name df.values df.drop(\[...\]) df + df df1.add(df2, fill\_vaule=0) #算术运算 df -ser #df与ser的算术运算 f=lambda x: x.max()-x.min() df.apply(f) df.sort\_index(axis=1, ascending=False) #按行索引排序 df.sort\_index(by=\[&#39;a&#39;,&#39;b&#39;\]) #按a、b列索引排序 ser.rank() df.rank(axis=1) #排序，增设一个排名值 df.sum() df.sum(axis=1) #按列、按行求和 df.mean(axis=1, skipna=False) #求各行的平均值，考虑na的存在 df.idxmax() #返回最大值的索引 df.cumsum() #累计求和 df.describe() ser.describe() #返回count mean std min max等值 ser.unique() #去重 ser.value\_counts() df.value\_counts() ＃返回一个series，其索引为唯一值，值为频率 ser.isin(\[&#39;x&#39;, &#39;y&#39;\]) #判断ser的值是否为x,y，得到布尔值 ser.dropna() ser.isnull() ser.notnull() ser.fillna(0) #处理缺失数据，df相同 df.unstack() #行列索引和值互换 df.unstack().stack() df.swaplevel(&#39;key1&#39;,&#39;key2&#39;) #接受两个级别编号或名称，并互换 df.sortlevel(1) #根据级别1进行排序，df的行、列索引可以有两级 df.set\_index(\[&#39;c&#39;,&#39;d&#39;\], drop=False) #将c、d两列转换为行,因drop为false，在列中仍保留c,d read\_csv read\_table read\_fwf #读取文件分隔符为逗号、分隔符为制表符(&#39;\\t&#39;)、无分隔符（固定列宽） pd.read\_csv(&#39;...&#39;, nrows=5) #读取文件前5行 pd.read\_csv(&#39;...&#39;, chunksize=1000) #按块读取，避免过大的文件占用内存 pd.load() #pd也有load方法，用来读取二进制文件 pd.ExcelFile(&#39;...xls&#39;).parse(&#39;Sheet1&#39;) # 读取excel文件中的sheet1 df.to\_csv(&#39;...csv&#39;, sep=&#39;|&#39;, index=False, header=False) #将数据写入csv文件，以｜为分隔符，默认以，为分隔符, 禁用列、行的标签 pd.merge(df1, df2, on=&#39;key&#39;, suffixes=(&#39;\_left&#39;, &#39;\_right&#39;)) #合并两个数据集,类似数据库的inner join, 以二者共有的key列作为键,suffixes将两个key分别命名为key\_left、key\_right pd.merge(df1, df2, left\_on=&#39;lkey&#39;, right\_on=&#39;rkey&#39;) #合并，类似数据库的inner join, 但二者没有同样的列名，分别指出，作为合并的参照 pd.merge(df1, df2, how=&#39;outer&#39;) #合并，但是是outer join；how=&#39;left&#39;是笛卡尔积，how=&#39;inner&#39;是...;还可以对多个键进行合并 df1.join(df2, on=&#39;key&#39;, how=&#39;outer&#39;) #也是合并 pd.concat(\[ser1, ser2, ser3\], axis=1) #连接三个序列，按行的方向 ser1.combine\_first(ser2) df1.combine\_first(df2) #把2合并到1上，并对齐 df.stack() df.unstack() #列旋转为行、行旋转为列 df.pivot() df.duplicated() df.drop\_duplicates() #判断是否为重复数据、删除重复数据 df\[&#39;&#39;\].map(lambda x: abs(x)) #将函数映射到df的指定列 ser.replace(-999, np.nan) #将－999全部替换为nan df.rename(index={}, columns={}, inplace=True) #修改索引，inplace为真表示就地修改数据集 pd.cut(ser, bins) #根据面元bin判断ser的各个数据属于哪一个区段，有labels、levels属性 df\[(np.abs(df)&gt;3).any(1)\] #输出含有“超过3或－3的值”的行 permutation take #用来进行随机重排序 pd.get\_dummies(df\[&#39;key&#39;\], prefix=&#39;key&#39;) #给df的所有列索引加前缀key df\[...\].str.contains() df\[...\].str.findall(pattern, flags=re.IGNORECASE) df\[...\].str.match(pattern, flags=...) df\[...\].str.get() #矢量化的字符串函数 ----绘图 ser.plot() df.plot() #pandas的绘图工具，有参数label, ax, style, alpha, kind, logy, use\_index, rot, xticks, xlim, grid等，详见page257 kind=&#39;kde&#39; #密度图 kind=&#39;bar&#39; kind=&#39;barh&#39; #垂直柱状图、水平柱状图，stacked=True为堆积图 ser.hist(bins=50) #直方图 plt.scatter(x,y) #绘制x,y组成的散点图 pd.scatter\_matrix(df, diagonal=&#39;kde&#39;, color=&#39;k&#39;, alpha=&#39;0.3&#39;) #将df各列分别组合绘制散点图 ----聚合分组 groupby() 默认在axis=0轴上分组，也可以在1组上分组；可以用for进行分组迭代 df.groupby(df\[&#39;key1&#39;\]) #根据key1对df进行分组 df\[&#39;key2&#39;\].groupby(df\[&#39;key1&#39;\]) #根据key1对key2列进行分组 df\[&#39;key3&#39;\].groupby(df\[&#39;key1&#39;\], df\[&#39;key2&#39;\]) #先根据key1、再根据key2对key3列进行分组 df\[&#39;key2&#39;\].groupby(df\[&#39;key1&#39;\]).size() #size()返回一个含有分组大小的series df.groupby(df\[&#39;key1&#39;\])\[&#39;data1&#39;\] 等价于 df\[&#39;data1&#39;\].groupby(df\[&#39;key1&#39;\]) df.groupby(df\[&#39;key1&#39;\])\[\[&#39;data1&#39;\]\] 等价于 df\[\[&#39;data1&#39;\]\].groupby(df\[&#39;key1&#39;\]) df.groupby(mapping, axis=1) ser(mapping) #定义mapping字典，根据字典的分组来进行分组 df.groupby(len) #通过函数来进行分组，如根据len函数 df.groupby(level=&#39;...&#39;, axis=1) #根据索引级别来分组 df.groupby(\[\], as\_index=False) #禁用索引，返回无索引形式的数据 df.groupby(...).agg(\[&#39;mean&#39;, &#39;std&#39;\]) #一次使用多个聚合函数时，用agg方法 df.groupby(...).transform(np.mean) #transform()可以将其内的函数用于各个分组 df.groupby().apply() #apply方法会将待处理的对象拆分成多个片段，然后对各片段调用传入的函数，最后尝试将各片段组合到一起 ----透视交叉 df.pivot\_table(\[&#39;&#39;,&#39;&#39;\], rows=\[&#39;&#39;,&#39;&#39;\], cols=&#39;&#39;, margins=True) #margins为真时会加一列all pd.crosstab(df.col1, df.col2, margins=True) #margins作用同上 ---------------matplotlib--------------- fig=plt.figure() ＃图像所在的基对象 ax=fig.add\_subplot(2,2,1) #2*2的图像，当前选中第1个 fig, axes = plt.subplots(nrows, nclos, sharex, sharey) #创建图像，指定行、列、共享x轴刻度、共享y轴刻度 plt.subplots\_adjust(left=None, bottom=None, right=None, top=None, wspace=None, hspace=None) #调整subplot之间的距离，wspace、hspace用来控制宽度、高度百分比 ax.plot(x, y, linestyle=&#39;--&#39;, color=&#39;g&#39;) #依据x,y坐标画图，设置线型、颜色 ax.set\_xticks(\[...\]) ax.set\_xticklabels(\[...\]) #设置x轴刻度 ax.set\_xlabel(&#39;...&#39;) #设置x轴名称 ax.set\_title(&#39;....&#39;) ＃设置图名 ax.legend(loc=&#39;best&#39;) #设置图例， loc指定将图例放在合适的位置 ax.text(x,y, &#39;hello&#39;, family=&#39;monospace&#39;, fontsize=10) #将注释hello放在x,y处，字体大小为10 ax.add\_patch() #在图中添加块 plt.savefig(&#39;...png&#39;, dpi=400, bbox\_inches=&#39;tight&#39;) #保存图片，dpi为分辨率，bbox＝tight表示将裁减空白部分 ------------------------------------------ from mpl\_toolkits.basemap import Basemap import matplotlib.pyplot as plt #可以用来绘制地图 -----------------时间序列-------------------------- pd.to\_datetime(datestrs) #将字符串型日期解析为日期格式 pd.date\_range(&#39;1/1/2000&#39;, periods=1000) #生成时间序列 ts.resample(&#39;D&#39;, how=&#39;mean&#39;) #采样，将时间序列转换成以每天为固定频率的, 并计算均值；how=&#39;ohlc&#39;是股票四个指数； ＃重采样会聚合，即将短频率（日）变成长频率（月），对应的值叠加； ＃升采样会插值，即将长频率变为短频率，中间产生新值 ts.shift(2, freq=&#39;D&#39;) ts.shift(-2, freq=&#39;D&#39;) #后移、前移2天 now+Day() now+MonthEnd() import pytz pytz.timezone(&#39;US/Eastern&#39;) #时区操作，需要安装pytz pd.Period(&#39;2010&#39;, freq=&#39;A-DEC&#39;) ＃period表示时间区间，叫做时期 pd.PeriodIndex #时期索引 ts.to\_period(&#39;M&#39;) #时间转换为时期 pd.rolling\_mean(...) pd.rolling\_std(...) #移动窗口函数－平均值、标准差</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/11/01/pandas常用函数/" data-id="cjujhygdb00ajej3jsxxugmdn" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-pandas数据清洗，排序，索引设置，数据选取" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/11/01/pandas数据清洗，排序，索引设置，数据选取/" class="article-date">
+  <time datetime="2017-11-01T14:20:23.000Z" itemprop="datePublished">2017-11-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-python/">积累________python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/01/pandas数据清洗，排序，索引设置，数据选取/">pandas数据清洗，排序，索引设置，数据选取</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>此教程适合有pandas基础的童鞋来看，很多知识点会一笔带过，不做详细解释</p>
+</blockquote>
+<p><strong>Pandas数据格式</strong></p>
+<ul>
+<li>Series</li>
+<li>DataFrame：每个column就是一个Series基础属性shape,index,columns,values，dtypes，describe(),head(),tail() 统计属性Series： count(),value_counts()，前者是统计总数，后者统计各自value的总数</li>
+</ul>
+<hr>
+<p>df.isnull() df的空值为True df.notnull() df的非空值为True</p>
+<ul>
+<li>修改列名</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">*   更改数据格式astype()</span><br><span class="line"></span><br><span class="line">``` `isin #计算一个“Series各值是否包含传入的值序列中”的布尔数组 unique #返回唯一值的数组 value_counts #返回一个Series，其索引为唯一值，值为频率，按计数降序排列`</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="数据清洗"><a href="#数据清洗" class="headerlink" title="数据清洗"></a><strong>数据清洗</strong></h4><ul>
+<li>丢弃值drop()</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>axis</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">*   丢弃缺失值dropna()</span><br><span class="line"></span><br><span class="line">``` `# 默认axi=0（行）；1（列），how=‘any’ df.dropna()#每行只要有空值，就将这行删除 df.dropna(axis=1)#每列只要有空值，整列丢弃 df.dropna(how=&apos;all&apos;)# 一行中全部为NaN的，才丢弃该行 df.dropna(thresh=3)# 每行至少3个非空值才保留`</span><br></pre></td></tr></table></figure>
+<ul>
+<li>缺失值填充fillna()</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>df.fillna(&#123;1:0,2:0.5&#125;) #对第一列nan值赋0，第二列赋值0.5 df.fillna(method</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">*   值替换replace()</span><br><span class="line"></span><br><span class="line">``` `# 将df的A列中 -999 全部替换成空值 df[&apos;A&apos;].replace(-999, np.nan) #-999和1000 均替换成空值 obj.replace([-999,1000], np.nan) # -999替换成空值，1000替换成0 obj.replace([-999,1000], [np.nan, 0]) # 同上，写法不同，更清晰 obj.replace(&#123;-999:np.nan, 1000:0&#125;)`</span><br></pre></td></tr></table></figure>
+<ul>
+<li>重复值处理duplicated()，unique()，drop_duplictad()</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>#和false组成的Series类型 df.duplicated('key')#两行key这一列一样就算重复 df['A'].unique()# 返回唯一值的数组（类型为array） df.drop_duplicates(['k1'])# 保留k1列中的唯一值的行，默认保留第一行 df.drop_duplicates(['k1','k2'], take_last</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* * *</span><br><span class="line"></span><br><span class="line">#### **排序**</span><br><span class="line"></span><br><span class="line">*   索引排序</span><br><span class="line"></span><br><span class="line">``` `# 默认axis=0，按行索引对行进行排序；ascending=True，升序排序 df.sort_index() # 按列名对列进行排序，ascending=False 降序 df.sort_index(axis=1, ascending=False)`</span><br></pre></td></tr></table></figure>
+<ul>
+<li>值排序</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>按值对Series进行排序，使用order()，默认空值会置于尾部 s </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">*   排名</span><br><span class="line"></span><br><span class="line">``` `a=Series([7,-5,7,4,2,0,4]) a.rank()#默认method=&apos;average&apos;，升序排名（ascending=True），按行（axis=0） #average 值相等时，取排名的平均值 #min 值相等时，取排名最小值 #max 值相等时，取排名最大值 #first值相等时，按原始数据出现顺序排名`</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="索引设置"><a href="#索引设置" class="headerlink" title="索引设置"></a><strong>索引设置</strong></h4><ul>
+<li>reindex() 更新index或者columns， 默认：更新index，返回一个新的DataFrame</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>返回一个新的DataFrame，更新index，原来的index会被替代消失 # 如果dataframe中某个索引值不存在，会自动补上NaN df2 </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">*   set_index() 将DataFrame中的列columns设置成索引index 打造层次化索引的方法</span><br><span class="line"></span><br><span class="line">``` `# 将columns中的其中两列：race和sex的值设置索引，race为一级，sex为二级 # inplace=True 在原数据集上修改的 adult.set_index([&apos;race&apos;,&apos;sex&apos;], inplace = True) # 默认情况下，设置成索引的列会从DataFrame中移除 # drop=False将其保留下来 adult.set_index([&apos;race&apos;,&apos;sex&apos;], inplace = True)`</span><br></pre></td></tr></table></figure>
+<ul>
+<li>reset_index() 将使用set_index()打造的层次化逆向操作 既是取消层次化索引，将索引变回列，并补上最常规的数字索引</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* * *</span><br><span class="line"></span><br><span class="line">#### **数据选取**</span><br><span class="line"></span><br><span class="line">*   \[\] 只能对行进 行（row/index） 切片，前闭后开df\[0:3\]，df\[:4\]，df\[4:\]</span><br><span class="line">*   where 布尔查找</span><br><span class="line"></span><br><span class="line">``` `df[df[&quot;A&quot;]&gt;7]`</span><br></pre></td></tr></table></figure>
+<ul>
+<li>isin</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>返回布尔值 s.isin([1,2,3]) df['A'].isin([1,2,3]) df.loc[df['A'].isin([5.8,5.1])]选取列A中值为5.8，5.1的所有行组成dataframe````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">*   query 多个where整合切片，&amp;：于，|：或</span><br><span class="line"></span><br><span class="line">``` `df.query(&quot; A&gt;5.0 &amp; (B&gt;3.5 | C&lt;1.0) &quot;)　`</span><br></pre></td></tr></table></figure>
+<ul>
+<li>loc ：根据名称Label切片</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>df.loc[A,B] A是行范围，B是列范围 df.loc[1:4,['petal_length','petal_width']] # 需求1：创建一个新的变量 test # 如果sepal_length > 3 test </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">*   iloc：切位置</span><br><span class="line"></span><br><span class="line">``` `df.iloc[1:4,:]`</span><br></pre></td></tr></table></figure>
+<ul>
+<li>ix：混切 名称和位置混切，但效率低，少用</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">*   map与lambda</span><br><span class="line"></span><br><span class="line">``` `alist = [1,2,3,4] map(lambda s : s+1, alist)#map就是将自定义函数应用于Series每个元素 df[&apos;sepal_length&apos;].map(lambda s:s*2+1)[0:3]`</span><br></pre></td></tr></table></figure>
+<ul>
+<li>apply和applymap apply和applymap是对dataframe的操作，前者操作一行或者一列，后者操作每个元素</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>are techniques to apply function to element, column or dataframe. Map: It iterates over each element of a series. df[‘column1’].map(lambda x: 10+x), this will add 10 to each element of column1. df[‘column2’].map(lambda x: ‘AV’+x), this will concatenate “AV“ at the beginning of each element of column2 (column format is string). Apply: As the name suggests, applies a function along any axis of the DataFrame. df[[‘column1’,’column2’]].apply(sum), it will returns the sum of all the values of column1 and column2. df0[['data1']].apply(lambda s:s+1) ApplyMap: 对dataframe的每一个元素施加一个函数 func </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">*   contains</span><br><span class="line"></span><br><span class="line">``` `# 使用DataFrame模糊筛选数据(类似SQL中的LIKE) # 使用正则表达式进行模糊匹配,*匹配0或无限次,?匹配0或1次 df_obj[df_obj[&apos;套餐&apos;].str.contains(r&apos;.*?语音CDMA.*&apos;)] # 下面两句效果一致 df[df[&apos;商品名称&apos;].str.contains(&quot;四件套&quot;)] df[df[&apos;商品名称&apos;].str.contains(r&quot;.*四件套.*&quot;)]`</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/11/01/pandas数据清洗，排序，索引设置，数据选取/" data-id="cjujhyg8r004sej3jfyx4xbn6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-laravel5-unable-to-prepare-route-for-serialization-uses-closure-2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/27/laravel5-unable-to-prepare-route-for-serialization-uses-closure-2/" class="article-date">
+  <time datetime="2017-10-27T13:23:08.000Z" itemprop="datePublished">2017-10-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/laravel/">laravel</a>►<a class="article-category-link" href="/categories/laravel/laravel5/">laravel5</a>►<a class="article-category-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/27/laravel5-unable-to-prepare-route-for-serialization-uses-closure-2/">laravel5 Unable to prepare route [/] for serialization. Uses Closure.</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>laravel5的路由支持缓存。需要执行以下命令： <code>php artisan route:cache</code> 执行完毕后，报出以下错误： <code>Route cache cleared! \[LogicException\] Unable to prepare route \[/\] for serialization. Uses Closure.</code> 这个异常的错误信息，提示的已经非常明确了：大概意思就是说在闭包里边，是不能够进行路由缓存的。那么现在就有两种办法： ① 想要继续使用闭包，那就只能放弃路由缓存(至少目前我没有其他办法，如果你有，记得告诉我)。 ② 那就是在路由里边，也就是route.php中，不要使用闭包的方式，统统改为控制器。 具体例子： <code>// 之前，报错的路由 Route::get(&#39;/&#39;, function() { return veiw(&#39;welcome&#39;); }); // 修改之后，能够路由缓存的方式 Route::get(&#39;/&#39;, &#39;HomeController@index&#39;);</code> 现在就搞定啦。再次执行 php artisan route:cache 可以看到成功的信息提示啦： <code>Route cache cleared! Routes cached successfully!</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/10/27/laravel5-unable-to-prepare-route-for-serialization-uses-closure-2/" data-id="cjujhyg7h003aej3j3zqd583z" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-量化工具ta-lib-使用例子" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/27/量化工具ta-lib-使用例子/" class="article-date">
+  <time datetime="2017-10-27T12:11:07.000Z" itemprop="datePublished">2017-10-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-python/">积累________python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/27/量化工具ta-lib-使用例子/">量化工具TA-Lib 使用例子</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://mrjbq7.github.io/ta-lib/" target="_blank" rel="noopener">官方链接</a> <code>import tkinter as tk from tkinter import ttk import matplotlib.pyplot as plt import numpy as np import talib as ta series = np.random.choice(\[1, -1\], size=200) close = np.cumsum(series).astype(float) # 重叠指标 def overlap\_process(event): print(event.widget.get()) overlap = event.widget.get() upperband, middleband, lowerband = ta.BBANDS(close, timeperiod=5, nbdevup=2, nbdevdn=2, matype=0) fig, axes = plt.subplots(2, 1, sharex=True) ax1, ax2 = axes\[0\], axes\[1\] axes\[0\].plot(close, &#39;rd-&#39;, markersize=3) axes\[0\].plot(upperband, &#39;y-&#39;) axes\[0\].plot(middleband, &#39;b-&#39;) axes\[0\].plot(lowerband, &#39;y-&#39;) axes\[0\].set\_title(overlap, fontproperties=&quot;SimHei&quot;) if overlap == &#39;布林线&#39;: pass elif overlap == &#39;双指数移动平均线&#39;: real = ta.DEMA(close, timeperiod=30) axes\[1\].plot(real, &#39;r-&#39;) elif overlap == &#39;指数移动平均线 &#39;: real = ta.EMA(close, timeperiod=30) axes\[1\].plot(real, &#39;r-&#39;) elif overlap == &#39;希尔伯特变换——瞬时趋势线&#39;: real = ta.HT\_TRENDLINE(close) axes\[1\].plot(real, &#39;r-&#39;) elif overlap == &#39;考夫曼自适应移动平均线&#39;: real = ta.KAMA(close, timeperiod=30) axes\[1\].plot(real, &#39;r-&#39;) elif overlap == &#39;移动平均线&#39;: real = ta.MA(close, timeperiod=30, matype=0) axes\[1\].plot(real, &#39;r-&#39;) elif overlap == &#39;MESA自适应移动平均&#39;: mama, fama = ta.MAMA(close, fastlimit=0, slowlimit=0) axes\[1\].plot(mama, &#39;r-&#39;) axes\[1\].plot(fama, &#39;g-&#39;) elif overlap == &#39;变周期移动平均线&#39;: real = ta.MAVP(close, periods, minperiod=2, maxperiod=30, matype=0) axes\[1\].plot(real, &#39;r-&#39;) elif overlap == &#39;简单移动平均线&#39;: real = ta.SMA(close, timeperiod=30) axes\[1\].plot(real, &#39;r-&#39;) elif overlap == &#39;三指数移动平均线(T3)&#39;: real = ta.T3(close, timeperiod=5, vfactor=0) axes\[1\].plot(real, &#39;r-&#39;) elif overlap == &#39;三指数移动平均线&#39;: real = ta.TEMA(close, timeperiod=30) axes\[1\].plot(real, &#39;r-&#39;) elif overlap == &#39;三角形加权法 &#39;: real = ta.TRIMA(close, timeperiod=30) axes\[1\].plot(real, &#39;r-&#39;) elif overlap == &#39;加权移动平均数&#39;: real = ta.WMA(close, timeperiod=30) axes\[1\].plot(real, &#39;r-&#39;) plt.show() # 动量指标 def momentum\_process(event): print(event.widget.get()) momentum = event.widget.get() upperband, middleband, lowerband = ta.BBANDS(close, timeperiod=5, nbdevup=2, nbdevdn=2, matype=0) fig, axes = plt.subplots(2, 1, sharex=True) ax1, ax2 = axes\[0\], axes\[1\] axes\[0\].plot(close, &#39;rd-&#39;, markersize=3) axes\[0\].plot(upperband, &#39;y-&#39;) axes\[0\].plot(middleband, &#39;b-&#39;) axes\[0\].plot(lowerband, &#39;y-&#39;) axes\[0\].set\_title(momentum, fontproperties=&quot;SimHei&quot;) if momentum == &#39;绝对价格振荡器&#39;: real = ta.APO(close, fastperiod=12, slowperiod=26, matype=0) axes\[1\].plot(real, &#39;r-&#39;) elif momentum == &#39;钱德动量摆动指标&#39;: real = ta.CMO(close, timeperiod=14) axes\[1\].plot(real, &#39;r-&#39;) elif momentum == &#39;移动平均收敛/散度&#39;: macd, macdsignal, macdhist = ta.MACD(close, fastperiod=12, slowperiod=26, signalperiod=9) axes\[1\].plot(macd, &#39;r-&#39;) axes\[1\].plot(macdsignal, &#39;g-&#39;) axes\[1\].plot(macdhist, &#39;b-&#39;) elif momentum == &#39;带可控MA类型的MACD&#39;: macd, macdsignal, macdhist = ta.MACDEXT(close, fastperiod=12, fastmatype=0, slowperiod=26, slowmatype=0, signalperiod=9, signalmatype=0) axes\[1\].plot(macd, &#39;r-&#39;) axes\[1\].plot(macdsignal, &#39;g-&#39;) axes\[1\].plot(macdhist, &#39;b-&#39;) elif momentum == &#39;移动平均收敛/散度 固定 12/26&#39;: macd, macdsignal, macdhist = ta.MACDFIX(close, signalperiod=9) axes\[1\].plot(macd, &#39;r-&#39;) axes\[1\].plot(macdsignal, &#39;g-&#39;) axes\[1\].plot(macdhist, &#39;b-&#39;) elif momentum == &#39;动量&#39;: real = ta.MOM(close, timeperiod=10) axes\[1\].plot(real, &#39;r-&#39;) elif momentum == &#39;比例价格振荡器&#39;: real = ta.PPO(close, fastperiod=12, slowperiod=26, matype=0) axes\[1\].plot(real, &#39;r-&#39;) elif momentum == &#39;变化率&#39;: real = ta.ROC(close, timeperiod=10) axes\[1\].plot(real, &#39;r-&#39;) elif momentum == &#39;变化率百分比&#39;: real = ta.ROCP(close, timeperiod=10) axes\[1\].plot(real, &#39;r-&#39;) elif momentum == &#39;变化率的比率&#39;: real = ta.ROCR(close, timeperiod=10) axes\[1\].plot(real, &#39;r-&#39;) elif momentum == &#39;变化率的比率100倍&#39;: real = ta.ROCR100(close, timeperiod=10) axes\[1\].plot(real, &#39;r-&#39;) elif momentum == &#39;相对强弱指数&#39;: real = ta.RSI(close, timeperiod=14) axes\[1\].plot(real, &#39;r-&#39;) elif momentum == &#39;随机相对强弱指标&#39;: fastk, fastd = ta.STOCHRSI(close, timeperiod=14, fastk\_period=5, fastd\_period=3, fastd\_matype=0) axes\[1\].plot(fastk, &#39;r-&#39;) axes\[1\].plot(fastd, &#39;r-&#39;) elif momentum == &#39;三重光滑EMA的日变化率&#39;: real = ta.TRIX(close, timeperiod=30) axes\[1\].plot(real, &#39;r-&#39;) plt.show() # 周期指标 def cycle\_process(event): print(event.widget.get()) cycle = event.widget.get() upperband, middleband, lowerband = ta.BBANDS(close, timeperiod=5, nbdevup=2, nbdevdn=2, matype=0) fig, axes = plt.subplots(2, 1, sharex=True) ax1, ax2 = axes\[0\], axes\[1\] axes\[0\].plot(close, &#39;rd-&#39;, markersize=3) axes\[0\].plot(upperband, &#39;y-&#39;) axes\[0\].plot(middleband, &#39;b-&#39;) axes\[0\].plot(lowerband, &#39;y-&#39;) axes\[0\].set\_title(cycle, fontproperties=&quot;SimHei&quot;) if cycle == &#39;希尔伯特变换——主要的循环周期&#39;: real = ta.HT\_DCPERIOD(close) axes\[1\].plot(real, &#39;r-&#39;) elif cycle == &#39;希尔伯特变换,占主导地位的周期阶段&#39;: real = ta.HT\_DCPHASE(close) axes\[1\].plot(real, &#39;r-&#39;) elif cycle == &#39;希尔伯特变换——相量组件&#39;: inphase, quadrature = ta.HT\_PHASOR(close) axes\[1\].plot(inphase, &#39;r-&#39;) axes\[1\].plot(quadrature, &#39;g-&#39;) elif cycle == &#39;希尔伯特变换——正弦曲线&#39;: sine, leadsine = ta.HT\_SINE(close) axes\[1\].plot(sine, &#39;r-&#39;) axes\[1\].plot(leadsine, &#39;g-&#39;) elif cycle == &#39;希尔伯特变换——趋势和周期模式&#39;: integer = ta.HT\_TRENDMODE(close) axes\[1\].plot(integer, &#39;r-&#39;) plt.show() # 统计功能 def statistic\_process(event): print(event.widget.get()) statistic = event.widget.get() upperband, middleband, lowerband = ta.BBANDS(close, timeperiod=5, nbdevup=2, nbdevdn=2, matype=0) fig, axes = plt.subplots(2, 1, sharex=True) ax1, ax2 = axes\[0\], axes\[1\] axes\[0\].plot(close, &#39;rd-&#39;, markersize=3) axes\[0\].plot(upperband, &#39;y-&#39;) axes\[0\].plot(middleband, &#39;b-&#39;) axes\[0\].plot(lowerband, &#39;y-&#39;) axes\[0\].set\_title(statistic, fontproperties=&quot;SimHei&quot;) if statistic == &#39;线性回归&#39;: real = ta.LINEARREG(close, timeperiod=14) axes\[1\].plot(real, &#39;r-&#39;) elif statistic == &#39;线性回归角度&#39;: real = ta.LINEARREG\_ANGLE(close, timeperiod=14) axes\[1\].plot(real, &#39;r-&#39;) elif statistic == &#39;线性回归截距&#39;: real = ta.LINEARREG\_INTERCEPT(close, timeperiod=14) axes\[1\].plot(real, &#39;r-&#39;) elif statistic == &#39;线性回归斜率&#39;: real = ta.LINEARREG\_SLOPE(close, timeperiod=14) axes\[1\].plot(real, &#39;r-&#39;) elif statistic == &#39;标准差&#39;: real = ta.STDDEV(close, timeperiod=5, nbdev=1) axes\[1\].plot(real, &#39;r-&#39;) elif statistic == &#39;时间序列预测&#39;: real = ta.TSF(close, timeperiod=14) axes\[1\].plot(real, &#39;r-&#39;) elif statistic == &#39;方差&#39;: real = ta.VAR(close, timeperiod=5, nbdev=1) axes\[1\].plot(real, &#39;r-&#39;) plt.show() # 数学变换 def math\_transform\_process(event): print(event.widget.get()) math\_transform = event.widget.get() upperband, middleband, lowerband = ta.BBANDS(close, timeperiod=5, nbdevup=2, nbdevdn=2, matype=0) fig, axes = plt.subplots(2, 1, sharex=True) ax1, ax2 = axes\[0\], axes\[1\] axes\[0\].plot(close, &#39;rd-&#39;, markersize=3) axes\[0\].plot(upperband, &#39;y-&#39;) axes\[0\].plot(middleband, &#39;b-&#39;) axes\[0\].plot(lowerband, &#39;y-&#39;) axes\[0\].set\_title(math\_transform, fontproperties=&quot;SimHei&quot;) if math\_transform == &#39;反余弦&#39;: real = ta.ACOS(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;反正弦&#39;: real = ta.ASIN(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;反正切&#39;: real = ta.ATAN(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;向上取整&#39;: real = ta.CEIL(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;余弦&#39;: real = ta.COS(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;双曲余弦&#39;: real = ta.COSH(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;指数&#39;: real = ta.EXP(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;向下取整&#39;: real = ta.FLOOR(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;自然对数&#39;: real = ta.LN(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;常用对数&#39;: real = ta.LOG10(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;正弦&#39;: real = ta.SIN(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;双曲正弦&#39;: real = ta.SINH(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;平方根&#39;: real = ta.SQRT(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;正切&#39;: real = ta.TAN(close) axes\[1\].plot(real, &#39;r-&#39;) elif math\_transform == &#39;双曲正切&#39;: real = ta.TANH(close) axes\[1\].plot(real, &#39;r-&#39;) plt.show() # 数学操作 def math\_operator\_process(event): print(event.widget.get()) math\_operator = event.widget.get() upperband, middleband, lowerband = ta.BBANDS(close, timeperiod=5, nbdevup=2, nbdevdn=2, matype=0) fig, axes = plt.subplots(2, 1, sharex=True) ax1, ax2 = axes\[0\], axes\[1\] axes\[0\].plot(close, &#39;rd-&#39;, markersize=3) axes\[0\].plot(upperband, &#39;y-&#39;) axes\[0\].plot(middleband, &#39;b-&#39;) axes\[0\].plot(lowerband, &#39;y-&#39;) axes\[0\].set\_title(math\_operator, fontproperties=&quot;SimHei&quot;) if math\_operator == &#39;指定的期间的最大值&#39;: real = ta.MAX(close, timeperiod=30) axes\[1\].plot(real, &#39;r-&#39;) elif math\_operator == &#39;指定的期间的最大值的索引&#39;: integer = ta.MAXINDEX(close, timeperiod=30) axes\[1\].plot(integer, &#39;r-&#39;) elif math\_operator == &#39;指定的期间的最小值&#39;: real = ta.MIN(close, timeperiod=30) axes\[1\].plot(real, &#39;r-&#39;) elif math\_operator == &#39;指定的期间的最小值的索引&#39;: integer = ta.MININDEX(close, timeperiod=30) axes\[1\].plot(integer, &#39;r-&#39;) elif math\_operator == &#39;指定的期间的最小和最大值&#39;: min, max = ta.MINMAX(close, timeperiod=30) axes\[1\].plot(min, &#39;r-&#39;) axes\[1\].plot(max, &#39;r-&#39;) elif math\_operator == &#39;指定的期间的最小和最大值的索引&#39;: minidx, maxidx = ta.MINMAXINDEX(close, timeperiod=30) axes\[1\].plot(minidx, &#39;r-&#39;) axes\[1\].plot(maxidx, &#39;r-&#39;) elif math\_operator == &#39;合计&#39;: real = ta.SUM(close, timeperiod=30) axes\[1\].plot(real, &#39;r-&#39;) plt.show() root = tk.Tk() # 第一行：重叠指标 rowframe1 = tk.Frame(root) rowframe1.pack(side=tk.TOP, ipadx=3, ipady=3) tk.Label(rowframe1, text=&quot;重叠指标&quot;).pack(side=tk.LEFT) overlap\_indicator = tk.StringVar() # 重叠指标 combobox1 = ttk.Combobox(rowframe1, textvariable=overlap\_indicator) combobox1\[&#39;values&#39;\] = \[&#39;布林线&#39;,&#39;双指数移动平均线&#39;,&#39;指数移动平均线 &#39;,&#39;希尔伯特变换——瞬时趋势线&#39;, &#39;考夫曼自适应移动平均线&#39;,&#39;移动平均线&#39;,&#39;MESA自适应移动平均&#39;,&#39;变周期移动平均线&#39;, &#39;简单移动平均线&#39;,&#39;三指数移动平均线(T3)&#39;,&#39;三指数移动平均线&#39;,&#39;三角形加权法 &#39;,&#39;加权移动平均数&#39;\] combobox1.current(0) combobox1.pack(side=tk.LEFT) combobox1.bind(&#39;&lt;&gt;&#39;, overlap\_process) # 第二行：动量指标 rowframe2 = tk.Frame(root) rowframe2.pack(side=tk.TOP, ipadx=3, ipady=3) tk.Label(rowframe2, text=&quot;动量指标&quot;).pack(side=tk.LEFT) momentum\_indicator = tk.StringVar() # 动量指标 combobox2 = ttk.Combobox(rowframe2, textvariable=momentum_indicator) combobox2\[&#39;values&#39;\] = \[&#39;绝对价格振荡器&#39;,&#39;钱德动量摆动指标&#39;,&#39;移动平均收敛/散度&#39;,&#39;带可控MA类型的MACD&#39;, &#39;移动平均收敛/散度 固定 12/26&#39;,&#39;动量&#39;,&#39;比例价格振荡器&#39;,&#39;变化率&#39;,&#39;变化率百分比&#39;, &#39;变化率的比率&#39;,&#39;变化率的比率100倍&#39;,&#39;相对强弱指数&#39;,&#39;随机相对强弱指标&#39;,&#39;三重光滑EMA的日变化率&#39;\] combobox2.current(0) combobox2.pack(side=tk.LEFT) combobox2.bind(&#39;&lt;&gt;&#39;, momentum\_process) # 第三行：周期指标 rowframe3 = tk.Frame(root) rowframe3.pack(side=tk.TOP, ipadx=3, ipady=3) tk.Label(rowframe3, text=&quot;周期指标&quot;).pack(side=tk.LEFT) cycle\_indicator = tk.StringVar() # 周期指标 combobox3 = ttk.Combobox(rowframe3, textvariable=cycle_indicator) combobox3\[&#39;values&#39;\] = \[&#39;希尔伯特变换——主要的循环周期&#39;,&#39;希尔伯特变换——主要的周期阶段&#39;,&#39;希尔伯特变换——相量组件&#39;, &#39;希尔伯特变换——正弦曲线&#39;,&#39;希尔伯特变换——趋势和周期模式&#39;\] combobox3.current(0) combobox3.pack(side=tk.LEFT) combobox3.bind(&#39;&lt;&gt;&#39;, cycle\_process) # 第四行：统计功能 rowframe4 = tk.Frame(root) rowframe4.pack(side=tk.TOP, ipadx=3, ipady=3) tk.Label(rowframe4, text=&quot;统计功能&quot;).pack(side=tk.LEFT) statistic\_indicator = tk.StringVar() # 统计功能 combobox4 = ttk.Combobox(rowframe4, textvariable=statistic_indicator) combobox4\[&#39;values&#39;\] = \[&#39;贝塔系数；投资风险与股市风险系数&#39;,&#39;皮尔逊相关系数&#39;,&#39;线性回归&#39;,&#39;线性回归角度&#39;, &#39;线性回归截距&#39;,&#39;线性回归斜率&#39;,&#39;标准差&#39;,&#39;时间序列预测&#39;,&#39;方差&#39;\] combobox4.current(0) combobox4.pack(side=tk.LEFT) combobox4.bind(&#39;&lt;&gt;&#39;, statistic\_process) # 第五行：数学变换 rowframe5 = tk.Frame(root) rowframe5.pack(side=tk.TOP, ipadx=3, ipady=3) tk.Label(rowframe5, text=&quot;数学变换&quot;).pack(side=tk.LEFT) math\_transform = tk.StringVar() # 数学变换 combobox5 = ttk.Combobox(rowframe5, textvariable=math\_transform\_process) combobox5\[&#39;values&#39;\] = \[&#39;反余弦&#39;,&#39;反正弦&#39;,&#39;反正切&#39;,&#39;向上取整&#39;,&#39;余弦&#39;,&#39;双曲余弦&#39;,&#39;指数&#39;,&#39;向下取整&#39;, &#39;自然对数&#39;,&#39;常用对数&#39;,&#39;正弦&#39;,&#39;双曲正弦&#39;,&#39;平方根&#39;,&#39;正切&#39;,&#39;双曲正切&#39;\] combobox5.current(0) combobox5.pack(side=tk.LEFT) combobox5.bind(&#39;&lt;&gt;&#39;, math\_transform\_process) # 第六行：数学操作 rowframe6 = tk.Frame(root) rowframe6.pack(side=tk.TOP, ipadx=3, ipady=3) tk.Label(rowframe6, text=&quot;数学操作&quot;).pack(side=tk.LEFT) math\_operator = tk.StringVar() # 数学操作 combobox6 = ttk.Combobox(rowframe6, textvariable=math\_operator_process) combobox6\[&#39;values&#39;\] = \[&#39;指定期间的最大值&#39;,&#39;指定期间的最大值的索引&#39;,&#39;指定期间的最小值&#39;,&#39;指定期间的最小值的索引&#39;, &#39;指定期间的最小和最大值&#39;,&#39;指定期间的最小和最大值的索引&#39;,&#39;合计&#39;\] combobox6.current(0) combobox6.pack(side=tk.LEFT) combobox6.bind(&#39;&lt;&gt;&#39;, math\_operator\_process) root.mainloop()</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/10/27/量化工具ta-lib-使用例子/" data-id="cjujhyge100biej3jo1crve7j" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-史上最全quant资源整理（转）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/10/史上最全quant资源整理（转）/" class="article-date">
+  <time datetime="2017-10-10T07:12:55.000Z" itemprop="datePublished">2017-10-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-量化/">积累________量化</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/10/史上最全quant资源整理（转）/">史上最全Quant资源整理（转）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><em>有些国外的平台、社区、博客如果连接无法打开，那说明可能需要“科学”上网</em></p>
+<h2 id="量化交易平台"><a href="#量化交易平台" class="headerlink" title="量化交易平台"></a>量化交易平台</h2><p>国内在线量化平台：</p>
+<ul>
+<li><a href="http://link.zhihu.com/?target=https%3A//bigquant.com/" target="_blank" rel="noopener">BigQuant - 你的人工智能量化平台</a> - 可以无门槛地使用机器学习、人工智能开发量化策略，基于python，提供策略自动生成器</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.raquant.com/" target="_blank" rel="noopener">镭矿</a> - 基于量化回测平台</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//guorn.com/" target="_blank" rel="noopener">果仁网</a> - 回测量化平台</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//quant.jd.com/" target="_blank" rel="noopener">京东量化</a> - 算法交易和量化回测平台</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.joinquant.com/" target="_blank" rel="noopener">聚宽</a> - 量化回测平台</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//uqer.io/home/" target="_blank" rel="noopener">优矿</a> - 通联量化实验室</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.ricequant.com/" target="_blank" rel="noopener">Ricequant</a> - 量化交易平台</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//qutke.com/" target="_blank" rel="noopener">况客</a> - 基于R语言量化回测平台</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//factors.chinascope.com/" target="_blank" rel="noopener">Factors</a> - 数库多因子量化平台</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//gpxtrade.com/guide.html" target="_blank" rel="noopener">诸葛量化</a> - 量化交易平台</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.quantgou.com/" target="_blank" rel="noopener">宽狗量化</a> - 回测量化平台</li>
+</ul>
+<p>国外量化平台：</p>
+<ul>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.quantopian.com/" target="_blank" rel="noopener">Quantopian</a> 研究、回测、算法众包平台</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.quantconnect.com/" target="_blank" rel="noopener">QuantConnect</a> 研究、回测和投资交易</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.quantstart.com/" target="_blank" rel="noopener">Quantstart</a> 研究、回测和投资交易、数据科学网站</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//alphasecurecapital.com/" target="_blank" rel="noopener">ASC</a> 研究、交易平台</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//japan.zulutrade.com/" target="_blank" rel="noopener">zulutrade</a> 自动交易平台</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.quantpedia.com/" target="_blank" rel="noopener">quantpedia</a> 研究、策略平台</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//algotrading101.com/" target="_blank" rel="noopener">algotrading101</a> 策略研究平台</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.investopedia.com/" target="_blank" rel="noopener">investopedia</a> 可以股票、外汇模拟交易的财经网站</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.amibroker.com/" target="_blank" rel="noopener">Amibroker</a> 提供系统交易工具的一家公司</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.algotrades.net/" target="_blank" rel="noopener">AlgoTrades</a> 股票、ETF、期货自动交易系统</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//numer.ai/" target="_blank" rel="noopener">Numerai</a> 数据工程师众包的一家对冲基金</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.wealthfront.com/" target="_blank" rel="noopener">WealthFront</a> 财富管理平台</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.betterment.com/" target="_blank" rel="noopener">Betterment</a> 个人投资平台</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.tradelinkllc.com/" target="_blank" rel="noopener">TradeLink</a> 量化交易平台</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/activequant" target="_blank" rel="noopener">ActiveQuant</a> 基于JavaScript开源交易开发框架</li>
+</ul>
+<p>相关平台：</p>
+<ul>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.myquant.cn/" target="_blank" rel="noopener">掘金量化</a> - 支持C/C++、C#、MATLAB、Python和R的量化交易平台</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.digquant.com.cn/" target="_blank" rel="noopener">DigQuant</a> - 提供基于matlab量化工具</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.smartquant.cn/" target="_blank" rel="noopener">SmartQuant</a> - 策略交易平台</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/QuantBox/OpenQuant-Esunny" target="_blank" rel="noopener">OpenQuant</a> - 基于C#的开源量化回测平台</li>
+</ul>
+<p>基于图表的量化交易平台</p>
+<ul>
+<li>文华赢智 、TB、金字塔、MultiCharts 中国版 - 程序化交易软件、MT4、TradeStation</li>
+<li>Auto-Trader - 基于MATLAB的量化交易平台</li>
+<li>BotVS - 首家支持传统期货与股票证券与数字货币的量化平台</li>
+</ul>
+<p>开源框架</p>
+<ul>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/pandas-dev/pandas" target="_blank" rel="noopener">Pandas</a> - 数据分析包</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/quantopian/zipline" target="_blank" rel="noopener">Zipline</a> - 一个Python的回测框架</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/vnpy/vnpy" target="_blank" rel="noopener">vnpy</a> - 基于python的开源交易平台开发框架</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//pypi.python.org/pypi/tushare/" target="_blank" rel="noopener">tushare</a> - 财经数据接口包</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/shidenggui/easytrader" target="_blank" rel="noopener">easytrader</a> - 进行自动的程序化股票交易</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/gbeced/pyalgotrade" target="_blank" rel="noopener">pyalgotrade</a> - 一个Python的事件驱动回测框架</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/Yam-cn/pyalgotrade-cn" target="_blank" rel="noopener">pyalgotrade-cn</a> - Pyalgotrade-cn在原版pyalgotrade的基础上加入了A股历史行情回测，并整合了tushare提供实时行情。</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/ziwang-com/" target="_blank" rel="noopener">zwPython</a> - 基于winpython的集成式python开发平台</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/joshuaulrich/quantmod" target="_blank" rel="noopener">quantmod</a> - 量化金融建模</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/ricequant/rqalpha/" target="_blank" rel="noopener">rqalpha</a> - 基于Python的回测引擎</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/QuantFans/quantdigger" target="_blank" rel="noopener">quantdigger</a> - 基于python的量化回测框架</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/harveywwu/pyktrader" target="_blank" rel="noopener">pyktrader</a> - 基于pyctp接口，并采用vnpy的eventEngine，使用tkinter作为GUI的python交易平台</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/QuantConnect/Lean" target="_blank" rel="noopener">QuantConnect/Lean</a> - Lean Algorithmic Trading Engine by QuantConnect (C#, Python, F#, VB, Java)</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/yutiansut/QUANTAXIS" target="_blank" rel="noopener">QUANTAXIS</a> - 量化金融策略框架</li>
+</ul>
+<p>其他量化交易平台： Progress Apama、龙软DTS、国泰安量化投资平台、飞创STP、易盛程序化交易、盛立SPT平台、天软量化回测平台 、量邦天语、EQB-Quant</p>
+<h2 id="数据源"><a href="#数据源" class="headerlink" title="数据源"></a>数据源</h2><ul>
+<li><a href="http://link.zhihu.com/?target=http%3A//tushare.org/" target="_blank" rel="noopener">TuShare - 中文财经数据接口包</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.quandl.com/" target="_blank" rel="noopener">Quandl - 国际金融和经济数据</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.wind.com.cn/NewSite/edb.html" target="_blank" rel="noopener">Wind资讯-经济数据库 - 收费</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//choice.eastmoney.com/Product/index.html" target="_blank" rel="noopener">东方财富 Choice金融数据研究终端</a> - 收费</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.51ifind.com/" target="_blank" rel="noopener">iFinD 同花顺金融数据终端</a> - 收费</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.go-goal.cn/" target="_blank" rel="noopener">朝阳永续 Go-Goal数据终端</a> - 收费</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.tinysoft.com.cn/TSDN/HomePage.tsl" target="_blank" rel="noopener">天软数据</a> - 收费</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.gtarsc.com/" target="_blank" rel="noopener">国泰安数据服务中心</a> - 收费</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.resset.cn/" target="_blank" rel="noopener">锐思数据</a> - 收费</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//open.hscloud.cn/" target="_blank" rel="noopener">恒生API</a> - 收费</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.bloomberglabs.com/api/libraries/" target="_blank" rel="noopener">Bloomberg API</a> - 收费</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//developer.chinascope.com/" target="_blank" rel="noopener">数库金融数据和深度分析API服务</a> - 收费</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//quantpedia.com/Links/HistoricalData" target="_blank" rel="noopener">Historical Data Sources - 一个数据源索引</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.yucezhe.com/" target="_blank" rel="noopener">预测者网</a> - 收费</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.cninfo.com.cn/cninfo-new/index" target="_blank" rel="noopener">巨潮资讯</a> - 收费</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.datayes.com/" target="_blank" rel="noopener">通联数据商城</a> - 收费</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.tdx.com.cn/" target="_blank" rel="noopener">通达信</a> - 免费</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//bigquant.com/docs/data_history_data.html" target="_blank" rel="noopener">历史数据 - 文档 | BigQuant</a> - 免费</li>
+<li>新浪、雅虎、东方财富网 - 免费</li>
+<li>聚合数据、数粮 、数据宝 - 收费</li>
+</ul>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><ul>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/manahl/arctic" target="_blank" rel="noopener">manahl/arctic: High performance datastore for time series and tick data</a> - 基于mongodb和python的高性能时间序列和tick数据存储</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//kx.com/" target="_blank" rel="noopener">kdb | The Leader in High-Performance Tick Database Technology | Kx Systems</a> - 收费的高性能金融序列数据库解决方案</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.mongodb.com/blog/post/schema-design-for-time-series-data-in-mongodb" target="_blank" rel="noopener">MongoDB Blog</a> - 用mongodb存储时间序列数据</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.influxdata.com/products/" target="_blank" rel="noopener">InfluxDB – Time-Series Data Storage | InfluxData</a> - Go写的分布式时间序列数据库</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/OpenTSDB/opentsdb" target="_blank" rel="noopener">OpenTSDB/opentsdb: A scalable, distributed Time Series Database</a>. - 基于HBase的时间序列数据库</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/kairosdb/kairosdb" target="_blank" rel="noopener">kairosdb/kairosdb: Fast scalable time series database</a> - 基于Cassandra的时间序列数据库</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.sqlite.org/" target="_blank" rel="noopener">SQLite Home Page</a></li>
+</ul>
+<p><strong>网站、论坛、社区、博客</strong> 国外：</p>
+<ul>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.aqr.com/" target="_blank" rel="noopener">AQR - Alternative Investments</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//epchan.blogspot.jp/" target="_blank" rel="noopener">http://epchan.blogspot.jp/</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//blog.fosstrading.com/" target="_blank" rel="noopener">FOSS Trading</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//forum.wilmott.com/" target="_blank" rel="noopener">wilmott.com - Forum</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.tradersmagazine.com/" target="_blank" rel="noopener">Traders Magazine: The stock dealers and institutional traders complete interactive news and information service</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//practicalquant.blogspot.jp/%3Fview%3Dclassic" target="_blank" rel="noopener">http://practicalquant.blogspot.jp/?view=classic</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.thewholestreet.com/" target="_blank" rel="noopener">http://www.thewholestreet.com/</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.implementingquantlib.com/" target="_blank" rel="noopener">Implementing QuantLib</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//tradingwithpython.blogspot.jp/" target="_blank" rel="noopener">http://tradingwithpython.blogspot.jp/</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//etrading.wordpress.com/category/coding/" target="_blank" rel="noopener">Coding the markets</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//quantivity.wordpress.com/page/2/" target="_blank" rel="noopener">Quantivity</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//quantocracy.com/" target="_blank" rel="noopener">Quant Mashup | Quantocracy</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.zerohedge.com/" target="_blank" rel="noopener">On a long enough timeline the survival rate for everyone drops to zero</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//keplerianfinance.com/" target="_blank" rel="noopener">Keplerian Finance - exploring the boundaries of quantitative finance</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.iijournals.com/toc/jot/current" target="_blank" rel="noopener">The Journal of Trading: Home</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//mhittesdorf.wordpress.com/" target="_blank" rel="noopener">All things finance and technology…</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.quantnews.com/" target="_blank" rel="noopener">Quant News</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//numericalmethod.com/quantitative-trading-strategies/" target="_blank" rel="noopener">Quantitative Trading Strategies | Numerical Method Inc.</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.nuclearphynance.com/" target="_blank" rel="noopener">Nuclear Phynance</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.elitetrader.com/et/" target="_blank" rel="noopener">Elite Trader</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//mebfaber.com/" target="_blank" rel="noopener">Meb Faber Research - Stock Market and Investing Blog</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.portfolioworkstation.com/" target="_blank" rel="noopener">Portfolio Workstation by Alpha Level</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//falkenblog.blogspot.jp/" target="_blank" rel="noopener">http://falkenblog.blogspot.jp/</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//quant.stackexchange.com/" target="_blank" rel="noopener">Quantitative Finance Stack Exchange</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.reddit.com/r/quantfinance/" target="_blank" rel="noopener">The mathematics of investing and markets • r/quantfinance</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.quantnet.com/" target="_blank" rel="noopener">QuantNet Community</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//jonathankinlay.com/" target="_blank" rel="noopener">QUANTITATIVE RESEARCH AND TRADING - The latest theories, models and investment strategies in quantitative research and trading</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//qusma.com/" target="_blank" rel="noopener">QUSMA - Quantitative Systematic Market Analysis</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//abnormalreturns.com/" target="_blank" rel="noopener">https://abnormalreturns.com/</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//cssanalytics.wordpress.com/" target="_blank" rel="noopener">CSSA</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.tradingtheodds.com/" target="_blank" rel="noopener">http://www.tradingtheodds.com/</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//gekkoquant.com/" target="_blank" rel="noopener">Quantitative Trading, Statistical Arbitrage, Machine Learning and Binary Options</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//trade.collective2.com/" target="_blank" rel="noopener">Collective2 - The platform that connects investors with top-traders</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//alvarezquanttrading.com/" target="_blank" rel="noopener">Alvarez Quant Trading</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.quantiacs.com/" target="_blank" rel="noopener">The Marketplace For Algorithmic Trading Systems | Quantiacs</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.tandfonline.com/action/showMostReadArticles%3FjournalCode%3Drquf20" target="_blank" rel="noopener">Quantitative Finance</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.quantopian.com/lectures" target="_blank" rel="noopener">Quantopian Lectures</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.kitces.com/" target="_blank" rel="noopener">Kitces.com - Advancing Knowledge in Financial Planning</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.forexfactory.com/" target="_blank" rel="noopener">Forex Factory</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.thertrader.com/" target="_blank" rel="noopener">The R Trader</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.turingfinance.com/how-to-be-a-quant/" target="_blank" rel="noopener">How to be a Quant</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.udacity.com/course/machine-learning-for-trading--ud501" target="_blank" rel="noopener">关于交易策略的机器学习</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//scikit-learn.org/stable/" target="_blank" rel="noopener">scikit-learn: machine learning in Python</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.wilmott.com/blogs/paul/index.cfm" target="_blank" rel="noopener">Paul Wilmott</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.the-trend-is-your-friend.com/" target="_blank" rel="noopener">The Trend is your Friend</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//practicalquant.blogspot.com/" target="_blank" rel="noopener">Practical Quant</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.investorsinsight.com/blogs/john_mauldins_outside_the_box/default.aspx" target="_blank" rel="noopener">John Mauldin’s Outside the Box</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//quantumfinancier.wordpress.com/" target="_blank" rel="noopener">Quantum Financier</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.quantifiedstrategies.com/" target="_blank" rel="noopener">Quantified Strategies</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.blackrockblog.com/" target="_blank" rel="noopener">BlackRock Blog</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.quantatrisk.com/" target="_blank" rel="noopener">Quant at Risk</a></li>
+</ul>
+<p>国内：</p>
+<ul>
+<li><a href="http://link.zhihu.com/?target=https%3A//community.bigquant.com/" target="_blank" rel="noopener">BigQuant量化社区</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//weibo.com/u/3183064657%3Ftopnav%3D1%26wvr%3D6%26topsug%3D1" target="_blank" rel="noopener">算法组_新浪微博</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.oceantribe.org/xf/index.php" target="_blank" rel="noopener">海洋部落</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.newsmth.net/" target="_blank" rel="noopener">水木社区</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//bbs.pinggu.org/forum-2166-1.html" target="_blank" rel="noopener">（经管之家）人大经济论坛</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//forum.thuquant.com/" target="_blank" rel="noopener">清华大学学生经济金融论坛</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.matlabsky.com/" target="_blank" rel="noopener">matlab技术论坛</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.wquant.com/" target="_blank" rel="noopener">微量网</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//code.tradeclassroom.com/" target="_blank" rel="noopener">Code4Quant</a></li>
+<li><a href="https://www.zhihu.com/topic/19815465/hot" target="_blank" rel="noopener">量化交易 - 热门问答 - 知乎</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.jisilu.cn/" target="_blank" rel="noopener">集思录 - 低风险投资 - 集思录</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//xueqiu.com/%23/" target="_blank" rel="noopener">雪球 - 聪明的投资者都在这里</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/myquant/strategy/" target="_blank" rel="noopener">myquant/strategy: 掘金策略集锦</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/botvs/strategies" target="_blank" rel="noopener">botvs/strategies</a> - 用Javascript or Python进行量化交易</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.zenotrade.com/" target="_blank" rel="noopener">芝诺量化交易,程序化交易</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//cos.name/" target="_blank" rel="noopener">统计之都 (Capital of Statistics)</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.chinaqi.org/default.php" target="_blank" rel="noopener">中国量化投资学会</a></li>
+<li><a href="https://www.zhihu.com/topic/19557481" target="_blank" rel="noopener">宽客 (Quant) - 索引 - 知乎</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//blog.sina.com.cn/s/blog_4cf8aad30102e5dh.html" target="_blank" rel="noopener">faruto的博客</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//blog.sina.com.cn/s/articlelist_1640260361_0_1.html" target="_blank" rel="noopener">博文_bicloud_新浪博客</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//blog.sina.com.cn/s/articlelist_1606645093_0_1.html" target="_blank" rel="noopener">博文<em>郑来轶</em>新浪博客</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//blog.sina.com.cn/u/3157225752" target="_blank" rel="noopener">flitter_新浪博客</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//blog.sina.com.cn/financialindependence" target="_blank" rel="noopener">david自由之路</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//blog.sina.com.cn/hj10n" target="_blank" rel="noopener">作者安道全_新浪博客</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//wangzhai2008.blog.hexun.com/" target="_blank" rel="noopener">债券的大拿没钱又丑</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//huzi2010.blog.hexun.com/" target="_blank" rel="noopener">期货用来复盘的blog</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//blog.sina.com.cn/hjhh" target="_blank" rel="noopener">花荣_新浪博客</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//xman707.blog.163.com/" target="_blank" rel="noopener">股海泛舟 - 股海范舟</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//dtdg777.blog.163.com/" target="_blank" rel="noopener">带头大哥777的博客</a></li>
+</ul>
+<p><strong>交易API</strong></p>
+<ul>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.sfit.com.cn/5_2_DocumentDown.htm" target="_blank" rel="noopener">上海期货信息技术有限公司CTP API</a> - 期货交易所提供的API</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.cffexit.com.cn/static/3000201.html" target="_blank" rel="noopener">飞马快速交易平台 - 上海金融期货信息技术有限公司</a> - 飞马</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.dfitc.com.cn/portal/cate%3Fcid%3D1364967839100%231" target="_blank" rel="noopener">大连飞创信息技术有限公司</a> - 飞创</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/vnpy/vnpy" target="_blank" rel="noopener">vnpy</a> - 基于python的开源交易平台开发框架</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/QuantBox/XAPI2" target="_blank" rel="noopener">QuantBox/XAPI2</a> - 统一行情交易接口第2版</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/shidenggui/easytrader" target="_blank" rel="noopener">easytrader</a> - 提供券商华泰/佣金宝/银河/广发/雪球的基金、股票自动程序化交易，量化交易组件</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.interactivebrokers.com.hk/cn/index.php%3Ff%3D5234%26ns%3DT" target="_blank" rel="noopener">IB API | Interactive Brokers</a> - 盈透证券的交易API</li>
+</ul>
+<h2 id="编程"><a href="#编程" class="headerlink" title="编程"></a>编程</h2><h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><ul>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.continuum.io/downloads" target="_blank" rel="noopener">Anaconda</a> - 推荐通过<a href="http://link.zhihu.com/?target=https%3A//mirrors.tuna.tsinghua.edu.cn/help/anaconda/" target="_blank" rel="noopener">清华大学镜像 </a>下载安装</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.jetbrains.com/pycharm/download/%23section%3Dwindows" target="_blank" rel="noopener">Pycharm</a> download</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.lfd.uci.edu/%7Egohlke/pythonlibs/" target="_blank" rel="noopener">Python Extension Packages for Windows - Christoph Gohlke</a> - Windows用户从这里可以下载许多python库的预编译包</li>
+</ul>
+<h4 id="教程"><a href="#教程" class="headerlink" title="教程"></a>教程</h4><ul>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.codecademy.com/learn/python" target="_blank" rel="noopener">Python | Codecademy</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/%E7%94%A8Python%E7%8E%A9%E8%BD%AC%E6%95%B0%E6%8D%AE%20Data%20Processing%20Using%20Python%20-%20Nanjing%20University%20%7C%20Coursera" target="_blank" rel="noopener">用 Python 玩转数据 - 南京大学 | Coursera</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//zh-google-styleguide.readthedocs.io/en/latest/" target="_blank" rel="noopener">Google 开源项目风格指南 (中文版)</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.liaoxuefeng.com/article/001432619295115c918a094d8954bd493037b03d27bf9a9000" target="_blank" rel="noopener">廖雪峰python教程</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.coursera.org/learn/python-data-analysis" target="_blank" rel="noopener">Introduction to Data Science in Python - University of Michigan | Coursera</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//docs.python.org/3/" target="_blank" rel="noopener">The Python Tutorial</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//vdisk.weibo.com/s/sLnfdA8jqwjcU%3Fcategory_id%3D0%26" target="_blank" rel="noopener">Python for Finance</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//open.163.com/movie/2013/12/1/5/M9DOKFDV4_MA2ESKT15.html" target="_blank" rel="noopener">Algorithmic Thinking </a>- Python 算法思维训练</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//python3-cookbook.readthedocs.io/zh_CN/latest/index.html" target="_blank" rel="noopener">Python Cookbook 3rd Edition Documentation</a></li>
+</ul>
+<h4 id="库"><a href="#库" class="headerlink" title="库"></a>库</h4><ul>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.lfd.uci.edu/%7Egohlke/pythonlibs/%23ta-lib" target="_blank" rel="noopener">Python Extension Packages for Windows</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/vinta/awesome-python" target="_blank" rel="noopener">awesome-python: A curated list of awesome Python frameworks, libraries, software and resources</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//pandas.pydata.org/" target="_blank" rel="noopener">pandas</a> - Python做数据分析的基础</li>
+<li><p><a href="http://link.zhihu.com/?target=https%3A//github.com/enthought/pyql" target="_blank" rel="noopener">pyql: Cython QuantLib wrappers</a></p>
+</li>
+<li><p><a href="http://link.zhihu.com/?target=http%3A//pmorissette.github.io/ffn/quick.html" target="_blank" rel="noopener">ffn</a> - 绩效评估</p>
+</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/mrjbq7/ta-lib" target="_blank" rel="noopener">ta-lib: Python wrapper for TA-Lib (http://ta-lib.org/).</a> - 技术指标</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//statsmodels.sourceforge.net/" target="_blank" rel="noopener">StatsModels: Statistics in Python — statsmodels documentation</a> - 常用统计模型</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/bashtage/arch" target="_blank" rel="noopener">arch: ARCH models in Python</a> - 时间序列</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/quantopian/pyfolio" target="_blank" rel="noopener">pyfolio: Portfolio and risk analytics in Python</a> - 组合风险评估</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/twosigma/flint" target="_blank" rel="noopener">twosigma/flint: A Time Series Library for Apache Spark</a> - Apache Spark上的时间序列库</li>
+</ul>
+<h3 id="R"><a href="#R" class="headerlink" title="R"></a>R</h3><h4 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h4><ul>
+<li><a href="http://link.zhihu.com/?target=https%3A//mirrors.tuna.tsinghua.edu.cn/CRAN/" target="_blank" rel="noopener">The Comprehensive R Archive Network</a> - 从国内清华镜像下载安装</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.rstudio.com/products/rstudio/download/" target="_blank" rel="noopener">RStudio</a> - R的常用开发平台下载</li>
+</ul>
+<h4 id="教程-1"><a href="#教程-1" class="headerlink" title="教程"></a>教程</h4><ul>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.datacamp.com/courses/free-introduction-to-r" target="_blank" rel="noopener">Free Introduction to R Programming Online Course</a> - datacamp的在线学习</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.coursera.org/learn/r-programming" target="_blank" rel="noopener">R Programming - 约翰霍普金斯大学 | Coursera</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.datacamp.com/community/open-courses/computational-finance-and-financial-econometrics-with-r" target="_blank" rel="noopener">Intro to Computational Finance with R</a> - 用R进行计算金融分析</li>
+</ul>
+<h4 id="库-1"><a href="#库-1" class="headerlink" title="库"></a>库</h4><ul>
+<li><a href="http://link.zhihu.com/?target=https%3A//cran.r-project.org/web/views/Finance.html" target="_blank" rel="noopener">CRAN Task View: Empirical Finance</a> - CRAN官方的R金融相关包整理</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/qinwf/awesome-R" target="_blank" rel="noopener">qinwf/awesome-R: A curated list of awesome R packages, frameworks and software.</a> - R包的awesome</li>
+</ul>
+<h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><h4 id="教程-2"><a href="#教程-2" class="headerlink" title="教程"></a>教程</h4><ul>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.xuetangx.com/courses/course-v1%3APekingX%2B04831750.1x%2B2015T1/about" target="_blank" rel="noopener">C++程序设计</a> - 北京大学 郭炜</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.xuetangx.com/courses/course-v1%3ATsinghuaX%2B20740084X%2Bsp/about" target="_blank" rel="noopener">基于Linux的C++ </a>- 清华大学 乔林</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//www.xuetangx.com/courses/course-v1%3ATsinghuaX%2B30240532X%2Bsp/about" target="_blank" rel="noopener">面向对象程序设计（C++）</a> - 清华大学 徐明星</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//book.douban.com/subject/1485468/" target="_blank" rel="noopener">C++ Design Patterns and Derivatives Pricing </a>- C++设计模式</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//en.cppreference.com/w/cpp" target="_blank" rel="noopener">C++ reference - cppreference.com</a> - 在线文档</li>
+</ul>
+<h4 id="库-2"><a href="#库-2" class="headerlink" title="库"></a>库</h4><ul>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/fffaraz/awesome-cpp" target="_blank" rel="noopener">fffaraz/awesome-cpp: A curated list of awesome C/C++ frameworks, libraries, resources, and shiny things.</a> - C++库整理</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/rigtorp/awesome-modern-cpp" target="_blank" rel="noopener">rigtorp/awesome-modern-cpp: A collection of resources on modern C++</a> - 现代C++库整理</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//quantlib.org/index.shtml" target="_blank" rel="noopener">QuantLib: a free/open-source library for quantitative finance</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/libtrading/libtrading" target="_blank" rel="noopener">libtrading/libtrading: Libtrading, an ultra low-latency trading connectivity library for C and C++.</a></li>
+</ul>
+<h3 id="Julia"><a href="#Julia" class="headerlink" title="Julia"></a>Julia</h3><h4 id="教程-3"><a href="#教程-3" class="headerlink" title="教程"></a>教程</h4><ul>
+<li><a href="http://link.zhihu.com/?target=http%3A//julialang.org/learning/" target="_blank" rel="noopener">Learning Julia</a> - 官方整理</li>
+<li><a href="http://link.zhihu.com/?target=http%3A//quant-econ.net/_static/pdfs/jl-quant-econ.pdf" target="_blank" rel="noopener">QUANTITATIVE ECONOMICS with Julia</a> - 经济学诺奖获得者Thomas Sargent教你<a href="http://link.zhihu.com/?target=http%3A//julialang.org/" target="_blank" rel="noopener">Julia</a>在量化经济的应用。</li>
+</ul>
+<h4 id="库-3"><a href="#库-3" class="headerlink" title="库"></a>库</h4><ul>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/JuliaQuant" target="_blank" rel="noopener">Quantitative Finance in Julia</a> - 多数为正在实现中，感兴趣的可以参与</li>
+</ul>
+<h3 id="编程论坛"><a href="#编程论坛" class="headerlink" title="编程论坛"></a>编程论坛</h3><ul>
+<li><a href="http://link.zhihu.com/?target=http%3A//stackoverflow.com/" target="_blank" rel="noopener">Stack Overflow</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//segmentfault.com/" target="_blank" rel="noopener">SegmentFault</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.quora.com/" target="_blank" rel="noopener">Quora</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//github.com/" target="_blank" rel="noopener">Github</a></li>
+<li><a href="https://www.zhihu.com/" target="_blank" rel="noopener">知乎 - 与世界分享你的知识、经验和见解</a></li>
+</ul>
+<h3 id="编程能力在线训练"><a href="#编程能力在线训练" class="headerlink" title="编程能力在线训练"></a>编程能力在线训练</h3><ul>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.hackerrank.com/domains" target="_blank" rel="noopener">Solve Programming Questions | HackerRank</a> - 包含常用语言(C++, Java, Python, Ruby, SQL)和相关计算机应用技术(算法、数据结构、数学、AI、Linux Shell、分布式系统、正则表达式、安全)的教程和挑战。</li>
+<li><a href="http://link.zhihu.com/?target=https%3A//leetcode.com/" target="_blank" rel="noopener">LeetCode Online Judge</a> - C, C++, Java, Python, C#, JavaScript, Ruby, Bash, MySQL在线编程训练</li>
+</ul>
+<h1 id="Quant-Books"><a href="#Quant-Books" class="headerlink" title="Quant Books"></a>Quant Books</h1><ul>
+<li>《投资学》第6版[美]兹维·博迪.文字版 (<a href="http://link.zhihu.com/?target=http%3A//vdisk.weibo.com/s/sEtBVyJS6pvo" target="_blank" rel="noopener">link</a>)</li>
+<li>《打开量化投资的黑箱》 里什·纳兰</li>
+<li>《宽客》[美] <a href="http://link.zhihu.com/?target=http%3A//book.jd.com/writer/%25E6%2596%25AF%25E7%25A7%2591%25E7%2589%25B9%25C2%25B7%25E5%25B8%2595%25E7%2589%25B9%25E6%25A3%25AE_1.html" target="_blank" rel="noopener">斯科特·帕特森</a>（<a href="http://link.zhihu.com/?target=http%3A//book.jd.com/writer/Scott%2520Patterson_1.html" target="_blank" rel="noopener">Scott Patterson</a>） 著；<a href="http://link.zhihu.com/?target=http%3A//book.jd.com/writer/%25E8%25AF%2591%25E7%25A7%2591_1.html" target="_blank" rel="noopener">译科</a>，<a href="http://link.zhihu.com/?target=http%3A//book.jd.com/writer/%25E5%258D%25A2%25E5%25BC%2580%25E6%25B5%258E_1.html" target="_blank" rel="noopener">卢开济</a> 译</li>
+<li>《解读量化投资：西蒙斯用公式打败市场的故事》 忻海</li>
+<li>《Trends in Quantitative Finance》 Frank J. Fabozzi, Sergio M. Focardi, Petter N. Kolm</li>
+<li>《漫步华尔街》麦基尔</li>
+<li>《海龟交易法则》柯蒂斯·费思</li>
+<li>《交易策略评估与最佳化》罗伯特·帕多</li>
+<li>《统计套利》 安德鲁·波尔《信号与噪声》纳特•西尔弗</li>
+<li>《期货截拳道》朱淋靖</li>
+<li>《量化投资—策略与技术》 丁鹏</li>
+<li>《量化投资—以matlab为工具》 李洋faruto</li>
+<li>《量化投资策略:如何实现超额收益Alpha》 吴冲锋</li>
+<li>《中低频量化交易策略研发（上）》 杨博理</li>
+<li>《走出幻觉走向成熟》 金融帝国</li>
+<li>《失控》凯文·凯利 《通往财务自由之路》范K撒普</li>
+<li>《以交易为生》 埃尔德</li>
+<li>《超越技术分析》图莎尔·钱德</li>
+<li>《高级技术分析》布鲁斯·巴布科克</li>
+<li>《积极型投资组合管理》格里纳德，卡恩</li>
+<li>《金融计量学:从初级到高级建模技术》 斯维特洛扎</li>
+<li>《投资革命》Bernstein</li>
+<li>《富可敌国》Sebastian Mallaby</li>
+<li>《量化交易——如何建立自己的算法交易事业》欧内斯特·陈</li>
+<li>《<a href="http://link.zhihu.com/?target=http%3A//book.douban.com/subject/5243775/" target="_blank" rel="noopener">聪明的投资者</a>》 巴菲特</li>
+<li><p>《黑天鹅·如何应对不可知的未来》 纳西姆·塔勒布</p>
+</li>
+<li><p>《期权、期货和其他衍生品》 <a href="http://link.zhihu.com/?target=https%3A//book.douban.com/search/%25E7%25BA%25A6%25E7%25BF%25B0%25C2%25B7%25E8%25B5%25AB%25E5%25B0%2594/" target="_blank" rel="noopener">约翰·赫尔</a></p>
+</li>
+<li>《Building Reliable Trading Systems: Tradable Strategies That Perform As They Backtest and Meet Your Risk-Reward Goals》 Keith Fitschen</li>
+<li>《Quantitative Equity Investing》by Frank J. Fabozzi, Sergio M. Focardi, Petter N. Kolm</li>
+<li>Barra USE3 handbook</li>
+<li>《Quantitative Equity Portfolio Management》 Ludwig Chincarini</li>
+<li>《Quantitative Equity Portfolio Management》 Qian &amp; Hua &amp; Sorensen</li>
+</ul>
+<h1 id="Quant-Papers"><a href="#Quant-Papers" class="headerlink" title="Quant Papers"></a>Quant Papers</h1><h2 id="Machine-Learning-Related"><a href="#Machine-Learning-Related" class="headerlink" title="Machine Learning Related"></a>Machine Learning Related</h2><ul>
+<li>Cavalcante, Rodolfo C., et al. “Computational Intelligence and Financial Markets: A Survey and Future Directions.” Expert Systems with Applications 55 (2016): 194-211.<a href="http://link.zhihu.com/?target=http%3A//www.sciencedirect.com/science/article/pii/S095741741630029X" target="_blank" rel="noopener">(link)</a></li>
+</ul>
+<h3 id="Low-Frequency-Prediction"><a href="#Low-Frequency-Prediction" class="headerlink" title="Low Frequency Prediction"></a>Low Frequency Prediction</h3><ul>
+<li>Atsalakis G S, Valavanis K P. Surveying stock market forecasting techniques Part II: Soft computing methods. Expert Systems with Applications, 2009, 36(3):5932–5941. <a href="http://link.zhihu.com/?target=https%3A//scholar.google.com/scholar_url%3Furl%3Dhttp%3A//www.sciencedirect.com/science/article/pii/S0957417408004417%26hl%3Dzh-CN%26sa%3DT%26oi%3Dgsb%26ct%3Dres%26cd%3D0%26ei%3Dbx96WJysNMK7jAHry6ToBA%26scisig%3DAAGBfm0ZeE3fEbS6P7zo9Ltcd9M0vtAu9w" target="_blank" rel="noopener">(link)</a></li>
+<li>Cai X, Lin X. Feature Extraction Using Restricted Boltzmann Machine for Stock Price Predic- tion. 2012 IEEE International Conference on Computer Science and Automation Engineering (CSAE), 2012. 80–83.<a href="http://link.zhihu.com/?target=https%3A//scholar.google.com/scholar_url%3Furl%3Dhttp%3A//ieeexplore.ieee.org/xpls/abs_all.jsp%253Farnumber%253D6272913%26hl%3Dzh-CN%26sa%3DT%26oi%3Dgsb%26ct%3Dres%26cd%3D0%26ei%3DuR96WN71F4nE2AaJsreoBQ%26scisig%3DAAGBfm2biXd57RUWeaTdwuSosAyN-Lpkhg" target="_blank" rel="noopener">(link)</a></li>
+<li>Nair B B, Dharini N M, Mohandas V P. A stock market trend prediction system using a hybrid decision tree-neuro-fuzzy system. Proceedings - 2nd International Conference on Advances in Recent Technologies in Communication and Computing, ARTCom 2010, 2010. 381–385. <a href="http://link.zhihu.com/?target=https%3A//scholar.google.com/scholar_url%3Furl%3Dhttp%3A//ieeexplore.ieee.org/xpls/abs_all.jsp%253Farnumber%253D5655295%26hl%3Dzh-CN%26sa%3DT%26oi%3Dgsb%26ct%3Dres%26cd%3D0%26ei%3Dzx96WKLSJsSV2AbjyIiACA%26scisig%3DAAGBfm0GQbLhoeE6waU9eWWfsUTYba5FmQ" target="_blank" rel="noopener">(link)</a></li>
+<li>Lu C J, Lee T S, Chiu C C. Financial time series forecasting using independent component analysis and support vector regression. Decision Support Systems, 2009, 47(2):115–125. <a href="http://link.zhihu.com/?target=https%3A//scholar.google.com/scholar_url%3Furl%3Dhttp%3A//www.sciencedirect.com/science/article/pii/S0167923609000323%26hl%3Dzh-CN%26sa%3DT%26oi%3Dgsb%26ct%3Dres%26cd%3D0%26ei%3DByB6WNPSB4iYjAHl4regCA%26scisig%3DAAGBfm1iHSydvwcYSUzCM3YXChNVYuoQYg" target="_blank" rel="noopener">(link)</a></li>
+<li>Creamer G, Freund Y. Automated trading with boosting and expert weighting. Quantitative Finance, 2010, 10(4):401–420. <a href="http://link.zhihu.com/?target=https%3A//scholar.google.com/scholar_url%3Furl%3Dhttp%3A//www.tandfonline.com/doi/abs/10.1080/14697680903104113%26hl%3Dzh-CN%26sa%3DT%26oi%3Dgsb%26ct%3Dres%26cd%3D0%26ei%3DGCB6WO63JcPLjAGumbfwBw%26scisig%3DAAGBfm3q4amcbTFxs2tl5yuLG_4hoLSAsw" target="_blank" rel="noopener">(link)</a></li>
+<li>Batres-Estrada, Bilberto. “Deep learning for multivariate financial time series.” (2015). <a href="http://link.zhihu.com/?target=http%3A//www.diva-portal.org/smash/record.jsf%3Fpid%3Ddiva2%3A820891" target="_blank" rel="noopener">(link)</a></li>
+<li>Xiong, Ruoxuan, Eric P. Nicholas, and Yuan Shen. “Deep Learning Stock Volatilities with Google Domestic Trends.” arXiv preprint arXiv:1512.04916 (2015).<a href="http://link.zhihu.com/?target=http%3A//arxiv.org/abs/1512.04916" target="_blank" rel="noopener">(link)</a></li>
+<li>Sharang, Abhijit, and Chetan Rao. “Using machine learning for medium frequency derivative portfolio trading.” arXiv preprint arXiv:1512.06228 (2015).<a href="http://link.zhihu.com/?target=http%3A//arxiv.org/abs/1512.06228" target="_blank" rel="noopener">(link)</a></li>
+</ul>
+<h3 id="Reinforcement-Learning"><a href="#Reinforcement-Learning" class="headerlink" title="Reinforcement Learning"></a>Reinforcement Learning</h3><ul>
+<li>Dempster, Michael AH, and Vasco Leemans. “An automated FX trading system using adaptive reinforcement learning.” Expert Systems with Applications 30.3 (2006): 543-552. <a href="http://link.zhihu.com/?target=https%3A//scholar.google.com/scholar_url%3Furl%3Dhttp%3A//www.sciencedirect.com/science/article/pii/S0957417405003015%26hl%3Dzh-CN%26sa%3DT%26oi%3Dgsb%26ct%3Dres%26cd%3D0%26ei%3DLiB6WNKmKoK3jAHjxJyABg%26scisig%3DAAGBfm3bJLN34rsebvNGo6IUfeYxiIC15w" target="_blank" rel="noopener">(link)</a></li>
+<li>Tan, Zhiyong, Chai Quek, and Philip YK Cheng. “Stock trading with cycles: A financial application of ANFIS and reinforcement learning.” Expert Systems with Applications 38.5 (2011): 4741-4755. <a href="http://link.zhihu.com/?target=https%3A//scholar.google.com/scholar_url%3Furl%3Dhttp%3A//www.sciencedirect.com/science/article/pii/S095741741000905X%26hl%3Dzh-CN%26sa%3DT%26oi%3Dgsb%26ct%3Dres%26cd%3D0%26ei%3DPSB6WL_aKMK7jAHry6ToBA%26scisig%3DAAGBfm1WRwH4660mqK7RE0Mua2EDpuxLlA" target="_blank" rel="noopener">(link)</a></li>
+<li>Rutkauskas, Aleksandras Vytautas, and Tomas Ramanauskas. “Building an artificial stock market populated by reinforcement‐learning agents.” Journal of Business Economics and Management 10.4 (2009): 329-341.<a href="http://link.zhihu.com/?target=https%3A//scholar.google.com/scholar_url%3Furl%3Dhttp%3A//www.tandfonline.com/doi/abs/10.3846/1611-1699.2009.10.329-341%26hl%3Dzh-CN%26sa%3DT%26oi%3Dgsb%26ct%3Dres%26cd%3D0%26ei%3DUSB6WKWEM4WMjAHRpKKwBw%26scisig%3DAAGBfm15PBF06_fqletDTDk80FrNiyoWJg" target="_blank" rel="noopener">(link)</a></li>
+<li>Deng, Yue, et al. “Deep Direct Reinforcement Learning for Financial Signal Representation and Trading.” (2016).<a href="http://link.zhihu.com/?target=http%3A//ieeexplore.ieee.org/xpls/abs_all.jsp%3Farnumber%3D7407387" target="_blank" rel="noopener">(link)</a></li>
+</ul>
+<h3 id="Natual-Language-Processing-Related"><a href="#Natual-Language-Processing-Related" class="headerlink" title="Natual Language Processing Related"></a>Natual Language Processing Related</h3><ul>
+<li>Bollen J, Mao H, Zeng X. Twitter mood predicts the stock market. Journal of Computational Science, 2011, 2(1):1–8. <a href="http://link.zhihu.com/?target=https%3A//scholar.google.com/scholar_url%3Furl%3Dhttp%3A//www.sciencedirect.com/science/article/pii/S187775031100007X%26hl%3Dzh-CN%26sa%3DT%26oi%3Dgsb%26ct%3Dres%26cd%3D0%26ei%3DhCB6WJf-F4nE2AaJsreoBQ%26scisig%3DAAGBfm0-CdCSkIorraVT063nZXOMGZPVng" target="_blank" rel="noopener">(link)</a></li>
+<li>Preis T, Moat H S, Stanley H E, et al. Quantifying trading behavior in financial markets using Google Trends. Scientific reports, 2013, 3:1684. <a href="http://link.zhihu.com/?target=https%3A//scholar.google.com/scholar_url%3Furl%3Dhttp%3A//www.nature.com/srep/2013/130425/srep01684/full/srep01684.html%26hl%3Dzh-CN%26sa%3DT%26oi%3Dgsb-ggp%26ct%3Dres%26cd%3D0%26ei%3DlCB6WMyLOMSV2AbjyIiACA%26scisig%3DAAGBfm1Kw6QEU25rQIFN5NppvKpiaZzlFg" target="_blank" rel="noopener">(link)</a></li>
+<li>Moat H S, Curme C, Avakian A, et al. Quantifying Wikipedia Usage Patterns Before Stock Market Moves. Scientific Reports, 2013, 3:1–5. <a href="http://link.zhihu.com/?target=https%3A//scholar.google.com/scholar_url%3Furl%3Dhttp%3A//www.nature.com/srep/2013/130508/srep01801/full/srep01801.html%253FWT.ec_id%253DSREP-20130514%26hl%3Dzh-CN%26sa%3DT%26oi%3Dgsb-ggp%26ct%3Dres%26cd%3D0%26ei%3DoCB6WOnhJ4ufjAHc4L2ADA%26scisig%3DAAGBfm2DeL0w8CD41aPbIs1V7GwAz8gOOg" target="_blank" rel="noopener">(link)</a></li>
+<li>Ding, Xiao, et al. “Deep learning for event-driven stock prediction.” Proceedings of the 24th International Joint Conference on Artificial Intelligence (ICJAI’15). 2015. <a href="http://link.zhihu.com/?target=https%3A//scholar.google.com/scholar_url%3Furl%3Dhttp%3A//ijcai.org/papers15/Papers/IJCAI15-329.pdf%26hl%3Dzh-CN%26sa%3DT%26oi%3Dgsb-ggp%26ct%3Dres%26cd%3D0%26ei%3DpCF6WOLxFcK7jAHry6ToBA%26scisig%3DAAGBfm0xUNdATrhy1lLIFLzyxMswZU6ifg" target="_blank" rel="noopener">(link)</a></li>
+<li>Fehrer, R., &amp; Feuerriegel, S. (2015). Improving Decision Analytics with Deep Learning: The Case of Financial Disclosures. arXiv preprint arXiv:1508.01993. <a href="http://link.zhihu.com/?target=http%3A//aisel.aisnet.org/cgi/viewcontent.cgi%3Farticle%3D1018%26context%3Decis2016_rip" target="_blank" rel="noopener">(link)</a></li>
+</ul>
+<h3 id="High-Frequency-Trading"><a href="#High-Frequency-Trading" class="headerlink" title="High Frequency Trading"></a>High Frequency Trading</h3><ul>
+<li>Nevmyvaka Y, Feng Y, Kearns M. Reinforcement learning for optimized trade execution. Proceedings of the 23rd international conference on Machine learning ICML 06, 2006, 17(1):673–680. <a href="http://link.zhihu.com/?target=https%3A//scholar.google.com/scholar_url%3Furl%3Dhttp%3A//dl.acm.org/citation.cfm%253Fid%253D1143929%26hl%3Dzh-CN%26sa%3DT%26oi%3Dgsb%26ct%3Dres%26cd%3D0%26ei%3DryB6WPTAMcaL2Abq5oagAQ%26scisig%3DAAGBfm3zYhh3tFDl_ZwyF25UcRYUnbJAJg" target="_blank" rel="noopener">(link)</a></li>
+<li>Ganchev K, Nevmyvaka Y, Kearns M, et al. Censored exploration and the dark pool problem. Communications of the ACM, 2010, 53(5):99. <a href="http://link.zhihu.com/?target=https%3A//scholar.google.com/scholar_url%3Furl%3Dhttp%3A//dl.acm.org/citation.cfm%253Fid%253D1735247%26hl%3Dzh-CN%26sa%3DT%26oi%3Dgsb%26ct%3Dres%26cd%3D0%26ei%3DvCB6WJnWIYiYjAHl4regCA%26scisig%3DAAGBfm2UT7ekE1Wd-P_ZdJHt8TBs6hJFTg" target="_blank" rel="noopener">(link)</a></li>
+<li>Kearns M, Nevmyvaka Y. Machine learning for market microstructure and high frequency trading. High frequency trading - New realities for traders, markets and regulators, 2013. 1–21. <a href="http://link.zhihu.com/?target=https%3A//scholar.google.com/scholar_url%3Furl%3Dhttp%3A//www.smallake.kr/wp-content/uploads/2014/01/KearnsNevmyvakaHFTRiskBooks.pdf%26hl%3Dzh-CN%26sa%3DT%26oi%3Dgsb-ggp%26ct%3Dres%26cd%3D0%26ei%3DzCB6WPToHsPLjAGumbfwBw%26scisig%3DAAGBfm3POscrhMXvpJb5DBb5-oYsWlyzCw" target="_blank" rel="noopener">(link)</a></li>
+<li>Sirignano, Justin A. “Deep Learning for Limit Order Books.” arXiv preprint arXiv:1601.01987 (2016). <a href="http://link.zhihu.com/?target=http%3A//jasirign.github.io/pdf/DeepLearningLimitOrderBooks.pdf" target="_blank" rel="noopener">(link)</a></li>
+<li>Deng, Yue, et al. “Sparse coding-inspired optimal trading system for HFT industry.” IEEE Transactions on Industrial Informatics 11.2 (2015): 467-475.<a href="http://link.zhihu.com/?target=http%3A//ieeexplore.ieee.org/xpls/abs_all.jsp%3Farnumber%3D7042734" target="_blank" rel="noopener">(link)</a></li>
+<li>Ahuja, Saran, et al. “Limit order trading with a mean reverting reference price.” arXiv preprint arXiv:1607.00454 (2016). <a href="http://link.zhihu.com/?target=https%3A//arxiv.org/abs/1607.00454" target="_blank" rel="noopener">(link)</a></li>
+<li>Aït-Sahalia, Yacine, and Jean Jacod. “Analyzing the spectrum of asset returns: Jump and volatility components in high frequency data.” Journal of Economic Literature 50.4 (2012): 1007-1050. <a href="http://link.zhihu.com/?target=http%3A//www.ingentaconnect.com/content/aea/jel/2012/00000050/00000004/art00002" target="_blank" rel="noopener">(link)</a></li>
+</ul>
+<h2 id="Portfolio-Management"><a href="#Portfolio-Management" class="headerlink" title="Portfolio Management"></a>Portfolio Management</h2><ul>
+<li>B. Li and S. C. H. Hoi, “Online portfolio selection,” ACM Comput. Surv., vol. 46, no. 3, pp. 1–36, 2014. <a href="http://link.zhihu.com/?target=http%3A//dl.acm.org/citation.cfm%3Fid%3D2512962" target="_blank" rel="noopener">(link)</a></li>
+<li>Heaton, J. B., Polson, N. G., &amp; Witte, J. H. (2016). Deep Portfolio Theory. <a href="http://link.zhihu.com/?target=http%3A//arxiv.org/abs/1605.07230" target="_blank" rel="noopener">(link)</a></li>
+<li>Eugene F. Fama, Kenneth R. French. The cross-section of expected stock returns. Journal of Finance, 47 (1992), pp. 427–465.</li>
+</ul>
+<h2 id="学术期刊"><a href="#学术期刊" class="headerlink" title="学术期刊"></a>学术期刊</h2><p>一堆<strong>学术期刊</strong>可以常常去浏览一下，也会有许多思路，作者常常看的有：</p>
+<ul>
+<li>Journal of FinanceJournal of Financial Economics</li>
+<li>Review of Financial Studies</li>
+<li>Journal of Accounting and Economics</li>
+<li>Review of Accounting Studies</li>
+<li>Journal of Accounting Research</li>
+<li>Accounting Review</li>
+<li>Journal of Financial and Quantitative Analysis</li>
+<li>Financial Analysts Journal</li>
+<li>Financial Management</li>
+<li>Journal of Empirical Finance</li>
+<li>Quantitative Finance</li>
+<li>Journal of Alternative Investments</li>
+<li>Journal of Fixed Income</li>
+<li>Journal of Investing</li>
+<li>Journal of Portfolio Management</li>
+<li>Journal of Trading</li>
+<li>Review of Asset Pricing Studies</li>
+<li>经济研究</li>
+<li>经济学（季刊）</li>
+<li>金融研究</li>
+<li>管理世界</li>
+<li>会计研究</li>
+<li>投资研究</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/10/10/史上最全quant资源整理（转）/" data-id="cjujhygf400c1ej3j2cc8c4yh" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-最常用python开源框架有哪些？" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/08/18/最常用python开源框架有哪些？/" class="article-date">
+  <time datetime="2017-08-18T08:59:21.000Z" itemprop="datePublished">2017-08-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-python/">积累________python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/最常用python开源框架有哪些？/">最常用Python开源框架有哪些？</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>Python开源框架</strong>有很多，像Django、Flask、webpy等等，但哪些是最常用到的呢？</p>
+<h2 id="一、Python名气最大的框架：Django"><a href="#一、Python名气最大的框架：Django" class="headerlink" title="一、Python名气最大的框架：Django"></a>一、Python名气最大的框架：Django</h2><p>  在学习到python基础和python进阶时，一般不会使用到框架。但初学Python时，你一定听到过Django，这两者就好像是一对好朋友。 Django它是个开放源代码的Web应用框架，由Python写成的Django应该是最出名的Python框架之一。GAE还有Erlang都和python密切相关。Django是给人的感觉是高大尚，它十分出色的是其全自动化的管理后台：只需要使用起ORM做简单的对象定义，就能自动生成数据库结构，以及全功能的管理后台。  </p>
+<h2 id="二、用Python编写的小巧轻量级的Web应用框架：Flask"><a href="#二、用Python编写的小巧轻量级的Web应用框架：Flask" class="headerlink" title="二、用Python编写的小巧轻量级的Web应用框架：Flask"></a>二、用Python编写的小巧轻量级的Web应用框架：Flask</h2><p>  Flask也是一个Web应用框架，不同于Django它是轻量级Web应用框架。基于Werkzeug WSGI工具箱和Jinja2 模板引擎。Flask也被称为“microframework”，因为它使用简单的核心，用extension增加其他功能。Flask没有默认使用的数据库、窗体验证工具。 但是Flask是可以扩增的，你可以使用可以用Flask-extension增加前边没有的一些功能。  </p>
+<h2 id="三、实时Web服务的理想框架：Tornado异步非阻塞IO的Python-Web框架"><a href="#三、实时Web服务的理想框架：Tornado异步非阻塞IO的Python-Web框架" class="headerlink" title="三、实时Web服务的理想框架：Tornado异步非阻塞IO的Python Web框架"></a>三、实时Web服务的理想框架：Tornado异步非阻塞IO的Python Web框架</h2><p>  Tornado它的全称是Torado Web Server，仅仅从它的名字上我们就可以知道它可以用作Web服务器，但同时它也是一个Python Web的开发框架。Tornado 和现在的主流 Web 服务器框架和大多数Python框架有着明显的区别：它是非阻塞式服务器，而且速度相当快。也是比较常被使用的Python开源框架之一。   还有许多Python开源框架在被不同需求的人们使用，Python Web网站开发框架之TurboGears、Web2py全栈式Web框架、 Falcon高性能Python框架、 Buildbot持续集成测试框架、和Scrapy爬虫框架等等，在这里就不意义例举了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/08/18/最常用python开源框架有哪些？/" data-id="cjujhygbp008nej3jvc72hu7s" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

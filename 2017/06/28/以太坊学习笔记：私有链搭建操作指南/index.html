@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>以太坊学习笔记：私有链搭建操作指南 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="虽然以太坊是一个公有链系统，但是我们可以通过设置一些参数来运行自己的私有链节点，在自己的私有链上进行开发和测试不需要同步公有链数据，也不需要花钱来买以太币，节省存储空间和成本，而且很灵活很方便。本文介绍使用geth客户端搭建私有链的操作步骤，同时会解释在这个过程中用到的各个命令及选项的含义和作用，最后会介绍geth的JavaScript Console中的一些常用功能。 系统和软件 Ubuntu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="以太坊学习笔记：私有链搭建操作指南">
+<meta property="og:url" content="http://yoursite.com/2017/06/28/以太坊学习笔记：私有链搭建操作指南/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="虽然以太坊是一个公有链系统，但是我们可以通过设置一些参数来运行自己的私有链节点，在自己的私有链上进行开发和测试不需要同步公有链数据，也不需要花钱来买以太币，节省存储空间和成本，而且很灵活很方便。本文介绍使用geth客户端搭建私有链的操作步骤，同时会解释在这个过程中用到的各个命令及选项的含义和作用，最后会介绍geth的JavaScript Console中的一些常用功能。 系统和软件 Ubuntu">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-16T07:59:57.308Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="以太坊学习笔记：私有链搭建操作指南">
+<meta name="twitter:description" content="虽然以太坊是一个公有链系统，但是我们可以通过设置一些参数来运行自己的私有链节点，在自己的私有链上进行开发和测试不需要同步公有链数据，也不需要花钱来买以太币，节省存储空间和成本，而且很灵活很方便。本文介绍使用geth客户端搭建私有链的操作步骤，同时会解释在这个过程中用到的各个命令及选项的含义和作用，最后会介绍geth的JavaScript Console中的一些常用功能。 系统和软件 Ubuntu">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-以太坊学习笔记：私有链搭建操作指南" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/28/以太坊学习笔记：私有链搭建操作指南/" class="article-date">
+  <time datetime="2017-06-28T02:14:28.000Z" itemprop="datePublished">2017-06-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-区块链/">积累________区块链</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      以太坊学习笔记：私有链搭建操作指南
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>虽然以太坊是一个公有链系统，但是我们可以通过设置一些参数来运行自己的私有链节点，在自己的私有链上进行开发和测试不需要同步公有链数据，也不需要花钱来买以太币，节省存储空间和成本，而且很灵活很方便。本文介绍使用geth客户端搭建私有链的操作步骤，同时会解释在这个过程中用到的各个命令及选项的含义和作用，最后会介绍geth的JavaScript Console中的一些常用功能。 系统和软件 <code>Ubuntu 16.04 64位 geth 1.5.6 =&gt;(安装教程)</code> 搭建私有链 一、准备创世区块配置文件 以太坊支持自定义创世区块，要运行私有链，我们就需要定义自己的创世区块，创世区块信息写在一个json格式的配置文件中。首先将下面的内容保存到一个json文件中，例如genesis.json。 <code>{ &quot;config&quot;: { &quot;chainId&quot;: 0, &quot;homesteadBlock&quot;: 0, &quot;eip155Block&quot;: 0, &quot;eip158Block&quot;: 0 }, &quot;coinbase&quot; : &quot;0x0000000000000000000000000000000000000000&quot;, &quot;difficulty&quot; : &quot;0x400&quot;, &quot;extraData&quot; : &quot;0x0&quot;, &quot;gasLimit&quot; : &quot;0x2fefd8&quot;, &quot;nonce&quot; : &quot;0xdeadbeefdeadbeef&quot;, &quot;mixhash&quot; : &quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;, &quot;parentHash&quot; : &quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;, &quot;timestamp&quot; : &quot;0x00&quot;, &quot;alloc&quot; : {} }</code> 二、初始化：写入创世区块 准备好创世区块配置文件后，需要初始化区块链，将上面的创世区块信息写入到区块链中。首先要新建一个目录用来存放区块链数据，假设新建的数据目录为~/privatechain/data0，genesis.json保存在~/privatechain中，此时目录结构应该是这样的： <code>privatechain ├── data0 └── genesis.json</code> 接下来进入privatechain中，执行初始化命令： <code>$ cd privatechain $ geth --datadir data0 init genesis.json</code> 上面的命令的主体是geth init，表示初始化区块链，命令可以带有选项和参数，其中–datadir选项后面跟一个目录名，这里为data0，表示指定数据存放目录为data0，genesis.json是init命令的参数。 运行上面的命令，会读取genesis.json文件，根据其中的内容，将创世区块写入到区块链中。如果看到以下的输出内容，说明初始化成功了。 <code>I0322 10:52:44.585282 cmd/geth/chaincmd.go:131\] successfully wrote genesis block and/or chain rule set: b240e0678c2a8f87cf350225b528e3d97688aad6d4d84ee84e405c7fc9e37e4e</code> 初始化成功后，会在数据目录data0中生成geth和keystore两个文件夹，此时目录结构如下： <code>privatechain ├── data0 │ ├── geth │ │ └── chaindata │ │ ├── 000002.log │ │ ├── CURRENT │ │ ├── LOCK │ │ ├── LOG │ │ └── MANIFEST-000003 │ └── keystore └── genesis.json</code> 其中geth/chaindata中存放的是区块数据，keystore中存放的是账户数据。 三、启动私有链节点 初始化完成后，就有了一条自己的私有链，之后就可以启动自己的私有链节点并做一些操作，在终端中输入以下命令即可启动节点： <code>$ geth –datadir data0 –networkid 1108 console</code> 上面命令的主体是geth console，表示启动节点并进入交互式控制台，–datadir选项指定使用data0作为数据目录，–networkid选项后面跟一个数字，这里是1108，表示指定这个私有链的网络id为1108。网络id在连接到其他节点的时候会用到，以太坊公网的网络id是1，为了不与公有链网络冲突，运行私有链节点的时候要指定自己的网络id。 运行上面的命令后，就启动了区块链节点并进入了javascript Console： <code>Welcome to the Geth JavaScript console! instance: Geth/v1.5.6-stable/linux/go1.7.3 modules: admin:1.0 debug:1.0 eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0</code> 这是一个交互式的Javascript执行环境，在这里面可以执行Javascript代码，其中&gt;是命令提示符。在这个环境里也内置了一些用来操作以太坊的Javascript对象，可以直接使用这些对象。这些对象主要包括： <code>eth：包含一些跟操作区块链相关的方法 net：包含以下查看p2p网络状态的方法 admin：包含一些与管理节点相关的方法 miner：包含启动&amp;停止挖矿的一些方法 personal：主要包含一些管理账户的方法 txpool：包含一些查看交易内存池的方法 web3：包含了以上对象，还包含一些单位换算的方法 探索Javascript Console</code> 进入以太坊Javascript Console后，就可以使用里面的内置对象做一些操作，这些内置对象提供的功能很丰富，比如查看区块和交易、创建账户、挖矿、发送交易、部署<a href="http://lib.csdn.net/base/aiplanning" title="人工智能规划与决策知识库" target="_blank" rel="noopener">智能</a>合约等。 接下来介绍几个常用功能，下面的操作中，前面带&gt;的表示在Javascript Console中执行的命令。 一、创建账户 前面只是搭建了私有链，并没有自己的账户，可以在<a href="http://lib.csdn.net/base/javascript" title="JavaScript知识库" target="_blank" rel="noopener">js</a> console中输入eth.accounts来验证： <code>&gt; eth.accounts \[\] 接下来使用personal对象来创建一个账户： &gt; personal.newAccount() Passphrase: Repeat passphrase: &quot;0xc232e2add308136571bb8f9197ba4ae4e5ba9836&quot; 会提示输入密码和确认密码，输入密码不会有显示，只要输入就可以了，之后就会显示新创建的账户地址。 可以创建多个账户，我们再来创建一个账户： \&gt; personal.newAccount() Passphrase: Repeat passphrase: &quot;0x814d39aa21f3eed069f2b21da7b5f857f7343afa&quot; 接下来就可以查看到刚才创建的两个账户了： \&gt; eth.accounts \[&quot;0xc232e2add308136571bb8f9197ba4ae4e5ba9836&quot;, &quot;0x814d39aa21f3eed069f2b21da7b5f857f7343afa&quot;\]</code> 账户默认会保存在数据目录的keystore文件夹中。查看目录结构，发现data0/keystore中多了两个文件，这两个文件就对应刚才创建的两个账户，这是json格式的文本文件，可以打开查看，里面存的是私钥经过密码加密后的信息。 <code>data0 ├── geth │ ├── chaindata │ ├── LOCK │ ├── nodekey │ └── nodes ├── geth.ipc ├── history └── keystore ├── UTC--2017-03-22T09-06-47.766993033Z--c232e2add308136571bb8f9197ba4ae4e5ba9836 └── UTC--2017-03-22T09-09-42.041015656Z--814d39aa21f3eed069f2b21da7b5f857f7343afa 小提示：命令都可以按Tab键自动补全。</code> 二、查看账户余额 eth对象提供了查看账户余额的方法： <code>&gt; eth.getBalance(eth.accounts\[0\]) 0 \&gt; eth.getBalance(eth.accounts\[1\]) 0</code> 目前两个账户的以太币余额都是0，要使账户有余额，可以从其他账户转账过来，或者通过挖矿来获得以太币奖励。 三、启动&amp;停止挖矿 通过miner.start()来启动挖矿： <code>&gt; miner.start(1)</code> 其中start的参数表示挖矿使用的线程数。第一次启动挖矿会先生成挖矿所需的DAG文件，这个过程有点慢，等进度达到100%后，就会开始挖矿，此时屏幕会被挖矿信息刷屏。 如果想停止挖矿，在js console中输入miner.stop()： &gt; miner.stop() 注意：输入的字符会被挖矿刷屏信息冲掉，没有关系，只要输入完整的miner.stop()之后回车，即可停止挖矿。 挖到一个区块会奖励5个以太币，挖矿所得的奖励会进入矿工的账户，这个账户叫做coinbase，默认情况下coinbase是本地账户中的第一个账户： &gt; eth.coinbase “0xc232e2add308136571bb8f9197ba4ae4e5ba9836” 现在的coinbase是账户0，要想使挖矿奖励进入其他账户，通过miner.setEtherbase()将其他账户设置成coinbase即可： &gt; miner.setEtherbase(eth.accounts[1]) true > eth.coinbase “0x814d39aa21f3eed069f2b21da7b5f857f7343afa” 我们还是以账户0作为coinbase，挖到区块以后，账户0里面应该就有余额了： > eth.getBalance(eth.accounts[0]) 160000000000000000000 getBalance()返回值的单位是wei，wei是以太币的最小单位，1个以太币=10的18次方个wei。要查看有多少个以太币，可以用web3.fromWei()将返回值换算成以太币： &gt; web3.fromWei(eth.getBalance(eth.accounts[0]),’ether’) 160 <code>四、发送交易 目前，账户一的余额还是0：</code> > eth.getBalance(eth.accounts[1]) 0 可以通过发送一笔交易，从账户0转移5个以太币到账户1： > amount = web3.toWei(5,’ether’) “5000000000000000000” > eth.sendTransaction({from:eth.accounts[0],to:eth.accounts[1],value:amount}) Error: account is locked at web3.js:3119:20 at web3.js:6023:15 at web3.js:4995:36 at :1:1 这里报错了，原因是账户每隔一段时间就会被锁住，要发送交易，必须先解锁账户，由于我们要从账户0发送交易，所以要解锁账户0： > personal.unlockAccount(eth.accounts[0]) Unlock account 0xc232e2add308136571bb8f9197ba4ae4e5ba9836 Passphrase: true 输入创建账户时设置的密码，就可以成功解锁账户。然后再发送交易： > amount = web3.toWei(5,’ether’) “5000000000000000000” > eth.sendTransaction({from:eth.accounts[0],to:eth.accounts[1],value:amount}) I0322 19:39:36.300675 internal/ethapi/api.go:1047] Tx(0x0c59f431068937cbe9e230483bc79f59bd7146edc8ff5ec37fea6710adcab825) to: 0x814d39aa21f3eed069f2b21da7b5f857f7343afa “0x0c59f431068937cbe9e230483bc79f59bd7146edc8ff5ec37fea6710adcab825” 此时交易已经提交到区块链，返回了交易的hash，但还未被处理，这可以通过查看txpool来验证： &gt; txpool.status { pending: 1, queued: 0 } 其中有一条pending的交易，pending表示已提交但还未被处理的交易。 要使交易被处理，必须要挖矿。这里我们启动挖矿，然后等待挖到一个区块之后就停止挖矿： &gt; miner.start(1);admin.sleepBlocks(1);miner.stop(); 当miner.stop()返回true后，txpool中pending的交易数量应该为0了，说明交易已经被处理了： > txpool.status { pending: 0, queued: 0 } 此时，交易已经生效，账户一应该已经收到了5个以太币了： > web3.fromWei(eth.getBalance(eth.accounts[1]),’ether’) 5 <code>五、查看交易和区块 eth对象封装了查看交易和区块信息的方法。 查看当前区块总数：</code> &gt; eth.blockNumber 33 通过交易hash查看交易： eth.getTransaction(“0x0c59f431068937cbe9e230483bc79f59bd7146edc8ff5ec37fea6710adcab825”) { blockHash: “0xf5d3da50065ce5793c9571a031ad6fe5f1af326a3c4fb7ce16458f4d909c1613”, blockNumber: 33, from: “0xc232e2add308136571bb8f9197ba4ae4e5ba9836”, gas: 90000, gasPrice: 20000000000, hash: “0x0c59f431068937cbe9e230483bc79f59bd7146edc8ff5ec37fea6710adcab825”, input: “0x”, nonce: 0, r: “0x433fe5845391b6da3d8aa0d2b53674e09fb6126f0070a600686809b57e4ef77d”, s: “0x6b0086fb76c46024f849141074a5bc79c49d5f9a658fd0fedbbe354889c34d8d”, to: “0x814d39aa21f3eed069f2b21da7b5f857f7343afa”, transactionIndex: 0, v: “0x1b”, value: 5000000000000000000 } #通过区块号查看区块： eth.getBlock(33) { difficulty: 132928, extraData: “0xd783010506846765746887676f312e372e33856c696e7578”, gasLimit: 3244382, gasUsed: 21000, hash: “0xf5d3da50065ce5793c9571a031ad6fe5f1af326a3c4fb7ce16458f4d909c1613”, logsBloom: “0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000”, miner: “0xc232e2add308136571bb8f9197ba4ae4e5ba9836”, mixHash: “0x09849dff7c8b8467812fa80d1fa2a27bc61f1cf16d5b2c05a6ce1b77ee18f3f1”, nonce: “0x5b3939449dbdbea0”, number: 33, parentHash: “0xeca34637642f56f7cfe5b699031c7ddbc43aee00fb10c7f054e0a9719cf226da”, receiptsRoot: “0xd5f5b7ee944e57cbff496f7bdda7ceffd5eedffe6d5be5320008190502adc07a”, sha3Uncles: “0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347”, size: 649, stateRoot: “0xc7add6b756980ab9e482766e455597ef1583e747ad62e2924a8e66c6f9170112”, timestamp: 1490183209, totalDifficulty: 4358016, transactions: [“0x0c59f431068937cbe9e230483bc79f59bd7146edc8ff5ec37fea6710adcab825”], transactionsRoot: “0x7335a362b2c3925e7ba1b41bf7772aa9645a13d4f9c12edd5892b87887264232”, uncles: [] } <code>还有更多的功能请自行探索...。 六、连接到其他节点 可以通过`admin.addPeer()`方法连接到其他节点，两个节点要想联通，必须保证网络是相通的，并且要指定相同的networkid。 假设有两个节点：节点一和节点二，networkid都是1108，通过下面的步骤就可以从节点一连接到节点二。 首先要知道节点二的enode信息，在节点二的js console中执行下面的命令查看enode信息：</code> admin.nodeInfo.enode “enode://9e86289ea859ca041f235aed87a091d0cd594b377cbe13e1c5f5a08a8a280e62d4019ac54063ed6a1d0e3c3eaedad0b73c40b99a16a176993f0373ffe92be672@[::]:30304”<code>然后在节点一的js console中执行`admin.addPeer()`，就可以连接到节点二：</code> admin.addPeer(“enode:<a href="mailto://9e86289ea859ca041f235aed87a091d0cd594b377cbe13e1c5f5a08a8a280e62d4019ac54063ed6a1d0e3c3eaedad0b73c40b99a16a176993f0373ffe92be672@127.0.0.1" target="_blank" rel="noopener">//9e86289ea859ca041f235aed87a091d0cd594b377cbe13e1c5f5a08a8a280e62d4019ac54063ed6a1d0e3c3eaedad0b73c40b99a16a176993f0373ffe92be672@127.0.0.1</a>:30304”) <code>`</code> addPeer()的参数就是节点二的enode信息，注意要把enode中的[::]替换成节点二的IP地址。连接成功后，节点二就会开始同步节点一的区块，同步完成后，任意一个节点开始挖矿，另一个节点会自动同步区块，向任意一个节点发送交易，另一个节点也会收到该笔交易。 通过admin.peers可以查看连接到的其他节点信息，通过<code>net.peerCount</code>可以查看已连接到的节点数量。 除了上面的方法，也可以在启动节点的时候指定<code>–bootnodes</code>选项连接到其他节点。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/06/28/以太坊学习笔记：私有链搭建操作指南/" data-id="cjujhygdr00b3ej3j7y6qbu9i" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/28/在以太坊私有网络中建立节点集群并发生交易/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          在以太坊私有网络中建立节点集群,并发生交易
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/28/mac-配置以太坊本地开发环境/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">mac 配置以太坊本地开发环境</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>【量化小讲堂 - Python、Pandas系列】如何判断一个策略的好坏？ | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="对于一个交易策略，初学者往往认为收益越高越好。收益确实是一个重要的评价指标，但是除了收益之外，还有很多其他重要的角度来衡量一个策略的好坏。例如这个策略的风险性、胜率、交易频率等。  本篇文章以几个常见的交易策略评价指标为案例，向大家介绍pandas的以下几个功能的运用：  dataframe的合并操作：append()、concat()函数的用法 按某一列的值排序操作：sort_values()">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【量化小讲堂 - Python、Pandas系列】如何判断一个策略的好坏？">
+<meta property="og:url" content="http://yoursite.com/2017/04/14/【量化小讲堂-python、pandas系列】如何判断一个策略的好/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="对于一个交易策略，初学者往往认为收益越高越好。收益确实是一个重要的评价指标，但是除了收益之外，还有很多其他重要的角度来衡量一个策略的好坏。例如这个策略的风险性、胜率、交易频率等。  本篇文章以几个常见的交易策略评价指标为案例，向大家介绍pandas的以下几个功能的运用：  dataframe的合并操作：append()、concat()函数的用法 按某一列的值排序操作：sort_values()">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://www.yaozihao.cn/wp-content/uploads/2017/04/31.png">
+<meta property="og:image" content="http://www.yaozihao.cn/wp-content/uploads/2017/04/32.png">
+<meta property="og:image" content="http://www.yaozihao.cn/wp-content/uploads/2017/04/33.png">
+<meta property="og:image" content="http://www.yaozihao.cn/wp-content/uploads/2017/04/34.png">
+<meta property="og:image" content="http://www.yaozihao.cn/wp-content/uploads/2017/04/35.png">
+<meta property="og:image" content="http://www.yaozihao.cn/wp-content/uploads/2017/04/36.png">
+<meta property="og:image" content="http://www.yaozihao.cn/wp-content/uploads/2017/04/37.png">
+<meta property="og:image" content="http://www.yaozihao.cn/wp-content/uploads/2017/04/38.png">
+<meta property="og:image" content="http://www.yaozihao.cn/wp-content/uploads/2017/04/39.png">
+<meta property="og:image" content="http://www.yaozihao.cn/wp-content/uploads/2017/04/40.png">
+<meta property="og:image" content="http://www.yaozihao.cn/wp-content/uploads/2017/04/41.png">
+<meta property="og:image" content="http://www.yaozihao.cn/wp-content/uploads/2017/04/42.png">
+<meta property="og:image" content="http://www.yaozihao.cn/wp-content/uploads/2017/04/43.png">
+<meta property="og:image" content="http://www.yaozihao.cn/wp-content/uploads/2017/04/44.png">
+<meta property="og:image" content="http://www.yaozihao.cn/wp-content/uploads/2017/04/45.png">
+<meta property="og:updated_time" content="2019-04-16T07:59:56.133Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【量化小讲堂 - Python、Pandas系列】如何判断一个策略的好坏？">
+<meta name="twitter:description" content="对于一个交易策略，初学者往往认为收益越高越好。收益确实是一个重要的评价指标，但是除了收益之外，还有很多其他重要的角度来衡量一个策略的好坏。例如这个策略的风险性、胜率、交易频率等。  本篇文章以几个常见的交易策略评价指标为案例，向大家介绍pandas的以下几个功能的运用：  dataframe的合并操作：append()、concat()函数的用法 按某一列的值排序操作：sort_values()">
+<meta name="twitter:image" content="http://www.yaozihao.cn/wp-content/uploads/2017/04/31.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-【量化小讲堂-python、pandas系列】如何判断一个策略的好" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/14/【量化小讲堂-python、pandas系列】如何判断一个策略的好/" class="article-date">
+  <time datetime="2017-04-14T03:39:50.000Z" itemprop="datePublished">2017-04-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      【量化小讲堂 - Python、Pandas系列】如何判断一个策略的好坏？
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>对于一个交易策略，初学者往往认为收益越高越好。收益确实是一个重要的评价指标，但是除了收益之外，还有很多其他重要的角度来衡量一个策略的好坏。例如这个策略的风险性、胜率、交易频率等。</p>
+</blockquote>
+<p><strong>本篇文章以几个常见的交易策略评价指标为案例，向大家介绍pandas的以下几个功能的运用：</strong></p>
+<ul>
+<li>dataframe的合并操作：append()、concat()函数的用法</li>
+<li>按某一列的值排序操作：sort_values()函数的用法</li>
+<li>常见统计指标的方法：mean(), std()等</li>
+<li>pandas画图操作：plot方法</li>
+</ul>
+<p><strong>我将介绍如下几个经典指标</strong></p>
+<ul>
+<li><strong>年化收益</strong> 任何收益都应该转换成年化收益，以进行比较。股神巴菲特投资几十年以来的年化收益是20%左右。美国股市百年来年化收益大概是10%左右。所以我们也不要太贪心，不要动辄就要求每年翻倍的收益。计算公式为：（账户最终价值/账户初始价值）^（250/回测期间总天数）-1</li>
+<li><strong>最大回撤</strong> 最大回撤就是从一个高点到一个低点最大的下跌幅度，用来描述我们的策略可能出现的最糟糕的情况，衡量了最极端可能的亏损。例如一个策略的最大回撤是50%，那么你使用这个策略之前就要掂量掂量，自己是否能经受得起50%的下跌。计算公式为：min(账户当日价值 / 当日之前账户最高价值-1)。我一般认为，年华收益/最大回撤，是个最简单有效的策略判断指标。</li>
+<li><strong>平均涨幅</strong> 平均涨幅衡量了在回测期间资产的平均涨跌情况。计算公式为：账户日收益的平均值。</li>
+<li><strong>上涨概率</strong> 上涨概率衡量了我们投资组合上涨的可能性。计算公式为：上涨天数 / 回测交易日数量。</li>
+<li><strong>最大连续上涨天数</strong> 衡量了我们策略连续盈利的最大天数。</li>
+<li><strong>最大连续下跌天数</strong> 衡量了我们策略连续亏损的最大天数。或者说策略连续失效的次数。这个指标很重要，在实战中，若连续失败的次数多了，会动摇自己的信心，使自己很难跟着策略走下去。</li>
+<li><strong>最大单周期涨幅</strong> 所有日期中最大的涨幅，衡量了资产一天内的最好表现。</li>
+<li><strong>最大单周期跌幅</strong> 所有日期中最大的跌幅，衡量了资产一天内的最差表现。</li>
+<li><strong>收益波动率</strong> 单单追求高收益率是不行的，我们在投资中还必须考虑到潜在的风险。波动太大的策略往往风险也较高。收益波动率就衡量了策略收益的波动情况即风险。计算公式为：账户日收益的年化标准差。</li>
+<li><strong>贝塔(beta)值</strong> 根据经典的资本资产定价理论(CAPM模型)，β系数衡量了资产的回报率对市场变动的敏感程度，代表了该资产的系统性风险，表示策略对大盘的敏感性。计算公式为：账户日收益与参考基准日收益的协方差 / 参考基准日收益的方差。</li>
+<li><strong>阿尔法(alpha)值</strong> 虽然我们的策略会受到大盘的影响，但是每个策略都会有自己市场因素之外的收益，alpha值表示实际风险回报和平均预期风险回报的差额，衡量了投资的非系统性风险。计算公式为：（账户年化收益-无风险收益）-beta*（参考基准年化收益-无风险收益）。</li>
+<li><strong>夏普比率</strong> 理性的投资者将选择并持有有效的投资组合，即那些在给定的风险水平下使期望回报最大的投资组合，夏普比率就是一个可以同时对收益与风险加以综合考虑的经典指标，表示每承受一单位风险，会产生多少的超额回报。计算公式为：（账户年化收益率-无风险利率）/ 收益波动率。</li>
+<li><strong>信息比率</strong> 信息比率以马克维茨的均异模型为基础，用来衡量超额风险所带来的超额收益。它表示单位主动风险所带来的超额收益。计算公式为：（账户日收益 - 参考基准日收益）的年化均值/年化标准差。</li>
+</ul>
+<p>任何策略的结果都是一个收益序列，根据这个收益序列可以得到一条资金曲线。为了简单起见，我们就任选一只股票每天的收益率作为原始数据，来计算上文提到的各种策略评价指标。在<a href="http://bbs.pinggu.org/linkto.php?url=http%3A%2F%2Fyucezhe.com%2Fproduct%3Fname%3Dtrading-data" target="_blank" rel="noopener">http://yucezhe.com/product?name=trading-data</a>可以下载到所有股票的历史日线数据，可以作为我们计算的原始数据。 数据下载下来解压缩打开后，里面有所有股票和几个常见指数的数据。打开其中一个股票文件之后是下图这个样子，每一行是每一天的数据： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/31.png" alt> 数据有以下的字段： <code>【code】股票的代码，上证股票以sh开头，深证股票以sz开头 【date】交易日期 【open】开盘价 【high】最高价 【low】最低价 【close】收盘价 【change】涨跌幅，复权之后的真实涨跌幅，保证准确 【volume】成交量 【money】成交额 【traded\_market\_value】流通市值 【market_value】总市值 【turnover】换手率，成交量/流通股本 【adjust_price】后复权价，复权开始时间为股票上市日，精确到小数点后10位 【report_date】最近一期财务报告实际发布的日期 【report_type】最近一期财务报告的类型，3-31对应一季报，6-30对应半年报，9-30对应三季报，12-31对应年报 【PE_TTM】最近12个月市盈率，股价 / 最近12个月归属母公司的每股收益TTM 【PS_TTM】最近12个月市销率， 股价 / 最近12个月每股营业收入 【PC_TTM】最近12个月市现率， 股价 / 最近12个月每股经营现金流 【PB】市净率，股价 / 最近期财报每股净资产</code> 对于我们来说，只要取【date】以及【change】就行了。下面是代码的截图，这段代码截取指定的股票在指定时间段内的收益率，计算相关指标。代码里面有详细的注释，有问题可以留言，附件中有程序的源码，回复即可下载。  获取数据函数： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/32.png" alt> 计算年化收益率函数： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/33.png" alt> 计算最大回撤函数： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/34.png" alt> 计算平均涨幅： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/35.png" alt> 计算上涨概率： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/36.png" alt> 计算最大连续上涨天数和最大连续下跌天数： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/37.png" alt> 计算最大单周期涨幅和最大单周期跌幅： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/38.png" alt> 计算收益波动率的函数、计算贝塔的函数： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/39.png" alt> 计算alpha的函数： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/40.png" alt> 计算夏普比函数： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/41.png" alt> 计算信息比率函数、计算股票和基准在回测期间的累计收益率并画图： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/42.png" alt> 导入数据运行以上函数： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/43.png" alt> 把数据和代码下载下来后，修改代码中原始数据的地址（也就是选择一个股票），并选定时间段，运行代码，就可以看到输出结果了。假设我们选择万科A，并设定时间段为1991年1月1日到2015年12月31日这25年，得到如下的输出结果:  <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/44.png" alt><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/45.png" alt> 万科A二十几年年年化回报是15%，已经相当不错了，最大回撤为78.9756%，也就是将近跌了80%，发生在08年的股灾。最大连续下跌50天，也是有点猛…</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/14/【量化小讲堂-python、pandas系列】如何判断一个策略的好/" data-id="cjujhyg1z000bej3jbei3rdt0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/17/pandas常用函数之shift/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          pandas常用函数之shift
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/04/14/【量化小讲堂-python、pandas系列】量化投资中如何处理复/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">【量化小讲堂 - Python、Pandas系列】量化投资中如何处理复权、除权问题</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

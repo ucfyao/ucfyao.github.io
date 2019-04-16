@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>使用pandas 压缩存储hdf5文件 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1，关于股票数据存储 股票数据比较特殊，需要做数据统计的。都需要一次进行批量查询多个数据，然后进行分析。 所以股票数据不一定要放到数据库中存储。因为一般就两个维度。 那只股票，和那天的股票信息，然后使用模型进行分析预测。 所以数据可以存储为：/data/stock/yyyy/yyyMM/yyyyMMdd.hdf5 存储的数据是hdf5： Hierarchical Data Format，可以存储不">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用pandas 压缩存储hdf5文件">
+<meta property="og:url" content="http://yoursite.com/2017/03/27/使用pandas-压缩存储hdf5文件/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1，关于股票数据存储 股票数据比较特殊，需要做数据统计的。都需要一次进行批量查询多个数据，然后进行分析。 所以股票数据不一定要放到数据库中存储。因为一般就两个维度。 那只股票，和那天的股票信息，然后使用模型进行分析预测。 所以数据可以存储为：/data/stock/yyyy/yyyMM/yyyyMMdd.hdf5 存储的数据是hdf5： Hierarchical Data Format，可以存储不">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-16T07:59:57.308Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用pandas 压缩存储hdf5文件">
+<meta name="twitter:description" content="1，关于股票数据存储 股票数据比较特殊，需要做数据统计的。都需要一次进行批量查询多个数据，然后进行分析。 所以股票数据不一定要放到数据库中存储。因为一般就两个维度。 那只股票，和那天的股票信息，然后使用模型进行分析预测。 所以数据可以存储为：/data/stock/yyyy/yyyMM/yyyyMMdd.hdf5 存储的数据是hdf5： Hierarchical Data Format，可以存储不">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-使用pandas-压缩存储hdf5文件" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/27/使用pandas-压缩存储hdf5文件/" class="article-date">
+  <time datetime="2017-03-27T03:45:53.000Z" itemprop="datePublished">2017-03-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-python/">积累________python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      使用pandas 压缩存储hdf5文件
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1，关于股票数据存储"><a href="#1，关于股票数据存储" class="headerlink" title="1，关于股票数据存储"></a>1，关于股票数据存储</h3><hr>
+<p>股票数据比较特殊，需要做数据统计的。都需要一次进行批量查询多个数据，然后进行分析。 所以股票数据不一定要放到<a href="http://lib.csdn.net/base/mysql" title="MySQL知识库" target="_blank" rel="noopener">数据库</a>中存储。因为一般就两个维度。 那只股票，和那天的股票信息，然后使用模型进行分析预测。 所以数据可以存储为：/data/stock/yyyy/yyyMM/yyyyMMdd.hdf5 存储的数据是hdf5： Hierarchical Data Format，可以存储不同类型的图像和数码数据的文件格式</p>
+<h3 id="2，安装hdf5库"><a href="#2，安装hdf5库" class="headerlink" title="2，安装hdf5库"></a>2，安装hdf5库</h3><hr>
+<figure class="highlight plain"><figcaption><span>yum -y install hdf5 hdf5-devel pip install unittest2 pip install --upgrade tables```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 3，测试读写hdf5文件</span><br><span class="line"></span><br><span class="line">* * *</span><br><span class="line"></span><br><span class="line">参考pytables官方文档。 [http://www.pytables.org/usersguide/tutorials.html](http://www.pytables.org/usersguide/tutorials.html) 这里使用的是pandas封装的接口直接使用，而不是使用tables。 ``` # python Python 2.6.6 (r266:84292, Jul 23 2015, 15:22:56) \[GCC 4.4.7 20120313 (Red Hat 4.4.7-11)\] on linux2 Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information. &gt;&gt;\&gt; import numpy as np &gt;&gt;\&gt; import pandas as pd ###su &gt;&gt;\&gt; a = np.random.standard_normal((9,4)) &gt;&gt;\&gt; b = pd.DataFrame(a) &gt;&gt;\&gt; b.columns = \[\[&apos;num1&apos;,&apos;num2&apos;,&apos;num3&apos;,&apos;num4&apos;\]\] &gt;&gt;\&gt; a array(\[\[-2.36198849, -1.27547933, -1.40351822, -0.6638619 \], \[ 1.89159066, -0.31838519, -0.2065942 , -1.02327987\], \[-2.02771503, -0.81333254, -0.93644288, -0.91592467\], \[-1.3939496 , 0.25899342, 1.11591841, -0.7423286 \], \[-1.05104415, -0.79069151, -1.46536873, -0.01449547\], \[ 1.32483444, 0.32030117, -1.23575344, 0.51455106\], \[ 0.91297435, 0.43242834, 1.77235337, 1.14879289\], \[ 0.93476429, 0.18592698, 0.30198234, -0.61861642\], \[ 0.04462872, -0.99275411, -0.86382085, -1.53064223\]\]) &gt;&gt;\&gt; b num1 num2 num3 num4 0 -2.361988 -1.275479 -1.403518 -0.663862 1 1.891591 -0.318385 -0.206594 -1.023280 2 -2.027715 -0.813333 -0.936443 -0.915925 3 -1.393950 0.258993 1.115918 -0.742329 4 -1.051044 -0.790692 -1.465369 -0.014495 5 1.324834 0.320301 -1.235753 0.514551 6 0.912974 0.432428 1.772353 1.148793 7 0.934764 0.185927 0.301982 -0.618616 8 0.044629 -0.992754 -0.863821 -1.530642 &gt;&gt;\&gt; b.sum() num1 -1.725905 num2 -2.992993 num3 -2.921244 num4 -3.845805 dtype: float64 &gt;&gt;\&gt; b.mean() num1 -0.191767 num2 -0.332555 num3 -0.324583 num4 -0.427312 dtype: float64 ###写hdf5文件： &gt;&gt;\&gt; h5 = pd.HDFStore(&apos;/data/stock/test1.h5&apos;,&apos;w&apos;) &gt;&gt;\&gt; h5\[&apos;data&apos;\] = b &gt;&gt;\&gt; h5.close() &gt;&gt;\&gt; &gt;&gt;\&gt; b num1 num2 num3 num4 0 -2.361988 -1.275479 -1.403518 -0.663862 1 1.891591 -0.318385 -0.206594 -1.023280 2 -2.027715 -0.813333 -0.936443 -0.915925 3 -1.393950 0.258993 1.115918 -0.742329 4 -1.051044 -0.790692 -1.465369 -0.014495 5 1.324834 0.320301 -1.235753 0.514551 6 0.912974 0.432428 1.772353 1.148793 7 0.934764 0.185927 0.301982 -0.618616 8 0.044629 -0.992754 -0.863821 -1.530642 ###读hdf5文件。 &gt;&gt;\&gt; h5 = pd.HDFStore(&apos;/data/stock/test1.h5&apos;,&apos;r&apos;) &gt;&gt;\&gt; c = h5\[&apos;data&apos;\] &gt;&gt;\&gt; c num1 num2 num3 num4 0 -2.361988 -1.275479 -1.403518 -0.663862 1 1.891591 -0.318385 -0.206594 -1.023280 2 -2.027715 -0.813333 -0.936443 -0.915925 3 -1.393950 0.258993 1.115918 -0.742329 4 -1.051044 -0.790692 -1.465369 -0.014495 5 1.324834 0.320301 -1.235753 0.514551 6 0.912974 0.432428 1.772353 1.148793 7 0.934764 0.185927 0.301982 -0.618616 8 0.044629 -0.992754 -0.863821 -1.530642 &gt;&gt;\&gt; h5.close()</span><br></pre></td></tr></table></figure>
+<h3 id="4，TuShare读取股票数据存储"><a href="#4，TuShare读取股票数据存储" class="headerlink" title="4，TuShare读取股票数据存储"></a>4，TuShare读取股票数据存储</h3><hr>
+<p><code>&gt;&gt;\&gt; import tushare as ts &gt;&gt;\&gt; d = ts.get\_tick\_data(&#39;600848&#39;,date=&#39;2015-01-09&#39;) &gt;&gt;\&gt; type(d) &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt; &gt;&gt;\&gt; len(d) 1212 ###保存数据 &gt;&gt;\&gt; h5 = pd.HDFStore(&#39;/data/stock/test2.h5&#39;,&#39;w&#39;) &gt;&gt;\&gt; h5\[&#39;data&#39;\] = d &gt;&gt;\&gt; h5.close() &gt;&gt;&gt; &gt;&gt;&gt; ###读取数据 &gt;&gt;\&gt; h5 = pd.HDFStore(&#39;/data/stock/test2.h5&#39;,&#39;r&#39;) &gt;&gt;\&gt; e = h5\[&#39;data&#39;\] &gt;&gt;\&gt; h5.close() &gt;&gt;&gt; &gt;&gt;&gt; type(e) &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt; &gt;&gt;\&gt; len(e) 1212</code></p>
+<h3 id="5，总结"><a href="#5，总结" class="headerlink" title="5，总结"></a>5，总结</h3><hr>
+<p>使用文件直接存储到本地还是非常方便的。pandas直接封装的函数3行解决问题。 同时pandas封装的读出数据还是数组，可以直接进行操作。灰常方便。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/27/使用pandas-压缩存储hdf5文件/" data-id="cjujhygb8007uej3jygdipck0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/03/27/使用pandas-压缩存储hdf5文件-2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          使用pandas 压缩存储hdf5文件
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/25/439/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Jupyter Notebook 交互式笔记本</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

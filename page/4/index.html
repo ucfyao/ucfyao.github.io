@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/4/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-在以太坊私有网络中建立节点集群并发生交易" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/28/在以太坊私有网络中建立节点集群并发生交易/" class="article-date">
+  <time datetime="2017-06-28T03:57:23.000Z" itemprop="datePublished">2017-06-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-区块链/">积累________区块链</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/28/在以太坊私有网络中建立节点集群并发生交易/">在以太坊私有网络中建立节点集群,并发生交易</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在私有网络中建立多个node组成的集群,并互相发现,产生交易. 为了在本地网络运行多个以太坊节点的实例,必须确保一下几点: 1. 每个实例都有独立的数据目录(–datadir) 2. 每个实例运行都有独立的端口.(eth和rpc两者都是)(–port 和 –rpcprot) 3. 在集群的情况下, 实例之间都必须要知道彼此. 4. 唯一的ipc通信端点,或者禁用ipc. 启动第一个节点(指定端口,并禁用ipc),运行命令和结果如下: <code>~/Documents/private-geth  geth --datadir ./data/00 --networkid 314590 --ipcdisable --port 61910 --rpcport 8200 console INFO \[05-29|16:18:59\] Starting peer-to-peer node instance=Geth/v1.6.1-stable-021c3c28/linux-amd64/go1.8.1 INFO \[05-29|16:18:59\] Allocated cache and file handles database=/home/zl/Documents/private-geth/data/00/geth/chaindata cache=128 handles=1024 INFO \[05-29|16:18:59\] Initialised chain configuration config=&quot;{ChainID: 15 Homestead: 0 DAO: DAOSupport: false EIP150: EIP155: 0 EIP158: 0 Engine: unknown}&quot; INFO \[05-29|16:18:59\] Disk storage enabled for ethash caches dir=/home/zl/Documents/private-geth/data/00/geth/ethash count=3 INFO \[05-29|16:18:59\] Disk storage enabled for ethash DAGs dir=/home/zl/.ethash count=2 INFO \[05-29|16:18:59\] Initialising Ethereum protocol versions=&quot;\[63 62\]&quot; network=314590 INFO \[05-29|16:18:59\] Loaded most recent local header number=29 hash=8ff3ff…dac4a2 td=7372364 INFO \[05-29|16:18:59\] Loaded most recent local full block number=29 hash=8ff3ff…dac4a2 td=7372364 INFO \[05-29|16:18:59\] Loaded most recent local fast block number=29 hash=8ff3ff…dac4a2 td=7372364 WARN \[05-29|16:18:59\] Blockchain not empty, fast sync disabled INFO \[05-29|16:18:59\] Starting P2P networking INFO \[05-29|16:19:01\] Mapped network port proto=udp extport=61910 intport=61910 interface=&quot;UPNP IGDv1-IP1&quot; INFO \[05-29|16:19:02\] RLPx listener up self=enode://ad307e052d0e04af519b8999fa870800df8a7a0cc2a91e6aea30e879b75c344dfa12c773a63a71677c2a3ea1254cf982815817f7ff58bd79e5837ea44d791a2d@192.168.1.2:61910 INFO \[05-29|16:19:02\] Mapped network port proto=tcp extport=61910 intport=61910 interface=&quot;UPNP IGDv1-IP1&quot; Welcome to the Geth JavaScript console! instance: Geth/v1.6.1-stable-021c3c28/linux-amd64/go1.8.1 coinbase: 0x5fba50fce50baf0b8a7314200ba46336958ac97e at block: 29 (Mon, 29 May 2017 13:13:46 CST) datadir: /home/zl/Documents/private-geth/data/00 modules: admin:1.0 debug:1.0 eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0</code> 上面的命令以命令行的(console)的方式启动了节点, 所以我们可以通过继续输入下面的命令获取节点实例的enode url: <code>&gt;admin.nodeInfo.enode &quot;enode://ad307e052d0e04af519b8999fa870800df8a7a0cc2a91e6aea30e879b75c344dfa12c773a63a71677c2a3ea1254cf982815817f7ff58bd79e5837ea44d791a2d@192.168.1.2:61910&quot; \&gt; ###########################获取本机IP地址########################### $ ifconfig|grep netmask|awk &#39;{print $2}&#39; 127.0.0.1 192.168.1.102 ###########################</code> 再打开一个终端,初始化第二个节点: <code>geth --datadir ./data/01 init ./genesis.json 启动第二个节点: ~/Documents/private-geth  geth --datadir ./data/01 --networkid 314590 --ipcdisable --port 61911 --rpcport 8101 --bootnodes &quot;enode://ad307e052d0e04af519b8999fa870800df8a7a0cc2a91e6aea30e879b75c344dfa12c773a63a71677c2a3ea1254cf982815817f7ff58bd79e5837ea44d791a2d@192.168.1.2:61910&quot; console INFO \[05-29|18:42:15\] Starting peer-to-peer node instance=Geth/v1.6.1-stable-021c3c28/linux-amd64/go1.8.1 INFO \[05-29|18:42:15\] Allocated cache and file handles database=/home/zl/Documents/private-geth/data/01/geth/chaindata cache=128 handles=1024 INFO \[05-29|18:42:15\] Initialised chain configuration config=&quot;{ChainID: 15 Homestead: 0 DAO: DAOSupport: false EIP150: EIP155: 0 EIP158: 0 Engine: unknown}&quot; INFO \[05-29|18:42:15\] Disk storage enabled for ethash caches dir=/home/zl/Documents/private-geth/data/01/geth/ethash count=3 INFO \[05-29|18:42:15\] Disk storage enabled for ethash DAGs dir=/home/zl/.ethash count=2 INFO \[05-29|18:42:15\] Initialising Ethereum protocol versions=&quot;\[63 62\]&quot; network=314590 INFO \[05-29|18:42:15\] Loaded most recent local header number=36 hash=e1541c…418ce3 td=8938686 INFO \[05-29|18:42:15\] Loaded most recent local full block number=36 hash=e1541c…418ce3 td=8938686 INFO \[05-29|18:42:15\] Loaded most recent local fast block number=36 hash=e1541c…418ce3 td=8938686 WARN \[05-29|18:42:15\] Blockchain not empty, fast sync disabled INFO \[05-29|18:42:15\] Starting P2P networking INFO \[05-29|18:42:17\] Mapped network port proto=udp extport=61911 intport=61911 interface=&quot;UPNP IGDv1-IP1&quot; INFO \[05-29|18:42:17\] RLPx listener up self=enode://2261c433ed5d12924f727b61bf4084f22f4199b430115827c8eae3bb210c0dd5b3dd7df8dc13d8ca80c80f4a36e25c7bc7737737001d0b09324ee43ca6b9d7f8@192.168.1.2:61911 INFO \[05-29|18:42:17\] Mapped network port proto=tcp extport=61911 intport=61911 interface=&quot;UPNP IGDv1-IP1&quot; Welcome to the Geth JavaScript console! instance: Geth/v1.6.1-stable-021c3c28/linux-amd64/go1.8.1 coinbase: 0x0a8c35653d8b229c16f0c9ce6f63cffb877cfdcf at block: 36 (Mon, 29 May 2017 18:30:22 CST) datadir: /home/zl/Documents/private-geth/data/01 modules: admin:1.0 debug:1.0 eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0</code> 上面的命令中,–bootndoes 是设置当前节点启动后,直接通过设置–bootndoes 的值来链接第一个节点, –bootnoedes 的值可以通过在第一个节的命令行中,输入:admin.nodeInfo.enode命令打印出来. 也可以不设置 –bootnodes, 直接启动,启动后进入命令行, 通过命令admin.addPeer(enodeUrlOfFirst Instance)把它作为一个peer添加进来. 为了确认链接成功,第二个节点输入: <code>&gt; admin.nodeInfo { enode: &quot;enode://2261c433ed5d12924f727b61bf4084f22f4199b430115827c8eae3bb210c0dd5b3dd7df8dc13d8ca80c80f4a36e25c7bc7737737001d0b09324ee43ca6b9d7f8@192.168.1.2:61911&quot;, id: &quot;2261c433ed5d12924f727b61bf4084f22f4199b430115827c8eae3bb210c0dd5b3dd7df8dc13d8ca80c80f4a36e25c7bc7737737001d0b09324ee43ca6b9d7f8&quot;, ip: &quot;192.168.1.2&quot;, listenAddr: &quot;\[::\]:61911&quot;, name: &quot;Geth/v1.6.1-stable-021c3c28/linux-amd64/go1.8.1&quot;, ports: { discovery: 61911, listener: 61911 }, protocols: { eth: { difficulty: 8938686, genesis: &quot;0xa0e580c6769ac3dd80894b2a256164a76b796839d2eb7f799ef6b9850ea5e82e&quot;, head: &quot;0xe1541cc54dbcade54fb61053ffa71391c44bb6655cf9619635263960bc418ce3&quot;, network: 314590 } } } &gt; 第一个节点输入: \&gt; net.peerCount 1 \&gt; admin.peers \[{ caps: \[&quot;eth/62&quot;, &quot;eth/63&quot;\], id: &quot;2261c433ed5d12924f727b61bf4084f22f4199b430115827c8eae3bb210c0dd5b3dd7df8dc13d8ca80c80f4a36e25c7bc7737737001d0b09324ee43ca6b9d7f8&quot;, name: &quot;Geth/v1.6.1-stable-021c3c28/linux-amd64/go1.8.1&quot;, network: { localAddress: &quot;192.168.0.103:61910&quot;, remoteAddress: &quot;192.168.1.2:41912&quot; }, protocols: { eth: { difficulty: 8938686, head: &quot;0xe1541cc54dbcade54fb61053ffa71391c44bb6655cf9619635263960bc418ce3&quot;, version: 63 } } }\]</code> 从得到的结果可以看出,第一个节点有1个peer链接, 链接的node id为: “2261c433ed5d12924f727b61bf4084f22f4199b430115827c8eae3bb210c0dd5b3dd7df8dc13d8ca80c80f4a36e25c7bc7737737001d0b09324ee43ca6b9d7f8” 这个id,正好就是第二个节点的id. 按照这样的方式继续扩展,可以非常容易就可以建立本地节点集群.这些工作都可以写成脚本代码来完成, 里面还可以包含创建账户,挖矿等.. 请参考:<a href="https://github.com/ethersphere/eth-utils" target="_blank" rel="noopener">https://github.com/ethersphere/eth-utils</a>下的gethcluster.sh脚本,以及README中的使用方法和示例. 链接成功后,使用我们在上一篇文章中挖矿的账户,向第二个节点发送 “ether”(以太币的货币单位,还有一种叫”Wei”,基本上这些货币单位都是用一些牛逼的人的名字来命名的). 首先查看第二个节点的Wei数量和整个网络的区块号,还有接收货币的账号id: <code>&gt; eth.getBalance(eth.accounts\[0\]) 0000000000000000000 \&gt; eth.blockNumber 30 \&gt; eth.accounts\[0\] &quot;0x0a8c35653d8b229c16f0c9ce6f63cffb877cfdcf&quot;</code> 在第一个节点命令行中,执行下面的操作: <code>\&gt; personal.unlockAccount(eth.accounts\[0\], &quot;ko2005&quot;) true \&gt; eth.sendTransaction({from: &quot;0x5fba50fce50baf0b8a7314200ba46336958ac97e&quot;, to: &quot;0x0a8c35653d8b229c16f0c9ce6f63cffb877cfdcf&quot;, value: web3.toWei(1, &quot;ether&quot;)}) INFO \[05-29|17:33:42\] Submitted transaction fullhash=0x51a75422f79fa96e70a0c1481851bc9f827868c44203b68d74f9815ffb367d5f recipient=0x0a8c35653d8b229c16f0c9ce6f63cffb877cfdcf &quot;0x51a75422f79fa96e70a0c1481851bc9f827868c44203b68d74f9815ffb367d5f&quot; \&gt; eth.pendingTransactions \[{ blockHash: null, blockNumber: null, from: &quot;0x5fba50fce50baf0b8a7314200ba46336958ac97e&quot;, gas: 90000, gasPrice: 20000000000, hash: &quot;0x51a75422f79fa96e70a0c1481851bc9f827868c44203b68d74f9815ffb367d5f&quot;, input: &quot;0x&quot;, nonce: 0, r: &quot;0x5632a8ade4a767dbd949ba1042cb33f98dd0722ab999ba18e1454d19d8bd1f6d&quot;, s: &quot;0x515dcfa3de297f0c956ad9a061a5561f47cc9ccbb0a547cda59193c77fcbe3f7&quot;, to: &quot;0x0a8c35653d8b229c16f0c9ce6f63cffb877cfdcf&quot;, transactionIndex: 0, v: &quot;0x42&quot;, value: 1000000000000000000 }\]</code> eth.sendTransaction就是执行发送以太币的操作, 参数from, to分别是发送账户和接收账户, web3.toWei(1, “ether”)是将1单位”ether”转换为相应的”Wei”数量. 然后执行挖矿(这里我也不理解,为什么发送货币以后,要通过挖矿才能让交易生效) <code>&gt; miner.start() INFO \[05-29|18:26:47\] Updated mining threads threads=0 INFO \[05-29|18:26:47\] Starting mining operation null \&gt; INFO \[05-29|18:26:47\] Commit new mining work number=31 txs=1 uncles=0 elapsed=1.094ms &gt; INFO \[05-29|18:30:14\] Successfully sealed new block number=31 hash=19e3d7…a6ecd5 INFO \[05-29|18:30:14\] �� mined potential block number=31 hash=19e3d7…a6ecd5 INFO \[05-29|18:30:14\] Commit new mining work number=32 txs=0 uncles=0 elapsed=2.314ms INFO \[05-29|18:30:17\] Successfully sealed new block number=32 hash=94748a…cdbc17 INFO \[05-29|18:30:17\] �� mined potential block number=32 hash=94748a…cdbc17 INFO \[05-29|18:30:17\] Commit new mining work number=33 txs=0 uncles=0 elapsed=156.295µs INFO \[05-29|18:30:19\] Successfully sealed new block number=33 hash=b8e037…cd50ff INFO \[05-29|18:30:19\] �� mined potential block number=33 hash=b8e037…cd50ff INFO \[05-29|18:30:19\] Commit new mining work number=34 txs=0 uncles=0 elapsed=131.676µs &gt; mINFO \[05-29|18:30:20\] Successfully sealed new block number=34 hash=7ad61a…f63067 INFO \[05-29|18:30:20\] �� mined potential block number=34 hash=7ad61a…f63067 INFO \[05-29|18:30:20\] Commit new mining work number=35 txs=0 uncles=0 elapsed=138.957µs &gt; miner.stINFO \[05-29|18:30:22\] Successfully sealed new block number=35 hash=eb9652…a1a9e3 INFO \[05-29|18:30:22\] �� mined potential block number=35 hash=eb9652…a1a9e3 INFO \[05-29|18:30:22\] Commit new mining work number=36 txs=0 uncles=0 elapsed=334.318µs &gt; miner.stopINFO \[05-29|18:30:22\] Successfully sealed new block number=36 hash=e1541c…418ce3 INFO \[05-29|18:30:22\] �� block reached canonical chain number=31 hash=19e3d7…a6ecd5 INFO \[05-29|18:30:22\] �� mined potential block number=36 hash=e1541c…418ce3 INFO \[05-29|18:30:22\] Commit new mining work number=37 txs=0 uncles=0 elapsed=117.185µs &gt; miner.stop() true</code> 从上面的日志可以看到,执行挖矿之后,一共有6个区块产生. 再在第二个节点的命令行输入: <code>&gt; eth.blockNumber 36 \&gt; eth.getBalance(eth.accounts\[0\]) 1000000000000000000</code> 可以看到第二个节点中的账户,已经得有了1个”ether”, 并且可以看出,以太坊中,1”ether”=1000000000000000000”Wei. 之前输入eth.blockNumber,得到的值为30,其实只要挖出第一个区块的时候,就可以停止,发送到第二个node账户中的一个”ether”,就已经生效. 总结一下: 这次以我们完成了以下内容: 1)创建区块链私有网络,并在网络中,建立自己的节点集群. 2)在接点集群中,通过一个节点的账户向网络中的另外一个节点的账户转了1个以太坊币,交易成功.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/06/28/在以太坊私有网络中建立节点集群并发生交易/" data-id="cjujhygdw00b7ej3jspk6in8n" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-以太坊学习笔记：私有链搭建操作指南" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/28/以太坊学习笔记：私有链搭建操作指南/" class="article-date">
+  <time datetime="2017-06-28T02:14:28.000Z" itemprop="datePublished">2017-06-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-区块链/">积累________区块链</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/28/以太坊学习笔记：私有链搭建操作指南/">以太坊学习笔记：私有链搭建操作指南</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>虽然以太坊是一个公有链系统，但是我们可以通过设置一些参数来运行自己的私有链节点，在自己的私有链上进行开发和测试不需要同步公有链数据，也不需要花钱来买以太币，节省存储空间和成本，而且很灵活很方便。本文介绍使用geth客户端搭建私有链的操作步骤，同时会解释在这个过程中用到的各个命令及选项的含义和作用，最后会介绍geth的JavaScript Console中的一些常用功能。 系统和软件 <code>Ubuntu 16.04 64位 geth 1.5.6 =&gt;(安装教程)</code> 搭建私有链 一、准备创世区块配置文件 以太坊支持自定义创世区块，要运行私有链，我们就需要定义自己的创世区块，创世区块信息写在一个json格式的配置文件中。首先将下面的内容保存到一个json文件中，例如genesis.json。 <code>{ &quot;config&quot;: { &quot;chainId&quot;: 0, &quot;homesteadBlock&quot;: 0, &quot;eip155Block&quot;: 0, &quot;eip158Block&quot;: 0 }, &quot;coinbase&quot; : &quot;0x0000000000000000000000000000000000000000&quot;, &quot;difficulty&quot; : &quot;0x400&quot;, &quot;extraData&quot; : &quot;0x0&quot;, &quot;gasLimit&quot; : &quot;0x2fefd8&quot;, &quot;nonce&quot; : &quot;0xdeadbeefdeadbeef&quot;, &quot;mixhash&quot; : &quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;, &quot;parentHash&quot; : &quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;, &quot;timestamp&quot; : &quot;0x00&quot;, &quot;alloc&quot; : {} }</code> 二、初始化：写入创世区块 准备好创世区块配置文件后，需要初始化区块链，将上面的创世区块信息写入到区块链中。首先要新建一个目录用来存放区块链数据，假设新建的数据目录为~/privatechain/data0，genesis.json保存在~/privatechain中，此时目录结构应该是这样的： <code>privatechain ├── data0 └── genesis.json</code> 接下来进入privatechain中，执行初始化命令： <code>$ cd privatechain $ geth --datadir data0 init genesis.json</code> 上面的命令的主体是geth init，表示初始化区块链，命令可以带有选项和参数，其中–datadir选项后面跟一个目录名，这里为data0，表示指定数据存放目录为data0，genesis.json是init命令的参数。 运行上面的命令，会读取genesis.json文件，根据其中的内容，将创世区块写入到区块链中。如果看到以下的输出内容，说明初始化成功了。 <code>I0322 10:52:44.585282 cmd/geth/chaincmd.go:131\] successfully wrote genesis block and/or chain rule set: b240e0678c2a8f87cf350225b528e3d97688aad6d4d84ee84e405c7fc9e37e4e</code> 初始化成功后，会在数据目录data0中生成geth和keystore两个文件夹，此时目录结构如下： <code>privatechain ├── data0 │ ├── geth │ │ └── chaindata │ │ ├── 000002.log │ │ ├── CURRENT │ │ ├── LOCK │ │ ├── LOG │ │ └── MANIFEST-000003 │ └── keystore └── genesis.json</code> 其中geth/chaindata中存放的是区块数据，keystore中存放的是账户数据。 三、启动私有链节点 初始化完成后，就有了一条自己的私有链，之后就可以启动自己的私有链节点并做一些操作，在终端中输入以下命令即可启动节点： <code>$ geth –datadir data0 –networkid 1108 console</code> 上面命令的主体是geth console，表示启动节点并进入交互式控制台，–datadir选项指定使用data0作为数据目录，–networkid选项后面跟一个数字，这里是1108，表示指定这个私有链的网络id为1108。网络id在连接到其他节点的时候会用到，以太坊公网的网络id是1，为了不与公有链网络冲突，运行私有链节点的时候要指定自己的网络id。 运行上面的命令后，就启动了区块链节点并进入了javascript Console： <code>Welcome to the Geth JavaScript console! instance: Geth/v1.5.6-stable/linux/go1.7.3 modules: admin:1.0 debug:1.0 eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0</code> 这是一个交互式的Javascript执行环境，在这里面可以执行Javascript代码，其中&gt;是命令提示符。在这个环境里也内置了一些用来操作以太坊的Javascript对象，可以直接使用这些对象。这些对象主要包括： <code>eth：包含一些跟操作区块链相关的方法 net：包含以下查看p2p网络状态的方法 admin：包含一些与管理节点相关的方法 miner：包含启动&amp;停止挖矿的一些方法 personal：主要包含一些管理账户的方法 txpool：包含一些查看交易内存池的方法 web3：包含了以上对象，还包含一些单位换算的方法 探索Javascript Console</code> 进入以太坊Javascript Console后，就可以使用里面的内置对象做一些操作，这些内置对象提供的功能很丰富，比如查看区块和交易、创建账户、挖矿、发送交易、部署<a href="http://lib.csdn.net/base/aiplanning" title="人工智能规划与决策知识库" target="_blank" rel="noopener">智能</a>合约等。 接下来介绍几个常用功能，下面的操作中，前面带&gt;的表示在Javascript Console中执行的命令。 一、创建账户 前面只是搭建了私有链，并没有自己的账户，可以在<a href="http://lib.csdn.net/base/javascript" title="JavaScript知识库" target="_blank" rel="noopener">js</a> console中输入eth.accounts来验证： <code>&gt; eth.accounts \[\] 接下来使用personal对象来创建一个账户： &gt; personal.newAccount() Passphrase: Repeat passphrase: &quot;0xc232e2add308136571bb8f9197ba4ae4e5ba9836&quot; 会提示输入密码和确认密码，输入密码不会有显示，只要输入就可以了，之后就会显示新创建的账户地址。 可以创建多个账户，我们再来创建一个账户： \&gt; personal.newAccount() Passphrase: Repeat passphrase: &quot;0x814d39aa21f3eed069f2b21da7b5f857f7343afa&quot; 接下来就可以查看到刚才创建的两个账户了： \&gt; eth.accounts \[&quot;0xc232e2add308136571bb8f9197ba4ae4e5ba9836&quot;, &quot;0x814d39aa21f3eed069f2b21da7b5f857f7343afa&quot;\]</code> 账户默认会保存在数据目录的keystore文件夹中。查看目录结构，发现data0/keystore中多了两个文件，这两个文件就对应刚才创建的两个账户，这是json格式的文本文件，可以打开查看，里面存的是私钥经过密码加密后的信息。 <code>data0 ├── geth │ ├── chaindata │ ├── LOCK │ ├── nodekey │ └── nodes ├── geth.ipc ├── history └── keystore ├── UTC--2017-03-22T09-06-47.766993033Z--c232e2add308136571bb8f9197ba4ae4e5ba9836 └── UTC--2017-03-22T09-09-42.041015656Z--814d39aa21f3eed069f2b21da7b5f857f7343afa 小提示：命令都可以按Tab键自动补全。</code> 二、查看账户余额 eth对象提供了查看账户余额的方法： <code>&gt; eth.getBalance(eth.accounts\[0\]) 0 \&gt; eth.getBalance(eth.accounts\[1\]) 0</code> 目前两个账户的以太币余额都是0，要使账户有余额，可以从其他账户转账过来，或者通过挖矿来获得以太币奖励。 三、启动&amp;停止挖矿 通过miner.start()来启动挖矿： <code>&gt; miner.start(1)</code> 其中start的参数表示挖矿使用的线程数。第一次启动挖矿会先生成挖矿所需的DAG文件，这个过程有点慢，等进度达到100%后，就会开始挖矿，此时屏幕会被挖矿信息刷屏。 如果想停止挖矿，在js console中输入miner.stop()： &gt; miner.stop() 注意：输入的字符会被挖矿刷屏信息冲掉，没有关系，只要输入完整的miner.stop()之后回车，即可停止挖矿。 挖到一个区块会奖励5个以太币，挖矿所得的奖励会进入矿工的账户，这个账户叫做coinbase，默认情况下coinbase是本地账户中的第一个账户： &gt; eth.coinbase “0xc232e2add308136571bb8f9197ba4ae4e5ba9836” 现在的coinbase是账户0，要想使挖矿奖励进入其他账户，通过miner.setEtherbase()将其他账户设置成coinbase即可： &gt; miner.setEtherbase(eth.accounts[1]) true > eth.coinbase “0x814d39aa21f3eed069f2b21da7b5f857f7343afa” 我们还是以账户0作为coinbase，挖到区块以后，账户0里面应该就有余额了： > eth.getBalance(eth.accounts[0]) 160000000000000000000 getBalance()返回值的单位是wei，wei是以太币的最小单位，1个以太币=10的18次方个wei。要查看有多少个以太币，可以用web3.fromWei()将返回值换算成以太币： &gt; web3.fromWei(eth.getBalance(eth.accounts[0]),’ether’) 160 <code>四、发送交易 目前，账户一的余额还是0：</code> > eth.getBalance(eth.accounts[1]) 0 可以通过发送一笔交易，从账户0转移5个以太币到账户1： > amount = web3.toWei(5,’ether’) “5000000000000000000” > eth.sendTransaction({from:eth.accounts[0],to:eth.accounts[1],value:amount}) Error: account is locked at web3.js:3119:20 at web3.js:6023:15 at web3.js:4995:36 at :1:1 这里报错了，原因是账户每隔一段时间就会被锁住，要发送交易，必须先解锁账户，由于我们要从账户0发送交易，所以要解锁账户0： > personal.unlockAccount(eth.accounts[0]) Unlock account 0xc232e2add308136571bb8f9197ba4ae4e5ba9836 Passphrase: true 输入创建账户时设置的密码，就可以成功解锁账户。然后再发送交易： > amount = web3.toWei(5,’ether’) “5000000000000000000” > eth.sendTransaction({from:eth.accounts[0],to:eth.accounts[1],value:amount}) I0322 19:39:36.300675 internal/ethapi/api.go:1047] Tx(0x0c59f431068937cbe9e230483bc79f59bd7146edc8ff5ec37fea6710adcab825) to: 0x814d39aa21f3eed069f2b21da7b5f857f7343afa “0x0c59f431068937cbe9e230483bc79f59bd7146edc8ff5ec37fea6710adcab825” 此时交易已经提交到区块链，返回了交易的hash，但还未被处理，这可以通过查看txpool来验证： &gt; txpool.status { pending: 1, queued: 0 } 其中有一条pending的交易，pending表示已提交但还未被处理的交易。 要使交易被处理，必须要挖矿。这里我们启动挖矿，然后等待挖到一个区块之后就停止挖矿： &gt; miner.start(1);admin.sleepBlocks(1);miner.stop(); 当miner.stop()返回true后，txpool中pending的交易数量应该为0了，说明交易已经被处理了： > txpool.status { pending: 0, queued: 0 } 此时，交易已经生效，账户一应该已经收到了5个以太币了： > web3.fromWei(eth.getBalance(eth.accounts[1]),’ether’) 5 <code>五、查看交易和区块 eth对象封装了查看交易和区块信息的方法。 查看当前区块总数：</code> &gt; eth.blockNumber 33 通过交易hash查看交易： eth.getTransaction(“0x0c59f431068937cbe9e230483bc79f59bd7146edc8ff5ec37fea6710adcab825”) { blockHash: “0xf5d3da50065ce5793c9571a031ad6fe5f1af326a3c4fb7ce16458f4d909c1613”, blockNumber: 33, from: “0xc232e2add308136571bb8f9197ba4ae4e5ba9836”, gas: 90000, gasPrice: 20000000000, hash: “0x0c59f431068937cbe9e230483bc79f59bd7146edc8ff5ec37fea6710adcab825”, input: “0x”, nonce: 0, r: “0x433fe5845391b6da3d8aa0d2b53674e09fb6126f0070a600686809b57e4ef77d”, s: “0x6b0086fb76c46024f849141074a5bc79c49d5f9a658fd0fedbbe354889c34d8d”, to: “0x814d39aa21f3eed069f2b21da7b5f857f7343afa”, transactionIndex: 0, v: “0x1b”, value: 5000000000000000000 } #通过区块号查看区块： eth.getBlock(33) { difficulty: 132928, extraData: “0xd783010506846765746887676f312e372e33856c696e7578”, gasLimit: 3244382, gasUsed: 21000, hash: “0xf5d3da50065ce5793c9571a031ad6fe5f1af326a3c4fb7ce16458f4d909c1613”, logsBloom: “0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000”, miner: “0xc232e2add308136571bb8f9197ba4ae4e5ba9836”, mixHash: “0x09849dff7c8b8467812fa80d1fa2a27bc61f1cf16d5b2c05a6ce1b77ee18f3f1”, nonce: “0x5b3939449dbdbea0”, number: 33, parentHash: “0xeca34637642f56f7cfe5b699031c7ddbc43aee00fb10c7f054e0a9719cf226da”, receiptsRoot: “0xd5f5b7ee944e57cbff496f7bdda7ceffd5eedffe6d5be5320008190502adc07a”, sha3Uncles: “0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347”, size: 649, stateRoot: “0xc7add6b756980ab9e482766e455597ef1583e747ad62e2924a8e66c6f9170112”, timestamp: 1490183209, totalDifficulty: 4358016, transactions: [“0x0c59f431068937cbe9e230483bc79f59bd7146edc8ff5ec37fea6710adcab825”], transactionsRoot: “0x7335a362b2c3925e7ba1b41bf7772aa9645a13d4f9c12edd5892b87887264232”, uncles: [] } <code>还有更多的功能请自行探索...。 六、连接到其他节点 可以通过`admin.addPeer()`方法连接到其他节点，两个节点要想联通，必须保证网络是相通的，并且要指定相同的networkid。 假设有两个节点：节点一和节点二，networkid都是1108，通过下面的步骤就可以从节点一连接到节点二。 首先要知道节点二的enode信息，在节点二的js console中执行下面的命令查看enode信息：</code> admin.nodeInfo.enode “enode://9e86289ea859ca041f235aed87a091d0cd594b377cbe13e1c5f5a08a8a280e62d4019ac54063ed6a1d0e3c3eaedad0b73c40b99a16a176993f0373ffe92be672@[::]:30304”<code>然后在节点一的js console中执行`admin.addPeer()`，就可以连接到节点二：</code> admin.addPeer(“enode:<a href="mailto://9e86289ea859ca041f235aed87a091d0cd594b377cbe13e1c5f5a08a8a280e62d4019ac54063ed6a1d0e3c3eaedad0b73c40b99a16a176993f0373ffe92be672@127.0.0.1" target="_blank" rel="noopener">//9e86289ea859ca041f235aed87a091d0cd594b377cbe13e1c5f5a08a8a280e62d4019ac54063ed6a1d0e3c3eaedad0b73c40b99a16a176993f0373ffe92be672@127.0.0.1</a>:30304”) <code>`</code> addPeer()的参数就是节点二的enode信息，注意要把enode中的[::]替换成节点二的IP地址。连接成功后，节点二就会开始同步节点一的区块，同步完成后，任意一个节点开始挖矿，另一个节点会自动同步区块，向任意一个节点发送交易，另一个节点也会收到该笔交易。 通过admin.peers可以查看连接到的其他节点信息，通过<code>net.peerCount</code>可以查看已连接到的节点数量。 除了上面的方法，也可以在启动节点的时候指定<code>–bootnodes</code>选项连接到其他节点。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/06/28/以太坊学习笔记：私有链搭建操作指南/" data-id="cjujhygdr00b3ej3j7y6qbu9i" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mac-配置以太坊本地开发环境" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/28/mac-配置以太坊本地开发环境/" class="article-date">
+  <time datetime="2017-06-28T01:43:07.000Z" itemprop="datePublished">2017-06-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-区块链/">积累________区块链</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/28/mac-配置以太坊本地开发环境/">mac 配置以太坊本地开发环境</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>使用官方的go 版本，的直接安装，也可以通过源码（git clone <a href="https://github.com/ethereum/go-ethereum）构建；" target="_blank" rel="noopener">https://github.com/ethereum/go-ethereum）构建；</a> <code>brew tap ethereum/ethereum brew install ethereum</code> 安装好以后就可以启动了，因为是在本地开发所以启动的时候要加一些自定义启动参数，来配置一下。查看帮助命令<code>geth -h</code> 以太坊客户端启动： <code>geth --datadir &quot;~/ethdev&quot; --dev</code> 指定一个数据存储目前避免和公有链数据冲突，—dev指定为开发模式这样就不用同步公有链上的区块，公有链的数据量几十个G太大了，共识速度 也比较慢 以上命令启动成功之后，需要另打一个终端进入登录 <code>geth  --dev console 2&gt;\&gt; file\_to\_log_output</code> 进入开发模式的控制台，并把日志输出到 一个文本文件 <code>Last login: Sat Nov  5 09:17:42 on ttys000 localhost:~ pro1$ geth --dev console 2&gt;\&gt; file\_to\_log_output Welcome to the Geth JavaScript console! instance: Geth/v1.4.18-stable-c72f5459/darwin/go1.7.3 coinbase: 0x73e8655a84a37685d98891b7a9333a7423e12cb3 at block: 0 (Thu, 01 Jan 1970 08:00:00 CST)  datadir: /var/folders/8z/kp024pxd4j9194b34z\_v06\_c0000gn/T/ethereum\_dev\_mode  modules: admin:1.0 debug:1.0 eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 shh:1.0 txpool:1.0 web3:1.0</code> 以上是登录成功的画面,登录成功以后可以查看帐户信息，当前有哪些帐户 <code>eth.accounts \[&quot;0x73e8655a84a37685d98891b7a9333a7423e12cb3&quot;, &quot;0xa9d6dfff13c1050f19a8ffc2811c68842797d01c&quot;\]</code> 我本地创建已经创建了两个帐户 再创建一个： <code>personal.newAccount(&#39;11111111&#39;) &quot;0xe30cecc37776895389b94033ac65eb3b98294659&quot;</code> 以上通过personal.newAccount 传入密码参数即可创建一个新帐户并返回新的帐户地址； 新打开一个终端可以查看本地创建了多少个帐户： <code>localhost:~ pro1$ geth account list Account #0: {73e8655a84a37685d98891b7a9333a7423e12cb3} /Users/wangtao/Library/Ethereum/keystore/UTC--2016-11-04T06-48-39.698325708Z--73e8655a84a37685d98891b7a9333a7423e12cb3 Account #1: {a9d6dfff13c1050f19a8ffc2811c68842797d01c} /Users/wangtao/Library/Ethereum/keystore/UTC--2016-11-04T06-49-00.457262369Z--a9d6dfff13c1050f19a8ffc2811c68842797d01c Account #2: {e30cecc37776895389b94033ac65eb3b98294659} /Users/wangtao/Library/Ethereum/keystore/UTC--2016-11-05T01-35-55.852748174Z--e30cecc37776895389b94033ac65eb3b98294659 localhost:~ pro1 $</code> 我本地已经有三个了. 然后再切回已经登录成功的控制台客户端 在以太坊客户端 可以把某个帐户赋值给一个变量 <code>\&gt; user1=eth.accounts\[0\] &quot;0x73e8655a84a37685d98891b7a9333a7423e12cb3&quot; &gt;</code> 然后可以查看当前帐户的余额: <code>\&gt; eth.getBalance(user1) 0 \&gt; eth.blockNumber 0 &gt;</code> 可以查看当前user1的余额为0，默认也是0个区块，因为还没有启动矿挖矿 现在我们启动挖矿，挖矿前我们先打开实时监控日志，就是刚才控制台输出的日志文本文件： <code>localhost:~ pro1$ geth --dev console 2&gt;\&gt; file\_to\_log_output</code> 这个文件我指定在了我的根目录下：  打开 <code>tail -f file\_to\_log_out</code> 启动挖矿 <code>\&gt; miner.start() true &gt;</code> 在上面打开发文件监控界面就会看到 挖矿建块儿情况： 再 切回以太坊挖制台，查看用户余额: <code>\&gt; eth.getBalance(user1) 1.25890625e+21 \&gt; eth.getBalance(user2) 0 &gt;</code> 已经看到 帐户1，已经有余额了，帐户2 还是0，因为挖矿的奖励进入第一个帐户中。 现在停止挖矿： <code>\&gt; miner.stop() true &gt;</code> 已经停止成功，另外日志界面也停止输出 再 查看一下当前的区块高度： <code>\&gt; eth.blockNumber 288 &gt;</code> 现在帐户2中没有余额，我们从帐户1转发几个以太币到 帐户2中： <code>&gt; eth.sendTransaction({from: user1,to: user2,value: web3.toWei(3,&quot;ether&quot;)}) account is locked     at web3.js:3119:20     at web3.js:6023:15     at web3.js:4995:36     at &lt;anonymous&gt;:1:1 &gt;</code> 由于默认帐户是锁定的，首要解锁帐户，然后再 转帐,先查看 下下当前帐户，再解锁： <code>\&gt; eth.accounts \[&quot;0x73e8655a84a37685d98891b7a9333a7423e12cb3&quot;, &quot;0xa9d6dfff13c1050f19a8ffc2811c68842797d01c&quot;, &quot;0xe30cecc37776895389b94033ac65eb3b98294659&quot;\] \&gt; personal.unlockAccount(&#39;0x73e8655a84a37685d98891b7a9333a7423e12cb3&#39;,&#39;11111111&#39;) true &gt;</code>   上面已经提示解锁成功，然后继教转帐： <code>eth.sendTransaction({from: user1,to: user2,value: web3.toWei(3,&quot;ether&quot;)}) &quot;0x8f164a1296b618bdd64fcc007f6d39ce022b57e257beefeb76288cdef220ad80&quot; \&gt; eth.getBalance(user2) 0</code> 上面已经提示转帐成功了，但是user2帐户余额依然是0，是因为没有矿工来挖矿处理，我们启动一个矿工，并在另一个终端查看日志   日志已经显示开始挖矿并发交易进行了处理在，区块293中， <code>\&gt; miner.start() true \&gt; miner.stop() true \&gt; eth.getBalance(user2) 3000000000000000000 &gt;</code> 我们再 次查看余额的时候user2已经 有三个以太币了，这样一个转帐的交易就完成 了；</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/06/28/mac-配置以太坊本地开发环境/" data-id="cjujhyg7x003uej3jap59h8rj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-httplib源码分析及incompleteread异常解决方案" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/15/httplib源码分析及incompleteread异常解决方案/" class="article-date">
+  <time datetime="2017-06-15T07:44:08.000Z" itemprop="datePublished">2017-06-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-python/">积累________python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/15/httplib源码分析及incompleteread异常解决方案/">httplib源码分析及IncompleteRead异常解决方案</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>由于触发了自定义规则，导致返回content-length大于实际页面内容，报IncompleteRead异常。 解决方法如下： 1.修改_safe_read方法，将抛出异常换为返回数据 <code>s = \[\] while amt &gt; 0: chunk = self.fp.read(min(amt, MAXAMOUNT)) if not chunk: #raise IncompleteRead(s) return &#39;&#39;.join(s) s.append(chunk) amt -= len(chunk) return &#39;&#39;.join(s)</code> 2.使用装饰器打patch <code>def patch\_http\_response\_read(func): def inner(\*args): try: return func(\*args) except IncompleteRead, e: return &#39;&#39;.join(e.partial) return inner HTTPResponse.read = patch\_http\_response\_read(HTTPResponse.read)</code> 将上面代码放到httplib的最后就可以了，注意IncompletedRead的partial参数是list变量，因为_safe_read中的s是[]。 个人推荐第二种方法。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/06/15/httplib源码分析及incompleteread异常解决方案/" data-id="cjujhyg71002sej3jladtm0kp" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-laravel之设计模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/15/laravel之设计模式/" class="article-date">
+  <time datetime="2017-06-15T03:11:21.000Z" itemprop="datePublished">2017-06-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/laravel/">laravel</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/15/laravel之设计模式/">laravel之设计模式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="laravel的面向对象编程："><a href="#laravel的面向对象编程：" class="headerlink" title="laravel的面向对象编程："></a>laravel的面向对象编程：</h2><p>1：使用namespace防止命名冲突 2：使用autoload来自动加载函数 使用ArrayAccess实现配置文件的加载，使一个对象可以通过数组的方式访问。</p>
+<blockquote>
+<p>class Config implements \ArrayAccess { protected $path; protected $configs = array(); function __construct($path) { $this-&gt;path = $path; } function offsetGet($key) { if (empty($this-&gt;configs[$key])) { $file_path = $this-&gt;path.’/‘.$key.’.php’; $config = require $file_path; $this-&gt;configs[$key] = $config; } return $this-&gt;configs[$Key]; } function offsetSet($key, $value) { throw new \Exception(“cannot write config file.”); } function offsetExists($key) { return isset($this-&gt;configs[$key]; } function offsetUnset($key) { unset($this-&gt;configs[$key]); }</p>
+</blockquote>
+<blockquote>
+<p>$config = new Config(__dirname__.’/configs’); $whatkey = $config[‘what_key’];</p>
+</blockquote>
+<p>3：psr-4规范 4：链式调用</p>
+<blockquote>
+<p>_只要在方法的最后：_return $this;</p>
+</blockquote>
+<p>5：魔术方法 <em>1）访问不存在的属性，\</em>_set()和__get()_ <em>2）调用不存在的方法 \</em>_call()和__callstatic()_ <em>3）对象作为字符串使用，__toString()</em> <em>4）对象作为方法使用，__invoke()</em> <em>6：单一职责</em> <em>一个文件只有一个类，一个类只做好一件事，尽量不要复杂。</em> <em>7：开放封闭原则</em> <em>一个类的功能应该是可扩展而不可修改的。</em> <em>8：依赖倒置</em> <em>一个类不应该强依赖另一个类，每个类对于另一个类都是可替换的。</em> <em>9：配置化</em> <em>尽可能的使用配置而不是硬编码。</em> <em>10：面向接口编程</em> <em>只需要关心接口，不需要关心实现。</em></p>
+<hr>
+<h4 id="1：工厂模式"><a href="#1：工厂模式" class="headerlink" title="1：工厂模式"></a>1：工厂模式</h4><blockquote>
+<p>_例如：_Auth::user()</p>
+</blockquote>
+<p>此处Auth这个类就是工厂中的方法，Auth是注册树中的别名。 好处： 类似于函数的封装，使对象有一个统一的生成（实例化）入口。当我们对象所对应的类的类名发生变化的时候，我们只需要改一下工厂类类里面的实例化方法即可。</p>
+<h4 id="2：单例模式"><a href="#2：单例模式" class="headerlink" title="2：单例模式"></a>2：单例模式</h4><p>好处： 对象不可外部实例化并且只能实例化一次，节省资源。 实现方式：</p>
+<blockquote>
+<p>private static $ins = null;                                                //设置私有的属性 private function __construct() {}                                       <em>//使外部无法new这个类</em> public static function getIns() {                                        //暴露给外部的调用方法 if(self::$ins instanceof self) { return self::$ins; } else { self::$ins = new self(); return self::$ins; } }</p>
+</blockquote>
+<p>声明一个类的私有或者保护的静态变量，构造方法声明为私有（不允许外部进行new操作），如果不存在则实例化它，然后返回，如果存在则直接返回。</p>
+<h4 id="3：注册树模式"><a href="#3：注册树模式" class="headerlink" title="3：注册树模式"></a>3：注册树模式</h4><p>使用： config/app里的aliases数组便是一个注册树 好处： 注册树模式就是使用数组结构来存取对象，工厂方法只需要调用一次（可以放到系统环境初始化这样的地方），以后需要调用该对象的时候直接从注册树上面取出来即可，不需要再调用工厂方法和单例模式。 实现方法：</p>
+<blockquote>
+<p>class Register { protected static $objects function set($alias,$object) {                            <em>//将对象映射到全局树上</em> self::$objects[$alias]=$object; } static function get($name) {                             <em>//获取对象</em> return self::$objects[$name]; } function _unset($alias) {                                  //从全局树移除对象 unset(self::$onjects[$alias]); } }</p>
+</blockquote>
+<p>$alias表示别名，自己设定 在工厂模式中添加 Register::set(‘db1’,$db); 其他任何地方调用只需要调用注册器读取即可 Register::$objects[‘db1’];</p>
+<h3 id="4：适配器模式"><a href="#4：适配器模式" class="headerlink" title="4：适配器模式"></a>4：适配器模式</h3><p>将不同工具的不同函数接口封装成统一的API，方便调用。如：mysql，mysqli，PDO。 实现：在接口类里面申明统一的方法体，再让不同的类去实现这个接口，和重写其抽象方法。</p>
+<blockquote>
+<p>interface Database { function connect($host,$user,$password,$dbname); function query($sql); function close(); }</p>
+</blockquote>
+<p>然后再去用不同的工具函数去实现相同的接口。</p>
+<h3 id="5：策略模式"><a href="#5：策略模式" class="headerlink" title="5：策略模式"></a>5：策略模式</h3><p>好处： 将一组特定的行为和算法封装成类，以适应某些特定的上下文环境，将逻辑判断和具体实现分离，实现了硬编码到解耦，并可实现IOC、依赖倒置、反转控制。 实现： 1.定义一个策略接口文件(UserStrategy.php)，定义策略接口，声明策略 2.定义具体类(FemaleUserStrategy.php，MaleUserStrategy.php)，实现策略接口，重写策略方法</p>
+<blockquote>
+<p>class Page { protected $strategy; function index() { if($request-&gt;get(‘female’)) { $strategy=new FemaleUserStrategy(); } else { $strategy=new MaleUserStrategy(); } $this-&gt;strategy-&gt;method(); } public function __construct(UserStrategy $strategy) { $this-&gt;strategy=$strategy; } }</p>
+</blockquote>
+<h3 id="6：数据对象映射模式"><a href="#6：数据对象映射模式" class="headerlink" title="6：数据对象映射模式"></a>6：数据对象映射模式</h3><p>好处：将对象和数据存储映射起来，对一个对象的操作会映射为对数据存储的操作，这也是ORM的实现机制。</p>
+<blockquote>
+<p>class Model { public $id; public $name; public $email; …… function <strong>construct($id) { <em>//构造函数，调用class时自动执行，用来初始化。</em> _               //查询逻辑_ } function </strong>destruct() { <em>//析构函数，当class调用完成后自动执行，用它来销毁实例，释放资源。</em> _               //增删改逻辑_ } }</p>
+</blockquote>
+<h3 id="7-观察者模式"><a href="#7-观察者模式" class="headerlink" title="7:观察者模式"></a>7:观察者模式</h3><p>使用：</p>
+<blockquote>
+<p>Event::fire(new /event);</p>
+</blockquote>
+<p>好处： 当一个对象状态发生改变时，依赖它的对象全部会收到通知并自动更新，实现低耦合，非侵入式的通知与更新机制。 (PS:有关abstract和interface：<a href="http://blog.csdn.net/sunlylorn/article/details/6124319" target="_blank" rel="noopener">http://blog.csdn.net/sunlylorn/article/details/6124319</a>) 实现： EventGenerator.php                                            <em>//事件产生者</em></p>
+<blockquote>
+<p>abstract class EventGenerator{ private $obserers = array();                        <em>//观察者对事件发生者不可见</em> function addObsever(Observer $observer) { $this-&gt;obserers[] = $observer; } function ontify() {                                        <em>//逐个调用观察者的handle方法</em> foreach ($this-&gt;obserers as $observer){ $observer-&gt;handle(); } } }</p>
+</blockquote>
+<p>event.php                                                           <em>//事件类</em></p>
+<blockquote>
+<p>class Event extends EventGenerator{ function trigger(){ $this-&gt;ontify(); } }</p>
+</blockquote>
+<p>Observer.php                                                             <em>//观察者接口</em></p>
+<blockquote>
+<p>interface Observer { function update($event_info = null);                    <em>//更新操作，可接受事件信息参数</em> }</p>
+</blockquote>
+<p>Observer1.php                                                           <em>//EventListener</em></p>
+<blockquote>
+<p>class Observer1 implements Observer { function handle($event_info = null){ echo “逻辑1”; } }</p>
+</blockquote>
+<p>index.php                                                                   <em>//Controller中function</em></p>
+<blockquote>
+<p>$event = new \Event(); $event-&gt;addObsever(new \Observer1()); $event-&gt;trigger();</p>
+</blockquote>
+<h3 id="8：原型模式"><a href="#8：原型模式" class="headerlink" title="8：原型模式"></a>8：原型模式</h3><p>与工厂模式类似，用于创建对象，不同在于：原型模式是先创建好一个原型对象，再通过clone原型对象来创建新的对象，原型模式适用于大对象的创建，仅需要内存拷贝即可。</p>
+<blockquote>
+<p>$Object = new Object(); $object_1 = clone $Object; $object_2 = clone $Object; ……</p>
+</blockquote>
+<h3 id="9：装饰器模式"><a href="#9：装饰器模式" class="headerlink" title="9：装饰器模式"></a>9：装饰器模式</h3><p>若要修改或添加一个类的功能，传统的方式是写一个子类继承它，并重新实现类的方法。装饰器模式仅需在运行时添加一个装饰器对象即可动态的添加或修改类的功能。 传统方法：</p>
+<blockquote>
+<p>class Method2 extends Method { function doSomething() { echo “</p>
+<p>“ parent::doSomething(); echo “</p>
+<p>“; } }</p>
+</blockquote>
+<blockquote>
+<p>interfa Decorator {                                             <em>//定义装饰器接口</em> function beforeAction(); function afterAction(); _        //more decoratorMethod……_ }</p>
+</blockquote>
+<blockquote>
+<p>class SomeClass { protected $decorators = []; function addDecorator(Decorator $decorator) { $this-&gt;decorators[] = $decorator; } function beforeMethod() { foreach ($this-&gt;decorators as $row) { $row-&gt;beforeAction(); } } function afterMethod() { $decorators = array_reverse($this-&gt;decorators);     <em>//做一个反转</em> foreach ($this-&gt;decorators as $row) { $row-&gt;afterAction(); } } function action() { $this-&gt;beforeMethod(); //method; $this-&gt;afterMethod(); } }</p>
+</blockquote>
+<blockquote>
+<p>class OneDecorator implements Decorator { protected $datas; function __construct($datas = ‘request’) { $this-&gt;datas = $datas; } function beforeAction() { echo “</p>
+<p>“; } function afterAction() { echo “</p>
+<p>“; } }</p>
+</blockquote>
+<blockquote>
+<p>$Object = new \SomeClass(); $Object-&gt;addDecorator(new \OneDecorator(‘blue’)); <em>//Add other decorator…</em> $Object-&gt;action();</p>
+</blockquote>
+<h3 id="10-迭代器模式"><a href="#10-迭代器模式" class="headerlink" title="10:迭代器模式"></a>10:迭代器模式</h3><p>在不需要了解内部实现的前提下，遍历一个聚合对象的内部元素，相对于传统编程方式它可以遍历元素所需的操作。</p>
+<blockquote>
+<p>_例如：_Object::all()</p>
+</blockquote>
+<blockquote>
+<p><strong>Iterator </strong>extends <strong>Traversable </strong>{                       <em>//PHP内置迭代器接口</em> <em>/* 方法 */</em> abstract public mixed <a href="http://php.net/manual/zh/iterator.current.php" target="_blank" rel="noopener">current</a> (void) abstract public scalar <a href="http://php.net/manual/zh/iterator.key.php" target="_blank" rel="noopener">key</a> (void) abstract public void <a href="http://php.net/manual/zh/iterator.next.php" target="_blank" rel="noopener">next</a> (void) abstract public void <a href="http://php.net/manual/zh/iterator.rewind.php" target="_blank" rel="noopener">rewind</a> (void) abstract public boolean <a href="http://php.net/manual/zh/iterator.valid.php" target="_blank" rel="noopener">valid</a> (void) }</p>
+</blockquote>
+<blockquote>
+<p>class ObjectAll implements \Iterator { protected $ids;                      <em>//所有对象的id</em> protected $index;                  <em>//迭代器的当前位置</em> protected $data = array();     <em>//保存从数据库取到的所有对象</em> function __construct() { //取出所有的id，$ids } function current() { <em>//获取当前的元素的数据，第三个调用</em> $id = $this-&gt;ids[$this-&gt;index][‘id’]; return Object::find($id); } function next() { <em>//获取下一个元素，第四个调用</em> $this-&gt;index ++; } function valid() { <em>//验证当前元素是否还有下一个元素（查询当前是否有数据），第二个调用</em> return $this-&gt;index &lt; count($this-&gt;$ids); } function rewind() { <em>//当迭代器执行到末尾时，重置迭代器到整个集合的开头，最先调用</em> $this-&gt;index = 0; } function key() { <em>//获取当前的索引，最后调用</em> return $this-&gt;index; } }</p>
+</blockquote>
+<blockquote>
+<p>$objects = new \ObjectAll(); foreach ($objects as $row) { dump($row-&gt;field); <em>//增删改查操作</em> }</p>
+</blockquote>
+<h3 id="11-代理模式"><a href="#11-代理模式" class="headerlink" title="11:代理模式"></a>11:代理模式</h3><p>在客户端与实体之间建立一个代理对象，客户端对实体进行操作全部委派给代理对象，隐藏实体的具体实现细节（读库与写库分离）。代理对象还可以与业务代码分离，部署到另外的服务器，业务代码中通过PRC来委派任务。 有关mysql的master-slave：<a href="http://www.cnblogs.com/jirglt/p/3549047.html" target="_blank" rel="noopener">http://www.cnblogs.com/jirglt/p/3549047.html</a></p>
+<blockquote>
+<p>interface DBproxy { function getInfo($id); function setInfo($id, $value); }</p>
+</blockquote>
+<blockquote>
+<p>class Proxy implements DBproxy { function get() { //DB::(‘slave’); query } function set() { //DB::(‘master’); query } }</p>
+</blockquote>
+<blockquote>
+<p>$proxy = new Proxy(); $proxy-&gt;get($id); $proxy-&gt;set($id, $value);</p>
+</blockquote>
+<h3 id="12：MVC结构（非设计模式，而是一种工程组织结构）"><a href="#12：MVC结构（非设计模式，而是一种工程组织结构）" class="headerlink" title="12：MVC结构（非设计模式，而是一种工程组织结构）"></a>12：MVC结构（非设计模式，而是一种工程组织结构）</h3><p>1：model——数据和存储的封装 2：view——展现层的封装 3：controller——逻辑层（业务代码，功能）的封装</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/06/15/laravel之设计模式/" data-id="cjujhygd900afej3jt70318bz" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-一篇让你真正理解-laravel-ioc-模式的文章" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/15/一篇让你真正理解-laravel-ioc-模式的文章/" class="article-date">
+  <time datetime="2017-06-15T02:35:00.000Z" itemprop="datePublished">2017-06-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/laravel5/">laravel5</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/15/一篇让你真正理解-laravel-ioc-模式的文章/">一篇让你真正理解 Laravel IoC 模式的文章</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>学习 Laravel 框架看它有 IoC 的介绍，看着很是费解，因为没有将具体的原理细节，自己去看源码有很困难。有天看到了一篇文章介绍 IoC（出自phalcon介绍文档）,仔细研读之后发现，果然是豁然开朗。今天将所学写一下，供大家一块学习，如果你在使用 Laravel 做开发或者在学习IoC方面的东西，定是要好好的学习下。 其中大部分内容摘自网络文章，自己确实也懒了不少。好的，Start。</p>
+<h2 id="1、首先，假设要开发一个组件命名为-SomeComponent-。组件中需要注入一个数据库连接。"><a href="#1、首先，假设要开发一个组件命名为-SomeComponent-。组件中需要注入一个数据库连接。" class="headerlink" title="1、首先，假设要开发一个组件命名为 SomeComponent 。组件中需要注入一个数据库连接。"></a>1、首先，假设要开发一个组件命名为 SomeComponent 。组件中需要注入一个数据库连接。</h2><figure class="highlight plain"><figcaption><span>"username" </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">2、为了解决上面所说的问题，我们需要在使用前创建一个外部连接，并注入到容器中。</span><br><span class="line">---------------------------------------</span><br><span class="line"></span><br><span class="line">``` \_connection = $connection; &#125; public function someDbTask() &#123; $connection = $this-&gt;\_connection; // ... &#125; &#125; $some = new SomeComponent(); //Create the connection $connection = new Connection(array( &quot;host&quot; =&gt; &quot;localhost&quot;, &quot;username&quot; =&gt; &quot;root&quot;, &quot;password&quot; =&gt; &quot;secret&quot;, &quot;dbname&quot; =&gt; &quot;invo&quot; )); //Inject the connection in the component $some-&gt;setConnection($connection); $some-&gt;someDbTask();``` 现在来考虑一个问题，我们在应用程序中的不同地方使用此组件，将多次创建数据库连接，还是那个问题，一旦发生变化，维护度高。所以。。。</span><br><span class="line"></span><br><span class="line">3、使用一种类似全局注册表的方式，从中获得一个数据库连接实例，而不是使用一次就创建一次。</span><br><span class="line">--------------------------------------------</span><br><span class="line"></span><br><span class="line">``` \_connection = $connection; &#125; public function someDbTask() &#123; $connection = $this-&gt;\_connection; // ... &#125; &#125; class Registry &#123; /** * Returns the connection */ public static function getConnection() &#123; return new Connection(array( &quot;host&quot; =&gt; &quot;localhost&quot;, &quot;username&quot; =&gt; &quot;root&quot;, &quot;password&quot; =&gt; &quot;secret&quot;, &quot;dbname&quot; =&gt; &quot;invo&quot; )); &#125; &#125; $some = new SomeComponent(); //Pass the connection defined in the registry $some-&gt;setConnection(Registry::getConnection()); $some-&gt;someDbTask();</span><br></pre></td></tr></table></figure>
+<h2 id="4、好了，现在我们需要全局注册表组件里实现两个方法，第一创建一个新的数据库连接，第二总是获得一个共享连接："><a href="#4、好了，现在我们需要全局注册表组件里实现两个方法，第一创建一个新的数据库连接，第二总是获得一个共享连接：" class="headerlink" title="4、好了，现在我们需要全局注册表组件里实现两个方法，第一创建一个新的数据库连接，第二总是获得一个共享连接："></a>4、好了，现在我们需要全局注册表组件里实现两个方法，第一创建一个新的数据库连接，第二总是获得一个共享连接：</h2><figure class="highlight plain"><figcaption><span>"username" </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">5、为了解决这个问题，我们再次返回去使用一个全局注册表来创建组件。但是，在创建对象之前，它增加了一个新的抽象层：</span><br><span class="line">--------------------------------------------------------</span><br><span class="line"></span><br><span class="line">``` \_di = $di; &#125; public function someDbTask() &#123; // Get the connection service // Always returns a new connection $connection = $this-&gt;\_di-&gt;get(&apos;db&apos;); &#125; public function someOtherDbTask() &#123; // Get a shared connection service, // this will return the same connection everytime $connection = $this-&gt;\_di-&gt;getShared(&apos;db&apos;); //This method also requires a input filtering service $filter = $this-&gt;\_db-&gt;get(&apos;filter&apos;); &#125; &#125; $di = new Phalcon\\DI(); //Register a &quot;db&quot; service in the container $di-&gt;set(&apos;db&apos;, function()&#123; return new Connection(array( &quot;host&quot; =&gt; &quot;localhost&quot;, &quot;username&quot; =&gt; &quot;root&quot;, &quot;password&quot; =&gt; &quot;secret&quot;, &quot;dbname&quot; =&gt; &quot;invo&quot; )); &#125;); //Register a &quot;filter&quot; service in the container $di-&gt;set(&apos;filter&apos;, function()&#123; return new Filter(); &#125;); //Register a &quot;session&quot; service in the container $di-&gt;set(&apos;session&apos;, function()&#123; return new Session(); &#125;); //Pass the service container as unique parameter $some = new SomeComponent($di); $some-&gt;someTask();``` 现在，该组件只有访问某种service的时候才需要它，如果它不需要，它甚至不初始化，以节约资源。该组件是高度解耦。他们的行为，或者说他们的任何其他方面都不会影响到组件本身。</span><br><span class="line"></span><br><span class="line">6、现在，剩下的就是 Phalcon\\DI 这个全局容器了。</span><br><span class="line">-------------------------------</span><br><span class="line"></span><br><span class="line">Phalcon\\DI 是一个实现了服务的依赖注入功能的组件，它本身就是一个容器。由于Phalcon高度解耦，Phalcon\\DI 是框架用来集成其他组件的必不可少的部分，开发人员也可以使用这个组件依赖注入和管理应用程序中不同类文件的实例。 基本上，这个组件实现了 Inversion of Control 模式。基于此，对象不再以构造函数接收参数或者使用setter的方式来实现注入，而是直接请求服务的依赖注入。这就大大降低了整体程序的复杂性，因为只有一个方法用以获得所需要的一个组件的依赖关系。 这种模式增强了代码的可测试性，从而使它不容易出错。在容器中注册服务，框架本身或开发人员都可以注册服务。当一个组件A要求调用组件B（或它的类的一个实例），可以从容器中请求调用组件B，而不是创建组件B的一个实例。 这种工作方式为我们提供了许多优点： 我们可以更换一个组件，从他们本身或者第三方轻松创建。 在组件发布之前，我们可以充分的控制对象的初始化，并对对象进行各种设置。 我们可以使用统一的方式从组件得到一个结构化的全局实例</span><br><span class="line"></span><br><span class="line">7、服务可以通过以下几种方式注入到容器：</span><br><span class="line">--------------------</span><br><span class="line"></span><br><span class="line">``` set(&quot;request&quot;, &apos;Phalcon\\Http\\Request&apos;); //Using an anonymous function, the instance will lazy loaded $di-&gt;set(&quot;request&quot;, function()&#123; return new Phalcon\\Http\\Request(); &#125;); //Registering an instance $di-&gt;set(&quot;request&quot;, new Phalcon\\Http\\Request()); //Using an array definition $di-&gt;set(&quot;request&quot;, array( &quot;className&quot; =&gt; &apos;Phalcon\\Http\\Request&apos; ));``` 现在看代码，你有没有看到 Laravel 的影子呢，在上面的例子中，当向框架请求访问一个请求数据时，它将首先确定容器中是否存在这个”reqeust”名称的服务。 容器会反回一个请求数据的实例，开发人员最终得到他们想要的组件。 在上面示例中的每一种方法都有优缺点，具体使用哪一种，由开发过程中的特定场景来决定的。 用一个字符串来设定一个服务非常简单，但缺少灵活性。设置服务时，使用数组则提供了更多的灵活性，而且可以使用较复杂的代码。lambda函数是两者之间一个很好的平衡，但也可能导致更多的维护管理成本。 Phalcon\\DI 提供服务的延迟加载。除非开发人员在注入服务的时候直接实例化一个对象，然后存存储到容器中。在容器中，通过数组，字符串等方式存储的服务都将被延迟加载，即只有在请求对象的时候才被初始化。 ``` set(&quot;db&quot;, array( &quot;className&quot; =&gt; &quot;Phalcon\\Db\\Adapter\\Pdo\\Mysql&quot;, &quot;parameters&quot; =&gt; array( &quot;parameter&quot; =&gt; array( &quot;host&quot; =&gt; &quot;localhost&quot;, &quot;username&quot; =&gt; &quot;root&quot;, &quot;password&quot; =&gt; &quot;secret&quot;, &quot;dbname&quot; =&gt; &quot;blog&quot; ) ) )); //Using an anonymous function $di-&gt;set(&quot;db&quot;, function()&#123; return new Phalcon\\Db\\Adapter\\Pdo\\Mysql(array( &quot;host&quot; =&gt; &quot;localhost&quot;, &quot;username&quot; =&gt; &quot;root&quot;, &quot;password&quot; =&gt; &quot;secret&quot;, &quot;dbname&quot; =&gt; &quot;blog&quot; )); &#125;);``` 以上这两种服务的注册方式产生相同的结果。然后，通过数组定义的，在后面需要的时候，你可以修改服务参数： ``` setParameter(&quot;db&quot;, 0, array( &quot;host&quot; =&gt; &quot;localhost&quot;, &quot;username&quot; =&gt; &quot;root&quot;, &quot;password&quot; =&gt; &quot;secret&quot; ));``` 从容器中获得服务的最简单方式就是使用”get”方法，它将从容器中返回一个新的实例： ``` get(&quot;request&quot;);``` 或者通过下面这种魔术方法的形式调用： ``` getRequest();``` Phalcon\\DI 同时允许服务重用，为了得到一个已经实例化过的服务，可以使用 getShared() 方法的形式来获得服务。 参数还可以在请求的时候通过将一个数组参数传递给构造函数的方式： ``` get(&quot;MyComponent&quot;, array(&quot;some-parameter&quot;, &quot;other&quot;))</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/06/15/一篇让你真正理解-laravel-ioc-模式的文章/" data-id="cjujhygdk00axej3jifkswrhu" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-浅谈-laravel-设计模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/15/浅谈-laravel-设计模式/" class="article-date">
+  <time datetime="2017-06-15T02:25:00.000Z" itemprop="datePublished">2017-06-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/laravel5/">laravel5</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/15/浅谈-laravel-设计模式/">浅谈 Laravel 设计模式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一-什么是-DI依赖注入-IOC控制反转"><a href="#一-什么是-DI依赖注入-IOC控制反转" class="headerlink" title="一.什么是 DI依赖注入/IOC控制反转."></a>一.什么是 DI依赖注入/IOC控制反转.</h2><p>DI 依赖注入 啥都不说，直接上代码 <figure class="highlight plain"><figcaption><span>UserController &#123; private $user; function __construct(UserModel $user) &#123; $this->user </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### IOC控制反转</span><br><span class="line"></span><br><span class="line">先说说IOC和DI的区别吧</span><br><span class="line"></span><br><span class="line">*   IOC是一种设计思想</span><br><span class="line">*   DI是一种设计模式</span><br><span class="line"></span><br><span class="line">所以两者有本质上的区别。DI是IOC的一种实现方法（还有ServiceLocator等其他设计模式）。 所谓的反转，主要指由 **主动依赖** 到 **被动依赖** 。 ``` //主动依赖 function __construct() &#123; $this-&gt;user = new UserModel(); &#125; //被动依赖 function __construct(UserModel $user) &#123; $this-&gt;user = $user; &#125;``` 参考 [浅谈IOC--说清楚IOC是什么](http://www.cnblogs.com/DebugLZQ/archive/2013/06/05/3107957.html)</span><br><span class="line"></span><br><span class="line">二.什么是IOC容器.</span><br><span class="line">-----------</span><br><span class="line"></span><br><span class="line">[IOC容器](https://doc.laravel-china.org/docs/5.1/container) 是Laravel的核心设计模式，对于laravel的应用和理解是非常有必要深入学习的！ IOC思想实现了**高度解耦**，那么，问题来了，如何管理这些分散的模块呢？这就是容器的任务了！ 可以想象成，在IOC容器中，装着（注册）很多模块。当用户需要一个模块的时候，可以从中拿出来。当提取的模块依赖另一个模块的时候，容器会自动注入，再返回给用户（反射机制实现）。 是不是碉堡了？大批互相依赖的模块被完美解耦并统一管理了！</span><br><span class="line"></span><br><span class="line">三.什么是服务提供者（ServiceProvider）</span><br><span class="line">---------------------------</span><br><span class="line"></span><br><span class="line">假设模块一多，那么容器不是越来越大？每次加载，岂不是加载好久？ 能不能弄一条管子，连接着模块，插在容器上，需要再通过管道获取呢？这样子，容器只是装着管头而已，就不怕被撑大了！ 这条管子就是 [服务提供者](https://doc.laravel-china.org/docs/5.1/providers)。 ![](http://www.yaozihao.cn/wp-content/uploads/2017/06/Z0IHfIS7aF.png) 服务提供者本身也是一个类，不过这个类只有启动和注册两个函数。 ``` /\*\* \* Bootstrap the application services. * * @return void */ public function boot() &#123; // &#125; /\*\* \* Register the application services. * * @return void */ public function register() &#123; //绑定到容器 $this-&gt;app-&gt;singleton( &apos;Riak\\Contracts\\Connection&apos;, function ($app) &#123; return new Connection($app\[&apos;config&apos;\]\[&apos;riak&apos;\]); &#125; ); &#125;``` 服务提供者在config/app.php中配置，laravel自动注册到容器中。 ``` &apos;providers&apos; =&gt; \[ /\* \* Laravel Framework Service Providers... */ Illuminate\Auth\AuthServiceProvider::class, Illuminate\Broadcasting\BroadcastServiceProvider::class, ... /\* \* Application Service Providers... */ app\Providers\AppServiceProvider::class, app\Providers\AuthServiceProvider::class, ... \]</span><br></pre></td></tr></table></figure></p>
+<h2 id="四-什么是门面（Facade）"><a href="#四-什么是门面（Facade）" class="headerlink" title="四.什么是门面（Facade）."></a>四.什么是门面（Facade）.</h2><p>程序猿总是偷懒的，每次要模块，都要去容器里面拿，多麻烦啊！找个人代拿行不？这送货小哥就叫Facade门面。文档中叫静态代理。 送货小哥都是在config/app.php 中注册的。 <code>&#39;aliases&#39; =&gt; \[ &#39;App&#39; =&gt; Illuminate\Support\Facades\App::class, &#39;Config&#39; =&gt; Illuminate\Support\Facades\Config::class, &#39;Cookie&#39; =&gt; Illuminate\Support\Facades\Cookie::class, &#39;Crypt&#39; =&gt; Illuminate\Support\Facades\Crypt::class, &#39;DB&#39; =&gt; Illuminate\Support\Facades\DB::class, &#39;Route&#39; =&gt; Illuminate\Support\Facades\Route::class, ... \],</code> 查看Illuminate\Support\Facades\Route代码，可以发现只有getAccessFacade（）方法，这就是交代送啥货的函数，继承了Facade这个小哥基类。 <code>class Route extends Facade { /\*\* \* Get the registered name of the component. * * @return string */ protected static function getFacadeAccessor() { return &#39;router&#39;; } }</code> 注册了Facade门面后，就可以在任意地方使用了！ 文档有详细的使用方式 <a href="https://doc.laravel-china.org/docs/5.1/facades" target="_blank" rel="noopener">Laravel 架构 — Facades</a>。</p>
+<h2 id="五-Application和Kernel"><a href="#五-Application和Kernel" class="headerlink" title="五.Application和Kernel"></a>五.Application和Kernel</h2><p>不难发现，在引导程序开始初始化的时候，也就是在boostrap\app.php文件，里面一来就new了一个 Illuminate\Foundation\Application。下面分别注册了 Http\Kernel、Console\Kernel、Exceptions\Handler等。 这里可以这么理解，new一个Application，可以看作是创造了一个空间，这个空间初始化的时候，就会为自己注入一个容器，也就是在空间中放了一个容器。 在 <strong>Illuminate\Foundation\Application.php</strong> 中的 <strong>registerBaseBindings()</strong> 函数可以查看到容器注入源码。 至于kernel，可以看成是这个空间的工人，有各种各样的工人，每个工人都有自己的工作。好比HttpKernel，负责处理http请求以及控制整个请求流程。</p>
+<h2 id="六-总结"><a href="#六-总结" class="headerlink" title="六.总结"></a>六.总结</h2><p>讲到这里就差不多分享完了，以上是只是个人理解，欢迎提出里面理解不妥当的地方！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/06/15/浅谈-laravel-设计模式/" data-id="cjujhygbs008sej3jro1a92tl" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-laravel-自动加载" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/13/laravel-自动加载/" class="article-date">
+  <time datetime="2017-06-13T12:57:30.000Z" itemprop="datePublished">2017-06-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/laravel5/">laravel5</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/13/laravel-自动加载/">Laravel 自动加载</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>Laravel</code>使用的是<code>composer</code>的自动加载。 首先看 <code>vendor/autoload.PHP</code>文件 <code>// autoload.php @generated by Composer require_once \_\_DIR\_\_ . &#39;/composer/autoload_real.php&#39;; return ComposerAutoloaderInit5586036d8fdd45ae351f9a5ae924a5a3::getLoader();</code> 代码很少，查看<code>__DIR__ . &#39;/composer/autoload_real.[php](http://lib.csdn.net/base/php &quot;PHP知识库&quot;)&#39;</code>文件。 有一个类<code>ComposerAutoloaderInit5586036d8fdd45ae351f9a5ae924a5a3</code>，该类的名字比较奇特，主要为了防止重名。回到上面的代码，可以看到调用了<code>getLoader()</code>方法； 看一下部分代码 <code>if ( null !== self::$loader{ return self::$loader; } spl\_autoload\_register(array(&#39;ComposerAutoloaderInit5586036d8fdd45ae351f9a5ae924a5a3&#39;,&#39;loadClassLoader&#39;), true, true); self::$loader = $loader = new \\Composer\\Autoload\\ClassLoader(); spl\_autoload\_unregister(array(&#39;ComposerAutoloaderInit5586036d8fdd45ae351f9a5ae924a5a3&#39;,&#39;loadClassLoader&#39;));</code> 这里自动加载了当前类的<code>loadClassLoader</code>静态方法，该方法加载了<code>__DIR__ . &#39;/ClassLoader.php&#39;</code>文件，该文件中的类起到了整个框架类自动加载的作用。 回到<code>autoload_real.php</code>文件的<code>getLoader()</code>方法，看剩下部分代码 <code>$useStaticLoader = PHP\_VERSION\_ID &gt;=50600 &amp;&amp; !defined(&#39;HHVM\_VERSION&#39;) &amp;&amp; (!function\_exists(&#39;zend\_loader\_file\_encoded&#39;) || !zend\_loader\_file\_encoded()); if ($useStaticLoader) { require\_once \_\_DIR__ . &#39;/autoload\_static.php&#39;; call\_user\_func(\\Composer\\Autoload\\ComposerStaticInit5586036d8fdd45ae351f9a5ae924a5a3::getInitializer($loader)); } else { $map = require \_\_DIR__ . &#39;/autoload_namespaces.php&#39;; foreach ($map as $namespace =\&gt; $path) { $loader-&gt;set($namespace, $path); } $map = require \_\_DIR\_\_ . &#39;/autoload_psr4.php&#39;; foreach ($map as $namespace =\&gt; $path) { $loader-&gt;setPsr4($namespace, $path); } $classMap = require \_\_DIR\_\_ . &#39;/autoload_classmap.php&#39;; if ($classMap) { $loader-&gt;addClassMap($classMap); } }</code> 这里主要加载一些自动加载类相关的资源。</p>
+<hr>
+<p>随后调用<code>$loader-&gt;register(true);</code> <strong>这个方法比较重要</strong> <code>public function register($prepend = false) { spl\_autoload\_register(array($this, &#39;loadClass&#39;), true, $prepend); }</code> 注册了<code>loadClass</code>方法，并且是放在队列的head。 查看<code>loadClass</code>方法 <code>/\*\* \* Loads the given class or interface. * * @param string $class The name of the class * @return bool|null True if loaded, null otherwise */ public function loadClass($class) { if ($file = $this-&gt;findFile($class)) { includeFile($file); return true; } }</code> 当实例化类的时候，找不到类，就自动会调用该方法，该方法加载了需要的类，这个方法十分重要。 现在看一下<code>$this-&gt;findFile($class)</code>方法内使用了之前<code>getLoader()</code>方法加载的相关资源。</p>
+<hr>
+<p>现在整个<code>Laravel</code>框架如何自动加载类已经很明显了。每当实例化类的时候，会自动调用 <code>ClassLoader</code>的<code>loadClass</code>方法，加载需要的类。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/06/13/laravel-自动加载/" data-id="cjujhyg7g0038ej3j2hzsajli" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-php-可以动态的new一个变量类名" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/13/php-可以动态的new一个变量类名/" class="article-date">
+  <time datetime="2017-06-13T12:35:13.000Z" itemprop="datePublished">2017-06-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-php/">积累________php</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/13/php-可以动态的new一个变量类名/">php 可以动态的new一个变量类名</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>id = $id; $this-&gt;name = $name; } function hello(){ echo &#39;我的学号是：&#39;.$this-&gt;id.&#39;我的名字是：&#39;.$this-&gt;name; } } $className = &#39;Student&#39;; $stu = new $className(&#39;123456&#39;,&#39;abc&#39;); $stu-&gt;hello(); ?&gt;</code> 页面打印结果如下： <code>我的学号是：123456我的名字是：abc</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/06/13/php-可以动态的new一个变量类名/" data-id="cjujhyg930053ej3j0545xy0m" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-优矿手把手教你入门量化投资：《量化分析师的python" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/10/优矿手把手教你入门量化投资：《量化分析师的python/" class="article-date">
+  <time datetime="2017-06-09T16:06:09.000Z" itemprop="datePublished">2017-06-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/10/优矿手把手教你入门量化投资：《量化分析师的python/">优矿手把手教你入门量化投资：《量化分析师的Python日记》系列</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>量化投资，金融投资量化的一种方式。其特点是：1.纪律性、2.系统性、3.套利思想、4.概率取胜 做投资最难控制的是人的私欲，而量化投资恰好可以克服人的私欲，因为计算机没有感情。 近期，很多伙伴跟哥反应，自己有心学量化、接触量化，无奈不知如何入门，也有很多是因为不熟悉python语言，因而一筹莫展，没有方向。 (窃喜中- -)俺们优矿上有现成的大师系列作品，一步步教你入门的啊，全部奉上，敬请享用，不要谢我，要谢就以身相许吧～～66666 【第1天：谁来给我讲讲Python？】 <a href="https://uqer.io/community/share/54c89443f9f06c276f651a52" target="_blank" rel="noopener">https://uqer.io/community/share/54c89443f9f06c276f651a52</a> 【第2天：再接着介绍一下Python呗】 <a href="https://uqer.io/community/share/54c8af17f9f06c276f651a54" target="_blank" rel="noopener">https://uqer.io/community/share/54c8af17f9f06c276f651a54</a> 【第3天：一大波金融Library来袭之numpy篇】 <a href="https://uqer.io/community/share/54ca15f9f9f06c276f651a56" target="_blank" rel="noopener">https://uqer.io/community/share/54ca15f9f9f06c276f651a56</a> 【第4天：一大波金融Library来袭之scipy篇】 <a href="https://uqer.io/community/share/54d83bb3f9f06c276f651a6e" target="_blank" rel="noopener">https://uqer.io/community/share/54d83bb3f9f06c276f651a6e</a> 【第5天：数据处理的瑞士军刀pandas】 <a href="https://uqer.io/community/share/54ffd96ef9f06c276f651aac" target="_blank" rel="noopener">https://uqer.io/community/share/54ffd96ef9f06c276f651aac</a> 【第6天：数据处理的瑞士军刀pandas下篇】 <a href="https://uqer.io/community/share/5514bb11f9f06c12790415b2" target="_blank" rel="noopener">https://uqer.io/community/share/5514bb11f9f06c12790415b2</a> 【第7天：Q Quant 之初出江湖】 <a href="https://uqer.io/community/share/5514fc98f9f06c8f33904449" target="_blank" rel="noopener">https://uqer.io/community/share/5514fc98f9f06c8f33904449</a> 【第8天 Q Quant兵器谱之函数插值】 <a href="https://uqer.io/community/share/551cfa1ff9f06c8f339044ff" target="_blank" rel="noopener">https://uqer.io/community/share/551cfa1ff9f06c8f339044ff</a> 【第9天 Q Quant兵器谱之二叉树】 <a href="https://uqer.io/community/share/5523a4a1f9f06c8f3390453b" target="_blank" rel="noopener">https://uqer.io/community/share/5523a4a1f9f06c8f3390453b</a> 【第10天 Q Quant兵器谱 -之偏微分方程1】 <a href="https://uqer.io/community/share/5530d9f1f9f06c8f3390465a" target="_blank" rel="noopener">https://uqer.io/community/share/5530d9f1f9f06c8f3390465a</a> 【第11天 Q Quant兵器谱之偏微分方程2】 <a href="https://uqer.io/community/share/5534ad3ff9f06c8f33904689" target="_blank" rel="noopener">https://uqer.io/community/share/5534ad3ff9f06c8f33904689</a> 【第12天：量化入门进阶之葵花宝典：因子如何产生和回测】 <a href="https://uqer.io/community/share/5538c7d4f9f06c3c92306684" target="_blank" rel="noopener">https://uqer.io/community/share/5538c7d4f9f06c3c92306684</a> 【第13天 Q Quant兵器谱之偏微分方程3】 <a href="https://uqer.io/community/share/555dc9e8f9f06c6c7404f96e" target="_blank" rel="noopener">https://uqer.io/community/share/555dc9e8f9f06c6c7404f96e</a> 【第14天：如何在优矿上做Alpha对冲模型】 <a href="https://uqer.io/community/share/55e662f9f9f06c1ea481f9cf" target="_blank" rel="noopener">https://uqer.io/community/share/55e662f9f9f06c1ea481f9cf</a> 【第15天：如何在优矿上搞一个wealthfront出来】 <a href="https://uqer.io/community/share/5670da3c228e5b8d81f00a87" target="_blank" rel="noopener">https://uqer.io/community/share/5670da3c228e5b8d81f00a87</a> 【第16天：如何在优矿上一个人干掉一家公募量化团队！Alpha！Go！】 <a href="https://uqer.io/community/share/56e69c14228e5b858cc258ff" target="_blank" rel="noopener">https://uqer.io/community/share/56e69c14228e5b858cc258ff</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/06/10/优矿手把手教你入门量化投资：《量化分析师的python/" data-id="cjujhygb6007oej3jctetid91" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

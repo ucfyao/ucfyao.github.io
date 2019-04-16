@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>比特币多重签名机制使用篇 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="概述 比特币的多重签名机制可以实现多方共同管理资产，也可以用于第三方交易担保。 多重签名最多支持三方共同管理一个地址的资产。按照比特币wiki上的表述方式，称之为：  　　一般有 1 of 1, 1 of 2, 1 of 3, 2 of 3, 3 of 3几种模式。通常情况下，多应用于N = 3 的情形。 1 of 3: 三个管理者中，任何一方都可以单独的处理该地址的资产。 2 of 3: 三个管">
+<meta property="og:type" content="article">
+<meta property="og:title" content="比特币多重签名机制使用篇">
+<meta property="og:url" content="http://yoursite.com/2017/08/05/比特币多重签名机制使用篇/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="概述 比特币的多重签名机制可以实现多方共同管理资产，也可以用于第三方交易担保。 多重签名最多支持三方共同管理一个地址的资产。按照比特币wiki上的表述方式，称之为：  　　一般有 1 of 1, 1 of 2, 1 of 3, 2 of 3, 3 of 3几种模式。通常情况下，多应用于N = 3 的情形。 1 of 3: 三个管理者中，任何一方都可以单独的处理该地址的资产。 2 of 3: 三个管">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/00033353O-0.png">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/0003332314-1.png">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/0003335K8-2.png">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/00033334P-3.png">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/00033334A-4.jpg">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/0003331153-5.png">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/0003331036-6.gif">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/0003336213-7.jpg">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/0003331036-6.gif">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/00033325K-9.png">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/0003333344-10.jpg">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/0003331036-6.gif">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/0003331036-6.gif">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/00033340B-13.png">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/0003331036-6.gif">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/0003333W9-15.png">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/0003331601-16.jpg">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/0003332008-17.png">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/0003336461-18.jpg">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/0003332C5-19.png">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/0003336232-20.png">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/0003333596-21.png">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/000333C54-22.jpg">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/00033324F-23.png">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/000333G27-24.png">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/000333E52-25.jpg">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/0003335G0-26.png">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/0003335P2-27.jpg">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/0003334313-28.png">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/0003333a3-29.jpg">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/0003335116-30.png">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/00033314T-31.jpg">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/000333IA-32.jpg">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/0003333595-33.png">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/0003333229-34.png">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/0003335016-35.jpg">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/0003331036-6.gif">
+<meta property="og:image" content="http://www.wanbizu.com/uploads/allimg/140819/0003332J3-37.jpg">
+<meta property="og:updated_time" content="2019-04-16T07:59:57.457Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="比特币多重签名机制使用篇">
+<meta name="twitter:description" content="概述 比特币的多重签名机制可以实现多方共同管理资产，也可以用于第三方交易担保。 多重签名最多支持三方共同管理一个地址的资产。按照比特币wiki上的表述方式，称之为：  　　一般有 1 of 1, 1 of 2, 1 of 3, 2 of 3, 3 of 3几种模式。通常情况下，多应用于N = 3 的情形。 1 of 3: 三个管理者中，任何一方都可以单独的处理该地址的资产。 2 of 3: 三个管">
+<meta name="twitter:image" content="http://www.wanbizu.com/uploads/allimg/140819/00033353O-0.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-比特币多重签名机制使用篇" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/08/05/比特币多重签名机制使用篇/" class="article-date">
+  <time datetime="2017-08-04T17:30:22.000Z" itemprop="datePublished">2017-08-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-区块链/">积累________区块链</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      比特币多重签名机制使用篇
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>概述</strong> <a href="http://www.wanbizu.com/" target="_blank" rel="noopener">比特币</a>的多重签名机制可以实现多方共同管理资产，也可以用于第三方交易担保。 多重签名最多支持三方共同管理一个地址的资产。按照比特币wiki上的表述方式，称之为：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/00033353O-0.png" alt></p>
+<p>　　一般有 1 of 1, 1 of 2, 1 of 3, 2 of 3, 3 of 3几种模式。通常情况下，多应用于N = 3 的情形。 1 of 3: 三个管理者中，任何一方都可以单独的处理该地址的资产。 2 of 3: 三个管理者中，必须有两方共同签署才能处理该地址的资产。 3 of 3: 三个管理者必须都签署才能处理该地址的资产。 本文就以 2 of 3的情形来介绍一下使用多重签名的方法。 <strong>制作多重签名地址</strong> 首先，制作多重签名地址用到比特币钱包的API. 熟悉命令行的读者可以直接在“命令提示符”窗口里运行bitcoind调用相应的命令。可能大部分读者对“命令提示符”并不熟悉，所以本文用“比特币核心”钱包的调试窗口来演示。 要制作多重签名地址，首先需要参与管理的三方提供各自的公钥。 管理者1：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003332314-1.png" alt></p>
+<p>　　管理者2：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003335K8-2.png" alt></p>
+<p>　　管理者3：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/00033334P-3.png" alt></p>
+<p>　　那么，这些公钥是如何获取的呢? 首先，打开“比特币核心”钱包。点击“帮助”-&gt;”调试窗口”,在弹出的“Debug window”窗口点击“控制台”。进入图1控制台的界面：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/00033334A-4.jpg" alt></p>
+<p>　　在该界面下面的输入框里，输入：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003331153-5.png" alt></p>
+<p>钱包会为我们生成一个新的地址。如图2</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003331036-6.gif" alt></p>
+<p>获取新地址</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003336213-7.jpg" alt></p>
+<p>这便是上面管理者1的地址。但制作多重签名，只有地址还不够，还需要对应的公钥。公钥可以通过地址来查询出来。使用命令</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003331036-6.gif" alt></p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/00033325K-9.png" alt></p>
+<p>　　得到如图三(图3获取公钥)的公钥界面：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003333344-10.jpg" alt></p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003331036-6.gif" alt></p>
+<p>其中，“pubkey”后面的数据便是该地址的公钥。</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003331036-6.gif" alt></p>
+<p>取得三个管理者的公钥之后，就可以用 createmultisig命令来生成多重签名地址。首先，看一下该命令的基本格式：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/00033340B-13.png" alt></p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003331036-6.gif" alt></p>
+<p>　　我们要创建的是2 of 3的模式，所以命令里n=2。输入命令如下：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003333W9-15.png" alt></p>
+<p>　　得到如图4(生成多重签名地址)的地址界面：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003331601-16.jpg" alt></p>
+<p>　　上图中的3M8voDot82tBrQE7QWGy9WUWxp7gDU7owx，就是我们生成的多重签名地址。然后将这个地址增加到钱包里，只有这样，当收到比特币时，钱包才会有显示。用命令</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003332008-17.png" alt></p>
+<p>　　如果忘记了输入这条命令，钱包便无法显示这个地址上的金额。而且，在这条命令运行前汇款到地址上的币也不会显示出来。遇到这样的情况，需要重新从头开始同步区块链。 我们可以向该地址中汇两笔钱，用于测试。如图5(收款成功)</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003336461-18.jpg" alt></p>
+<p>　　<strong>从多重签名地址付款</strong> 接下来，我们要演示从多重签名地址付款。我们设置的是2 of 3的模式，就是说，三个管理者中，持有任意两人的私钥便可付款。我们假设现在持有的是管理者1和管理者3的私钥。 管理者1</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003332C5-19.png" alt></p>
+<p>　　管理者3</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003336232-20.png" alt></p>
+<p>　　获取私钥的方法也很简单，只要使用如下命令即可：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003333596-21.png" alt></p>
+<p>　　第一步：获取地址上的交易信息 使用listunspent,结果如图(图6地址上的交易信息)：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/000333C54-22.jpg" alt></p>
+<p>　　我们一共向这个地址进行了两次汇款，因为要手动构建交易单，所以，就只能针对具体的每一笔交易进行设置。如果那笔交易上的钱比要花费的多，就要自己设置找零操作。我们用第一笔交易做示例。从0.01个比特币里，付款0.005到一个新地址 1KfqXpdhdtSqhACSeMvNoFSeXFGV5j8PkT,找零地址为：18eHb5P7N4ZAKURetN6pjF1jTGdD3HThrj 首先，我们需要记录第一笔交易的如下几个参数： 第二步：构建交易单：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/00033324F-23.png" alt></p>
+<p>　　输出如下(图7构建交易单)：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/000333G27-24.png" alt></p>
+<p>　　第三步：用第一个私钥对交易单签名</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/000333E52-25.jpg" alt></p>
+<p>　　命令的第一个参数，就是createrawtransaction的输出。第二个关于txid的参数，与上面的相同。最后一个参数，是私钥，我们用的是管理者1的私钥。</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003335G0-26.png" alt></p>
+<p>　　输出如图：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003335P2-27.jpg" alt></p>
+<p>　　可以注意到complete字段是false，因为我们只用了一个私钥签名。然后，将输出的hex字段取出，用第二个私钥再次签名。 第四步：用第二个私钥签名：输入命令：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003334313-28.png" alt></p>
+<p>　　输出如图(图8第二次签名)：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003333a3-29.jpg" alt></p>
+<p>　　可以看到，第二次签名后，complete字段是true，说明签名成功。我们可以使用该地址的币了。 第五步：发送交易单 将上一步的输出hex部分，用sendrawtransaction命令发送到网络上：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003335116-30.png" alt></p>
+<p>　　输入命令：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/00033314T-31.jpg" alt></p>
+<p>　　查询交易ID cd2494071876f91e1f9505f5c5421088c7df2e6f939c17f742d3638bc7df789a即可看到这笔钱的花费情况。</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/000333IA-32.jpg" alt></p>
+<p>　　<strong>使用脚本</strong> 如果您读到了这里，首先感谢您的耐心。上面的命令确实让人抓狂。再加上windows下各种符号的兼容问题，笔者测试时几乎吐血了。幸运的是在开源社区，已经有了很多方便的脚本工具。这里，笔者修改了一个开源代码，可以方便大家进行多重签名地址的创建和消费。代码地址在：<a href="https://github.com/johnsondiao/blackboard101https://github.com/johnsondiao/python-bitcoinrpc脚本是用python写的。首先需要安装python2.7.6。安装方法这里不再赘述。python-bitcoinrpc是一个bitcoin的库文件，需要对其中的setup.py文件运行" target="_blank" rel="noopener">https://github.com/johnsondiao/blackboard101https://github.com/johnsondiao/python-bitcoinrpc脚本是用python写的。首先需要安装python2.7.6。安装方法这里不再赘述。python-bitcoinrpc是一个bitcoin的库文件，需要对其中的setup.py文件运行</a></p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003333595-33.png" alt></p>
+<p>　　命令将库安装到python里。 然后，在比特币钱包的路径(wallet.dat所在的目录)里添加bitcoin.conf文件。 文件内容如下：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003333229-34.png" alt></p>
+<p>　　wbn_multisigs_pt1_create-address.py脚本用来生成多重签名地址。 wbn_multisigs_pt2_spend-funds.py脚本用来发送多重签名地址的币。 具体的使用方法，就不再说明了，可以用python的IDLE来运行调试。构建多重签名地址的运行截图如下：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003335016-35.jpg" alt></p>
+<p>　　花费多重签名地址的程序运行如下：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003331036-6.gif" alt></p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003332J3-37.jpg" alt></p>
+<p>原地址 ：<a href="http://www.wanbizu.com/baike/201408191710.html" target="_blank" rel="noopener">http://www.wanbizu.com/baike/201408191710.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/08/05/比特币多重签名机制使用篇/" data-id="cjujhygdx00bbej3jllumuq2j" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/08/18/史上最全quant资源整理/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          史上最全Quant资源整理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/08/03/超级简单版mysql主从/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">超级简单版mysql主从</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Laravel之容器 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. 背景惯例介绍下容器的背景，回答第一个问题：什么是容器？ 顾名思义，容器即存放东西的地方，里面存放的可以是文本、数值，甚至是对象、接口、回调函数。 那通过容器，解决了什么问题呢？ 通过容器最主要解决的就是“解耦” 、“依赖注入（DI）“，从而实现”控制反转（IoC）“ 2. DI上面将了容器是用来解决依赖注入的，那到底什么是依赖注入呢？我们以下面的例子来说明下： 我们假设有一个订单，在构造函数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Laravel之容器">
+<meta property="og:url" content="http://yoursite.com/2017/06/08/629/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1. 背景惯例介绍下容器的背景，回答第一个问题：什么是容器？ 顾名思义，容器即存放东西的地方，里面存放的可以是文本、数值，甚至是对象、接口、回调函数。 那通过容器，解决了什么问题呢？ 通过容器最主要解决的就是“解耦” 、“依赖注入（DI）“，从而实现”控制反转（IoC）“ 2. DI上面将了容器是用来解决依赖注入的，那到底什么是依赖注入呢？我们以下面的例子来说明下： 我们假设有一个订单，在构造函数">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-16T07:59:56.133Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Laravel之容器">
+<meta name="twitter:description" content="1. 背景惯例介绍下容器的背景，回答第一个问题：什么是容器？ 顾名思义，容器即存放东西的地方，里面存放的可以是文本、数值，甚至是对象、接口、回调函数。 那通过容器，解决了什么问题呢？ 通过容器最主要解决的就是“解耦” 、“依赖注入（DI）“，从而实现”控制反转（IoC）“ 2. DI上面将了容器是用来解决依赖注入的，那到底什么是依赖注入呢？我们以下面的例子来说明下： 我们假设有一个订单，在构造函数">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-629" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/08/629/" class="article-date">
+  <time datetime="2017-06-08T01:43:38.000Z" itemprop="datePublished">2017-06-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/laravel/">laravel</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Laravel之容器
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-背景"><a href="#1-背景" class="headerlink" title="1. 背景"></a>1. 背景</h2><p>惯例介绍下容器的背景，回答第一个问题：什么是容器？ 顾名思义，容器即存放东西的地方，里面存放的可以是文本、数值，甚至是对象、接口、回调函数。 那通过容器，解决了什么问题呢？ 通过容器最主要解决的就是“解耦” 、“依赖注入（DI）“，从而实现”控制反转（IoC）“</p>
+<h2 id="2-DI"><a href="#2-DI" class="headerlink" title="2. DI"></a>2. DI</h2><p>上面将了容器是用来解决依赖注入的，那到底什么是依赖注入呢？我们以下面的例子来说明下： 我们假设有一个订单，在构造函数中我们新建了<code>OrderRepository</code>，通过仓库我们就可以对订单进行持久化了，但是突然有一天，我们想把订单的存储从数据库换到redis，我们这时候就必须改订单的构造函数，将<code>OrderRepository</code>换为<code>OrderRedisRepository</code>，而且可能两者的接口还不一样，改动成本非常大。如果哪天我们又想将存储换到mongodb，那我们又得改<code>Order</code>的构造函数，这个时候，我们可以定义一个接口<code>Repository</code>，而Order的构造函数接受<code>Repository</code>作为参数， <figure class="highlight plain"><figcaption><span>Order &#123;</span><a href="/\*\*">\* @type Repository */ private $repository; /\*\* \* Order constructor. * * @param Repository $repository */ public function __construct(Repository $repository) &#123; // $this->repository </a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">3\. 依赖反转</span><br><span class="line">--------</span><br><span class="line"></span><br><span class="line">上面客户端在使用的时候，还是需要手动的创建`OrderMysqlRepository`，有没有可能将这个创建的逻辑也从客户端抽离出来呢？看下面的代码 ``` class Container &#123; protected $binds; protected $instances; public function bind($abstract, $concrete) &#123; if ($concrete instanceof \\Closure) &#123; $this-&gt;binds\[$abstract\] = $concrete; &#125; else &#123; $this-&gt;instances\[$abstract\] = $concrete; &#125; &#125; public function make($abstract, $parameters = \[\]) &#123; if (isset($this-&gt;instances\[$abstract\])) &#123; return $this-&gt;instances\[$abstract\]; &#125; array_unshift($parameters, $this); return call\_user\_func_array($this-&gt;binds\[$abstract\], $parameters); &#125; &#125;``` 上面就是一个简单的容器，在使用上 ``` public function testContainer() &#123; $container = new Container(); $container-&gt;bind(&apos;order&apos;,function(Container $c,$repository)&#123; return new Order($c-&gt;make($repository)); &#125;); $container-&gt;bind(&apos;Repository&apos;,new OrderRedisRepository); $order = $container-&gt;make(&apos;order&apos;,\[&apos;Repository&apos;\]); &#125;``` 以上就是一个基本简单可用的Ioc容器了。 我们可以看到IoC核心就是通过事先将一些代码片段注册到容器中，当我们需要实例化类的时候，通过容器，自动的将对象需要的参数实例化出来，并注入进去。</span><br><span class="line"></span><br><span class="line">4\. Laravel中的容器</span><br><span class="line">---------------</span><br><span class="line"></span><br><span class="line">Laravel中容器共有15个方法，简单分类了下</span><br><span class="line"></span><br><span class="line">![](http://www.yaozihao.cn/wp-content/uploads/2017/06/laravel.png)</span><br><span class="line"></span><br><span class="line">Container</span><br><span class="line"></span><br><span class="line">4.1 注册</span><br><span class="line">------</span><br><span class="line"></span><br><span class="line">### 4.1.1 bind</span><br><span class="line"></span><br><span class="line">先来看下注册，Laravel的容器支持好多种注册方式，先看最常用的`bind`，其函数签名是： ``` public function bind($abstract, $concrete = null, $shared = false);``` 看到签名中有3个参数，在函数内部经过各种操作后，最终落地到存储上，形式是： ``` $bindings = \[ &apos;abstract&apos; =\&gt; \[ &apos;concrete&apos; =\&gt; $concrete, &apos;shared&apos; =\&gt; $shared; \], \];``` `bind`在注册上，像之前提到过的，可以注册文本、数值，甚至是对象、接口、回调函数，下面就每种形式给出测试， 先看闭包形式： ``` public function testClosureResolution() &#123; $container = new Container; $container-&gt;bind(&apos;name&apos;, function () &#123; return &apos;Taylor&apos;; &#125;); // dd($container); $this-&gt;assertEquals(&apos;Taylor&apos;, $container-&gt;make(&apos;name&apos;)); &#125;``` 上面为了测试，通过`dd`可以打印出好container来，我们看到 ``` Illuminate\\Container\\Container &#123;#20 #resolved: \[\] #bindings: array:1 \[ &quot;name&quot; =\&gt; array:2 \[ &quot;concrete&quot; =\&gt; Closure &#123;#21 class: &quot;LaravelContainerTest&quot; &#125; &quot;shared&quot; =\&gt; false \] \] #instances: \[\] #aliases: \[\] #extenders: \[\] #tags: \[\] #buildStack: \[\] +contextual: \[\] #reboundCallbacks: \[\] #globalResolvingCallbacks: \[\] #globalAfterResolvingCallbacks: \[\] #resolvingCallbacks: \[\] #afterResolvingCallbacks: \[\] &#125;``` 上面是container的内部，经过bind后，里面的`bindings`多了我们注册过的`name`，下一步注册过了，就应该要调用`make`实例化出来，调用`make`后，container中resolved多个key ``` #resolved: array:1 \[ &quot;name&quot; =\&gt; true \]``` 在实现make的时候，通过判断是否是闭包来判断，如果是闭包，则直接调用，否则通过反射机制实例化出来 ``` if ($concrete instanceof Closure) &#123; return $concrete($this, $parameters); &#125; $reflector = new ReflectionClass($concrete);</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-1-2-instance"><a href="#4-1-2-instance" class="headerlink" title="4.1.2 instance"></a>4.1.2 instance</h3><p>instance是将我们已经实例化出来的对象、文本等注册进入容器，使用方法如下 <figure class="highlight plain"><figcaption><span>function testSimpleInstance() &#123; $c </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 4.1.3 singleton</span><br><span class="line"></span><br><span class="line">``` $container = new Container; $container-&gt;singleton(&apos;ContainerConcreteStub&apos;); $var1 = $container-&gt;make(&apos;ContainerConcreteStub&apos;); $var2 = $container-&gt;make(&apos;ContainerConcreteStub&apos;); $this-&gt;assertSame($var1, $var2);``` singleton是对bind的简单封装 ``` public function singleton($abstract, $concrete = null) &#123; $this-&gt;bind($abstract, $concrete, true); &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-1-4-alias"><a href="#4-1-4-alias" class="headerlink" title="4.1.4 alias"></a>4.1.4 alias</h3><figure class="highlight plain"><figcaption><span>function testAliases() &#123; $container </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 4.1.5 share</span><br><span class="line"></span><br><span class="line">`share`是通过闭包的形式，加上关键字`static`实现的 ``` public function share(Closure $closure) &#123; return function ($container) use ($closure) &#123; static $object; if (is_null($object)) &#123; $object = $closure($container); &#125; return $object; &#125;; &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-1-6-extend"><a href="#4-1-6-extend" class="headerlink" title="4.1.6 extend"></a>4.1.6 extend</h3><p>extend是在当原来的容器实例化出来后，可以对其进行扩展 <code>public function testExtendInstancesArePreserved() { $container = new Container; $container-&gt;bind(&#39;foo&#39;, function () { $obj = new StdClass; $obj-&gt;foo = &#39;bar&#39;; return $obj; }); $obj = new StdClass; $obj-&gt;foo = &#39;foo&#39;; $container-&gt;instance(&#39;foo&#39;, $obj); $container-&gt;extend(&#39;foo&#39;, function ($obj, $container) { $obj-&gt;bar = &#39;baz&#39;; return $obj; }); $container-&gt;extend(&#39;foo&#39;, function ($obj, $container) { $obj-&gt;baz = &#39;foo&#39;; return $obj; }); $this-&gt;assertEquals(&#39;foo&#39;, $container-&gt;make(&#39;foo&#39;)-&gt;foo); $this-&gt;assertEquals(&#39;baz&#39;, $container-&gt;make(&#39;foo&#39;)-&gt;bar); $this-&gt;assertEquals(&#39;foo&#39;, $container-&gt;make(&#39;foo&#39;)-&gt;baz); }</code></p>
+<h2 id="4-2-实例化"><a href="#4-2-实例化" class="headerlink" title="4.2 实例化"></a>4.2 实例化</h2><h3 id="4-2-1-call"><a href="#4-2-1-call" class="headerlink" title="4.2.1 call"></a>4.2.1 call</h3><p>call直接调用函数，自动注入依赖 <code>public function testCallWithDependencies() { $container = new Container; $result = $container-&gt;call(function (StdClass $foo, $bar = \[\]) { return func\_get\_args(); }); $this-&gt;assertInstanceOf(&#39;stdClass&#39;, $result\[0\]); $this-&gt;assertEquals(\[\], $result\[1\]); $result = $container-&gt;call(function (StdClass $foo, $bar = \[\]) { return func\_get\_args(); }, \[&#39;bar&#39; =\&gt; &#39;taylor&#39;\]); $this-&gt;assertInstanceOf(&#39;stdClass&#39;, $result\[0\]); $this-&gt;assertEquals(&#39;taylor&#39;, $result\[1\]); /\* \* Wrap a function... */ $result = $container-&gt;wrap(function (StdClass $foo, $bar = \[\]) { return func\_get\_args(); }, \[&#39;bar&#39; =\&gt; &#39;taylor&#39;\]); $this-&gt;assertInstanceOf(&#39;Closure&#39;, $result); $result = $result(); $this-&gt;assertInstanceOf(&#39;stdClass&#39;, $result\[0\]); $this-&gt;assertEquals(&#39;taylor&#39;, $result\[1\]); }</code> 今天就先讲到这，有用的地方再去看的。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.insp.top/article/learn-laravel-container" target="_blank" rel="noopener">laravel 学习笔记 —— 神奇的服务容器</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/06/08/629/" data-id="cjujhygd300a8ej3jwg3l6l6l" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/08/postgresql-mac-环境下初识篇/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          PostgreSQL mac 环境下初识篇
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/02/php实现常用排序算法（含示意动图）/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">PHP实现常用排序算法（含示意动图）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

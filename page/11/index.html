@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/11/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-python使用xlsxwriter生成excel周报日周的统计图表" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/29/python使用xlsxwriter生成excel周报日周的统计图表/" class="article-date">
+  <time datetime="2017-03-29T03:10:12.000Z" itemprop="datePublished">2017-03-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-python/">积累________python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/29/python使用xlsxwriter生成excel周报日周的统计图表/">python使用xlsxwriter生成excel周报日周的统计图表</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>文档：<a href="https://xlsxwriter.readthedocs.io/chart.html" target="_blank" rel="noopener">https://xlsxwriter.readthedocs.io/chart.html</a></p>
+<h2 id="案例一"><a href="#案例一" class="headerlink" title="案例一"></a>案例一</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">案例二</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">``` #coding: utf-8 import xlsxwriter import random def get\_num(): return random.randrange(0, 201, 2) workbook = xlsxwriter.Workbook(&apos;analyse\_spider.xlsx&apos;) #创建一个Excel文件 worksheet = workbook.add\_worksheet() #创建一个工作表对象 chart = workbook.add\_chart(&#123;&apos;type&apos;: &apos;column&apos;&#125;) #创建一个图表对象 #定义数据表头列表 title = \[u&apos;业务名称&apos;,u&apos;星期一&apos;,u&apos;星期二&apos;,u&apos;星期三&apos;,u&apos;星期四&apos;,u&apos;星期五&apos;,u&apos;星期六&apos;,u&apos;星期日&apos;,u&apos;平均流量&apos;\] buname= \[u&apos;时光网&apos;,u&apos;汽车之家&apos;,u&apos;weixin.com&apos;,u&apos;163.com&apos;,u&apos;baidu.com&apos;\] #定义频道名称 #定义5频道一周7天流量数据列表 data = \[\] for i in range(5): tmp = \[\] for j in range(7): tmp.append(get\_num()) data.append(tmp) format=workbook.add\_format() #定义format格式对象 format.set\_border(1) #定义format对象单元格边框加粗(1像素)的格式 format\_title=workbook.add\_format() #定义format\_title格式对象 format\_title.set\_border(1) #定义format\_title对象单元格边框加粗(1像素)的格式 format\_title.set\_bg\_color(&apos;#cccccc&apos;) #定义format\_title对象单元格背景颜色为 #&apos;#cccccc&apos;的格式 format\_title.set\_align(&apos;center&apos;) #定义format\_title对象单元格居中对齐的格式 format\_title.set\_bold() #定义format\_title对象单元格内容加粗的格式 format\_ave=workbook.add\_format() #定义format\_ave格式对象 format\_ave.set\_border(1) #定义format\_ave对象单元格边框加粗(1像素)的格式 format\_ave.set\_num\_format(&apos;0.00&apos;) #定义format\_ave对象单元格数字类别显示格式 #下面分别以行或列写入方式将标题、业务名称、流量数据写入起初单元格，同时引用不同格式对象 worksheet.write\_row(&apos;A1&apos;,title,format\_title) worksheet.write\_column(&apos;A2&apos;, buname,format) worksheet.write\_row(&apos;B2&apos;, data\[0\],format) worksheet.write\_row(&apos;B3&apos;, data\[1\],format) worksheet.write\_row(&apos;B4&apos;, data\[2\],format) worksheet.write\_row(&apos;B5&apos;, data\[3\],format) worksheet.write\_row(&apos;B6&apos;, data\[4\],format) #定义图表数据系列函数 def chart\_series(cur\_row): worksheet.write\_formula(&apos;I&apos;+cur\_row, \ &apos;=AVERAGE(B&apos;+cur\_row+&apos;:H&apos;+cur\_row+&apos;)&apos;,format\_ave) #计算（AVERAGE函数）频 #道周平均流量 chart.add\_series(&#123; &apos;categories&apos;: &apos;=Sheet1!$B$1:$H$1&apos;, #将“星期一至星期日”作为图表数据标签(X轴) &apos;values&apos;: &apos;=Sheet1!$B$&apos;+cur\_row+&apos;:$H$&apos;+cur\_row, #频道一周所有数据作 #为数据区域 &apos;line&apos;: &#123;&apos;color&apos;: &apos;black&apos;&#125;, #线条颜色定义为black(黑色) &apos;name&apos;: &apos;=Sheet1!$A$&apos;+cur\_row, #引用业务名称为图例项 &#125;) for row in range(2, 7): #数据域以第2～6行进行图表数据系列函数调用 chart\_series(str(row)) chart.set\_size(&#123;&apos;width&apos;: 577, &apos;height&apos;: 287&#125;) #设置图表大小 chart.set\_title (&#123;&apos;name&apos;: u&apos;爬虫分析&apos;&#125;) #设置图表（上方）大标题 chart.set\_y\_axis(&#123;&apos;name&apos;: &apos;count&apos;&#125;) #设置y轴（左侧）小标题 worksheet.insert\_chart(&apos;A8&apos;, chart) #在A8单元格插入图表 workbook.close() #关闭Excel文档 ![](http://www.yaozihao.cn/wp-content/uploads/2017/03/屏幕快照-2017-03-29-11.07.12.png)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/29/python使用xlsxwriter生成excel周报日周的统计图表/" data-id="cjujhygdf00apej3j5fsfk5vd" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mac-常用工具推荐" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/29/mac-常用工具推荐/" class="article-date">
+  <time datetime="2017-03-29T01:17:59.000Z" itemprop="datePublished">2017-03-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-mac/">积累________mac</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/29/mac-常用工具推荐/">mac 常用工具推荐</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>包管理工具：brew mysql GUI ：<a href="https://sequelpro.com/" target="_blank" rel="noopener">sequelpro</a> php IDE：phpstorm python IDE：PyCharm web IDE：webstorm go IDE：IntelliJ IDEA 文本编辑：sublime Text 命令行：item2</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/29/mac-常用工具推荐/" data-id="cjujhyg7u003qej3j7sg6g6cc" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-linux和windows协同合作的samba4-安装配置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/28/linux和windows协同合作的samba4-安装配置/" class="article-date">
+  <time datetime="2017-03-28T06:03:23.000Z" itemprop="datePublished">2017-03-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-linux/">积累________linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/28/linux和windows协同合作的samba4-安装配置/">linux和windows协同合作的samba4 安装配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>  1.下载 <figure class="highlight plain"><figcaption><span>yum install samba yum install samba-client ubuntu sudo apt-get update sudo apt-get install -y samba samba-client```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">2\. 修改配置文件</span><br><span class="line"></span><br><span class="line">`sudo vim /etc/samba/smb.conf  `在配置文件最后面添加如下内容：</span><br><span class="line"></span><br><span class="line">``` \[homes\]         browseable = yes         valid users = %S         writeable = yes</span><br></pre></td></tr></table></figure></p>
+<p>3.    <code>sudo smbpasswd -a zihao</code></p>
+<p>这是非常关键的一步： 添加允许访问samba的账户（会让你设置对</p>
+<p>应账户的密码）； 有了这一步之后，不仅对应账户的home目录可以直接访问了，而且在这个路径下的</p>
+<p>文件你也具备读写权限。这一组命令还包括：</p>
+<p><code>smbpasswd     -a  增加用户（要增加的用户必须已经是系统用户）         smbpasswd     -d 冻结用户，就是这个用户不能再登陆了         smbpasswd     -e   恢复用户         smbpasswd     -n   把用户的密码设置成空，要在global中写入null passwords -true         smbpasswd     -x    删除用户</code></p>
+<p>4.    <code>sudo service smbd restart</code></p>
+<p>到此就OK了。远程访问测试：</p>
+<p>MacOS</p>
+<p>打开Finder  快捷键 command +k</p>
+<p>Windows 开始-》运行-》输入：\\Samba服务器的ip</p>
+<p><code>格式 smb://server/printer smb://workgroup/server/printer smb://username:password@server/printer smb://username:password@workgroup/server/printer</code> smb适用于内网，192，10 网段。 公网因为其所使用的端口号139，445 ，查看方式 <code>netstat -anpl | grep mbd</code> 均为高危端口号所以可能被部分运营商判断为高危端口，而进行了默认屏蔽。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/28/linux和windows协同合作的samba4-安装配置/" data-id="cjujhyg7o003iej3jgku86s4v" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-python-pandas模块hdf5追加保存" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/27/python-pandas模块hdf5追加保存/" class="article-date">
+  <time datetime="2017-03-27T07:33:09.000Z" itemprop="datePublished">2017-03-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-python/">积累________python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/27/python-pandas模块hdf5追加保存/">Python Pandas模块hdf5追加保存</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>hdf5存储格式会根据data 存储到不同的表，请注意。 from OkcoinSpotAPI import OKCoinSpot from OkcoinFutureAPI import OKCoinFuture import time import numpy as np import pandas as pd # 引入 datetime 模块 import datetime def getYesterday(): today=datetime.date.today() oneday=datetime.timedelta(days=1) yesterday=today-oneday return yesterday #初始化apikey，secretkey,url apikey = &#39;XXXX&#39; secretkey = &#39;XXXXX&#39; okcoinRESTURL = &#39;www.okcoin.com&#39; #请求注意：国内账号需要 修改为 www.okcoin.cn #现货API okcoinSpot = OKCoinSpot(okcoinRESTURL,apikey,secretkey) #期货API okcoinFuture = OKCoinFuture(okcoinRESTURL,apikey,secretkey) # 昨日开始时间 print(u&#39; 开始时间 &#39;) yesterdayTime = int(time.mktime(getYesterday().timetuple()) * 1000) print (getYesterday()) print (yesterdayTime) # print (u&#39; 现货行情 &#39;) # print (okcoinSpot.ticker(&#39;btc\_usd&#39;)) print (u&#39; okCoin Com 期货 当周 Kline 日线 &#39;) thisWeekArr = okcoinFuture.future\_kline(&#39;btc\_usd&#39;,&#39;1day&#39;,&#39;this\_week&#39;, 2, yesterdayTime) print (thisWeekArr) b = pd.DataFrame(thisWeekArr) # b.columns = \[\[&#39;时间戳&#39;,&#39;开&#39;,&#39;高&#39;,&#39;低&#39;,&#39;收&#39;,&#39;交易量&#39;,&#39;交易量转化BTC或LTC数量&#39;\]\] # 存储到hdf5 h5 = pd.HDFStore(&#39;../data/test1.h5&#39;,&#39;a&#39;) h5.append(&#39;df&#39;,b) h5.close() ### 读取数据 h5 = pd.HDFStore(&#39;../data/test1.h5&#39;,&#39;r&#39;) print (h5) e = h5\[&#39;df&#39;\] h5.close() print (e)</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/27/python-pandas模块hdf5追加保存/" data-id="cjujhyg9n005lej3jkuu1n2oa" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-使用pandas-压缩存储hdf5文件-2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/27/使用pandas-压缩存储hdf5文件-2/" class="article-date">
+  <time datetime="2017-03-27T03:48:37.000Z" itemprop="datePublished">2017-03-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-python/">积累________python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/27/使用pandas-压缩存储hdf5文件-2/">使用pandas 压缩存储hdf5文件</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1，使用压缩"><a href="#1，使用压缩" class="headerlink" title="1，使用压缩"></a>1，使用压缩</h2><p>hdf5在存储的是支持压缩，使用的方式是blosc，这个是速度最快的也是pandas默认支持的。 使用压缩可以提磁盘利用率，节省空间。 开启压缩也没有什么劣势，只会慢一点点。 压缩在小数据量的时候优势不明显，数据量大了才有优势。 同时发现hdf读取文件的时候只能是一次写，写的时候可以append，可以put，但是写完成了之后关闭文件，就不能再写了， 会覆盖。</p>
+<h2 id="2，使用压缩方式写文件"><a href="#2，使用压缩方式写文件" class="headerlink" title="2，使用压缩方式写文件"></a>2，使用压缩方式写文件</h2><p><code>import numpy as np import pandas as pd #生成9000,0000条数据，9千万条 a = np.random.standard\_normal((90000000,4)) b = pd.DataFrame(a) #普通格式存储： h5 = pd.HDFStore(&#39;/data/stock/test\_s.h5&#39;,&#39;w&#39;) h5\[&#39;data&#39;\] = b h5.close()</code> <code>#压缩格式存储 h5 = pd.HDFStore(&#39;/data/stock/test\_c4.h5&#39;,&#39;w&#39;, complevel=4, complib=&#39;blosc&#39;) h5\[&#39;data&#39;\] = b h5.close()</code> 对比文件大小： <code>-rw-r--r--. 1 root root 2.7G Mar 31 11:20 test\_c4.h5 -rw-r--r--. 1 root root 3.4G Mar 31 11:19 test_s.h5</code> 省了700mb空间。</p>
+<h2 id="3，总结"><a href="#3，总结" class="headerlink" title="3，总结"></a>3，总结</h2><p>pandas官网有CookBook。 <a href="http://pandas.pydata.org/pandas-docs/stable/cookbook.html" target="_blank" rel="noopener">http://pandas.pydata.org/pandas-docs/stable/cookbook.html</a> 对比CSV文件格式，hdf5支持按照key寻找，可以直接把股票id作为key寻找。比较hdf5是结构化的数据格式，而csv还是个文本。 比数据库方式效果高多了，读写很快。 对于金融，股票系统。还是直接读写文件来的方便。 按照日期和股票id进行两个分区。而且后期迁移的时候直接可以迁移到Hadoop 上面，也非常容易呢。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/27/使用pandas-压缩存储hdf5文件-2/" data-id="cjujhygb8007sej3j13nkf79h" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-使用pandas-压缩存储hdf5文件" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/27/使用pandas-压缩存储hdf5文件/" class="article-date">
+  <time datetime="2017-03-27T03:45:53.000Z" itemprop="datePublished">2017-03-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-python/">积累________python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/27/使用pandas-压缩存储hdf5文件/">使用pandas 压缩存储hdf5文件</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1，关于股票数据存储"><a href="#1，关于股票数据存储" class="headerlink" title="1，关于股票数据存储"></a>1，关于股票数据存储</h3><hr>
+<p>股票数据比较特殊，需要做数据统计的。都需要一次进行批量查询多个数据，然后进行分析。 所以股票数据不一定要放到<a href="http://lib.csdn.net/base/mysql" title="MySQL知识库" target="_blank" rel="noopener">数据库</a>中存储。因为一般就两个维度。 那只股票，和那天的股票信息，然后使用模型进行分析预测。 所以数据可以存储为：/data/stock/yyyy/yyyMM/yyyyMMdd.hdf5 存储的数据是hdf5： Hierarchical Data Format，可以存储不同类型的图像和数码数据的文件格式</p>
+<h3 id="2，安装hdf5库"><a href="#2，安装hdf5库" class="headerlink" title="2，安装hdf5库"></a>2，安装hdf5库</h3><hr>
+<figure class="highlight plain"><figcaption><span>yum -y install hdf5 hdf5-devel pip install unittest2 pip install --upgrade tables```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 3，测试读写hdf5文件</span><br><span class="line"></span><br><span class="line">* * *</span><br><span class="line"></span><br><span class="line">参考pytables官方文档。 [http://www.pytables.org/usersguide/tutorials.html](http://www.pytables.org/usersguide/tutorials.html) 这里使用的是pandas封装的接口直接使用，而不是使用tables。 ``` # python Python 2.6.6 (r266:84292, Jul 23 2015, 15:22:56) \[GCC 4.4.7 20120313 (Red Hat 4.4.7-11)\] on linux2 Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information. &gt;&gt;\&gt; import numpy as np &gt;&gt;\&gt; import pandas as pd ###su &gt;&gt;\&gt; a = np.random.standard_normal((9,4)) &gt;&gt;\&gt; b = pd.DataFrame(a) &gt;&gt;\&gt; b.columns = \[\[&apos;num1&apos;,&apos;num2&apos;,&apos;num3&apos;,&apos;num4&apos;\]\] &gt;&gt;\&gt; a array(\[\[-2.36198849, -1.27547933, -1.40351822, -0.6638619 \], \[ 1.89159066, -0.31838519, -0.2065942 , -1.02327987\], \[-2.02771503, -0.81333254, -0.93644288, -0.91592467\], \[-1.3939496 , 0.25899342, 1.11591841, -0.7423286 \], \[-1.05104415, -0.79069151, -1.46536873, -0.01449547\], \[ 1.32483444, 0.32030117, -1.23575344, 0.51455106\], \[ 0.91297435, 0.43242834, 1.77235337, 1.14879289\], \[ 0.93476429, 0.18592698, 0.30198234, -0.61861642\], \[ 0.04462872, -0.99275411, -0.86382085, -1.53064223\]\]) &gt;&gt;\&gt; b num1 num2 num3 num4 0 -2.361988 -1.275479 -1.403518 -0.663862 1 1.891591 -0.318385 -0.206594 -1.023280 2 -2.027715 -0.813333 -0.936443 -0.915925 3 -1.393950 0.258993 1.115918 -0.742329 4 -1.051044 -0.790692 -1.465369 -0.014495 5 1.324834 0.320301 -1.235753 0.514551 6 0.912974 0.432428 1.772353 1.148793 7 0.934764 0.185927 0.301982 -0.618616 8 0.044629 -0.992754 -0.863821 -1.530642 &gt;&gt;\&gt; b.sum() num1 -1.725905 num2 -2.992993 num3 -2.921244 num4 -3.845805 dtype: float64 &gt;&gt;\&gt; b.mean() num1 -0.191767 num2 -0.332555 num3 -0.324583 num4 -0.427312 dtype: float64 ###写hdf5文件： &gt;&gt;\&gt; h5 = pd.HDFStore(&apos;/data/stock/test1.h5&apos;,&apos;w&apos;) &gt;&gt;\&gt; h5\[&apos;data&apos;\] = b &gt;&gt;\&gt; h5.close() &gt;&gt;\&gt; &gt;&gt;\&gt; b num1 num2 num3 num4 0 -2.361988 -1.275479 -1.403518 -0.663862 1 1.891591 -0.318385 -0.206594 -1.023280 2 -2.027715 -0.813333 -0.936443 -0.915925 3 -1.393950 0.258993 1.115918 -0.742329 4 -1.051044 -0.790692 -1.465369 -0.014495 5 1.324834 0.320301 -1.235753 0.514551 6 0.912974 0.432428 1.772353 1.148793 7 0.934764 0.185927 0.301982 -0.618616 8 0.044629 -0.992754 -0.863821 -1.530642 ###读hdf5文件。 &gt;&gt;\&gt; h5 = pd.HDFStore(&apos;/data/stock/test1.h5&apos;,&apos;r&apos;) &gt;&gt;\&gt; c = h5\[&apos;data&apos;\] &gt;&gt;\&gt; c num1 num2 num3 num4 0 -2.361988 -1.275479 -1.403518 -0.663862 1 1.891591 -0.318385 -0.206594 -1.023280 2 -2.027715 -0.813333 -0.936443 -0.915925 3 -1.393950 0.258993 1.115918 -0.742329 4 -1.051044 -0.790692 -1.465369 -0.014495 5 1.324834 0.320301 -1.235753 0.514551 6 0.912974 0.432428 1.772353 1.148793 7 0.934764 0.185927 0.301982 -0.618616 8 0.044629 -0.992754 -0.863821 -1.530642 &gt;&gt;\&gt; h5.close()</span><br></pre></td></tr></table></figure>
+<h3 id="4，TuShare读取股票数据存储"><a href="#4，TuShare读取股票数据存储" class="headerlink" title="4，TuShare读取股票数据存储"></a>4，TuShare读取股票数据存储</h3><hr>
+<p><code>&gt;&gt;\&gt; import tushare as ts &gt;&gt;\&gt; d = ts.get\_tick\_data(&#39;600848&#39;,date=&#39;2015-01-09&#39;) &gt;&gt;\&gt; type(d) &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt; &gt;&gt;\&gt; len(d) 1212 ###保存数据 &gt;&gt;\&gt; h5 = pd.HDFStore(&#39;/data/stock/test2.h5&#39;,&#39;w&#39;) &gt;&gt;\&gt; h5\[&#39;data&#39;\] = d &gt;&gt;\&gt; h5.close() &gt;&gt;&gt; &gt;&gt;&gt; ###读取数据 &gt;&gt;\&gt; h5 = pd.HDFStore(&#39;/data/stock/test2.h5&#39;,&#39;r&#39;) &gt;&gt;\&gt; e = h5\[&#39;data&#39;\] &gt;&gt;\&gt; h5.close() &gt;&gt;&gt; &gt;&gt;&gt; type(e) &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt; &gt;&gt;\&gt; len(e) 1212</code></p>
+<h3 id="5，总结"><a href="#5，总结" class="headerlink" title="5，总结"></a>5，总结</h3><hr>
+<p>使用文件直接存储到本地还是非常方便的。pandas直接封装的函数3行解决问题。 同时pandas封装的读出数据还是数组，可以直接进行操作。灰常方便。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/27/使用pandas-压缩存储hdf5文件/" data-id="cjujhygb8007uej3jygdipck0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-439" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/25/439/" class="article-date">
+  <time datetime="2017-03-25T14:36:20.000Z" itemprop="datePublished">2017-03-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/日常-经验分享/">日常________经验分享</a>►<a class="article-category-link" href="/categories/日常-经验分享/积累-php/">积累________php</a>►<a class="article-category-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/25/439/">Jupyter Notebook 交互式笔记本</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Jupyter Notebook（此前被称为 IPython notebook）是一个交互式笔记本，支持运行 40 多种编程语言。在本文中，我们将介绍 Jupyter notebook 的主要特性，以及为什么对于希望编写漂亮的交互式文档的人来说是一个强大工具。 在开始使用 notebook 之前，我们先需要安装该库。你可以在 <a href="https://jupyter.readthedocs.org/en/latest/install.html" target="_blank" rel="noopener">Jupyter 官网</a> 上找到完整的步骤。 译者注：其实只要 <code>pip install jupyter</code> 就可以了 <code>jupyter notebook</code> 运行上面的命令之后，你将看到类似下面这样的输出： <code>\[I 20:06:36.367 NotebookApp\] Writing notebook server cookie secret to /run/user/1000/jupyter/notebook\_cookie\_secret \[I 20:06:36.813 NotebookApp\] Serving notebooks from local directory: /home/your_username \[I 20:06:36.813 NotebookApp\] 0 active kernels \[I 20:06:36.813 NotebookApp\] The IPython Notebook is running at: http://localhost:8888/ \[I 20:06:36.813 NotebookApp\] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).</code> 同时，会在你开启 notebook 的文件夹中启动 Jupyter 主界面，如下所示： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/03/1.jpg" alt> 如果想新建一个 notebook，只需要点击 <code>New</code> ，选择你希望启动的 notebook 类型即可。 <img src="http://www.yaozihao.cn/wp-content/uploads/2017/03/2.jpg" alt> 这里，因为我只有一个 Python 内核，所以我们运行一个 Python notebook。在新打开的标签页中，我们会看到 notebook 界面，目前里面什么也没有。 <img src="http://www.yaozihao.cn/wp-content/uploads/2017/03/3.jpg" alt> notebook 界面由以下部分组成：</p>
+<ol>
+<li>notebook 的名称</li>
+<li>主工具栏，提供了保存、导出、重载 notebook，以及重启内核等选项</li>
+<li>快捷键</li>
+<li>notebook 主要区域，包含了 notebook 的内容编辑区</li>
+</ol>
+<p>慢慢熟悉这些菜单和选项。如果想要详细了解有关 notebook 或一些库的具体话题，可以使用菜单栏右侧的帮助菜单。 下方的主要区域，由被称为单元格的部分组成。每个 notebook 由多个单元格构成，而每个单元格又可以有不同的用途。 下方截图中看到的是一个代码单元格（code cell），以 <code>[ ]</code> 开头。在这种类型的单元格中，可以输入任意代码并执行。例如，输入 <code>1 + 2</code> 并按下 <code>Shift + Enter</code> 。之后，单元格中的代码就会被计算，光标也会被移动动一个新的单元格中。你会得到如下结果： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/03/4.jpg" alt> 根据绿色边框线，我们可以轻松地识别出当前工作的单元格。接下来，我们在第二个单元格中输入些其他代码，例如： <code>for i in range(5): print(i)</code> 对上面的代码求值时，你会得到： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/03/5.jpg" alt> 和前一个示例一样，代码被计算之后，马上就会显示结果。你应该注意到了，这次没有出现类似 <code>Out[2]</code> 这样的文字。这是因为我们将结果打印出来了，没有返回任何的值。 notebook 有一个非常有趣的特性，就是可以修改之前的单元格，对其重新计算，这样就可以更新整个文档了。试着把光标移回第一个单元格，并将 <code>1 + 2</code> 修改成 <code>2 + 3</code> ，然后按下 <code>Shift + Enter</code> 重新计算该单元格。你会发现结果马上就更新成了 5。如果你不想重新运行整个脚本，只想用不同的参数测试某个程式的话，这个特性显得尤其强大。不过，你也可以重新计算整个 notebook，只要点击 <code>Cell</code> -> <code>Run all</code> 即可。 现在我们已经知道了如何输入代码，为什么不尝试着让这个 notebook 更加漂亮、内容更丰富？为此，我们需要使用其他类型的单元格，即 Header单元格和 Markdown单元格。 首先，我们在顶部添加一个 notebook 的标题。选中第一个单元格，然后点击 <code>Insert</code> -> <code>Insert单元格above</code> （在上方插入单元格）。你会发现，文档的顶部马上就出现了一个新的单元格。点击在快捷键栏中的单元格类型，将其变成一个标题单元格（heading cell）：<img src="http://www.yaozihao.cn/wp-content/uploads/2017/03/6.jpg" alt> 选中下拉选项中的 Heading。然后会出现一个弹出消息，告诉你如何创建不同层级的标题，这样你就有了一个不同类型的 cell： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/03/7.jpg" alt> 这个单元格以 <code>#</code> 标记开头，意味着这是一个一级标题。如果需要子标题，可以使用以下标记表示（改变单元格类型时弹出消息中有解释）： <code>\# : 一级标题 \## : 二级标题 \### : 三级标题 ...</code> 在 <code>#</code> 之后写下文档的标题，然后计算该单元格。你会发现一个样式非常好看的标题。作为示例和练习，我还添加了其他几个标题单元格： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/03/8.jpg" alt> 添加好标题之后，我们在编写一些解释，介绍每个代码单元格中的情况。为此，我们要在相应的地方插入单元格，然后将其类型变成 Markdown。然后，计算新的单元格。就这样，你的解释文本就漂亮地渲染出来了！ <img src="http://www.yaozihao.cn/wp-content/uploads/2017/03/9.jpg" alt> 最后，你可以重命名该 notebook，点击 <code>Fiel</code> -> <code>Rename</code> ，然后输入新的名称。这样，新的名称将会出现在窗口的左上角，在 Jupyter 的标志旁边。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/25/439/" data-id="cjujhyg5n0014ej3jgbuuy45p" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-python-的常用时间操作" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/24/python-的常用时间操作/" class="article-date">
+  <time datetime="2017-03-24T10:29:55.000Z" itemprop="datePublished">2017-03-24</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-python/">积累________python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/24/python-的常用时间操作/">python 的常用时间操作</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Python获取当前系统时间"><a href="#Python获取当前系统时间" class="headerlink" title="Python获取当前系统时间"></a>Python获取当前系统时间</h2><figure class="highlight plain"><figcaption><span>time``` #返回当前时间 ``` def GetNowTime(): return time.strftime(“%Y-%m-%d %H:%M:%S”,time.localtime(time.time()))```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">扩展</span><br><span class="line">--</span><br><span class="line"></span><br><span class="line">python中时间日期格式化符号： %y 两位数的年份表示（00-99） %Y 四位数的年份表示（000-9999） %m 月份（01-12） %d 月内中的一天（0-31） %H 24小时制小时数（0-23） %I 12小时制小时数（01-12） %M 分钟数（00=59） %S 秒（00-59） %a 本地简化星期名称 %A 本地完整星期名称 %b 本地简化的月份名称 %B 本地完整的月份名称 %c 本地相应的日期表示和时间表示 %j 年内的一天（001-366） %p 本地A.M.或P.M.的等价符 %U 一年中的星期数（00-53）星期天为星期的开始 %w 星期（0-6），星期天为星期的开始 %W 一年中的星期数（00-53）星期一为星期的开始 %x 本地相应的日期表示 %X 本地相应的时间表示 %Z 当前时区的名称 %% %号本身 pandas.to_datetime 中 unit 参数 D,s,ms,us,ns 日，秒，毫秒，微秒，纳秒</span><br><span class="line"></span><br><span class="line">实例</span><br><span class="line">--</span><br><span class="line"></span><br><span class="line">1.python获取当前时间 ```    time.time() 获取当前时间戳    time.localtime() 当前时间的struct_time形式    time.ctime() 当前时间的字符串形式    int(time.ctime()) 当前整型11位时间戳    int(time.ctime()*1000) 当前整型13位时间戳``` 2.python格式化字符串 ``` 格式化成2009-03-20 11:45:39形式   time.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;, time.localtime())       格式化成Sat Mar 28 22:24:24 2009形式   time.strftime(&quot;%a %b %d %H:%M:%S %Y&quot;, time.localtime())``` 3.将格式字符串转换为时间戳 ```   a = &quot;Sat Mar 28 22:24:24 2009&quot;   b = time.mktime(time.strptime(a,&quot;%a %b %d %H:%M:%S %Y&quot;))``` 4.时间戳转换为指定格式日期: ```   方法一:    利用localtime()转换为时间数组,然后格式化为需要的格式,如     timeStamp = 1381419600     timeArray = time.localtime(timeStamp)     otherStyleTime = time.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;, timeArray)     otherStyletime == &quot;2013-10-10 23:40:00&quot;   方法二:     import datetime     timeStamp = 1381419600     dateArray = datetime.datetime.utcfromtimestamp(timeStamp)     otherStyleTime = dateArray.strftime( class=&quot;java string&quot;&gt;&quot;%Y-%m-%d %H:%M:%S&quot; ) otherStyletime == &quot;2013-10-10 23:40:00&quot;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/24/python-的常用时间操作/" data-id="cjujhyg9v005uej3j8bpz0e92" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ubuntu-使用apt-get-install-安装php5-6-php7" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/18/ubuntu-使用apt-get-install-安装php5-6-php7/" class="article-date">
+  <time datetime="2017-03-18T14:08:03.000Z" itemprop="datePublished">2017-03-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-linux/">积累________linux</a>►<a class="article-category-link" href="/categories/积累-linux/积累-php/">积累________php</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/18/ubuntu-使用apt-get-install-安装php5-6-php7/">ubuntu 使用apt-get install 安装php5.6--php7</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>使用ppa增加源: <code>$ sudo apt-get install python-software-properties $ sudo add-apt-repository ppa:ondrej/php $ sudo apt-get update $ sudo apt-get install -y php7.0 php7.0-mysql php7.0-curl php7.0-json php7.0-cgi</code> 然后可以查看php版本: <code>php -v</code> 关于php5.4–php5.6版本 <code>$ sudo apt-get install python-software-properties $ sudo add-apt-repository ppa:ondrej/php $ sudo apt-get update $ sudo apt-get -y install php5.6 php5.6-mcrypt php5.6-mbstring php5.6-curl php5.6-cli php5.6-mysql php5.6-gd php5.6-intl php5.6-xsl php5.6-zip</code> 查看php7的扩展 <code>sudo apt-cache search php7-* 如果报错的话，尝试解决一下编码问题</code> <code>`apt-get update &amp;&amp; apt-get install -y language-pack-en-base &amp;&amp; export LC_ALL=en_US.UTF-8 &amp;&amp; export LANG=en_US.UTF-8 &amp;&amp; apt-get install -y software-properties-common &amp;&amp; add-apt-repository -y ppa:ondrej/php5-5.6 &amp;&amp; add-apt-repository -y ppa:ondrej/mariadb-10.0 &amp;&amp; apt-get update &amp;&amp; apt-get -y upgrade`</code> <code>`locale-gen en_US.UTF-8 export LANG=en_US.UTF-8 export LC_ALL=en_US.UTF-8`</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/18/ubuntu-使用apt-get-install-安装php5-6-php7/" data-id="cjujhygan006sej3j438jvyf2" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-各种编译器破解码" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/15/各种编译器破解码/" class="article-date">
+  <time datetime="2017-03-15T13:56:31.000Z" itemprop="datePublished">2017-03-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-python/">积累________python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/15/各种编译器破解码/">各种编译器破解码</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="pycharm-2016-2注册码"><a href="#pycharm-2016-2注册码" class="headerlink" title="pycharm 2016.2注册码"></a>pycharm 2016.2注册码</h2><p>亲测，而且没有时间使用限制 大多数的使用的是Activation code，但是是有时间限制的，如果本地时间超过了2017-2-25，就不能使用了。但是可以通过该系统的时间继续使用，这个也是可以的，但是每次都要在使用之前改时间很是麻烦，在网上搜索了半天终于找到了License server的方法，由此分享给大家。 选License server激活，输入：<a href="http://idea.imsxm.com/" target="_blank" rel="noopener">http://idea.imsxm.com</a> <code>2017年04月25日14:44:31 ：server选项里边输入 http://elporfirio.com:1017/</code> 2017年04月28日 <code>sudo vim /etc/hosts</code> 在最后面加上0.0.0.0 account.jetbrains.com wq! 保存退出 然后<a href="http://idea.lanyus.com/，从新获取注册码，填入" target="_blank" rel="noopener">http://idea.lanyus.com/，从新获取注册码，填入</a> activation code 里</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/15/各种编译器破解码/" data-id="cjujhygbf0086ej3jl6xu4hp9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/10/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/12/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

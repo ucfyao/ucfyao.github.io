@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/15/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-git忽略规则及-gitignore规则不生效的解决办法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/08/25/git忽略规则及-gitignore规则不生效的解决办法/" class="article-date">
+  <time datetime="2016-08-25T08:35:06.000Z" itemprop="datePublished">2016-08-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-git/">积累________git</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/25/git忽略规则及-gitignore规则不生效的解决办法/">Git忽略规则及.gitignore规则不生效的解决办法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在git中如果想忽略掉某个文件，不让这个文件提交到版本库中，可以使用修改根目录中 .gitignore 文件的方法（如无，则需自己手工建立此文件）。这个文件每一行保存了一个匹配的规则例如： <code># 此为注释 – 将被 Git 忽略 *.a       # 忽略所有 .a 结尾的文件 !lib.a    # 但 lib.a 除外 /TODO     # 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO build/    # 忽略 build/ 目录下的所有文件 doc/*.txt # 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt</code> 规则很简单，不做过多解释，但是有时候在项目开发过程中，突然心血来潮想把某些目录或文件加入忽略规则，按照上述方法定义后发现并未生效，原因是.gitignore只能忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的。那么解决方法就是先把本地缓存删除（改变成未track状态），然后再提交： <code>git rm -r --cached . git add . git commit -m &#39;update .gitignore&#39;</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/08/25/git忽略规则及-gitignore规则不生效的解决办法/" data-id="cjujhyg6o002cej3jeu4muj4d" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-php-批量去除bom头脚本" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/08/21/php-批量去除bom头脚本/" class="article-date">
+  <time datetime="2016-08-21T11:29:58.000Z" itemprop="datePublished">2016-08-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/日常-经验分享/">日常________经验分享</a>►<a class="article-category-link" href="/categories/日常-经验分享/积累-php/">积累________php</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/21/php-批量去除bom头脚本/">php 批量去除bom头脚本</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>请放在根目录下使用 &quot;; }else{ $dirname = $basedir.&quot;/&quot;.$file; checkdir($dirname); } } } closedir($dh); } } function checkBOM ($filename) { global $auto; $contents = file\_get\_contents($filename); $charset\[1\] = substr($contents, 0, 1); $charset\[2\] = substr($contents, 1, 1); $charset\[3\] = substr($contents, 2, 1); if (ord($charset\[1\]) == 239 &amp;&amp; ord($charset\[2\]) == 187 &amp;&amp; ord($charset\[3\]) == 191) { if ($auto == 1) { $rest = substr($contents, 3); rewrite ($filename, $rest); return (&quot;BOM found, automatically removed.&quot;); } else { return (&quot;BOM found.&quot;); } } else return (&quot;BOM Not Found.&quot;); } function rewrite ($filename, $data) { $filenum = fopen($filename, &quot;w&quot;); flock($filenum, LOCK_EX); fwrite($filenum, $data); fclose($filenum); }</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/08/21/php-批量去除bom头脚本/" data-id="cjujhyg950055ej3jf4b64qeh" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mysql修改其他机器可以连接的权限" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/19/mysql修改其他机器可以连接的权限/" class="article-date">
+  <time datetime="2016-07-19T03:03:27.000Z" itemprop="datePublished">2016-07-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-mysql/">积累________mysql</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/19/mysql修改其他机器可以连接的权限/">mysql修改其他机器可以连接的权限</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>通过HeidiSQL连接MYSQL数据库报错： SQL Error (1130): Host ‘192.168.1.126’ is not allowed to connect to this MySQL server 说明所连接的用户帐号没有远程连接的权限，只能在本机(localhost)登录。 需更改 mysql 数据库里的 user表里的 host项把localhost改称% 首先按下面的步骤登录Mysql服务器 登录mysql需要切换到dos下的mysql的bin目录，进行如下操作： mysql&gt;use mysql; mysql&gt;update user set host = ‘%’? where user =’root’; MariaDB [mysql]&gt; update user set host = ‘%’ where host = ‘localhost’; Query OK, 0 rows affected (0.00 sec) Rows matched: 0? Changed: 0? Warnings: 0 mysql&gt;flush privileges; mysql&gt; select host, user from user; mysql&gt;quit OK。远程连接成功！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/19/mysql修改其他机器可以连接的权限/" data-id="cjujhyg8d004dej3jyyccv5yp" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mgo简介" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/06/mgo简介/" class="article-date">
+  <time datetime="2016-07-06T09:44:59.000Z" itemprop="datePublished">2016-07-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-go/">积累________go</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/06/mgo简介/">mgo简介</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="mgo简介"><a href="#mgo简介" class="headerlink" title="mgo简介"></a>mgo简介</h2><p>mgo（音mango）是MongoDB的Go语言驱动，它用基于Go语法的简单API实现了丰富的特性，并经过良好测试。 官方网站：<a href="http://labix.org/mgo。" target="_blank" rel="noopener">http://labix.org/mgo。</a> golang.tc（golangtc.com）网站的数据存储就是是用的MongoDB+mgo。近一年使用下来表现良好。</p>
+<h2 id="API文档"><a href="#API文档" class="headerlink" title="API文档"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>API文档</h2><p>下面是mgo、mgo/bson、mgo/txn的在线文档。</p>
+<ul>
+<li>mgo?GoDoc?GoWalker</li>
+<li>mgo/bson?GoDoc?GoWalker</li>
+<li>mgo/txn?GoDoc?GoWalker</li>
+</ul>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>安装</h2><p>安装mgo之前请先安装Golang和MongoDB，安装过程不再赘述。 安装bzr版本工具（mgo使用Bazaar作为版本控制系统，因安装的时候需要去Bazaar拉取代码）。 安装命令</p>
+<figure class="highlight plain"><figcaption><span>get gopkg.in/mgo.v2````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![](http://my.oschina.net/js/ke/themes/common/anchor.gif)![](http://my.oschina.net/js/ke/themes/common/anchor.gif)示例</span><br><span class="line">--------------------------------------------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">下面的代码是个示例。 ``` `package main import ( &quot;fmt&quot; &quot;labix.org/v2/mgo&quot; &quot;labix.org/v2/mgo/bson&quot; ) type Person struct &#123; Name string Phone string &#125; func main() &#123; session, err := mgo.Dial(&quot;&quot;) if err != nil &#123; panic(err) &#125; defer session.Close() session.SetMode(mgo.Monotonic, true) c := session.DB(&quot;test&quot;).C(&quot;people&quot;) err = c.Insert(&amp;Person&#123;&quot;Ale&quot;, &quot;111111&quot;&#125;, &amp;Person&#123;&quot;Cla&quot;, &quot;222222222&quot;&#125;) if err != nil &#123; panic(err) &#125; result := Person&#123;&#125; err = c.Find(bson.M&#123;&quot;name&quot;: &quot;Ale&quot;&#125;).One(&amp;result) if err != nil &#123; panic(err) &#125; fmt.Println(&quot;Phone:&quot;, result.Phone) &#125;```` 具体代码什么意思先不用管，后面讲解每个方法的用法。</span><br><span class="line"></span><br><span class="line">![](http://my.oschina.net/js/ke/themes/common/anchor.gif)![](http://my.oschina.net/js/ke/themes/common/anchor.gif)如何使用</span><br><span class="line">----------------------------------------------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">下面介绍如何使用mgo，主要介绍集合的操作。对数据库，用户等操作，请自行查看文档。 第一步当然是先导入mgo包 ``` `import ( &quot;gopkg.in/mgo.v2&quot; &quot;gopkg.in/mgo.v2/bson&quot; )`</span><br></pre></td></tr></table></figure>
+<h3 id="连接服务器"><a href="#连接服务器" class="headerlink" title="连接服务器"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>连接服务器</h3><p>通过方法Dial()来和MongoDB服务器建立连接。Dial()定义如下：</p>
+<figure class="highlight plain"><figcaption><span>Dial(url string) (*Session, error)````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">具体使用：</span><br><span class="line"></span><br><span class="line">``` `session, err := mgo.Dial(url)`</span><br></pre></td></tr></table></figure>
+<p>如果是本机，并且MongoDB是默认端口27017启动的话，下面几种方式都可以。 <figure class="highlight plain"><figcaption><span>err :</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">``` `mongodb://myuser:mypass@localhost:40001,otherhost:40001/mydb`</span><br></pre></td></tr></table></figure></p>
+<h3 id="切换数据库"><a href="#切换数据库" class="headerlink" title="切换数据库"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>切换数据库</h3><p>通过Session.DB()来切换相应的数据库。</p>
+<figure class="highlight plain"><figcaption><span>(s *Session) DB(name string) *Database````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">如切换到test数据库。</span><br><span class="line"></span><br><span class="line">``` `db := session.DB(&quot;test&quot;)`</span><br></pre></td></tr></table></figure>
+<h3 id="切换集合"><a href="#切换集合" class="headerlink" title="切换集合"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>切换集合</h3><p>通过Database.C()方法切换集合（Collection），这样我们就可以通过对集合进行增删查改操作了。</p>
+<figure class="highlight plain"><figcaption><span>(db *Database) C(name string) *Collection````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">如切换到\`users\`集合。</span><br><span class="line"></span><br><span class="line">``` `c := db.C(&quot;users&quot;)`</span><br></pre></td></tr></table></figure>
+<h3 id="对集合进行操作"><a href="#对集合进行操作" class="headerlink" title="对集合进行操作"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>对集合进行操作</h3><p>介绍插入、查询、修改、删除操作。 先提一下ObjectId，MongoDB每个集合都会一个名为_id的主键，这是一个24位的16进制字符串。对应到mgo中就是bson.ObjectId。 这里我们定义一个struct，用来和集合对应。 <figure class="highlight plain"><figcaption><span>User struct &#123; Id_ bson.ObjectId `bson:"_id"` Name string `bson:"name"` Age int `bson:"age"` JonedAt time.Time `bson:"joned_at"` Interests []string `bson:"interests"` &#125;````` 注解 注意User的字段首字母大写，不然不可见。通过bson:”name”这种方式可以定义MongoDB中集合的字段名，如果不定义，mgo自动把struct的字段名首字母小写作为集合的字段名。如果不需要获得id_，Id_可以不定义，在插入的时候会自动生成。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### ![](http://my.oschina.net/js/ke/themes/common/anchor.gif)![](http://my.oschina.net/js/ke/themes/common/anchor.gif)插入</span><br><span class="line"></span><br><span class="line">插入方法定义如下：</span><br><span class="line"></span><br><span class="line">``` `func (c *Collection) Insert(docs ...interface&#123;&#125;) error`</span><br></pre></td></tr></table></figure></p>
+<p>下面代码插入两条集合数据。 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### ![](http://my.oschina.net/js/ke/themes/common/anchor.gif)![](http://my.oschina.net/js/ke/themes/common/anchor.gif)无条件查询</span><br><span class="line"></span><br><span class="line">**查询所有**</span><br><span class="line"></span><br><span class="line">``` `var users []User c.Find(nil).All(&amp;users) fmt.Println(users)`</span><br></pre></td></tr></table></figure></p>
+<p>上面代码可以把所有Users都查出来：</p>
+<figure class="highlight plain"><figcaption><span>Jimmy Kuu 33 2013-08-09 17:00:07.95 +0800 CST [Develop Movie]&#125; &#123;ObjectIdHex("5204af979955496907000002") Tracy Yu 31 2013-08-09 17:00:07.971 +0800 CST [Shoping TV]&#125;]````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### ![](http://my.oschina.net/js/ke/themes/common/anchor.gif)![](http://my.oschina.net/js/ke/themes/common/anchor.gif)根据ObjectId查询</span><br><span class="line"></span><br><span class="line">``` `id := &quot;5204af979955496907000001&quot; objectId := bson.ObjectIdHex(id) user := new(User) c.Find(bson.M&#123;&quot;_id&quot;: objectId&#125;).One(&amp;user) fmt.Println(user)`</span><br></pre></td></tr></table></figure>
+<p>结果如下：</p>
+<figure class="highlight plain"><figcaption><span>Jimmy Kuu 33 2013-08-09 17:00:07.95 +0800 CST [Develop Movie]&#125;````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">更简单的方式是直接用FindId()方法：</span><br><span class="line"></span><br><span class="line">``` `c.FindId(objectId).One(&amp;user)`</span><br></pre></td></tr></table></figure>
+<p>注解 注意这里没有处理err。当找不到的时候用One()方法会出错。</p>
+<h6 id="单条件查询"><a href="#单条件查询" class="headerlink" title="单条件查询"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>单条件查询</h6><p>=($eq)</p>
+<figure class="highlight plain"><figcaption><span>"Jimmy Kuu"&#125;).All(&users)````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">!=($ne)</span><br><span class="line"></span><br><span class="line">``` `c.Find(bson.M&#123;&quot;name&quot;: bson.M&#123;&quot;$ne&quot;: &quot;Jimmy Kuu&quot;&#125;&#125;).All(&amp;users)`</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>($gt)</p>
+</blockquote>
+<figure class="highlight plain"><figcaption><span>bson.M&#123;"$gt": 32&#125;&#125;).All(&users)````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;($lt)</span><br><span class="line"></span><br><span class="line">``` `c.Find(bson.M&#123;&quot;age&quot;: bson.M&#123;&quot;$lt&quot;: 32&#125;&#125;).All(&amp;users)`</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>=($gte)</p>
+</blockquote>
+<figure class="highlight plain"><figcaption><span>bson.M&#123;"$gte": 33&#125;&#125;).All(&users)````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;=($lte)</span><br><span class="line"></span><br><span class="line">``` `c.Find(bson.M&#123;&quot;age&quot;: bson.M&#123;&quot;$lte&quot;: 31&#125;&#125;).All(&amp;users)`</span><br></pre></td></tr></table></figure>
+<p>in($in)</p>
+<figure class="highlight plain"><figcaption><span>bson.M&#123;"$in": []string&#123;"Jimmy Kuu", "Tracy Yu"&#125;&#125;&#125;).All(&users)````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">###### ![](http://my.oschina.net/js/ke/themes/common/anchor.gif)![](http://my.oschina.net/js/ke/themes/common/anchor.gif)多条件查询</span><br><span class="line"></span><br><span class="line">and($and)</span><br><span class="line"></span><br><span class="line">``` `c.Find(bson.M&#123;&quot;name&quot;: &quot;Jimmy Kuu&quot;, &quot;age&quot;: 33&#125;).All(&amp;users)`</span><br></pre></td></tr></table></figure>
+<p>or($or)</p>
+<figure class="highlight plain"><figcaption><span>[]bson.M&#123;bson.M&#123;"name": "Jimmy Kuu"&#125;, bson.M&#123;"age": 31&#125;&#125;&#125;).All(&users)````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### ![](http://my.oschina.net/js/ke/themes/common/anchor.gif)![](http://my.oschina.net/js/ke/themes/common/anchor.gif)修改</span><br><span class="line"></span><br><span class="line">通过func (*Collection) Update来进行修改操作。</span><br><span class="line"></span><br><span class="line">``` `func (c *Collection) Update(selector interface&#123;&#125;, change interface&#123;&#125;) error`</span><br></pre></td></tr></table></figure>
+<p>注意修改单个或多个字段需要通过$set操作符号，否则集合会被替换。</p>
+<h5 id="修改字段的值-set"><a href="#修改字段的值-set" class="headerlink" title="修改字段的值($set)"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>修改字段的值($set)</h5><figure class="highlight plain"><figcaption><span>bson.ObjectIdHex("5204af979955496907000001")&#125;, bson.M&#123;"$set": bson.M&#123; "name": "Jimmy Gu", "age": 34, &#125;&#125;)````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### ![](http://my.oschina.net/js/ke/themes/common/anchor.gif)![](http://my.oschina.net/js/ke/themes/common/anchor.gif)inc($inc)</span><br><span class="line"></span><br><span class="line">字段增加值</span><br><span class="line"></span><br><span class="line">``` `c.Update(bson.M&#123;&quot;_id&quot;: bson.ObjectIdHex(&quot;5204af979955496907000001&quot;)&#125;, bson.M&#123;&quot;$inc&quot;: bson.M&#123; &quot;age&quot;: -1, &#125;&#125;)`</span><br></pre></td></tr></table></figure>
+<h5 id="push-push"><a href="#push-push" class="headerlink" title="push($push)"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>push($push)</h5><p>从数组中增加一个元素</p>
+<figure class="highlight plain"><figcaption><span>bson.ObjectIdHex("5204af979955496907000001")&#125;, bson.M&#123;"$push": bson.M&#123; "interests": "Golang", &#125;&#125;)````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### ![](http://my.oschina.net/js/ke/themes/common/anchor.gif)![](http://my.oschina.net/js/ke/themes/common/anchor.gif)pull($pull)</span><br><span class="line"></span><br><span class="line">从数组中删除一个元素</span><br><span class="line"></span><br><span class="line">``` `c.Update(bson.M&#123;&quot;_id&quot;: bson.ObjectIdHex(&quot;5204af979955496907000001&quot;)&#125;, bson.M&#123;&quot;$pull&quot;: bson.M&#123; &quot;interests&quot;: &quot;Golang&quot;, &#125;&#125;)`</span><br></pre></td></tr></table></figure>
+<h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>删除</h4><p><code>`c.Remove(bson.M{&quot;name&quot;: &quot;Jimmy Kuu&quot;})`</code></p>
+<p>注解 这里也支持多条件，参考多条件查询。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/06/mgo简介/" data-id="cjujhygda00ahej3jqgwlfgin" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-直接mark！开源的devops开发工具箱" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/06/27/直接mark！开源的devops开发工具箱/" class="article-date">
+  <time datetime="2016-06-27T03:08:56.000Z" itemprop="datePublished">2016-06-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/日常-经验分享/">日常________经验分享</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/27/直接mark！开源的devops开发工具箱/">直接Mark！开源的DevOps开发工具箱</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>DevOps是一组过程、方法与系统的统称，用于促进开发（应用程序/软件工程）、技术运营和质量保障（QA）部门之间的沟通、协作与整合。在DevOps的整个流程中，使用一些开源工具可以促进开发与运维之间的沟通，有利于项目的管理，甚至可以达到事半功倍的效果。 本文作者Richard Kraaijenhagen是<a href="http://owlin.com/" target="_blank" rel="noopener">Owlin</a>创始人，全栈工程师，数据科学家。他收集了DevOps开发可能用到的所有工具，并且把它们按照职责进行分类，本文摘取了部分工具分享给大家，这些工具也可以用于日常软件方面的开发，所以，大家直接Mark吧！ <img src="http://cms.csdnimg.cn/article/201412/04/54800b68acd5f.jpg" alt> <strong>包&amp;产品管理工具</strong></p>
+<ul>
+<li><a href="https://github.com/chocolatey/chocolatey" target="_blank" rel="noopener">Chocolatey</a>：Chocolatey是Windows下一款开源的命令行包管理软件 ，简单说这就是Windows的apt-get；</li>
+<li><a href="http://zeef.to/click?lpid=487387&amp;key=f_O4Z2_ZoQXIAV-Dc2GZzPeab-mfB0GCBbo&amp;target_url=https%3A%2F%2Fgithub.com%2Fjordansissel%2Ffpm" target="_blank" rel="noopener">FPM</a>：全称是Effing package management，该死的软件包管理器，极大的缓解了多个平台构建软件包(deb,rpm,等)的痛苦；</li>
+<li><a href="https://github.com/russss/Herd" target="_blank" rel="noopener">Herd</a>：是一个基于Twitter <a href="https://github.com/lg/murder" target="_blank" rel="noopener">Murder</a>的文件分布系统；</li>
+<li><a href="https://github.com/fgrehm/vagrant-cachier" target="_blank" rel="noopener">Vagrant Cachier</a>：Vagrant的一个插件，用于缓存包方面的管理；</li>
+<li><a href="https://github.com/wixtoolset/wix4" target="_blank" rel="noopener">WiX Toolset</a>：提供一组最强大的工具集来帮助你创建Windows安装包。该工具集从XML源代码构建你的Windows安装程序包，可以无缝集成到构建过程；</li>
+<li><a href="http://boxstarter.org/" target="_blank" rel="noopener">Boxstarter</a>：利用Chocolatey包管理工具来自动化安装软件和创建可重复、脚本化的Windows环境；</li>
+<li><a href="https://bitbucket.org/scorebig/elita" target="_blank" rel="noopener">Elita</a>：Elita是一个利用git和salt进行持续部署（部署作为服务）和API-driven基础设施的引擎/框架；</li>
+<li><a href="https://github.com/mfoemmel/fig" target="_blank" rel="noopener">Fig</a>：主要用来跟Docker一起来实现的快速隔离的开发环境；</li>
+<li><a href="http://www.pulpproject.org/" target="_blank" rel="noopener">Pulp</a>：Pulp是一个用来管理软件库以及相关内容的平台；</li>
+<li><a href="https://github.com/jedi4ever/veewee" target="_blank" rel="noopener">Veewee</a>：Veewee是一个开源工具，用来创建和配置轻量级、可再生、便捷式虚拟机环境。</li>
+</ul>
+<p><strong>日志&amp;监控</strong></p>
+<ul>
+<li><a href="https://github.com/martinrusev/amonone" target="_blank" rel="noopener">AmonOne</a>：现代化的自托管服务器监控工具；</li>
+<li><a href="https://github.com/Dieterbe/anthracite" target="_blank" rel="noopener">Anthracite</a>：一个事件/日志改变/管理应用程序；</li>
+<li><a href="https://github.com/StackStorm/collectd3" target="_blank" rel="noopener">collectd3</a>：是一个可视化的collectd系统性能统计工具；</li>
+<li><a href="http://collectd.org/" target="_blank" rel="noopener">collectd</a>：是一个守护(daemon)进程，用来收集系统性能和提供各种存储方式来存储不同值的机制；</li>
+<li><a href="https://github.com/BrightcoveOS/Diamond" target="_blank" rel="noopener">Diamond</a>：是一个基于Python的守护程序，主要用来收集系统指标，并且把它们发布到Graphite（或其它）工具中；</li>
+<li><a href="https://github.com/errbit/errbit" target="_blank" rel="noopener">Errbit</a>：是一个用于收集和管理程序错误的开源工具；</li>
+<li><a href="http://sensuapp.org/" target="_blank" rel="noopener">Sensu</a>：一个开源的监控框架；</li>
+<li><a href="http://logstash.net/" target="_blank" rel="noopener">Logstash</a>：是一个应用程序日志、事件的传输、处理、管理和搜索的平台。你可以用它来统一对应用程序日志进行收集管理，提供Web接口用于查询和统计；</li>
+<li><a href="http://logio.org/" target="_blank" rel="noopener">log.io</a>：一个实时的开源日志监控工具；</li>
+<li><a href="http://fnordmetric.io/" target="_blank" rel="noopener">FnordMetric</a>：是一个基于redis/ruby的实时事件跟踪应用，是个收集和可视化时间序列数据的框架，用户可以在几分钟内创建漂亮的实时分析仪表盘；</li>
+<li><a href="https://github.com/etsy/logster" target="_blank" rel="noopener">Logster</a>：是一个工具，读取日志文件然后创建Graphite 或 Ganglia可用的指标数据。比如你可能使用logster来图形化在你的Web Server日志中的HTTP响应发生数量；</li>
+<li><a href="https://github.com/elasticsearch/kibana/" target="_blank" rel="noopener">Kibana</a>：是一个为Logstash和ElasticSearch提供的日志分析的Web接口。可使用它对日志进行高效的搜索、可视化、分析等各种操作；</li>
+<li><a href="http://mmonit.com/monit/" target="_blank" rel="noopener">Monit</a>：是一款功能非常丰富的进程、文件、目录和设备的监测软件，用于Unix平台。 它可以自动修复那些已经停止运作的程序，适合处理那些由于多种原因导致的软件错误；</li>
+<li><a href="https://github.com/codahale/metrics/" target="_blank" rel="noopener">Metrics</a>：这并不是Java库，而是基于Go的一个轻量级的检测器；</li>
+<li><a href="http://graphite.readthedocs.org/en/latest/" target="_blank" rel="noopener">Graphite</a>：是一个用于采集网站实时信息并进行统计的开源项目，可用于采集多种网站服务运行状态信息；</li>
+<li><a href="http://ganglia.info/" target="_blank" rel="noopener">Ganglia</a>：Ganglia是一个跨平台可扩展的、高性能计算系统下的分布式监控系统，如集群和网格；</li>
+<li><a href="https://www.serverdensity.com/" target="_blank" rel="noopener">Server Density</a>：一个跨平台的监控系统；</li>
+<li><a href="https://github.com/boundary/folsom" target="_blank" rel="noopener">Folsom</a>：Folsom是一款受 <a href="https://github.com/codahale/metrics/" target="_blank" rel="noopener">Coda Hale’s metrics</a>启发的、基于Erlang的度量系统；</li>
+<li><a href="https://github.com/Comcast/cmb" target="_blank" rel="noopener">CMB (Cloud Message Bus)</a>：是一个高可用、横向扩展的队列和通知服务，兼容AWS SQS和SNS；</li>
+<li><a href="http://nicolargo.github.io/glances/" target="_blank" rel="noopener">Glances</a>：是一款用于Linux、BSD的开源命令行系统监视工具，它使用Python语言开发，能够监视CPU、负载、内存、磁盘I/O、网络流量、文件系统、系统温度等信息。</li>
+<li><a href="https://github.com/fzaninotto/uptime" target="_blank" rel="noopener">Uptime</a>：使用Node.js、MongoDB和Twitter Bootstrap开发的远程监控系统；</li>
+<li><a href="https://www.icinga.org/" target="_blank" rel="noopener">Icinga</a>：Nagios的扩展版本；</li>
+<li><a href="http://packetbeat.com/" target="_blank" rel="noopener">Packetbeat</a>：?是开源应用监控和包跟踪系统；</li>
+<li><a href="http://twitter.github.io/zipkin/" target="_blank" rel="noopener">Zipkin</a>：是Twitter的一个开源项目，允许开发者收集Twitter各个服务上的监控数据，并提供查询接口；</li>
+<li><a href="https://deadmanssnitch.com/" target="_blank" rel="noopener">Dead Man???s Snitch</a>：是一款监控Heroku Scheduler、计划的监视工具；</li>
+<li><a href="https://github.com/etsy/statsd/" target="_blank" rel="noopener">Statsd</a>：是一个Node.js的daemon程序，简单，轻巧。使用的UDP协议，可以和Graphite图片渲染应用结合；</li>
+<li><a href="http://riemann.io/" target="_blank" rel="noopener">Riemann</a>：一个网络监控系统；</li>
+<li><a href="https://github.com/sodabrew/puppet-dashboard" target="_blank" rel="noopener">Puppet Dashboard</a>：Puppet Dashboard是一个Web接口，为Puppet提供节点分类和报告功能，是一个开源的配置管理工具；</li>
+<li><a href="https://github.com/jmxtrans/jmxtrans" target="_blank" rel="noopener">jmxtrans</a>：jmxtrans是一款非常强大的工具，使用它可以轻易生成基于json的配置文章，然后再以你想要的格式输出；</li>
+<li><a href="https://github.com/Cue/scales" target="_blank" rel="noopener">Scales</a>：跟踪服务器状态和统计指标，使你全面掌握服务器状态，还可以发送指标到Graphite来图像呈现或者向文件写入崩溃信息；</li>
+<li><a href="http://www.zabbix.com/" target="_blank" rel="noopener">Zabbix</a>：是一个基于Web界面的提供分布式系统监视以及网络监视功能的企业级的开源解决方案；</li>
+<li><a href="http://www.graylog2.org/" target="_blank" rel="noopener">Graylog 2</a>：Graylog2是一个用来将系统日志syslog保存到MongoDB中的工具。</li>
+</ul>
+<p><strong>进程管理</strong></p>
+<ul>
+<li><a href="https://github.com/substack/bouncy" target="_blank" rel="noopener">Bouncy</a>：可以作为HTTP路由主机；</li>
+<li><a href="http://supervisord.org/" target="_blank" rel="noopener">Supervisor</a>：是一个客户端服务器系统，允许用户监控和控制类Unix操作系统上的进程数；</li>
+<li><a href="http://godrb.com/" target="_blank" rel="noopener">God</a>：由Ruby实现的进程监控框架。</li>
+</ul>
+<p><strong>服务发现</strong></p>
+<ul>
+<li><a href="https://github.com/hashicorp/consul" target="_blank" rel="noopener">Consul</a>：简化了分布式环境中的服务的注册和发现流程，通过HTTP或者DNS接口发现。支持外部SaaS 提供者等；</li>
+<li><a href="https://github.com/coreos/etcd" target="_blank" rel="noopener">etcd</a>：是一个高可用的Key/Value存储系统，主要用于分享配置和服务发现；</li>
+<li><a href="http://zookeeper.apache.org/" target="_blank" rel="noopener">Apache ZooKeeper</a>：是Apache Hadoop的一个子项目，它主要是用来解决分布式应用中经常遇到的一些数据管理问题；</li>
+<li><a href="https://github.com/zettio/weave" target="_blank" rel="noopener">Weave</a>：创建一个虚拟网络并连接到部署在多个主机上的Docker容器。</li>
+</ul>
+<p><strong>持续集成和交付</strong></p>
+<ul>
+<li><a href="http://buildbot.net/" target="_blank" rel="noopener">Buildbot</a>：是一个系统的自动化编译/测试周期最需要的软件，以验证代码的变化。通过自动重建和测试每次发生了变化的东西，在建设迅速查明之前，减少不必要的失败；</li>
+<li><a href="http://cabotapp.com/" target="_blank" rel="noopener">Cabot</a>：是一个开源，自我托管的监控工具；</li>
+<li><a href="http://jenkins-ci.org/" target="_blank" rel="noopener">Jenkins</a>：是基于Java开发的一种持续集成工具，用于监控持续重复的工作；</li>
+<li><a href="https://hubot.github.com/" target="_blank" rel="noopener">Hubot</a>：基于脚本具有很高的灵活性，任何人都可以编写自己的脚本来扩展基本功能；</li>
+<li><a href="http://hudson-ci.org/" target="_blank" rel="noopener">Hudson</a>：是一个可扩展的持续集成引擎，主要用于：持续、自动地构建/测试软件项目、监控一些定时执行的任务；</li>
+<li><a href="https://github.com/thoughtworks/cruisecontrol.rb" target="_blank" rel="noopener">CruiseControl.rb</a>：是一个持续集成服务器，它可以让团队里的每个人随时了解项目的健康状况和进度；</li>
+<li><a href="https://github.com/alcy/OpsBot" target="_blank" rel="noopener">OpsBot</a>：是一个开源的、可插入的改善通信的机器人。</li>
+</ul>
+<p>希望这些工具能够给开发者带来实实在在的帮助，想要查看更多工具，大家可以 <a href="https://dev-ops-tools.zeef.com/richard.kraayenhagen#block_41685_process-management" target="_blank" rel="noopener">访问原文</a>，原文中的工具列表会持续更新。 最后，再跟大家分享一个 <a href="http://www.devopsbookmarks.com/" target="_blank" rel="noopener">DevOps BookMarks</a>，这里面涉及了DevOps方方面面的工具和内容，有兴趣的同学可以前去学习。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/06/27/直接mark！开源的devops开发工具箱/" data-id="cjujhygdz00bfej3jzqhkyne2" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-centos6-5安装配置mongodb" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/06/16/centos6-5安装配置mongodb/" class="article-date">
+  <time datetime="2016-06-16T02:15:56.000Z" itemprop="datePublished">2016-06-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-linux/">积累________linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/16/centos6-5安装配置mongodb/">centos6.5安装配置mongodb</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>mongodb官网上下载最新版本的mongodb，按照官网上的说明进行安装：</p>
+<h3 id="首先运行如下命令："><a href="#首先运行如下命令：" class="headerlink" title="首先运行如下命令："></a>首先运行如下命令：</h3><figure class="highlight plain"><figcaption><span>-O</span><a href="http://downloads.mongodb.org/linux/mongodb-linux-x86_64-2.6.3.tgz````" target="_blank" rel="noopener">link</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 其次，运用tar 进行解压缩，按照如下命令</span><br><span class="line"></span><br><span class="line">``` `tar -zxvf mongodb-linux-x86_64-2.6.3.tgz`</span><br></pre></td></tr></table></figure>
+<h3 id="第三，新建mongodb文件夹，把解压了的mongodb-linux-x86-64-2-6-3复制到mongodb下面。"><a href="#第三，新建mongodb文件夹，把解压了的mongodb-linux-x86-64-2-6-3复制到mongodb下面。" class="headerlink" title="第三，新建mongodb文件夹，把解压了的mongodb-linux-x86_64-2.6.3复制到mongodb下面。"></a>第三，新建mongodb文件夹，把解压了的mongodb-linux-x86_64-2.6.3复制到mongodb下面。</h3><p>按照如下命令 <figure class="highlight plain"><figcaption><span>-p mongodb cp -R -n mongodb-linux-x86_64-2.6.3/ mongodb````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 第四，更改环境变量，在路径 /etc/下面，找到bashrc文件</span><br><span class="line"></span><br><span class="line">``` `export PATH=&lt;mongodb-install-directory&gt;:$PATH```` 替换成你的mongodb路径就可以了</span><br><span class="line"></span><br><span class="line">### 第五，创建mongodb的dbdata的路径</span><br><span class="line"></span><br><span class="line">``` `mkdir -p /usr/local/mongo/data mongod --dbpath /usr/local/mongo/data`</span><br></pre></td></tr></table></figure></p>
+<h3 id="第六，进入mongo的文件夹，运行mongo命令，启动mongo就可以了。"><a href="#第六，进入mongo的文件夹，运行mongo命令，启动mongo就可以了。" class="headerlink" title="第六，进入mongo的文件夹，运行mongo命令，启动mongo就可以了。"></a>第六，进入mongo的文件夹，运行mongo命令，启动mongo就可以了。</h3><p>上面的安装方法比较简单，但是有个问题，就是mongo启动必须同时制定data,也就是要运行mongod –dbpath /usr/local/mongo/data，比较繁琐，下面介绍一种一劳永逸的安装办法，把mongo的启动添加到服务当中。但是必须制定安装的版本，本例以mongodb-src-r1.8.1.tar.gz 具体可以参考博客：<a href="http://www.9958.pw/post/centos_mongodb" target="_blank" rel="noopener">http://www.9958.pw/post/centos_mongodb</a> 注：每个版本必须和博客中一致，下面对rin博客的这篇文章做一下转载！ 或者：</p>
+<h3 id="创建配置文件"><a href="#创建配置文件" class="headerlink" title="创建配置文件"></a>创建配置文件</h3><figure class="highlight plain"><figcaption><span>-p</span><a href="/usr/local/mongo/etc">/usr/local/mongo/data /usr/local/mongo/log/ /usr/local/mongo/repair vim /usr/local/mongo/etc/mongo.conf 在mongo.conf中添加下面的内容 dbpath </a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 看看是不是启动起来了，但是使用这种方式管理mongodb服务器很不明智，我们完善一下：</span><br><span class="line"></span><br><span class="line">``` `mkdir -p /usr/local/mongo/srv vim /usr/local/mongo/srv/mongodb-start`</span><br></pre></td></tr></table></figure>
+<h3 id="添加下面的内容"><a href="#添加下面的内容" class="headerlink" title="添加下面的内容"></a>添加下面的内容</h3><figure class="highlight plain"><figcaption><span>mongod -f</span><a href="/usr/local/mongo/etc/mongo.conf">vim /usr/local/mongo/srv/mongodb-stop````</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 添加下面的内容</span><br><span class="line"></span><br><span class="line">``` ``#!/bin/bash pid=`ps -o pid,command ax | grep mongod | awk &apos;!/awk/ &amp;&amp; !/grep/ &#123;print $1&#125;&apos;`; if [ &quot;$&#123;pid&#125;&quot; != &quot;&quot; ]; then kill -2 $&#123;pid&#125;; fi``</span><br></pre></td></tr></table></figure>
+<h3 id="添加执行权限"><a href="#添加执行权限" class="headerlink" title="添加执行权限"></a>添加执行权限</h3><figure class="highlight plain"><figcaption><span>a+x</span><a href="/usr/local/mongo/srv/mongodb-start">chmod a+x /usr/local/mongo/srv/mongodb-stop vim /etc/rc.d/init.d/mongodb````</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 添加下面的内容</span><br><span class="line"></span><br><span class="line">``` `#! /bin/sh # # mongodb – this script starts and stops the mongodb daemon # # chkconfig: - 85 15 # description: MongoDB is a non-relational database storage system. # processname: mongodb # config: /usr/local/mongo/etc/mongo.conf # pidfile: /usr/local/mongo/mongodb.pid PATH=/usr/local/mongo/bin:/sbin:/bin:/usr/sbin:/usr/bin NAME=mongodb test -x $DAEMON || exit 0 set -e case &quot;$1&quot; in start) echo -n &quot;Starting MongoDB... &quot; /usr/local/mongo/srv/mongodb-start ;; stop) echo -n &quot;Stopping MongoDB... &quot; /usr/local/mongo/srv/mongodb-stop ;; *) N=/etc/init.d/$NAME echo &quot;Usage: $N &#123;start|stop&#125;&quot; &gt;&amp;2 exit 1 ;; esac exit 0`</span><br></pre></td></tr></table></figure>
+<h3 id="添加服务"><a href="#添加服务" class="headerlink" title="添加服务"></a>添加服务</h3><p><code>`chmod a+x /etc/rc.d/init.d/mongodb chkconfig --add mongodb chkconfig --level 345 mongodb on /etc/rc.d/init.d/mongodb start`</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/06/16/centos6-5安装配置mongodb/" data-id="cjujhyg5y001cej3jda2neif0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-php算法-冒泡算法及其优化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/05/10/php算法-冒泡算法及其优化/" class="article-date">
+  <time datetime="2016-05-10T10:39:48.000Z" itemprop="datePublished">2016-05-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-php/">积累________php</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/10/php算法-冒泡算法及其优化/">php算法——冒泡算法及其优化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&apos;; if($arr\[$i\] &gt; $arr\[$j\])&#123; $tmp = $arr\[$i\]; $arr\[$i\] = $arr\[$j\]; $arr\[$j\] = $tmp; $bool = true; &#125; &#125; &#125;``` ``` // 优化算法,增加一个flag，如果发生了交换就退出子循环。 for($i=0;$i&lt;$cou;$i++)&#123; $bool = false; for($j=$i+1;$j&lt;$cou;$j++)&#123; echo $i.&apos; &apos;,$j.&apos; &apos;,$arr\[$i\].&apos; &apos;,$arr\[$j\].&apos; &apos;,&apos;  </span><br><span class="line">&apos;; if($arr\[$i\] &gt; $arr\[$j\])&#123; $tmp = $arr\[$i\]; $arr\[$i\] = $arr\[$j\]; $arr\[$j\] = $tmp; $bool = true; &#125; if($bool == false)&#123;break;&#125; &#125; &#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/05/10/php算法-冒泡算法及其优化/" data-id="cjujhyg9g005fej3jbc66u77o" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-git常用命令-2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/12/git常用命令-2/" class="article-date">
+  <time datetime="2016-04-12T05:49:07.000Z" itemprop="datePublished">2016-04-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-git/">积累________git</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/12/git常用命令-2/">Git常用命令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="从命令行创建一个新的仓库"><a href="#从命令行创建一个新的仓库" class="headerlink" title="从命令行创建一个新的仓库"></a>从命令行创建一个新的仓库</h3><figure class="highlight plain"><figcaption><span>README.md git init git add README.md git commit -m "first commit" git remote add origin</span><a href="http://dadanliao.com/quantitative/test.git" target="_blank" rel="noopener">git push -u origin master```</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 从命令行推送已经创建的仓库</span><br><span class="line"></span><br><span class="line">``` git remote add origin http://dadanliao.com/quantitative/test.git git push -u origin master</span><br></pre></td></tr></table></figure>
+<p><strong>辅助功能</strong> <code>git version # 查看当前git版本信息 git help # 获取全部命令帮助信息 git help  # 获取指定命令帮助信息 git config user.name &quot;Your Name Comes Here&quot; # 设置当前项目git用户名 git config --global user.name &quot;Your Name Comes Here&quot; # 设置全局项目git用户名 git config user.email [you@yourdomain.example.com](mailto:you@yourdomain.example.com) # 设置当前项目git电子邮件 git config --global user.email [you@yourdomain.example.com](mailto:you@yourdomain.example.com) # 设置全局项目git电子邮件 git config --list # 显示当前项目设置参数 git config --global --list # 显示全局项目设置参数 git config core.fileMode false # 让git忽略掉文件权限检查  git init # 初始化git仓库 git status # 查看当前本地库状态 git status -uno # 查看当前本地库有哪几个文件冲突 git help  # 显示command的help</code> <strong>查看、添加、提交、删除、找回，重置修改文件</strong> <code>git show  # 显示某次提交的内容 git show $id git co --  # 抛弃工作区修改 git co . # 抛弃工作区修改 git add  # 将工作文件修改提交到本地暂存区 git add . # 将所有修改过的工作文件提交暂存区 git add   # 将工作文件修改提交到本地暂存区 git add  # 添加指定目录到索引 git add . # 将所有修改过的工作文件提交暂存区 git add --all # 添加所有文件到索引 git rm  # 从版本库中删除文件 git rm  --cached # 从版本库中删除文件，但不删除文件 git clean -f  # 删除 untracked files git clean -fd # 连 untracked 的目录也一起删掉 git clean -xfd # 连 gitignore 的untrack 文件/目录也一起删掉 （慎用，一般这个是用来删掉编译出来的 .o之类的文件用的） # 在用上述 git clean 前，墙裂建议加上 -n 参数来先看看会删掉哪些文件，防止重要文件被误删 git clean -nxfd git clean -nf git clean -nfd git reset  # 从暂存区恢复到工作文件 git reset -- . # 从暂存区恢复到工作文件 git reset --hard # 恢复最近一次提交过的状态，即放弃上次提交后的所有本次修改 git ci  git ci . git ci -a # 将git add, git rm和git ci等操作都合并在一起做 git ci -am &quot;some comments&quot; git ci --amend # 修改最后一次提交记录 git revert &lt;$id&gt; # 恢复某次提交的状态，恢复动作本身也创建次提交对象 git revert HEAD # 恢复最后一次提交的状态</code> <strong>查看文件diff</strong> <code>git diff  # 比较当前文件和暂存区文件差异 git diff git diff &lt;id1&gt;&lt;&quot;&gt;id1&gt;&lt;id1&gt;&lt;id2&gt; # 比较两次提交之间的差异 git diff .. # 在两个分支之间比较 git diff --staged # 比较暂存区和版本库差异 git diff --cached # 比较暂存区和版本库差异 git diff --stat # 仅仅比较统计信息</code> <strong>查看提交记录</strong> <code>git log git log  # 查看该文件每次提交记录 git log -p  # 查看每次详细修改内容的diff git log -p -2 # 查看最近两次详细修改内容的diff git log --stat # 查看提交统计信息</code> <strong>tig</strong> Mac上可以使用tig代替diff和log，brew install tig <strong>Git 本地分支管理</strong> <strong>查看、切换、创建和删除分支</strong> <code>git br -r # 查看远程分支 git br  # 创建新的分支 git br -v # 查看各个分支最后提交信息 git br --merged # 查看已经被合并到当前分支的分支 git br --no-merged # 查看尚未被合并到当前分支的分支 git co  # 切换到某个分支 git co -b  # 创建新的分支，并且切换过去 git co -b   # 基于branch创建新的new_branch git co $id # 把某次历史提交记录checkout出来，但无分支信息，切换到其他分支会自动删除 git co $id -b  # 把某次历史提交记录checkout出来，创建成一个分支 git checkout  # 切换到名为localBranchName的本地分支上 git checkout  # 切换到名为remoteBranchName的远程分支上，此时未新建分支，而是处于一个名为no branch的临时分支上，还需要使用git branch -b 来创建一个新分支并将该临时分支挂接到新分支上 git checkout -b  # 创建一个名为branchName的新分支，并切换到该分支上 git checkout  # 将一个文件恢复至修改前的版本。 git br -d  # 删除某个分支 git br -D  # 强制删除某个分支 (未被合并的分支被删除的时候需要强制)</code> <strong>分支合并和rebase</strong> <code>git merge  # 将branch分支合并到当前分支 git merge origin/master --no-ff # 不要Fast-Foward合并，这样可以生成merge提交 git rebase master  # 将master rebase到branch，相当于： git co  &amp;&amp; git rebase master &amp;&amp; git co master &amp;&amp; git merge</code> <strong>Git补丁管理(方便在多台机器上开发同步时用)</strong> <code>git diff &gt; ../sync.patch # 生成补丁 git apply ../sync.patch # 打补丁 git apply --check ../sync.patch # 测试补丁能否成功</code> <strong>Git暂存管理</strong> <code>git stash # 暂存 git stash list # 列所有stash git stash apply # 恢复暂存的内容 git stash drop # 删除暂存区</code> <strong>Git远程分支管理</strong> <code>git pull # 抓取远程仓库所有分支更新并合并到本地 git pull --no-ff # 抓取远程仓库所有分支更新并合并到本地，不要快进合并 git fetch origin # 抓取远程仓库更新 git merge origin/master # 将远程主分支合并到本地当前分支 git co --track origin/branch # 跟踪某个远程分支创建相应的本地分支 git co -b  origin/ # 基于远程分支创建本地分支，功能同上 git push # push所有分支 git push origin master # 将本地主分支推到远程主分支 git push -u origin master # 将本地主分支推到远程(如无远程主分支则创建，用于初始化远程仓库) git push origin  # 创建远程分支， origin是远程仓库名 git push origin : # 创建远程分支 git push origin : #先删除本地分支(git br -d )，然后再push删除远程分支</code> <strong>Git远程仓库管理</strong> <code>git remote -v # 查看远程服务器地址和仓库名称 git remote show origin # 查看远程服务器仓库状态 git remote add origin git@ github:robbin/robbin\_site.git # 添加远程仓库地址 git remote set-url origin git@ github.com:robbin/robbin\_site.git # 设置远程仓库地址(用于修改远程仓库地址) git remote rm  # 删除远程仓库</code> <strong>创建远程仓库</strong> <code>git clone --bare robbin\_site robbin\_site.git # 用带版本的项目创建纯版本仓库 scp -r my\_project.git git@ git.csdn.net:~ # 将纯仓库上传到服务器上 mkdir robbin\_site.git &amp;&amp; cd robbin\_site.git &amp;&amp; git --bare init # 在服务器创建纯仓库 git remote add origin git@ github.com:robbin/robbin\_site.git # 设置远程仓库地址 git push -u origin master # 客户端首次提交 git push -u origin develop # 首次将本地develop分支提交到远程develop分支，并且track git remote set-head origin master # 设置远程仓库的HEAD指向master分支也可以命令设置跟踪远程库和本地库 git branch --set-upstream master origin/master git branch --set-upstream develop origin/develop git branch # 查看现在本地分支情况 git branch -r # 查看服务器端分支情况 git branch  # 创建一个名为branchName的新分支 git branch -d  # 删除一个名为branchName的旧分支 git branch -m   # 将名为oldBranchName的分支名称修改为newBranchName git branch -m  # 将正在工作分支名称修改为newBranchName</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/04/12/git常用命令-2/" data-id="cjujhyg6n002aej3jn8ks50va" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-js中apply方法的使用详细解析" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/24/js中apply方法的使用详细解析/" class="article-date">
+  <time datetime="2016-03-24T06:35:28.000Z" itemprop="datePublished">2016-03-24</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-js/">积累________js</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/24/js中apply方法的使用详细解析/">js中apply方法的使用详细解析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>1、对象的继承，一般的做法是复制：Object.extend</strong> prototype.js的实现方式是：</p>
+<p>复制代码代码如下:</p>
+<p>Object.extend = function(destination, source) { for (property in source) { destination[property] = source[property]; } return destination; }</p>
+<p>除此之外，还有种方法，就是：Function.apply（当然使用Function.call也是可以的） apply方法能劫持另外一个对象的方法，继承另外一个对象的属性 Function.apply(obj,args)方法能接收两个参数 <strong>obj：</strong>这个对象将代替Function类里this对象 <strong>args：</strong>这个是数组，它将作为参数传给Function（args–&gt;arguments） apply示范代码如下：</p>
+<p>复制代码代码如下:</p>
+<p>function Person(name,age){?? //定义一个类，人类 this.name=name;???? //名字 this.age=age;?????? //年龄 this.sayhello=function(){alert(“hello”)}; } function Print(){??????????? //显示类的属性 this.funcName=”Print”; this.show=function(){ var msg=[]; for(var key in this){ if(typeof(this[key])!=”function”){ msg.push([key,”:”,this[key]].join(“”)); } } alert(msg.join(“ “)); }; } function Student(name,age,grade,school){??? //学生类 Person.apply(this,arguments); Print.apply(this,arguments); this.grade=grade;??????????????? //年级 this.school=school;???????????????? //学校 } var p1=new Person(“jake”,10); p1.sayhello(); var s1=new Student(“tom”,13,6,”清华小学”); s1.show(); s1.sayhello(); alert(s1.funcName);</p>
+<p>学生类本来不具备任何方法，但是在Person.apply(this,arguments)后， 他就具备了Person类的sayhello方法和所有属性。 在Print.apply(this,arguments)后就自动得到了show()方法 <strong>2、利用Apply的参数数组化来提高</strong> Function.apply()在提升程序性能方面的技巧 我们先从Math.max()函数说起，Math.max后面可以接任意个参数，最后返回所有参数中的最大值。 比如 alert(Math.max(5,8))?? //8 alert(Math.max(5,7,9,3,1,6))?? //9 但是在很多情况下，我们需要找出数组中最大的元素。</p>
+<p>复制代码代码如下:</p>
+<p>var arr=[5,7,9,1] alert(Math.max(arr))??? // 这样却是不行的。一定要这样写function getMax(arr){ var arrLen=arr.length; for(var i=0,ret=arr[0];i 这样写麻烦而且低效。如果用 apply呢，看代码：</p>
+<p>复制代码代码如下:</p>
+<p>function getMax2(arr){ return Math.max.apply(null,arr); }</p>
+<p>两段代码达到了同样的目的，但是getMax2却优雅，高效，简洁得多。 再比如数组的push方法。 var arr1=[1,3,4]; var arr2=[3,4,5]; 如果我们要把 arr2展开，然后一个一个追加到arr1中去，最后让arr1=[1,3,4,3,4,5] arr1.push(arr2)显然是不行的。 因为这样做会得到[1,3,4,[3,4,5]] 我们只能用一个循环去一个一个的push(当然也可以用arr1.concat(arr2)，但是concat方法并不改变arr1本身)</p>
+<p>复制代码代码如下:</p>
+<p>var arrLen=arr2.length for(var i=0;i 自从有了Apply,事情就变得如此简单 Array.prototype.push.apply(arr1,arr2)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/03/24/js中apply方法的使用详细解析/" data-id="cjujhyg780030ej3jz7j9jkye" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-css-选择器笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/24/css-选择器笔记/" class="article-date">
+  <time datetime="2016-03-24T06:34:49.000Z" itemprop="datePublished">2016-03-24</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-js/">积累________js</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/24/css-选择器笔记/">CSS - 选择器笔记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>笔记分为两个部分，今天是CSS的选择器，以后还有一部分xPath的选择器。今天的笔记中包括44个选择器，基本涵盖了CSS 2和CSS 3的所有规定。 ===================== <strong>CSS选择器笔记</strong> <strong>一、基本选择器</strong></p>
+<p>序号</p>
+<p>选择器</p>
+<p>含义</p>
+<p>1.</p>
+<hr>
+<p>通用元素选择器，匹配任何元素</p>
+<p>2.</p>
+<p><strong>E</strong></p>
+<p>标签选择器，匹配所有使用E标签的元素</p>
+<p>3.</p>
+<p><strong>.info</strong></p>
+<p>class选择器，匹配所有class属性中包含info的元素</p>
+<p>4.</p>
+<p><strong>#footer</strong></p>
+<p>id选择器，匹配所有id属性等于footer的元素</p>
+<p>实例：</p>
+<blockquote>
+<p>* { margin:0; padding:0; } p { font-size:2em; } .info { background:#ff0; } p.info { background:#ff0; } p.info.error { color:#900; font-weight:bold; } #info { background:#ff0; } p#info { background:#ff0; }</p>
+</blockquote>
+<p><strong>二、多元素的组合选择器</strong></p>
+<p>序号</p>
+<p>选择器</p>
+<p>含义</p>
+<p>5.</p>
+<p>E,F</p>
+<p>多元素选择器，同时匹配所有E元素或F元素，E和F之间用逗号分隔</p>
+<p>6.</p>
+<p>E F</p>
+<p>后代元素选择器，匹配所有属于E元素后代的F元素，E和F之间用空格分隔</p>
+<p>7.</p>
+<p>E &gt; F</p>
+<p>子元素选择器，匹配所有E元素的子元素F</p>
+<p>8.</p>
+<p>E + F</p>
+<p>毗邻元素选择器，匹配所有紧随E元素之后的同级元素F</p>
+<p>实例：</p>
+<blockquote>
+<p>div p { color:#f00; } #nav li { display:inline; } #nav a { font-weight:bold; } div &gt; strong { color:#f00; } p + p { color:#f00; }</p>
+</blockquote>
+<p><strong>三、CSS 2.1 属性选择器</strong></p>
+<p>序号</p>
+<p>选择器</p>
+<p>含义</p>
+<p>9.</p>
+<p>E[att]</p>
+<p>匹配所有具有att属性的E元素，不考虑它的值。（注意：E在此处可以省略，比如“[cheacked]”。以下同。）</p>
+<p>10.</p>
+<p>E[att=val]</p>
+<p>匹配所有att属性等于“val”的E元素</p>
+<p>11.</p>
+<p>E[att~=val]</p>
+<p>匹配所有att属性具有多个空格分隔的值、其中一个值等于“val”的E元素</p>
+<p>12.</p>
+<p>E[att|=val]</p>
+<p>匹配所有att属性具有多个连字号分隔（hyphen-separated）的值、其中一个值以“val”开头的E元素，主要用于lang属性，比如“en”、“en-us”、“en-gb”等等</p>
+<p>实例：</p>
+<blockquote>
+<p>p[title] { color:#f00; } div[class=error] { color:#f00; } td[headers~=col1] { color:#f00; } p[lang|=en] { color:#f00; } blockquote[class=quote][cite] { color:#f00; }</p>
+</blockquote>
+<p><strong>四、CSS 2.1中的伪类</strong></p>
+<p>序号</p>
+<p>选择器</p>
+<p>含义</p>
+<p>13.</p>
+<p>E:first-child</p>
+<p>匹配父元素的第一个子元素</p>
+<p>14.</p>
+<p>E:link</p>
+<p>匹配所有未被点击的链接</p>
+<p>15.</p>
+<p>E:visited</p>
+<p>匹配所有已被点击的链接</p>
+<p>16.</p>
+<p>E:active</p>
+<p>匹配鼠标已经其上按下、还没有释放的E元素</p>
+<p>17.</p>
+<p>E:hover</p>
+<p>匹配鼠标悬停其上的E元素</p>
+<p>18.</p>
+<p>E:focus</p>
+<p>匹配获得当前焦点的E元素</p>
+<p>19.</p>
+<p>E:lang(c)</p>
+<p>匹配lang属性等于c的E元素</p>
+<p>实例：</p>
+<blockquote>
+<p>p:first-child { font-style:italic; } input[type=text]:focus { color:#000; background:#ffe; } input[type=text]:focus:hover { background:#fff; } q:lang(sv) { quotes: “\201D” “\201D” “\2019” “\2019”; }</p>
+</blockquote>
+<p><strong>五、 CSS 2.1中的伪元素</strong></p>
+<p>序号</p>
+<p>选择器</p>
+<p>含义</p>
+<p>20.</p>
+<p>E:first-line</p>
+<p>匹配E元素的第一行</p>
+<p>21.</p>
+<p>E:first-letter</p>
+<p>匹配E元素的第一个字母</p>
+<p>22.</p>
+<p>E:before</p>
+<p>在E元素之前插入生成的内容</p>
+<p>23.</p>
+<p>E:after</p>
+<p>在E元素之后插入生成的内容</p>
+<p>实例：</p>
+<blockquote>
+<p>p:first-line { font-weight:bold; color;#600; } .preamble:first-letter { font-size:1.5em; font-weight:bold; } .cbb:before { content:””; display:block; height:17px; width:18px; background:url(top.png) no-repeat 0 0; margin:0 0 0 -18px; } a:link:after { content: “ (“ attr(href) “) “; }</p>
+</blockquote>
+<p><strong>六、CSS 3的同级元素通用选择器</strong></p>
+<p>序号</p>
+<p>选择器</p>
+<p>含义</p>
+<p>24.</p>
+<p>E ~ F</p>
+<p>匹配任何在E元素之后的同级F元素</p>
+<p>实例：</p>
+<blockquote>
+<p>p ~ ul { background:#ff0; }</p>
+</blockquote>
+<p><strong>七、CSS 3 属性选择器</strong></p>
+<p>序号</p>
+<p>选择器</p>
+<p>含义</p>
+<p>25.</p>
+<p>E[att^=”val”]</p>
+<p>属性att的值以”val”开头的元素</p>
+<p>26.</p>
+<p>E[att$=”val”]</p>
+<p>属性att的值以”val”结尾的元素</p>
+<p>27.</p>
+<p>E[att*=”val”]</p>
+<p>属性att的值包含”val”字符串的元素</p>
+<p>实例：</p>
+<blockquote>
+<p>div[id^=”nav”] { background:#ff0; }</p>
+</blockquote>
+<p><strong>八、CSS 3中与用户界面有关的伪类</strong></p>
+<p>序号</p>
+<p>选择器</p>
+<p>含义</p>
+<p>28.</p>
+<p>E:enabled</p>
+<p>匹配表单中激活的元素</p>
+<p>29.</p>
+<p>E:disabled</p>
+<p>匹配表单中禁用的元素</p>
+<p>30.</p>
+<p>E:checked</p>
+<p>匹配表单中被选中的radio（单选框）或checkbox（复选框）元素</p>
+<p>31.</p>
+<p>E::selection</p>
+<p>匹配用户当前选中的元素</p>
+<p>实例：</p>
+<blockquote>
+<p>input[type=”text”]:disabled { background:#ddd; }</p>
+</blockquote>
+<p><strong>九、CSS 3中的结构性伪类</strong></p>
+<p>序号</p>
+<p>选择器</p>
+<p>含义</p>
+<p>32.</p>
+<p>E:root</p>
+<p>匹配文档的根元素，对于HTML文档，就是HTML元素</p>
+<p>33.</p>
+<p>E:nth-child(n)</p>
+<p>匹配其父元素的第n个子元素，第一个编号为1</p>
+<p>34.</p>
+<p>E:nth-last-child(n)</p>
+<p>匹配其父元素的倒数第n个子元素，第一个编号为1</p>
+<p>35.</p>
+<p>E:nth-of-type(n)</p>
+<p>与:nth-child()作用类似，但是仅匹配使用同种标签的元素</p>
+<p>36.</p>
+<p>E:nth-last-of-type(n)</p>
+<p>与:nth-last-child() 作用类似，但是仅匹配使用同种标签的元素</p>
+<p>37.</p>
+<p>E:last-child</p>
+<p>匹配父元素的最后一个子元素，等同于:nth-last-child(1)</p>
+<p>38.</p>
+<p>E:first-of-type</p>
+<p>匹配父元素下使用同种标签的第一个子元素，等同于:nth-of-type(1)</p>
+<p>39.</p>
+<p>E:last-of-type</p>
+<p>匹配父元素下使用同种标签的最后一个子元素，等同于:nth-last-of-type(1)</p>
+<p>40.</p>
+<p>E:only-child</p>
+<p>匹配父元素下仅有的一个子元素，等同于:first-child:last-child或 :nth-child(1):nth-last-child(1)</p>
+<p>41.</p>
+<p>E:only-of-type</p>
+<p>匹配父元素下使用同种标签的唯一一个子元素，等同于:first-of-type:last-of-type或 :nth-of-type(1):nth-last-of-type(1)</p>
+<p>42.</p>
+<p>E:empty</p>
+<p>匹配一个不包含任何子元素的元素，注意，文本节点也被看作子元素</p>
+<p>实例：</p>
+<blockquote>
+<p>p:nth-child(3) { color:#f00; } p:nth-child(odd) { color:#f00; } p:nth-child(even) { color:#f00; } p:nth-child(3n+0) { color:#f00; } p:nth-child(3n) { color:#f00; } tr:nth-child(2n+11) { background:#ff0; } tr:nth-last-child(2) { background:#ff0; } p:last-child { background:#ff0; } p:only-child { background:#ff0; } p:empty { background:#ff0; }</p>
+</blockquote>
+<p><strong>十、CSS 3的反选伪类</strong></p>
+<p>序号</p>
+<p>选择器</p>
+<p>含义</p>
+<p>43.</p>
+<p>E:not(s)</p>
+<p>匹配不符合当前选择器的任何元素</p>
+<p>实例：</p>
+<blockquote>
+<p>:not(p) { border:1px solid #ccc; }</p>
+</blockquote>
+<p><strong>十一、CSS 3中的 :target 伪类</strong></p>
+<p>序号</p>
+<p>选择器</p>
+<p>含义</p>
+<p>44.</p>
+<p>E:target</p>
+<p>匹配文档中特定”id”点击后的效果</p>
+<p>请参看HTML DOG上关于该选择器的<a href="http://htmldog.com/articles/suckerfish/target/" target="_blank" rel="noopener">详细解释</a>和<a href="http://htmldog.com/articles/suckerfish/target/example/" target="_blank" rel="noopener">实例</a>。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/03/24/css-选择器笔记/" data-id="cjujhyg64001mej3jreubr8s9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/14/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/16/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

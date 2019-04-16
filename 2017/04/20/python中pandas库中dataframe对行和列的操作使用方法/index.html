@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>python中pandas库中DataFrame对行和列的操作使用方法 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="import numpy as np import pandas as pd from pandas import Sereis, DataFrame ser = Series(np.arange(3.)) data = DataFrame(np.arange(16).reshape(4,4),index=list(&amp;#39;abcd&amp;#39;),columns=list(&amp;#39;wxyz&amp;#3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python中pandas库中DataFrame对行和列的操作使用方法">
+<meta property="og:url" content="http://yoursite.com/2017/04/20/python中pandas库中dataframe对行和列的操作使用方法/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="import numpy as np import pandas as pd from pandas import Sereis, DataFrame ser = Series(np.arange(3.)) data = DataFrame(np.arange(16).reshape(4,4),index=list(&amp;#39;abcd&amp;#39;),columns=list(&amp;#39;wxyz&amp;#3">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-16T07:59:56.545Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python中pandas库中DataFrame对行和列的操作使用方法">
+<meta name="twitter:description" content="import numpy as np import pandas as pd from pandas import Sereis, DataFrame ser = Series(np.arange(3.)) data = DataFrame(np.arange(16).reshape(4,4),index=list(&amp;#39;abcd&amp;#39;),columns=list(&amp;#39;wxyz&amp;#3">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-python中pandas库中dataframe对行和列的操作使用方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/20/python中pandas库中dataframe对行和列的操作使用方法/" class="article-date">
+  <time datetime="2017-04-20T07:08:46.000Z" itemprop="datePublished">2017-04-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-python/">积累________python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      python中pandas库中DataFrame对行和列的操作使用方法
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>import numpy as np import pandas as pd from pandas import Sereis, DataFrame ser = Series(np.arange(3.)) data = DataFrame(np.arange(16).reshape(4,4),index=list(&#39;abcd&#39;),columns=list(&#39;wxyz&#39;)) data\[&#39;w&#39;\] #选择表格中的&#39;w&#39;列，使用类字典属性,返回的是Series类型 data.w #选择表格中的&#39;w&#39;列，使用点属性,返回的是Series类型 data\[\[&#39;w&#39;\]\] #选择表格中的&#39;w&#39;列，返回的是DataFrame类型 data\[\[&#39;w&#39;,&#39;z&#39;\]\] #选择表格中的&#39;w&#39;、&#39;z&#39;列 data\[0:2\] #返回第1行到第2行的所有行，前闭后开，包括前不包括后 data\[1:2\] #返回第2行，从0计，返回的是单行，通过有前后值的索引形式， # 如果采用data\[1\]则报错 data.ix\[1:2\] #返回第2行的第三种方法，返回的是DataFrame，跟data\[1:2\]同 data\[&#39;a&#39;:&#39;b&#39;\] #利用index值进行切片，返回的是**前闭后闭**的DataFrame, # 即末端是包含的 data.irow(0) #取data的第一行 data.icol(0) #取data的第一列 data.head() #返回data的前几行数据，默认为前五行，需要前十行则data.head(10) data.tail() #返回data的后几行数据，默认为后五行，需要后十行则data.tail(10) ser.iget\_value(0) #选取ser序列中的第一个 ser.iget\_value(-1) #选取ser序列中的最后一个，这种轴索引包含索引器的series不能采用ser\[-1\]去获取最后一个，这会引起歧义。 data.iloc\[-1\] #选取DataFrame最后一行，返回的是Series data.iloc\[-1:\] #选取DataFrame最后一行，返回的是DataFrame data.loc\[&#39;a&#39;,\[&#39;w&#39;,&#39;x&#39;\]\] #返回‘a’行&#39;w&#39;、&#39;x&#39;列，这种用于选取行索引列索引已知 data.iat\[1,1\] #选取第二行第二列，用于已知行、列位置的选取。</code> 下面是简单的例子使用验证： <code>import pandas as pd from pandas import Series, DataFrame import numpy as np data = DataFrame(np.arange(15).reshape(3,5),index=\[&#39;one&#39;,&#39;two&#39;,&#39;three&#39;\],columns=\[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;,&#39;e&#39;\]) data Out\[7\]: a b c d e one 0 1 2 3 4 two 5 6 7 8 9 three 10 11 12 13 14 # 对列的操作方法有如下几种 data.icol(0) #选取第一列 E:\\Anaconda2\\lib\\site-packages\\spyder\\utils\\ipython\\start\_kernel.py:1: FutureWarning: icol(i) is deprecated. Please use .iloc\[:,i\] # -*- coding: utf-8 -*- Out\[35\]: one 0 two 5 three 10 Name: a, dtype: int32 data\[&#39;a&#39;\] Out\[8\]: one 0 two 5 three 10 Name: a, dtype: int32 data.a Out\[9\]: one 0 two 5 three 10 Name: a, dtype: int32 data\[\[&#39;a&#39;\]\] Out\[10\]: a one 0 two 5 three 10 data.ix\[:,\[0,1,2\]\] #不知道列名只知道列的位置时 Out\[13\]: a b c one 0 1 2 two 5 6 7 three 10 11 12 data.ix\[1,\[0\]\] #选择第2行第1列的值 Out\[14\]: a 5 Name: two, dtype: int32 data.ix\[\[1,2\],\[0\]\] #选择第2,3行第1列的值 Out\[15\]: a two 5 three 10 data.ix\[1:3,\[0,2\]\] #选择第2-4行第1、3列的值 Out\[17\]: a c two 5 7 three 10 12 data.ix\[1:2,2:4\] #选择第2-3行，3-5（不包括5）列的值 Out\[29\]: c d two 7 8 data.ix\[data.a&gt;5,3\] Out\[30\]: three 13 Name: d, dtype: int32 data.ix\[data.b&gt;6,3:4\] #选择&#39;b&#39;列中大于6所在的行中的第4列，有点拗口 Out\[31\]: d three 13 data.ix\[data.a&gt;5,2:4\] #选择&#39;a&#39;列中大于5所在的行中的第3-5（不包括5）列 Out\[32\]: c d three 12 13 data.ix\[data.a&gt;5,\[2,2,2\]\] #选择&#39;a&#39;列中大于5所在的行中的第2列并重复3次 Out\[33\]: c c c three 12 12 12 # 还可以行数或列数跟行名列名混着用 data.ix\[1:3,\[&#39;a&#39;,&#39;e&#39;\]\] Out\[24\]: a e two 5 9 three 10 14 data.ix\[&#39;one&#39;:&#39;two&#39;,\[2,1\]\] Out\[25\]: c b one 2 1 two 7 6 data.ix\[\[&#39;one&#39;,&#39;three&#39;\],\[2,2\]\] Out\[26\]: c c one 2 2 three 12 12 data.ix\[&#39;one&#39;:&#39;three&#39;,\[&#39;a&#39;,&#39;c&#39;\]\] Out\[27\]: a c one 0 2 two 5 7 three 10 12 data.ix\[\[&#39;one&#39;,&#39;one&#39;\],\[&#39;a&#39;,&#39;e&#39;,&#39;d&#39;,&#39;d&#39;,&#39;d&#39;\]\] Out\[28\]: a e d d d one 0 4 3 3 3 one 0 4 3 3 3 # 对行的操作有如下几种： data\[1:2\] #（不知道列索引时）选择第2行，不能用data\[1\]，可以用data.ix\[1\] Out\[18\]: a b c d e two 5 6 7 8 9 data.irow(1) #选取第二行 Out\[36\]: a 5 b 6 c 7 d 8 e 9 Name: two, dtype: int32 data.ix\[1\] #选择第2行 Out\[20\]: a 5 b 6 c 7 d 8 e 9 Name: two, dtype: int32 data\[&#39;one&#39;:&#39;two&#39;\] #当用已知的行索引时为前闭后闭区间，这点与切片稍有不同。 Out\[22\]: a b c d e one 0 1 2 3 4 two 5 6 7 8 9 data.ix\[1:3\] #选择第2到4行，不包括第4行，即前闭后开区间。 Out\[23\]: a b c d e two 5 6 7 8 9 three 10 11 12 13 14 data.ix\[-1:\] #取DataFrame中最后一行，返回的是DataFrame类型,**注意**这种取法是有使用条件的，只有当行索引不是数字索引时才可以使用，否则可以选用\`data\[-1:\]\`--返回DataFrame类型或\`data.irow(-1)\`--返回Series类型 Out\[11\]: a b c d e three 10 11 12 13 14 data\[-1:\] #跟上面一样，取DataFrame中最后一行，返回的是DataFrame类型 Out\[12\]: a b c d e three 10 11 12 13 14 data.ix\[-1\] #取DataFrame中最后一行，返回的是Series类型，这个一样，行索引不能是数字时才可以使用 Out\[13\]: a 10 b 11 c 12 d 13 e 14 Name: three, dtype: int32 data.tail(1) #返回DataFrame中的最后一行 data.head(1) #返回DataFrame中的第一行</code> 最近处理数据时发现当pd.read_csv()数据时有时候会有读取到未命名的列，且该列也用不到，一般是索引列被换掉后导致的，有强迫症的看着难受，这时候dataframe.drop([columns,])是没法处理的，怎么办呢， 最笨的方法是直接给列索引重命名： <code>data6 Unnamed: 0 high symbol time date 2016-11-01 0 3317.4 IF1611 18:10:44.8 2016-11-01 1 3317.4 IF1611 06:01:04.5 2016-11-01 2 3317.4 IF1611 07:46:25.5 2016-11-01 3 3318.4 IF1611 09:30:04.0 2016-11-01 4 3321.8 IF1611 09:31:04.0 data6.columns = list(&#39;abcd&#39;) data6 a b c d date 2016-11-01 0 3317.4 IF1611 18:10:44.8 2016-11-01 1 3317.4 IF1611 06:01:04.5 2016-11-01 2 3317.4 IF1611 07:46:25.5 2016-11-01 3 3318.4 IF1611 09:30:04.0 2016-11-01 4 3321.8 IF1611 09:31:04.0</code> 重新命名后就可以用dataframe.drop([columns])来删除了，当然不用我这样全部给列名替换掉了，可以只是改变未命名的那个列，然后删除。不过这个用起来总是觉得有点low，有没有更好的方法呢，有，可以不去删除，直接： <code>data7 = data6.ix\[:,1:\]</code> 这样既不改变原有数据，也达到了删除神烦列，当然我这里时第0列删除，可以根据实际选择所在的列删除之，至于这个原理，可以看下前面的对列的操作。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/20/python中pandas库中dataframe对行和列的操作使用方法/" data-id="cjujhyga10062ej3j2600e8u5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/20/pandas：让你像写sql一样做数据分析/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Pandas：让你像写SQL一样做数据分析
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/04/20/用pandas完成excel中常见的任务（2）/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">用Pandas完成Excel中常见的任务（2）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-mac中使用expect和ga-cmd登陆跳转机2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/" class="article-date">
+  <time datetime="2018-12-17T04:26:44.000Z" itemprop="datePublished">2018-12-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/日常-经验分享/">日常________经验分享</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>## 安装expect brew install expect ## 安装gacmd $ git clone <a href="https://github.com/arcanericky/ga-cmd.git" target="_blank" rel="noopener">https://github.com/arcanericky/ga-cmd.git</a> $ git submodule init $ git submodule update $ cd ga-cmd/src ## 获取跳板机 $ vim .google_authenticator $ ./build.sh <16 character seed> ## 检测一下 $ ga-cmd/src/bin/ga-cmd 123456 ## 编写 expect 脚本 #!/usr/bin/expect set host [lindex $argv 0] set VERIFICATION [lindex $argv 1] set TERMSERV 192.2.1.2 set USER yaozihao set PASSWORD 123456 set UATUN yaozihao #set UATPWD 内服务器密码 # 登录跳板机 spawn ssh -l $USER $TERMSERV expect { “*erificati*“ {send “$VERIFICATION\r”;exp_continue;} # “yes/no” {send “yes\r”;exp_continue;} “*assword:*“ { send “$PASSWORD\r”;} } # 登录内网 expect “$USER@<em>“ {send “ssh -l $UATUN $host\r”} #expect { # “yes/no” {send “yes\r”;exp_continue;} # “\</em>password:*“ { send “$UATPWD\r” } # } interact ## 编写自动登陆脚本 vim ~/test_expect.sh #!/bin/bash verification=$(/wwwroot/lib/ga-cmd/src/bin/ga-cmd) echo $verification /Users/yaozihao/expect.ecp 10.66.1.1 $verification exit 0 ## 执行测试一下 ~/test_expect.sh</16></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/" data-id="cjujhy1w80000dy3jiukzfjsh" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mac中使用expect和gocmd登陆跳转机" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/" class="article-date">
+  <time datetime="2018-12-15T13:21:16.000Z" itemprop="datePublished">2018-12-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/日常-经验分享/">日常________经验分享</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>安装 expect:<br><code>brew install expect</code><br>使用 expect:<br><code># 表示获取执行脚本命名空格后第一个参数 set user \[lindex $argv 0\]</code><br>安装 ga-cmd:<br> <code>$ git clone https://github.com/arcanericky/ga-cmd.git $ git submodule init $ git submodule update</code><br> 脚本参数解释：<br> <code>// 告诉操作系统脚本里的代码使用那一个shell来执行。这里的expect其实和linux下的bash、windows下的cmd是一类东西。 注意：这一行需要在脚本的第一行。 #!/usr/bin/expect // 设置超时时间的，计时单位：秒 set timeout 30 // spawn是进入expect环境后才可以执行的expect内部命令，如果没有装expect或者直接在默认的SHELL下执行是找不到spawn命令的。所以不要用 “which spawn“之类的命令去找spawn命令。好比windows里的dir就是一个内部命令，这个命令由shell自带，你无法找到一个dir.com 或 dir.exe 的可执行文件。它主要的功能是给ssh运行进程加个壳，用来传递交互指令。 spawn ssh -l username 192.168.1.1 // expect 同样是内置命令。这个命令的意思是判断上次输出结果里是否包含“password:”的字符串，如果有则立即返回，否则就等待一段时间后返回，这里等待时长就是前面设置的30秒 expect &quot;password:&quot; // 这里就是执行交互动作，与手工输入密码的动作等效。命令字符串结尾记得加上“\\r”，如果出现异常等待的状态可以核查一下。 send &quot;ispass\\r&quot; // 执行完成后保持交互状态，把控制权交给控制台，这个时候就可以手工操作了。如果没有这一句登录完成后会退出，而不是留在远程终端上。如果你只是登录过去执行 interact</code><br> 案例1:<br> <code>#!/usr/bin/expect #Usage sshsudologin.expect set timeout 60 spawn ssh \[lindex $argv 1\]@\[lindex $argv 0\] expect &quot;yes/no&quot; { send &quot;yes\\r&quot; expect &quot;*?assword&quot; { send &quot;\[lindex $argv 2\]\\r&quot; } } interact // 程序结束</code> </p>
+<p> // 把host user 和 password 保存在一个文件中 /etc/goto.ini 保存主机信息的示例如下:<br> <code>name1,ip1,user1,password1 name2,ip2,user2,password2</code> </p>
+<p> // 然后用另外一个脚本读取文件内容再调用上面的脚本<br><code>#!/bin/bash name=$(cat /etc/goto.ini | awk &#39;{printf $1 &quot; &quot;}&#39;) if \[ &quot;$1&quot; = &quot;-h&quot; \] || \[ &quot;$1&quot; = &quot;-help&quot; \] then echo &quot;the first args is host alias&quot; echo &quot; There are several to choose\[ &quot;$name&quot;\]&quot; exit 0 fi if \[ -z &quot;$1&quot; \] then echo &quot; please input -help for more information.&quot; exit 0 fi config=$(cat /etc/goto.ini |grep $1) ip=\`echo &quot;$config&quot; | awk &#39;{print $2}&#39;\` user=\`echo &quot;$config&quot; | awk &#39;{print $3}&#39;\` password=\`echo &quot;$config&quot; | awk &#39;{print $4}&#39;\` sshlogin.expect $ip $user $password</code> </p>
+<p>案例：scp传输例子  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/12/15/mac中使用expect和gocmd登陆跳转机/" data-id="cjujhvoh50000d93jmsofhnjf" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-阿里云虚拟机ftp流程" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/24/阿里云虚拟机ftp流程/" class="article-date">
+  <time datetime="2018-09-24T09:03:56.000Z" itemprop="datePublished">2018-09-24</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/日常-经验分享/">日常________经验分享</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.压缩注意使用tar zip格式 tar -czvf wp-admin-09-24-cvf.tar.gz wp-admin 2.记得压缩为小一点文件，不然总是断开 3.在控制台进行解压缩</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/09/24/阿里云虚拟机ftp流程/" data-id="cjujhygc6009aej3jxdbx10ua" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-使用virtualbox自带管理工具命令为虚拟磁盘扩展空间" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/" class="article-date">
+  <time datetime="2018-01-11T15:07:33.000Z" itemprop="datePublished">2018-01-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-linux/">积累________linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>VirtualBox虚拟磁盘空间不够了，默认10G。想扩大，图形界面下没有找到可操作菜单。Google了一下用 Vbox自带的命令工具VBoxManage即可解决。 <code>C:\\Program Files\\Oracle\\VirtualBox&gt;VBoxManage modifyhd e:\\vbox\\Ubuntu12.04\\Ubuntu1204-201302-disk1.vmdk --resize 30000 0%... Progress state: VBOX\_E\_NOT_SUPPORTED VBoxManage.exe: error: Resize hard disk operation for this format is not implemented yet!</code> <strong>原来虚拟机用的是vmdk格式，这个命令只能支持vdi格式</strong>。怎么办 发现可以<strong>利用VBoxManager来转化虚拟硬盘存储文件格式</strong> <code>C:\\Program Files\\Oracle\\VirtualBox&gt;VBoxManage clonehd e:\\vbox\\Ubuntu12.04\\Ubuntu1204-201302-disk1.vmdk  e:\\vbox\\Ubuntu12.04\\Ubuntu1204-201310-disk1.vdi --format VDI 0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100% Clone hard disk created in format &#39;VDI&#39;. UUID: 455b7aa4-d776-4254-8353-d9b5b3fa1 09b</code> 最后<strong>用VBoxManager对转好的vdi文件进行扩容设置</strong> <code>C:\\Program Files\\Oracle\\VirtualBox&gt;VBoxManage modifyhd e:\\vbox\\Ubuntu12.04\\Ubunt u1204-201310-disk1.vdi --resize 30000 0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%</code> 大功告成，要将新的虚拟硬盘(vdi)挂载到虚拟机上了。 打开虚拟机设置，找到存储，点击虚拟硬盘所在的控制器，点“添加虚拟硬盘”-&gt;选”使用现有的虚拟盘”-&gt;选中扩容后的vdi文件，确定后就看见控制器下多了一个硬盘图标，查看容量29.30G。 删除原来的vmdk虚拟盘。确定保存配置。大功告成！！ 别忙，还有一部。 启动虚拟机后，还要使用GParted - Gnome Partition Editor这个工具，将新扩展的分区进行初始化，否则系统还是不会认出新扩展的空间的。 Ubuntu中可用 <code>sudo apt-get install gparted</code>来安装。工具是图形化界面的。好用。设置好后要点菜单“编辑”-&gt;“应用全部操作”，系统才开始执行扩展磁盘的初始化。 Gnome Partition Editor 官网地址：<a href="http://gparted.sourceforge.net/" target="_blank" rel="noopener">http://gparted.sourceforge.net/</a> 多嘴一句 将原来的vid虚拟硬盘数据复制到新的vid硬盘，示例： <strong>旧vdi —&gt; 新vdi</strong> <code>C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe  clonevdi  E:\\vbox\\server2003\\win2003.vdi E:\\vbox\\server2003\\server2003.vdi&quot; --existing</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/" data-id="cjujhygbc007yej3jx07u7xi6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ubuntu下折腾thrift" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/11/ubuntu下折腾thrift/" class="article-date">
+  <time datetime="2018-01-11T08:15:18.000Z" itemprop="datePublished">2018-01-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-linux/">积累________linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>系统安装官方文档：<a href="http://thrift.apache.org/docs" target="_blank" rel="noopener">http://thrift.apache.org/docs</a> 下载安装包 <code>git clone https://git-wip-us.apache.org/repos/asf/thrift.git cd thrift ./bootstrap.sh ./configure --with-lua=no make sudo make install</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/11/ubuntu下折腾thrift/" data-id="cjujhygao006uej3jr12hr6jm" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-定投eos脚本，看懂的自然懂" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/08/定投eos脚本，看懂的自然懂/" class="article-date">
+  <time datetime="2017-12-08T06:51:07.000Z" itemprop="datePublished">2017-12-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-区块链/">积累________区块链</a>►<a class="article-category-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/08/定投eos脚本，看懂的自然懂/">定投eos脚本，看懂的自然懂</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>#!/usr/bin/python # -*- coding: utf-8 -*- import decimal import hashlib import json import time import requests from datetime import datetime,timezone,timedelta def main(): while True: try: resp = requests.get(url=&#39;http://eos.io/eos-sale-statistic.php&#39;,timeout=10) result = json.loads(resp.text) period = 13 today\_sale = result\[period\] today\_ico\_eth = round(today\_sale\[&#39;dailyToday&#39;\],2) today\_ico\_end\_utc\_str = today\_sale\[&#39;ends&#39;\] today\_ico\_end\_utc = datetime.strptime(today\_ico\_end\_utc\_str,&quot;%Y-%m-%dT%H:%M:S.000Z&quot;) tz\_utc\_8 = timezone(timedelta(hours=8)) today\_ico\_end\_bj = today\_ico\_end\_utc.replace(tzinfo=tz\_utc\_8) print (today\_ico\_end\_bj) # t = parser.parse(today\_ico\_end) # print(t) resq = requests.get(url=&#39;https://yunbi.com//api/v2/tickers/ethcny,json&#39;,timeout=10) result=json.loads(resq.text) eth\_price = float(result\[&#39;ticker&#39;\]\[&#39;last&#39;\]) all\_num = 2000000.0 eos\_sale\_price = round(eth\_price * today\_ico\_eth / all\_num,2) eos\_per\_eth = round(all\_num/today\_ico\_eth,2) resq = requests.get(url=&#39;https://yunbi.com//api/v2/tickers/eoscny,json&#39;, timeout=10) result = json.loads(resq.text) eos\_price = round(float(result\[&#39;ticker&#39;\]\[&#39;last&#39;\]),2) now = datetime.now() print (now) # print(&quot;投入ETH:%s ETH兑EOS:%s EOS价格:%s EOS 云币价格:%s&quot; % (today\_ico\_eth，eos\_per\_eth,eos\_sale\_price,eos\_price)) print (&quot;hedgeL today\_ico\_eth,eos\_per\_eth,eos\_sale\_proce,eos\_yunbi\_price:&quot;,today\_ico\_eth,eos\_per\_eth,eos\_sale\_price,eos\_price) # print &#39;main running&#39; except Exception as identifier: print (identifier) time.sleep(1) if \_\_name__ == &#39;\_\_main\_\_&#39;: main()</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/08/定投eos脚本，看懂的自然懂/" data-id="cjujhygbk008eej3jsv3iprh2" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-697" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/08/697/" class="article-date">
+  <time datetime="2017-12-08T03:38:41.000Z" itemprop="datePublished">2017-12-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-区块链/">积累________区块链</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/08/697/">ERC20如eos转账demo</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>from web3 import Web3, HTTPProvider from web3.contract import ConciseContract import json web3 = Web3(HTTPProvider(&#39;http://localhost:8545&#39;)) print(web3.eth.blockNumber) tx=&#39;0xb1ea3885a25efa295837c287560fe4c137c1bcd3718720330eb68d7f96a5479e&#39; web3.eth.getTransaction(tx) web3.eth.getTransactionReceipt(tx) exit(0) web3.eth.defaultAccount = &#39;0x00B113795f1aA12EE361adC6D281392802d0e025&#39; EIP20\_ABI\_str = &#39;\[{&quot;constant&quot;:true,&quot;inputs&quot;:\[\],&quot;name&quot;:&quot;mintingFinished&quot;,&quot;outputs&quot;:\[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;bool&quot;}\],&quot;payable&quot;:false,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:true,&quot;inputs&quot;:\[\],&quot;name&quot;:&quot;name&quot;,&quot;outputs&quot;:\[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;string&quot;}\],&quot;payable&quot;:false,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:false,&quot;inputs&quot;:\[{&quot;name&quot;:&quot;\_spender&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;name&quot;:&quot;\_value&quot;,&quot;type&quot;:&quot;uint256&quot;}\],&quot;name&quot;:&quot;approve&quot;,&quot;outputs&quot;:\[\],&quot;payable&quot;:false,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:true,&quot;inputs&quot;:\[\],&quot;name&quot;:&quot;totalSupply&quot;,&quot;outputs&quot;:\[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;uint256&quot;}\],&quot;payable&quot;:false,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:false,&quot;inputs&quot;:\[{&quot;name&quot;:&quot;\_from&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;name&quot;:&quot;\_to&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;name&quot;:&quot;\_value&quot;,&quot;type&quot;:&quot;uint256&quot;}\],&quot;name&quot;:&quot;transferFrom&quot;,&quot;outputs&quot;:\[\],&quot;payable&quot;:false,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:true,&quot;inputs&quot;:\[\],&quot;name&quot;:&quot;decimals&quot;,&quot;outputs&quot;:\[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;uint256&quot;}\],&quot;payable&quot;:false,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:false,&quot;inputs&quot;:\[\],&quot;name&quot;:&quot;unpause&quot;,&quot;outputs&quot;:\[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;bool&quot;}\],&quot;payable&quot;:false,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:false,&quot;inputs&quot;:\[{&quot;name&quot;:&quot;\_to&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;name&quot;:&quot;\_amount&quot;,&quot;type&quot;:&quot;uint256&quot;}\],&quot;name&quot;:&quot;mint&quot;,&quot;outputs&quot;:\[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;bool&quot;}\],&quot;payable&quot;:false,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:true,&quot;inputs&quot;:\[\],&quot;name&quot;:&quot;paused&quot;,&quot;outputs&quot;:\[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;bool&quot;}\],&quot;payable&quot;:false,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:true,&quot;inputs&quot;:\[{&quot;name&quot;:&quot;\_owner&quot;,&quot;type&quot;:&quot;address&quot;}\],&quot;name&quot;:&quot;balanceOf&quot;,&quot;outputs&quot;:\[{&quot;name&quot;:&quot;balance&quot;,&quot;type&quot;:&quot;uint256&quot;}\],&quot;payable&quot;:false,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:false,&quot;inputs&quot;:\[\],&quot;name&quot;:&quot;finishMinting&quot;,&quot;outputs&quot;:\[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;bool&quot;}\],&quot;payable&quot;:false,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:false,&quot;inputs&quot;:\[\],&quot;name&quot;:&quot;pause&quot;,&quot;outputs&quot;:\[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;bool&quot;}\],&quot;payable&quot;:false,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:true,&quot;inputs&quot;:\[\],&quot;name&quot;:&quot;owner&quot;,&quot;outputs&quot;:\[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;address&quot;}\],&quot;payable&quot;:false,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:true,&quot;inputs&quot;:\[\],&quot;name&quot;:&quot;symbol&quot;,&quot;outputs&quot;:\[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;string&quot;}\],&quot;payable&quot;:false,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:false,&quot;inputs&quot;:\[{&quot;name&quot;:&quot;\_to&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;name&quot;:&quot;\_value&quot;,&quot;type&quot;:&quot;uint256&quot;}\],&quot;name&quot;:&quot;transfer&quot;,&quot;outputs&quot;:\[\],&quot;payable&quot;:false,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:false,&quot;inputs&quot;:\[{&quot;name&quot;:&quot;\_to&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;name&quot;:&quot;\_amount&quot;,&quot;type&quot;:&quot;uint256&quot;},{&quot;name&quot;:&quot;\_releaseTime&quot;,&quot;type&quot;:&quot;uint256&quot;}\],&quot;name&quot;:&quot;mintTimelocked&quot;,&quot;outputs&quot;:\[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;address&quot;}\],&quot;payable&quot;:false,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:true,&quot;inputs&quot;:\[{&quot;name&quot;:&quot;\_owner&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;name&quot;:&quot;\_spender&quot;,&quot;type&quot;:&quot;address&quot;}\],&quot;name&quot;:&quot;allowance&quot;,&quot;outputs&quot;:\[{&quot;name&quot;:&quot;remaining&quot;,&quot;type&quot;:&quot;uint256&quot;}\],&quot;payable&quot;:false,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:false,&quot;inputs&quot;:\[{&quot;name&quot;:&quot;newOwner&quot;,&quot;type&quot;:&quot;address&quot;}\],&quot;name&quot;:&quot;transferOwnership&quot;,&quot;outputs&quot;:\[\],&quot;payable&quot;:false,&quot;type&quot;:&quot;function&quot;},{&quot;anonymous&quot;:false,&quot;inputs&quot;:\[{&quot;indexed&quot;:true,&quot;name&quot;:&quot;to&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;indexed&quot;:false,&quot;name&quot;:&quot;value&quot;,&quot;type&quot;:&quot;uint256&quot;}\],&quot;name&quot;:&quot;Mint&quot;,&quot;type&quot;:&quot;event&quot;},{&quot;anonymous&quot;:false,&quot;inputs&quot;:\[\],&quot;name&quot;:&quot;MintFinished&quot;,&quot;type&quot;:&quot;event&quot;},{&quot;anonymous&quot;:false,&quot;inputs&quot;:\[\],&quot;name&quot;:&quot;Pause&quot;,&quot;type&quot;:&quot;event&quot;},{&quot;anonymous&quot;:false,&quot;inputs&quot;:\[\],&quot;name&quot;:&quot;Unpause&quot;,&quot;type&quot;:&quot;event&quot;},{&quot;anonymous&quot;:false,&quot;inputs&quot;:\[{&quot;indexed&quot;:true,&quot;name&quot;:&quot;owner&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;indexed&quot;:true,&quot;name&quot;:&quot;spender&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;indexed&quot;:false,&quot;name&quot;:&quot;value&quot;,&quot;type&quot;:&quot;uint256&quot;}\],&quot;name&quot;:&quot;Approval&quot;,&quot;type&quot;:&quot;event&quot;},{&quot;anonymous&quot;:false,&quot;inputs&quot;:\[{&quot;indexed&quot;:true,&quot;name&quot;:&quot;from&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;indexed&quot;:true,&quot;name&quot;:&quot;to&quot;,&quot;type&quot;:&quot;address&quot;},{&quot;indexed&quot;:false,&quot;name&quot;:&quot;value&quot;,&quot;type&quot;:&quot;uint256&quot;}\],&quot;name&quot;:&quot;Transfer&quot;,&quot;type&quot;:&quot;event&quot;}\]&#39; EIP20\_ABI = json.loads(EIP20\_ABI\_str) token\_contract\_address = &#39;0x86fa049857e0209aa7d9e616f7eb3b3b78ecfdb0&#39; token = web3.eth.contract( token\_contract\_address, abi=EIP20_ABI, ContractFactoryClass=ConciseContract, ) totalSupply = token.totalSupply() balance = token.balanceOf(&#39;0x00B113795f1aA12EE361adC6D281392802d0e025&#39;) tx = token.transfer( &#39;0x00845daA689b1374ecAf4CfEcfBfc86D41ec7735&#39;, web3.toWei(2,&quot;ether&quot;), transact={&#39;from&#39;:&#39;0x00B113795f1aA12EE361adC6D281392802d0e025&#39;}) tx = &#39;0xb3b82923d8d9b5d28fbab7f7281704f033362ac9f293e6638227efb44ff85499&#39; web3.eth.getTransaction(tx) web3.eth.getTransactionReceipt(tx) web3.eth.getTransactionCount(web3.eth.coinbase) web3.eth.getTransactionCount(&#39;0x00B113795f1aA12EE361adC6D281392802d0e025&#39;)</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/08/697/" data-id="cjujhyg5u0017ej3jc5fdtmpq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-daterangepicker-中文化以及老版本的一些初始化问题，不能选" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/01/daterangepicker-中文化以及老版本的一些初始化问题，不能选/" class="article-date">
+  <time datetime="2017-12-01T15:54:14.000Z" itemprop="datePublished">2017-12-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-js/">积累________js</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/01/daterangepicker-中文化以及老版本的一些初始化问题，不能选/">DateRangePicker 中文化以及老版本的一些初始化问题，不能选择秒的问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>$(&#39;#headlineAddForm #rangeTime&#39;).daterangepicker({ showDropdowns : true, timePicker : true, //是否显示小时和分钟 timePicker24Hour: true, timePickerIncrement : 1, //时间的增量，单位为分钟 timePickerSeconds : true, linkedCalendars : false, locale : { format: &quot;YYYY-MM-DD HH:mm:ss&quot;, //控件中from和to 显示的日期格式 separator : &quot; - &quot;, applyLabel : &quot;确定&quot;, cancelLabel : &quot;取消&quot;, fromLabel : &quot;开始&quot;, toLabel: &quot;结束&quot;, customRangeLabel : &quot;自定义&quot;, weekLabel : &quot;W&quot;, daysOfWeek : \[&quot;日&quot;, &quot;一&quot;, &quot;二&quot;, &quot;三&quot;, &quot;四&quot;, &quot;五&quot;, &quot;六&quot;\], monthNames : \[&quot;一月&quot;, &quot;二月&quot;, &quot;三月&quot;, &quot;四月&quot;, &quot;五月&quot;, &quot;六月&quot;, &quot;七月&quot;, &quot;八月&quot;, &quot;九月&quot;, &quot;十月&quot;, &quot;十一月&quot;, &quot;十二月 &quot;\], firstDay : 1 } }, function(start, end, label) { $(&quot;#headlineAddForm #startTime&quot;).val(start.unix()); $(&quot;#headlineAddForm #endTime&quot;).val(end.unix()); }).on(&#39;hide.daterangepicker&#39;, function() { $(&#39;#headlineAddForm&#39;).data(&#39;bootstrapValidator&#39;).updateStatus(&#39;rangeTime&#39;, &#39;NOT\_VALIDATED&#39;,null).validateField(&#39;rangeTime&#39;); }).on(&#39;cancel.daterangepicker&#39;, function() { $(&#39;#headlineAddForm #rangeTime&#39;).val(&quot;&quot;); $(&#39;#headlineAddForm&#39;).data(&#39;bootstrapValidator&#39;).updateStatus(&#39;rangeTime&#39;, &#39;NOT\_VALIDATED&#39;,null).validateField(&#39;rangeTime&#39;); }).on(&#39;apply.daterangepicker&#39;, function() { if($.trim($(&quot;#headlineAddForm #startTime&quot;).val()).length == 0) { $(&#39;#headlineAddForm #rangeTime&#39;).val(&quot;&quot;); $(&#39;#headlineAddForm&#39;).data(&#39;bootstrapValidator&#39;).updateStatus(&#39;rangeTime&#39;, &#39;NOT\_VALIDATED&#39;,null).validateField(&#39;rangeTime&#39;); } });</code> <code>$(&#39;#headlineModifyForm #rangeTime&#39;).daterangepicker({ showDropdowns : true, timePicker : true, //是否显示小时和分钟 timePicker24Hour: true, timePickerIncrement : 1, //时间的增量，单位为分钟 timePickerSeconds : true, linkedCalendars : false, locale : { format: &quot;YYYY-MM-DD HH:mm:ss&quot;, //控件中from和to 显示的日期格式 separator : &quot; - &quot;, applyLabel : &quot;确定&quot;, cancelLabel : &quot;取消&quot;, fromLabel : &quot;开始&quot;, toLabel: &quot;结束&quot;, customRangeLabel : &quot;自定义&quot;, weekLabel : &quot;W&quot;, daysOfWeek : \[&quot;日&quot;, &quot;一&quot;, &quot;二&quot;, &quot;三&quot;, &quot;四&quot;, &quot;五&quot;, &quot;六&quot;\], monthNames : \[&quot;一月&quot;, &quot;二月&quot;, &quot;三月&quot;, &quot;四月&quot;, &quot;五月&quot;, &quot;六月&quot;, &quot;七月&quot;, &quot;八月&quot;, &quot;九月&quot;, &quot;十月&quot;, &quot;十一月&quot;, &quot;十二月 &quot;\], firstDay : 1 } }, function(start, end, label) { $(&quot;#headlineModifyForm #startTime&quot;).val(start.unix()); $(&quot;#headlineModifyForm #endTime&quot;).val(end.unix()); }).on(&#39;hide.daterangepicker&#39;, function() { $(&#39;#headlineModifyForm&#39;).data(&#39;bootstrapValidator&#39;).updateStatus(&#39;rangeTime&#39;, &#39;NOT\_VALIDATED&#39;,null).validateField(&#39;rangeTime&#39;); });</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/01/daterangepicker-中文化以及老版本的一些初始化问题，不能选/" data-id="cjujhyg68001qej3jjlms4kzk" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-详解mac配置虚拟环境virtualenv和virtualenvwrapper" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/11/30/详解mac配置虚拟环境virtualenv和virtualenvwrapper/" class="article-date">
+  <time datetime="2017-11-30T06:54:31.000Z" itemprop="datePublished">2017-11-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-python/">积累________python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/30/详解mac配置虚拟环境virtualenv和virtualenvwrapper/">详解Mac配置虚拟环境virtualenv和virtualenvwrapper</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>virtualenv用于创建独立的Python环境，多个Python相互独立，互不影响，它能够：</p>
+<ol>
+<li>在没有权限的情况下安装新套件</li>
+<li>不同应用可以使用不同的套件版本</li>
+<li>套件升级不影响其他应用。</li>
+</ol>
+<h2 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h2><p>1、shell下运行： <code>pip install python-virtualenv</code> 2、使用方法 <code>virtualenv \[虚拟环境名称-也是目录名称\]</code> 3、启动环境 <code>cd ENV source ./bin/activate</code> ENV为虚拟环境名称，接下来所有模块都只会安装到该目录中去。 默认情况下，虚拟环境会依赖系统环境中的site packages，如果不想依赖这些package，那么可以加上参数 –no-site-packages建立虚拟环境： <code>virtualenv --no-site-packages \[虚拟环境名称\]</code> 4、退出 <code>deactivate</code> 如果没有启动虚拟环境，系统也安装了pip工具，那么套件将被安装在系统环境中，为了避免发生此事，可以在~/.bashrc文件中加上： <code>export PIP\_REQUIRE\_VIRTUALENV=true</code> 或者让在执行pip的时候让系统自动开启虚拟环境： <code>export PIP\_RESPECT\_VIRTUALENV=true</code></p>
+<h2 id="Virtualenvwrapper"><a href="#Virtualenvwrapper" class="headerlink" title="Virtualenvwrapper"></a>Virtualenvwrapper</h2><p>Virtaulenvwrapper是virtualenv的扩展包，用于更方便管理虚拟环境，它可以做：</p>
+<ol>
+<li>将所有虚拟环境整合在一个目录下</li>
+<li>管理（新增，删除，复制）虚拟环境</li>
+<li>快速切换虚拟环境</li>
+<li>…</li>
+</ol>
+<h3 id="安装方法-1"><a href="#安装方法-1" class="headerlink" title="安装方法"></a>安装方法</h3><p>1、运行 <code>pip install virtualenvwrapper</code> 2、创建目录用来存放虚拟环境 <code>mkdir ~/.virtualenvs</code> 3、在.bashrc中添加 <code>export WORKON_HOME=~/.virtualenvs source /usr/local/bin/virtualenvwrapper.sh</code> 4、运行： <code>source ~/.bashrc</code> 此时virtualenvwrapper就可以使用了。</p>
+<h3 id="命令列表"><a href="#命令列表" class="headerlink" title="命令列表"></a>命令列表</h3><p>workon:列出虚拟环境列表 lsvirtualenv:同上 mkvirtualenv :新建虚拟环境 workon [虚拟环境名称]:切换虚拟环境 rmvirtualenv :删除虚拟环境 deactivate: 离开虚拟环境</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/11/30/详解mac配置虚拟环境virtualenv和virtualenvwrapper/" data-id="cjujhygc00092ej3jk0g83wq9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-you-get-加-mpv-看电影，-顺便解决mac发热问题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/11/17/you-get-加-mpv-看电影，-顺便解决mac发热问题/" class="article-date">
+  <time datetime="2017-11-17T11:55:28.000Z" itemprop="datePublished">2017-11-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/日常-经验分享/">日常________经验分享</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/17/you-get-加-mpv-看电影，-顺便解决mac发热问题/">you-get 加 mpv 看电影， 顺便解决mac发热问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>安装教程： mpv : <a href="http://songchenwen.com/tech/2015/05/09/mpv-player/" target="_blank" rel="noopener">http://songchenwen.com/tech/2015/05/09/mpv-player/</a> you-get : <a href="https://you-get.org/" target="_blank" rel="noopener">https://you-get.org/</a> 简单说下用法： mpv <a href="http://www.douyutv.com/56040" target="_blank" rel="noopener">http://www.douyutv.com/56040</a> 这种情况下是直接调用的 youtube-dl 来观看在线视频（这个是在使用 brew 安装 mpv 时就已经安装好了） you-get -p mpv <a href="http://www.bilibili.com/video/av3458634/" target="_blank" rel="noopener">http://www.bilibili.com/video/av3458634/</a> 这种情况是调用 you-get 来观看在线视频</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/11/17/you-get-加-mpv-看电影，-顺便解决mac发热问题/" data-id="cjujhygaw0076ej3j0gthxvxg" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

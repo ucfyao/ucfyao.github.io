@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>redis常用命令 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一、KeyKey命令速查： 命令 说明 DEL 删除给定的一个或多个 key，不存在的 key 会被忽略，返回值：被删除 key 的数量 DUMP 序列化给定 key，返回被序列化的值，使用 RESTORE 命令可以将这个值反序列化为 Redis 键 EXISTS 检查给定?key?是否存在 EXPIRE 为给定key设置有效时间，接受时间点 EXPIREAT 为给定key设置有效时间，接受时间戳">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis常用命令">
+<meta property="og:url" content="http://yoursite.com/2015/12/23/redis常用命令/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、KeyKey命令速查： 命令 说明 DEL 删除给定的一个或多个 key，不存在的 key 会被忽略，返回值：被删除 key 的数量 DUMP 序列化给定 key，返回被序列化的值，使用 RESTORE 命令可以将这个值反序列化为 Redis 键 EXISTS 检查给定?key?是否存在 EXPIRE 为给定key设置有效时间，接受时间点 EXPIREAT 为给定key设置有效时间，接受时间戳">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-16T07:59:56.808Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="redis常用命令">
+<meta name="twitter:description" content="一、KeyKey命令速查： 命令 说明 DEL 删除给定的一个或多个 key，不存在的 key 会被忽略，返回值：被删除 key 的数量 DUMP 序列化给定 key，返回被序列化的值，使用 RESTORE 命令可以将这个值反序列化为 Redis 键 EXISTS 检查给定?key?是否存在 EXPIRE 为给定key设置有效时间，接受时间点 EXPIREAT 为给定key设置有效时间，接受时间戳">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-redis常用命令" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/23/redis常用命令/" class="article-date">
+  <time datetime="2015-12-23T02:14:08.000Z" itemprop="datePublished">2015-12-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-redis/">积累________redis</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      redis常用命令
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="一、Key"><a href="#一、Key" class="headerlink" title="一、Key"></a>一、Key</h1><p>Key命令速查：</p>
+<p>命令</p>
+<p>说明</p>
+<p>DEL</p>
+<p>删除给定的一个或多个 key，不存在的 key 会被忽略，返回值：被删除 key 的数量</p>
+<p>DUMP</p>
+<p>序列化给定 key，返回被序列化的值，使用 RESTORE 命令可以将这个值反序列化为 Redis 键</p>
+<p>EXISTS</p>
+<p>检查给定?key?是否存在</p>
+<p>EXPIRE</p>
+<p>为给定key设置有效时间，接受时间点</p>
+<p>EXPIREAT</p>
+<p>为给定key设置有效时间，接受时间戳timestamp</p>
+<p>KEYS</p>
+<p>查找所有符合给定模式?pattern?的?key；KEYS * 匹配数据库中所有 key；KEYS h?llo 匹配 hello，hallo等。KEYS h[ae]llo匹配hello和hallo</p>
+<p>MIGRATE</p>
+<p>将?key?原子性地从当前实例传送到目标实例的指定数据库上，一旦传送成功，?key?保证会出现在目标实例上，而当前实例上的?key?会被删除。执行的时候会阻塞进行迁移的两个实例</p>
+<p>MOVE</p>
+<p>将当前数据库的 key 移动到给定的数据库 db 当中</p>
+<p>OBJECT</p>
+<p>从内部察看给定 key 的 Redis 对象</p>
+<p>PERSIST</p>
+<p>移除给定?key?的有效时间</p>
+<p>PEXPIRE</p>
+<p>以毫秒为单位设置?key?的有效时间</p>
+<p>PEXPIREAT</p>
+<p>以毫秒为单位设置 key 的有效时间(timespan)</p>
+<p>PTTL</p>
+<p>以毫秒为单位返回key的剩余有效时间</p>
+<p>RANDOMKEY</p>
+<p>从当前数据库中随机返回(已使用的)一个key</p>
+<p>RENAME</p>
+<p>将Key改名</p>
+<p>RENAMENX</p>
+<p>当且仅当 newkey 不存在时，将 key 改名为 newkey</p>
+<p>RESTORE</p>
+<p>反序列化给定的序列化值，并将它和给定的 key 关联</p>
+<p>SORT</p>
+<p>返回或保存给定列表、集合、有序集合?key?中经过排序的元素</p>
+<p>TTL</p>
+<p>以秒为单位，返回给定?key?的剩余有效时间</p>
+<p>TYPE</p>
+<p>返回 key 所储存的值的类型</p>
+<p>SCAN</p>
+<p>增量迭代</p>
+<h1 id="二、String"><a href="#二、String" class="headerlink" title="二、String"></a>二、String</h1><p>String命令速查：</p>
+<p>命令</p>
+<p>说明</p>
+<p>APPEND</p>
+<p>将值追加到指定key的值末尾，如果key不存在，则相当于增加操作。</p>
+<p>BITCOUNT</p>
+<p>计算给定字符串中，被设置为?1?的Bit位的数量。</p>
+<p>BITOP</p>
+<p>对一个或多个保存二进制位的字符串?key?进行位元操作</p>
+<p>DECR</p>
+<p>将?key?中储存的数字值减一。Key不存在，则将值置0，key类型不正确返回一个错误。</p>
+<p>DECRBY</p>
+<p>将key所储存的值减去指定数量</p>
+<p>GET</p>
+<p>返回key所关联的字符串值，如果Key储存的值不是字符串类型，返回一个错误。</p>
+<p>GETBIT</p>
+<p>对key所储存的字符串值，获取指定偏移量上的位</p>
+<p>GETRANGE</p>
+<p>返回key中字符串值的子字符串，字符串的截取范围由start和end两个偏移量决定</p>
+<p>GETSET</p>
+<p>将给定key的值设为value，并返回key的旧值。非字符串报错。</p>
+<p>INCR</p>
+<p>将?key?中储存的数字值增一。不能转换为数字则报错。</p>
+<p>INCRBY</p>
+<p>将key所储存的值加上指定增量</p>
+<p>INCRBYFLOAT</p>
+<p>为key中所储存的值加上指定的浮点数增量</p>
+<p>MGET</p>
+<p>返回所有(一个或多个)给定key的值</p>
+<p>MSET</p>
+<p>同时设置一个或多个key-value对</p>
+<p>MSETNX</p>
+<p>同时设置一个或多个key-value对，若一个key已被占用，则全部的执行取消。</p>
+<p>PSETEX</p>
+<p>以毫秒为单位设置 key 的有效时间</p>
+<p>SET</p>
+<p>将字符串值value关联到key</p>
+<p>SETBIT</p>
+<p>对key所储存的字符串值，设置或清除指定偏移量上的位(bit)</p>
+<p>SETEX</p>
+<p>将值value关联到 key，并将key的有效时间(秒)</p>
+<p>SETNX</p>
+<p>当key未被使用时，设置为指定值</p>
+<p>SETRANGE</p>
+<p>用value参数覆写(overwrite)给定key所储存的字符串值，从偏移量 offset 开始</p>
+<p>STRLEN</p>
+<p>返回key所储存的字符串值的长度</p>
+<h1 id="三、Hash"><a href="#三、Hash" class="headerlink" title="三、Hash"></a>三、Hash</h1><p>Hash命令速查：</p>
+<p>命令</p>
+<p>说明</p>
+<p>HDEL</p>
+<p>删除哈希表 key 中的一个或多个指定域，不存在的域将被忽略。</p>
+<p>HEXISTS</p>
+<p>查看哈希表 key 中，给定域 field 是否存在</p>
+<p>HGET</p>
+<p>返回哈希表 key?中给定域?field?的值</p>
+<p>HGETALL</p>
+<p>返回哈希表 key?中，所有的域和值</p>
+<p>HINCRBY</p>
+<p>为哈希表 key?中的域 field 的值加上指定增量</p>
+<p>HINCRBYFLOAT</p>
+<p>为哈希表 key 中的域 field 加上指定的浮点数增量</p>
+<p>HKEYS</p>
+<p>返回哈希表 key 中的所有域</p>
+<p>HLEN</p>
+<p>返回哈希表?key?中域的数量</p>
+<p>HMGET</p>
+<p>返回哈希表 key 中，一个或多个给定域的值</p>
+<p>HMSET</p>
+<p>同时将多个 field-value (域-值)对设置到哈希表 key 中</p>
+<p>HSET</p>
+<p>将哈希表?key?中的域?field?的值设为?value</p>
+<p>HSETNX</p>
+<p>当且仅当域 field 不存在时，将哈希表 key 中的域 field 的值设置为 value</p>
+<p>HVALS</p>
+<p>返回哈希表?key?中所有域的值</p>
+<p>HSCAN</p>
+<p>增量迭代</p>
+<h1 id="四、List"><a href="#四、List" class="headerlink" title="四、List"></a>四、List</h1><p>List命令速查：</p>
+<p>命令</p>
+<p>说明</p>
+<p>BLPOP</p>
+<p>它是 LPOP 命令的阻塞版本，当给定列表内没有任何元素可供弹出的时候，连接将被 BLPOP 命令阻塞，直到等待超时或发现可弹出元素为止</p>
+<p>BRPOP</p>
+<p>与BLPOP同义，弹出位置不同</p>
+<p>BRPOPLPUSH</p>
+<p>当列表 source 为空时， BRPOPLPUSH 命令将阻塞连接，直到等待超时</p>
+<p>LINDEX</p>
+<p>返回列表 key 中，下标为 index 的元素</p>
+<p>LINSERT</p>
+<p>将值?value?插入到列表?key?当中</p>
+<p>LLEN</p>
+<p>返回列表?key?的长度</p>
+<p>LPOP</p>
+<p>移除并返回列表?key?的头元素</p>
+<p>LPUSH</p>
+<p>将一个或多个值?value?插入到列表?key?的表头</p>
+<p>LPUSHX</p>
+<p>将值?value?插入到列表?key?的表头，当且仅当?key?存在并且是一个列表</p>
+<p>LRANGE</p>
+<p>返回列表?key?中指定区间内的元素，区间以偏移量?start?和?stop?指定</p>
+<p>LREM</p>
+<p>根据参数?count?的值，移除列表中与参数?value?相等的元素</p>
+<p>LSET</p>
+<p>将列表?key?下标为?index?的元素的值设置为?value</p>
+<p>LTRIM</p>
+<p>对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除</p>
+<p>RPOP</p>
+<p>移除并返回列表?key?的尾元素</p>
+<p>RPOPLPUSH</p>
+<p>命令 RPOPLPUSH 在一个原子时间内，执行两个动作：1、将列表 source 中的最后一个元素(尾元素)弹出，并返回给客户端。2、将 source 弹出的元素插入到列表 destination ，作为 destination 列表的的头元素。</p>
+<p>RPUSH</p>
+<p>将一个或多个值?value?插入到列表?key?的表尾</p>
+<p>RPUSHX</p>
+<p>将值?value?插入到列表?key?的表尾，当且仅当?key?存在并且是一个列表</p>
+<h1 id="五、Set"><a href="#五、Set" class="headerlink" title="五、Set"></a>五、Set</h1><p>Set命令速查</p>
+<p>命令</p>
+<p>说明</p>
+<p>SADD</p>
+<p>将一个或多个 member 元素加入到集合 key 当中，已经存在于集合的 member 元素将被忽略</p>
+<p>SCARD</p>
+<p>返回集合 key 的集合中元素的数量</p>
+<p>SDIFF</p>
+<p>返回一个集合的全部成员，该集合是所有给定集合之间的差集</p>
+<p>SDIFFSTORE</p>
+<p>这个命令的作用和 SDIFF 类似，但它将结果保存到新集合，而不是简单地返回结果集</p>
+<p>SINTER</p>
+<p>返回一个集合的全部成员，该集合是所有给定集合的交集</p>
+<p>SINTERSTORE</p>
+<p>与SINTER类似，不过可以指定保存到新集合</p>
+<p>SISMEMBER</p>
+<p>判断?member?元素是否集合?key?的成员</p>
+<p>SMEMBERS</p>
+<p>返回集合 key 中的所有成员</p>
+<p>SMOVE</p>
+<p>将 member 元素从一个集合移动到另一个集合</p>
+<p>SPOP</p>
+<p>移除并返回集合中的一个随机元素</p>
+<p>SRANDMEMBER</p>
+<p>仅仅返回随机元素，而不对集合进行任何改动，与SPOP的区别在于不移除</p>
+<p>SREM</p>
+<p>移除集合 key 中的一个或多个 member 元素，不存在的 member 元素会被忽略</p>
+<p>SUNION</p>
+<p>返回一个集合的全部成员，该集合是所有给定集合的并集</p>
+<p>SUNIONSTORE</p>
+<p>与SUNION类似，不过可以指定保存到新集合</p>
+<p>SSCAN</p>
+<p>增量迭代</p>
+<h1 id="六、SortedSet"><a href="#六、SortedSet" class="headerlink" title="六、SortedSet"></a>六、SortedSet</h1><p>SortedSet命令速查：</p>
+<p>命令</p>
+<p>说明</p>
+<p>ZADD</p>
+<p>将一个或多个 member 元素及其 score 值加入到有序集 key 当中</p>
+<p>ZCARD</p>
+<p>返回有序集?key?的基数</p>
+<p>ZCOUNT</p>
+<p>返回有序集 key 中， score 值在 min 和 max 之间(包括 score 值等于 min 或 max )的成员的数量</p>
+<p>ZINCRBY</p>
+<p>为有序集 key 的成员 member 的 score 值加上指定增量</p>
+<p>ZRANGE</p>
+<p>返回有序集 key 中，指定区间内的成员(小到大排列)</p>
+<p>ZRANGEBYSCORE</p>
+<p>返回有序集 key 中，所有 score 值介于 min 和 max 之间(包括等于 min 或 max )的成员</p>
+<p>ZRANK</p>
+<p>返回有序集 key 中成员 member 的排名。其中有序集成员按 score 值递增(从小到大)顺序排列</p>
+<p>ZREM</p>
+<p>移除有序集?key?中的一个或多个成员，不存在的成员将被忽略</p>
+<p>ZREMRANGEBYRANK</p>
+<p>移除有序集?key?中，指定排名(rank)区间内的所有成员</p>
+<p>ZREMRANGEBYSCORE</p>
+<p>移除有序集?key?中，所有?score?值介于?min?和?max?之间(包括等于?min?或?max?)的成员</p>
+<p>ZREVRANGE</p>
+<p>返回有序集?key?中，指定区间内的成员，成员位置按score大到小排列</p>
+<p>ZREVRANGEBYSCORE</p>
+<p>返回有序集 key 中， score 值介于 max 和 min 之间(默认包括等于 max 或 min )的所有的成员。成员按 score 值递减(从大到小)排列</p>
+<p>ZREVRANK</p>
+<p>返回有序集 key 中成员 member 的排名。其中有序集成员按 score 值递减(从大到小)排序</p>
+<p>ZSCORE</p>
+<p>返回有序集 key 中，成员 member 的 score 值</p>
+<p>ZUNIONSTORE</p>
+<p>计算给定的一个或多个有序集的并集，其中给定 key 的数量必须以 numkeys 参数指定，并将该并集(结果集)储存到新集合</p>
+<p>ZINTERSTORE</p>
+<p>计算给定的一个或多个有序集的交集，其中给定 key 的数量必须以 numkeys 参数指定，并将该交集(结果集)储存到新集合</p>
+<p>ZSCAN</p>
+<p>增量迭代</p>
+<h1 id="七、Pub-Sub"><a href="#七、Pub-Sub" class="headerlink" title="七、Pub/Sub"></a>七、Pub/Sub</h1><p>Pub/Sub命令速查：</p>
+<p>命令</p>
+<p>说明</p>
+<p>PSUBSCRIBE</p>
+<p>订阅一个或多个符合给定模式的频道</p>
+<p>PUBLISH</p>
+<p>将信息?message?发送到指定的频道</p>
+<p>PUBSUB</p>
+<p>PUBSUB 是一个查看订阅与发布系统状态的内省命令</p>
+<p>PUNSUBSCRIBE</p>
+<p>指示客户端退订所有给定模式</p>
+<p>SUBSCRIBE</p>
+<p>订阅给定的一个或多个频道的信息</p>
+<p>UNSUBSCRIBE</p>
+<p>指示客户端退订给定的频道</p>
+<h1 id="八、Transaction"><a href="#八、Transaction" class="headerlink" title="八、Transaction"></a>八、Transaction</h1><p>Transaction命令速查：</p>
+<p>命令</p>
+<p>说明</p>
+<p>DISCARD</p>
+<p>取消事务，放弃执行事务块内的所有命令</p>
+<p>EXEC</p>
+<p>执行所有事务块内的命令</p>
+<p>MULTI</p>
+<p>标记一个事务块的开始</p>
+<p>UNWATCH</p>
+<p>取消 WATCH 命令对所有 key 的监视</p>
+<p>WATCH</p>
+<p>监视一个(或多个) key ，如果在事务执行之前这个(或这些) key 被其他命令所改动，那么事务将被打断</p>
+<h1 id="九、Script"><a href="#九、Script" class="headerlink" title="九、Script"></a>九、Script</h1><p>script命令速查：</p>
+<p>命令</p>
+<p>说明</p>
+<p>EVAL</p>
+<p>通过内置的 Lua 解释器，可以使用 EVAL 命令对 Lua 脚本进行求值</p>
+<p>EVALSHA</p>
+<p>根据给定的 sha1 校验码，对缓存在服务器中的脚本进行求值</p>
+<p>SCRIPT EXISTS</p>
+<p>给定一个或多个脚本的 SHA1 校验和，返回一个包含?0?和?1?的列表，表示校验和所指定的脚本是否已经被保存在缓存当中</p>
+<p>SCRIPT FLUSH</p>
+<p>清除所有 Lua 脚本缓存</p>
+<p>SCRIPT KILL</p>
+<p>停止当前正在运行的 Lua 脚本，当且仅当这个脚本没有执行过任何写操作时，这个命令才生效。这个命令主要用于终止运行时间过长的脚本</p>
+<p>SCRIPT LOAD</p>
+<p>将脚本?script?添加到脚本缓存中，但并不立即执行这个脚本</p>
+<h1 id="十、Connection"><a href="#十、Connection" class="headerlink" title="十、Connection"></a>十、Connection</h1><p>connection命令速查:</p>
+<p>命令</p>
+<p>说明</p>
+<p>AUTH</p>
+<p>通过设置配置文件中?requirepass?项的值，可以使用密码来保护 Redis 服务器</p>
+<p>ECHO</p>
+<p>打印一个特定的信息?message?，测试时使用。</p>
+<p>PING</p>
+<p>使用客户端向 Redis 服务器发送一个 PING ，如果服务器运作正常的话，会返回一个 PONG，通常用于测试与服务器的连接是否仍然生效，或者用于测量延迟值</p>
+<p>QUIT</p>
+<p>请求服务器关闭与当前客户端的连接</p>
+<p>SELECT</p>
+<p>切换到指定的数据库，数据库索引号?index?用数字值指定，以?0?作为起始索引值</p>
+<h1 id="十一、Server"><a href="#十一、Server" class="headerlink" title="十一、Server"></a>十一、Server</h1><p>server命令速查：</p>
+<p>命令</p>
+<p>说明</p>
+<p>BGREWRITEAOF</p>
+<p>执行一个 AOF文件 重写操作。重写会创建一个当前 AOF 文件的体积优化版本。</p>
+<p>BGSAVE</p>
+<p>在后台异步(Asynchronously)保存当前数据库的数据到磁盘</p>
+<p>CLIENT GETNAME</p>
+<p>返回 CLIENT SETNAME 命令为连接设置的名字</p>
+<p>CLIENT KILL</p>
+<p>关闭地址为 ip:port 的客户端</p>
+<p>CLIENT LIST</p>
+<p>以人类可读的格式，返回所有连接到服务器的客户端信息和统计数据</p>
+<p>CLIENT SETNAME</p>
+<p>为当前连接分配一个名字</p>
+<p>CONFIG GET</p>
+<p>CONFIG GET 命令用于取得运行中的 Redis 服务器的配置参数</p>
+<p>CONFIG RESETSTAT</p>
+<p>重置 INFO 命令中的某些统计数据</p>
+<p>CONFIG REWRITE</p>
+<p>CONFIG REWRITE 命令对启动 Redis 服务器时所指定的 redis.conf 文件进行改写</p>
+<p>CONFIG SET</p>
+<p>CONFIG SET 命令可以动态地调整 Redis 服务器的配置而无须重启</p>
+<p>DBSIZE</p>
+<p>返回当前数据库的 key 的数量</p>
+<p>DEBUG OBJECT</p>
+<p>DEBUG OBJECT 是一个调试命令，它不应被客户端所使用</p>
+<p>DEBUG SEGFAULT</p>
+<p>执行一个不合法的内存访问从而让 Redis 崩溃，仅在开发时用于 BUG 模拟</p>
+<p>FLUSHALL</p>
+<p>清空整个 Redis 服务器的数据(删除所有数据库的所有 key )</p>
+<p>FLUSHDB</p>
+<p>清空当前数据库中的所有 key</p>
+<p>INFO</p>
+<p>返回关于 Redis 服务器的各种信息和统计数值</p>
+<p>LASTSAVE</p>
+<p>返回最近一次 Redis 成功将数据保存到磁盘上的时间，以 UNIX 时间戳格式表示</p>
+<p>MONITOR</p>
+<p>实时打印出 Redis 服务器接收到的命令，调试用</p>
+<p>PSYNC</p>
+<p>用于复制功能的内部命令</p>
+<p>SAVE</p>
+<p>SAVE 命令执行一个同步保存操作，将当前 Redis 实例的所有数据快照(snapshot)以 RDB 文件的形式保存到硬盘。 一般来说，在生产环境很少执行 SAVE 操作，因为它会阻塞所有客户端，保存数据库的任务通常由 BGSAVE 命令异步地执行。然而，如果负责保存数据的后台子进程不幸出现问题时， SAVE 可以作为保存数据的最后手段来使用。</p>
+<p>SHUTDOWN</p>
+<p>SHUTDOWN 命令执行以下操作： 停止所有客户端 如果有至少一个保存点在等待，执行 SAVE 命令 如果 AOF 选项被打开，更新 AOF 文件 关闭 redis 服务器(server)</p>
+<p>SLAVEOF</p>
+<p>SLAVEOF 命令用于在 Redis 运行时动态地修改复制(replication)功能的行为</p>
+<p>SLOWLOG</p>
+<p>Slow log 是 Redis 用来记录查询执行时间的日志系统</p>
+<p>SYNC</p>
+<p>用于复制功能的内部命令</p>
+<p>TIME</p>
+<p>返回当前服务器时间</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/12/23/redis常用命令/" data-id="cjujhygdi00atej3jfa6xrbo9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/12/28/创建第一个go语言程序hellogo/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          创建第一个Go语言程序Hello,Go!
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/11/30/php-调试函数debug-backtrace/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">php 调试函数debug_backtrace</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

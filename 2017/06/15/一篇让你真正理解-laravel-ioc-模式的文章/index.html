@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>一篇让你真正理解 Laravel IoC 模式的文章 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="学习 Laravel 框架看它有 IoC 的介绍，看着很是费解，因为没有将具体的原理细节，自己去看源码有很困难。有天看到了一篇文章介绍 IoC（出自phalcon介绍文档）,仔细研读之后发现，果然是豁然开朗。今天将所学写一下，供大家一块学习，如果你在使用 Laravel 做开发或者在学习IoC方面的东西，定是要好好的学习下。 其中大部分内容摘自网络文章，自己确实也懒了不少。好的，Start。 1、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一篇让你真正理解 Laravel IoC 模式的文章">
+<meta property="og:url" content="http://yoursite.com/2017/06/15/一篇让你真正理解-laravel-ioc-模式的文章/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="学习 Laravel 框架看它有 IoC 的介绍，看着很是费解，因为没有将具体的原理细节，自己去看源码有很困难。有天看到了一篇文章介绍 IoC（出自phalcon介绍文档）,仔细研读之后发现，果然是豁然开朗。今天将所学写一下，供大家一块学习，如果你在使用 Laravel 做开发或者在学习IoC方面的东西，定是要好好的学习下。 其中大部分内容摘自网络文章，自己确实也懒了不少。好的，Start。 1、">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-16T07:59:57.308Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一篇让你真正理解 Laravel IoC 模式的文章">
+<meta name="twitter:description" content="学习 Laravel 框架看它有 IoC 的介绍，看着很是费解，因为没有将具体的原理细节，自己去看源码有很困难。有天看到了一篇文章介绍 IoC（出自phalcon介绍文档）,仔细研读之后发现，果然是豁然开朗。今天将所学写一下，供大家一块学习，如果你在使用 Laravel 做开发或者在学习IoC方面的东西，定是要好好的学习下。 其中大部分内容摘自网络文章，自己确实也懒了不少。好的，Start。 1、">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-一篇让你真正理解-laravel-ioc-模式的文章" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/15/一篇让你真正理解-laravel-ioc-模式的文章/" class="article-date">
+  <time datetime="2017-06-15T02:35:00.000Z" itemprop="datePublished">2017-06-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/laravel5/">laravel5</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      一篇让你真正理解 Laravel IoC 模式的文章
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>学习 Laravel 框架看它有 IoC 的介绍，看着很是费解，因为没有将具体的原理细节，自己去看源码有很困难。有天看到了一篇文章介绍 IoC（出自phalcon介绍文档）,仔细研读之后发现，果然是豁然开朗。今天将所学写一下，供大家一块学习，如果你在使用 Laravel 做开发或者在学习IoC方面的东西，定是要好好的学习下。 其中大部分内容摘自网络文章，自己确实也懒了不少。好的，Start。</p>
+<h2 id="1、首先，假设要开发一个组件命名为-SomeComponent-。组件中需要注入一个数据库连接。"><a href="#1、首先，假设要开发一个组件命名为-SomeComponent-。组件中需要注入一个数据库连接。" class="headerlink" title="1、首先，假设要开发一个组件命名为 SomeComponent 。组件中需要注入一个数据库连接。"></a>1、首先，假设要开发一个组件命名为 SomeComponent 。组件中需要注入一个数据库连接。</h2><figure class="highlight plain"><figcaption><span>"username" </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">2、为了解决上面所说的问题，我们需要在使用前创建一个外部连接，并注入到容器中。</span><br><span class="line">---------------------------------------</span><br><span class="line"></span><br><span class="line">``` \_connection = $connection; &#125; public function someDbTask() &#123; $connection = $this-&gt;\_connection; // ... &#125; &#125; $some = new SomeComponent(); //Create the connection $connection = new Connection(array( &quot;host&quot; =&gt; &quot;localhost&quot;, &quot;username&quot; =&gt; &quot;root&quot;, &quot;password&quot; =&gt; &quot;secret&quot;, &quot;dbname&quot; =&gt; &quot;invo&quot; )); //Inject the connection in the component $some-&gt;setConnection($connection); $some-&gt;someDbTask();``` 现在来考虑一个问题，我们在应用程序中的不同地方使用此组件，将多次创建数据库连接，还是那个问题，一旦发生变化，维护度高。所以。。。</span><br><span class="line"></span><br><span class="line">3、使用一种类似全局注册表的方式，从中获得一个数据库连接实例，而不是使用一次就创建一次。</span><br><span class="line">--------------------------------------------</span><br><span class="line"></span><br><span class="line">``` \_connection = $connection; &#125; public function someDbTask() &#123; $connection = $this-&gt;\_connection; // ... &#125; &#125; class Registry &#123; /** * Returns the connection */ public static function getConnection() &#123; return new Connection(array( &quot;host&quot; =&gt; &quot;localhost&quot;, &quot;username&quot; =&gt; &quot;root&quot;, &quot;password&quot; =&gt; &quot;secret&quot;, &quot;dbname&quot; =&gt; &quot;invo&quot; )); &#125; &#125; $some = new SomeComponent(); //Pass the connection defined in the registry $some-&gt;setConnection(Registry::getConnection()); $some-&gt;someDbTask();</span><br></pre></td></tr></table></figure>
+<h2 id="4、好了，现在我们需要全局注册表组件里实现两个方法，第一创建一个新的数据库连接，第二总是获得一个共享连接："><a href="#4、好了，现在我们需要全局注册表组件里实现两个方法，第一创建一个新的数据库连接，第二总是获得一个共享连接：" class="headerlink" title="4、好了，现在我们需要全局注册表组件里实现两个方法，第一创建一个新的数据库连接，第二总是获得一个共享连接："></a>4、好了，现在我们需要全局注册表组件里实现两个方法，第一创建一个新的数据库连接，第二总是获得一个共享连接：</h2><figure class="highlight plain"><figcaption><span>"username" </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">5、为了解决这个问题，我们再次返回去使用一个全局注册表来创建组件。但是，在创建对象之前，它增加了一个新的抽象层：</span><br><span class="line">--------------------------------------------------------</span><br><span class="line"></span><br><span class="line">``` \_di = $di; &#125; public function someDbTask() &#123; // Get the connection service // Always returns a new connection $connection = $this-&gt;\_di-&gt;get(&apos;db&apos;); &#125; public function someOtherDbTask() &#123; // Get a shared connection service, // this will return the same connection everytime $connection = $this-&gt;\_di-&gt;getShared(&apos;db&apos;); //This method also requires a input filtering service $filter = $this-&gt;\_db-&gt;get(&apos;filter&apos;); &#125; &#125; $di = new Phalcon\\DI(); //Register a &quot;db&quot; service in the container $di-&gt;set(&apos;db&apos;, function()&#123; return new Connection(array( &quot;host&quot; =&gt; &quot;localhost&quot;, &quot;username&quot; =&gt; &quot;root&quot;, &quot;password&quot; =&gt; &quot;secret&quot;, &quot;dbname&quot; =&gt; &quot;invo&quot; )); &#125;); //Register a &quot;filter&quot; service in the container $di-&gt;set(&apos;filter&apos;, function()&#123; return new Filter(); &#125;); //Register a &quot;session&quot; service in the container $di-&gt;set(&apos;session&apos;, function()&#123; return new Session(); &#125;); //Pass the service container as unique parameter $some = new SomeComponent($di); $some-&gt;someTask();``` 现在，该组件只有访问某种service的时候才需要它，如果它不需要，它甚至不初始化，以节约资源。该组件是高度解耦。他们的行为，或者说他们的任何其他方面都不会影响到组件本身。</span><br><span class="line"></span><br><span class="line">6、现在，剩下的就是 Phalcon\\DI 这个全局容器了。</span><br><span class="line">-------------------------------</span><br><span class="line"></span><br><span class="line">Phalcon\\DI 是一个实现了服务的依赖注入功能的组件，它本身就是一个容器。由于Phalcon高度解耦，Phalcon\\DI 是框架用来集成其他组件的必不可少的部分，开发人员也可以使用这个组件依赖注入和管理应用程序中不同类文件的实例。 基本上，这个组件实现了 Inversion of Control 模式。基于此，对象不再以构造函数接收参数或者使用setter的方式来实现注入，而是直接请求服务的依赖注入。这就大大降低了整体程序的复杂性，因为只有一个方法用以获得所需要的一个组件的依赖关系。 这种模式增强了代码的可测试性，从而使它不容易出错。在容器中注册服务，框架本身或开发人员都可以注册服务。当一个组件A要求调用组件B（或它的类的一个实例），可以从容器中请求调用组件B，而不是创建组件B的一个实例。 这种工作方式为我们提供了许多优点： 我们可以更换一个组件，从他们本身或者第三方轻松创建。 在组件发布之前，我们可以充分的控制对象的初始化，并对对象进行各种设置。 我们可以使用统一的方式从组件得到一个结构化的全局实例</span><br><span class="line"></span><br><span class="line">7、服务可以通过以下几种方式注入到容器：</span><br><span class="line">--------------------</span><br><span class="line"></span><br><span class="line">``` set(&quot;request&quot;, &apos;Phalcon\\Http\\Request&apos;); //Using an anonymous function, the instance will lazy loaded $di-&gt;set(&quot;request&quot;, function()&#123; return new Phalcon\\Http\\Request(); &#125;); //Registering an instance $di-&gt;set(&quot;request&quot;, new Phalcon\\Http\\Request()); //Using an array definition $di-&gt;set(&quot;request&quot;, array( &quot;className&quot; =&gt; &apos;Phalcon\\Http\\Request&apos; ));``` 现在看代码，你有没有看到 Laravel 的影子呢，在上面的例子中，当向框架请求访问一个请求数据时，它将首先确定容器中是否存在这个”reqeust”名称的服务。 容器会反回一个请求数据的实例，开发人员最终得到他们想要的组件。 在上面示例中的每一种方法都有优缺点，具体使用哪一种，由开发过程中的特定场景来决定的。 用一个字符串来设定一个服务非常简单，但缺少灵活性。设置服务时，使用数组则提供了更多的灵活性，而且可以使用较复杂的代码。lambda函数是两者之间一个很好的平衡，但也可能导致更多的维护管理成本。 Phalcon\\DI 提供服务的延迟加载。除非开发人员在注入服务的时候直接实例化一个对象，然后存存储到容器中。在容器中，通过数组，字符串等方式存储的服务都将被延迟加载，即只有在请求对象的时候才被初始化。 ``` set(&quot;db&quot;, array( &quot;className&quot; =&gt; &quot;Phalcon\\Db\\Adapter\\Pdo\\Mysql&quot;, &quot;parameters&quot; =&gt; array( &quot;parameter&quot; =&gt; array( &quot;host&quot; =&gt; &quot;localhost&quot;, &quot;username&quot; =&gt; &quot;root&quot;, &quot;password&quot; =&gt; &quot;secret&quot;, &quot;dbname&quot; =&gt; &quot;blog&quot; ) ) )); //Using an anonymous function $di-&gt;set(&quot;db&quot;, function()&#123; return new Phalcon\\Db\\Adapter\\Pdo\\Mysql(array( &quot;host&quot; =&gt; &quot;localhost&quot;, &quot;username&quot; =&gt; &quot;root&quot;, &quot;password&quot; =&gt; &quot;secret&quot;, &quot;dbname&quot; =&gt; &quot;blog&quot; )); &#125;);``` 以上这两种服务的注册方式产生相同的结果。然后，通过数组定义的，在后面需要的时候，你可以修改服务参数： ``` setParameter(&quot;db&quot;, 0, array( &quot;host&quot; =&gt; &quot;localhost&quot;, &quot;username&quot; =&gt; &quot;root&quot;, &quot;password&quot; =&gt; &quot;secret&quot; ));``` 从容器中获得服务的最简单方式就是使用”get”方法，它将从容器中返回一个新的实例： ``` get(&quot;request&quot;);``` 或者通过下面这种魔术方法的形式调用： ``` getRequest();``` Phalcon\\DI 同时允许服务重用，为了得到一个已经实例化过的服务，可以使用 getShared() 方法的形式来获得服务。 参数还可以在请求的时候通过将一个数组参数传递给构造函数的方式： ``` get(&quot;MyComponent&quot;, array(&quot;some-parameter&quot;, &quot;other&quot;))</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/06/15/一篇让你真正理解-laravel-ioc-模式的文章/" data-id="cjujhygdk00axej3jifkswrhu" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/15/laravel之设计模式/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          laravel之设计模式
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/15/浅谈-laravel-设计模式/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">浅谈 Laravel 设计模式</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

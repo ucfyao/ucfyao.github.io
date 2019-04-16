@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>centos编译mysql | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1.下载源码 1 wget [http://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.23.tar.gz](http://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.23.tar.gz) 2.解压 1 tar zxvf mysql-5.6.23.tar.gz 3.安装必要的包 1 sudo y">
+<meta property="og:type" content="article">
+<meta property="og:title" content="centos编译mysql">
+<meta property="og:url" content="http://yoursite.com/2016/01/05/centos编译mysql/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1.下载源码 1 wget [http://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.23.tar.gz](http://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.23.tar.gz) 2.解压 1 tar zxvf mysql-5.6.23.tar.gz 3.安装必要的包 1 sudo y">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-16T07:59:56.136Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="centos编译mysql">
+<meta name="twitter:description" content="1.下载源码 1 wget [http://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.23.tar.gz](http://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.23.tar.gz) 2.解压 1 tar zxvf mysql-5.6.23.tar.gz 3.安装必要的包 1 sudo y">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-centos编译mysql" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/01/05/centos编译mysql/" class="article-date">
+  <time datetime="2016-01-05T11:29:20.000Z" itemprop="datePublished">2016-01-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-linux/">积累________linux</a>►<a class="article-category-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      centos编译mysql
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.<a href="http://www.2cto.com/soft" target="_blank" rel="noopener">下载</a><a href="http://www.2cto.com/ym" target="_blank" rel="noopener">源码</a></p>
+<p>1</p>
+<p><code>wget [http://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.23.tar.gz](http://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.23.tar.gz)</code></p>
+<p>2.解压</p>
+<p>1</p>
+<p><code>tar zxvf mysql-5.6.23.tar.gz</code></p>
+<p>3.安装必要的包</p>
+<p>1</p>
+<p><code>sudo yum install cmake gcc?gcc-c++ ncurses-devel perl-Data-Dumper?cmake?ncurses-devel?bison?autoconf?automake???zlib* fiex* libxml* ?libmcrypt* libtool-ltdl-devel*</code></p>
+<p>cd ?mysql-5.6.23</p>
+<p>4.进入mysql源码目录，生成makefile</p>
+<p>1</p>
+<p><code>cmake .</code></p>
+<p>生成失败的的话</p>
+<p>rm -f CMakeCache.txt</p>
+<p>查看问题，进行修复</p>
+<p>5.编译</p>
+<p>1</p>
+<p><code>make</code></p>
+<p>6.安装</p>
+<p>1</p>
+<p><code>sudo make install</code></p>
+<p>mysql将会安装到/usr/local/mysql路径。 7.添加mysql用户和组 先查看是否存在 cat /etc/passwd | grep mysql cat /etc/group | grep mysql</p>
+<p>1</p>
+<p>2</p>
+<p><code>sudo groupadd mysql</code></p>
+<p><code>sudo useradd -r -g mysql mysql</code></p>
+<p>chown -R mysql:mysql /usr/local/mysql</p>
+<p>8.修改目录和文件权限，安装默认<a href="http://www.2cto.com/database/" target="_blank" rel="noopener">数据库</a></p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p><code>cd /usr/`</code>local<code></code>/mysql`</p>
+<p><code>sudo scripts/mysql_install_db</code> <code>--user=mysql?--basedir=/usr/local/mysql --datadir=/usr/local/mysql/data?</code></p>
+<p>至此，mysql就可以启动运行了。 9.启动mysql CentOS7自带MariaDB的支持，/etc下默认存在my.cnf文件干扰mysql运行，需要先删掉</p>
+<p>1</p>
+<p>2</p>
+<p><code>cd /etc</code></p>
+<p><code>sudo rm -fr my.cnf my.cnf.d</code></p>
+<p>然后再/etc下重建my.cnf文件，内容如下</p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+<p>16</p>
+<p>17</p>
+<p>18</p>
+<p>19</p>
+<p>20</p>
+<p>21</p>
+<p>22</p>
+<p>23</p>
+<p>24</p>
+<p>25</p>
+<p>26</p>
+<p>27</p>
+<p>28</p>
+<p>29</p>
+<p>30</p>
+<p>31</p>
+<p>32</p>
+<p>33</p>
+<p>34</p>
+<p>35</p>
+<p>36</p>
+<p>37</p>
+<p>38</p>
+<p>39</p>
+<p>40</p>
+<p>41</p>
+<p><code>#</code> <code>For`</code>advice<code></code>on<code>how` `to</code>change settings please see`</p>
+<p><code># [http://dev.mysql.com/doc/refman/5.6/en/server-configuration-defaults.html](http://dev.mysql.com/doc/refman/5.6/en/server-configuration-defaults.html)</code></p>
+<p><code>[mysqld]</code></p>
+<p><code># Remove leading #</code> <code>and`</code>set<code>to</code>the amount<code></code>of<code>RAM` `for</code>the most important data`</p>
+<p><code># cache</code> <code>in`</code>MySQL. Start<code></code>at<code>70%` `of</code>total RAM<code></code>for<code>dedicated server,` `else</code>10%.`</p>
+<p><code># innodb_buffer_pool_size = 128M</code></p>
+<p><code># Remove leading #</code> <code>to`</code>turn<code></code>on<code>a very important data integrity` `option</code>: logging`</p>
+<p><code># changes</code> <code>to`</code>the<code></code>binary<code>log` `between</code>backups.`</p>
+<p><code># log_bin</code></p>
+<p><code># These are commonly</code> <code>set`</code>, remove the #<code></code>and<code>set</code>as<code></code>required.`</p>
+<p><code># basedir = .....</code></p>
+<p><code># datadir = /data/mysql/data</code></p>
+<p><code>?port = .....</code></p>
+<p><code># server_id = .....</code></p>
+<p><code># socket = .....</code></p>
+<p><code># Remove leading #</code> <code>to`</code>set<code>options mainly useful` `for</code>reporting servers.`</p>
+<p><code># The server defaults are faster</code> <code>for`</code>transactions<code></code>and<code></code>fast SELECTs.`</p>
+<p><code># Adjust sizes</code> <code>as`</code>needed, experiment<code></code>to<code>find the optimal` `values</code>.`</p>
+<p><code># join_buffer_size = 128M</code></p>
+<p><code># sort_buffer_size = 2M</code></p>
+<p><code># read_rnd_buffer_size = 2M</code></p>
+<p><code>max_connection = 10000</code></p>
+<p><code>sql_mode = NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES</code></p>
+<p><code>#`</code>binary<code></code>log`</p>
+<p><code>log-bin = mysql-bin</code></p>
+<p><code>binlog_format = mixed</code></p>
+<p><code>expire_logs_day = 30</code></p>
+<p><code>#slow query log</code></p>
+<p><code>slow_query_log = 1</code></p>
+<p><code>slow_query_log_file = /var/log/mysql/slow.log</code></p>
+<p><code>long_query_time = 3</code></p>
+<p><code>log-queries-`</code>not<code></code>-using-indexes`</p>
+<p><code>log-slow-admin-statements</code></p>
+<p><code>?</code></p>
+<p>innodb_log_files_in_group=2 innodb_data_home_dir = /opt/data/mysql/ innodb_data_file_path = ibdata1:2000M;ibdata2:2000M;ibdata3:20M:autoextend innodb_log_group_home_dir = /opt/data/mysql/ # 4G RAM innodb_buffer_pool_size = 1G innodb_log_file_size = 256M innodb_log_buffer_size = 8M innodb_flush_log_at_trx_commit=0 innodb_thread_concurrency=8 innodb_flush_method=O_DIRECT # perform tmp_table_size = 512M max_heap_table_size=128M</p>
+<p>现在可以启动mysql了</p>
+<p>1</p>
+<p><code>sudo /usr/`</code>local<code></code>/mysql/bin/mysqld_safe<code></code>–user=mysql &amp;`</p>
+<p>CentOS7 不能使用service控制mysql服务，而源码安装的mysql也没有提供Systemd的控制脚本。 于是编辑/etc/rc.d/rc.local文件，添加mysql的开机启动命令。</p>
+<p>1</p>
+<p><code>/usr/`</code>local<code></code>/mysql/bin/mysqld_safe<code></code>–user=mysql &amp;`</p>
+<p>然后给/etc/rc.d/rc.local添加可执行权限</p>
+<p>1</p>
+<p><code>sudo chmod a+x /etc/rc.d/rc.`</code>local`</p>
+<p>如果开启时报错 ，重新初始化，注意用户名别用错了</p>
+<p><code>sudo /usr/`</code>local<code>/mysql/bin/mysqld_safe?</code>–user=mysql &amp;`</p>
+<p>9.修改root密码</p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p><code>/usr/local/mysql/bin/mysql -uroot</code></p>
+<p><code>use mysql;</code></p>
+<p><code>select</code> <code>* from mysql`</code>?<code>WHERE?</code>user<code>=?</code>‘root’<code></code>;`</p>
+<p><code>UPDATE?`</code>user?<code>SET?</code>password<code>=` `PASSWORD</code>(<code>&#39;123456&#39;</code>)<code></code>WHERE?<code>user</code>=<code></code>‘root’<code></code>;`</p>
+<p>1</p>
+<p><code>GRANT?`</code>ALL?<code>PRIVILEGES?</code>ON?<code>*.* ?</code>TO?<code>root@</code>‘%’?<code>IDENTIFIED` `BY?</code>‘123456’<code></code>;`</p>
+<p>1</p>
+<p><code>FLUSH</code> <code>PRIVILEGES`</code>;`</p>
+<p>至此，安装基本完成了，一个mysql就能用了。 启动mysql 添加服务，拷贝服务脚本到init.d目录，并设置开机启动   [root@localhost mysql]# cp support-files/mysql.server /etc/init.d/mysql [root@localhost mysql]# chkconfig mysql on [root@localhost mysql]# service mysql start –启动MySQL 查看是否启动成功 netstat -lntp | grep 3306</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/01/05/centos编译mysql/" data-id="cjujhyg62001iej3j7vg3mt4z" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/01/05/centos下编译nginx/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          centos下编译nginx
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/01/05/centos编译php5-6/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">centos编译php5.6</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

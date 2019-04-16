@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>pandas数据清洗，排序，索引设置，数据选取 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="此教程适合有pandas基础的童鞋来看，很多知识点会一笔带过，不做详细解释  Pandas数据格式  Series DataFrame：每个column就是一个Series基础属性shape,index,columns,values，dtypes，describe(),head(),tail() 统计属性Series： count(),value_counts()，前者是统计总数，后者统计各自v">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pandas数据清洗，排序，索引设置，数据选取">
+<meta property="og:url" content="http://yoursite.com/2017/11/01/pandas数据清洗，排序，索引设置，数据选取/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="此教程适合有pandas基础的童鞋来看，很多知识点会一笔带过，不做详细解释  Pandas数据格式  Series DataFrame：每个column就是一个Series基础属性shape,index,columns,values，dtypes，describe(),head(),tail() 统计属性Series： count(),value_counts()，前者是统计总数，后者统计各自v">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-16T07:59:56.545Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="pandas数据清洗，排序，索引设置，数据选取">
+<meta name="twitter:description" content="此教程适合有pandas基础的童鞋来看，很多知识点会一笔带过，不做详细解释  Pandas数据格式  Series DataFrame：每个column就是一个Series基础属性shape,index,columns,values，dtypes，describe(),head(),tail() 统计属性Series： count(),value_counts()，前者是统计总数，后者统计各自v">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-pandas数据清洗，排序，索引设置，数据选取" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/11/01/pandas数据清洗，排序，索引设置，数据选取/" class="article-date">
+  <time datetime="2017-11-01T14:20:23.000Z" itemprop="datePublished">2017-11-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-python/">积累________python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      pandas数据清洗，排序，索引设置，数据选取
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>此教程适合有pandas基础的童鞋来看，很多知识点会一笔带过，不做详细解释</p>
+</blockquote>
+<p><strong>Pandas数据格式</strong></p>
+<ul>
+<li>Series</li>
+<li>DataFrame：每个column就是一个Series基础属性shape,index,columns,values，dtypes，describe(),head(),tail() 统计属性Series： count(),value_counts()，前者是统计总数，后者统计各自value的总数</li>
+</ul>
+<hr>
+<p>df.isnull() df的空值为True df.notnull() df的非空值为True</p>
+<ul>
+<li>修改列名</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">*   更改数据格式astype()</span><br><span class="line"></span><br><span class="line">``` `isin #计算一个“Series各值是否包含传入的值序列中”的布尔数组 unique #返回唯一值的数组 value_counts #返回一个Series，其索引为唯一值，值为频率，按计数降序排列`</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="数据清洗"><a href="#数据清洗" class="headerlink" title="数据清洗"></a><strong>数据清洗</strong></h4><ul>
+<li>丢弃值drop()</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>axis</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">*   丢弃缺失值dropna()</span><br><span class="line"></span><br><span class="line">``` `# 默认axi=0（行）；1（列），how=‘any’ df.dropna()#每行只要有空值，就将这行删除 df.dropna(axis=1)#每列只要有空值，整列丢弃 df.dropna(how=&apos;all&apos;)# 一行中全部为NaN的，才丢弃该行 df.dropna(thresh=3)# 每行至少3个非空值才保留`</span><br></pre></td></tr></table></figure>
+<ul>
+<li>缺失值填充fillna()</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>df.fillna(&#123;1:0,2:0.5&#125;) #对第一列nan值赋0，第二列赋值0.5 df.fillna(method</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">*   值替换replace()</span><br><span class="line"></span><br><span class="line">``` `# 将df的A列中 -999 全部替换成空值 df[&apos;A&apos;].replace(-999, np.nan) #-999和1000 均替换成空值 obj.replace([-999,1000], np.nan) # -999替换成空值，1000替换成0 obj.replace([-999,1000], [np.nan, 0]) # 同上，写法不同，更清晰 obj.replace(&#123;-999:np.nan, 1000:0&#125;)`</span><br></pre></td></tr></table></figure>
+<ul>
+<li>重复值处理duplicated()，unique()，drop_duplictad()</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>#和false组成的Series类型 df.duplicated('key')#两行key这一列一样就算重复 df['A'].unique()# 返回唯一值的数组（类型为array） df.drop_duplicates(['k1'])# 保留k1列中的唯一值的行，默认保留第一行 df.drop_duplicates(['k1','k2'], take_last</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* * *</span><br><span class="line"></span><br><span class="line">#### **排序**</span><br><span class="line"></span><br><span class="line">*   索引排序</span><br><span class="line"></span><br><span class="line">``` `# 默认axis=0，按行索引对行进行排序；ascending=True，升序排序 df.sort_index() # 按列名对列进行排序，ascending=False 降序 df.sort_index(axis=1, ascending=False)`</span><br></pre></td></tr></table></figure>
+<ul>
+<li>值排序</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>按值对Series进行排序，使用order()，默认空值会置于尾部 s </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">*   排名</span><br><span class="line"></span><br><span class="line">``` `a=Series([7,-5,7,4,2,0,4]) a.rank()#默认method=&apos;average&apos;，升序排名（ascending=True），按行（axis=0） #average 值相等时，取排名的平均值 #min 值相等时，取排名最小值 #max 值相等时，取排名最大值 #first值相等时，按原始数据出现顺序排名`</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="索引设置"><a href="#索引设置" class="headerlink" title="索引设置"></a><strong>索引设置</strong></h4><ul>
+<li>reindex() 更新index或者columns， 默认：更新index，返回一个新的DataFrame</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>返回一个新的DataFrame，更新index，原来的index会被替代消失 # 如果dataframe中某个索引值不存在，会自动补上NaN df2 </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">*   set_index() 将DataFrame中的列columns设置成索引index 打造层次化索引的方法</span><br><span class="line"></span><br><span class="line">``` `# 将columns中的其中两列：race和sex的值设置索引，race为一级，sex为二级 # inplace=True 在原数据集上修改的 adult.set_index([&apos;race&apos;,&apos;sex&apos;], inplace = True) # 默认情况下，设置成索引的列会从DataFrame中移除 # drop=False将其保留下来 adult.set_index([&apos;race&apos;,&apos;sex&apos;], inplace = True)`</span><br></pre></td></tr></table></figure>
+<ul>
+<li>reset_index() 将使用set_index()打造的层次化逆向操作 既是取消层次化索引，将索引变回列，并补上最常规的数字索引</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* * *</span><br><span class="line"></span><br><span class="line">#### **数据选取**</span><br><span class="line"></span><br><span class="line">*   \[\] 只能对行进 行（row/index） 切片，前闭后开df\[0:3\]，df\[:4\]，df\[4:\]</span><br><span class="line">*   where 布尔查找</span><br><span class="line"></span><br><span class="line">``` `df[df[&quot;A&quot;]&gt;7]`</span><br></pre></td></tr></table></figure>
+<ul>
+<li>isin</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>返回布尔值 s.isin([1,2,3]) df['A'].isin([1,2,3]) df.loc[df['A'].isin([5.8,5.1])]选取列A中值为5.8，5.1的所有行组成dataframe````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">*   query 多个where整合切片，&amp;：于，|：或</span><br><span class="line"></span><br><span class="line">``` `df.query(&quot; A&gt;5.0 &amp; (B&gt;3.5 | C&lt;1.0) &quot;)　`</span><br></pre></td></tr></table></figure>
+<ul>
+<li>loc ：根据名称Label切片</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>df.loc[A,B] A是行范围，B是列范围 df.loc[1:4,['petal_length','petal_width']] # 需求1：创建一个新的变量 test # 如果sepal_length > 3 test </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">*   iloc：切位置</span><br><span class="line"></span><br><span class="line">``` `df.iloc[1:4,:]`</span><br></pre></td></tr></table></figure>
+<ul>
+<li>ix：混切 名称和位置混切，但效率低，少用</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">*   map与lambda</span><br><span class="line"></span><br><span class="line">``` `alist = [1,2,3,4] map(lambda s : s+1, alist)#map就是将自定义函数应用于Series每个元素 df[&apos;sepal_length&apos;].map(lambda s:s*2+1)[0:3]`</span><br></pre></td></tr></table></figure>
+<ul>
+<li>apply和applymap apply和applymap是对dataframe的操作，前者操作一行或者一列，后者操作每个元素</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>are techniques to apply function to element, column or dataframe. Map: It iterates over each element of a series. df[‘column1’].map(lambda x: 10+x), this will add 10 to each element of column1. df[‘column2’].map(lambda x: ‘AV’+x), this will concatenate “AV“ at the beginning of each element of column2 (column format is string). Apply: As the name suggests, applies a function along any axis of the DataFrame. df[[‘column1’,’column2’]].apply(sum), it will returns the sum of all the values of column1 and column2. df0[['data1']].apply(lambda s:s+1) ApplyMap: 对dataframe的每一个元素施加一个函数 func </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">*   contains</span><br><span class="line"></span><br><span class="line">``` `# 使用DataFrame模糊筛选数据(类似SQL中的LIKE) # 使用正则表达式进行模糊匹配,*匹配0或无限次,?匹配0或1次 df_obj[df_obj[&apos;套餐&apos;].str.contains(r&apos;.*?语音CDMA.*&apos;)] # 下面两句效果一致 df[df[&apos;商品名称&apos;].str.contains(&quot;四件套&quot;)] df[df[&apos;商品名称&apos;].str.contains(r&quot;.*四件套.*&quot;)]`</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/11/01/pandas数据清洗，排序，索引设置，数据选取/" data-id="cjujhyg8r004sej3jfyx4xbn6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/11/01/pandas常用函数/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          pandas常用函数
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/10/27/laravel5-unable-to-prepare-route-for-serialization-uses-closure-2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">laravel5 Unable to prepare route [/] for serialization. Uses Closure.</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

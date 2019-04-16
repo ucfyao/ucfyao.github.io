@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>同源策略和跨域访问 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. 什么是同源策略理解跨域首先必须要了解同源策略。同源策略是浏览器上为安全性考虑实施的非常重要的安全策略。 何谓同源: URL由协议、域名、端口和路径组成，如果两个URL的协议、域名和端口相同，则表示他们同源。 同源策略: 浏览器的同源策略，限制了来自不同源的”document”或脚本，对当前”document”读取或设置某些属性。 （白帽子讲web安全[1]） 从一个域上加载的脚本不允许访问另">
+<meta property="og:type" content="article">
+<meta property="og:title" content="同源策略和跨域访问">
+<meta property="og:url" content="http://yoursite.com/2017/02/20/同源策略和跨域访问/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1. 什么是同源策略理解跨域首先必须要了解同源策略。同源策略是浏览器上为安全性考虑实施的非常重要的安全策略。 何谓同源: URL由协议、域名、端口和路径组成，如果两个URL的协议、域名和端口相同，则表示他们同源。 同源策略: 浏览器的同源策略，限制了来自不同源的”document”或脚本，对当前”document”读取或设置某些属性。 （白帽子讲web安全[1]） 从一个域上加载的脚本不允许访问另">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://code.csdn.net/assets/CODE\_ico.png">
+<meta property="og:image" content="https://code.csdn.net/assets/ico\_fork.svg">
+<meta property="og:updated_time" content="2019-04-16T07:59:57.308Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="同源策略和跨域访问">
+<meta name="twitter:description" content="1. 什么是同源策略理解跨域首先必须要了解同源策略。同源策略是浏览器上为安全性考虑实施的非常重要的安全策略。 何谓同源: URL由协议、域名、端口和路径组成，如果两个URL的协议、域名和端口相同，则表示他们同源。 同源策略: 浏览器的同源策略，限制了来自不同源的”document”或脚本，对当前”document”读取或设置某些属性。 （白帽子讲web安全[1]） 从一个域上加载的脚本不允许访问另">
+<meta name="twitter:image" content="https://code.csdn.net/assets/CODE\_ico.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-同源策略和跨域访问" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/02/20/同源策略和跨域访问/" class="article-date">
+  <time datetime="2017-02-20T08:21:37.000Z" itemprop="datePublished">2017-02-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/日常-经验分享/">日常________经验分享</a>►<a class="article-category-link" href="/categories/日常-经验分享/积累-php/">积累________php</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      同源策略和跨域访问
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-什么是同源策略"><a href="#1-什么是同源策略" class="headerlink" title="1. 什么是同源策略"></a>1. 什么是同源策略</h3><p>理解跨域首先必须要了解同源策略。同源策略是浏览器上为安全性考虑实施的非常重要的安全策略。 何谓同源: URL由协议、域名、端口和路径组成，如果两个URL的协议、域名和端口相同，则表示他们同源。 同源策略: 浏览器的同源策略，限制了来自不同源的”document”或脚本，对当前”document”读取或设置某些属性。 （白帽子讲web安全[1]） 从一个域上加载的脚本不允许访问另外一个域的文档属性。 举个例子： 比如一个恶意网站的页面通过iframe嵌入了银行的登录页面（二者不同源），如果没有同源限制，恶意网页上的javascript脚本就可以在用户登录银行的时候获取用户名和密码。 在浏览器中，、<img>、<iframe>、<link>等标签都可以加载跨域资源，而不受同源限制，但浏览器限制了JavaScript的权限使其不能读、写加载的内容。 另外同源策略只对网页的HTML文档做了限制，对加载的其他静态资源如javascript、css、图片等仍然认为属于同源。 代码示例（<a href="http://localhost:8080/和http://localhost:8081由于端口不同而不同源）：" target="_blank" rel="noopener">http://localhost:8080/和http://localhost:8081由于端口不同而不同源）：</a> <div class="dp-highlighter bg\_html"> <div class="bar"> <div class="tools"><b>[html]</b> <a class="ViewSource" title="view plain" href="http://blog.csdn.net/shimiso/article/details/21830313#" target="_blank" rel="noopener">view plain</a><span data-mod="popu\_168"> <a class="CopyToClipboard" title="copy" href="http://blog.csdn.net/shimiso/article/details/21830313#" target="_blank" rel="noopener">copy</a></span> <div><embed id="ZeroClipboardMovie\_1" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" type="application/x-shockwave-flash" width="18" height="18" align="middle" name="ZeroClipboardMovie\_1" data-mce-fragment="1"></div> <span class="tracking-ad" data-mod="popu\_167"><a title="在CODE上查看代码片" href="https://code.csdn.net/snippets/251145" target="\_blank"><img src="https://code.csdn.net/assets/CODE\_ico.png" alt="在CODE上查看代码片" width="12" height="12"></a></span><span class="tracking-ad" data-mod="popu\_170"><a title="派生到我的代码片" href="https://code.csdn.net/snippets/251145/fork" target="\_blank"><img src="https://code.csdn.net/assets/ico\_fork.svg" alt="派生到我的代码片" width="12" height="12"></a></span></div> </div> <ol class="dp-xml" start="1"> <li class="alt"><a href="http://localhost:8080/test.html" target="_blank" rel="noopener">http://localhost:8080/test.html</a></li> <li class>        <span class="tag">&lt;</span><span class="tag-name">html</span><span class="tag">&gt;</span></li> <li class="alt">            <span class="tag">&lt;</span><span class="tag-name">head</span><span class="tag">&gt;</span><span class="tag">&lt;</span><span class="tag-name">title</span><span class="tag">&gt;</span>test same origin policy<span class="tag">&lt;/</span><span class="tag-name">title</span><span class="tag">&gt;</span><span class="tag">&lt;/</span><span class="tag-name">head</span><span class="tag">&gt;</span></li> <li class>            <span class="tag">&lt;</span><span class="tag-name">body</span><span class="tag">&gt;</span></li> <li class="alt">                <span class="tag">&lt;</span><span class="tag-name">iframe</span> <span class="attribute">id</span>=<span class="attribute-value">“test”</span> <span class="attribute">src</span>=<span class="attribute-value">“<a href="http://localhost:8081/test2.html&quot;" target="_blank" rel="noopener">http://localhost:8081/test2.html&quot;</a></span><span class="tag">&gt;</span><span class="tag">&lt;/</span><span class="tag-name">iframe</span><span class="tag">&gt;</span></li> <li class>                <span class="tag">&lt;</span><span class="tag-name">script</span> <span class="attribute">type</span>=<span class="attribute-value">“text/javascript”</span><span class="tag">&gt;</span></li> <li class="alt">                    document.getElementById(“test”)<span class="attribute">.contentDocument.body.innerHTML</span> = <span class="attribute-value">“write somthing”</span>;</li> <li class>                <span class="tag">&lt;/</span><span class="tag-name">script</span><span class="tag">&gt;</span></li> <li class="alt">            <span class="tag">&lt;/</span><span class="tag-name">body</span><span class="tag">&gt;</span></li> <li class>        <span class="tag">&lt;/</span><span class="tag-name">html</span><span class="tag">&gt;</span></li> <li class="alt"></li> <li class><a href="http://localhost:8081/test2.html" target="_blank" rel="noopener">http://localhost:8081/test2.html</a></li> <li class="alt">        <span class="tag">&lt;</span><span class="tag-name">html</span><span class="tag">&gt;</span></li> <li class>            <span class="tag">&lt;</span><span class="tag-name">head</span><span class="tag">&gt;</span><span class="tag">&lt;</span><span class="tag-name">title</span><span class="tag">&gt;</span>test same origin policy<span class="tag">&lt;/</span><span class="tag-name">title</span><span class="tag">&gt;</span><span class="tag">&lt;/</span><span class="tag-name">head</span><span class="tag">&gt;</span></li> <li class="alt">            <span class="tag">&lt;</span><span class="tag-name">body</span><span class="tag">&gt;</span></li> <li class>                Testing.</li> <li class="alt">            <span class="tag">&lt;/</span><span class="tag-name">body</span><span class="tag">&gt;</span></li> <li class>        <span class="tag">&lt;/</span><span class="tag-name">html</span><span class="tag">&gt;</span></li> </ol> </div> 在Firefox中会得到如下错误： Error: Permission denied to access property ‘body’ Document对象的domain属性存放着装载文档的服务器的主机名，可以设置它。 例如来自”blog.csdn.net”和来自”bbs.csdn.net”的页面，都将document.domain设置为”csdn.net”，则来自两个子域名的脚本即可相互访问。 出于安全的考虑，不能设置为其他主domain，比如<a href="http://www.csdn.net/不能设置为sina.com" target="_blank" rel="noopener">http://www.csdn.net/不能设置为sina.com</a> <h3><a name="t1"></a>2. Ajax跨域</h3> Ajax (XMLHttpRequest)请求受到同源策略的限制。 Ajax通过XMLHttpRequest能够与远程的服务器进行信息交互，另外XMLHttpRequest是一个纯粹的Javascript对象，这样的交互过程，是在后台进行的，用户不易察觉。 因此，XMLHTTP实际上已经突破了原有的Javascript的安全限制。 举个例子： 假设某网站引用了其它站点的javascript，这个站点被compromise并在javascript中加入获取用户输入并通过ajax提交给其他站点，这样就可以源源不断收集信息。 或者某网站因为存在漏洞导致XSS注入了javascript脚本，这个脚本就可以通过ajax获取用户信息并通过ajax提交给其他站点，这样就可以源源不断收集信息。 如果我们又想利用XMLHTTP的无刷新异步交互能力，又不愿意公然突破Javascript的安全策略，可以选择的方案就是给XMLHTTP加上严格的同源限制。 这样的安全策略，很类似于Applet的安全策略。IFrame的限制还仅仅是不能访问跨域HTMLDOM中的数据，而XMLHTTP则根本上限制了跨域请求的提交。（实际上下面提到了CORS已经放宽了限制） 随着Ajax技术和网络服务的发展，对跨域的要求也越来越强烈。下面介绍Ajax的跨域技术。 <h3><a name="t2"></a>2.1 JSONP</h3> JSONP技术实际和Ajax没有关系。我们知道<script>标签可以加载跨域的javascript脚本，并且被加载的脚本和当前文档属于同一个域。因此在文档中可以调用/访问脚本中的数据和函数。如果javascript脚本中的数据是动态生成的，那么只要在文档中动态创建<script>标签就可以实现和服务端的数据交互。 JSONP就是利用<script>标签的跨域能力实现跨域数据的访问，请求动态生成的JavaScript脚本同时带一个callback函数名作为参数。其中callback函数本地文档的JavaScript函数，服务器端动态生成的脚本会产生数据，并在代码中以产生的数据为参数调用callback函数。当这段脚本加载到本地文档时，callback函数就被调用。 第一个站点的测试页面（<a href="http://localhost:8080/test.html）：">http://localhost:8080/test.html）：</a> <div class="dp-highlighter bg\_html"> <div class="bar"> <div class="tools"><b>[html]</b> <a class="ViewSource" title="view plain" href="http://blog.csdn.net/shimiso/article/details/21830313#">view plain</a><span data-mod="popu\_168"> <a class="CopyToClipboard" title="copy" href="http://blog.csdn.net/shimiso/article/details/21830313#">copy</a></span> <div><embed id="ZeroClipboardMovie\_2" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" type="application/x-shockwave-flash" width="18" height="18" align="middle" name="ZeroClipboardMovie\_2" data-mce-fragment="1"></embed></div> <span class="tracking-ad" data-mod="popu\_167"><a title="在CODE上查看代码片" href="https://code.csdn.net/snippets/251145" target="\_blank"><img src="https://code.csdn.net/assets/CODE\_ico.png" alt="在CODE上查看代码片" width="12" height="12" /></a></span><span class="tracking-ad" data-mod="popu\_170"><a title="派生到我的代码片" href="https://code.csdn.net/snippets/251145/fork" target="\_blank"><img src="https://code.csdn.net/assets/ico\_fork.svg" alt="派生到我的代码片" width="12" height="12" /></a></span></div> </div> <ol class="dp-xml" start="1"> <li class="alt"><span class="tag">&lt;</span><span class="tag-name">script</span> <span class="attribute">src</span>=<span class="attribute-value">“<a href="http://localhost:8081/test\_data.js&quot;">http://localhost:8081/test\_data.js&quot;</a></span><span class="tag">&gt;</span></li> <li class="">    <span class="tag">&lt;</span><span class="tag-name">script</span><span class="tag">&gt;</span></li> <li class="alt">        function test_handler(data) {</li> <li class="">            console.log(data);</li> <li class="alt">        }</li> <li class=""><span class="tag">&lt;/</span><span class="tag-name">script</span><span class="tag">&gt;</span></li> </ol> </div> 服务器端的Javascript脚本（<a href="http://localhost:8081/test\_data.js）：">http://localhost:8081/test\_data.js）：</a> test_handler(‘{“data”: “something”}’); 为了动态实现JSONP请求，可以使用Javascript动态插入<script>标签： <div class="dp-highlighter bg\_html"> <div class="bar"> <div class="tools"><b>[html]</b> <a class="ViewSource" title="view plain" href="http://blog.csdn.net/shimiso/article/details/21830313#">view plain</a><span data-mod="popu\_168"> <a class="CopyToClipboard" title="copy" href="http://blog.csdn.net/shimiso/article/details/21830313#">copy</a></span> <div><embed id="ZeroClipboardMovie\_3" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" type="application/x-shockwave-flash" width="18" height="18" align="middle" name="ZeroClipboardMovie\_3" data-mce-fragment="1"></embed></div> <span class="tracking-ad" data-mod="popu\_167"><a title="在CODE上查看代码片" href="https://code.csdn.net/snippets/251145" target="\_blank"><img src="https://code.csdn.net/assets/CODE\_ico.png" alt="在CODE上查看代码片" width="12" height="12" /></a></span><span class="tracking-ad" data-mod="popu\_170"><a title="派生到我的代码片" href="https://code.csdn.net/snippets/251145/fork" target="\_blank"><img src="https://code.csdn.net/assets/ico\_fork.svg" alt="派生到我的代码片" width="12" height="12" /></a></span></div> </div> <ol class="dp-xml" start="1"> <li class="alt"><span class="tag">&lt;</span><span class="tag-name">script</span> <span class="attribute">type</span>=<span class="attribute-value">“text/javascript”</span><span class="tag">&gt;</span></li> <li class="">        // this shows dynamic script insertion</li> <li class="alt">        var <span class="attribute">script</span> = <span class="attribute-value">document</span>.createElement(‘script’);</li> <li class="">        script.setAttribute(‘src’, url);</li> <li class="alt">        // load the script</li> <li class="">        document.getElementsByTagName(‘head’)[0].appendChild(script);</li> <li class="alt"><span class="tag">&lt;/</span><span class="tag-name">script</span><span class="tag">&gt;</span></li> </ol> </div> JSONP协议封装了上述步骤，jQuery中统一是现在AJAX中(其中data type为JSONP)： <a href="http://localhost:8080/test?callback=test\_handler">http://localhost:8080/test?callback=test\_handler</a> 为了支持JSONP协议，服务器端必须提供特别的支持[2]，另外JSONP只支持GET请求。 <h3><a name="t3"></a>2.2 Proxy</h3> 使用代理方式跨域更加直接，因为SOP的限制是浏览器实现的。如果请求不是从浏览器发起的，就不存在跨域问题了。 使用本方法跨域步骤如下： 1. 把访问其它域的请求替换为本域的请求 2. 本域的请求是服务器端的动态脚本负责转发实际的请求 各种服务器的Reverse Proxy功能都可以非常方便的实现请求的转发，如Apache httpd + mod_proxy。 Eg. 为了通过Ajax从<a href="http://localhost:8080访问http://localhost:8081/api，可以将请求发往http://localhost:8080/api。">http://localhost:8080访问http://localhost:8081/api，可以将请求发往http://localhost:8080/api。</a> 然后利用Apache Web服务器的Reverse Proxy功能做如下配置： ProxyPass /api <a href="http://localhost:8081/api">http://localhost:8081/api</a> <h3><a name="t4"></a>2.3 CORS</h3> <h3><a name="t5"></a>2.3.1 Cross origin resource sharing</h3> “Cross-origin resource sharing (CORS) is a mechanism that allows a web page to make XMLHttpRequests to another domain. Such “cross-domain” requests would otherwise be forbidden by web browsers, per the same origin security policy. CORS defines a way in which the browser and the server can interact to determine whether or not to allow the cross-origin request. It is more powerful than only allowing same-origin requests, but it is more secure than simply allowing all such cross-origin requests.” —-Wikipedia[3] 通过在HTTP Header中加入扩展字段，服务器在相应网页头部加入字段表示允许访问的domain和HTTP method，客户端检查自己的域是否在允许列表中，决定是否处理响应。 实现的基础是JavaScript不能够操作HTTP Header。某些浏览器插件实际上是具有这个能力的。 服务器端在HTTP的响应头中加入（页面层次的控制模式）： Access-Control-Allow-Origin: example.com Access-Control-Request-Method: GET, POST Access-Control-Allow-Headers: Content-Type, Authorization, Accept, Range, Origin Access-Control-Expose-Headers: Content-Range Access-Control-Max-Age: 3600 多个域名之间用逗号分隔，表示对所示域名提供跨域访问权限。”<em>“表示允许所有域名的跨域访问。 客户端可以有两种行为： 1. 发送OPTIONS请求，请求Access-Control信息。如果自己的域名在允许的访问列表中，则发送真正的请求，否则放弃请求发送。 2. 直接发送请求，然后检查response的Access-Control信息，如果自己的域名在允许的访问列表中，则读取response body，否则放弃。 本质上服务端的response内容已经到达本地，JavaScript决定是否要去读取。 Support: [Javascript Web Applications] </em> IE &gt;= 8 (需要安装caveat) <em> Firefox &gt;= 3 </em> Safari 完全支持 <em> Chrome 完全支持 </em> Opera 不支持 <h3><a name="t6"></a> 2.3.2 测试</h3> 测试页面<a href="http://localhost:8080/test3.html使用jquery发送Ajax请求。">http://localhost:8080/test3.html使用jquery发送Ajax请求。</a> <div class="dp-highlighter bg\_html"> <div class="bar"> <div class="tools"><b>[html]</b> <a class="ViewSource" title="view plain" href="http://blog.csdn.net/shimiso/article/details/21830313#">view plain</a><span data-mod="popu\_168"> <a class="CopyToClipboard" title="copy" href="http://blog.csdn.net/shimiso/article/details/21830313#">copy</a></span> <div><embed id="ZeroClipboardMovie\_4" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" type="application/x-shockwave-flash" width="18" height="18" align="middle" name="ZeroClipboardMovie\_4" data-mce-fragment="1"></embed></div> <span class="tracking-ad" data-mod="popu\_167"><a title="在CODE上查看代码片" href="https://code.csdn.net/snippets/251145" target="\_blank"><img src="https://code.csdn.net/assets/CODE\_ico.png" alt="在CODE上查看代码片" width="12" height="12" /></a></span><span class="tracking-ad" data-mod="popu\_170"><a title="派生到我的代码片" href="https://code.csdn.net/snippets/251145/fork" target="\_blank"><img src="https://code.csdn.net/assets/ico\_fork.svg" alt="派生到我的代码片" width="12" height="12" /></a></span></div> </div> <ol class="dp-xml" start="1"> <li class="alt"><span class="tag">&lt;</span><span class="tag-name">html</span><span class="tag">&gt;</span></li> <li class="">        <span class="tag">&lt;</span><span class="tag-name">head</span><span class="tag">&gt;</span><span class="tag">&lt;</span><span class="tag-name">title</span><span class="tag">&gt;</span>testing cross sop<span class="tag">&lt;/</span><span class="tag-name">title</span><span class="tag">&gt;</span><span class="tag">&lt;/</span><span class="tag-name">head</span><span class="tag">&gt;</span></li> <li class="alt">        <span class="tag">&lt;</span><span class="tag-name">body</span><span class="tag">&gt;</span></li> <li class="">            Testing.</li> <li class="alt">            <span class="tag">&lt;</span><span class="tag-name">script</span> <span class="attribute">src</span>=<span class="attribute-value">“jquery-2.0.0.min.js”</span><span class="tag">&gt;</span><span class="tag">&lt;/</span><span class="tag-name">script</span><span class="tag">&gt;</span></li> <li class="">            <span class="tag">&lt;</span><span class="tag-name">script</span> <span class="attribute">type</span>=<span class="attribute-value">‘text/javascript’</span><span class="tag">&gt;</span></li> <li class="alt">                $.ajax({</li> <li class="">                    url: ‘<a href="http://localhost:8000/hello&#39;">http://localhost:8000/hello&#39;</a>,</li> <li class="alt">                    success: function(data) {</li> <li class="">                        alert(data);</li> <li class="alt">                    },</li> <li class="">                    error: function() {</li> <li class="alt">                        alert(‘error’);</li> <li class="">                    }</li> <li class="alt">                });</li> <li class="">            <span class="tag">&lt;/</span><span class="tag-name">script</span><span class="tag">&gt;</span></li> <li class="alt">        <span class="tag">&lt;/</span><span class="tag-name">body</span><span class="tag">&gt;</span></li> <li class=""><span class="tag">&lt;/</span><span class="tag-name">html</span><span class="tag">&gt;</span></li> </ol> </div> 测试Restful API(<a href="http://localhost:8000/hello/{name})使用bottle.py来host。">http://localhost:8000/hello/{name})使用bottle.py来host。</a> from bottle import route, run, response @route(‘/hello’) def index(): return ‘Hello World.’ run(host=’localhost’, port=8000) 测试1： 测试正常的跨域请求的行为。 测试结果： 1. 跨域GET请求已经发出，请求header中带有 Origin    <a href="http://localhost:8080">http://localhost:8080</a> 2. 服务器端正确给出response 3. Javascript拒绝读取数据，在firebug中发现reponse为空，并且触发error回调 测试2： 测试支持CORS的服务器的跨域请求行为。 对Restful API做如下改动，在response中加入header： def index(): #Add CORS header# response.set_header(“Access-Control-Allow-Origin”, “<a href="http://localhost:8080&quot;">http://localhost:8080&quot;</a>) return ‘Hello World.’ 测试结果： 1. 跨域GET请求已经发出，请求header中带有 Origin    <a href="http://localhost:8080">http://localhost:8080</a> 2. 服务器端正确给出response 3. 客户端正常获取数据 测试3： 测试OPTIONS请求获取CORS信息。 对客户端的Ajax请求增加header： <div class="dp-highlighter bg\_html"> <div class="bar"> <div class="tools"><b>[html]</b> <a class="ViewSource" title="view plain" href="http://blog.csdn.net/shimiso/article/details/21830313#">view plain</a><span data-mod="popu\_168"> <a class="CopyToClipboard" title="copy" href="http://blog.csdn.net/shimiso/article/details/21830313#">copy</a></span> <div><embed id="ZeroClipboardMovie\_5" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" type="application/x-shockwave-flash" width="18" height="18" align="middle" name="ZeroClipboardMovie\_5" data-mce-fragment="1"></embed></div> <span class="tracking-ad" data-mod="popu\_167"><a title="在CODE上查看代码片" href="https://code.csdn.net/snippets/251145" target="\_blank"><img src="https://code.csdn.net/assets/CODE\_ico.png" alt="在CODE上查看代码片" width="12" height="12" /></a></span><span class="tracking-ad" data-mod="popu\_170"><a title="派生到我的代码片" href="https://code.csdn.net/snippets/251145/fork" target="\_blank"><img src="https://code.csdn.net/assets/ico\_fork.svg" alt="派生到我的代码片" width="12" height="12" /></a></span></div> </div> <ol class="dp-xml" start="1"> <li class="alt">$.ajax({</li> <li class="">          url: ‘<a href="http://localhost:8000/hello&#39;">http://localhost:8000/hello&#39;</a>,</li> <li class="alt">          headers: {‘Content-Type’: ‘text/html’},</li> <li class="">          success: function(data) {</li> <li class="alt">              alert(data);</li> <li class="">          },</li> <li class="alt">          error: function() {</li> <li class="">              alert(‘error’);</li> <li class="alt">          }</li> <li class="">      });</li> </ol> </div> 对Restful API做如下改动： @route(‘/hello’, method = [‘OPTIONS’, ‘GET’]) def index(): if request.method == ‘OPTIONS’: return ‘’ return ‘Hello World.’ 测试结果： 1. Ajax函数会首先发送OPTIONS请求 2. 针对OPTIONS请求服务器 3. 客户端发现没有CORS header后不会发送GET请求 测试4： 增加服务器端对OPTIONS方法的处理。 对Restful API做如下改动： @route(‘/hello’, method = [‘OPTIONS’, ‘GET’]) def index(): response.headers[‘Access-Control-Allow-Origin’] = ‘<a href="http://localhost:8080&#39;">http://localhost:8080&#39;</a> response.headers[‘Access-Control-Allow-Methods’] = ‘GET, OPTIONS’ response.headers[‘Access-Control-Allow-Headers’] = ‘Origin, Accept, Content-Type’ if request.method == ‘OPTIONS’: return ‘’ return ‘Hello World.’ 测试结果： 1. Ajax函数会首先发送OPTIONS请求 2. 针对OPTIONS请求服务器 3. 客户端匹配CORS header中的allow headers and orgin后会正确发送GET请求并获取结果 测试发现，Access-Control-Allow-Headers是必须的。 CORS协议提升了Ajax的跨域能力，但也增加了风险。一旦网站被注入脚本或XSS攻击，将非常方便的获取用户信息并悄悄传递出去。 <h3><a name="t7"></a>4. Cookie 同源策略</h3> Cookie中的同源只关注域名，忽略协议和端口。所以<a href="https://localhost:8080/和http://localhost:8081/的Cookie是共享的。">https://localhost:8080/和http://localhost:8081/的Cookie是共享的。</a> <h3><a name="t8"></a>5. Flash/SilverLight跨域</h3> 浏览器的各种插件也存在跨域需求。通常是通过在服务器配置crossdomain.xml[4]，设置本服务允许哪些域名的跨域访问。 客户端会首先请求此文件，如果发现自己的域名在访问列表里，就发起真正的请求，否则不发送请求。 &lt;?xml version=”1.0”?&gt; &lt;!DOCTYPE cross-domain-policy SYSTEM “<a href="http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd&quot;&gt;">http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd&quot;&gt;</a> <cross-domain-policy> <allow-access-from domain="*"/> <allow-http-request-headers-from domain="*" headers="*"/> </cross-domain-policy> 通常crossdomain.xml放置在网站根目录。 <h3><a name="t9"></a>6. 总结</h3> 互联网的发展催生了跨域访问的需求，各种跨域方法和协议满足了需求但也增加了各种风险。尤其是XSS和CSRF等攻击的盛行也得益于此。 了解这些技术背景有助于在实际项目中熟练应用并规避各种安全风险。 <h3><a name="t10"></a>Reference</h3> [1] 白帽子讲Web安全: <a href="http://book.douban.com/subject/10546925/">http://book.douban.com/subject/10546925/</a> [2] 使用 JSONP 实现跨域通信: <a href="http://www.ibm.com/developerworks/cn/web/wa-aj-jsonp1/">http://www.ibm.com/developerworks/cn/web/wa-aj-jsonp1/</a> [3] Cross-origin resource sharing: <a href="http://en.wikipedia.org/wiki/Cross-Origin\_Resource\_Sharing">http://en.wikipedia.org/wiki/Cross-Origin\_Resource\_Sharing</a> [4] Cross-domain policy for Flash movies: <a href="http://kb2.adobe.com/cps/142/tn\_14213.html">http://kb2.adobe.com/cps/142/tn\_14213.html</a></x-turndown></p>
+</script></iframe></p>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/02/20/同源策略和跨域访问/" data-id="cjujhyger00bsej3j47p9vou5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/02/22/mysql导入导出sql文件/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          mysql导入导出sql文件
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/02/16/nginx与node-js结合使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">nginx与node.js结合使用</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

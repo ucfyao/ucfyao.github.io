@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>windows下开发php5.5的扩展 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="windows环境(我个人的)8.1 企业版(mac os Boot Camp安装的) Visual Studio 2012 版本 msysgit (http://msysgit.github.io/ 下载) php-sdk-binary-tools-20110915.zip （http://windows.php.net/downloads/php-sdk/下载） deps-5.5-vc11-x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="windows下开发php5.5的扩展">
+<meta property="og:url" content="http://yoursite.com/2015/10/13/windows下开发php5-5的扩展/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="windows环境(我个人的)8.1 企业版(mac os Boot Camp安装的) Visual Studio 2012 版本 msysgit (http://msysgit.github.io/ 下载) php-sdk-binary-tools-20110915.zip （http://windows.php.net/downloads/php-sdk/下载） deps-5.5-vc11-x">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-16T07:59:56.808Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="windows下开发php5.5的扩展">
+<meta name="twitter:description" content="windows环境(我个人的)8.1 企业版(mac os Boot Camp安装的) Visual Studio 2012 版本 msysgit (http://msysgit.github.io/ 下载) php-sdk-binary-tools-20110915.zip （http://windows.php.net/downloads/php-sdk/下载） deps-5.5-vc11-x">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-windows下开发php5-5的扩展" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/13/windows下开发php5-5的扩展/" class="article-date">
+  <time datetime="2015-10-13T09:24:46.000Z" itemprop="datePublished">2015-10-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-php/">积累________php</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      windows下开发php5.5的扩展
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="windows环境-我个人的"><a href="#windows环境-我个人的" class="headerlink" title="windows环境(我个人的)"></a>windows环境(我个人的)</h4><figure class="highlight plain"><figcaption><span>8.1 企业版(mac os Boot Camp安装的) Visual Studio 2012 版本 msysgit (http://msysgit.github.io/ 下载) php-sdk-binary-tools-20110915.zip （http://windows.php.net/downloads/php-sdk/下载） deps-5.5-vc11-x86.7z （http://windows.php.net/downloads/php-sdk/下载） php-5.5.20 (http://php.net/downloads.php下载，这个版本不定自己选择)` ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 第一步</span><br><span class="line"></span><br><span class="line">&gt; 解压php-sdk-binary-tools的二进制包，譬如我解压到我的`C:\php-sdk`文件夹中，现在的目录结构如下</span><br><span class="line"></span><br><span class="line">``` `C:\php-sdk --bin --script --share`</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>然后，这个是你已经安装完成了visual studio 2012,打开<code>VS2012 Native Tools Command Prompt</code>命令行工具</p>
+</blockquote>
+<figure class="highlight plain"><figcaption><span>cd C:\php-sdk #设置环境变量 bin\phpsdk_setvars.bat #创建常用的php-sdk目录 bin\phpsdk_buildtree.bat phpdev` ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; 如果我们打开`bin\phpsdk_buildtree.bat`文件就会发现它只创建到VC9，没有VC11，但是我们如果开发php5.5版本，我们需要的是VC11,这时候我们就要把`C:\php-sdk\phpdev\vc9`复制一份到`C:\php-sdk\phpdev\vc11`，现在的目录结构如下:</span><br><span class="line"></span><br><span class="line">``` `C:\php-sdk\phpdev\ --vc6 --vc8 --vc9 --vc11`</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>因为我下载的<code>deps-5.5-vc11-x86.7z</code>，所以我要解压<code>deps-5.5-vc11-x86.7z</code>到<code>C:\php-sdk\phpdev\vc11\x86\deps</code>文件夹下覆盖，里边都是我们需要的库文件和一些必要的工具等等。 然后，将我们下载的<code>php-5.5.20.tar.bz2</code>解压到<code>C:\php-sdk\phpdev\vc11\x86\php-5.5.20</code>文件夹中。</p>
+</blockquote>
+<h4 id="编译安装php"><a href="#编译安装php" class="headerlink" title="编译安装php"></a>编译安装php</h4><blockquote>
+<p>回到<code>VS2012 Native Tools Command Prompt</code></p>
+</blockquote>
+<figure class="highlight plain"><figcaption><span>cd c:\php-sdk\phpdev\vc11\x86\php-5.5.20 buildconf #查看带的扩展和编译命令 configure --help` ``` [![php-sdk](http://yun.widuu.com/wp-content/uploads/2014/12/php-sdk1-300x267.png)](http://yun.widuu.com/wp-content/uploads/2014/12/php-sdk1.png)</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; 如果你没有安装php，现在这里就帮助到你了，可以先编译安装一下php</span><br><span class="line"></span><br><span class="line">``` `configure --disable-all --enable-cli`</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>然后，你会看到<code>Type &#39;nmake&#39; to build PHP</code>，然后编译</p>
+</blockquote>
+<figure class="highlight plain"><figcaption><span>```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; 在`C:\php-sdk\phpdev\vc11\x86\php-5.5.20\Release_TS`文件夹下就生成了`php.exe`文件，环境变量中加入这个路径，好在命令行中能使用`php`命令。</span><br><span class="line"></span><br><span class="line">#### 开发PHP的第一个扩展</span><br><span class="line"></span><br><span class="line">&gt; 假如我们要开发一个`widuu()`函数，实现的效果如下</span><br><span class="line"></span><br><span class="line">``` `function widuu($string)&#123; return &quot;your first extension &#123;$string&#125; is ok&quot;; &#125;`</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>进入扩展目录，生成扩展文件夹</p>
+</blockquote>
+<figure class="highlight plain"><figcaption><span>C:\php-sdk\phpdev\vc11\x86\php-5.5.20\ext #输入php ext_skel_win32.php --extname</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; 这时候我们在`C:\php-sdk\phpdev\vc11\x86\php-5.5.20\ext`就看到了自己的目录widuuweb,打开`widuuweb\php_widuuweb.h`，在</span><br><span class="line"></span><br><span class="line">``` `#PHP_MINFO_FUNCTION(widuuweb);下一行写入自己的函数，譬如我定义的是widuu()函数 PHP_FUNCTION(widuu);`</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>打开<code>php_widuuweb.c</code>编写函数，在<code>PHP_FUNCTION(confirm_widuuweb_compiled)</code>下</p>
+</blockquote>
+<figure class="highlight plain"><figcaption><span>char *arg_string </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; 然后找到`PHP_FE(confirm_widuuweb_compiled, NULL)`,在下边注册你的函数</span><br><span class="line"></span><br><span class="line">``` `const zend_function_entry widuuweb_functions[] = &#123; PHP_FE(confirm_widuuweb_compiled, NULL) /* For testing, remove later. */ PHP_FE(widuu,NULL) PHP_FE_END /* Must be the last line in widuuweb_functions[] */ &#125;;`</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>修改<code>C:\php-sdk\phpdev\vc11\x86\php-5.5.20\ext\widuuweb\config.w32</code>,去掉</p>
+</blockquote>
+<figure class="highlight plain"><figcaption><span>ARG_ENABLE("widuuweb", "enable widuuweb support", "no");` ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; 前边的注释,vs命令行，输入`cd ..` 到`php-5.5.20`目录中，输入下面的命令</span><br><span class="line"></span><br><span class="line">``` `buildconf --force #查看扩展 configure --help`</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果，有错误，大家可以打开，目录下configure.js查看，我这个出现了错误，是configure.js的4791行，</p>
+</blockquote>
+<figure class="highlight plain"><figcaption><span>"enable widuuweb support", "no"); */` ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; 多了一个`*/`的注释，去掉就可以了，然后再输入</span><br><span class="line"></span><br><span class="line">``` `configure --help`</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>就看到了，有一行</p>
+</blockquote>
+<figure class="highlight plain"><figcaption><span>enable widuuweb support` ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; 然后配置</span><br><span class="line"></span><br><span class="line">``` `configure --disable-all --enable-cli --enable-widuuweb=shared` ``` [![php动态扩展](http://yun.widuu.com/wp-content/uploads/2014/12/23-300x194.png)](http://yun.widuu.com/wp-content/uploads/2014/12/23.png)</span><br><span class="line"></span><br><span class="line">&gt; 其中`--enable-widuuweb=shared`动态扩展，正好与静态扩展相对。</span><br><span class="line"></span><br><span class="line">&gt; 然后输入`nmake`,完成后，我们在`C:\php-sdk\phpdev\vc11\x86\php-5.5.20\Release_TS`目录下就发现了`php_widuuweb.dll`文件，可以放到环境中测试了。 如果你本地没有安装php环境，而是跟我一样只是编译了php，如果测试，我建议静态编译看效果</span><br><span class="line"></span><br><span class="line">``` `configure --disable-all --enable-cli --enable-widuuweb=static nmake`</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>然后，你可以再<code>Release_TS</code>目录下，输入</p>
+</blockquote>
+<p><code>`php -r &quot;echo widuu(&#39;widuu&#39;);&quot; //输出&quot;your first extension widuu is ok&quot;`</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/10/13/windows下开发php5-5的扩展/" data-id="cjujhygar006yej3jk1y3yrka" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/10/15/linux和windows协同合作的samba服务器配置/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          linux和windows协同合作的samba服务器配置
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/10/13/xdebug在php安装配置/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">xdebug在php安装配置</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

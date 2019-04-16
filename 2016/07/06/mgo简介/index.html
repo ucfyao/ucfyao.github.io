@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>mgo简介 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="mgo简介mgo（音mango）是MongoDB的Go语言驱动，它用基于Go语法的简单API实现了丰富的特性，并经过良好测试。 官方网站：http://labix.org/mgo。 golang.tc（golangtc.com）网站的数据存储就是是用的MongoDB+mgo。近一年使用下来表现良好。 API文档下面是mgo、mgo/bson、mgo/txn的在线文档。  mgo?GoDoc?GoW">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mgo简介">
+<meta property="og:url" content="http://yoursite.com/2016/07/06/mgo简介/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="mgo简介mgo（音mango）是MongoDB的Go语言驱动，它用基于Go语法的简单API实现了丰富的特性，并经过良好测试。 官方网站：http://labix.org/mgo。 golang.tc（golangtc.com）网站的数据存储就是是用的MongoDB+mgo。近一年使用下来表现良好。 API文档下面是mgo、mgo/bson、mgo/txn的在线文档。  mgo?GoDoc?GoW">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://my.oschina.net/js/ke/themes/common/anchor.gif">
+<meta property="og:image" content="http://my.oschina.net/js/ke/themes/common/anchor.gif">
+<meta property="og:image" content="http://my.oschina.net/js/ke/themes/common/anchor.gif">
+<meta property="og:image" content="http://my.oschina.net/js/ke/themes/common/anchor.gif">
+<meta property="og:image" content="http://my.oschina.net/js/ke/themes/common/anchor.gif">
+<meta property="og:image" content="http://my.oschina.net/js/ke/themes/common/anchor.gif">
+<meta property="og:image" content="http://my.oschina.net/js/ke/themes/common/anchor.gif">
+<meta property="og:image" content="http://my.oschina.net/js/ke/themes/common/anchor.gif">
+<meta property="og:image" content="http://my.oschina.net/js/ke/themes/common/anchor.gif">
+<meta property="og:image" content="http://my.oschina.net/js/ke/themes/common/anchor.gif">
+<meta property="og:image" content="http://my.oschina.net/js/ke/themes/common/anchor.gif">
+<meta property="og:image" content="http://my.oschina.net/js/ke/themes/common/anchor.gif">
+<meta property="og:image" content="http://my.oschina.net/js/ke/themes/common/anchor.gif">
+<meta property="og:image" content="http://my.oschina.net/js/ke/themes/common/anchor.gif">
+<meta property="og:image" content="http://my.oschina.net/js/ke/themes/common/anchor.gif">
+<meta property="og:image" content="http://my.oschina.net/js/ke/themes/common/anchor.gif">
+<meta property="og:image" content="http://my.oschina.net/js/ke/themes/common/anchor.gif">
+<meta property="og:image" content="http://my.oschina.net/js/ke/themes/common/anchor.gif">
+<meta property="og:image" content="http://my.oschina.net/js/ke/themes/common/anchor.gif">
+<meta property="og:image" content="http://my.oschina.net/js/ke/themes/common/anchor.gif">
+<meta property="og:updated_time" content="2019-04-16T07:59:56.533Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mgo简介">
+<meta name="twitter:description" content="mgo简介mgo（音mango）是MongoDB的Go语言驱动，它用基于Go语法的简单API实现了丰富的特性，并经过良好测试。 官方网站：http://labix.org/mgo。 golang.tc（golangtc.com）网站的数据存储就是是用的MongoDB+mgo。近一年使用下来表现良好。 API文档下面是mgo、mgo/bson、mgo/txn的在线文档。  mgo?GoDoc?GoW">
+<meta name="twitter:image" content="http://my.oschina.net/js/ke/themes/common/anchor.gif">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mgo简介" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/06/mgo简介/" class="article-date">
+  <time datetime="2016-07-06T09:44:59.000Z" itemprop="datePublished">2016-07-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-go/">积累________go</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      mgo简介
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="mgo简介"><a href="#mgo简介" class="headerlink" title="mgo简介"></a>mgo简介</h2><p>mgo（音mango）是MongoDB的Go语言驱动，它用基于Go语法的简单API实现了丰富的特性，并经过良好测试。 官方网站：<a href="http://labix.org/mgo。" target="_blank" rel="noopener">http://labix.org/mgo。</a> golang.tc（golangtc.com）网站的数据存储就是是用的MongoDB+mgo。近一年使用下来表现良好。</p>
+<h2 id="API文档"><a href="#API文档" class="headerlink" title="API文档"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>API文档</h2><p>下面是mgo、mgo/bson、mgo/txn的在线文档。</p>
+<ul>
+<li>mgo?GoDoc?GoWalker</li>
+<li>mgo/bson?GoDoc?GoWalker</li>
+<li>mgo/txn?GoDoc?GoWalker</li>
+</ul>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>安装</h2><p>安装mgo之前请先安装Golang和MongoDB，安装过程不再赘述。 安装bzr版本工具（mgo使用Bazaar作为版本控制系统，因安装的时候需要去Bazaar拉取代码）。 安装命令</p>
+<figure class="highlight plain"><figcaption><span>get gopkg.in/mgo.v2````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![](http://my.oschina.net/js/ke/themes/common/anchor.gif)![](http://my.oschina.net/js/ke/themes/common/anchor.gif)示例</span><br><span class="line">--------------------------------------------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">下面的代码是个示例。 ``` `package main import ( &quot;fmt&quot; &quot;labix.org/v2/mgo&quot; &quot;labix.org/v2/mgo/bson&quot; ) type Person struct &#123; Name string Phone string &#125; func main() &#123; session, err := mgo.Dial(&quot;&quot;) if err != nil &#123; panic(err) &#125; defer session.Close() session.SetMode(mgo.Monotonic, true) c := session.DB(&quot;test&quot;).C(&quot;people&quot;) err = c.Insert(&amp;Person&#123;&quot;Ale&quot;, &quot;111111&quot;&#125;, &amp;Person&#123;&quot;Cla&quot;, &quot;222222222&quot;&#125;) if err != nil &#123; panic(err) &#125; result := Person&#123;&#125; err = c.Find(bson.M&#123;&quot;name&quot;: &quot;Ale&quot;&#125;).One(&amp;result) if err != nil &#123; panic(err) &#125; fmt.Println(&quot;Phone:&quot;, result.Phone) &#125;```` 具体代码什么意思先不用管，后面讲解每个方法的用法。</span><br><span class="line"></span><br><span class="line">![](http://my.oschina.net/js/ke/themes/common/anchor.gif)![](http://my.oschina.net/js/ke/themes/common/anchor.gif)如何使用</span><br><span class="line">----------------------------------------------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">下面介绍如何使用mgo，主要介绍集合的操作。对数据库，用户等操作，请自行查看文档。 第一步当然是先导入mgo包 ``` `import ( &quot;gopkg.in/mgo.v2&quot; &quot;gopkg.in/mgo.v2/bson&quot; )`</span><br></pre></td></tr></table></figure>
+<h3 id="连接服务器"><a href="#连接服务器" class="headerlink" title="连接服务器"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>连接服务器</h3><p>通过方法Dial()来和MongoDB服务器建立连接。Dial()定义如下：</p>
+<figure class="highlight plain"><figcaption><span>Dial(url string) (*Session, error)````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">具体使用：</span><br><span class="line"></span><br><span class="line">``` `session, err := mgo.Dial(url)`</span><br></pre></td></tr></table></figure>
+<p>如果是本机，并且MongoDB是默认端口27017启动的话，下面几种方式都可以。 <figure class="highlight plain"><figcaption><span>err :</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">``` `mongodb://myuser:mypass@localhost:40001,otherhost:40001/mydb`</span><br></pre></td></tr></table></figure></p>
+<h3 id="切换数据库"><a href="#切换数据库" class="headerlink" title="切换数据库"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>切换数据库</h3><p>通过Session.DB()来切换相应的数据库。</p>
+<figure class="highlight plain"><figcaption><span>(s *Session) DB(name string) *Database````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">如切换到test数据库。</span><br><span class="line"></span><br><span class="line">``` `db := session.DB(&quot;test&quot;)`</span><br></pre></td></tr></table></figure>
+<h3 id="切换集合"><a href="#切换集合" class="headerlink" title="切换集合"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>切换集合</h3><p>通过Database.C()方法切换集合（Collection），这样我们就可以通过对集合进行增删查改操作了。</p>
+<figure class="highlight plain"><figcaption><span>(db *Database) C(name string) *Collection````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">如切换到\`users\`集合。</span><br><span class="line"></span><br><span class="line">``` `c := db.C(&quot;users&quot;)`</span><br></pre></td></tr></table></figure>
+<h3 id="对集合进行操作"><a href="#对集合进行操作" class="headerlink" title="对集合进行操作"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>对集合进行操作</h3><p>介绍插入、查询、修改、删除操作。 先提一下ObjectId，MongoDB每个集合都会一个名为_id的主键，这是一个24位的16进制字符串。对应到mgo中就是bson.ObjectId。 这里我们定义一个struct，用来和集合对应。 <figure class="highlight plain"><figcaption><span>User struct &#123; Id_ bson.ObjectId `bson:"_id"` Name string `bson:"name"` Age int `bson:"age"` JonedAt time.Time `bson:"joned_at"` Interests []string `bson:"interests"` &#125;````` 注解 注意User的字段首字母大写，不然不可见。通过bson:”name”这种方式可以定义MongoDB中集合的字段名，如果不定义，mgo自动把struct的字段名首字母小写作为集合的字段名。如果不需要获得id_，Id_可以不定义，在插入的时候会自动生成。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### ![](http://my.oschina.net/js/ke/themes/common/anchor.gif)![](http://my.oschina.net/js/ke/themes/common/anchor.gif)插入</span><br><span class="line"></span><br><span class="line">插入方法定义如下：</span><br><span class="line"></span><br><span class="line">``` `func (c *Collection) Insert(docs ...interface&#123;&#125;) error`</span><br></pre></td></tr></table></figure></p>
+<p>下面代码插入两条集合数据。 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### ![](http://my.oschina.net/js/ke/themes/common/anchor.gif)![](http://my.oschina.net/js/ke/themes/common/anchor.gif)无条件查询</span><br><span class="line"></span><br><span class="line">**查询所有**</span><br><span class="line"></span><br><span class="line">``` `var users []User c.Find(nil).All(&amp;users) fmt.Println(users)`</span><br></pre></td></tr></table></figure></p>
+<p>上面代码可以把所有Users都查出来：</p>
+<figure class="highlight plain"><figcaption><span>Jimmy Kuu 33 2013-08-09 17:00:07.95 +0800 CST [Develop Movie]&#125; &#123;ObjectIdHex("5204af979955496907000002") Tracy Yu 31 2013-08-09 17:00:07.971 +0800 CST [Shoping TV]&#125;]````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### ![](http://my.oschina.net/js/ke/themes/common/anchor.gif)![](http://my.oschina.net/js/ke/themes/common/anchor.gif)根据ObjectId查询</span><br><span class="line"></span><br><span class="line">``` `id := &quot;5204af979955496907000001&quot; objectId := bson.ObjectIdHex(id) user := new(User) c.Find(bson.M&#123;&quot;_id&quot;: objectId&#125;).One(&amp;user) fmt.Println(user)`</span><br></pre></td></tr></table></figure>
+<p>结果如下：</p>
+<figure class="highlight plain"><figcaption><span>Jimmy Kuu 33 2013-08-09 17:00:07.95 +0800 CST [Develop Movie]&#125;````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">更简单的方式是直接用FindId()方法：</span><br><span class="line"></span><br><span class="line">``` `c.FindId(objectId).One(&amp;user)`</span><br></pre></td></tr></table></figure>
+<p>注解 注意这里没有处理err。当找不到的时候用One()方法会出错。</p>
+<h6 id="单条件查询"><a href="#单条件查询" class="headerlink" title="单条件查询"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>单条件查询</h6><p>=($eq)</p>
+<figure class="highlight plain"><figcaption><span>"Jimmy Kuu"&#125;).All(&users)````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">!=($ne)</span><br><span class="line"></span><br><span class="line">``` `c.Find(bson.M&#123;&quot;name&quot;: bson.M&#123;&quot;$ne&quot;: &quot;Jimmy Kuu&quot;&#125;&#125;).All(&amp;users)`</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>($gt)</p>
+</blockquote>
+<figure class="highlight plain"><figcaption><span>bson.M&#123;"$gt": 32&#125;&#125;).All(&users)````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;($lt)</span><br><span class="line"></span><br><span class="line">``` `c.Find(bson.M&#123;&quot;age&quot;: bson.M&#123;&quot;$lt&quot;: 32&#125;&#125;).All(&amp;users)`</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>=($gte)</p>
+</blockquote>
+<figure class="highlight plain"><figcaption><span>bson.M&#123;"$gte": 33&#125;&#125;).All(&users)````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;=($lte)</span><br><span class="line"></span><br><span class="line">``` `c.Find(bson.M&#123;&quot;age&quot;: bson.M&#123;&quot;$lte&quot;: 31&#125;&#125;).All(&amp;users)`</span><br></pre></td></tr></table></figure>
+<p>in($in)</p>
+<figure class="highlight plain"><figcaption><span>bson.M&#123;"$in": []string&#123;"Jimmy Kuu", "Tracy Yu"&#125;&#125;&#125;).All(&users)````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">###### ![](http://my.oschina.net/js/ke/themes/common/anchor.gif)![](http://my.oschina.net/js/ke/themes/common/anchor.gif)多条件查询</span><br><span class="line"></span><br><span class="line">and($and)</span><br><span class="line"></span><br><span class="line">``` `c.Find(bson.M&#123;&quot;name&quot;: &quot;Jimmy Kuu&quot;, &quot;age&quot;: 33&#125;).All(&amp;users)`</span><br></pre></td></tr></table></figure>
+<p>or($or)</p>
+<figure class="highlight plain"><figcaption><span>[]bson.M&#123;bson.M&#123;"name": "Jimmy Kuu"&#125;, bson.M&#123;"age": 31&#125;&#125;&#125;).All(&users)````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### ![](http://my.oschina.net/js/ke/themes/common/anchor.gif)![](http://my.oschina.net/js/ke/themes/common/anchor.gif)修改</span><br><span class="line"></span><br><span class="line">通过func (*Collection) Update来进行修改操作。</span><br><span class="line"></span><br><span class="line">``` `func (c *Collection) Update(selector interface&#123;&#125;, change interface&#123;&#125;) error`</span><br></pre></td></tr></table></figure>
+<p>注意修改单个或多个字段需要通过$set操作符号，否则集合会被替换。</p>
+<h5 id="修改字段的值-set"><a href="#修改字段的值-set" class="headerlink" title="修改字段的值($set)"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>修改字段的值($set)</h5><figure class="highlight plain"><figcaption><span>bson.ObjectIdHex("5204af979955496907000001")&#125;, bson.M&#123;"$set": bson.M&#123; "name": "Jimmy Gu", "age": 34, &#125;&#125;)````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### ![](http://my.oschina.net/js/ke/themes/common/anchor.gif)![](http://my.oschina.net/js/ke/themes/common/anchor.gif)inc($inc)</span><br><span class="line"></span><br><span class="line">字段增加值</span><br><span class="line"></span><br><span class="line">``` `c.Update(bson.M&#123;&quot;_id&quot;: bson.ObjectIdHex(&quot;5204af979955496907000001&quot;)&#125;, bson.M&#123;&quot;$inc&quot;: bson.M&#123; &quot;age&quot;: -1, &#125;&#125;)`</span><br></pre></td></tr></table></figure>
+<h5 id="push-push"><a href="#push-push" class="headerlink" title="push($push)"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>push($push)</h5><p>从数组中增加一个元素</p>
+<figure class="highlight plain"><figcaption><span>bson.ObjectIdHex("5204af979955496907000001")&#125;, bson.M&#123;"$push": bson.M&#123; "interests": "Golang", &#125;&#125;)````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### ![](http://my.oschina.net/js/ke/themes/common/anchor.gif)![](http://my.oschina.net/js/ke/themes/common/anchor.gif)pull($pull)</span><br><span class="line"></span><br><span class="line">从数组中删除一个元素</span><br><span class="line"></span><br><span class="line">``` `c.Update(bson.M&#123;&quot;_id&quot;: bson.ObjectIdHex(&quot;5204af979955496907000001&quot;)&#125;, bson.M&#123;&quot;$pull&quot;: bson.M&#123; &quot;interests&quot;: &quot;Golang&quot;, &#125;&#125;)`</span><br></pre></td></tr></table></figure>
+<h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>删除</h4><p><code>`c.Remove(bson.M{&quot;name&quot;: &quot;Jimmy Kuu&quot;})`</code></p>
+<p>注解 这里也支持多条件，参考多条件查询。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/06/mgo简介/" data-id="cjujhygda00ahej3jqgwlfgin" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/07/19/mysql修改其他机器可以连接的权限/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          mysql修改其他机器可以连接的权限
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/06/27/直接mark！开源的devops开发工具箱/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">直接Mark！开源的DevOps开发工具箱</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

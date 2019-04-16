@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Python 数据分析包：pandas 基础 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="pandas 是基于 Numpy 构建的含有更高级数据结构和工具的数据分析包 类似于 Numpy 的核心是 ndarray，pandas 也是围绕着 Series 和 DataFrame 两个核心数据结构展开的 。Series 和 DataFrame 分别对应于一维的序列和二维的表结构。pandas 约定俗成的导入方法如下： from pandas import Series,DataFrame">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 数据分析包：pandas 基础">
+<meta property="og:url" content="http://yoursite.com/2017/04/20/python-数据分析包：pandas-基础/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="pandas 是基于 Numpy 构建的含有更高级数据结构和工具的数据分析包 类似于 Numpy 的核心是 ndarray，pandas 也是围绕着 Series 和 DataFrame 两个核心数据结构展开的 。Series 和 DataFrame 分别对应于一维的序列和二维的表结构。pandas 约定俗成的导入方法如下： from pandas import Series,DataFrame">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-16T07:59:56.545Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python 数据分析包：pandas 基础">
+<meta name="twitter:description" content="pandas 是基于 Numpy 构建的含有更高级数据结构和工具的数据分析包 类似于 Numpy 的核心是 ndarray，pandas 也是围绕着 Series 和 DataFrame 两个核心数据结构展开的 。Series 和 DataFrame 分别对应于一维的序列和二维的表结构。pandas 约定俗成的导入方法如下： from pandas import Series,DataFrame">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-python-数据分析包：pandas-基础" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/20/python-数据分析包：pandas-基础/" class="article-date">
+  <time datetime="2017-04-20T06:43:34.000Z" itemprop="datePublished">2017-04-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-python/">积累________python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Python 数据分析包：pandas 基础
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>pandas 是基于 Numpy 构建的含有更高级数据结构和工具的数据分析包 类似于 Numpy 的核心是 ndarray，pandas 也是围绕着 Series 和 DataFrame 两个核心数据结构展开的 。Series 和 DataFrame 分别对应于一维的序列和二维的表结构。pandas 约定俗成的导入方法如下： <code>from pandas import Series,DataFrame import pandas as pd</code>  </p>
+<h1 id="Series"><a href="#Series" class="headerlink" title="Series"></a>Series</h1><hr>
+<p>Series 可以看做一个<strong>定长的有序字典</strong>。基本任意的一维数据都可以用来构造 Series 对象： <code>&gt;&gt;&gt; s = Series(\[1,2,3.0,&#39;abc&#39;\]) &gt;&gt;&gt; s 0 1 1 2 2 3 3 abc dtype: object</code> 虽然 <code>dtype:object</code> 可以包含多种基本数据类型，但总感觉会影响性能的样子，最好还是保持单纯的 dtype。 Series 对象包含两个主要的属性：index 和 values，分别为上例中左右两列。因为传给构造器的是一个列表，所以 index 的值是从 0 起递增的整数，如果传入的是一个类字典的键值对结构，就会生成 index-value 对应的 Series；或者在初始化的时候以关键字参数显式指定一个 index 对象： <code>&gt;&gt;&gt; s = Series(data=\[1,3,5,7\],index = \[&#39;a&#39;,&#39;b&#39;,&#39;x&#39;,&#39;y&#39;\]) &gt;&gt;&gt; s a 1 b 3 x 5 y 7 dtype: int64 &gt;&gt;&gt; s.index Index(\[&#39;a&#39;, &#39;b&#39;, &#39;x&#39;, &#39;y&#39;\], dtype=&#39;object&#39;) &gt;&gt;&gt; s.values array(\[1, 3, 5, 7\], dtype=int64)</code> Series 对象的元素会严格依照给出的 index 构建，这意味着：如果 data 参数是有键值对的，那么只有 index 中含有的键会被使用；以及如果 data 中缺少响应的键，即使给出 NaN 值，这个键也会被添加。 注意 Series 的 index 和 values 的元素之间虽然存在对应关系，但这与字典的映射不同。index 和 values 实际仍为互相独立的 ndarray 数组，因此 Series 对象的性能完全 ok。 Series 这种使用键值对的数据结构最大的好处在于，Series 间进行算术运算时，index 会自动对齐。 另外，Series 对象和它的 index 都含有一个 <code>name</code> 属性： <code>&gt;&gt;\&gt; s.name = &#39;a\_series&#39; &gt;&gt;&gt; s.index.name = &#39;the\_index&#39; &gt;&gt;&gt; s the\_index a 1 b 3 x 5 y 7 Name: a\_series, dtype: int64</code>  </p>
+<h1 id="DataFrame"><a href="#DataFrame" class="headerlink" title="DataFrame"></a>DataFrame</h1><hr>
+<p>DataFrame 是一个<strong>表格</strong>型的数据结构，它含有一组有序的列（类似于 index），每列可以是不同的值类型（不像 ndarray 只能有一个 dtype）。基本上可以把 DataFrame 看成是共享同一个 index 的 Series 的集合。 DataFrame 的构造方法与 Series 类似，只不过可以同时接受多条一维数据源，每一条都会成为单独的一列： <code>&gt;&gt;&gt; data = {&#39;state&#39;:\[&#39;Ohino&#39;,&#39;Ohino&#39;,&#39;Ohino&#39;,&#39;Nevada&#39;,&#39;Nevada&#39;\], &#39;year&#39;:\[2000,2001,2002,2001,2002\], &#39;pop&#39;:\[1.5,1.7,3.6,2.4,2.9\]} &gt;&gt;&gt; df = DataFrame(data) &gt;&gt;&gt; df pop state year 0 1.5 Ohino 2000 1 1.7 Ohino 2001 2 3.6 Ohino 2002 3 2.4 Nevada 2001 4 2.9 Nevada 2002 \[5 rows x 3 columns\]</code> 虽然参数 data 看起来是个字典，但字典的键并非充当 DataFrame 的 index 的角色，而是 Series 的 “name” 属性。这里生成的 index 仍是 “01234”。 <strong>较</strong>完整的 DataFrame 构造器参数为：<code>DataFrame(data=None,index=None,coloumns=None)</code>，columns 即 “name”： <code>&gt;&gt;&gt; df = DataFrame(data,index=\[&#39;one&#39;,&#39;two&#39;,&#39;three&#39;,&#39;four&#39;,&#39;five&#39;\], columns=\[&#39;year&#39;,&#39;state&#39;,&#39;pop&#39;,&#39;debt&#39;\]) &gt;&gt;&gt; df year state pop debt one 2000 Ohino 1.5 NaN two 2001 Ohino 1.7 NaN three 2002 Ohino 3.6 NaN four 2001 Nevada 2.4 NaN five 2002 Nevada 2.9 NaN \[5 rows x 4 columns\]</code> 同样缺失值由 NaN 补上。看一下 index、columns 和 索引的类型： <code>&gt;&gt;&gt; df.index Index(\[&#39;one&#39;, &#39;two&#39;, &#39;three&#39;, &#39;four&#39;, &#39;five&#39;\], dtype=&#39;object&#39;) &gt;&gt;&gt; df.columns Index(\[&#39;year&#39;, &#39;state&#39;, &#39;pop&#39;, &#39;debt&#39;\], dtype=&#39;object&#39;) &gt;&gt;&gt; type(df\[&#39;debt&#39;\])</code> DataFrame 面向行和面向列的操作基本是平衡的，任意抽出一列都是 Series。</p>
+<h1 id="对象属性"><a href="#对象属性" class="headerlink" title="对象属性"></a>对象属性</h1><hr>
+<h3 id="重新索引"><a href="#重新索引" class="headerlink" title="重新索引"></a>重新索引</h3><p>Series 对象的重新索引通过其 <code>.reindex(index=None,**kwargs)</code> 方法实现。<code>**kwargs</code> 中常用的参数有俩：<code>method=None,fill_value=np.NaN</code>： <code>ser = Series(\[4.5,7.2,-5.3,3.6\],index=\[&#39;d&#39;,&#39;b&#39;,&#39;a&#39;,&#39;c&#39;\]) &gt;&gt;&gt; a = \[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;,&#39;e&#39;\] &gt;&gt;&gt; ser.reindex(a) a -5.3 b 7.2 c 3.6 d 4.5 e NaN dtype: float64 &gt;&gt;&gt; ser.reindex(a,fill\_value=0) a -5.3 b 7.2 c 3.6 d 4.5 e 0.0 dtype: float64 &gt;&gt;&gt; ser.reindex(a,method=&#39;ffill&#39;) a -5.3 b 7.2 c 3.6 d 4.5 e 4.5 dtype: float64 &gt;&gt;&gt; ser.reindex(a,fill\_value=0,method=&#39;ffill&#39;) a -5.3 b 7.2 c 3.6 d 4.5 e 4.5 dtype: float64</code> <code>.reindex()</code> 方法会返回一个新对象，其 index 严格遵循给出的参数，<code>method:{&#39;backfill&#39;, &#39;bfill&#39;, &#39;pad&#39;, &#39;ffill&#39;, None}</code> 参数用于指定插值（填充）方式，当没有给出时，自动用 <code>fill_value</code> 填充，默认为 NaN（ffill = pad，bfill = back fill，分别指插值时向前还是向后取值） DataFrame 对象的重新索引方法为：<code>.reindex(index=None,columns=None,**kwargs)</code>。仅比 Series 多了一个可选的 columns 参数，用于给列索引。用法与上例类似，只不过插值方法 <code>method</code> 参数只能应用于<strong>行</strong>，即轴 0。 <code>&gt;&gt;&gt; state = \[&#39;Texas&#39;,&#39;Utha&#39;,&#39;California&#39;\] &gt;&gt;&gt; df.reindex(columns=state,method=&#39;ffill&#39;) Texas Utha California a 1 NaN 2 c 4 NaN 5 d 7 NaN 8 \[3 rows x 3 columns\] &gt;&gt;&gt; df.reindex(index=\[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;\],columns=state,method=&#39;ffill&#39;) Texas Utha California a 1 NaN 2 b 1 NaN 2 c 4 NaN 5 d 7 NaN 8 \[4 rows x 3 columns\]</code> 不过 <code>fill_value</code> 依然对有效。聪明的小伙伴可能已经想到了，可不可以通过 <code>df.T.reindex(index,method=&#39;**&#39;).T</code> 这样的方式来实现在列上的插值呢，答案是可行的。另外要注意，使用 <code>reindex(index,method=&#39;**&#39;)</code> 的时候，index 必须是<strong>单调</strong>的，否则就会引发一个 <code>ValueError: Must be monotonic for forward fill</code>，比如上例中的最后一次调用，如果使用 <code>index=[&#39;a&#39;,&#39;b&#39;,&#39;d&#39;,&#39;c&#39;]</code> 的话就不行。</p>
+<h3 id="删除指定轴上的项"><a href="#删除指定轴上的项" class="headerlink" title="删除指定轴上的项"></a>删除指定轴上的项</h3><p>即删除 Series 的元素或 DataFrame 的某一行（列）的意思，通过对象的 <code>.drop(labels, axis=0)</code> 方法： <code>&gt;&gt;\&gt; ser d 4.5 b 7.2 a -5.3 c 3.6 dtype: float64 &gt;&gt;&gt; df Ohio Texas California a 0 1 2 c 3 4 5 d 6 7 8 \[3 rows x 3 columns\] &gt;&gt;&gt; ser.drop(&#39;c&#39;) d 4.5 b 7.2 a -5.3 dtype: float64 &gt;&gt;&gt; df.drop(&#39;a&#39;) Ohio Texas California c 3 4 5 d 6 7 8 \[2 rows x 3 columns\] &gt;&gt;&gt; df.drop(\[&#39;Ohio&#39;,&#39;Texas&#39;\],axis=1) California a 2 c 5 d 8 \[3 rows x 1 columns\]</code> <code>.drop()</code> 返回的是一个新对象，元对象不会被改变。</p>
+<h3 id="索引和切片"><a href="#索引和切片" class="headerlink" title="索引和切片"></a>索引和切片</h3><p>就像 Numpy，pandas 也支持通过 <code>obj[::]</code> 的方式进行索引和切片，以及通过布尔型数组进行过滤。 不过须要注意，因为 pandas 对象的 index 不限于整数，所以当使用<strong>非整数</strong>作为切片索引时，它是<strong>末端包含</strong>的。 <code>&gt;&gt;\&gt; foo a 4.5 b 7.2 c -5.3 d 3.6 dtype: float64 &gt;&gt;&gt; bar 0 4.5 1 7.2 2 -5.3 3 3.6 dtype: float64 &gt;&gt;&gt; foo\[:2\] a 4.5 b 7.2 dtype: float64 &gt;&gt;&gt; bar\[:2\] 0 4.5 1 7.2 dtype: float64 &gt;&gt;&gt; foo\[:&#39;c&#39;\] a 4.5 b 7.2 c -5.3 dtype: float64</code> 这里 foo 和 bar 只有 index 不同——bar 的 index 是整数序列。可见当使用整数索引切片时，结果与 Python 列表或 Numpy 的默认状况相同；换成 <code>&#39;c&#39;</code> 这样的字符串索引时，结果就包含了这个边界元素。 另外一个特别之处在于 DataFrame 对象的索引方式，因为他有两个轴向（双重索引）。 可以这么理解：DataFrame 对象的标准切片语法为：<code>.ix[::,::]</code>。ix 对象可以接受两套切片，分别为行（axis=0）和列（axis=1）的方向： <code>&gt;&gt;&gt; df Ohio Texas California a 0 1 2 c 3 4 5 d 6 7 8 \[3 rows x 3 columns\] &gt;&gt;&gt; df.ix\[:2,:2\] Ohio Texas a 0 1 c 3 4 \[2 rows x 2 columns\] &gt;&gt;&gt; df.ix\[&#39;a&#39;,&#39;Ohio&#39;\] 0</code> 而不使用 ix ，直接切的情况就特殊了：</p>
+<ul>
+<li>索引时，选取的是列</li>
+<li>切片时，选取的是行</li>
+</ul>
+<p>这看起来有点不合逻辑，但作者解释说 “这种语法设定来源于实践”，我们信他。 <code>&gt;&gt;\&gt; df\[&#39;Ohio&#39;\] a 0 c 3 d 6 Name: Ohio, dtype: int32 &gt;&gt;&gt; df\[:&#39;c&#39;\] Ohio Texas California a 0 1 2 c 3 4 5 \[2 rows x 3 columns\] &gt;&gt;&gt; df\[:2\] Ohio Texas California a 0 1 2 c 3 4 5 \[2 rows x 3 columns\]</code> 使用布尔型数组的情况，注意行与列的不同切法（列切法的 <code>:</code> 不能省）： <code>&gt;&gt;\&gt; df\[&#39;Texas&#39;\]&gt;=4 a False c True d True Name: Texas, dtype: bool &gt;&gt;&gt; df\[df\[&#39;Texas&#39;\]&gt;=4\] Ohio Texas California c 3 4 5 d 6 7 8 \[2 rows x 3 columns\] &gt;&gt;&gt; df.ix\[:,df.ix\[&#39;c&#39;\]&gt;=4\] Texas California a 1 2 c 4 5 d 7 8 \[3 rows x 2 columns\]</code>  </p>
+<h3 id="算术运算和数据对齐"><a href="#算术运算和数据对齐" class="headerlink" title="算术运算和数据对齐"></a>算术运算和数据对齐</h3><p>pandas 最重要的一个功能是，它可以对不同索引的对象进行算术运算。在将对象相加时，结果的索引取索引对的<strong>并集</strong>。自动的数据对齐在不重叠的索引处引入空值，默认为 NaN。 <code>&gt;&gt;&gt; foo = Series({&#39;a&#39;:1,&#39;b&#39;:2}) &gt;&gt;&gt; foo a 1 b 2 dtype: int64 &gt;&gt;&gt; bar = Series({&#39;b&#39;:3,&#39;d&#39;:4}) &gt;&gt;&gt; bar b 3 d 4 dtype: int64 &gt;&gt;&gt; foo + bar a NaN b 5 d NaN dtype: float64</code> DataFrame 的对齐操作会同时发生在行和列上。 当不希望在运算结果中出现 NA 值时，可以使用前面 reindex 中提到过 <code>fill_value</code> 参数，不过为了传递这个参数，就需要使用对象的方法，而不是操作符：<code>df1.add(df2,fill_value=0)</code>。其他算术方法还有：<code>sub(), div(), mul()</code>。 Series 和 DataFrame 之间的算术运算涉及广播，暂时先不讲。</p>
+<h3 id="函数应用和映射"><a href="#函数应用和映射" class="headerlink" title="函数应用和映射"></a>函数应用和映射</h3><p>Numpy 的 ufuncs（元素级数组方法）也可用于操作 pandas 对象。 当希望将函数应用到 DataFrame 对象的某一行或列时，可以使用 <code>.apply(func, axis=0, args=(), **kwds)</code> 方法。 <code>f = lambda x:x.max()-x.min() &gt;&gt;&gt; df Ohio Texas California a 0 1 2 c 3 4 5 d 6 7 8 \[3 rows x 3 columns\] &gt;&gt;&gt; df.apply(f) Ohio 6 Texas 6 California 6 dtype: int64 &gt;&gt;&gt; df.apply(f,axis=1) a 2 c 2 d 2 dtype: int64</code>  </p>
+<h3 id="排序和排名"><a href="#排序和排名" class="headerlink" title="排序和排名"></a>排序和排名</h3><p>Series 的 <code>sort_index(ascending=True)</code> 方法可以对 index 进行排序操作，ascending 参数用于控制升序或降序，默认为升序。 若要按值对 Series 进行排序，当使用 <code>.order()</code> 方法，任何缺失值默认都会被放到 Series 的末尾。 在 DataFrame 上，<code>.sort_index(axis=0, by=None, ascending=True)</code> 方法多了一个轴向的选择参数与一个 by 参数，by 参数的作用是针对某一（些）<strong>列</strong>进行排序（不能对行使用 by 参数）： <code>&gt;&gt;&gt; df.sort\_index(by=&#39;Ohio&#39;) Ohio Texas California a 0 1 2 c 3 4 5 d 6 7 8 \[3 rows x 3 columns\] &gt;&gt;&gt; df.sort\_index(by=\[&#39;California&#39;,&#39;Texas&#39;\]) Ohio Texas California a 0 1 2 c 3 4 5 d 6 7 8 \[3 rows x 3 columns\] &gt;&gt;&gt; df.sort_index(axis=1) California Ohio Texas a 2 0 1 c 5 3 4 d 8 6 7 \[3 rows x 3 columns\]</code> 排名（<code>Series.rank(method=&#39;average&#39;, ascending=True)</code>）的作用与排序的不同之处在于，他会把对象的 values 替换成名次（从 1 到 n）。这时唯一的问题在于如何处理平级项，方法里的 <code>method</code> 参数就是起这个作用的，他有四个值可选：<code>average, min, max, first</code>。 <code>&gt;&gt;\&gt; ser=Series(\[3,2,0,3\],index=list(&#39;abcd&#39;)) &gt;&gt;&gt; ser a 3 b 2 c 0 d 3 dtype: int64 &gt;&gt;&gt; ser.rank() a 3.5 b 2.0 c 1.0 d 3.5 dtype: float64 &gt;&gt;&gt; ser.rank(method=&#39;min&#39;) a 3 b 2 c 1 d 3 dtype: float64 &gt;&gt;&gt; ser.rank(method=&#39;max&#39;) a 4 b 2 c 1 d 4 dtype: float64 &gt;&gt;&gt; ser.rank(method=&#39;first&#39;) a 3 b 2 c 1 d 4 dtype: float64</code> 注意在 ser[0]=ser[3] 这对平级项上，不同 method 参数表现出的不同名次。 DataFrame 的 <code>.rank(axis=0, method=&#39;average&#39;, ascending=True)</code> 方法多了个 axis 参数，可选择按行或列分别进行排名，暂时好像没有针对全部元素的排名方法。</p>
+<h3 id="统计方法"><a href="#统计方法" class="headerlink" title="统计方法"></a>统计方法</h3><p>pandas 对象有一些统计方法。它们大部分都属于约简和汇总统计，用于从 Series 中提取单个值，或从 DataFrame 的行或列中提取一个 Series。 比如 <code>DataFrame.mean(axis=0,skipna=True)</code> 方法，当数据集中存在 NA 值时，这些值会被简单跳过，除非整个切片（行或列）全是 NA，如果不想这样，则可以通过 <code>skipna=False</code> 来禁用此功能： <code>&gt;&gt;\&gt; df one two a 1.40 NaN b 7.10 -4.5 c NaN NaN d 0.75 -1.3 \[4 rows x 2 columns\] &gt;&gt;&gt; df.mean() one 3.083333 two -2.900000 dtype: float64 &gt;&gt;&gt; df.mean(axis=1) a 1.400 b 1.300 c NaN d -0.275 dtype: float64 &gt;&gt;&gt; df.mean(axis=1,skipna=False) a NaN b 1.300 c NaN d -0.275 dtype: float64</code> 其他常用的统计方法有：</p>
+<p>########################</p>
+<p>******************************************</p>
+<p>count</p>
+<p>非 NA 值的数量</p>
+<p>describe</p>
+<p>针对 Series 或 DF 的列计算汇总统计</p>
+<p>min , max</p>
+<p>最小值和最大值</p>
+<p>argmin , argmax</p>
+<p>最小值和最大值的索引位置（整数）</p>
+<p>idxmin , idxmax</p>
+<p>最小值和最大值的索引值</p>
+<p>quantile</p>
+<p>样本分位数（0 到 1）</p>
+<p>sum</p>
+<p>求和</p>
+<p>mean</p>
+<p>均值</p>
+<p>median</p>
+<p>中位数</p>
+<p>mad</p>
+<p>根据均值计算平均绝对离差</p>
+<p>var</p>
+<p>方差</p>
+<p>std</p>
+<p>标准差</p>
+<p>skew</p>
+<p>样本值的偏度（三阶矩）</p>
+<p>kurt</p>
+<p>样本值的峰度（四阶矩）</p>
+<p>cumsum</p>
+<p>样本值的累计和</p>
+<p>cummin , cummax</p>
+<p>样本值的累计最大值和累计最小值</p>
+<p>cumprod</p>
+<p>样本值的累计积</p>
+<p>diff</p>
+<p>计算一阶差分（对时间序列很有用）</p>
+<p>pct_change</p>
+<p>计算百分数变化</p>
+<h1 id="处理缺失数据"><a href="#处理缺失数据" class="headerlink" title="处理缺失数据"></a>处理缺失数据</h1><hr>
+<p>pandas 中 NA 的主要表现为 np.nan，另外 Python 内建的 None 也会被当做 NA 处理。 处理 NA 的方法有四种：<code>dropna , fillna , isnull , notnull</code> 。</p>
+<h3 id="is-not-null"><a href="#is-not-null" class="headerlink" title="is(not)null"></a>is(not)null</h3><p>这一对方法对对象做元素级应用，然后返回一个布尔型数组，一般可用于布尔型索引。</p>
+<h3 id="dropna"><a href="#dropna" class="headerlink" title="dropna"></a>dropna</h3><p>对于一个 Series，dropna 返回一个仅含非空数据和索引值的 Series。 问题在于对 DataFrame 的处理方式，因为一旦 drop 的话，至少要丢掉一行（列）。这里的解决方式与前面类似，还是通过一个额外的参数：<code>dropna(axis=0, how=&#39;any&#39;, thresh=None)</code> ，how 参数可选的值为 any 或者 all。all 仅在切片元素全为 NA 时才抛弃该行(列)。另外一个有趣的参数是 thresh，该参数的类型为整数，它的作用是，比如 thresh=3，会在一行中至少有 3 个<strong>非 NA</strong> 值时将其保留。</p>
+<h3 id="fillna"><a href="#fillna" class="headerlink" title="fillna"></a>fillna</h3><p><code>fillna(value=None, method=None, axis=0)</code> 中的 value 参数除了基本类型外，还可以使用字典，这样可以实现对不同的列填充不同的值。method 的用法与前面 <code>.reindex()</code> 方法相同，这里不再赘述。</p>
+<h1 id="inplace-参数"><a href="#inplace-参数" class="headerlink" title="inplace 参数"></a>inplace 参数</h1><hr>
+<p>前面有个点一直没讲，结果整篇示例写下来发现还挺重要的。就是 Series 和 DataFrame 对象的方法中，凡是会对数组作出修改并返回一个新数组的，往往都有一个 <code>replace=False</code> 的可选参数。如果手动设定为 True，那么原数组就可以被替换。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/20/python-数据分析包：pandas-基础/" data-id="cjujhygdd00anej3jvsbiqsu9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/20/python判断文件和文件夹是否存在的方法/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Python判断文件和文件夹是否存在的方法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/04/20/python中的float除法和整除法/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">python中的float除法和整除法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

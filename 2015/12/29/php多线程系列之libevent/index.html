@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>php多线程系列之libevent | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="libevent是一个基于事件驱动的高性能网络库。支持多种 I/O 多路复用技术， epoll、 poll、 dev/poll、 select 和 kqueue 等；支持 I/O，定时器和信号等事件；注册事件优先级。 PHP libevent扩展安装： libevent扩展依赖于原始的libevent库，必须先把libevent库安装。 (1)安装libevent库  wget http://cl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php多线程系列之libevent">
+<meta property="og:url" content="http://yoursite.com/2015/12/29/php多线程系列之libevent/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="libevent是一个基于事件驱动的高性能网络库。支持多种 I/O 多路复用技术， epoll、 poll、 dev/poll、 select 和 kqueue 等；支持 I/O，定时器和信号等事件；注册事件优先级。 PHP libevent扩展安装： libevent扩展依赖于原始的libevent库，必须先把libevent库安装。 (1)安装libevent库  wget http://cl">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://www.phpddt.com/usr/uploads/2015/07/1277153156.png">
+<meta property="og:updated_time" content="2019-04-16T07:59:56.545Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="php多线程系列之libevent">
+<meta name="twitter:description" content="libevent是一个基于事件驱动的高性能网络库。支持多种 I/O 多路复用技术， epoll、 poll、 dev/poll、 select 和 kqueue 等；支持 I/O，定时器和信号等事件；注册事件优先级。 PHP libevent扩展安装： libevent扩展依赖于原始的libevent库，必须先把libevent库安装。 (1)安装libevent库  wget http://cl">
+<meta name="twitter:image" content="http://www.phpddt.com/usr/uploads/2015/07/1277153156.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-php多线程系列之libevent" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/29/php多线程系列之libevent/" class="article-date">
+  <time datetime="2015-12-29T02:45:10.000Z" itemprop="datePublished">2015-12-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-多线程系列/">积累________多线程系列</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      php多线程系列之libevent
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>libevent是一个基于事件驱动的高性能网络库。支持多种 I/O 多路复用技术， epoll、 poll、 dev/poll、 select 和 kqueue 等；支持 I/O，定时器和信号等事件；注册事件优先级。 <strong>PHP libevent扩展安装：</strong> libevent扩展依赖于原始的libevent库，必须先把libevent库安装。 (1)安装libevent库</p>
+<ol>
+<li>wget <a href="http://cloud.github.com/downloads/libevent/libevent/libevent-2.0.20-stable.tar.gz" target="_blank" rel="noopener">http://cloud.github.com/downloads/libevent/libevent/libevent-2.0.20-stable.tar.gz</a></li>
+<li>tar zxvf libevent-2.0.20-stable.tar.gz</li>
+<li>cd libevent-2.0.20-stable/</li>
+<li>./configure –prefix=/usr/local/libevent-2.0.20/</li>
+<li>make</li>
+<li>make install</li>
+</ol>
+<p>(2)安装libevent扩展(<a href="http://pecl.php.net/package/libevent" target="_blank" rel="noopener">http://pecl.php.net/package/libevent</a>)</p>
+<ol>
+<li>wget <a href="http://pecl.php.net/get/libevent-0.1.0.tgz" target="_blank" rel="noopener">http://pecl.php.net/get/libevent-0.1.0.tgz</a></li>
+<li>tar -zxvf libevent-0.1.0.tgz</li>
+<li>cd libevent-0.1.0</li>
+<li>./configure –with-php-config=/usr/local/php54/bin/php-config –with-libevent=/usr/local/libevent-2.0.20/</li>
+<li>make &amp;&amp; make install</li>
+<li>#php.ini添加extension=libevent.so</li>
+</ol>
+<p><strong>PHP Libevent扩展介绍：</strong> (1)常量 <a href="http://www.phpddt.com/attachment/1760/" title="libevent1.png" target="_blank" rel="noopener"><img src="http://www.phpddt.com/usr/uploads/2015/07/1277153156.png" alt="libevent1.png"></a> (2)函数</p>
+<ul>
+<li>event_base_free() 释放资源，这不能销毁绑定事件</li>
+<li>event_base_loop() 处理事件，根据指定的base来处理事件循环</li>
+<li>event_base_loopbreak() 立即取消事件循环，行为各break语句相同</li>
+<li>event_base_loopexit() 在指定的时间后退出循环</li>
+<li>event_base_new() 创建并且初始事件</li>
+<li>event_base_priority_init() 设定事件的优先级</li>
+<li>event_base_set() 关联事件到事件base</li>
+<li>event_buffer_base_set() 关联缓存的事件到event_base</li>
+<li>event_buffer_disable() 禁用一个缓存的事件</li>
+<li>event_buffer_enable() 启用一个指定的缓存的事件</li>
+<li>event_buffer_fd_set() 改变一个缓存的文件系统描述</li>
+<li>event_buffer_free() 释放缓存事件</li>
+<li>event_buffer_new() 建立一个新的缓存事件</li>
+<li>event_buffer_priority_set() 缓存事件的优先级设定</li>
+<li>event_buffer_read() 读取缓存事件中的数据</li>
+<li>event_buffer_set_callback() 给缓存的事件设置或重置回调hansh函数</li>
+<li>event_buffer_timeout_set() 给一个缓存的事件设定超时的读写时间</li>
+<li>event_buffer_watermark_set 设置读写事件的水印标记</li>
+<li>event_buffer_write() 向缓存事件中写入数据</li>
+<li>event_add() 向指定的设置中添加一个执行事件</li>
+<li>event_del() 从设置的事件中移除事件</li>
+<li>event_free() 清空事件句柄</li>
+<li>event_new() 创建一个新的事件</li>
+<li>event_set() 准备想要在event_add中添加事件</li>
+</ul>
+<p><strong>PHP Libevent扩展使用：</strong> 例1:5s后触发callback</p>
+<ol>
+<li>$base = event_base_new();</li>
+<li>$event = event_new();</li>
+<li>?</li>
+<li>event_set($event, 0, EV_TIMEOUT, function() {</li>
+<li>echo “function called”;</li>
+<li>});</li>
+<li>event_base_set($event, $base);</li>
+<li>?</li>
+<li>event_add($event, 5000000);</li>
+<li>event_base_loop($base);</li>
+</ol>
+<p>例2：打印输入流</p>
+<ol>
+<li>function print_line($fd, $events, $arg)</li>
+<li>{</li>
+<li>static $max_requests = 0;</li>
+<li>$max_requests++;</li>
+<li>if ($max_requests == 10) {</li>
+<li>// exit loop after 10 writes</li>
+<li>event_base_loopexit($arg[1]);</li>
+<li>}</li>
+<li>echo fgets($fd);</li>
+<li>}</li>
+<li>?</li>
+<li>// create base and event</li>
+<li>$base = event_base_new();</li>
+<li>$event = event_new();</li>
+<li>?</li>
+<li>$fd = STDIN;</li>
+<li>// set event flags</li>
+<li>event_set($event, $fd, EV_READ | EV_PERSIST, ‘print_line’, array($event, $base));</li>
+<li>// set event base</li>
+<li>event_base_set($event, $base);</li>
+<li>// enable event</li>
+<li>event_add($event);</li>
+<li>// start event loop</li>
+<li>event_base_loop($base);</li>
+</ol>
+<p>例3：实现简单web server 在cli执行后，打开浏览器2000端口试试看。</p>
+<ol>
+<li>$socket = stream_socket_server (‘tcp://0.0.0.0:2000’, $errno, $errstr);</li>
+<li>stream_set_blocking($socket, 0);</li>
+<li>?</li>
+<li>$base = event_base_new();</li>
+<li>$event = event_new();</li>
+<li>event_set($event, $socket, EV_READ | EV_PERSIST, ‘ev_accept’, $base);</li>
+<li>event_base_set($event, $base);</li>
+<li>event_add($event);</li>
+<li>event_base_loop($base);</li>
+<li>?</li>
+<li>function ev_accept($socket, $flag, $base)</li>
+<li>{</li>
+<li>$connection = stream_socket_accept($socket);</li>
+<li>stream_set_blocking($connection, 0);</li>
+<li>?</li>
+<li>$buffer = event_buffer_new($connection, ‘ev_read’, NULL, ‘ev_error’, $connection);</li>
+<li>event_buffer_base_set($buffer, $base);</li>
+<li>event_buffer_timeout_set($buffer, 30, 30);</li>
+<li>event_buffer_watermark_set($buffer, EV_READ, 0, 0xffffff);</li>
+<li>event_buffer_priority_set($buffer, 10);</li>
+<li>event_buffer_enable($buffer, EV_READ | EV_PERSIST);</li>
+<li>?</li>
+<li>$GLOBALS[‘_’] = $buffer; //这个buffer一定要赋给个全局的变量 貌似是传值过程中的bug 或者5.3.8的闭包还是有问题？</li>
+<li>}</li>
+<li>?</li>
+<li>function ev_error($buffer, $error, $connection)</li>
+<li>{</li>
+<li>event_buffer_disable($buffer, EV_READ | EV_WRITE);</li>
+<li>event_buffer_free($buffer);</li>
+<li>fclose($connection);</li>
+<li>}</li>
+<li>?</li>
+<li>function ev_read($buffer, $connection)</li>
+<li>{</li>
+<li>while ($read = event_buffer_read($buffer, 256)) {</li>
+<li>?</li>
+<li>}</li>
+<li>fwrite($connection , date(‘Y-m-d H:i:s’));</li>
+<li>ev_error($buffer , ‘’ , $connection);</li>
+<li>}</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/12/29/php多线程系列之libevent/" data-id="cjujhyg9b0059ej3j9pia5ujv" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/01/05/centos7精简安装后中killall，pstree，fuser/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          centos7精简安装后中killall，pstree，fuser
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/12/29/php多线程系列之stream/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">php多线程系列之stream_*</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Python封装日志功能Logger | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="我们对日志功能的需求如下：  为了便于日志的查看，每个脚本对应一个日志文件，日志文件以脚本的名字命名 日志路径以及每个脚本保存的日志容量可以设置，比如设置为5MB，则超过后最老日志被自动覆盖 日志功能要使用方便，减少与框架业务功能的耦合  现在来逐一分析上述需求。 1.要实现每个脚本一个日志文件，则需要在日志模块中，根据用例脚本的名字来生成日志文件，这里的关键问题就是怎样在日志模块中获取用例脚本的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python封装日志功能Logger">
+<meta property="og:url" content="http://yoursite.com/2017/04/27/python封装日志功能logger/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="我们对日志功能的需求如下：  为了便于日志的查看，每个脚本对应一个日志文件，日志文件以脚本的名字命名 日志路径以及每个脚本保存的日志容量可以设置，比如设置为5MB，则超过后最老日志被自动覆盖 日志功能要使用方便，减少与框架业务功能的耦合  现在来逐一分析上述需求。 1.要实现每个脚本一个日志文件，则需要在日志模块中，根据用例脚本的名字来生成日志文件，这里的关键问题就是怎样在日志模块中获取用例脚本的">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-16T07:59:56.808Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python封装日志功能Logger">
+<meta name="twitter:description" content="我们对日志功能的需求如下：  为了便于日志的查看，每个脚本对应一个日志文件，日志文件以脚本的名字命名 日志路径以及每个脚本保存的日志容量可以设置，比如设置为5MB，则超过后最老日志被自动覆盖 日志功能要使用方便，减少与框架业务功能的耦合  现在来逐一分析上述需求。 1.要实现每个脚本一个日志文件，则需要在日志模块中，根据用例脚本的名字来生成日志文件，这里的关键问题就是怎样在日志模块中获取用例脚本的">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-python封装日志功能logger" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/27/python封装日志功能logger/" class="article-date">
+  <time datetime="2017-04-27T03:08:27.000Z" itemprop="datePublished">2017-04-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/积累-python/">积累________python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Python封装日志功能Logger
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我们对日志功能的需求如下：</p>
+<ol>
+<li>为了便于日志的查看，每个脚本对应一个日志文件，日志文件以脚本的名字命名</li>
+<li>日志路径以及每个脚本保存的日志容量可以设置，比如设置为5MB，则超过后最老日志被自动覆盖</li>
+<li>日志功能要使用方便，减少与框架业务功能的耦合</li>
+</ol>
+<p>现在来逐一分析上述需求。</p>
+<h3 id="1-要实现每个脚本一个日志文件，则需要在日志模块中，根据用例脚本的名字来生成日志文件，这里的关键问题就是怎样在日志模块中获取用例脚本的名字。"><a href="#1-要实现每个脚本一个日志文件，则需要在日志模块中，根据用例脚本的名字来生成日志文件，这里的关键问题就是怎样在日志模块中获取用例脚本的名字。" class="headerlink" title="1.要实现每个脚本一个日志文件，则需要在日志模块中，根据用例脚本的名字来生成日志文件，这里的关键问题就是怎样在日志模块中获取用例脚本的名字。"></a>1.要实现每个脚本一个日志文件，则需要在日志模块中，根据用例脚本的名字来生成日志文件，这里的关键问题就是怎样在日志模块中获取用例脚本的名字。</h3><p>获取文件名的常用方法有：os.getcwd(), sys.argv[0], __file__，来看下各种的作用： 先在一个文件(假设为test.py）中编写如下代码： <code>import os import sys def func(): print os.getcwd() print sys.argv\[0\] print \_\_file\_\_</code> 然后在另一个文件中（假设为script1.py）中import test，然后调用func方法： <code>import test test.func()</code> 运行script1.py，结果为： <code>/wwwroot/PythonWorkSpace/python-test Test/TestLog.py Test/TestLog.py</code> 可见，os.getcwd()获取的是执行脚本的目录， sys.argv[0]是执行脚本的绝对路径名， __file__是被执行代码所在文件的绝对路径名。 现在就清楚了，我们应该用sys.argv[0]来获取执行脚本的名字，由于获取到的是绝对路径，需要做一点处理：sys.argv[0].split(‘/‘)[-1].split(‘.’)[0]</p>
+<h3 id="2-日志容量问题，要实现超过容量后自动覆盖最老日志，采用logging中的RotatingFileHandler类即可，可以设置日志文件的大小，以及备份个数。"><a href="#2-日志容量问题，要实现超过容量后自动覆盖最老日志，采用logging中的RotatingFileHandler类即可，可以设置日志文件的大小，以及备份个数。" class="headerlink" title="2.日志容量问题，要实现超过容量后自动覆盖最老日志，采用logging中的RotatingFileHandler类即可，可以设置日志文件的大小，以及备份个数。"></a>2.日志容量问题，要实现超过容量后自动覆盖最老日志，采用logging中的RotatingFileHandler类即可，可以设置日志文件的大小，以及备份个数。</h3><p>那么日志路径和容量配置放在哪里呢？让用户直接修改RotatingFileHandler的参数显然不好，最好不要让用户修改框架文件，用户只需调用接口写自己的脚本即可。 这里采用的方案是将配置信息写入一个文件，XML文件比较适合用来作为配置文件，用户通过修改XML文件来制定配置，日志模块从XML文件读取参数。 这里为了方便将XML文件放入Common下面，命名为config.xml，内容为： <code>E:\\PythonLog      8      3</code> 读取XML文件内容，使用lxml库非常简单，后面再给出代码。</p>
+<h3 id="3-日志功能要使用方便，减少与框架业务功能的耦合，最好就是对日志功能进行封装，只提供记录日志的接口即可。"><a href="#3-日志功能要使用方便，减少与框架业务功能的耦合，最好就是对日志功能进行封装，只提供记录日志的接口即可。" class="headerlink" title="3.日志功能要使用方便，减少与框架业务功能的耦合，最好就是对日志功能进行封装，只提供记录日志的接口即可。"></a>3.日志功能要使用方便，减少与框架业务功能的耦合，最好就是对日志功能进行封装，只提供记录日志的接口即可。</h3><p>日志接口采用类方法的形式就可以满足上述要求，用户只需要通过类调用日志记录接口，随处调用，使用方便，并且无需定义类实例，与框架业务没有耦合。 有了上述分析，我们来实现日志模块。 由于日志功能也是框架基础的一部分，我们将日志模块也放在Common这个package中，在Common下新建log.py文件，代码如下： <code># coding: utf-8 from lxml import etree import logging.handlers import logging import os import sys # 提供日志功能 class logger: # 先读取XML文件中的配置数据 # 由于config.xml放置在与当前文件相同的目录下，因此通过 \_\_file\_\_ 来获取XML文件的目录，然后再拼接成绝对路径 # 这里利用了lxml库来解析XML root = etree.parse(os.path.join(os.path.dirname(\_\_file\_\_), &#39;config.xml&#39;)).getroot() # 读取日志文件保存路径 logpath = root.find(&#39;logpath&#39;).text # 读取日志文件容量，转换为字节 logsize = 1024\*1024\*int(root.find(&#39;logsize&#39;).text) # 读取日志文件保存个数 lognum = int(root.find(&#39;lognum&#39;).text) # 日志文件名：由用例脚本的名称，结合日志保存路径，得到日志文件的绝对路径 logname = os.path.join(logpath, sys.argv\[0\].split(&#39;/&#39;)\[-1\].split(&#39;.&#39;)\[0\]) # 初始化logger log = logging.getLogger() # 日志格式，可以根据需要设置 fmt = logging.Formatter(&#39;\[%(asctime)s\]\[%(filename)s\]\[line:%(lineno)d\]\[%(levelname)s\] %(message)s&#39;, &#39;%Y-%m-%d %H:%M:%S&#39;) # 日志输出到文件，这里用到了上面获取的日志名称，大小，保存个数 handle1 = logging.handlers.RotatingFileHandler(logname, maxBytes=logsize, backupCount=lognum) handle1.setFormatter(fmt) # 同时输出到屏幕，便于实施观察 handle2 = logging.StreamHandler(stream=sys.stdout) handle2.setFormatter(fmt) log.addHandler(handle1) log.addHandler(handle2) # 设置日志基本，这里设置为INFO，表示只有INFO级别及以上的会打印 log.setLevel(logging.INFO) # 日志接口，用户只需调用这里的接口即可，这里只定位了INFO, WARNING, ERROR三个级别的日志，可根据需要定义更多接口 @classmethod def info(cls, msg): cls.log.info(msg) return @classmethod def warning(cls, msg): cls.log.warning(msg) return @classmethod def error(cls, msg): cls.log.error(msg) return</code> 来测试一下，在脚本script1和script2中分别编写下面代码： <code>from Common.log import * logger.info(&#39;This is info&#39;) logger.warning(&#39;This is warning&#39;) logger.error(&#39;This is error&#39;)</code> 分别运行两个脚本，控制台输出为： <code>\[2017-04-27 10:57:03\]\[log.py\]\[line:47\]\[INFO\] This is info \[2017-04-27 10:57:03\]\[log.py\]\[line:52\]\[WARNING\] This is warning \[2017-04-27 10:57:03\]\[log.py\]\[line:57\]\[ERROR\] This is error</code> 产生的日志文件在<code>config.xml</code> 里边</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/27/python封装日志功能logger/" data-id="cjujhygab006eej3jq1kegdl3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/28/python计算给定日期的周内的某一天/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          python计算给定日期的周内的某一天
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/04/26/pm2-使用介绍/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">PM2  使用介绍</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/">laravel</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/">laravel5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/laravel/laravel5/积累-php/">积累________php</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/laravel5/">laravel5</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/">日常________经验分享</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/">积累________node.js</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-linux/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-php/积累-python/">积累________python</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常-经验分享/积累-区块链/">积累________区块链</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-PostgreSQL/">积累________PostgreSQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-btc/">积累________btc</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-git/">积累________git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/">积累________go</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-linux/">积累________linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-go/积累-mac/">积累________mac</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/">积累________js</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-js/积累-nginx/">积累________nginx</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/">积累________linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-nginx/">积累________nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-linux/积累-php/">积累________php</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mac/">积累________mac</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-mysql/">积累________mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/">积累________php</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-php/积累-面向对象/">积累________面向对象</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/">积累________python</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-python/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-redis/">积累________redis</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/">积累________区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/积累-区块链/积累-量化/">积累________量化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-多线程系列/">积累________多线程系列</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-量化/">积累________量化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/积累-面向对象/">积累________面向对象</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/量化小讲堂-Python、pandas技巧系列/">量化小讲堂- Python、pandas技巧系列</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PostgreSQL/">PostgreSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导入/">导入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导出/">导出</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译/">编译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/btc/" style="font-size: 20px;">btc</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/导入/" style="font-size: 10px;">导入</a> <a href="/tags/导出/" style="font-size: 10px;">导出</a> <a href="/tags/编译/" style="font-size: 20px;">编译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">mac中使用expect和ga-cmd登陆跳转机(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/">mac中使用expect和ga-cmd登陆跳转机</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/24/阿里云虚拟机ftp流程/">阿里云虚拟机ftp流程</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/11/ubuntu下折腾thrift/">ubuntu下折腾thrift</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
