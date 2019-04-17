@@ -14,7 +14,7 @@
   
 
 
-<html class="theme-next pisces use-motion" lang>
+<html class="theme-next mist use-motion" lang>
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,9 +27,13 @@
   
   
     
+      
     
-  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-big-counter.min.css?v=1.0.2">
+    
+      
+    
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
 
 
 
@@ -51,7 +55,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+  
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css">
 
 <link rel="stylesheet" href="/css/main.css?v=7.1.0">
 
@@ -73,11 +79,11 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Pisces',
+    scheme: 'Mist',
     version: '7.1.0',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
     back2top: true,
-    back2top_sidebar: false,
+    back2top_sidebar: true,
     fancybox: false,
     fastclick: false,
     lazyload: false,
@@ -103,7 +109,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="以太坊学习笔记：私有链搭建操作指南">
 <meta property="og:url" content="http://yoursite.com/2017/06/28/以太坊学习笔记：私有链搭建操作指南/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="zihao&#39;blog">
 <meta property="og:description" content="虽然以太坊是一个公有链系统，但是我们可以通过设置一些参数来运行自己的私有链节点，在自己的私有链上进行开发和测试不需要同步公有链数据，也不需要花钱来买以太币，节省存储空间和成本，而且很灵活很方便。本文介绍使用geth客户端搭建私有链的操作步骤，同时会解释在这个过程中用到的各个命令及选项的含义和作用，最后会介绍geth的JavaScript Console中的一些常用功能。 系统和软件 Ubuntu">
 <meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2019-04-16T07:59:57.308Z">
@@ -113,7 +119,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="zihao'blog" type="application/atom+xml">
 
 
 
@@ -129,7 +135,7 @@
   };
 </script>
 
-  <title>以太坊学习笔记：私有链搭建操作指南 | Hexo</title>
+  <title>以太坊学习笔记：私有链搭建操作指南 | zihao'blog</title>
   
 
 
@@ -179,7 +185,7 @@
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
-    <a href="https://github.com/ucfyao/" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#FD6C6C; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta">
@@ -188,10 +194,14 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">zihao'blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">Make small but daily progress</h1>
+      
     
     
   </div>
@@ -279,11 +289,31 @@
     <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
 
       
       
     </ul>
   
+
+  
+    
 
   
 
@@ -300,14 +330,18 @@
     </header>
 
     
+  
+  
+
+  
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL3VjZnlhbw==" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></span>
+
 
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          
-            
-
           
           <div id="content" class="content">
             
@@ -331,13 +365,13 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/28/以太坊学习笔记：私有链搭建操作指南/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content>
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="zihao'blog">
     </span>
 
     
@@ -345,11 +379,11 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">以太坊学习笔记：私有链搭建操作指南
+          <h2 class="post-title" itemprop="name headline">以太坊学习笔记：私有链搭建操作指南
 
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -422,7 +456,42 @@
           
 
           
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
 
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">9.1k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">8 mins.</span>
+              
+            </div>
           
 
           
@@ -440,7 +509,7 @@
       
 
       
-        <p>虽然以太坊是一个公有链系统，但是我们可以通过设置一些参数来运行自己的私有链节点，在自己的私有链上进行开发和测试不需要同步公有链数据，也不需要花钱来买以太币，节省存储空间和成本，而且很灵活很方便。本文介绍使用geth客户端搭建私有链的操作步骤，同时会解释在这个过程中用到的各个命令及选项的含义和作用，最后会介绍geth的JavaScript Console中的一些常用功能。 系统和软件 <code>Ubuntu 16.04 64位 geth 1.5.6 =&gt;(安装教程)</code> 搭建私有链 一、准备创世区块配置文件 以太坊支持自定义创世区块，要运行私有链，我们就需要定义自己的创世区块，创世区块信息写在一个json格式的配置文件中。首先将下面的内容保存到一个json文件中，例如genesis.json。 <code>{ &quot;config&quot;: { &quot;chainId&quot;: 0, &quot;homesteadBlock&quot;: 0, &quot;eip155Block&quot;: 0, &quot;eip158Block&quot;: 0 }, &quot;coinbase&quot; : &quot;0x0000000000000000000000000000000000000000&quot;, &quot;difficulty&quot; : &quot;0x400&quot;, &quot;extraData&quot; : &quot;0x0&quot;, &quot;gasLimit&quot; : &quot;0x2fefd8&quot;, &quot;nonce&quot; : &quot;0xdeadbeefdeadbeef&quot;, &quot;mixhash&quot; : &quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;, &quot;parentHash&quot; : &quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;, &quot;timestamp&quot; : &quot;0x00&quot;, &quot;alloc&quot; : {} }</code> 二、初始化：写入创世区块 准备好创世区块配置文件后，需要初始化区块链，将上面的创世区块信息写入到区块链中。首先要新建一个目录用来存放区块链数据，假设新建的数据目录为~/privatechain/data0，genesis.json保存在~/privatechain中，此时目录结构应该是这样的： <code>privatechain ├── data0 └── genesis.json</code> 接下来进入privatechain中，执行初始化命令： <code>$ cd privatechain $ geth --datadir data0 init genesis.json</code> 上面的命令的主体是geth init，表示初始化区块链，命令可以带有选项和参数，其中–datadir选项后面跟一个目录名，这里为data0，表示指定数据存放目录为data0，genesis.json是init命令的参数。 运行上面的命令，会读取genesis.json文件，根据其中的内容，将创世区块写入到区块链中。如果看到以下的输出内容，说明初始化成功了。 <code>I0322 10:52:44.585282 cmd/geth/chaincmd.go:131\] successfully wrote genesis block and/or chain rule set: b240e0678c2a8f87cf350225b528e3d97688aad6d4d84ee84e405c7fc9e37e4e</code> 初始化成功后，会在数据目录data0中生成geth和keystore两个文件夹，此时目录结构如下： <code>privatechain ├── data0 │ ├── geth │ │ └── chaindata │ │ ├── 000002.log │ │ ├── CURRENT │ │ ├── LOCK │ │ ├── LOG │ │ └── MANIFEST-000003 │ └── keystore └── genesis.json</code> 其中geth/chaindata中存放的是区块数据，keystore中存放的是账户数据。 三、启动私有链节点 初始化完成后，就有了一条自己的私有链，之后就可以启动自己的私有链节点并做一些操作，在终端中输入以下命令即可启动节点： <code>$ geth –datadir data0 –networkid 1108 console</code> 上面命令的主体是geth console，表示启动节点并进入交互式控制台，–datadir选项指定使用data0作为数据目录，–networkid选项后面跟一个数字，这里是1108，表示指定这个私有链的网络id为1108。网络id在连接到其他节点的时候会用到，以太坊公网的网络id是1，为了不与公有链网络冲突，运行私有链节点的时候要指定自己的网络id。 运行上面的命令后，就启动了区块链节点并进入了javascript Console： <code>Welcome to the Geth JavaScript console! instance: Geth/v1.5.6-stable/linux/go1.7.3 modules: admin:1.0 debug:1.0 eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0</code> 这是一个交互式的Javascript执行环境，在这里面可以执行Javascript代码，其中&gt;是命令提示符。在这个环境里也内置了一些用来操作以太坊的Javascript对象，可以直接使用这些对象。这些对象主要包括： <code>eth：包含一些跟操作区块链相关的方法 net：包含以下查看p2p网络状态的方法 admin：包含一些与管理节点相关的方法 miner：包含启动&amp;停止挖矿的一些方法 personal：主要包含一些管理账户的方法 txpool：包含一些查看交易内存池的方法 web3：包含了以上对象，还包含一些单位换算的方法 探索Javascript Console</code> 进入以太坊Javascript Console后，就可以使用里面的内置对象做一些操作，这些内置对象提供的功能很丰富，比如查看区块和交易、创建账户、挖矿、发送交易、部署<a href="http://lib.csdn.net/base/aiplanning" title="人工智能规划与决策知识库" target="_blank" rel="noopener">智能</a>合约等。 接下来介绍几个常用功能，下面的操作中，前面带&gt;的表示在Javascript Console中执行的命令。 一、创建账户 前面只是搭建了私有链，并没有自己的账户，可以在<a href="http://lib.csdn.net/base/javascript" title="JavaScript知识库" target="_blank" rel="noopener">js</a> console中输入eth.accounts来验证： <code>&gt; eth.accounts \[\] 接下来使用personal对象来创建一个账户： &gt; personal.newAccount() Passphrase: Repeat passphrase: &quot;0xc232e2add308136571bb8f9197ba4ae4e5ba9836&quot; 会提示输入密码和确认密码，输入密码不会有显示，只要输入就可以了，之后就会显示新创建的账户地址。 可以创建多个账户，我们再来创建一个账户： \&gt; personal.newAccount() Passphrase: Repeat passphrase: &quot;0x814d39aa21f3eed069f2b21da7b5f857f7343afa&quot; 接下来就可以查看到刚才创建的两个账户了： \&gt; eth.accounts \[&quot;0xc232e2add308136571bb8f9197ba4ae4e5ba9836&quot;, &quot;0x814d39aa21f3eed069f2b21da7b5f857f7343afa&quot;\]</code> 账户默认会保存在数据目录的keystore文件夹中。查看目录结构，发现data0/keystore中多了两个文件，这两个文件就对应刚才创建的两个账户，这是json格式的文本文件，可以打开查看，里面存的是私钥经过密码加密后的信息。 <code>data0 ├── geth │ ├── chaindata │ ├── LOCK │ ├── nodekey │ └── nodes ├── geth.ipc ├── history └── keystore ├── UTC--2017-03-22T09-06-47.766993033Z--c232e2add308136571bb8f9197ba4ae4e5ba9836 └── UTC--2017-03-22T09-09-42.041015656Z--814d39aa21f3eed069f2b21da7b5f857f7343afa 小提示：命令都可以按Tab键自动补全。</code> 二、查看账户余额 eth对象提供了查看账户余额的方法： <code>&gt; eth.getBalance(eth.accounts\[0\]) 0 \&gt; eth.getBalance(eth.accounts\[1\]) 0</code> 目前两个账户的以太币余额都是0，要使账户有余额，可以从其他账户转账过来，或者通过挖矿来获得以太币奖励。 三、启动&amp;停止挖矿 通过miner.start()来启动挖矿： <code>&gt; miner.start(1)</code> 其中start的参数表示挖矿使用的线程数。第一次启动挖矿会先生成挖矿所需的DAG文件，这个过程有点慢，等进度达到100%后，就会开始挖矿，此时屏幕会被挖矿信息刷屏。 如果想停止挖矿，在js console中输入miner.stop()： &gt; miner.stop() 注意：输入的字符会被挖矿刷屏信息冲掉，没有关系，只要输入完整的miner.stop()之后回车，即可停止挖矿。 挖到一个区块会奖励5个以太币，挖矿所得的奖励会进入矿工的账户，这个账户叫做coinbase，默认情况下coinbase是本地账户中的第一个账户： &gt; eth.coinbase “0xc232e2add308136571bb8f9197ba4ae4e5ba9836” 现在的coinbase是账户0，要想使挖矿奖励进入其他账户，通过miner.setEtherbase()将其他账户设置成coinbase即可： &gt; miner.setEtherbase(eth.accounts[1]) true > eth.coinbase “0x814d39aa21f3eed069f2b21da7b5f857f7343afa” 我们还是以账户0作为coinbase，挖到区块以后，账户0里面应该就有余额了： > eth.getBalance(eth.accounts[0]) 160000000000000000000 getBalance()返回值的单位是wei，wei是以太币的最小单位，1个以太币=10的18次方个wei。要查看有多少个以太币，可以用web3.fromWei()将返回值换算成以太币： &gt; web3.fromWei(eth.getBalance(eth.accounts[0]),’ether’) 160 <code>四、发送交易 目前，账户一的余额还是0：</code> > eth.getBalance(eth.accounts[1]) 0 可以通过发送一笔交易，从账户0转移5个以太币到账户1： > amount = web3.toWei(5,’ether’) “5000000000000000000” > eth.sendTransaction({from:eth.accounts[0],to:eth.accounts[1],value:amount}) Error: account is locked at web3.js:3119:20 at web3.js:6023:15 at web3.js:4995:36 at :1:1 这里报错了，原因是账户每隔一段时间就会被锁住，要发送交易，必须先解锁账户，由于我们要从账户0发送交易，所以要解锁账户0： > personal.unlockAccount(eth.accounts[0]) Unlock account 0xc232e2add308136571bb8f9197ba4ae4e5ba9836 Passphrase: true 输入创建账户时设置的密码，就可以成功解锁账户。然后再发送交易： > amount = web3.toWei(5,’ether’) “5000000000000000000” > eth.sendTransaction({from:eth.accounts[0],to:eth.accounts[1],value:amount}) I0322 19:39:36.300675 internal/ethapi/api.go:1047] Tx(0x0c59f431068937cbe9e230483bc79f59bd7146edc8ff5ec37fea6710adcab825) to: 0x814d39aa21f3eed069f2b21da7b5f857f7343afa “0x0c59f431068937cbe9e230483bc79f59bd7146edc8ff5ec37fea6710adcab825” 此时交易已经提交到区块链，返回了交易的hash，但还未被处理，这可以通过查看txpool来验证： &gt; txpool.status { pending: 1, queued: 0 } 其中有一条pending的交易，pending表示已提交但还未被处理的交易。 要使交易被处理，必须要挖矿。这里我们启动挖矿，然后等待挖到一个区块之后就停止挖矿： &gt; miner.start(1);admin.sleepBlocks(1);miner.stop(); 当miner.stop()返回true后，txpool中pending的交易数量应该为0了，说明交易已经被处理了： > txpool.status { pending: 0, queued: 0 } 此时，交易已经生效，账户一应该已经收到了5个以太币了： > web3.fromWei(eth.getBalance(eth.accounts[1]),’ether’) 5 <code>五、查看交易和区块 eth对象封装了查看交易和区块信息的方法。 查看当前区块总数：</code> &gt; eth.blockNumber 33 通过交易hash查看交易： eth.getTransaction(“0x0c59f431068937cbe9e230483bc79f59bd7146edc8ff5ec37fea6710adcab825”) { blockHash: “0xf5d3da50065ce5793c9571a031ad6fe5f1af326a3c4fb7ce16458f4d909c1613”, blockNumber: 33, from: “0xc232e2add308136571bb8f9197ba4ae4e5ba9836”, gas: 90000, gasPrice: 20000000000, hash: “0x0c59f431068937cbe9e230483bc79f59bd7146edc8ff5ec37fea6710adcab825”, input: “0x”, nonce: 0, r: “0x433fe5845391b6da3d8aa0d2b53674e09fb6126f0070a600686809b57e4ef77d”, s: “0x6b0086fb76c46024f849141074a5bc79c49d5f9a658fd0fedbbe354889c34d8d”, to: “0x814d39aa21f3eed069f2b21da7b5f857f7343afa”, transactionIndex: 0, v: “0x1b”, value: 5000000000000000000 } #通过区块号查看区块： eth.getBlock(33) { difficulty: 132928, extraData: “0xd783010506846765746887676f312e372e33856c696e7578”, gasLimit: 3244382, gasUsed: 21000, hash: “0xf5d3da50065ce5793c9571a031ad6fe5f1af326a3c4fb7ce16458f4d909c1613”, logsBloom: “0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000”, miner: “0xc232e2add308136571bb8f9197ba4ae4e5ba9836”, mixHash: “0x09849dff7c8b8467812fa80d1fa2a27bc61f1cf16d5b2c05a6ce1b77ee18f3f1”, nonce: “0x5b3939449dbdbea0”, number: 33, parentHash: “0xeca34637642f56f7cfe5b699031c7ddbc43aee00fb10c7f054e0a9719cf226da”, receiptsRoot: “0xd5f5b7ee944e57cbff496f7bdda7ceffd5eedffe6d5be5320008190502adc07a”, sha3Uncles: “0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347”, size: 649, stateRoot: “0xc7add6b756980ab9e482766e455597ef1583e747ad62e2924a8e66c6f9170112”, timestamp: 1490183209, totalDifficulty: 4358016, transactions: [“0x0c59f431068937cbe9e230483bc79f59bd7146edc8ff5ec37fea6710adcab825”], transactionsRoot: “0x7335a362b2c3925e7ba1b41bf7772aa9645a13d4f9c12edd5892b87887264232”, uncles: [] } <code>还有更多的功能请自行探索...。 六、连接到其他节点 可以通过`admin.addPeer()`方法连接到其他节点，两个节点要想联通，必须保证网络是相通的，并且要指定相同的networkid。 假设有两个节点：节点一和节点二，networkid都是1108，通过下面的步骤就可以从节点一连接到节点二。 首先要知道节点二的enode信息，在节点二的js console中执行下面的命令查看enode信息：</code> admin.nodeInfo.enode “enode://9e86289ea859ca041f235aed87a091d0cd594b377cbe13e1c5f5a08a8a280e62d4019ac54063ed6a1d0e3c3eaedad0b73c40b99a16a176993f0373ffe92be672@[::]:30304”<code>然后在节点一的js console中执行`admin.addPeer()`，就可以连接到节点二：</code> admin.addPeer(“enode:<a href="mailto://9e86289ea859ca041f235aed87a091d0cd594b377cbe13e1c5f5a08a8a280e62d4019ac54063ed6a1d0e3c3eaedad0b73c40b99a16a176993f0373ffe92be672@127.0.0.1" target="_blank" rel="noopener">//9e86289ea859ca041f235aed87a091d0cd594b377cbe13e1c5f5a08a8a280e62d4019ac54063ed6a1d0e3c3eaedad0b73c40b99a16a176993f0373ffe92be672@127.0.0.1</a>:30304”) <code>`</code> addPeer()的参数就是节点二的enode信息，注意要把enode中的[::]替换成节点二的IP地址。连接成功后，节点二就会开始同步节点一的区块，同步完成后，任意一个节点开始挖矿，另一个节点会自动同步区块，向任意一个节点发送交易，另一个节点也会收到该笔交易。 通过admin.peers可以查看连接到的其他节点信息，通过<code>net.peerCount</code>可以查看已连接到的节点数量。 除了上面的方法，也可以在启动节点的时候指定<code>–bootnodes</code>选项连接到其他节点。</p>
+        <p>虽然以太坊是一个公有链系统，但是我们可以通过设置一些参数来运行自己的私有链节点，在自己的私有链上进行开发和测试不需要同步公有链数据，也不需要花钱来买以太币，节省存储空间和成本，而且很灵活很方便。本文介绍使用geth客户端搭建私有链的操作步骤，同时会解释在这个过程中用到的各个命令及选项的含义和作用，最后会介绍geth的JavaScript Console中的一些常用功能。 系统和软件 <code>Ubuntu 16.04 64位 geth 1.5.6 =&gt;(安装教程)</code> 搭建私有链 一、准备创世区块配置文件 以太坊支持自定义创世区块，要运行私有链，我们就需要定义自己的创世区块，创世区块信息写在一个json格式的配置文件中。首先将下面的内容保存到一个json文件中，例如genesis.json。 <code>{ &quot;config&quot;: { &quot;chainId&quot;: 0, &quot;homesteadBlock&quot;: 0, &quot;eip155Block&quot;: 0, &quot;eip158Block&quot;: 0 }, &quot;coinbase&quot; : &quot;0x0000000000000000000000000000000000000000&quot;, &quot;difficulty&quot; : &quot;0x400&quot;, &quot;extraData&quot; : &quot;0x0&quot;, &quot;gasLimit&quot; : &quot;0x2fefd8&quot;, &quot;nonce&quot; : &quot;0xdeadbeefdeadbeef&quot;, &quot;mixhash&quot; : &quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;, &quot;parentHash&quot; : &quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;, &quot;timestamp&quot; : &quot;0x00&quot;, &quot;alloc&quot; : {} }</code> 二、初始化：写入创世区块 准备好创世区块配置文件后，需要初始化区块链，将上面的创世区块信息写入到区块链中。首先要新建一个目录用来存放区块链数据，假设新建的数据目录为~/privatechain/data0，genesis.json保存在~/privatechain中，此时目录结构应该是这样的： <code>privatechain ├── data0 └── genesis.json</code> 接下来进入privatechain中，执行初始化命令： <code>$ cd privatechain $ geth --datadir data0 init genesis.json</code> 上面的命令的主体是geth init，表示初始化区块链，命令可以带有选项和参数，其中–datadir选项后面跟一个目录名，这里为data0，表示指定数据存放目录为data0，genesis.json是init命令的参数。 运行上面的命令，会读取genesis.json文件，根据其中的内容，将创世区块写入到区块链中。如果看到以下的输出内容，说明初始化成功了。 <code>I0322 10:52:44.585282 cmd/geth/chaincmd.go:131\] successfully wrote genesis block and/or chain rule set: b240e0678c2a8f87cf350225b528e3d97688aad6d4d84ee84e405c7fc9e37e4e</code> 初始化成功后，会在数据目录data0中生成geth和keystore两个文件夹，此时目录结构如下： <code>privatechain ├── data0 │ ├── geth │ │ └── chaindata │ │ ├── 000002.log │ │ ├── CURRENT │ │ ├── LOCK │ │ ├── LOG │ │ └── MANIFEST-000003 │ └── keystore └── genesis.json</code> 其中geth/chaindata中存放的是区块数据，keystore中存放的是账户数据。 三、启动私有链节点 初始化完成后，就有了一条自己的私有链，之后就可以启动自己的私有链节点并做一些操作，在终端中输入以下命令即可启动节点： <code>$ geth –datadir data0 –networkid 1108 console</code> 上面命令的主体是geth console，表示启动节点并进入交互式控制台，–datadir选项指定使用data0作为数据目录，–networkid选项后面跟一个数字，这里是1108，表示指定这个私有链的网络id为1108。网络id在连接到其他节点的时候会用到，以太坊公网的网络id是1，为了不与公有链网络冲突，运行私有链节点的时候要指定自己的网络id。 运行上面的命令后，就启动了区块链节点并进入了javascript Console： <code>Welcome to the Geth JavaScript console! instance: Geth/v1.5.6-stable/linux/go1.7.3 modules: admin:1.0 debug:1.0 eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0</code> 这是一个交互式的Javascript执行环境，在这里面可以执行Javascript代码，其中&gt;是命令提示符。在这个环境里也内置了一些用来操作以太坊的Javascript对象，可以直接使用这些对象。这些对象主要包括： <code>eth：包含一些跟操作区块链相关的方法 net：包含以下查看p2p网络状态的方法 admin：包含一些与管理节点相关的方法 miner：包含启动&amp;停止挖矿的一些方法 personal：主要包含一些管理账户的方法 txpool：包含一些查看交易内存池的方法 web3：包含了以上对象，还包含一些单位换算的方法 探索Javascript Console</code> 进入以太坊Javascript Console后，就可以使用里面的内置对象做一些操作，这些内置对象提供的功能很丰富，比如查看区块和交易、创建账户、挖矿、发送交易、部署<span class="exturl" data-url="aHR0cDovL2xpYi5jc2RuLm5ldC9iYXNlL2FpcGxhbm5pbmc=" title="人工智能规划与决策知识库">智能<i class="fa fa-external-link"></i></span>合约等。 接下来介绍几个常用功能，下面的操作中，前面带&gt;的表示在Javascript Console中执行的命令。 一、创建账户 前面只是搭建了私有链，并没有自己的账户，可以在<span class="exturl" data-url="aHR0cDovL2xpYi5jc2RuLm5ldC9iYXNlL2phdmFzY3JpcHQ=" title="JavaScript知识库">js<i class="fa fa-external-link"></i></span> console中输入eth.accounts来验证： <code>&gt; eth.accounts \[\] 接下来使用personal对象来创建一个账户： &gt; personal.newAccount() Passphrase: Repeat passphrase: &quot;0xc232e2add308136571bb8f9197ba4ae4e5ba9836&quot; 会提示输入密码和确认密码，输入密码不会有显示，只要输入就可以了，之后就会显示新创建的账户地址。 可以创建多个账户，我们再来创建一个账户： \&gt; personal.newAccount() Passphrase: Repeat passphrase: &quot;0x814d39aa21f3eed069f2b21da7b5f857f7343afa&quot; 接下来就可以查看到刚才创建的两个账户了： \&gt; eth.accounts \[&quot;0xc232e2add308136571bb8f9197ba4ae4e5ba9836&quot;, &quot;0x814d39aa21f3eed069f2b21da7b5f857f7343afa&quot;\]</code> 账户默认会保存在数据目录的keystore文件夹中。查看目录结构，发现data0/keystore中多了两个文件，这两个文件就对应刚才创建的两个账户，这是json格式的文本文件，可以打开查看，里面存的是私钥经过密码加密后的信息。 <code>data0 ├── geth │ ├── chaindata │ ├── LOCK │ ├── nodekey │ └── nodes ├── geth.ipc ├── history └── keystore ├── UTC--2017-03-22T09-06-47.766993033Z--c232e2add308136571bb8f9197ba4ae4e5ba9836 └── UTC--2017-03-22T09-09-42.041015656Z--814d39aa21f3eed069f2b21da7b5f857f7343afa 小提示：命令都可以按Tab键自动补全。</code> 二、查看账户余额 eth对象提供了查看账户余额的方法： <code>&gt; eth.getBalance(eth.accounts\[0\]) 0 \&gt; eth.getBalance(eth.accounts\[1\]) 0</code> 目前两个账户的以太币余额都是0，要使账户有余额，可以从其他账户转账过来，或者通过挖矿来获得以太币奖励。 三、启动&amp;停止挖矿 通过miner.start()来启动挖矿： <code>&gt; miner.start(1)</code> 其中start的参数表示挖矿使用的线程数。第一次启动挖矿会先生成挖矿所需的DAG文件，这个过程有点慢，等进度达到100%后，就会开始挖矿，此时屏幕会被挖矿信息刷屏。 如果想停止挖矿，在js console中输入miner.stop()： &gt; miner.stop() 注意：输入的字符会被挖矿刷屏信息冲掉，没有关系，只要输入完整的miner.stop()之后回车，即可停止挖矿。 挖到一个区块会奖励5个以太币，挖矿所得的奖励会进入矿工的账户，这个账户叫做coinbase，默认情况下coinbase是本地账户中的第一个账户： &gt; eth.coinbase “0xc232e2add308136571bb8f9197ba4ae4e5ba9836” 现在的coinbase是账户0，要想使挖矿奖励进入其他账户，通过miner.setEtherbase()将其他账户设置成coinbase即可： &gt; miner.setEtherbase(eth.accounts[1]) true > eth.coinbase “0x814d39aa21f3eed069f2b21da7b5f857f7343afa” 我们还是以账户0作为coinbase，挖到区块以后，账户0里面应该就有余额了： > eth.getBalance(eth.accounts[0]) 160000000000000000000 getBalance()返回值的单位是wei，wei是以太币的最小单位，1个以太币=10的18次方个wei。要查看有多少个以太币，可以用web3.fromWei()将返回值换算成以太币： &gt; web3.fromWei(eth.getBalance(eth.accounts[0]),’ether’) 160 <code>四、发送交易 目前，账户一的余额还是0：</code> > eth.getBalance(eth.accounts[1]) 0 可以通过发送一笔交易，从账户0转移5个以太币到账户1： > amount = web3.toWei(5,’ether’) “5000000000000000000” > eth.sendTransaction({from:eth.accounts[0],to:eth.accounts[1],value:amount}) Error: account is locked at web3.js:3119:20 at web3.js:6023:15 at web3.js:4995:36 at :1:1 这里报错了，原因是账户每隔一段时间就会被锁住，要发送交易，必须先解锁账户，由于我们要从账户0发送交易，所以要解锁账户0： > personal.unlockAccount(eth.accounts[0]) Unlock account 0xc232e2add308136571bb8f9197ba4ae4e5ba9836 Passphrase: true 输入创建账户时设置的密码，就可以成功解锁账户。然后再发送交易： > amount = web3.toWei(5,’ether’) “5000000000000000000” > eth.sendTransaction({from:eth.accounts[0],to:eth.accounts[1],value:amount}) I0322 19:39:36.300675 internal/ethapi/api.go:1047] Tx(0x0c59f431068937cbe9e230483bc79f59bd7146edc8ff5ec37fea6710adcab825) to: 0x814d39aa21f3eed069f2b21da7b5f857f7343afa “0x0c59f431068937cbe9e230483bc79f59bd7146edc8ff5ec37fea6710adcab825” 此时交易已经提交到区块链，返回了交易的hash，但还未被处理，这可以通过查看txpool来验证： &gt; txpool.status { pending: 1, queued: 0 } 其中有一条pending的交易，pending表示已提交但还未被处理的交易。 要使交易被处理，必须要挖矿。这里我们启动挖矿，然后等待挖到一个区块之后就停止挖矿： &gt; miner.start(1);admin.sleepBlocks(1);miner.stop(); 当miner.stop()返回true后，txpool中pending的交易数量应该为0了，说明交易已经被处理了： > txpool.status { pending: 0, queued: 0 } 此时，交易已经生效，账户一应该已经收到了5个以太币了： > web3.fromWei(eth.getBalance(eth.accounts[1]),’ether’) 5 <code>五、查看交易和区块 eth对象封装了查看交易和区块信息的方法。 查看当前区块总数：</code> &gt; eth.blockNumber 33 通过交易hash查看交易： eth.getTransaction(“0x0c59f431068937cbe9e230483bc79f59bd7146edc8ff5ec37fea6710adcab825”) { blockHash: “0xf5d3da50065ce5793c9571a031ad6fe5f1af326a3c4fb7ce16458f4d909c1613”, blockNumber: 33, from: “0xc232e2add308136571bb8f9197ba4ae4e5ba9836”, gas: 90000, gasPrice: 20000000000, hash: “0x0c59f431068937cbe9e230483bc79f59bd7146edc8ff5ec37fea6710adcab825”, input: “0x”, nonce: 0, r: “0x433fe5845391b6da3d8aa0d2b53674e09fb6126f0070a600686809b57e4ef77d”, s: “0x6b0086fb76c46024f849141074a5bc79c49d5f9a658fd0fedbbe354889c34d8d”, to: “0x814d39aa21f3eed069f2b21da7b5f857f7343afa”, transactionIndex: 0, v: “0x1b”, value: 5000000000000000000 } #通过区块号查看区块： eth.getBlock(33) { difficulty: 132928, extraData: “0xd783010506846765746887676f312e372e33856c696e7578”, gasLimit: 3244382, gasUsed: 21000, hash: “0xf5d3da50065ce5793c9571a031ad6fe5f1af326a3c4fb7ce16458f4d909c1613”, logsBloom: “0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000”, miner: “0xc232e2add308136571bb8f9197ba4ae4e5ba9836”, mixHash: “0x09849dff7c8b8467812fa80d1fa2a27bc61f1cf16d5b2c05a6ce1b77ee18f3f1”, nonce: “0x5b3939449dbdbea0”, number: 33, parentHash: “0xeca34637642f56f7cfe5b699031c7ddbc43aee00fb10c7f054e0a9719cf226da”, receiptsRoot: “0xd5f5b7ee944e57cbff496f7bdda7ceffd5eedffe6d5be5320008190502adc07a”, sha3Uncles: “0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347”, size: 649, stateRoot: “0xc7add6b756980ab9e482766e455597ef1583e747ad62e2924a8e66c6f9170112”, timestamp: 1490183209, totalDifficulty: 4358016, transactions: [“0x0c59f431068937cbe9e230483bc79f59bd7146edc8ff5ec37fea6710adcab825”], transactionsRoot: “0x7335a362b2c3925e7ba1b41bf7772aa9645a13d4f9c12edd5892b87887264232”, uncles: [] } <code>还有更多的功能请自行探索...。 六、连接到其他节点 可以通过`admin.addPeer()`方法连接到其他节点，两个节点要想联通，必须保证网络是相通的，并且要指定相同的networkid。 假设有两个节点：节点一和节点二，networkid都是1108，通过下面的步骤就可以从节点一连接到节点二。 首先要知道节点二的enode信息，在节点二的js console中执行下面的命令查看enode信息：</code> admin.nodeInfo.enode “enode://9e86289ea859ca041f235aed87a091d0cd594b377cbe13e1c5f5a08a8a280e62d4019ac54063ed6a1d0e3c3eaedad0b73c40b99a16a176993f0373ffe92be672@[::]:30304”<code>然后在节点一的js console中执行`admin.addPeer()`，就可以连接到节点二：</code> admin.addPeer(“enode:<span class="exturl" data-url="bWFpbHRvOi8vOWU4NjI4OWVhODU5Y2EwNDFmMjM1YWVkODdhMDkxZDBjZDU5NGIzNzdjYmUxM2UxYzVmNWEwOGE4YTI4MGU2MmQ0MDE5YWM1NDA2M2VkNmExZDBlM2MzZWFlZGFkMGI3M2M0MGI5OWExNmExNzY5OTNmMDM3M2ZmZTkyYmU2NzJAMTI3LjAuMC4x" title="mailto://9e86289ea859ca041f235aed87a091d0cd594b377cbe13e1c5f5a08a8a280e62d4019ac54063ed6a1d0e3c3eaedad0b73c40b99a16a176993f0373ffe92be672@127.0.0.1">//9e86289ea859ca041f235aed87a091d0cd594b377cbe13e1c5f5a08a8a280e62d4019ac54063ed6a1d0e3c3eaedad0b73c40b99a16a176993f0373ffe92be672@127.0.0.1<i class="fa fa-external-link"></i></span>:30304”) <code>`</code> addPeer()的参数就是节点二的enode信息，注意要把enode中的[::]替换成节点二的IP地址。连接成功后，节点二就会开始同步节点一的区块，同步完成后，任意一个节点开始挖矿，另一个节点会自动同步区块，向任意一个节点发送交易，另一个节点也会收到该笔交易。 通过admin.peers可以查看连接到的其他节点信息，通过<code>net.peerCount</code>可以查看已连接到的节点数量。 除了上面的方法，也可以在启动节点的时候指定<code>–bootnodes</code>选项连接到其他节点。</p>
 
       
     </div>
@@ -456,6 +525,39 @@
     
       
     
+    
+      <div>
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="Jack Yao WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/bitcoinpay.png" alt="Jack Yao Bitcoin">
+        <p>Bitcoin</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
     
 
     
@@ -532,8 +634,8 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name">John Doe</p>
-              <div class="site-description motion-element" itemprop="description"></div>
+              <p class="site-author-name" itemprop="name">Jack Yao</p>
+              <div class="site-description motion-element" itemprop="description">由渐入深，记录程序人生。全栈工程师与你共勉。</div>
           </div>
 
           
@@ -697,7 +799,7 @@
                   
                     
                   
-                  <a href="https://github.com/ucfyao" title="GitHub &rarr; https://github.com/ucfyao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3VjZnlhbw==" title="GitHub &rarr; https://github.com/ucfyao"><i class="fa fa-fw fa-github"></i>GitHub</span>
                 </span>
               
                 <span class="links-of-author-item">
@@ -708,7 +810,7 @@
                   
                     
                   
-                  <a href="mailto:yaozihao@yaozihao.cn" title="E-Mail &rarr; mailto:yaozihao@yaozihao.cn" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  <span class="exturl" data-url="bWFpbHRvOnlhb3ppaGFvQHlhb3ppaGFvLmNu" title="E-Mail &rarr; mailto:yaozihao@yaozihao.cn"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
                 </span>
               
                 <span class="links-of-author-item">
@@ -719,7 +821,7 @@
                   
                     
                   
-                  <a href="https://www.jianshu.com/u/3ab70a199b70" title="简书 &rarr; https://www.jianshu.com/u/3ab70a199b70" rel="noopener" target="_blank"><i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  <span class="exturl" data-url="aHR0cHM6Ly93d3cuamlhbnNodS5jb20vdS8zYWI3MGExOTliNzA=" title="简书 &rarr; https://www.jianshu.com/u/3ab70a199b70"><i class="fa fa-fw fa-heartbeat"></i>简书</span>
                 </span>
               
             </div>
@@ -729,7 +831,7 @@
 
           
           
-            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
               <div class="links-of-blogroll-title">
                 <i class="fa  fa-fw fa-link"></i>
                 Links
@@ -737,11 +839,11 @@
               <ul class="links-of-blogroll-list">
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://www.baidu.com/" title="https://www.baidu.com/" rel="noopener" target="_blank">baidu</a>
+                    <span class="exturl" data-url="aHR0cHM6Ly93d3cuYmFpZHUuY29tLw==" title="https://www.baidu.com/">baidu</span>
                   </li>
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://www.google.com/" title="https://www.google.com/" rel="noopener" target="_blank">google</a>
+                    <span class="exturl" data-url="aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8=" title="https://www.google.com/">google</span>
                   </li>
                 
               </ul>
@@ -759,6 +861,13 @@
       
 
       
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
 
     </div>
   </aside>
@@ -771,22 +880,34 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2014 – <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">Jack Yao</span>
 
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Symbols count total: </span>
+    
+    <span title="Symbols count total">571k</span>
   
 
   
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    
+    <span title="Reading time total">8:39</span>
+  
 </div>
-<div class="powered-by">
-<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
-  本站访客数:<span id="busuanzi_value_site_uv"></span>
-</span>
-</div>
 
 
 
@@ -795,11 +916,33 @@
 
 
 
-<div class="theme-info">
-  <div class="powered-by"></div>
-  <span class="post-count">博客全站共201.4k字</span>
-</div>
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
 
 
 
@@ -813,18 +956,18 @@
     </footer>
 
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-          <span id="scrollpercent"><span>0</span>%</span>
-        
+
+    
+
+    
+
+    
+      <div>
+        <div class="addthis_inline_share_toolbox">
+  <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cb68f059ff1e21f" async="async"></script>
+</div>
+
       </div>
-    
-
-    
-
-    
-
     
   </div>
 
@@ -851,6 +994,9 @@
 
 
 
+  
+  
+
 
 
 
@@ -862,13 +1008,19 @@
 
 
   
-  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
   
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js"></script>
 
   
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
+
+  
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three.min.js"></script>
+
+  
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three-waves.min.js"></script>
 
 
   
@@ -884,9 +1036,8 @@
   
 
 
-  <script src="/js/affix.js?v=7.1.0"></script>
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
 
-  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
 
 
 
@@ -905,24 +1056,26 @@
   
 
   
-
-  
-
-  
-
-
-  
-
-
-  
-
-
+  <script src="/js/exturl.js?v=7.1.0"></script>
 
 
   
 
   
 
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
   
 
   
@@ -930,6 +1083,16 @@
   
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
 
   
 
