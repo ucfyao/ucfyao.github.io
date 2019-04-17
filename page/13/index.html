@@ -363,665 +363,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/2017/269/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/269/" class="post-title-link" itemprop="url">nginx与node.js结合使用</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2017-02-16 15:30:11" itemprop="dateCreated datePublished" datetime="2017-02-16T15:30:11+08:00">2017-02-16</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-js/" itemprop="url" rel="index"><span itemprop="name">积累________js</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-js/积累-nginx/" itemprop="url" rel="index"><span itemprop="name">积累________nginx</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">4.3k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">4 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><code>**\[dangerbox title=&quot;标题内容&quot;\]简单例子\[/dangerbox\]**</code> nginx是最好的反向代理服务器。 <span class="exturl" data-url="aHR0cDovL2xpYi5jc2RuLm5ldC9iYXNlL25vZGVqcw==" title="Node.js知识库">Node.js<i class="fa fa-external-link"></i></span>是<span class="exturl" data-url="aHR0cDovL25vZGVqcy5vcmcv" title="http://nodejs.org/">猛击这里<i class="fa fa-external-link"></i></span> 现在小介绍下怎么用nginx和node.js配合使用。 先写个helloworld.js   <code>`var http = require(&#39;http&#39;);` `http.createServer(function (request, response) {` `  response.writeHead(200, {&#39;Content-Type&#39;: &#39;text/plain&#39;});` `  response.end(&#39;hello world\n&#39;);` `}).listen(8000);` `console.log(&#39;Server running at http://127.0.0.1:8000/&#39;);`</code> 然后用node helloworld.js指令开启，这样跑在本地的机子的nodejs的程序就算开起来了，占用的是8000端口，可自己修改。 接着，我们在nginx的vhost.conf里面写一个server</p>
-<p><strong>[python]</strong> <span class="exturl" data-url="aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc29hc21lL2FydGljbGUvZGV0YWlscy82NzEzNzg4Iw==" title="view plain">view plain<i class="fa fa-external-link"></i></span> <span class="exturl" data-url="aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc29hc21lL2FydGljbGUvZGV0YWlscy82NzEzNzg4Iw==" title="copy">copy<i class="fa fa-external-link"></i></span></p>
-<p><span class="exturl" data-url="aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc29hc21lL2FydGljbGUvZGV0YWlscy82NzEzNzg4Iw==" title="print">print<i class="fa fa-external-link"></i></span><span class="exturl" data-url="aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc29hc21lL2FydGljbGUvZGV0YWlscy82NzEzNzg4Iw==" title="?">?<i class="fa fa-external-link"></i></span></p>
-<p>server { listen  80; server_name taqing.me <span class="exturl" data-url="aHR0cDovL3d3dy50YXFpbmcubWU=" title="http://www.taqing.me">www.taqing.me<i class="fa fa-external-link"></i></span>; location / { proxy_pass <span class="exturl" data-url="aHR0cDovLzEyNy4wLjAuMTo4MDAw" title="http://127.0.0.1:8000">http://127.0.0.1:8000<i class="fa fa-external-link"></i></span>; } }</p>
-<p>将网站域名设置好，然后端口设置为80，最后proxy_pass设置为<span class="exturl" data-url="aHR0cDovLzEyNy4wLjAuMTo4MDAw77yM5bCG5omA5pyJ5LuOdGFxaW5nLm1lOjgw55qE6K+35rGC5Lyg6YCS5Yiwbm9kZWpz56iL5bqP5Y6744CC" title="http://127.0.0.1:8000，将所有从taqing.me:80的请求传递到nodejs程序去。">http://127.0.0.1:8000，将所有从taqing.me:80的请求传递到nodejs程序去。<i class="fa fa-external-link"></i></span> 重启nginx 访问域名，就可以了看到helloworld了。 虽然node.js本身就可以做服务器是没错啦，比如welcome.js里面设置为80端口就可以了。 但是一个机子跑多个网站，其他网站又是用别的服务器，在80端口已经被占用的情况下，是可以用代理到别的端口来处理的。 <strong>[dangerbox title=”标题内容”]复杂用法[/dangerbox]</strong> Node.js是一个基于Chrome JavaScript运行时建立的平台， 用于方便地搭建响应速度快、易于扩展的网络应用。Node.js 使用事件驱动， 非阻塞I/O 模型而得以轻量和高效，非常适合在分布式设备上运行的数据密集型的实时应用，如实时聊天等等。然而对于gzip编码，静态文件，HTTP缓存，SSL处理，负载平衡和反向代理等，都可以通过<span class="exturl" data-url="aHR0cDovL3d3dy50dGxzYS5jb20vbmdpbngv" title="nginx">nginx<i class="fa fa-external-link"></i></span>来完成，从而减小node.js的负载，并通过nginx强大的缓存来节省网站的流量从而提高网站的加载速度。</p>
-<h3 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h3><p><span class="exturl" data-url="aHR0cDovL3d3dy50dGxzYS5jb20vd3AtY29udGVudC91cGxvYWRzL25vZGVqcy5wbmc=" title="http://www.ttlsa.com/wp-content/uploads/nodejs.png"><img src="http://www.ttlsa.com/wp-content/uploads/nodejs.png" alt="nginx" title="nginx与node.js结合使用"><i class="fa fa-external-link"></i></span></p>
-<h3 id="nginx配置如下："><a href="#nginx配置如下：" class="headerlink" title="nginx配置如下："></a>nginx配置如下：</h3><p>1</p>
-<p>2</p>
-<p>3</p>
-<p>4</p>
-<p>5</p>
-<p>6</p>
-<p>7</p>
-<p>8</p>
-<p>9</p>
-<p>10</p>
-<p>11</p>
-<p>12</p>
-<p>13</p>
-<p>14</p>
-<p>15</p>
-<p>16</p>
-<p>17</p>
-<p>18</p>
-<p>19</p>
-<p>20</p>
-<p>21</p>
-<p>22</p>
-<p>23</p>
-<p>24</p>
-<p>25</p>
-<p>26</p>
-<p>27</p>
-<p>28</p>
-<p>29</p>
-<p>30</p>
-<p>31</p>
-<p>32</p>
-<p>33</p>
-<p>34</p>
-<p>35</p>
-<p>36</p>
-<p>37</p>
-<p>38</p>
-<p>39</p>
-<p>40</p>
-<p>41</p>
-<p>42</p>
-<p>43</p>
-<p>44</p>
-<p>45</p>
-<p>46</p>
-<p>47</p>
-<p>48</p>
-<p>49</p>
-<p>50</p>
-<p>51</p>
-<p>52</p>
-<p>53</p>
-<p>54</p>
-<p>55</p>
-<p>56</p>
-<p>57</p>
-<p>58</p>
-<p>59</p>
-<p>60</p>
-<p>61</p>
-<p>62</p>
-<p>63</p>
-<p>64</p>
-<p>65</p>
-<p>66</p>
-<p>67</p>
-<p>68</p>
-<p>69</p>
-<p>http {</p>
-<p>proxy_cache_path/var/cache/nginx levels=1:2 keys_zone=one:8m max_size=3000m inactive=600m;</p>
-<p>proxy_temp_path /var/tmp;</p>
-<p>include mime.types;</p>
-<p>default_type  application/octet-stream;</p>
-<p>sendfile        on;</p>
-<p>keepalive_timeout65;</p>
-<p>gzip on;</p>
-<p>gzip_comp_level 6;</p>
-<p>gzip_vary on;</p>
-<p>gzip_min_length1000;</p>
-<p>gzip_proxied any;</p>
-<p>gzip_types text/plain text/html text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;</p>
-<p>gzip_buffers 16 8k;</p>
-<p>ssl_certificate /some/location/sillyfacesociety.com.bundle.crt;</p>
-<p>ssl_certificate_key /some/location/sillyfacesociety.com.key;</p>
-<p>ssl_protocols        SSLv3 TLSv1;</p>
-<p>ssl_ciphers HIGH:!aNULL:!MD5;</p>
-<p>upstream silly_face_society_upstream {</p>
-<p>server 127.0.0.1:61337;</p>
-<p>server 127.0.0.1:61338;</p>
-<p>keepalive 64;</p>
-<p>}</p>
-<p>server {</p>
-<p>listen 80;</p>
-<p>listen 443 ssl;</p>
-<p>server_name sillyfacesociety.com;</p>
-<p>return 301 $scheme://<span class="exturl" data-url="aHR0cDovL3d3dy5zaWxseWZhY2Vzb2NpZXR5LmNvbSRyZXF1ZXN0X3VyaQ==" title="http://www.sillyfacesociety.com$request_uri">www.sillyfacesociety.com$request_uri<i class="fa fa-external-link"></i></span>;</p>
-<p>}</p>
-<p>server {</p>
-<p>listen 80;</p>
-<p>listen 443 ssl;</p>
-<p>server_name <span class="exturl" data-url="aHR0cDovL3d3dy5zaWxseWZhY2Vzb2NpZXR5LmNvbQ==" title="http://www.sillyfacesociety.com">www.sillyfacesociety.com<i class="fa fa-external-link"></i></span>;</p>
-<p>error_page 502/errors/502.html;</p>
-<p>location ~ ^/(images/|img/|javascript/|js/|css/|stylesheets/|flash/|media/|static/|robots.txt|humans.txt|favicon.ico) {</p>
-<p>root /usr/local/silly_face_society/node/public;</p>
-<p>access_log off;</p>
-<p>expires max;</p>
-<p>}</p>
-<p>location /errors {</p>
-<p>internal;</p>
-<p>alias /usr/local/silly_face_society/node/public/errors;</p>
-<p>}</p>
-<p>location / {</p>
-<p>proxy_redirect off;</p>
-<p>proxy_set_header X-Real-IP$remote_addr;</p>
-<p>proxy_set_header X-Forwarded-For$proxy_add_x_forwarded_for;</p>
-<p>proxy_set_header X-Forwarded-Proto $scheme;</p>
-<p>proxy_set_header Host $http_host;</p>
-<p>proxy_set_header X-NginX-Proxy    true;</p>
-<p>proxy_set_header Connection “”;</p>
-<p>proxy_http_version 1.1;</p>
-<p>proxy_cache one;</p>
-<p>proxy_cache_key sfs$request_uri$scheme;</p>
-<p>proxy_pass <span class="exturl" data-url="aHR0cDovL3NpbGx5XF9mYWNlXF9zb2NpZXR5X3Vwc3RyZWFt" title="http://silly\_face\_society_upstream">http://silly\_face\_society_upstream<i class="fa fa-external-link"></i></span>;</p>
-<p>}</p>
-<p>}</p>
-<p>}</p>
-<h3 id="配置段说明"><a href="#配置段说明" class="headerlink" title="配置段说明"></a>配置段说明</h3><p>1</p>
-<p>2</p>
-<p>3</p>
-<p>4</p>
-<p>5</p>
-<p>6</p>
-<p>7</p>
-<p>8</p>
-<p>9</p>
-<p>http {</p>
-<p>…</p>
-<p>upstream silly_face_society_upstream {</p>
-<p>server 127.0.0.1:61337;</p>
-<p>server 127.0.0.1:61338;</p>
-<p>keepalive 64;</p>
-<p>}</p>
-<p>…</p>
-<p>}</p>
-<p>nginx负载均衡多个nodo.js实例。keepalive 64 指示nginx在任何时候保持最少64个HTTP/ 1.1连接到代理服务器。如果有更多的流量nginx将打开更多的连接。</p>
-<p>1</p>
-<p>2</p>
-<p>3</p>
-<p>4</p>
-<p>5</p>
-<p>6</p>
-<p>7</p>
-<p>8</p>
-<p>9</p>
-<p>10</p>
-<p>11</p>
-<p>12</p>
-<p>13</p>
-<p>14</p>
-<p>15</p>
-<p>16</p>
-<p>17</p>
-<p>18</p>
-<p>http {</p>
-<p>…</p>
-<p>server {</p>
-<p>…</p>
-<p>location / {</p>
-<p>proxy_redirect off;</p>
-<p>proxy_set_header X-Real-IP$remote_addr;</p>
-<p>proxy_set_header X-Forwarded-For$proxy_add_x_forwarded_for;</p>
-<p>proxy_set_header Host $http_host;</p>
-<p>proxy_set_header X-NginX-Proxy    true;</p>
-<p>…</p>
-<p>proxy_set_header Connection “”;</p>
-<p>proxy_http_version 1.1;</p>
-<p>proxy_pass <span class="exturl" data-url="aHR0cDovL3NpbGx5XF9mYWNlXF9zb2NpZXR5X3Vwc3RyZWFt" title="http://silly\_face\_society_upstream">http://silly\_face\_society_upstream<i class="fa fa-external-link"></i></span>;</p>
-<p>}</p>
-<p>…</p>
-<p>}</p>
-<p>}</p>
-<p>将符合哪些的请求发送到代理上。nginx的匹配规则可以取看看前面的文章。 nginx处理静态内容</p>
-<p>1</p>
-<p>2</p>
-<p>3</p>
-<p>4</p>
-<p>5</p>
-<p>6</p>
-<p>7</p>
-<p>8</p>
-<p>9</p>
-<p>10</p>
-<p>11</p>
-<p>12</p>
-<p>http {</p>
-<p>…</p>
-<p>server {</p>
-<p>…</p>
-<p>location ~ ^/(images/|img/|javascript/|js/|css/|stylesheets/|flash/|media/|static/|robots.txt|humans.txt|favicon.ico) {</p>
-<p>root /usr/local/silly_face_society/node/public;</p>
-<p>access_log off;</p>
-<p>expires max;</p>
-<p>}</p>
-<p>…</p>
-<p>}</p>
-<p>}</p>
-<p>设置缓存</p>
-<p>1</p>
-<p>2</p>
-<p>3</p>
-<p>4</p>
-<p>5</p>
-<p>6</p>
-<p>http {</p>
-<p>…</p>
-<p>proxy_cache_path/var/cache/nginx levels=1:2 keys_zone=one:8m max_size=3000m inactive=600m;</p>
-<p>proxy_temp_path /var/tmp;</p>
-<p>…</p>
-<p>}</p>
-<p>1</p>
-<p>2</p>
-<p>3</p>
-<p>4</p>
-<p>5</p>
-<p>6</p>
-<p>7</p>
-<p>8</p>
-<p>9</p>
-<p>10</p>
-<p>11</p>
-<p>12</p>
-<p>http {</p>
-<p>server {</p>
-<p> …</p>
-<p> location / {</p>
-<p>…</p>
-<p>proxy_cache one;</p>
-<p>proxy_cache_key sfs$request_uri$scheme;</p>
-<p>…</p>
-<p> }</p>
-<p> …</p>
-<p>}</p>
-<p>}</p>
-<p>缓存是通过HTTP头部来控制的。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/2017/268/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/268/" class="post-title-link" itemprop="url">npm 加速设置镜像站</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2017-02-16 13:25:03" itemprop="dateCreated datePublished" datetime="2017-02-16T13:25:03+08:00">2017-02-16</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-17 17:52:33" itemprop="dateModified" datetime="2019-04-17T17:52:33+08:00">2019-04-17</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-js/" itemprop="url" rel="index"><span itemprop="name">积累________js</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">1.1k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">1 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>由于 npm官方站总是抽风, 安装时下载速度很慢甚至连接不上, 怎么办呢? 我们可以切换到npm的镜像站点, 方法有二 1.npm install 时临时指定镜像源: $ npm install –registry <span class="exturl" data-url="aHR0cDovL3JlZ2lzdHJ5LmNucG1qcy5vcmc=" title="http://registry.cnpmjs.org">http://registry.cnpmjs.org<i class="fa fa-external-link"></i></span> express #从中国镜像安装express 2.永久设置: $ npm config set registry <span class="exturl" data-url="aHR0cDovL3JlZ2lzdHJ5LmNucG1qcy5vcmc=" title="http://registry.cnpmjs.org">http://registry.cnpmjs.org<i class="fa fa-external-link"></i></span>  #设置为中国镜像 然后照常使用 npm install express 即可 3.使用cnmp 你可以使用我们定制的 <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2NucG0vY25wbQ==" title="https://github.com/cnpm/cnpm">cnpm<i class="fa fa-external-link"></i></span> (gzip 压缩支持) 命令行工具代替默认的 <code>npm</code>: <code>`$ npm install -g cnpm --registry=https://registry.npm.taobao.org`</code> 或者你直接通过添加 <code>npm</code> 参数 <code>alias</code> 一个新命令: <code>`alias cnpm=&quot;npm --registry=https://registry.npm.taobao.org \ --cache=$HOME/.npm/.cache/cnpm \ --disturl=https://npm.taobao.org/dist \ --userconfig=$HOME/.cnpmrc&quot; # Or alias it in .bashrc or .zshrc $ echo &#39;\n#alias for cnpm\nalias cnpm=&quot;npm --registry=https://registry.npm.taobao.org \ --cache=$HOME/.npm/.cache/cnpm \ --disturl=https://npm.taobao.org/dist \ --userconfig=$HOME/.cnpmrc&quot;&#39; &gt;&gt; ~/.zshrc &amp;&amp; source ~/.zshrc`</code> 淘宝镜像cnmp：<span class="exturl" data-url="aHR0cHM6Ly9ucG0udGFvYmFvLm9yZy8=" title="https://npm.taobao.org/">https://npm.taobao.org/<i class="fa fa-external-link"></i></span> 目前已知的npm 镜像源站点: 中国镜像站: <span class="exturl" data-url="aHR0cDovL3JlZ2lzdHJ5LmNucG1qcy5vcmc=" title="http://registry.cnpmjs.org">http://registry.cnpmjs.org<i class="fa fa-external-link"></i></span> 官方站: <span class="exturl" data-url="aHR0cDovL3JlZ2lzdHJ5Lm5wbWpzLm9yZw==" title="http://registry.npmjs.org">http://registry.npmjs.org<i class="fa fa-external-link"></i></span> 各国镜像: <span class="exturl" data-url="aHR0cHM6Ly9yZWdpc3RyeS5ub2Rlaml0c3UuY29t" title="https://registry.nodejitsu.com">https://registry.nodejitsu.com<i class="fa fa-external-link"></i></span>  美国 <span class="exturl" data-url="aHR0cHM6Ly9ucG0uc3Ryb25nbG9vcC5jb20=" title="https://npm.strongloop.com">https://npm.strongloop.com<i class="fa fa-external-link"></i></span> 美国 <span class="exturl" data-url="aHR0cDovL3JlZ2lzdHJ5Lm5wbWpzLm9yZy5hdQ==" title="http://registry.npmjs.org.au">http://registry.npmjs.org.au<i class="fa fa-external-link"></i></span> 澳大利亚 <span class="exturl" data-url="aHR0cDovL3JlZ2lzdHJ5Lm5wbWpzLmV1" title="http://registry.npmjs.eu">http://registry.npmjs.eu<i class="fa fa-external-link"></i></span> 德国</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yaozihao.com/2017/267/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1084,7 +425,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-17 18:37:45" itemprop="dateModified" datetime="2019-04-17T18:37:45+08:00">2019-04-17</time>
+                <time title="Modified: 2019-04-17 18:41:09" itemprop="dateModified" datetime="2019-04-17T18:41:09+08:00">2019-04-17</time>
               
             
           </span>
@@ -1285,7 +626,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
+                <time title="Modified: 2019-04-17 18:54:25" itemprop="dateModified" datetime="2019-04-17T18:54:25+08:00">2019-04-17</time>
               
             
           </span>
@@ -1486,7 +827,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-16 15:59:57" itemprop="dateModified" datetime="2019-04-16T15:59:57+08:00">2019-04-16</time>
+                <time title="Modified: 2019-04-17 20:07:41" itemprop="dateModified" datetime="2019-04-17T20:07:41+08:00">2019-04-17</time>
               
             
           </span>
@@ -1503,7 +844,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-btc/" itemprop="url" rel="index"><span itemprop="name">积累________btc</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-区块链/" itemprop="url" rel="index"><span itemprop="name">积累________区块链</span></a></span>
 
                 
                 
@@ -1842,7 +1183,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-16 15:59:57" itemprop="dateModified" datetime="2019-04-16T15:59:57+08:00">2019-04-16</time>
+                <time title="Modified: 2019-04-17 20:06:28" itemprop="dateModified" datetime="2019-04-17T20:06:28+08:00">2019-04-17</time>
               
             
           </span>
@@ -1859,7 +1200,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-btc/" itemprop="url" rel="index"><span itemprop="name">积累________btc</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-区块链/" itemprop="url" rel="index"><span itemprop="name">积累________区块链</span></a></span>
 
                 
                 
@@ -2519,7 +1860,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-16 15:59:57" itemprop="dateModified" datetime="2019-04-16T15:59:57+08:00">2019-04-16</time>
+                <time title="Modified: 2019-04-17 19:52:58" itemprop="dateModified" datetime="2019-04-17T19:52:58+08:00">2019-04-17</time>
               
             
           </span>
@@ -2665,7 +2006,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/2016/247/">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/2016/244/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2685,7 +2026,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/247/" class="post-title-link" itemprop="url">创建packagist composer库</a>
+                <a href="/2016/244/" class="post-title-link" itemprop="url">laravel 安装配置dingo/api</a>
               
             
           </h2>
@@ -2710,7 +2051,7 @@
                 
               
 
-              <time title="Created: 2016-10-26 21:44:45" itemprop="dateCreated datePublished" datetime="2016-10-26T21:44:45+08:00">2016-10-26</time>
+              <time title="Created: 2016-10-12 17:18:57" itemprop="dateCreated datePublished" datetime="2016-10-12T17:18:57+08:00">2016-10-12</time>
             
 
             
@@ -2727,7 +2068,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-16 15:59:57" itemprop="dateModified" datetime="2019-04-16T15:59:57+08:00">2019-04-16</time>
+                <time title="Modified: 2019-04-17 18:31:38" itemprop="dateModified" datetime="2019-04-17T18:31:38+08:00">2019-04-17</time>
               
             
           </span>
@@ -2773,7 +2114,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">1.1k</span>
+                <span title="Symbols count in article">626</span>
               
 
               
@@ -2809,7 +2150,424 @@
       
         
           
-            <p>1.mkdir app &amp;&amp; cd app 2.composer init 3.vi composer.json <figure class="highlight plain"><figcaption><span>"name": "lomocoin/php-sdk", "description": "desc", "authors": [&#123; "name": "yaozihao", "email": "yaozihao@yaozihao.cn" &#125;], "require": &#123;&#125;, "autoload": &#123; "classmap": [ "lib/" ] &#125; &#125;```` 4.创建git库lomocoin/php-sdk 5.git remote add origin git@github.com:lomocoin/php-sdk 设置公钥略过 5.git add .&& git commit -am "init" && git pull orgin master && git push orgin master 6.创建tag composer包版本来自于git分支和tag，分支代表dev版本(除master外)，tag代表stable版本 7.git tag 1.0 && git push origin --tags 8.登录[https://packagist.org/](https://packagist.org/) 点击由上角的submit提交git仓库的地址 9.添加 GitHub Service Hook domain 指向packagist的地址 ![](https://segmentfault.com/img/bVsbmv)10.安装库 composer require 'yourname/yourpro:1.0.0 如果报错,执行composer update nothing：</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">``` `Potential causes: - A typo in the package name - The package is not available in a stable-enough version according to your min imum-stability setting see //groups.google.com/d/topic/composer-dev/_g3ASeIFlrc/discussion&gt; f or more details.`</span><br></pre></td></tr></table></figure></p>
+            <p>安装好 laravel 后 ，</p>
+<h3 id="开始-安装-laravel-dingo-api"><a href="#开始-安装-laravel-dingo-api" class="headerlink" title="开始 安装 laravel dingo/api"></a>开始 安装 laravel dingo/api</h3><figure class="highlight plain"><figcaption><span>``` 按照 上面的 提示 ``` `composer require dingo/api:0.10.*` ``` 是直接报错了， 后来 干脆改成了 ``` `composer require dingo/api` ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 打开 `config/app.php`</span><br><span class="line"></span><br><span class="line">接着在 `providers` 配置里面 加上 `Dingo\Api\Provider\LaravelServiceProvider::class` 如下： ``` `&apos;providers&apos; =&gt; [ Dingo\Api\Provider\LaravelServiceProvider::class ]`</span><br></pre></td></tr></table></figure>
+<h3 id="写入-config-api-php"><a href="#写入-config-api-php" class="headerlink" title="写入 config/api.php"></a>写入 config/api.php</h3><figure class="highlight plain"><figcaption><span>artisan vendor:publish --provider</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 配置 .env 文件</span><br><span class="line"></span><br><span class="line">在.env 文件夹下 增加如下 ``` `API_CONDITIONAL_REQUEST=false API_STRICT=false API_DEFAULT_FORMAT=json` API\_STANDARDS\_TREE=vnd ;API\_PREFIX=api // 配置域名前缀 API\_DOMAIN=127.0.0.1:1024 配置域名``` ``` API\_VERSION=v1 API\_DEBUG=true</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/2016/241/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/241/" class="post-title-link" itemprop="url">创建packagist composer库</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-09-28 19:15:27" itemprop="dateCreated datePublished" datetime="2016-09-28T19:15:27+08:00">2016-09-28</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-17 20:01:40" itemprop="dateModified" datetime="2019-04-17T20:01:40+08:00">2019-04-17</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-php/" itemprop="url" rel="index"><span itemprop="name">积累________php</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">1.2k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">1 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1.mkdir app &amp;&amp; cd app 2.composer init 3.vi composer.json <figure class="highlight plain"><figcaption><span>"name": "yourname/yourpro", "description": "desc", "authors": [&#123; "name": "yourname", "email": "yourname@gmail.com" &#125;], "require": &#123;&#125;, "autoload": &#123; "classmap": [ "lib/" ] &#125; &#125;```` 4.创建git库yourname/yourpro 5.git remote add origin git@github.com:yourname/yourpro 设置公钥略过 5.git add .&& git commit -am "init" && git pull orgin master && git push orgin master 6.创建tag composer包版本来自于git分支和tag，分支代表dev版本(除master外)，tag代表stable版本 7.git tag 1.0 && git push origin --tags 8.登录[https://packagist.org/](https://packagist.org/) 点击由上角的submit提交git仓库的地址 9.添加 GitHub Service Hook domain 指向packagist的地址 ![](https://segmentfault.com/img/bVsbmv)10.安装库 composer require 'yourname/yourpro:1.0.0 如果报错,执行composer update nothing： ``` `Potential causes: - A typo in the package name - The package is not available in a stable-enough version according to your min imum-stability setting see</span><a href="//groups.google.com/d/topic/composer-dev/_g3ASeIFlrc/discussion>">f or more details.` ```</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">如果new \\Class;提示类找不到，执行composer dumpautoload</span><br><span class="line"></span><br><span class="line">11.包创建成功，可以根据提示继续配置github自动同步功能，这样每次push后，packagist对应包的版本号也会更新。 12.修改包并更新，修改后git push，然后到使用该包的项目中执行composer --dev --prefer-source update  \[包名\] ，加--prefer-source意思是从github上检出最新版本。 ```</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/2016/239/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/239/" class="post-title-link" itemprop="url">开源工单系统下载帮助文档</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-09-25 17:55:55" itemprop="dateCreated datePublished" datetime="2016-09-25T17:55:55+08:00">2016-09-25</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-17 20:05:02" itemprop="dateModified" datetime="2019-04-17T20:05:02+08:00">2019-04-17</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-tool/" itemprop="url" rel="index"><span itemprop="name">积累________tool</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">661</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">1 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>因为看了很多朋友对我司开发的24小时工单系统感兴趣，从发布一个月，点击率为1518次 但是也有很多人有各种问题不能安装成功使用，所以现在写一篇帮助文档以供协助！ 安装前准备的软件 用集成软件即可 1、PHPNOW就可以了 下载地址：<span class="exturl" data-url="aHR0cDovL2N5d2wuamI1MS5uZXQ6ODEvMjAwOTA0L3Rvb2xzL1BIUG5vdy5yYXI=" title="http://cywl.jb51.net:81/200904/tools/PHPnow.rar">http://cywl.jb51.net:81/200904/tools/PHPnow.rar​<i class="fa fa-external-link"></i></span>  注意默认数据库密码是root，用户名也是root 安装好环境之后呢，讲项目下文件全部复制到根目录里面</p>
+<p><span class="exturl" data-url="aHR0cDovL3dlbmRhLnN6MjRob3Vycy5jb20vdXBsb2Fkcy9xdWVzdGlvbnMvMjAxNTEwMjcvNzc1ZjBjZjZjZjI2NWExOGU5NzU1M2I4M2I0NjU0MTcuanBn" title="http://wenda.sz24hours.com/uploads/questions/20151027/775f0cf6cf265a18e97553b83b465417.jpg"><img src="http://wenda.sz24hours.com/uploads/questions/20151027/775f0cf6cf265a18e97553b83b465417.jpg" alt="g1.jpg" title="g1.jpg"><i class="fa fa-external-link"></i></span></p>
+<p>在浏览器地址栏输入：<span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdC8lRTklQTElQjklRTclOUIlQUUlRTUlOTAlOEQv" title="http://localhost/%E9%A1%B9%E7%9B%AE%E5%90%8D/">http://localhost/项目名/<i class="fa fa-external-link"></i></span> 即可进入安装界面，如下图</p>
+<p><span class="exturl" data-url="aHR0cDovL3dlbmRhLnN6MjRob3Vycy5jb20vdXBsb2Fkcy9xdWVzdGlvbnMvMjAxNTEwMjcvNTgxZjFmODQ0NWIzZGRkZDg3OGRkZDM1NjQ1Zjc2NDYuanBn" title="http://wenda.sz24hours.com/uploads/questions/20151027/581f1f8445b3dddd878ddd35645f7646.jpg"><img src="http://wenda.sz24hours.com/uploads/questions/20151027/581f1f8445b3dddd878ddd35645f7646.jpg" alt="g2.jpg" title="g2.jpg"><i class="fa fa-external-link"></i></span></p>
+<p>点击同意协议–继续</p>
+<p><span class="exturl" data-url="aHR0cDovL3dlbmRhLnN6MjRob3Vycy5jb20vdXBsb2Fkcy9xdWVzdGlvbnMvMjAxNTEwMjcvMDI4MzE4MjFkNTM0Y2NhNzBmOTNkYzBhZGFmYWVlYzcuanBn" title="http://wenda.sz24hours.com/uploads/questions/20151027/02831821d534cca70f93dc0adafaeec7.jpg"><img src="http://wenda.sz24hours.com/uploads/questions/20151027/02831821d534cca70f93dc0adafaeec7.jpg" alt="g3.jpg" title="g3.jpg"><i class="fa fa-external-link"></i></span></p>
+<p>数据库主机：默认localhost，不用修改 数据库账号：一般是root，如果你的数据库用户名不同，则修改即可 数据库密码：这里填写你的数据库密码 数据库名称：这里填写要生成的数据库名称：比如sz24hours 初始管理员用户名和密码都是admin 以下是我设置好的</p>
+<p><span class="exturl" data-url="aHR0cDovL3dlbmRhLnN6MjRob3Vycy5jb20vdXBsb2Fkcy9xdWVzdGlvbnMvMjAxNTEwMjcvNThjMDAyNzRhNDA1NGI5MWU4YWM3MTY1ODQzYzUwZDIuanBn" title="http://wenda.sz24hours.com/uploads/questions/20151027/58c00274a4054b91e8ac7165843c50d2.jpg"><img src="http://wenda.sz24hours.com/uploads/questions/20151027/58c00274a4054b91e8ac7165843c50d2.jpg" alt="g4.jpg" title="g4.jpg"><i class="fa fa-external-link"></i></span></p>
+<p>安装成功则自动进入主页面</p>
+<p><span class="exturl" data-url="aHR0cDovL3dlbmRhLnN6MjRob3Vycy5jb20vdXBsb2Fkcy9xdWVzdGlvbnMvMjAxNTEwMjcvMDdjYTEzNDk2NzQ1ZTljZTBhNzU2Njk3N2E2MzQ5MjUuanBn" title="http://wenda.sz24hours.com/uploads/questions/20151027/07ca13496745e9ce0a7566977a634925.jpg"><img src="http://wenda.sz24hours.com/uploads/questions/20151027/07ca13496745e9ce0a7566977a634925.jpg" alt="g5.jpg" title="g5.jpg"><i class="fa fa-external-link"></i></span></p>
+<p>这里输入admin，密码也是admin，如果你安装的时候修改了则填写你修改的 工单主页</p>
+<p><span class="exturl" data-url="aHR0cDovL3dlbmRhLnN6MjRob3Vycy5jb20vdXBsb2Fkcy9xdWVzdGlvbnMvMjAxNTEwMjcvZGU5MGFlMTE3ZTQzZjFiNjA4YTIxMmUxMmY4NDM5NDIuanBn" title="http://wenda.sz24hours.com/uploads/questions/20151027/de90ae117e43f1b608a212e12f843942.jpg"><img src="http://wenda.sz24hours.com/uploads/questions/20151027/de90ae117e43f1b608a212e12f843942.jpg" alt="g6.jpg" title="g6.jpg"><i class="fa fa-external-link"></i></span></p>
+<p>在这个地方可以配置邮件和短信接口</p>
+<p><span class="exturl" data-url="aHR0cDovL3dlbmRhLnN6MjRob3Vycy5jb20vdXBsb2Fkcy9xdWVzdGlvbnMvMjAxNTEwMjcvYjUwMzgzZTMxNGJkMDBiZGJiNGNjNDJiYzMzYTIxMTAuanBn" title="http://wenda.sz24hours.com/uploads/questions/20151027/b50383e314bd00bdbb4cc42bc33a2110.jpg"><img src="http://wenda.sz24hours.com/uploads/questions/20151027/b50383e314bd00bdbb4cc42bc33a2110.jpg" alt="g7.jpg" title="g7.jpg"><i class="fa fa-external-link"></i></span></p>
+<p>邮件配置不会可参考这里： 最后添加售后人员，添加客户，再退出用客户帐号或者售后人员账户等级即可提交工单 要注意的是，客户手机号码或者售后人员的手机号码一定要填写正确，不然客户提交了工单，售后人员收不到短信通知或售后人员解决了问题，客户收不到通知！   下载地址 <span class="exturl" data-url="aHR0cDovL2Jsb2cuc3oyNGhvdXJzLmNvbS9kb3duL2dvbmdkYW4ucmFy" title="http://blog.sz24hours.com/down/gongdan.rar">http://blog.sz24hours.com/down/gongdan.rar<i class="fa fa-external-link"></i></span></p>
 
           
         
@@ -2897,7 +2655,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">196</span>
+                    <span class="site-state-item-count">193</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2954,53 +2712,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">43</span>
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -3097,7 +2809,41 @@
                     
                       
                     
-                    <span class="site-state-item-count">40</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">57</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -3222,7 +2968,7 @@
     
       <span class="post-meta-item-text">Symbols count total: </span>
     
-    <span title="Symbols count total">568k</span>
+    <span title="Symbols count total">553k</span>
   
 
   
@@ -3233,7 +2979,7 @@
     
       <span class="post-meta-item-text">Reading time total &asymp;</span>
     
-    <span title="Reading time total">8:36</span>
+    <span title="Reading time total">8:22</span>
   
 </div>
 

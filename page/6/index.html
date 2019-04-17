@@ -363,226 +363,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/2017/598/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/598/" class="post-title-link" itemprop="url">二进制和十进制转换</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2017-05-09 10:58:42" itemprop="dateCreated datePublished" datetime="2017-05-09T10:58:42+08:00">2017-05-09</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-16 15:59:57" itemprop="dateModified" datetime="2019-04-16T15:59:57+08:00">2019-04-16</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/" itemprop="url" rel="index"><span itemprop="name">日常________经验分享</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">1.2k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">1 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>一、正整数的十进制转换二进制：</strong></p>
-<p><strong>要点：除二取余，倒序排列</strong> <strong>解释：将一个十进制数除以二，得到的商再除以二，依此类推直到商等于一或零时为止，倒取将除得的余数，即换算为二进制数的结果</strong></p>
-<p>例如把52换算成二进制数，计算结果如图：</p>
-<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/05/9796997_1.gif" alt>  52除以2得到的余数依次为：0、0、1、0、1、1，倒序排列，所以52对应的二进制数就是110100。 由于计算机内部表示数的字节单位都是定长的，以2的幂次展开，或者8位，或者16位，或者32位….。 于是，一个二进制数用计算机表示时，位数不足2的幂次时，高位上要补足若干个0。本文都以8位为例。 那么： (52)10=(00110100)2 <strong>二、负整数转换为二进制</strong></p>
-<p><strong>要点：取反加一</strong> <strong>解释：将该负整数对应的正整数先转换成二进制，然后对其“取补”，再对取补后的结果加1即可</strong></p>
-<p>例如要把-52换算成二进制：</p>
-<ol>
-<li>先取得52的二进制：00110100</li>
-<li>对所得到的二进制数取反：11001011</li>
-<li>将取反后的数值加一即可：11001100</li>
-</ol>
-<p>即：(-52)10=(11001100)2<strong>三、小数转换为二进制</strong></p>
-<p><strong>要点：乘二取整，正序排列</strong> <strong>解释：对被转换的小数乘以2，取其整数部分(0或1)作为二进制小数部分，取其小数部分，再乘以2，又取其整数部分作为二进制小数部分，**</strong>然后取小数部分，再乘以2，直到小数部分为0或者已经去到了足够位数。每次取的整数部分，按先后次序排列，就构成了二进制小数的序列**</p>
-<p>例如把0.2转换为二进制，转换过程如图：</p>
-<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/05/9796997_2.gif" alt></p>
-<p>0.2乘以2，取整后小数部分再乘以2，运算4次后得到的整数部分依次为0、0、1、1，结果又变成了0.2， 若果0.2再乘以2后会循环刚开始的4次运算，所以0.2转换二进制后将是0011的循环，</p>
-<p>即：(0.2)10=(0.0011 0011 0011 …..)2</p>
-<p>循环的书写方法为在循环序列的第一位和最后一位分别加一个点标注 <img src="http://www.yaozihao.cn/wp-content/uploads/2017/05/9796997_3.jpg" alt><strong>四、二进制转换为十进制：</strong> <strong>整数二进制用数值乘以2的幂次依次相加，小数二进制用数值乘以2的负幂次然后依次相加！**</strong>比如将二进制110转换为十进制：<strong> </strong>首先补齐位数，00000110，首位为0，则为正整数，那么将二进制中的三位数分别于下边对应的值相乘后相加得到的值为换算为十进制的结果**  <img src="http://www.yaozihao.cn/wp-content/uploads/2017/05/9796997_4.jpg" alt></p>
-<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/05/9796997_5.jpg" alt>   <strong>如果二进制数补足位数之后首位为1，那么其对应的整数为负，那么需要先取反然后再换算</strong> 比如11111001，首位为1，那么需要先对其取反，即：-00000110 00000110,对应的十进制为6，因此11111001对应的十进制即为-6 换算公式可表示为: 11111001=-00000110               =-6 <strong>如果将二进制0.110转换为十进制：</strong> <strong>将二进制中的三位数分别于下边对应的值相乘后相加得到的值为换算为十进制的结果</strong>   <img src="http://www.yaozihao.cn/wp-content/uploads/2017/05/9796997_6.jpg" alt></p>
-<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/05/9796997_7.jpg" alt></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yaozihao.com/2017/596/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -860,7 +640,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
+                <time title="Modified: 2019-04-17 19:10:20" itemprop="dateModified" datetime="2019-04-17T19:10:20+08:00">2019-04-17</time>
               
             
           </span>
@@ -1061,7 +841,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
+                <time title="Modified: 2019-04-17 19:10:03" itemprop="dateModified" datetime="2019-04-17T19:10:03+08:00">2019-04-17</time>
               
             
           </span>
@@ -1271,7 +1051,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
+                <time title="Modified: 2019-04-17 19:06:31" itemprop="dateModified" datetime="2019-04-17T19:06:31+08:00">2019-04-17</time>
               
             
           </span>
@@ -1288,28 +1068,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/" itemprop="url" rel="index"><span itemprop="name">日常________经验分享</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/积累-js/" itemprop="url" rel="index"><span itemprop="name">积累________js</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/积累-js/积累-linux/" itemprop="url" rel="index"><span itemprop="name">积累________linux</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/积累-js/积累-linux/积累-node-js/" itemprop="url" rel="index"><span itemprop="name">积累________node.js</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-js/" itemprop="url" rel="index"><span itemprop="name">积累________js</span></a></span>
 
                 
                 
@@ -1517,7 +1276,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
+                <time title="Modified: 2019-04-17 19:58:04" itemprop="dateModified" datetime="2019-04-17T19:58:04+08:00">2019-04-17</time>
               
             
           </span>
@@ -1923,7 +1682,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
+                <time title="Modified: 2019-04-17 18:51:20" itemprop="dateModified" datetime="2019-04-17T18:51:20+08:00">2019-04-17</time>
               
             
           </span>
@@ -2142,7 +1901,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-16 15:59:57" itemprop="dateModified" datetime="2019-04-16T15:59:57+08:00">2019-04-16</time>
+                <time title="Modified: 2019-04-17 20:01:01" itemprop="dateModified" datetime="2019-04-17T20:01:01+08:00">2019-04-17</time>
               
             
           </span>
@@ -2362,7 +2121,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
+                <time title="Modified: 2019-04-17 19:07:02" itemprop="dateModified" datetime="2019-04-17T19:07:02+08:00">2019-04-17</time>
               
             
           </span>
@@ -2487,6 +2246,226 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/2017/583/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017/583/" class="post-title-link" itemprop="url">Python自定义函数的创建、调用和函数的参数详解</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-04-20 15:51:27" itemprop="dateCreated datePublished" datetime="2017-04-20T15:51:27+08:00">2017-04-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-17 19:10:16" itemprop="dateModified" datetime="2019-04-17T19:10:16+08:00">2019-04-17</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">4.2k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">4 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>这篇文章主要介绍了Python自定义函数的创建、调用和函数的参数、变量作用域等常见问题,需要的朋友可以参考下</p>
+</blockquote>
+<p>函数是组织好的，可重复使用的，用来实现单一，或相关联功能的代码段。 函数能提高应用的模块性，和代码的重复利用率。你已经知道Python提供了许多内建函数，比如print()。但你也可以自己创见函数，这被叫做用户自定义函数。</p>
+<h2 id="一、定义一个函数"><a href="#一、定义一个函数" class="headerlink" title="一、定义一个函数"></a>一、定义一个函数</h2><p>你可以定义一个由自己想要功能的函数，以下是简单的规则：</p>
+<ol>
+<li>函数代码块以def关键词开头，后接函数标识符名称和圆括号()。</li>
+<li>任何传入参数和自变量必须放在圆括号中间。圆括号之间可以用于定义参数。</li>
+<li>函数的第一行语句可以选择性地使用文档字符串—用于存放函数说明。</li>
+<li>函数内容以冒号起始，并且缩进。</li>
+<li>Return[expression]结束函数，选择性地返回一个值给调用方。不带表达式的return相当于返回 None。</li>
+</ol>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><figure class="highlight plain"><figcaption><span>functionname( parameters ): "函数_文档字符串" function_suite return \[expression\]``` 默认情况下，参数值和参数名称是按函数声明中定义的的顺序匹配起来的。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 实例</span><br><span class="line"></span><br><span class="line">以下为一个简单的Python函数，它将一个字符串作为传入参数，再打印到标准显示设备上。 ``` def printme( str ): &quot;打印传入的字符串到标准显示设备上&quot; print str return</span><br></pre></td></tr></table></figure>
+<h2 id="二、函数调用"><a href="#二、函数调用" class="headerlink" title="二、函数调用"></a>二、函数调用</h2><p>定义一个函数只给了函数一个名称，指定了函数里包含的参数，和代码块结构。这个函数的基本结构完成以后，你可以通过另一个函数调用执行，也可以直接从Python提示符执行。 如下实例调用了printme（）函数： <figure class="highlight plain"><figcaption><span># Function definition is here def printme( str ): "打印任何传入的字符串" print str; return; # Now you can call printme function printme("我要调用用户自定义函数!"); printme("再次调用同一函数"); # 以上实例输出结果： # 我要调用用户自定义函数! # 再次调用同一函数```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">三、按值传递参数和按引用传递参数</span><br><span class="line">----------------</span><br><span class="line"></span><br><span class="line">所有参数（自变量）在Python里都是按引用传递。如果你在函数里修改了参数，那么在调用这个函数的函数里，原始的参数也被改变了。例如： ``` #!/usr/bin/python # 可写函数说明 def changeme( mylist ): &quot;修改传入的列表&quot; mylist.append(\[1,2,3,4\]); print &quot;函数内取值: &quot;, mylist return # 调用changeme函数 mylist = \[10,20,30\]; changeme( mylist ); print &quot;函数外取值: &quot;, mylist # 传入函数的和在末尾添加新内容的对象用的是同一个引用。故输出结果如下： # 函数内取值: \[10, 20, 30, \[1, 2, 3, 4\]\] # 函数外取值: \[10, 20, 30, \[1, 2, 3, 4\]\]</span><br></pre></td></tr></table></figure></p>
+<h2 id="四、函数的参数"><a href="#四、函数的参数" class="headerlink" title="四、函数的参数"></a>四、函数的参数</h2><p>Python函数可以使用的参数类型： 必备参数、命名参数、缺省参数、不定长参数</p>
+<h3 id="1、必备参数"><a href="#1、必备参数" class="headerlink" title="1、必备参数"></a>1、必备参数</h3><p>必备参数须以正确的顺序传入函数。调用时的数量必须和声明时的一样。 调用printme()函数，你必须传入一个参数，不然会出现语法错误： <figure class="highlight plain"><figcaption><span># 可写函数说明 def printme( str ): "打印任何传入的字符串" print str; return; # 调用printme函数 printme(); # 以上实例输出结果： # Traceback (most recent call last): # File "test.py", line 11, in # printme(); # TypeError: printme() takes exactly 1 argument (0 given)```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 2、命名参数</span><br><span class="line"></span><br><span class="line">命名参数和函数调用关系紧密，调用方用参数的命名确定传入的参数值。你可以跳过不传的参数或者乱序传参，因为Python解释器能够用参数名匹配参数值。用命名参数调用printme()函数： ``` #!/usr/bin/python # 可写函数说明 def printme( str ): &quot;打印任何传入的字符串&quot; print str; return; # 调用printme函数 printme( str = &quot;My string&quot;); # 以上实例输出结果： # My string``` 下例能将命名参数顺序不重要展示得更清楚： ``` #!/usr/bin/python #可写函数说明 def printinfo( name, age ): &quot;打印任何传入的字符串&quot; print &quot;Name: &quot;, name; print &quot;Age &quot;, age; return; # 调用printinfo函数 printinfo( age=50, name=&quot;miki&quot; ); # 以上实例输出结果： # Name: miki # Age 50</span><br></pre></td></tr></table></figure></p>
+<h3 id="3、缺省参数"><a href="#3、缺省参数" class="headerlink" title="3、缺省参数"></a>3、缺省参数</h3><p>调用函数时，缺省参数的值如果没有传入，则被认为是默认值。下例会打印默认的age，如果age没有被传入： <figure class="highlight plain"><figcaption><span># 可写函数说明 def printinfo( name, age </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 4、不定长参数</span><br><span class="line"></span><br><span class="line">你可能需要一个函数能处理比当初声明时更多的参数。这些参数叫做不定长参数，和上述2种参数不同，声明时不会命名。基本语法如下： ``` def functionname(\[formal\_args,\] \*var\_args\_tuple ): &quot;函数\_文档字符串&quot; function_suite return \[expression\]``` 加了星号（\*）的变量名会存放所有未命名的变量参数。选择不多传参数也可。如下实例： ``` #!/usr/bin/python # 可写函数说明 def printinfo( arg1, *vartuple ): &quot;打印任何传入的参数&quot; print &quot;输出: &quot; print arg1 for var in vartuple: print var return; # 调用printinfo 函数 printinfo( 10 ); printinfo( 70, 60, 50 ); # 以上实例输出结果： # 输出: # 10 # 输出: # 70 # 60 # 50</span><br></pre></td></tr></table></figure></p>
+<h2 id="五、匿名函数"><a href="#五、匿名函数" class="headerlink" title="五、匿名函数"></a>五、匿名函数</h2><p>用lambda关键词能创建小型匿名函数。这种函数得名于省略了用def声明函数的标准步骤。 Lambda函数能接收任何数量的参数但只能返回一个表达式的值，同时只能不能包含命令或多个表达式。 匿名函数不能直接调用print，因为lambda需要一个表达式。 lambda函数拥有自己的名字空间，且不能访问自有参数列表之外或全局名字空间里的参数。 虽然lambda函数看起来只能写一行，却不等同于C或C++的内联函数，后者的目的是调用小函数时不占用栈内存从而增加运行效率。</p>
+<h4 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h4><p>lambda函数的语法只包含一个语句，如下： <figure class="highlight plain"><figcaption><span>\[arg1 \[,arg2,.....argn\]\]:expression```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 如下实例：</span><br><span class="line"></span><br><span class="line">``` #!/usr/bin/python # 可写函数说明 sum = lambda arg1, arg2: arg1 + arg2; # 调用sum函数 print &quot;Value of total : &quot;, sum( 10, 20 ) print &quot;Value of total : &quot;, sum( 20, 20 ) # 以上实例输出结果： # Value of total : 30 # Value of total : 40</span><br></pre></td></tr></table></figure></p>
+<h2 id="六、关于return语句"><a href="#六、关于return语句" class="headerlink" title="六、关于return语句"></a>六、关于return语句</h2><p>return语句[表达式]退出函数，选择性地向调用方返回一个表达式。不带参数值的return语句返回None。之前的例子都没有示范如何返回数值，下例便告诉你怎么做： <figure class="highlight plain"><figcaption><span># 可写函数说明 def sum( arg1, arg2 ): # 返回2个参数的和." total </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">七、变量作用域</span><br><span class="line">-------</span><br><span class="line"></span><br><span class="line">一个程序的所有的变量并不是在哪个位置都可以访问的。访问权限决定于这个变量是在哪里赋值的。 变量的作用域决定了在哪一部分程序你可以访问哪个特定的变量名称。两种最基本的变量作用域如下： 1.全局变量 2.局部变量</span><br><span class="line"></span><br><span class="line">八、变量和局部变量</span><br><span class="line">---------</span><br><span class="line"></span><br><span class="line">定义在函数内部的变量拥有一个局部作用域，定义在函数外的拥有全局作用域。 局部变量只能在其被声明的函数内部访问，而全局变量可以在整个程序范围内访问。调用函数时，所有在函数内声明的变量名称都将被加入到作用域中。如下实例： ``` #!/usr/bin/python total = 0; # This is global variable. # 可写函数说明 def sum( arg1, arg2 ): #返回2个参数的和.&quot; total = arg1 + arg2; # total在这里是局部变量. print &quot;Inside the function local total : &quot;, total return total; # 调用sum函数 sum( 10, 20 ); print &quot;Outside the function global total : &quot;, total # 以上实例输出结果： # Inside the function local total : 30 # Outside the function global total : 0</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -2533,7 +2512,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">196</span>
+                    <span class="site-state-item-count">193</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2590,53 +2569,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">43</span>
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -2733,7 +2666,41 @@
                     
                       
                     
-                    <span class="site-state-item-count">40</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">57</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -2858,7 +2825,7 @@
     
       <span class="post-meta-item-text">Symbols count total: </span>
     
-    <span title="Symbols count total">568k</span>
+    <span title="Symbols count total">553k</span>
   
 
   
@@ -2869,7 +2836,7 @@
     
       <span class="post-meta-item-text">Reading time total &asymp;</span>
     
-    <span title="Reading time total">8:36</span>
+    <span title="Reading time total">8:22</span>
   
 </div>
 

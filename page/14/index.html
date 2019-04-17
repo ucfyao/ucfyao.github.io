@@ -363,638 +363,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/2016/244/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/244/" class="post-title-link" itemprop="url">laravel 安装配置dingo/api</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-10-12 17:18:57" itemprop="dateCreated datePublished" datetime="2016-10-12T17:18:57+08:00">2016-10-12</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-17 18:31:38" itemprop="dateModified" datetime="2019-04-17T18:31:38+08:00">2019-04-17</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-php/" itemprop="url" rel="index"><span itemprop="name">积累________php</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">626</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">1 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>安装好 laravel 后 ，</p>
-<h3 id="开始-安装-laravel-dingo-api"><a href="#开始-安装-laravel-dingo-api" class="headerlink" title="开始 安装 laravel dingo/api"></a>开始 安装 laravel dingo/api</h3><figure class="highlight plain"><figcaption><span>``` 按照 上面的 提示 ``` `composer require dingo/api:0.10.*` ``` 是直接报错了， 后来 干脆改成了 ``` `composer require dingo/api` ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 打开 `config/app.php`</span><br><span class="line"></span><br><span class="line">接着在 `providers` 配置里面 加上 `Dingo\Api\Provider\LaravelServiceProvider::class` 如下： ``` `&apos;providers&apos; =&gt; [ Dingo\Api\Provider\LaravelServiceProvider::class ]`</span><br></pre></td></tr></table></figure>
-<h3 id="写入-config-api-php"><a href="#写入-config-api-php" class="headerlink" title="写入 config/api.php"></a>写入 config/api.php</h3><figure class="highlight plain"><figcaption><span>artisan vendor:publish --provider</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 配置 .env 文件</span><br><span class="line"></span><br><span class="line">在.env 文件夹下 增加如下 ``` `API_CONDITIONAL_REQUEST=false API_STRICT=false API_DEFAULT_FORMAT=json` API\_STANDARDS\_TREE=vnd ;API\_PREFIX=api // 配置域名前缀 API\_DOMAIN=127.0.0.1:1024 配置域名``` ``` API\_VERSION=v1 API\_DEBUG=true</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/2016/241/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/241/" class="post-title-link" itemprop="url">创建packagist composer库</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-09-28 19:15:27" itemprop="dateCreated datePublished" datetime="2016-09-28T19:15:27+08:00">2016-09-28</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-16 15:59:57" itemprop="dateModified" datetime="2019-04-16T15:59:57+08:00">2019-04-16</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/laravel/" itemprop="url" rel="index"><span itemprop="name">laravel</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/laravel/laravel5/" itemprop="url" rel="index"><span itemprop="name">laravel5</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/laravel/laravel5/积累-php/" itemprop="url" rel="index"><span itemprop="name">积累________php</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">1.2k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">1 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>1.mkdir app &amp;&amp; cd app 2.composer init 3.vi composer.json <figure class="highlight plain"><figcaption><span>"name": "yourname/yourpro", "description": "desc", "authors": [&#123; "name": "yourname", "email": "yourname@gmail.com" &#125;], "require": &#123;&#125;, "autoload": &#123; "classmap": [ "lib/" ] &#125; &#125;```` 4.创建git库yourname/yourpro 5.git remote add origin git@github.com:yourname/yourpro 设置公钥略过 5.git add .&& git commit -am "init" && git pull orgin master && git push orgin master 6.创建tag composer包版本来自于git分支和tag，分支代表dev版本(除master外)，tag代表stable版本 7.git tag 1.0 && git push origin --tags 8.登录[https://packagist.org/](https://packagist.org/) 点击由上角的submit提交git仓库的地址 9.添加 GitHub Service Hook domain 指向packagist的地址 ![](https://segmentfault.com/img/bVsbmv)10.安装库 composer require 'yourname/yourpro:1.0.0 如果报错,执行composer update nothing： ``` `Potential causes: - A typo in the package name - The package is not available in a stable-enough version according to your min imum-stability setting see</span><a href="//groups.google.com/d/topic/composer-dev/_g3ASeIFlrc/discussion>">f or more details.` ```</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">如果new \\Class;提示类找不到，执行composer dumpautoload</span><br><span class="line"></span><br><span class="line">11.包创建成功，可以根据提示继续配置github自动同步功能，这样每次push后，packagist对应包的版本号也会更新。 12.修改包并更新，修改后git push，然后到使用该包的项目中执行composer --dev --prefer-source update  \[包名\] ，加--prefer-source意思是从github上检出最新版本。 ```</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/2016/239/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/239/" class="post-title-link" itemprop="url">开源工单系统下载帮助文档</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-09-25 17:55:55" itemprop="dateCreated datePublished" datetime="2016-09-25T17:55:55+08:00">2016-09-25</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-16 15:59:57" itemprop="dateModified" datetime="2019-04-16T15:59:57+08:00">2019-04-16</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-php/" itemprop="url" rel="index"><span itemprop="name">积累________php</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">661</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">1 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>因为看了很多朋友对我司开发的24小时工单系统感兴趣，从发布一个月，点击率为1518次 但是也有很多人有各种问题不能安装成功使用，所以现在写一篇帮助文档以供协助！ 安装前准备的软件 用集成软件即可 1、PHPNOW就可以了 下载地址：<span class="exturl" data-url="aHR0cDovL2N5d2wuamI1MS5uZXQ6ODEvMjAwOTA0L3Rvb2xzL1BIUG5vdy5yYXI=" title="http://cywl.jb51.net:81/200904/tools/PHPnow.rar">http://cywl.jb51.net:81/200904/tools/PHPnow.rar​<i class="fa fa-external-link"></i></span>  注意默认数据库密码是root，用户名也是root 安装好环境之后呢，讲项目下文件全部复制到根目录里面</p>
-<p><span class="exturl" data-url="aHR0cDovL3dlbmRhLnN6MjRob3Vycy5jb20vdXBsb2Fkcy9xdWVzdGlvbnMvMjAxNTEwMjcvNzc1ZjBjZjZjZjI2NWExOGU5NzU1M2I4M2I0NjU0MTcuanBn" title="http://wenda.sz24hours.com/uploads/questions/20151027/775f0cf6cf265a18e97553b83b465417.jpg"><img src="http://wenda.sz24hours.com/uploads/questions/20151027/775f0cf6cf265a18e97553b83b465417.jpg" alt="g1.jpg" title="g1.jpg"><i class="fa fa-external-link"></i></span></p>
-<p>在浏览器地址栏输入：<span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdC8lRTklQTElQjklRTclOUIlQUUlRTUlOTAlOEQv" title="http://localhost/%E9%A1%B9%E7%9B%AE%E5%90%8D/">http://localhost/项目名/<i class="fa fa-external-link"></i></span> 即可进入安装界面，如下图</p>
-<p><span class="exturl" data-url="aHR0cDovL3dlbmRhLnN6MjRob3Vycy5jb20vdXBsb2Fkcy9xdWVzdGlvbnMvMjAxNTEwMjcvNTgxZjFmODQ0NWIzZGRkZDg3OGRkZDM1NjQ1Zjc2NDYuanBn" title="http://wenda.sz24hours.com/uploads/questions/20151027/581f1f8445b3dddd878ddd35645f7646.jpg"><img src="http://wenda.sz24hours.com/uploads/questions/20151027/581f1f8445b3dddd878ddd35645f7646.jpg" alt="g2.jpg" title="g2.jpg"><i class="fa fa-external-link"></i></span></p>
-<p>点击同意协议–继续</p>
-<p><span class="exturl" data-url="aHR0cDovL3dlbmRhLnN6MjRob3Vycy5jb20vdXBsb2Fkcy9xdWVzdGlvbnMvMjAxNTEwMjcvMDI4MzE4MjFkNTM0Y2NhNzBmOTNkYzBhZGFmYWVlYzcuanBn" title="http://wenda.sz24hours.com/uploads/questions/20151027/02831821d534cca70f93dc0adafaeec7.jpg"><img src="http://wenda.sz24hours.com/uploads/questions/20151027/02831821d534cca70f93dc0adafaeec7.jpg" alt="g3.jpg" title="g3.jpg"><i class="fa fa-external-link"></i></span></p>
-<p>数据库主机：默认localhost，不用修改 数据库账号：一般是root，如果你的数据库用户名不同，则修改即可 数据库密码：这里填写你的数据库密码 数据库名称：这里填写要生成的数据库名称：比如sz24hours 初始管理员用户名和密码都是admin 以下是我设置好的</p>
-<p><span class="exturl" data-url="aHR0cDovL3dlbmRhLnN6MjRob3Vycy5jb20vdXBsb2Fkcy9xdWVzdGlvbnMvMjAxNTEwMjcvNThjMDAyNzRhNDA1NGI5MWU4YWM3MTY1ODQzYzUwZDIuanBn" title="http://wenda.sz24hours.com/uploads/questions/20151027/58c00274a4054b91e8ac7165843c50d2.jpg"><img src="http://wenda.sz24hours.com/uploads/questions/20151027/58c00274a4054b91e8ac7165843c50d2.jpg" alt="g4.jpg" title="g4.jpg"><i class="fa fa-external-link"></i></span></p>
-<p>安装成功则自动进入主页面</p>
-<p><span class="exturl" data-url="aHR0cDovL3dlbmRhLnN6MjRob3Vycy5jb20vdXBsb2Fkcy9xdWVzdGlvbnMvMjAxNTEwMjcvMDdjYTEzNDk2NzQ1ZTljZTBhNzU2Njk3N2E2MzQ5MjUuanBn" title="http://wenda.sz24hours.com/uploads/questions/20151027/07ca13496745e9ce0a7566977a634925.jpg"><img src="http://wenda.sz24hours.com/uploads/questions/20151027/07ca13496745e9ce0a7566977a634925.jpg" alt="g5.jpg" title="g5.jpg"><i class="fa fa-external-link"></i></span></p>
-<p>这里输入admin，密码也是admin，如果你安装的时候修改了则填写你修改的 工单主页</p>
-<p><span class="exturl" data-url="aHR0cDovL3dlbmRhLnN6MjRob3Vycy5jb20vdXBsb2Fkcy9xdWVzdGlvbnMvMjAxNTEwMjcvZGU5MGFlMTE3ZTQzZjFiNjA4YTIxMmUxMmY4NDM5NDIuanBn" title="http://wenda.sz24hours.com/uploads/questions/20151027/de90ae117e43f1b608a212e12f843942.jpg"><img src="http://wenda.sz24hours.com/uploads/questions/20151027/de90ae117e43f1b608a212e12f843942.jpg" alt="g6.jpg" title="g6.jpg"><i class="fa fa-external-link"></i></span></p>
-<p>在这个地方可以配置邮件和短信接口</p>
-<p><span class="exturl" data-url="aHR0cDovL3dlbmRhLnN6MjRob3Vycy5jb20vdXBsb2Fkcy9xdWVzdGlvbnMvMjAxNTEwMjcvYjUwMzgzZTMxNGJkMDBiZGJiNGNjNDJiYzMzYTIxMTAuanBn" title="http://wenda.sz24hours.com/uploads/questions/20151027/b50383e314bd00bdbb4cc42bc33a2110.jpg"><img src="http://wenda.sz24hours.com/uploads/questions/20151027/b50383e314bd00bdbb4cc42bc33a2110.jpg" alt="g7.jpg" title="g7.jpg"><i class="fa fa-external-link"></i></span></p>
-<p>邮件配置不会可参考这里： 最后添加售后人员，添加客户，再退出用客户帐号或者售后人员账户等级即可提交工单 要注意的是，客户手机号码或者售后人员的手机号码一定要填写正确，不然客户提交了工单，售后人员收不到短信通知或售后人员解决了问题，客户收不到通知！   下载地址 <span class="exturl" data-url="aHR0cDovL2Jsb2cuc3oyNGhvdXJzLmNvbS9kb3duL2dvbmdkYW4ucmFy" title="http://blog.sz24hours.com/down/gongdan.rar">http://blog.sz24hours.com/down/gongdan.rar<i class="fa fa-external-link"></i></span></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yaozihao.com/2016/236/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1467,7 +835,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
+                <time title="Modified: 2019-04-17 19:13:07" itemprop="dateModified" datetime="2019-04-17T19:13:07+08:00">2019-04-17</time>
               
             
           </span>
@@ -1890,7 +1258,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
+                <time title="Modified: 2019-04-17 18:59:09" itemprop="dateModified" datetime="2019-04-17T18:59:09+08:00">2019-04-17</time>
               
             
           </span>
@@ -2310,7 +1678,7 @@ mysql&gt; flush privileges;//刷新系统权限表<figure class="highlight plain
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
+                <time title="Modified: 2019-04-17 19:04:16" itemprop="dateModified" datetime="2019-04-17T19:04:16+08:00">2019-04-17</time>
               
             
           </span>
@@ -2327,14 +1695,7 @@ mysql&gt; flush privileges;//刷新系统权限表<figure class="highlight plain
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/" itemprop="url" rel="index"><span itemprop="name">日常________经验分享</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/积累-php/" itemprop="url" rel="index"><span itemprop="name">积累________php</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-php/" itemprop="url" rel="index"><span itemprop="name">积累________php</span></a></span>
 
                 
                 
@@ -2441,6 +1802,722 @@ mysql&gt; flush privileges;//刷新系统权限表<figure class="highlight plain
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/2016/213/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/213/" class="post-title-link" itemprop="url">mysql修改其他机器可以连接的权限</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-07-19 11:03:27" itemprop="dateCreated datePublished" datetime="2016-07-19T11:03:27+08:00">2016-07-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-17 18:58:31" itemprop="dateModified" datetime="2019-04-17T18:58:31+08:00">2019-04-17</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-mysql/" itemprop="url" rel="index"><span itemprop="name">积累________mysql</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">568</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">1 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>通过HeidiSQL连接MYSQL数据库报错： SQL Error (1130): Host ‘192.168.1.126’ is not allowed to connect to this MySQL server 说明所连接的用户帐号没有远程连接的权限，只能在本机(localhost)登录。 需更改 mysql 数据库里的 user表里的 host项把localhost改称% 首先按下面的步骤登录Mysql服务器 登录mysql需要切换到dos下的mysql的bin目录，进行如下操作： mysql&gt;use mysql; mysql&gt;update user set host = ‘%’? where user =’root’; MariaDB [mysql]&gt; update user set host = ‘%’ where host = ‘localhost’; Query OK, 0 rows affected (0.00 sec) Rows matched: 0? Changed: 0? Warnings: 0 mysql&gt;flush privileges; mysql&gt; select host, user from user; mysql&gt;quit OK。远程连接成功！</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/2016/210/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/210/" class="post-title-link" itemprop="url">mgo简介</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-07-06 17:44:59" itemprop="dateCreated datePublished" datetime="2016-07-06T17:44:59+08:00">2016-07-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-17 18:55:02" itemprop="dateModified" datetime="2019-04-17T18:55:02+08:00">2019-04-17</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-go/" itemprop="url" rel="index"><span itemprop="name">积累________go</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">6.2k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">6 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="mgo简介"><a href="#mgo简介" class="headerlink" title="mgo简介"></a>mgo简介</h2><p>mgo（音mango）是MongoDB的Go语言驱动，它用基于Go语法的简单API实现了丰富的特性，并经过良好测试。 官方网站：<span class="exturl" data-url="aHR0cDovL2xhYml4Lm9yZy9tZ2/jgII=" title="http://labix.org/mgo。">http://labix.org/mgo。<i class="fa fa-external-link"></i></span> golang.tc（golangtc.com）网站的数据存储就是是用的MongoDB+mgo。近一年使用下来表现良好。</p>
+<h2 id="API文档"><a href="#API文档" class="headerlink" title="API文档"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>API文档</h2><p>下面是mgo、mgo/bson、mgo/txn的在线文档。</p>
+<ul>
+<li>mgo?GoDoc?GoWalker</li>
+<li>mgo/bson?GoDoc?GoWalker</li>
+<li>mgo/txn?GoDoc?GoWalker</li>
+</ul>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>安装</h2><p>安装mgo之前请先安装Golang和MongoDB，安装过程不再赘述。 安装bzr版本工具（mgo使用Bazaar作为版本控制系统，因安装的时候需要去Bazaar拉取代码）。 安装命令</p>
+<figure class="highlight plain"><figcaption><span>get gopkg.in/mgo.v2````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![](http://my.oschina.net/js/ke/themes/common/anchor.gif)![](http://my.oschina.net/js/ke/themes/common/anchor.gif)示例</span><br><span class="line">--------------------------------------------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">下面的代码是个示例。 ``` `package main import ( &quot;fmt&quot; &quot;labix.org/v2/mgo&quot; &quot;labix.org/v2/mgo/bson&quot; ) type Person struct &#123; Name string Phone string &#125; func main() &#123; session, err := mgo.Dial(&quot;&quot;) if err != nil &#123; panic(err) &#125; defer session.Close() session.SetMode(mgo.Monotonic, true) c := session.DB(&quot;test&quot;).C(&quot;people&quot;) err = c.Insert(&amp;Person&#123;&quot;Ale&quot;, &quot;111111&quot;&#125;, &amp;Person&#123;&quot;Cla&quot;, &quot;222222222&quot;&#125;) if err != nil &#123; panic(err) &#125; result := Person&#123;&#125; err = c.Find(bson.M&#123;&quot;name&quot;: &quot;Ale&quot;&#125;).One(&amp;result) if err != nil &#123; panic(err) &#125; fmt.Println(&quot;Phone:&quot;, result.Phone) &#125;```` 具体代码什么意思先不用管，后面讲解每个方法的用法。</span><br><span class="line"></span><br><span class="line">![](http://my.oschina.net/js/ke/themes/common/anchor.gif)![](http://my.oschina.net/js/ke/themes/common/anchor.gif)如何使用</span><br><span class="line">----------------------------------------------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">下面介绍如何使用mgo，主要介绍集合的操作。对数据库，用户等操作，请自行查看文档。 第一步当然是先导入mgo包 ``` `import ( &quot;gopkg.in/mgo.v2&quot; &quot;gopkg.in/mgo.v2/bson&quot; )`</span><br></pre></td></tr></table></figure>
+<h3 id="连接服务器"><a href="#连接服务器" class="headerlink" title="连接服务器"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>连接服务器</h3><p>通过方法Dial()来和MongoDB服务器建立连接。Dial()定义如下：</p>
+<figure class="highlight plain"><figcaption><span>Dial(url string) (*Session, error)````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">具体使用：</span><br><span class="line"></span><br><span class="line">``` `session, err := mgo.Dial(url)`</span><br></pre></td></tr></table></figure>
+<p>如果是本机，并且MongoDB是默认端口27017启动的话，下面几种方式都可以。 <figure class="highlight plain"><figcaption><span>err :</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">``` `mongodb://myuser:mypass@localhost:40001,otherhost:40001/mydb`</span><br></pre></td></tr></table></figure></p>
+<h3 id="切换数据库"><a href="#切换数据库" class="headerlink" title="切换数据库"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>切换数据库</h3><p>通过Session.DB()来切换相应的数据库。</p>
+<figure class="highlight plain"><figcaption><span>(s *Session) DB(name string) *Database````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">如切换到test数据库。</span><br><span class="line"></span><br><span class="line">``` `db := session.DB(&quot;test&quot;)`</span><br></pre></td></tr></table></figure>
+<h3 id="切换集合"><a href="#切换集合" class="headerlink" title="切换集合"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>切换集合</h3><p>通过Database.C()方法切换集合（Collection），这样我们就可以通过对集合进行增删查改操作了。</p>
+<figure class="highlight plain"><figcaption><span>(db *Database) C(name string) *Collection````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">如切换到\`users\`集合。</span><br><span class="line"></span><br><span class="line">``` `c := db.C(&quot;users&quot;)`</span><br></pre></td></tr></table></figure>
+<h3 id="对集合进行操作"><a href="#对集合进行操作" class="headerlink" title="对集合进行操作"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>对集合进行操作</h3><p>介绍插入、查询、修改、删除操作。 先提一下ObjectId，MongoDB每个集合都会一个名为_id的主键，这是一个24位的16进制字符串。对应到mgo中就是bson.ObjectId。 这里我们定义一个struct，用来和集合对应。 <figure class="highlight plain"><figcaption><span>User struct &#123; Id_ bson.ObjectId `bson:"_id"` Name string `bson:"name"` Age int `bson:"age"` JonedAt time.Time `bson:"joned_at"` Interests []string `bson:"interests"` &#125;````` 注解 注意User的字段首字母大写，不然不可见。通过bson:”name”这种方式可以定义MongoDB中集合的字段名，如果不定义，mgo自动把struct的字段名首字母小写作为集合的字段名。如果不需要获得id_，Id_可以不定义，在插入的时候会自动生成。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### ![](http://my.oschina.net/js/ke/themes/common/anchor.gif)![](http://my.oschina.net/js/ke/themes/common/anchor.gif)插入</span><br><span class="line"></span><br><span class="line">插入方法定义如下：</span><br><span class="line"></span><br><span class="line">``` `func (c *Collection) Insert(docs ...interface&#123;&#125;) error`</span><br></pre></td></tr></table></figure></p>
+<p>下面代码插入两条集合数据。 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### ![](http://my.oschina.net/js/ke/themes/common/anchor.gif)![](http://my.oschina.net/js/ke/themes/common/anchor.gif)无条件查询</span><br><span class="line"></span><br><span class="line">**查询所有**</span><br><span class="line"></span><br><span class="line">``` `var users []User c.Find(nil).All(&amp;users) fmt.Println(users)`</span><br></pre></td></tr></table></figure></p>
+<p>上面代码可以把所有Users都查出来：</p>
+<figure class="highlight plain"><figcaption><span>Jimmy Kuu 33 2013-08-09 17:00:07.95 +0800 CST [Develop Movie]&#125; &#123;ObjectIdHex("5204af979955496907000002") Tracy Yu 31 2013-08-09 17:00:07.971 +0800 CST [Shoping TV]&#125;]````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### ![](http://my.oschina.net/js/ke/themes/common/anchor.gif)![](http://my.oschina.net/js/ke/themes/common/anchor.gif)根据ObjectId查询</span><br><span class="line"></span><br><span class="line">``` `id := &quot;5204af979955496907000001&quot; objectId := bson.ObjectIdHex(id) user := new(User) c.Find(bson.M&#123;&quot;_id&quot;: objectId&#125;).One(&amp;user) fmt.Println(user)`</span><br></pre></td></tr></table></figure>
+<p>结果如下：</p>
+<figure class="highlight plain"><figcaption><span>Jimmy Kuu 33 2013-08-09 17:00:07.95 +0800 CST [Develop Movie]&#125;````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">更简单的方式是直接用FindId()方法：</span><br><span class="line"></span><br><span class="line">``` `c.FindId(objectId).One(&amp;user)`</span><br></pre></td></tr></table></figure>
+<p>注解 注意这里没有处理err。当找不到的时候用One()方法会出错。</p>
+<h6 id="单条件查询"><a href="#单条件查询" class="headerlink" title="单条件查询"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>单条件查询</h6><p>=($eq)</p>
+<figure class="highlight plain"><figcaption><span>"Jimmy Kuu"&#125;).All(&users)````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">!=($ne)</span><br><span class="line"></span><br><span class="line">``` `c.Find(bson.M&#123;&quot;name&quot;: bson.M&#123;&quot;$ne&quot;: &quot;Jimmy Kuu&quot;&#125;&#125;).All(&amp;users)`</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>($gt)</p>
+</blockquote>
+<figure class="highlight plain"><figcaption><span>bson.M&#123;"$gt": 32&#125;&#125;).All(&users)````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;($lt)</span><br><span class="line"></span><br><span class="line">``` `c.Find(bson.M&#123;&quot;age&quot;: bson.M&#123;&quot;$lt&quot;: 32&#125;&#125;).All(&amp;users)`</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>=($gte)</p>
+</blockquote>
+<figure class="highlight plain"><figcaption><span>bson.M&#123;"$gte": 33&#125;&#125;).All(&users)````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;=($lte)</span><br><span class="line"></span><br><span class="line">``` `c.Find(bson.M&#123;&quot;age&quot;: bson.M&#123;&quot;$lte&quot;: 31&#125;&#125;).All(&amp;users)`</span><br></pre></td></tr></table></figure>
+<p>in($in)</p>
+<figure class="highlight plain"><figcaption><span>bson.M&#123;"$in": []string&#123;"Jimmy Kuu", "Tracy Yu"&#125;&#125;&#125;).All(&users)````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">###### ![](http://my.oschina.net/js/ke/themes/common/anchor.gif)![](http://my.oschina.net/js/ke/themes/common/anchor.gif)多条件查询</span><br><span class="line"></span><br><span class="line">and($and)</span><br><span class="line"></span><br><span class="line">``` `c.Find(bson.M&#123;&quot;name&quot;: &quot;Jimmy Kuu&quot;, &quot;age&quot;: 33&#125;).All(&amp;users)`</span><br></pre></td></tr></table></figure>
+<p>or($or)</p>
+<figure class="highlight plain"><figcaption><span>[]bson.M&#123;bson.M&#123;"name": "Jimmy Kuu"&#125;, bson.M&#123;"age": 31&#125;&#125;&#125;).All(&users)````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### ![](http://my.oschina.net/js/ke/themes/common/anchor.gif)![](http://my.oschina.net/js/ke/themes/common/anchor.gif)修改</span><br><span class="line"></span><br><span class="line">通过func (*Collection) Update来进行修改操作。</span><br><span class="line"></span><br><span class="line">``` `func (c *Collection) Update(selector interface&#123;&#125;, change interface&#123;&#125;) error`</span><br></pre></td></tr></table></figure>
+<p>注意修改单个或多个字段需要通过$set操作符号，否则集合会被替换。</p>
+<h5 id="修改字段的值-set"><a href="#修改字段的值-set" class="headerlink" title="修改字段的值($set)"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>修改字段的值($set)</h5><figure class="highlight plain"><figcaption><span>bson.ObjectIdHex("5204af979955496907000001")&#125;, bson.M&#123;"$set": bson.M&#123; "name": "Jimmy Gu", "age": 34, &#125;&#125;)````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### ![](http://my.oschina.net/js/ke/themes/common/anchor.gif)![](http://my.oschina.net/js/ke/themes/common/anchor.gif)inc($inc)</span><br><span class="line"></span><br><span class="line">字段增加值</span><br><span class="line"></span><br><span class="line">``` `c.Update(bson.M&#123;&quot;_id&quot;: bson.ObjectIdHex(&quot;5204af979955496907000001&quot;)&#125;, bson.M&#123;&quot;$inc&quot;: bson.M&#123; &quot;age&quot;: -1, &#125;&#125;)`</span><br></pre></td></tr></table></figure>
+<h5 id="push-push"><a href="#push-push" class="headerlink" title="push($push)"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>push($push)</h5><p>从数组中增加一个元素</p>
+<figure class="highlight plain"><figcaption><span>bson.ObjectIdHex("5204af979955496907000001")&#125;, bson.M&#123;"$push": bson.M&#123; "interests": "Golang", &#125;&#125;)````</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### ![](http://my.oschina.net/js/ke/themes/common/anchor.gif)![](http://my.oschina.net/js/ke/themes/common/anchor.gif)pull($pull)</span><br><span class="line"></span><br><span class="line">从数组中删除一个元素</span><br><span class="line"></span><br><span class="line">``` `c.Update(bson.M&#123;&quot;_id&quot;: bson.ObjectIdHex(&quot;5204af979955496907000001&quot;)&#125;, bson.M&#123;&quot;$pull&quot;: bson.M&#123; &quot;interests&quot;: &quot;Golang&quot;, &#125;&#125;)`</span><br></pre></td></tr></table></figure>
+<h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt><img src="http://my.oschina.net/js/ke/themes/common/anchor.gif" alt>删除</h4><p><code>`c.Remove(bson.M{&quot;name&quot;: &quot;Jimmy Kuu&quot;})`</code></p>
+<p>注解 这里也支持多条件，参考多条件查询。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/2016/207/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/207/" class="post-title-link" itemprop="url">直接Mark！开源的DevOps开发工具箱</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-06-27 11:08:56" itemprop="dateCreated datePublished" datetime="2016-06-27T11:08:56+08:00">2016-06-27</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-17 20:08:14" itemprop="dateModified" datetime="2019-04-17T20:08:14+08:00">2019-04-17</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-tool/" itemprop="url" rel="index"><span itemprop="name">积累________tool</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">3.2k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">3 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>DevOps是一组过程、方法与系统的统称，用于促进开发（应用程序/软件工程）、技术运营和质量保障（QA）部门之间的沟通、协作与整合。在DevOps的整个流程中，使用一些开源工具可以促进开发与运维之间的沟通，有利于项目的管理，甚至可以达到事半功倍的效果。 本文作者Richard Kraaijenhagen是<span class="exturl" data-url="aHR0cDovL293bGluLmNvbS8=" title="http://owlin.com/">Owlin<i class="fa fa-external-link"></i></span>创始人，全栈工程师，数据科学家。他收集了DevOps开发可能用到的所有工具，并且把它们按照职责进行分类，本文摘取了部分工具分享给大家，这些工具也可以用于日常软件方面的开发，所以，大家直接Mark吧！ <img src="http://cms.csdnimg.cn/article/201412/04/54800b68acd5f.jpg" alt> <strong>包&amp;产品管理工具</strong></p>
+<ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Nob2NvbGF0ZXkvY2hvY29sYXRleQ==" title="https://github.com/chocolatey/chocolatey">Chocolatey<i class="fa fa-external-link"></i></span>：Chocolatey是Windows下一款开源的命令行包管理软件 ，简单说这就是Windows的apt-get；</li>
+<li><span class="exturl" data-url="aHR0cDovL3plZWYudG8vY2xpY2s/bHBpZD00ODczODcmYW1wO2tleT1mX080WjJfWm9RWElBVi1EYzJHWnpQZWFiLW1mQjBHQ0JibyZhbXA7dGFyZ2V0X3VybD1odHRwcyUzQSUyRiUyRmdpdGh1Yi5jb20lMkZqb3JkYW5zaXNzZWwlMkZmcG0=" title="http://zeef.to/click?lpid=487387&amp;key=f_O4Z2_ZoQXIAV-Dc2GZzPeab-mfB0GCBbo&amp;target_url=https%3A%2F%2Fgithub.com%2Fjordansissel%2Ffpm">FPM<i class="fa fa-external-link"></i></span>：全称是Effing package management，该死的软件包管理器，极大的缓解了多个平台构建软件包(deb,rpm,等)的痛苦；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3J1c3Nzcy9IZXJk" title="https://github.com/russss/Herd">Herd<i class="fa fa-external-link"></i></span>：是一个基于Twitter <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2xnL211cmRlcg==" title="https://github.com/lg/murder">Murder<i class="fa fa-external-link"></i></span>的文件分布系统；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZncmVobS92YWdyYW50LWNhY2hpZXI=" title="https://github.com/fgrehm/vagrant-cachier">Vagrant Cachier<i class="fa fa-external-link"></i></span>：Vagrant的一个插件，用于缓存包方面的管理；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3dpeHRvb2xzZXQvd2l4NA==" title="https://github.com/wixtoolset/wix4">WiX Toolset<i class="fa fa-external-link"></i></span>：提供一组最强大的工具集来帮助你创建Windows安装包。该工具集从XML源代码构建你的Windows安装程序包，可以无缝集成到构建过程；</li>
+<li><span class="exturl" data-url="aHR0cDovL2JveHN0YXJ0ZXIub3JnLw==" title="http://boxstarter.org/">Boxstarter<i class="fa fa-external-link"></i></span>：利用Chocolatey包管理工具来自动化安装软件和创建可重复、脚本化的Windows环境；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9iaXRidWNrZXQub3JnL3Njb3JlYmlnL2VsaXRh" title="https://bitbucket.org/scorebig/elita">Elita<i class="fa fa-external-link"></i></span>：Elita是一个利用git和salt进行持续部署（部署作为服务）和API-driven基础设施的引擎/框架；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL21mb2VtbWVsL2ZpZw==" title="https://github.com/mfoemmel/fig">Fig<i class="fa fa-external-link"></i></span>：主要用来跟Docker一起来实现的快速隔离的开发环境；</li>
+<li><span class="exturl" data-url="aHR0cDovL3d3dy5wdWxwcHJvamVjdC5vcmcv" title="http://www.pulpproject.org/">Pulp<i class="fa fa-external-link"></i></span>：Pulp是一个用来管理软件库以及相关内容的平台；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2plZGk0ZXZlci92ZWV3ZWU=" title="https://github.com/jedi4ever/veewee">Veewee<i class="fa fa-external-link"></i></span>：Veewee是一个开源工具，用来创建和配置轻量级、可再生、便捷式虚拟机环境。</li>
+</ul>
+<p><strong>日志&amp;监控</strong></p>
+<ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL21hcnRpbnJ1c2V2L2Ftb25vbmU=" title="https://github.com/martinrusev/amonone">AmonOne<i class="fa fa-external-link"></i></span>：现代化的自托管服务器监控工具；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0RpZXRlcmJlL2FudGhyYWNpdGU=" title="https://github.com/Dieterbe/anthracite">Anthracite<i class="fa fa-external-link"></i></span>：一个事件/日志改变/管理应用程序；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1N0YWNrU3Rvcm0vY29sbGVjdGQz" title="https://github.com/StackStorm/collectd3">collectd3<i class="fa fa-external-link"></i></span>：是一个可视化的collectd系统性能统计工具；</li>
+<li><span class="exturl" data-url="aHR0cDovL2NvbGxlY3RkLm9yZy8=" title="http://collectd.org/">collectd<i class="fa fa-external-link"></i></span>：是一个守护(daemon)进程，用来收集系统性能和提供各种存储方式来存储不同值的机制；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0JyaWdodGNvdmVPUy9EaWFtb25k" title="https://github.com/BrightcoveOS/Diamond">Diamond<i class="fa fa-external-link"></i></span>：是一个基于Python的守护程序，主要用来收集系统指标，并且把它们发布到Graphite（或其它）工具中；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2VycmJpdC9lcnJiaXQ=" title="https://github.com/errbit/errbit">Errbit<i class="fa fa-external-link"></i></span>：是一个用于收集和管理程序错误的开源工具；</li>
+<li><span class="exturl" data-url="aHR0cDovL3NlbnN1YXBwLm9yZy8=" title="http://sensuapp.org/">Sensu<i class="fa fa-external-link"></i></span>：一个开源的监控框架；</li>
+<li><span class="exturl" data-url="aHR0cDovL2xvZ3N0YXNoLm5ldC8=" title="http://logstash.net/">Logstash<i class="fa fa-external-link"></i></span>：是一个应用程序日志、事件的传输、处理、管理和搜索的平台。你可以用它来统一对应用程序日志进行收集管理，提供Web接口用于查询和统计；</li>
+<li><span class="exturl" data-url="aHR0cDovL2xvZ2lvLm9yZy8=" title="http://logio.org/">log.io<i class="fa fa-external-link"></i></span>：一个实时的开源日志监控工具；</li>
+<li><span class="exturl" data-url="aHR0cDovL2Zub3JkbWV0cmljLmlvLw==" title="http://fnordmetric.io/">FnordMetric<i class="fa fa-external-link"></i></span>：是一个基于redis/ruby的实时事件跟踪应用，是个收集和可视化时间序列数据的框架，用户可以在几分钟内创建漂亮的实时分析仪表盘；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2V0c3kvbG9nc3Rlcg==" title="https://github.com/etsy/logster">Logster<i class="fa fa-external-link"></i></span>：是一个工具，读取日志文件然后创建Graphite 或 Ganglia可用的指标数据。比如你可能使用logster来图形化在你的Web Server日志中的HTTP响应发生数量；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2VsYXN0aWNzZWFyY2gva2liYW5hLw==" title="https://github.com/elasticsearch/kibana/">Kibana<i class="fa fa-external-link"></i></span>：是一个为Logstash和ElasticSearch提供的日志分析的Web接口。可使用它对日志进行高效的搜索、可视化、分析等各种操作；</li>
+<li><span class="exturl" data-url="aHR0cDovL21tb25pdC5jb20vbW9uaXQv" title="http://mmonit.com/monit/">Monit<i class="fa fa-external-link"></i></span>：是一款功能非常丰富的进程、文件、目录和设备的监测软件，用于Unix平台。 它可以自动修复那些已经停止运作的程序，适合处理那些由于多种原因导致的软件错误；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2NvZGFoYWxlL21ldHJpY3Mv" title="https://github.com/codahale/metrics/">Metrics<i class="fa fa-external-link"></i></span>：这并不是Java库，而是基于Go的一个轻量级的检测器；</li>
+<li><span class="exturl" data-url="aHR0cDovL2dyYXBoaXRlLnJlYWR0aGVkb2NzLm9yZy9lbi9sYXRlc3Qv" title="http://graphite.readthedocs.org/en/latest/">Graphite<i class="fa fa-external-link"></i></span>：是一个用于采集网站实时信息并进行统计的开源项目，可用于采集多种网站服务运行状态信息；</li>
+<li><span class="exturl" data-url="aHR0cDovL2dhbmdsaWEuaW5mby8=" title="http://ganglia.info/">Ganglia<i class="fa fa-external-link"></i></span>：Ganglia是一个跨平台可扩展的、高性能计算系统下的分布式监控系统，如集群和网格；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuc2VydmVyZGVuc2l0eS5jb20v" title="https://www.serverdensity.com/">Server Density<i class="fa fa-external-link"></i></span>：一个跨平台的监控系统；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2JvdW5kYXJ5L2ZvbHNvbQ==" title="https://github.com/boundary/folsom">Folsom<i class="fa fa-external-link"></i></span>：Folsom是一款受 <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2NvZGFoYWxlL21ldHJpY3Mv" title="https://github.com/codahale/metrics/">Coda Hale’s metrics<i class="fa fa-external-link"></i></span>启发的、基于Erlang的度量系统；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0NvbWNhc3QvY21i" title="https://github.com/Comcast/cmb">CMB (Cloud Message Bus)<i class="fa fa-external-link"></i></span>：是一个高可用、横向扩展的队列和通知服务，兼容AWS SQS和SNS；</li>
+<li><span class="exturl" data-url="aHR0cDovL25pY29sYXJnby5naXRodWIuaW8vZ2xhbmNlcy8=" title="http://nicolargo.github.io/glances/">Glances<i class="fa fa-external-link"></i></span>：是一款用于Linux、BSD的开源命令行系统监视工具，它使用Python语言开发，能够监视CPU、负载、内存、磁盘I/O、网络流量、文件系统、系统温度等信息。</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Z6YW5pbm90dG8vdXB0aW1l" title="https://github.com/fzaninotto/uptime">Uptime<i class="fa fa-external-link"></i></span>：使用Node.js、MongoDB和Twitter Bootstrap开发的远程监控系统；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuaWNpbmdhLm9yZy8=" title="https://www.icinga.org/">Icinga<i class="fa fa-external-link"></i></span>：Nagios的扩展版本；</li>
+<li><span class="exturl" data-url="aHR0cDovL3BhY2tldGJlYXQuY29tLw==" title="http://packetbeat.com/">Packetbeat<i class="fa fa-external-link"></i></span>：?是开源应用监控和包跟踪系统；</li>
+<li><span class="exturl" data-url="aHR0cDovL3R3aXR0ZXIuZ2l0aHViLmlvL3ppcGtpbi8=" title="http://twitter.github.io/zipkin/">Zipkin<i class="fa fa-external-link"></i></span>：是Twitter的一个开源项目，允许开发者收集Twitter各个服务上的监控数据，并提供查询接口；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9kZWFkbWFuc3NuaXRjaC5jb20v" title="https://deadmanssnitch.com/">Dead Man???s Snitch<i class="fa fa-external-link"></i></span>：是一款监控Heroku Scheduler、计划的监视工具；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2V0c3kvc3RhdHNkLw==" title="https://github.com/etsy/statsd/">Statsd<i class="fa fa-external-link"></i></span>：是一个Node.js的daemon程序，简单，轻巧。使用的UDP协议，可以和Graphite图片渲染应用结合；</li>
+<li><span class="exturl" data-url="aHR0cDovL3JpZW1hbm4uaW8v" title="http://riemann.io/">Riemann<i class="fa fa-external-link"></i></span>：一个网络监控系统；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NvZGFicmV3L3B1cHBldC1kYXNoYm9hcmQ=" title="https://github.com/sodabrew/puppet-dashboard">Puppet Dashboard<i class="fa fa-external-link"></i></span>：Puppet Dashboard是一个Web接口，为Puppet提供节点分类和报告功能，是一个开源的配置管理工具；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2pteHRyYW5zL2pteHRyYW5z" title="https://github.com/jmxtrans/jmxtrans">jmxtrans<i class="fa fa-external-link"></i></span>：jmxtrans是一款非常强大的工具，使用它可以轻易生成基于json的配置文章，然后再以你想要的格式输出；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0N1ZS9zY2FsZXM=" title="https://github.com/Cue/scales">Scales<i class="fa fa-external-link"></i></span>：跟踪服务器状态和统计指标，使你全面掌握服务器状态，还可以发送指标到Graphite来图像呈现或者向文件写入崩溃信息；</li>
+<li><span class="exturl" data-url="aHR0cDovL3d3dy56YWJiaXguY29tLw==" title="http://www.zabbix.com/">Zabbix<i class="fa fa-external-link"></i></span>：是一个基于Web界面的提供分布式系统监视以及网络监视功能的企业级的开源解决方案；</li>
+<li><span class="exturl" data-url="aHR0cDovL3d3dy5ncmF5bG9nMi5vcmcv" title="http://www.graylog2.org/">Graylog 2<i class="fa fa-external-link"></i></span>：Graylog2是一个用来将系统日志syslog保存到MongoDB中的工具。</li>
+</ul>
+<p><strong>进程管理</strong></p>
+<ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3N1YnN0YWNrL2JvdW5jeQ==" title="https://github.com/substack/bouncy">Bouncy<i class="fa fa-external-link"></i></span>：可以作为HTTP路由主机；</li>
+<li><span class="exturl" data-url="aHR0cDovL3N1cGVydmlzb3JkLm9yZy8=" title="http://supervisord.org/">Supervisor<i class="fa fa-external-link"></i></span>：是一个客户端服务器系统，允许用户监控和控制类Unix操作系统上的进程数；</li>
+<li><span class="exturl" data-url="aHR0cDovL2dvZHJiLmNvbS8=" title="http://godrb.com/">God<i class="fa fa-external-link"></i></span>：由Ruby实现的进程监控框架。</li>
+</ul>
+<p><strong>服务发现</strong></p>
+<ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2hhc2hpY29ycC9jb25zdWw=" title="https://github.com/hashicorp/consul">Consul<i class="fa fa-external-link"></i></span>：简化了分布式环境中的服务的注册和发现流程，通过HTTP或者DNS接口发现。支持外部SaaS 提供者等；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2NvcmVvcy9ldGNk" title="https://github.com/coreos/etcd">etcd<i class="fa fa-external-link"></i></span>：是一个高可用的Key/Value存储系统，主要用于分享配置和服务发现；</li>
+<li><span class="exturl" data-url="aHR0cDovL3pvb2tlZXBlci5hcGFjaGUub3JnLw==" title="http://zookeeper.apache.org/">Apache ZooKeeper<i class="fa fa-external-link"></i></span>：是Apache Hadoop的一个子项目，它主要是用来解决分布式应用中经常遇到的一些数据管理问题；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3pldHRpby93ZWF2ZQ==" title="https://github.com/zettio/weave">Weave<i class="fa fa-external-link"></i></span>：创建一个虚拟网络并连接到部署在多个主机上的Docker容器。</li>
+</ul>
+<p><strong>持续集成和交付</strong></p>
+<ul>
+<li><span class="exturl" data-url="aHR0cDovL2J1aWxkYm90Lm5ldC8=" title="http://buildbot.net/">Buildbot<i class="fa fa-external-link"></i></span>：是一个系统的自动化编译/测试周期最需要的软件，以验证代码的变化。通过自动重建和测试每次发生了变化的东西，在建设迅速查明之前，减少不必要的失败；</li>
+<li><span class="exturl" data-url="aHR0cDovL2NhYm90YXBwLmNvbS8=" title="http://cabotapp.com/">Cabot<i class="fa fa-external-link"></i></span>：是一个开源，自我托管的监控工具；</li>
+<li><span class="exturl" data-url="aHR0cDovL2plbmtpbnMtY2kub3JnLw==" title="http://jenkins-ci.org/">Jenkins<i class="fa fa-external-link"></i></span>：是基于Java开发的一种持续集成工具，用于监控持续重复的工作；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9odWJvdC5naXRodWIuY29tLw==" title="https://hubot.github.com/">Hubot<i class="fa fa-external-link"></i></span>：基于脚本具有很高的灵活性，任何人都可以编写自己的脚本来扩展基本功能；</li>
+<li><span class="exturl" data-url="aHR0cDovL2h1ZHNvbi1jaS5vcmcv" title="http://hudson-ci.org/">Hudson<i class="fa fa-external-link"></i></span>：是一个可扩展的持续集成引擎，主要用于：持续、自动地构建/测试软件项目、监控一些定时执行的任务；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3Rob3VnaHR3b3Jrcy9jcnVpc2Vjb250cm9sLnJi" title="https://github.com/thoughtworks/cruisecontrol.rb">CruiseControl.rb<i class="fa fa-external-link"></i></span>：是一个持续集成服务器，它可以让团队里的每个人随时了解项目的健康状况和进度；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FsY3kvT3BzQm90" title="https://github.com/alcy/OpsBot">OpsBot<i class="fa fa-external-link"></i></span>：是一个开源的、可插入的改善通信的机器人。</li>
+</ul>
+<p>希望这些工具能够给开发者带来实实在在的帮助，想要查看更多工具，大家可以 <span class="exturl" data-url="aHR0cHM6Ly9kZXYtb3BzLXRvb2xzLnplZWYuY29tL3JpY2hhcmQua3JhYXllbmhhZ2VuI2Jsb2NrXzQxNjg1X3Byb2Nlc3MtbWFuYWdlbWVudA==" title="https://dev-ops-tools.zeef.com/richard.kraayenhagen#block_41685_process-management">访问原文<i class="fa fa-external-link"></i></span>，原文中的工具列表会持续更新。 最后，再跟大家分享一个 <span class="exturl" data-url="aHR0cDovL3d3dy5kZXZvcHNib29rbWFya3MuY29tLw==" title="http://www.devopsbookmarks.com/">DevOps BookMarks<i class="fa fa-external-link"></i></span>，这里面涉及了DevOps方方面面的工具和内容，有兴趣的同学可以前去学习。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -2487,7 +2564,7 @@ mysql&gt; flush privileges;//刷新系统权限表<figure class="highlight plain
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">196</span>
+                    <span class="site-state-item-count">193</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2544,53 +2621,7 @@ mysql&gt; flush privileges;//刷新系统权限表<figure class="highlight plain
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">43</span>
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -2687,7 +2718,41 @@ mysql&gt; flush privileges;//刷新系统权限表<figure class="highlight plain
                     
                       
                     
-                    <span class="site-state-item-count">40</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">57</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -2812,7 +2877,7 @@ mysql&gt; flush privileges;//刷新系统权限表<figure class="highlight plain
     
       <span class="post-meta-item-text">Symbols count total: </span>
     
-    <span title="Symbols count total">568k</span>
+    <span title="Symbols count total">553k</span>
   
 
   
@@ -2823,7 +2888,7 @@ mysql&gt; flush privileges;//刷新系统权限表<figure class="highlight plain
     
       <span class="post-meta-item-text">Reading time total &asymp;</span>
     
-    <span title="Reading time total">8:36</span>
+    <span title="Reading time total">8:22</span>
   
 </div>
 

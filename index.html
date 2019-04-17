@@ -363,6 +363,212 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/2019/631/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/631/" class="post-title-link" itemprop="url">PostgreSQL mac 环境下初识篇</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-16 15:38:46" itemprop="dateCreated datePublished" datetime="2019-04-16T15:38:46+08:00">2019-04-16</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-17 20:02:28" itemprop="dateModified" datetime="2019-04-17T20:02:28+08:00">2019-04-17</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-db/" itemprop="url" rel="index"><span itemprop="name">积累________db</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">3.3k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">3 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在mac 环境下,可以使用 brew 来安装, 也可以<span class="exturl" data-url="aHR0cDovL3d3dy5wb3N0Z3Jlc3FsLm9yZy9kb3dubG9hZC8=" title="http://www.postgresql.org/download/">直接下载app 安装<i class="fa fa-external-link"></i></span>. <strong>初始化数据库</strong></p>
+<figure class="highlight plain"><figcaption><span>/usr/local/var/postgres ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**启动或停止数据库** 启动服务：</span><br><span class="line"></span><br><span class="line">``` pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start</span><br></pre></td></tr></table></figure>
+<p>停止服务：</p>
+<figure class="highlight plain"><figcaption><span>-D</span><a href="/usr/local/var/postgres">stop -s -m fast ```</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">如果先嫌麻烦，可以加入开机自动启动</span><br><span class="line"></span><br><span class="line">``` ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents</span><br></pre></td></tr></table></figure>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cucG9zdGdyZXNxbC5vcmcvZnRwL3BnYWRtaW4vcGdhZG1pbjQvdjEuNS9tYWNvcy8=" title="https://www.postgresql.org/ftp/pgadmin/pgadmin4/v1.5/macos/">pgAdmin<i class="fa fa-external-link"></i></span> 是一个可视化数据库服务器管理工具. SQL Shell (psql ) 控制台数据库管理入口. 在安装的过程中,会自动为系统生成一个账号PostgreSQL ,密码随机. 所以这里你要重设一个密码. 或者控制台下: <figure class="highlight plain"><figcaption><span>passwd -d postgres``` password  -d 为删除指定用户密码 然后设置新密码: ``` sudo -u postgres passwd``` 然后你就可以用 postgres 用户在服务器上通过 pgAdmin 或者 psql 来操作数据库了. 先来看下 psql 的简单操作:</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">1.  点击 SQL Shell (psql) 启动控制台应用.</span><br><span class="line"></span><br><span class="line">``` Server \[localhost\]:    //第一步,默认本地,直接回车即可,远程数据库,请输入远程服务器IP Database \[postgres\]:   //第二步,执行数据库, postgresql 安装时已经默认安装 postgres 数据库,直接回车进入此库 Port \[5432\]:           //第三步,默认绑定 5432 端口,如果你有修改请这里指定,否则默认连接此端口(注意防火墙放行端口) Username \[postgres\]:   //第四步,默认使用 postgres 用户登录数据库,没有指定用户的话,直接回车 psql (9.4.1) Type &quot;help&quot; for help. postgres=#     //看到这一步,已经成功进入 postgres 数据库.``` 或者你可以用下面一条命令来登录PostgreSQL ``` psql -U postgres -d postgres -h 127.0.0.1 -p 5432``` //参数说明: -U 指定用户    -d 指定数据库   -h 数据库服务器ip    -p 端口 如果你的系统登录用户名和PostgreSQL数据库操作用户名相同的话,可以省略 -U 参数. 如果你的Mac 命令控制台不支持 psql ,那么需要你手动添加到全局变量里: ``` zhangzhi@moke:~$ locate psql | grep /bin /Library/PostgreSQL/9.4/bin/psql``` 编辑.bash\_profile文件或.bashrc文件，添加命令别名 ``` alias psql=/Library/PostgreSQL/9.4/bin/psql``` 然后让 .bash\_profile 生效即可 ``` source .bash\_profile``` psql 控制台简单的操作命令: ``` \\h select。 \\? 查看psql命令列表。 \\l 列出所有数据库。 \\c \[database\_name\]：连接其他数据库。 \\d 列出当前数据库的所有表格。 \\d \[table\_name\]：列出某一张表格的结构。 \\du 列出所有用户。 \\e 打开文本编辑器。 \\conninfo 列出当前数据库和连接的信息。 \\q  退出 \\password  设置命令``` ``` # 创建新表  CREATE TABLE user\_tbl(name VARCHAR(20), signup\_date DATE); # 插入数据  INSERT INTO user\_tbl(name, signup\_date) VALUES(&apos;张三&apos;, &apos;2013-12-22&apos;); # 选择记录  SELECT * FROM user\_tbl; # 更新数据  UPDATE user\_tbl set name = &apos;李四&apos; WHERE name = &apos;张三&apos;; # 删除记录  DELETE FROM user\_tbl WHERE name = &apos;李四&apos; ; # 添加栏位  ALTER TABLE user\_tbl ADD email VARCHAR(40); # 更新结构  ALTER TABLE user\_tbl ALTER COLUMN signup\_date SET NOT NULL; # 更名栏位  ALTER TABLE user\_tbl RENAME COLUMN signup\_date TO signup; # 删除栏位  ALTER TABLE user\_tbl DROP COLUMN email; # 表格更名  ALTER TABLE user\_tbl RENAME TO backup\_tbl; # 删除表格  DROP TABLE IF EXISTS backup_tbl; ``` **1.创建一个 PostgreSQL 用户**</span><br><span class="line"></span><br><span class="line">``` createuser username -P #Enter password for new role: #Enter it again:</span><br></pre></td></tr></table></figure></p>
+<p>上面的 username 是用户名，回车输入 2 次用户密码后即用户创建完成。更多用户创建信息可以 “createuser –help” 查看。 <strong>2.创建数据库</strong></p>
+<figure class="highlight plain"><figcaption><span>dbname -O username -E UTF8 -e ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">上面创建了一个名为 dbname 的数据库，并指定 username 为改数据库的拥有者（owner），数据库的编码（encoding）是 UTF8，参数 &quot;-e&quot; 是指把数据库执行操作的命令显示出来。 更多数据库创建信息可以 &quot;createdb --help&quot; 查看。 **3.连接数据库** ``` psql -U username -d dbname -h 127.0.0.1 ``` **数据的导出：** ``` $ pg\_dump -U postgres(用户名) (-t 表名) 数据库名(缺省时同用户名) &gt; 路径/文件名.sql \[html\] view plain copy postgres@debian:~$ pg\_dump -U postgres -t system_calls wangye &gt; ./test.sql postgres@debian:~$ ls 9.1 test.sql``` 数据的导入： 导入数据时首先创建数据库再用psql导入： ``` $ createdb newdatabase $ psql -d newdatabase -U postgres -f mydatabase.sql // sql 文件在当前路径下 $ psql -d databaename(数据库名) -U username(用户名) -f &lt; 路径/文件名.sql // sql 文件不在当前路径下 ``` 赋予用户超级权限 ``` sudo -u postgres psql CREATE USER root WITH SUPERUSER;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yaozihao.com/2018/707/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -425,7 +631,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-17 14:03:13" itemprop="dateModified" datetime="2019-04-17T14:03:13+08:00">2019-04-17</time>
+                <time title="Modified: 2019-04-17 18:54:07" itemprop="dateModified" datetime="2019-04-17T18:54:07+08:00">2019-04-17</time>
               
             
           </span>
@@ -442,7 +648,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/" itemprop="url" rel="index"><span itemprop="name">日常________经验分享</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-工具/" itemprop="url" rel="index"><span itemprop="name">积累________工具</span></a></span>
 
                 
                 
@@ -625,7 +831,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-17 14:23:03" itemprop="dateModified" datetime="2019-04-17T14:23:03+08:00">2019-04-17</time>
+                <time title="Modified: 2019-04-17 20:11:37" itemprop="dateModified" datetime="2019-04-17T20:11:37+08:00">2019-04-17</time>
               
             
           </span>
@@ -642,7 +848,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/" itemprop="url" rel="index"><span itemprop="name">日常________经验分享</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-linux/" itemprop="url" rel="index"><span itemprop="name">积累________linux</span></a></span>
 
                 
                 
@@ -830,7 +1036,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-16 15:59:57" itemprop="dateModified" datetime="2019-04-16T15:59:57+08:00">2019-04-16</time>
+                <time title="Modified: 2019-04-17 20:01:15" itemprop="dateModified" datetime="2019-04-17T20:01:15+08:00">2019-04-17</time>
               
             
           </span>
@@ -1031,7 +1237,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
+                <time title="Modified: 2019-04-17 19:13:28" itemprop="dateModified" datetime="2019-04-17T19:13:28+08:00">2019-04-17</time>
               
             
           </span>
@@ -1634,7 +1840,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-16 15:59:57" itemprop="dateModified" datetime="2019-04-16T15:59:57+08:00">2019-04-16</time>
+                <time title="Modified: 2019-04-17 20:09:48" itemprop="dateModified" datetime="2019-04-17T20:09:48+08:00">2019-04-17</time>
               
             
           </span>
@@ -1651,7 +1857,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-mac/" itemprop="url" rel="index"><span itemprop="name">积累________mac</span></a></span>
 
                 
                 
@@ -1850,7 +2056,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-16 15:59:57" itemprop="dateModified" datetime="2019-04-16T15:59:57+08:00">2019-04-16</time>
+                <time title="Modified: 2019-04-17 19:16:26" itemprop="dateModified" datetime="2019-04-17T19:16:26+08:00">2019-04-17</time>
               
             
           </span>
@@ -1867,7 +2073,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/" itemprop="url" rel="index"><span itemprop="name">日常________经验分享</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-tool/" itemprop="url" rel="index"><span itemprop="name">积累________tool</span></a></span>
 
                 
                 
@@ -2051,7 +2257,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
+                <time title="Modified: 2019-04-17 19:14:09" itemprop="dateModified" datetime="2019-04-17T19:14:09+08:00">2019-04-17</time>
               
             
           </span>
@@ -2068,14 +2274,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/" itemprop="url" rel="index"><span itemprop="name">日常________经验分享</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/积累-linux/" itemprop="url" rel="index"><span itemprop="name">积累________linux</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-linux/" itemprop="url" rel="index"><span itemprop="name">积累________linux</span></a></span>
 
                 
                 
@@ -2188,211 +2387,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/2017/688/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/688/" class="post-title-link" itemprop="url">SS(shardowsocks)+FS(Final speed)带你飞</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2017-11-14 15:03:38" itemprop="dateCreated datePublished" datetime="2017-11-14T15:03:38+08:00">2017-11-14</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-17 18:18:14" itemprop="dateModified" datetime="2019-04-17T18:18:14+08:00">2019-04-17</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/" itemprop="url" rel="index"><span itemprop="name">日常________经验分享</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">2.2k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">2 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>早期我曾通过goagent、xx-net勉强能浏览google学术等（你懂的） 网站，但至今很久没用过了，主要原因这东西是免费的访问速度、稳定性都很受限，当有限资源满足不了现代人类的欲望时，他们会寻求捷径以获得更多资源，我亦如此。三十而立了，越来越有欲望自己搞点什么，结合自己三十年来学到的东西，不追求利益就出于兴趣玩玩，于是乎有了需要查询的需求，于是乎我做了这件事情，留此文。</p>
-<h2 id="1、租用服务器资源"><a href="#1、租用服务器资源" class="headerlink" title="1、租用服务器资源"></a>1、租用服务器资源</h2><p>我在gigsgiscloud上租用了个最便宜的香港vps，2刀一月。 OS：CentOS 6 Men: 512M bandwith:500G/Mon （完全足够） disk: 30G</p>
-<h2 id="2、服务端软件安装"><a href="#2、服务端软件安装" class="headerlink" title="2、服务端软件安装"></a>2、服务端软件安装</h2><p>root用户（ssh）登陆vps 一键安装SS： <code>wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks\_install/master/shadowsocks.sh chmod +x shadowsocks.sh ./shadowsocks.sh 2&gt;&amp;1 | tee shadowsocks.log</code> 安装成功提示： <code>Congratulations, shadowsocks install completed! Your Server IP:your\_server\_ip Your Server Port:8989 Your Password:your\_password Your Local IP:127.0.0.1 Your Local Port:1080 Your Encryption Method:aes-256-cfb Welcome to visit:http://teddysun.com/342.htmlEnjoy it!</code> 用户配置文件： <code>路径/etc/ shadowsocks.json { &quot;server&quot;:&quot;your\_server\_ip&quot;, &quot;server\_port&quot;:8989, &quot;local\_address&quot;:&quot;127.0.0.1&quot;, &quot;local\_port&quot;:1080, &quot;password&quot;:&quot;yourpassword&quot;, &quot;timeout&quot;:300, &quot;method&quot;:&quot;aes-256-cfb&quot;, &quot;fast\_open&quot;: false }</code> 同时可以配置多用户。 启动：<code>/etc/init.d/shadowsocks start</code> 停止：<code>/etc/init.d/shadowsocks stop</code> 重启<code>：/etc/init.d/shadowsocks restart</code> 状态<code>：/etc/init.d/shadowsocks status</code> 一键安装FS，不要装成了XS，XS是收费的： root用户执行以下命令： <code>rm -f install\_fs.sh wget  https://github.com/dupontjoy/customization/raw/master/Rules/Shadowsocks/Finalspeed/install\_fs.sh chmod +x install\_fs.sh ./install\_fs.sh 2&gt;&amp;1 | tee install.log 启动：sh /fs/start.sh 停止：sh /fs/stop.sh</code></p>
-<h2 id="3、客户端配置"><a href="#3、客户端配置" class="headerlink" title="3、客户端配置"></a>3、客户端配置</h2><p>下载SS客户端：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NoYWRvd3NvY2tzL3NoYWRvd3NvY2tzL3dpa2kvUG9ydHMtYW5kLUNsaWVudHMjd2luZG93cw==" title="https://github.com/shadowsocks/shadowsocks/wiki/Ports-and-Clients#windows">https://github.com/shadowsocks/shadowsocks/wiki/Ports-and-Clients#windows<i class="fa fa-external-link"></i></span> 下载安装FS客户端：<span class="exturl" data-url="aHR0cHM6Ly93d3cuYWJjbGl0ZS5jbi9yZWRpcmVjdC9hSFIwY0RvdkwyWnpMbVF4YzIwdWJtVjBMMlpwYm1Gc2MzQmxaV1F2Wm1sdVlXeHpjR1ZsWkY5cGJuTjBZV3hzTVM0d0xtVjRaUT09" title="https://www.abclite.cn/redirect/aHR0cDovL2ZzLmQxc20ubmV0L2ZpbmFsc3BlZWQvZmluYWxzcGVlZF9pbnN0YWxsMS4wLmV4ZQ==">https://www.abclite.cn/redirect/aHR0cDovL2ZzLmQxc20ubmV0L2ZpbmFsc3BlZWQvZmluYWxzcGVlZF9pbnN0YWxsMS4wLmV4ZQ==<i class="fa fa-external-link"></i></span> SS+FS配置 注：SS上要配两个服务器，一个连接VPS，一个做FS代理的，如图，密码为/etc/ shadowsocks.json 配置文件中的密码</p>
-<h2 id="4、使用chrome浏览"><a href="#4、使用chrome浏览" class="headerlink" title="4、使用chrome浏览"></a>4、使用chrome浏览</h2><p>配置chrome套接字代理：127.0.0.1  端口1083，还可swichsharp扩展让浏览器在代理非代理模式间快捷切换。 此时若可访问谷歌，且FS显示端口xxx连接成功，代表加速成功，FS着实强大，在与香港ping值达到300-500ms的情况下依然可跑满网络，如此，奔跑吧骚年。 注：以上仅vps每月2刀的租用费用，其他软件都免费。 Reference： <span class="exturl" data-url="aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc3RyOTk5X2NuL2FydGljbGUvZGV0YWlscy81MTI4MDgzNA==" title="http://blog.csdn.net/str999_cn/article/details/51280834">http://blog.csdn.net/str999_cn/article/details/51280834<i class="fa fa-external-link"></i></span> <span class="exturl" data-url="aHR0cHM6Ly93d3cuY21za3kuY29tL2ZpbmFsc3BlZWQv" title="https://www.cmsky.com/finalspeed/">https://www.cmsky.com/finalspeed/<i class="fa fa-external-link"></i></span> <span class="exturl" data-url="aHR0cDovL2Jsb2cuc2luYS5jb20uY24vcy9ibG9nX2QzMDY4NmY3MDEwMnZ4dDEuaHRtbA==" title="http://blog.sina.com.cn/s/blog_d30686f70102vxt1.html">http://blog.sina.com.cn/s/blog_d30686f70102vxt1.html<i class="fa fa-external-link"></i></span></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2439,7 +2433,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">196</span>
+                    <span class="site-state-item-count">193</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2496,53 +2490,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">43</span>
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -2639,7 +2587,41 @@
                     
                       
                     
-                    <span class="site-state-item-count">40</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">57</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -2764,7 +2746,7 @@
     
       <span class="post-meta-item-text">Symbols count total: </span>
     
-    <span title="Symbols count total">568k</span>
+    <span title="Symbols count total">553k</span>
   
 
   
@@ -2775,7 +2757,7 @@
     
       <span class="post-meta-item-text">Reading time total &asymp;</span>
     
-    <span title="Reading time total">8:36</span>
+    <span title="Reading time total">8:22</span>
   
 </div>
 
