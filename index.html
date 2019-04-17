@@ -1370,214 +1370,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/08/定投eos脚本，看懂的自然懂/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/12/08/定投eos脚本，看懂的自然懂/" class="post-title-link" itemprop="url">定投eos脚本，看懂的自然懂</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2017-12-08 14:51:07" itemprop="dateCreated datePublished" datetime="2017-12-08T14:51:07+08:00">2017-12-08</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-16 15:59:57" itemprop="dateModified" datetime="2019-04-16T15:59:57+08:00">2019-04-16</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-区块链/" itemprop="url" rel="index"><span itemprop="name">积累________区块链</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-区块链/积累-量化/" itemprop="url" rel="index"><span itemprop="name">积累________量化</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">1.7k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">2 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><code>#!/usr/bin/python # -*- coding: utf-8 -*- import decimal import hashlib import json import time import requests from datetime import datetime,timezone,timedelta def main(): while True: try: resp = requests.get(url=&#39;http://eos.io/eos-sale-statistic.php&#39;,timeout=10) result = json.loads(resp.text) period = 13 today\_sale = result\[period\] today\_ico\_eth = round(today\_sale\[&#39;dailyToday&#39;\],2) today\_ico\_end\_utc\_str = today\_sale\[&#39;ends&#39;\] today\_ico\_end\_utc = datetime.strptime(today\_ico\_end\_utc\_str,&quot;%Y-%m-%dT%H:%M:S.000Z&quot;) tz\_utc\_8 = timezone(timedelta(hours=8)) today\_ico\_end\_bj = today\_ico\_end\_utc.replace(tzinfo=tz\_utc\_8) print (today\_ico\_end\_bj) # t = parser.parse(today\_ico\_end) # print(t) resq = requests.get(url=&#39;https://yunbi.com//api/v2/tickers/ethcny,json&#39;,timeout=10) result=json.loads(resq.text) eth\_price = float(result\[&#39;ticker&#39;\]\[&#39;last&#39;\]) all\_num = 2000000.0 eos\_sale\_price = round(eth\_price * today\_ico\_eth / all\_num,2) eos\_per\_eth = round(all\_num/today\_ico\_eth,2) resq = requests.get(url=&#39;https://yunbi.com//api/v2/tickers/eoscny,json&#39;, timeout=10) result = json.loads(resq.text) eos\_price = round(float(result\[&#39;ticker&#39;\]\[&#39;last&#39;\]),2) now = datetime.now() print (now) # print(&quot;投入ETH:%s ETH兑EOS:%s EOS价格:%s EOS 云币价格:%s&quot; % (today\_ico\_eth，eos\_per\_eth,eos\_sale\_price,eos\_price)) print (&quot;hedgeL today\_ico\_eth,eos\_per\_eth,eos\_sale\_proce,eos\_yunbi\_price:&quot;,today\_ico\_eth,eos\_per\_eth,eos\_sale\_price,eos\_price) # print &#39;main running&#39; except Exception as identifier: print (identifier) time.sleep(1) if \_\_name__ == &#39;\_\_main\_\_&#39;: main()</code></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/08/697/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2341,6 +2133,220 @@
         
           
             <p>安装教程： mpv : <span class="exturl" data-url="aHR0cDovL3NvbmdjaGVud2VuLmNvbS90ZWNoLzIwMTUvMDUvMDkvbXB2LXBsYXllci8=" title="http://songchenwen.com/tech/2015/05/09/mpv-player/">http://songchenwen.com/tech/2015/05/09/mpv-player/<i class="fa fa-external-link"></i></span> you-get : <span class="exturl" data-url="aHR0cHM6Ly95b3UtZ2V0Lm9yZy8=" title="https://you-get.org/">https://you-get.org/<i class="fa fa-external-link"></i></span> 简单说下用法： mpv <span class="exturl" data-url="aHR0cDovL3d3dy5kb3V5dXR2LmNvbS81NjA0MA==" title="http://www.douyutv.com/56040">http://www.douyutv.com/56040<i class="fa fa-external-link"></i></span> 这种情况下是直接调用的 youtube-dl 来观看在线视频（这个是在使用 brew 安装 mpv 时就已经安装好了） you-get -p mpv <span class="exturl" data-url="aHR0cDovL3d3dy5iaWxpYmlsaS5jb20vdmlkZW8vYXYzNDU4NjM0Lw==" title="http://www.bilibili.com/video/av3458634/">http://www.bilibili.com/video/av3458634/<i class="fa fa-external-link"></i></span> 这种情况是调用 you-get 来观看在线视频</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/15/ubuntu环境搭建-在win10下与linux虚拟机ubuntu建立共享文件夹/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017/11/15/ubuntu环境搭建-在win10下与linux虚拟机ubuntu建立共享文件夹/" class="post-title-link" itemprop="url">Ubuntu环境搭建-在win10下与linux虚拟机Ubuntu建立共享文件夹</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-11-15 14:25:15" itemprop="dateCreated datePublished" datetime="2017-11-15T14:25:15+08:00">2017-11-15</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/" itemprop="url" rel="index"><span itemprop="name">日常________经验分享</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/积累-linux/" itemprop="url" rel="index"><span itemprop="name">积累________linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">1.7k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">2 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>  有两种方式。1：samba 2：vm-tool。本次主要介绍vmtool的共享功能。 1. 使用ssh连接系统，需要先安装 <code>apt-get install openssh</code> 2. 查看进程：<code>ps -ef | grep beam</code> 3. 在win10下与linux虚拟机Ubuntu建立共享文件夹：</p>
+<h2 id="1-安装vmtools-for-linux"><a href="#1-安装vmtools-for-linux" class="headerlink" title="1.安装vmtools for linux:"></a>1.安装vmtools for linux:</h2><p>选择vmware workstation程序菜单中VM &gt;install VMware tools… 启动Ubuntu，终端上执行： <figure class="highlight plain"><figcaption><span>/mnt/cdrom mount</span><a href="/dev/cdrom">/mnt/cdrom  #vmtools的安装文件放在vmware虚拟的cdrom中，首先要mount上这个光驱才能找到安装文件 cd /mnt/cdrom tar -zxvf VMwareTools-5.0.0-12124.i386.tar.gz -C /tmp #把安装文件解压到/tmp， VMwareTools-5.0.0-12124.i386.tar.gz，虚拟机自带的，不同版本不一样 cd /tmp/vmware-tools-distrib ./vmware-install.pl``` 安装默认配置vmware tools就可以正常工作，安提示输入yes/No。回车键选择默认配置，20分钟左右。 安装完以后，vmware会添加一个vmhgfs的模块到内核中，可以使用lsmod查看 ，没有的话，建立共享文件夹就会不成功。不过可以从win7下复制文件到虚拟机下，拖动也可以。</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">2.设置win7下共享的目录：</span><br><span class="line">---------------</span><br><span class="line"></span><br><span class="line">在虚拟机桌面，选择vmware workstation程序菜单中 VM&gt;Settings&gt;Options&gt;Shared Folders &gt;Properties 点击对话框右下的“add”按钮，点击“下一步” 在文本框“name”中输入共享目录的名字（这里填写的目录名以后在ghost computer的linux系统中将显示出同样的目录名），假设为share；在“host folder”中填入host computer中windows系统想要共享出来的目录. 下一个对话框是选择共享的方式:Enable this share是指这个共享长期有效，目录可读写；Read-only方式是指这个共享长期有效，目录只读；Disable after this session方式是指下次ghost computer被关闭或挂起后，共享将会失效。一般情况下选择Enable this share然后点击“完成” 自此，shared folder设置完毕</span><br><span class="line"></span><br><span class="line">3.shared folder目录的使用</span><br><span class="line">--------------------</span><br><span class="line"></span><br><span class="line">切换到ghost computer的linux系统，执行：</span><br><span class="line"></span><br><span class="line"> cd /mnt/hgfs</span><br><span class="line"> ls</span><br></pre></td></tr></table></figure></p>
+<p>可以看到share的目录，并且可以用cp等指令实现windows到linux，linux到windows的读写操作了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install open-vm-tools-dkms</span><br><span class="line">sudo mount  -t  vmhgfs  .host:/   /mnt/hgfs</span><br></pre></td></tr></table></figure>
+<h2 id="4-解决每次都要挂载的方法："><a href="#4-解决每次都要挂载的方法：" class="headerlink" title="4.解决每次都要挂载的方法："></a>4.解决每次都要挂载的方法：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#为了每次开机自动挂载共享目录，终端下输入：</span><br><span class="line">sudo gedit /etc/init.d/open-vm-tools</span><br><span class="line">#末尾增加一行： </span><br><span class="line">sudo mount -t vmhgfs .host:/ /mnt/hgfs </span><br><span class="line">#（host:/ 处有空格）</span><br><span class="line"></span><br><span class="line">#或者编辑 /etc/fstab，添加下面一行</span><br><span class="line">.host:/shared     /mnt/hgfs       vmhgfs     defaults  0  0 （按需写）</span><br></pre></td></tr></table></figure>
+<p>tips:</p>
+<p>ubuntu下提示命令用错了，安装了open vm tools以后要用：vmhgfs-fuse .host:/ /mnt/hgfs</p>
 
           
         

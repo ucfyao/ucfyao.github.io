@@ -362,220 +362,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/15/ubuntu环境搭建-在win10下与linux虚拟机ubuntu建立共享文件夹/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/11/15/ubuntu环境搭建-在win10下与linux虚拟机ubuntu建立共享文件夹/" class="post-title-link" itemprop="url">Ubuntu环境搭建-在win10下与linux虚拟机Ubuntu建立共享文件夹</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2017-11-15 14:25:15" itemprop="dateCreated datePublished" datetime="2017-11-15T14:25:15+08:00">2017-11-15</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/" itemprop="url" rel="index"><span itemprop="name">日常________经验分享</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/积累-linux/" itemprop="url" rel="index"><span itemprop="name">积累________linux</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">1.7k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">2 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>  有两种方式。1：samba 2：vm-tool。本次主要介绍vmtool的共享功能。 1. 使用ssh连接系统，需要先安装 <code>apt-get install openssh</code> 2. 查看进程：<code>ps -ef | grep beam</code> 3. 在win10下与linux虚拟机Ubuntu建立共享文件夹：</p>
-<h2 id="1-安装vmtools-for-linux"><a href="#1-安装vmtools-for-linux" class="headerlink" title="1.安装vmtools for linux:"></a>1.安装vmtools for linux:</h2><p>选择vmware workstation程序菜单中VM &gt;install VMware tools… 启动Ubuntu，终端上执行： <figure class="highlight plain"><figcaption><span>/mnt/cdrom mount</span><a href="/dev/cdrom">/mnt/cdrom  #vmtools的安装文件放在vmware虚拟的cdrom中，首先要mount上这个光驱才能找到安装文件 cd /mnt/cdrom tar -zxvf VMwareTools-5.0.0-12124.i386.tar.gz -C /tmp #把安装文件解压到/tmp， VMwareTools-5.0.0-12124.i386.tar.gz，虚拟机自带的，不同版本不一样 cd /tmp/vmware-tools-distrib ./vmware-install.pl``` 安装默认配置vmware tools就可以正常工作，安提示输入yes/No。回车键选择默认配置，20分钟左右。 安装完以后，vmware会添加一个vmhgfs的模块到内核中，可以使用lsmod查看 ，没有的话，建立共享文件夹就会不成功。不过可以从win7下复制文件到虚拟机下，拖动也可以。</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">2.设置win7下共享的目录：</span><br><span class="line">---------------</span><br><span class="line"></span><br><span class="line">在虚拟机桌面，选择vmware workstation程序菜单中 VM&gt;Settings&gt;Options&gt;Shared Folders &gt;Properties 点击对话框右下的“add”按钮，点击“下一步” 在文本框“name”中输入共享目录的名字（这里填写的目录名以后在ghost computer的linux系统中将显示出同样的目录名），假设为share；在“host folder”中填入host computer中windows系统想要共享出来的目录. 下一个对话框是选择共享的方式:Enable this share是指这个共享长期有效，目录可读写；Read-only方式是指这个共享长期有效，目录只读；Disable after this session方式是指下次ghost computer被关闭或挂起后，共享将会失效。一般情况下选择Enable this share然后点击“完成” 自此，shared folder设置完毕</span><br><span class="line"></span><br><span class="line">3.shared folder目录的使用</span><br><span class="line">--------------------</span><br><span class="line"></span><br><span class="line">切换到ghost computer的linux系统，执行：</span><br><span class="line"></span><br><span class="line"> cd /mnt/hgfs</span><br><span class="line"> ls</span><br></pre></td></tr></table></figure></p>
-<p>可以看到share的目录，并且可以用cp等指令实现windows到linux，linux到windows的读写操作了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install open-vm-tools-dkms</span><br><span class="line">sudo mount  -t  vmhgfs  .host:/   /mnt/hgfs</span><br></pre></td></tr></table></figure>
-<h2 id="4-解决每次都要挂载的方法："><a href="#4-解决每次都要挂载的方法：" class="headerlink" title="4.解决每次都要挂载的方法："></a>4.解决每次都要挂载的方法：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#为了每次开机自动挂载共享目录，终端下输入：</span><br><span class="line">sudo gedit /etc/init.d/open-vm-tools</span><br><span class="line">#末尾增加一行： </span><br><span class="line">sudo mount -t vmhgfs .host:/ /mnt/hgfs </span><br><span class="line">#（host:/ 处有空格）</span><br><span class="line"></span><br><span class="line">#或者编辑 /etc/fstab，添加下面一行</span><br><span class="line">.host:/shared     /mnt/hgfs       vmhgfs     defaults  0  0 （按需写）</span><br></pre></td></tr></table></figure>
-<p>tips:</p>
-<p>ubuntu下提示命令用错了，安装了open vm tools以后要用：vmhgfs-fuse .host:/ /mnt/hgfs</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/14/ssshardowsocksfsfinal-speed带你飞/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -927,6 +713,213 @@
           
             <p><code>`$ php -v dyld: Library not loaded: /usr/local/lib/libjpeg.8.dylib Referenced from: /usr/local/bin/php Reason: image not found Trace/BPT trap: 5` 1.</code> <code>`wget -c http://www.ijg.org/files/jpegsrc.v8d.tar.gz tar xzf jpegsrc.v8d.tar.gz cd jpeg-8d ./configure make cp ./.libs/libjpeg.8.dylib /usr/local/opt/jpeg/lib` 2.</code> <code>`brew install --build-from-source php56`</code> <code></code></p>
 
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/08/定投eos脚本，看懂的自然懂/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017/11/08/定投eos脚本，看懂的自然懂/" class="post-title-link" itemprop="url">定投eos脚本，看懂的自然懂</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-11-08 14:51:07" itemprop="dateCreated datePublished" datetime="2017-11-08T14:51:07+08:00">2017-11-08</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-17 12:59:23" itemprop="dateModified" datetime="2019-04-17T12:59:23+08:00">2019-04-17</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-区块链/" itemprop="url" rel="index"><span itemprop="name">积累________区块链</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-区块链/积累-量化/" itemprop="url" rel="index"><span itemprop="name">积累________量化</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">1.9k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">2 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> decimal</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime,timezone,timedelta</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            resp = requests.get(url=<span class="string">'http://eos.io/eos-sale-statistic.php'</span>,timeout=<span class="number">10</span>)</span><br><span class="line">            result = json.loads(resp.text)</span><br><span class="line"></span><br><span class="line">            period = <span class="number">13</span></span><br><span class="line">            today_sale = result[period]</span><br><span class="line">            today_ico_eth = round(today_sale[<span class="string">'dailyToday'</span>],<span class="number">2</span>)</span><br><span class="line">            today_ico_end_utc_str = today_sale[<span class="string">'ends'</span>]</span><br><span class="line">            today_ico_end_utc = datetime.strptime(today_ico_end_utc_str,<span class="string">"%Y-%m-%dT%H:%M:S.000Z"</span>)</span><br><span class="line">            tz_utc_8 = timezone(timedelta(hours=<span class="number">8</span>))</span><br><span class="line">            today_ico_end_bj = today_ico_end_utc.replace(tzinfo=tz_utc_8)</span><br><span class="line">            <span class="keyword">print</span> (today_ico_end_bj)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># t = parser.parse(today_ico_end)</span></span><br><span class="line">            <span class="comment"># print(t)</span></span><br><span class="line"></span><br><span class="line">            resq = requests.get(url=<span class="string">'https://yunbi.com//api/v2/tickers/ethcny,json'</span>,timeout=<span class="number">10</span>)</span><br><span class="line">            result=json.loads(resq.text)</span><br><span class="line">            eth_price = float(result[<span class="string">'ticker'</span>][<span class="string">'last'</span>])</span><br><span class="line"></span><br><span class="line">            all_num = <span class="number">2000000.0</span></span><br><span class="line">            eos_sale_price = round(eth_price * today_ico_eth / all_num,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">            eos_per_eth = round(all_num/today_ico_eth,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">            resq = requests.get(url=<span class="string">'https://yunbi.com//api/v2/tickers/eoscny,json'</span>, timeout=<span class="number">10</span>)</span><br><span class="line">            result = json.loads(resq.text)</span><br><span class="line"></span><br><span class="line">            eos_price = round(float(result[<span class="string">'ticker'</span>][<span class="string">'last'</span>]),<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">            now = datetime.now()</span><br><span class="line">            <span class="keyword">print</span> (now)</span><br><span class="line">            <span class="comment"># print("投入ETH:%s ETH兑EOS:%s EOS价格:%s EOS 云币价格:%s" % (today_ico_eth，eos_per_eth,eos_sale_price,eos_price))</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">print</span> (<span class="string">"hedgeL today_ico_eth,eos_per_eth,eos_sale_proce,eos_yunbi_price:"</span>,today_ico_eth,eos_per_eth,eos_sale_price,eos_price)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># print 'main running'</span></span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> identifier:</span><br><span class="line">            <span class="keyword">print</span> (identifier)</span><br><span class="line"></span><br><span class="line">            time.sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
           
         
       
