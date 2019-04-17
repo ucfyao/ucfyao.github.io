@@ -362,7 +362,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/20/python-pdfkit-中文乱码问题处理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/583/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -382,209 +382,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/04/20/python-pdfkit-中文乱码问题处理/" class="post-title-link" itemprop="url">python pdfkit 中文乱码问题处理</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2017-04-20 18:51:50" itemprop="dateCreated datePublished" datetime="2017-04-20T18:51:50+08:00">2017-04-20</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">842</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">1 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="使用Python-pdfkit生成pdf文件中遇到中文乱码问题"><a href="#使用Python-pdfkit生成pdf文件中遇到中文乱码问题" class="headerlink" title="使用Python pdfkit生成pdf文件中遇到中文乱码问题"></a>使用Python pdfkit生成pdf文件中遇到中文乱码问题</h2><h3 id="生成的文件名不能带有中文字符"><a href="#生成的文件名不能带有中文字符" class="headerlink" title="生成的文件名不能带有中文字符"></a>生成的文件名不能带有中文字符</h3><p>处理方法： 我暂时想到的处理方式是先生成英文文件名，再将这个文件重命名为中文的文件名 <figure class="highlight plain"><figcaption><span>coding</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 生成的pdf内容中文为乱码</span><br><span class="line"></span><br><span class="line">``` pd\_arr = pd.read\_excel(expath) print pd\_arr print pd\_arr.to_html() header = &apos;&apos; pdfkit.from\_string(header + pd\_arr.to_html(), pdfexpath)</span><br></pre></td></tr></table></figure></p>
-<h2 id="生成的pdf内容中文为乱码原因"><a href="#生成的pdf内容中文为乱码原因" class="headerlink" title="生成的pdf内容中文为乱码原因"></a>生成的pdf内容中文为乱码原因</h2><h3 id="原因1："><a href="#原因1：" class="headerlink" title="原因1："></a>原因1：</h3><p>因为pdfkit生成pdf功能其实调用的是webkit的子模块wkhtmltopdf(通过命令行方式)，所以pdfkit生成中文乱码其实是wkhtmltopdf中文乱码导致的；而wkhtmltopdf中文乱码是因为系统中不存在中文字体导致的 处理方式: 在系统中添加中文字体 我的本地电脑是ubuntu14.04的字体文件保存在/usr/share/fonts下(包含了中文字体文件具体哪一个我也不知道汗。)，我的服务器是redhat系统(没有中文字体)，所以在我的电脑上操作如下: <figure class="highlight plain"><figcaption><span>/usr/share/fonts zip -r fonts.zip ./* scp fonts.zip 服务器用户名@服务器ip:/usr/share/fonts``` 在服务器上操作如下: ``` cd</span><a href="/usr/share/fonts">unzip fonts.zip fc-cache -fv fc-list # 查看新添加的字体``` 你需要找一台有安装了中文字体的电脑复制一份字体文件(就是/usr/share/fonts下的文件)，然后如我以上操作就可以了。</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 原因2：</span><br><span class="line"></span><br><span class="line">需要在html的字符集设置为utf8 ``` &lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;head&gt;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/20/python自定义函数的创建、调用和函数的参数详解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/04/20/python自定义函数的创建、调用和函数的参数详解/" class="post-title-link" itemprop="url">Python自定义函数的创建、调用和函数的参数详解</a>
+                <a href="/2017/583/" class="post-title-link" itemprop="url">Python自定义函数的创建、调用和函数的参数详解</a>
               
             
           </h2>
@@ -784,7 +582,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/20/python如何导入自定义模块/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/582/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -804,7 +602,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/04/20/python如何导入自定义模块/" class="post-title-link" itemprop="url">python如何导入自定义模块</a>
+                <a href="/2017/582/" class="post-title-link" itemprop="url">python如何导入自定义模块</a>
               
             
           </h2>
@@ -985,7 +783,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/20/pandas：让你像写sql一样做数据分析/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/581/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1005,7 +803,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/04/20/pandas：让你像写sql一样做数据分析/" class="post-title-link" itemprop="url">Pandas：让你像写SQL一样做数据分析</a>
+                <a href="/2017/581/" class="post-title-link" itemprop="url">Pandas：让你像写SQL一样做数据分析</a>
               
             
           </h2>
@@ -1202,7 +1000,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/20/python中pandas库中dataframe对行和列的操作使用方法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/580/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1222,7 +1020,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/04/20/python中pandas库中dataframe对行和列的操作使用方法/" class="post-title-link" itemprop="url">python中pandas库中DataFrame对行和列的操作使用方法</a>
+                <a href="/2017/580/" class="post-title-link" itemprop="url">python中pandas库中DataFrame对行和列的操作使用方法</a>
               
             
           </h2>
@@ -1403,7 +1201,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/20/用pandas完成excel中常见的任务（2）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/578/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1423,7 +1221,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/04/20/用pandas完成excel中常见的任务（2）/" class="post-title-link" itemprop="url">用Pandas完成Excel中常见的任务（2）</a>
+                <a href="/2017/578/" class="post-title-link" itemprop="url">用Pandas完成Excel中常见的任务（2）</a>
               
             
           </h2>
@@ -2245,7 +2043,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/20/python-中用pandas处理excel文件/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/576/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2265,7 +2063,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/04/20/python-中用pandas处理excel文件/" class="post-title-link" itemprop="url">python 中用pandas处理Excel文件</a>
+                <a href="/2017/576/" class="post-title-link" itemprop="url">python 中用pandas处理Excel文件</a>
               
             
           </h2>
@@ -2446,7 +2244,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/20/python判断文件和文件夹是否存在的方法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/575/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2466,7 +2264,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/04/20/python判断文件和文件夹是否存在的方法/" class="post-title-link" itemprop="url">Python判断文件和文件夹是否存在的方法</a>
+                <a href="/2017/575/" class="post-title-link" itemprop="url">Python判断文件和文件夹是否存在的方法</a>
               
             
           </h2>
@@ -2671,7 +2469,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/20/python-数据分析包：pandas-基础/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/574/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2691,7 +2489,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/04/20/python-数据分析包：pandas-基础/" class="post-title-link" itemprop="url">Python 数据分析包：pandas 基础</a>
+                <a href="/2017/574/" class="post-title-link" itemprop="url">Python 数据分析包：pandas 基础</a>
               
             
           </h2>
@@ -2936,7 +2734,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/20/python中的float除法和整除法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/573/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2956,7 +2754,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/04/20/python中的float除法和整除法/" class="post-title-link" itemprop="url">python中的float除法和整除法</a>
+                <a href="/2017/573/" class="post-title-link" itemprop="url">python中的float除法和整除法</a>
               
             
           </h2>
@@ -3122,6 +2920,215 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/570/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017/570/" class="post-title-link" itemprop="url">mac下python 使用jupyter notebook  导出pdf文件的问题</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-04-18 17:27:14" itemprop="dateCreated datePublished" datetime="2017-04-18T17:27:14+08:00">2017-04-18</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">720</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">1 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="通过Latex输出中文PDF"><a href="#通过Latex输出中文PDF" class="headerlink" title="通过Latex输出中文PDF"></a>通过Latex输出中文PDF</h2><p>安装latex可以选择完整安装，和安装latex-base版本。完整安装仅安装包就有约2.7G，latex-base是一个基础包，安装包100M左右，安装需要400M不到的空间。我们目前仅需要通过latex输出PDF文档，所以不需要安装完整安装。使用latex-base就可以了。但是latex-base安装后，不能直接使用，还需要一些额外操作才能正常支持中文格式。 Latex在Mac OS中叫<span class="exturl" data-url="aHR0cHM6Ly90dWcub3JnL21hY3RleC8=" title="https://tug.org/mactex/">MacTex<i class="fa fa-external-link"></i></span>.</p>
+<h3 id="安装BasicTex"><a href="#安装BasicTex" class="headerlink" title="安装BasicTex"></a>安装BasicTex</h3><ol>
+<li>从官网下载BaisicTex安装包，下载链接：<span class="exturl" data-url="aHR0cDovL3R1Zy5vcmcvY2dpLWJpbi9tYWN0ZXgtZG93bmxvYWQvQmFzaWNUZVgucGtn" title="http://tug.org/cgi-bin/mactex-download/BasicTeX.pkg">http://tug.org/cgi-bin/mactex-download/BasicTeX.pkg<i class="fa fa-external-link"></i></span></li>
+<li>下载完成后，直接双击安装即可。 <strong>坑：安装完成后，相应工具集的路径并不会被添加到环境变量中，所以这时直接执行相应工具，或配置编译，会报找不到相应工具的错误。</strong></li>
+<li><p>添加工具路径到环境变量<code>$PATH</code>中。工具路径一般在<code>/usr/local/texlive/2016basic/bin/universal-darwin/</code> (注： ”2016basic“是我安装的版本，如果你安装的版本不同这个文件的名字可能不同。） 1）修改<code>.bash_profile</code>, 添加如下行： <figure class="highlight plain"><figcaption><span>PATH</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 安装一些额外的tex包</span><br><span class="line"></span><br><span class="line">1.  更新tlmgr ``` `sudo tlmgr update --self`</span><br></pre></td></tr></table></figure></p>
+</li>
+<li><p>安装相应的工具 <code>`sudo tlmgr install mathpazo adjustbox sudo tlmgr install courier collectbox ucs sudo tlmgr install palatino`</code></p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -3168,7 +3175,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">198</span>
+                    <span class="site-state-item-count">196</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -3180,88 +3187,94 @@
                 <div class="site-state-item site-state-categories">
                   
                     
+                      <a href="/categories/">
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">39</span>
-                    <span class="site-state-item-name">categories</span>
                   
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
                 </div>
               
 
@@ -3269,6 +3282,10 @@
                 
                 
                 <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
                   
                     
                     
@@ -3294,7 +3311,7 @@
                     
                     <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">tags</span>
-                  
+                  </a>
                 </div>
               
             </nav>
@@ -3417,7 +3434,7 @@
     
       <span class="post-meta-item-text">Symbols count total: </span>
     
-    <span title="Symbols count total">571k</span>
+    <span title="Symbols count total">568k</span>
   
 
   
@@ -3428,7 +3445,7 @@
     
       <span class="post-meta-item-text">Reading time total &asymp;</span>
     
-    <span title="Reading time total">8:39</span>
+    <span title="Reading time total">8:36</span>
   
 </div>
 
@@ -3517,9 +3534,6 @@
 
 
 
-  
-  
-
 
 
 
@@ -3538,12 +3552,6 @@
 
   
   <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
-
-  
-  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three.min.js"></script>
-
-  
-  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three-waves.min.js"></script>
 
 
   

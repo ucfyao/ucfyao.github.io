@@ -362,7 +362,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/22/mysql导入导出sql文件/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/269/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -382,451 +382,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/02/22/mysql导入导出sql文件/" class="post-title-link" itemprop="url">mysql导入导出sql文件</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2017-02-22 10:33:43" itemprop="dateCreated datePublished" datetime="2017-02-22T10:33:43+08:00">2017-02-22</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-mysql/" itemprop="url" rel="index"><span itemprop="name">积累________mysql</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">2.9k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">3 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h5 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h5><ol>
-<li><p>导出全库备份到本地的目录</p>
-<figure class="highlight plain"><figcaption><span>-u$USER -p$PASSWD -h127.0.0.1 -P3306 --routines --default-character-set</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line">2.  导出指定库到本地的目录(例如mysql库)</span><br><span class="line">    </span><br><span class="line">    ``` mysqldump -u$USER -p$PASSWD -h127.0.0.1 -P3306 --routines --default-character-set=utf8 --databases mysql &gt; db.sql</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<ol start="3">
-<li><p>导出某个库的表到本地的目录(例如mysql库的user表)</p>
-<figure class="highlight plain"><figcaption><span>-u$USER -p$PASSWD -h127.0.0.1 -P3306 --routines --default-character-set</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line">4.  导出指定库的表(仅数据)到本地的目录(例如mysql库的user表,带过滤条件)</span><br><span class="line">    </span><br><span class="line">    ``` mysqldump -u$USER -p$PASSWD -h127.0.0.1 -P3306 --routines --default-character-set=utf8 --no-create-db --no-create-info --tables mysql user --where=&quot;host=&apos;localhost&apos;&quot;\&gt; db.table.sql</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<ol start="5">
-<li><p>导出某个库的所有表结构</p>
-<figure class="highlight plain"><figcaption><span>-u$USER -p$PASSWD -h127.0.0.1 -P3306 --routines --default-character-set</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line">6.  导出某个查询sql的数据为txt格式文件到本地的目录(各数据值之间用&quot;制表符&quot;分隔) 例如sql为&apos;select user,host,password from mysql.user;&apos;</span><br><span class="line">    </span><br><span class="line">    ``` mysql -u$USER -p$PASSWD -h127.0.0.1 -P3306 --default-character-set=utf8 --skip-column-names -B -e &apos;select user,host,password from mysql.user;&apos; &gt; mysql_user.txt</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<ol start="7">
-<li><p>导出某个查询sql的数据为txt格式文件到MySQL服务器. 登录MySQL,将默认的制表符换成逗号.(适应csv格式文件). 指定的路径,mysql要有写的权限.最好用tmp目录,文件用完之后,再删除!</p>
-<figure class="highlight plain"><figcaption><span>user,host,password FROM mysql.user INTO OUTFILE '/tmp/mysql_user.csv' FIELDS TERMINATED BY ','; ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line"></span><br><span class="line">##### 导入</span><br><span class="line"></span><br><span class="line">1.  恢复全库数据到MySQL,因为包含mysql库的权限表,导入完成需要执行FLUSH PRIVILEGES;命令</span><br><span class="line">    </span><br><span class="line">    ``` 第一种方法: mysql -u$USER -p$PASSWD -h127.0.0.1 -P3306 --default-character-set=utf8 &lt; db.all.sql 第二种方法: 登录MySQL,执行source命令,后面的文件名要用绝对路径. ...... mysql&gt; source /tmp/db.all.sql;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<ol start="2">
-<li><p>恢复某个库的数据(mysql库的user表)</p>
-<figure class="highlight plain"><figcaption><span>mysql -u$USER -p$PASSWD -h127.0.0.1 -P3306 --default-character-set</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line">3.  恢复MySQL服务器上面的txt格式文件(需要FILE权限,各数据值之间用&quot;制表符&quot;分隔)</span><br><span class="line">    </span><br><span class="line">    ``` mysql -u$USER -p$PASSWD -h127.0.0.1 -P3306 --default-character-set=utf8 ...... mysql&gt; use mysql; mysql&gt; LOAD DATA INFILE &apos;/tmp/mysql_user.txt&apos; INTO TABLE user ;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<ol start="4">
-<li><p>恢复MySQL服务器上面的csv格式文件(需要FILE权限,各数据值之间用”逗号”分隔)</p>
-<figure class="highlight plain"><figcaption><span>-u$USER -p$PASSWD -h127.0.0.1 -P3306 --default-character-set</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line">5.  恢复本地的txt或csv文件到MySQL</span><br><span class="line">    </span><br><span class="line">    ``` mysql -u$USER -p$PASSWD -h127.0.0.1 -P3306 --default-character-set=utf8 ...... mysql&gt; use mysql; # txt mysql&gt; LOAD DATA LOCAL INFILE &apos;/tmp/mysql\_user.csv&apos; INTO TABLE user; # csv mysql&gt; LOAD DATA LOCAL INFILE &apos;/tmp/mysql\_user.csv&apos; INTO TABLE user FIELDS TERMINATED BY &apos;,&apos;;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
-<li>关于MySQL连接 -u$USER 用户名 -p$PASSWD 密码 -h127.0.0.1 如果连接远程服务器,请用对应的主机名或者IP地址替换 -P3306 端口 –default-character-set=utf8 指定字符集</li>
-<li>关于mysql参数 –skip-column-names 不显示数据列的名字 -B 以批处理的方式运行mysql程序.查询结果将显示为制表符间隔格式. -e 执行命令后,退出</li>
-<li>关于mysqldump参数 -A 全库备份 –routines 备份存储过程和函数 –default-character-set=utf8 设置字符集 –lock-all-tables 全局一致性锁 –add-drop-database 在每次执行建表语句之前,先执行DROP TABLE IF EXIST语句 –no-create-db 不输出CREATE DATABASE语句 –no-create-info 不输出CREATE TABLE语句 –databases 将后面的参数都解析为库名 –tables 第一个参数为库名 后续为表名</li>
-<li>关于LOAD DATA语法 如果LOAD DATA语句不带LOCAL关键字,就在MySQL的服务器上直接读取文件,且要具有FILE权限. 如果带LOCAL关键字,就在客户端本地读取数据文件,通过网络传到MySQL. LOAD DATA语句,同样被记录到binlog,不过是内部的机制.</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/20/同源策略和跨域访问/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/02/20/同源策略和跨域访问/" class="post-title-link" itemprop="url">同源策略和跨域访问</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2017-02-20 16:21:37" itemprop="dateCreated datePublished" datetime="2017-02-20T16:21:37+08:00">2017-02-20</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-16 15:59:57" itemprop="dateModified" datetime="2019-04-16T15:59:57+08:00">2019-04-16</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/" itemprop="url" rel="index"><span itemprop="name">日常________经验分享</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/积累-php/" itemprop="url" rel="index"><span itemprop="name">积累________php</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">8.4k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">8 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="1-什么是同源策略"><a href="#1-什么是同源策略" class="headerlink" title="1. 什么是同源策略"></a>1. 什么是同源策略</h3><p>理解跨域首先必须要了解同源策略。同源策略是浏览器上为安全性考虑实施的非常重要的安全策略。 何谓同源: URL由协议、域名、端口和路径组成，如果两个URL的协议、域名和端口相同，则表示他们同源。 同源策略: 浏览器的同源策略，限制了来自不同源的”document”或脚本，对当前”document”读取或设置某些属性。 （白帽子讲web安全[1]） 从一个域上加载的脚本不允许访问另外一个域的文档属性。 举个例子： 比如一个恶意网站的页面通过iframe嵌入了银行的登录页面（二者不同源），如果没有同源限制，恶意网页上的javascript脚本就可以在用户登录银行的时候获取用户名和密码。 在浏览器中，、<img>、<iframe>、<link>等标签都可以加载跨域资源，而不受同源限制，但浏览器限制了JavaScript的权限使其不能读、写加载的内容。 另外同源策略只对网页的HTML文档做了限制，对加载的其他静态资源如javascript、css、图片等仍然认为属于同源。 代码示例（<span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgwL+WSjGh0dHA6Ly9sb2NhbGhvc3Q6ODA4MeeUseS6juerr+WPo+S4jeWQjOiAjOS4jeWQjOa6kO+8ie+8mg==" title="http://localhost:8080/和http://localhost:8081由于端口不同而不同源）：">http://localhost:8080/和http://localhost:8081由于端口不同而不同源）：<i class="fa fa-external-link"></i></span> <div class="dp-highlighter bg\_html"> <div class="bar"> <div class="tools"><b>[html]</b> <span class="exturl" data-url="aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2hpbWlzby9hcnRpY2xlL2RldGFpbHMvMjE4MzAzMTMj" title="view plain">view plain<i class="fa fa-external-link"></i></span><span data-mod="popu\_168"> <span class="exturl" data-url="aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2hpbWlzby9hcnRpY2xlL2RldGFpbHMvMjE4MzAzMTMj" title="copy">copy<i class="fa fa-external-link"></i></span></span> <div><embed id="ZeroClipboardMovie\_1" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" type="application/x-shockwave-flash" width="18" height="18" align="middle" name="ZeroClipboardMovie\_1" data-mce-fragment="1"></div> <span class="tracking-ad" data-mod="popu\_167"><span class="exturl" data-url="aHR0cHM6Ly9jb2RlLmNzZG4ubmV0L3NuaXBwZXRzLzI1MTE0NQ==" title="在CODE上查看代码片"><img src="https://code.csdn.net/assets/CODE\_ico.png" alt="在CODE上查看代码片" width="12" height="12"><i class="fa fa-external-link"></i></span></span><span class="tracking-ad" data-mod="popu\_170"><span class="exturl" data-url="aHR0cHM6Ly9jb2RlLmNzZG4ubmV0L3NuaXBwZXRzLzI1MTE0NS9mb3Jr" title="派生到我的代码片"><img src="https://code.csdn.net/assets/ico\_fork.svg" alt="派生到我的代码片" width="12" height="12"><i class="fa fa-external-link"></i></span></span></div> </div> <ol class="dp-xml" start="1"> <li class="alt"><span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgwL3Rlc3QuaHRtbA==" title="http://localhost:8080/test.html">http://localhost:8080/test.html<i class="fa fa-external-link"></i></span></li> <li class>        <span class="tag">&lt;</span><span class="tag-name">html</span><span class="tag">&gt;</span></li> <li class="alt">            <span class="tag">&lt;</span><span class="tag-name">head</span><span class="tag">&gt;</span><span class="tag">&lt;</span><span class="tag-name">title</span><span class="tag">&gt;</span>test same origin policy<span class="tag">&lt;/</span><span class="tag-name">title</span><span class="tag">&gt;</span><span class="tag">&lt;/</span><span class="tag-name">head</span><span class="tag">&gt;</span></li> <li class>            <span class="tag">&lt;</span><span class="tag-name">body</span><span class="tag">&gt;</span></li> <li class="alt">                <span class="tag">&lt;</span><span class="tag-name">iframe</span> <span class="attribute">id</span>=<span class="attribute-value">“test”</span> <span class="attribute">src</span>=<span class="attribute-value">“<span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgxL3Rlc3QyLmh0bWwmcXVvdDs=" title="http://localhost:8081/test2.html&quot;">http://localhost:8081/test2.html&quot;<i class="fa fa-external-link"></i></span></span><span class="tag">&gt;</span><span class="tag">&lt;/</span><span class="tag-name">iframe</span><span class="tag">&gt;</span></li> <li class>                <span class="tag">&lt;</span><span class="tag-name">script</span> <span class="attribute">type</span>=<span class="attribute-value">“text/javascript”</span><span class="tag">&gt;</span></li> <li class="alt">                    document.getElementById(“test”)<span class="attribute">.contentDocument.body.innerHTML</span> = <span class="attribute-value">“write somthing”</span>;</li> <li class>                <span class="tag">&lt;/</span><span class="tag-name">script</span><span class="tag">&gt;</span></li> <li class="alt">            <span class="tag">&lt;/</span><span class="tag-name">body</span><span class="tag">&gt;</span></li> <li class>        <span class="tag">&lt;/</span><span class="tag-name">html</span><span class="tag">&gt;</span></li> <li class="alt"></li> <li class><span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgxL3Rlc3QyLmh0bWw=" title="http://localhost:8081/test2.html">http://localhost:8081/test2.html<i class="fa fa-external-link"></i></span></li> <li class="alt">        <span class="tag">&lt;</span><span class="tag-name">html</span><span class="tag">&gt;</span></li> <li class>            <span class="tag">&lt;</span><span class="tag-name">head</span><span class="tag">&gt;</span><span class="tag">&lt;</span><span class="tag-name">title</span><span class="tag">&gt;</span>test same origin policy<span class="tag">&lt;/</span><span class="tag-name">title</span><span class="tag">&gt;</span><span class="tag">&lt;/</span><span class="tag-name">head</span><span class="tag">&gt;</span></li> <li class="alt">            <span class="tag">&lt;</span><span class="tag-name">body</span><span class="tag">&gt;</span></li> <li class>                Testing.</li> <li class="alt">            <span class="tag">&lt;/</span><span class="tag-name">body</span><span class="tag">&gt;</span></li> <li class>        <span class="tag">&lt;/</span><span class="tag-name">html</span><span class="tag">&gt;</span></li> </ol> </div> 在Firefox中会得到如下错误： Error: Permission denied to access property ‘body’ Document对象的domain属性存放着装载文档的服务器的主机名，可以设置它。 例如来自”blog.csdn.net”和来自”bbs.csdn.net”的页面，都将document.domain设置为”csdn.net”，则来自两个子域名的脚本即可相互访问。 出于安全的考虑，不能设置为其他主domain，比如<span class="exturl" data-url="aHR0cDovL3d3dy5jc2RuLm5ldC/kuI3og73orr7nva7kuLpzaW5hLmNvbQ==" title="http://www.csdn.net/不能设置为sina.com">http://www.csdn.net/不能设置为sina.com<i class="fa fa-external-link"></i></span> <h3><a name="t1"></a>2. Ajax跨域</h3> Ajax (XMLHttpRequest)请求受到同源策略的限制。 Ajax通过XMLHttpRequest能够与远程的服务器进行信息交互，另外XMLHttpRequest是一个纯粹的Javascript对象，这样的交互过程，是在后台进行的，用户不易察觉。 因此，XMLHTTP实际上已经突破了原有的Javascript的安全限制。 举个例子： 假设某网站引用了其它站点的javascript，这个站点被compromise并在javascript中加入获取用户输入并通过ajax提交给其他站点，这样就可以源源不断收集信息。 或者某网站因为存在漏洞导致XSS注入了javascript脚本，这个脚本就可以通过ajax获取用户信息并通过ajax提交给其他站点，这样就可以源源不断收集信息。 如果我们又想利用XMLHTTP的无刷新异步交互能力，又不愿意公然突破Javascript的安全策略，可以选择的方案就是给XMLHTTP加上严格的同源限制。 这样的安全策略，很类似于Applet的安全策略。IFrame的限制还仅仅是不能访问跨域HTMLDOM中的数据，而XMLHTTP则根本上限制了跨域请求的提交。（实际上下面提到了CORS已经放宽了限制） 随着Ajax技术和网络服务的发展，对跨域的要求也越来越强烈。下面介绍Ajax的跨域技术。 <h3><a name="t2"></a>2.1 JSONP</h3> JSONP技术实际和Ajax没有关系。我们知道<script>标签可以加载跨域的javascript脚本，并且被加载的脚本和当前文档属于同一个域。因此在文档中可以调用/访问脚本中的数据和函数。如果javascript脚本中的数据是动态生成的，那么只要在文档中动态创建<script>标签就可以实现和服务端的数据交互。 JSONP就是利用<script>标签的跨域能力实现跨域数据的访问，请求动态生成的JavaScript脚本同时带一个callback函数名作为参数。其中callback函数本地文档的JavaScript函数，服务器端动态生成的脚本会产生数据，并在代码中以产生的数据为参数调用callback函数。当这段脚本加载到本地文档时，callback函数就被调用。 第一个站点的测试页面（<a href="http://localhost:8080/test.html）：">http://localhost:8080/test.html）：</a> <div class="dp-highlighter bg\_html"> <div class="bar"> <div class="tools"><b>[html]</b> <a class="ViewSource" title="view plain" href="http://blog.csdn.net/shimiso/article/details/21830313#">view plain</a><span data-mod="popu\_168"> <a class="CopyToClipboard" title="copy" href="http://blog.csdn.net/shimiso/article/details/21830313#">copy</a></span> <div><embed id="ZeroClipboardMovie\_2" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" type="application/x-shockwave-flash" width="18" height="18" align="middle" name="ZeroClipboardMovie\_2" data-mce-fragment="1"></embed></div> <span class="tracking-ad" data-mod="popu\_167"><a title="在CODE上查看代码片" href="https://code.csdn.net/snippets/251145" target="\_blank"><img src="https://code.csdn.net/assets/CODE\_ico.png" alt="在CODE上查看代码片" width="12" height="12" /></a></span><span class="tracking-ad" data-mod="popu\_170"><a title="派生到我的代码片" href="https://code.csdn.net/snippets/251145/fork" target="\_blank"><img src="https://code.csdn.net/assets/ico\_fork.svg" alt="派生到我的代码片" width="12" height="12" /></a></span></div> </div> <ol class="dp-xml" start="1"> <li class="alt"><span class="tag">&lt;</span><span class="tag-name">script</span> <span class="attribute">src</span>=<span class="attribute-value">“<a href="http://localhost:8081/test\_data.js&quot;">http://localhost:8081/test\_data.js&quot;</a></span><span class="tag">&gt;</span></li> <li class="">    <span class="tag">&lt;</span><span class="tag-name">script</span><span class="tag">&gt;</span></li> <li class="alt">        function test_handler(data) {</li> <li class="">            console.log(data);</li> <li class="alt">        }</li> <li class=""><span class="tag">&lt;/</span><span class="tag-name">script</span><span class="tag">&gt;</span></li> </ol> </div> 服务器端的Javascript脚本（<a href="http://localhost:8081/test\_data.js）：">http://localhost:8081/test\_data.js）：</a> test_handler(‘{“data”: “something”}’); 为了动态实现JSONP请求，可以使用Javascript动态插入<script>标签： <div class="dp-highlighter bg\_html"> <div class="bar"> <div class="tools"><b>[html]</b> <a class="ViewSource" title="view plain" href="http://blog.csdn.net/shimiso/article/details/21830313#">view plain</a><span data-mod="popu\_168"> <a class="CopyToClipboard" title="copy" href="http://blog.csdn.net/shimiso/article/details/21830313#">copy</a></span> <div><embed id="ZeroClipboardMovie\_3" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" type="application/x-shockwave-flash" width="18" height="18" align="middle" name="ZeroClipboardMovie\_3" data-mce-fragment="1"></embed></div> <span class="tracking-ad" data-mod="popu\_167"><a title="在CODE上查看代码片" href="https://code.csdn.net/snippets/251145" target="\_blank"><img src="https://code.csdn.net/assets/CODE\_ico.png" alt="在CODE上查看代码片" width="12" height="12" /></a></span><span class="tracking-ad" data-mod="popu\_170"><a title="派生到我的代码片" href="https://code.csdn.net/snippets/251145/fork" target="\_blank"><img src="https://code.csdn.net/assets/ico\_fork.svg" alt="派生到我的代码片" width="12" height="12" /></a></span></div> </div> <ol class="dp-xml" start="1"> <li class="alt"><span class="tag">&lt;</span><span class="tag-name">script</span> <span class="attribute">type</span>=<span class="attribute-value">“text/javascript”</span><span class="tag">&gt;</span></li> <li class="">        // this shows dynamic script insertion</li> <li class="alt">        var <span class="attribute">script</span> = <span class="attribute-value">document</span>.createElement(‘script’);</li> <li class="">        script.setAttribute(‘src’, url);</li> <li class="alt">        // load the script</li> <li class="">        document.getElementsByTagName(‘head’)[0].appendChild(script);</li> <li class="alt"><span class="tag">&lt;/</span><span class="tag-name">script</span><span class="tag">&gt;</span></li> </ol> </div> JSONP协议封装了上述步骤，jQuery中统一是现在AJAX中(其中data type为JSONP)： <a href="http://localhost:8080/test?callback=test\_handler">http://localhost:8080/test?callback=test\_handler</a> 为了支持JSONP协议，服务器端必须提供特别的支持[2]，另外JSONP只支持GET请求。 <h3><a name="t3"></a>2.2 Proxy</h3> 使用代理方式跨域更加直接，因为SOP的限制是浏览器实现的。如果请求不是从浏览器发起的，就不存在跨域问题了。 使用本方法跨域步骤如下： 1. 把访问其它域的请求替换为本域的请求 2. 本域的请求是服务器端的动态脚本负责转发实际的请求 各种服务器的Reverse Proxy功能都可以非常方便的实现请求的转发，如Apache httpd + mod_proxy。 Eg. 为了通过Ajax从<a href="http://localhost:8080访问http://localhost:8081/api，可以将请求发往http://localhost:8080/api。">http://localhost:8080访问http://localhost:8081/api，可以将请求发往http://localhost:8080/api。</a> 然后利用Apache Web服务器的Reverse Proxy功能做如下配置： ProxyPass /api <a href="http://localhost:8081/api">http://localhost:8081/api</a> <h3><a name="t4"></a>2.3 CORS</h3> <h3><a name="t5"></a>2.3.1 Cross origin resource sharing</h3> “Cross-origin resource sharing (CORS) is a mechanism that allows a web page to make XMLHttpRequests to another domain. Such “cross-domain” requests would otherwise be forbidden by web browsers, per the same origin security policy. CORS defines a way in which the browser and the server can interact to determine whether or not to allow the cross-origin request. It is more powerful than only allowing same-origin requests, but it is more secure than simply allowing all such cross-origin requests.” —-Wikipedia[3] 通过在HTTP Header中加入扩展字段，服务器在相应网页头部加入字段表示允许访问的domain和HTTP method，客户端检查自己的域是否在允许列表中，决定是否处理响应。 实现的基础是JavaScript不能够操作HTTP Header。某些浏览器插件实际上是具有这个能力的。 服务器端在HTTP的响应头中加入（页面层次的控制模式）： Access-Control-Allow-Origin: example.com Access-Control-Request-Method: GET, POST Access-Control-Allow-Headers: Content-Type, Authorization, Accept, Range, Origin Access-Control-Expose-Headers: Content-Range Access-Control-Max-Age: 3600 多个域名之间用逗号分隔，表示对所示域名提供跨域访问权限。”<em>“表示允许所有域名的跨域访问。 客户端可以有两种行为： 1. 发送OPTIONS请求，请求Access-Control信息。如果自己的域名在允许的访问列表中，则发送真正的请求，否则放弃请求发送。 2. 直接发送请求，然后检查response的Access-Control信息，如果自己的域名在允许的访问列表中，则读取response body，否则放弃。 本质上服务端的response内容已经到达本地，JavaScript决定是否要去读取。 Support: [Javascript Web Applications] </em> IE &gt;= 8 (需要安装caveat) <em> Firefox &gt;= 3 </em> Safari 完全支持 <em> Chrome 完全支持 </em> Opera 不支持 <h3><a name="t6"></a> 2.3.2 测试</h3> 测试页面<a href="http://localhost:8080/test3.html使用jquery发送Ajax请求。">http://localhost:8080/test3.html使用jquery发送Ajax请求。</a> <div class="dp-highlighter bg\_html"> <div class="bar"> <div class="tools"><b>[html]</b> <a class="ViewSource" title="view plain" href="http://blog.csdn.net/shimiso/article/details/21830313#">view plain</a><span data-mod="popu\_168"> <a class="CopyToClipboard" title="copy" href="http://blog.csdn.net/shimiso/article/details/21830313#">copy</a></span> <div><embed id="ZeroClipboardMovie\_4" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" type="application/x-shockwave-flash" width="18" height="18" align="middle" name="ZeroClipboardMovie\_4" data-mce-fragment="1"></embed></div> <span class="tracking-ad" data-mod="popu\_167"><a title="在CODE上查看代码片" href="https://code.csdn.net/snippets/251145" target="\_blank"><img src="https://code.csdn.net/assets/CODE\_ico.png" alt="在CODE上查看代码片" width="12" height="12" /></a></span><span class="tracking-ad" data-mod="popu\_170"><a title="派生到我的代码片" href="https://code.csdn.net/snippets/251145/fork" target="\_blank"><img src="https://code.csdn.net/assets/ico\_fork.svg" alt="派生到我的代码片" width="12" height="12" /></a></span></div> </div> <ol class="dp-xml" start="1"> <li class="alt"><span class="tag">&lt;</span><span class="tag-name">html</span><span class="tag">&gt;</span></li> <li class="">        <span class="tag">&lt;</span><span class="tag-name">head</span><span class="tag">&gt;</span><span class="tag">&lt;</span><span class="tag-name">title</span><span class="tag">&gt;</span>testing cross sop<span class="tag">&lt;/</span><span class="tag-name">title</span><span class="tag">&gt;</span><span class="tag">&lt;/</span><span class="tag-name">head</span><span class="tag">&gt;</span></li> <li class="alt">        <span class="tag">&lt;</span><span class="tag-name">body</span><span class="tag">&gt;</span></li> <li class="">            Testing.</li> <li class="alt">            <span class="tag">&lt;</span><span class="tag-name">script</span> <span class="attribute">src</span>=<span class="attribute-value">“jquery-2.0.0.min.js”</span><span class="tag">&gt;</span><span class="tag">&lt;/</span><span class="tag-name">script</span><span class="tag">&gt;</span></li> <li class="">            <span class="tag">&lt;</span><span class="tag-name">script</span> <span class="attribute">type</span>=<span class="attribute-value">‘text/javascript’</span><span class="tag">&gt;</span></li> <li class="alt">                $.ajax({</li> <li class="">                    url: ‘<a href="http://localhost:8000/hello&#39;">http://localhost:8000/hello&#39;</a>,</li> <li class="alt">                    success: function(data) {</li> <li class="">                        alert(data);</li> <li class="alt">                    },</li> <li class="">                    error: function() {</li> <li class="alt">                        alert(‘error’);</li> <li class="">                    }</li> <li class="alt">                });</li> <li class="">            <span class="tag">&lt;/</span><span class="tag-name">script</span><span class="tag">&gt;</span></li> <li class="alt">        <span class="tag">&lt;/</span><span class="tag-name">body</span><span class="tag">&gt;</span></li> <li class=""><span class="tag">&lt;/</span><span class="tag-name">html</span><span class="tag">&gt;</span></li> </ol> </div> 测试Restful API(<a href="http://localhost:8000/hello/{name})使用bottle.py来host。">http://localhost:8000/hello/{name})使用bottle.py来host。</a> from bottle import route, run, response @route(‘/hello’) def index(): return ‘Hello World.’ run(host=’localhost’, port=8000) 测试1： 测试正常的跨域请求的行为。 测试结果： 1. 跨域GET请求已经发出，请求header中带有 Origin    <a href="http://localhost:8080">http://localhost:8080</a> 2. 服务器端正确给出response 3. Javascript拒绝读取数据，在firebug中发现reponse为空，并且触发error回调 测试2： 测试支持CORS的服务器的跨域请求行为。 对Restful API做如下改动，在response中加入header： def index(): #Add CORS header# response.set_header(“Access-Control-Allow-Origin”, “<a href="http://localhost:8080&quot;">http://localhost:8080&quot;</a>) return ‘Hello World.’ 测试结果： 1. 跨域GET请求已经发出，请求header中带有 Origin    <a href="http://localhost:8080">http://localhost:8080</a> 2. 服务器端正确给出response 3. 客户端正常获取数据 测试3： 测试OPTIONS请求获取CORS信息。 对客户端的Ajax请求增加header： <div class="dp-highlighter bg\_html"> <div class="bar"> <div class="tools"><b>[html]</b> <a class="ViewSource" title="view plain" href="http://blog.csdn.net/shimiso/article/details/21830313#">view plain</a><span data-mod="popu\_168"> <a class="CopyToClipboard" title="copy" href="http://blog.csdn.net/shimiso/article/details/21830313#">copy</a></span> <div><embed id="ZeroClipboardMovie\_5" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" type="application/x-shockwave-flash" width="18" height="18" align="middle" name="ZeroClipboardMovie\_5" data-mce-fragment="1"></embed></div> <span class="tracking-ad" data-mod="popu\_167"><a title="在CODE上查看代码片" href="https://code.csdn.net/snippets/251145" target="\_blank"><img src="https://code.csdn.net/assets/CODE\_ico.png" alt="在CODE上查看代码片" width="12" height="12" /></a></span><span class="tracking-ad" data-mod="popu\_170"><a title="派生到我的代码片" href="https://code.csdn.net/snippets/251145/fork" target="\_blank"><img src="https://code.csdn.net/assets/ico\_fork.svg" alt="派生到我的代码片" width="12" height="12" /></a></span></div> </div> <ol class="dp-xml" start="1"> <li class="alt">$.ajax({</li> <li class="">          url: ‘<a href="http://localhost:8000/hello&#39;">http://localhost:8000/hello&#39;</a>,</li> <li class="alt">          headers: {‘Content-Type’: ‘text/html’},</li> <li class="">          success: function(data) {</li> <li class="alt">              alert(data);</li> <li class="">          },</li> <li class="alt">          error: function() {</li> <li class="">              alert(‘error’);</li> <li class="alt">          }</li> <li class="">      });</li> </ol> </div> 对Restful API做如下改动： @route(‘/hello’, method = [‘OPTIONS’, ‘GET’]) def index(): if request.method == ‘OPTIONS’: return ‘’ return ‘Hello World.’ 测试结果： 1. Ajax函数会首先发送OPTIONS请求 2. 针对OPTIONS请求服务器 3. 客户端发现没有CORS header后不会发送GET请求 测试4： 增加服务器端对OPTIONS方法的处理。 对Restful API做如下改动： @route(‘/hello’, method = [‘OPTIONS’, ‘GET’]) def index(): response.headers[‘Access-Control-Allow-Origin’] = ‘<a href="http://localhost:8080&#39;">http://localhost:8080&#39;</a> response.headers[‘Access-Control-Allow-Methods’] = ‘GET, OPTIONS’ response.headers[‘Access-Control-Allow-Headers’] = ‘Origin, Accept, Content-Type’ if request.method == ‘OPTIONS’: return ‘’ return ‘Hello World.’ 测试结果： 1. Ajax函数会首先发送OPTIONS请求 2. 针对OPTIONS请求服务器 3. 客户端匹配CORS header中的allow headers and orgin后会正确发送GET请求并获取结果 测试发现，Access-Control-Allow-Headers是必须的。 CORS协议提升了Ajax的跨域能力，但也增加了风险。一旦网站被注入脚本或XSS攻击，将非常方便的获取用户信息并悄悄传递出去。 <h3><a name="t7"></a>4. Cookie 同源策略</h3> Cookie中的同源只关注域名，忽略协议和端口。所以<a href="https://localhost:8080/和http://localhost:8081/的Cookie是共享的。">https://localhost:8080/和http://localhost:8081/的Cookie是共享的。</a> <h3><a name="t8"></a>5. Flash/SilverLight跨域</h3> 浏览器的各种插件也存在跨域需求。通常是通过在服务器配置crossdomain.xml[4]，设置本服务允许哪些域名的跨域访问。 客户端会首先请求此文件，如果发现自己的域名在访问列表里，就发起真正的请求，否则不发送请求。 &lt;?xml version=”1.0”?&gt; &lt;!DOCTYPE cross-domain-policy SYSTEM “<a href="http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd&quot;&gt;">http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd&quot;&gt;</a> <cross-domain-policy> <allow-access-from domain="*"/> <allow-http-request-headers-from domain="*" headers="*"/> </cross-domain-policy> 通常crossdomain.xml放置在网站根目录。 <h3><a name="t9"></a>6. 总结</h3> 互联网的发展催生了跨域访问的需求，各种跨域方法和协议满足了需求但也增加了各种风险。尤其是XSS和CSRF等攻击的盛行也得益于此。 了解这些技术背景有助于在实际项目中熟练应用并规避各种安全风险。 <h3><a name="t10"></a>Reference</h3> [1] 白帽子讲Web安全: <a href="http://book.douban.com/subject/10546925/">http://book.douban.com/subject/10546925/</a> [2] 使用 JSONP 实现跨域通信: <a href="http://www.ibm.com/developerworks/cn/web/wa-aj-jsonp1/">http://www.ibm.com/developerworks/cn/web/wa-aj-jsonp1/</a> [3] Cross-origin resource sharing: <a href="http://en.wikipedia.org/wiki/Cross-Origin\_Resource\_Sharing">http://en.wikipedia.org/wiki/Cross-Origin\_Resource\_Sharing</a> [4] Cross-domain policy for Flash movies: <a href="http://kb2.adobe.com/cps/142/tn\_14213.html">http://kb2.adobe.com/cps/142/tn\_14213.html</a></x-turndown></p>
-</script></iframe></p>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/16/nginx与node-js结合使用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/02/16/nginx与node-js结合使用/" class="post-title-link" itemprop="url">nginx与node.js结合使用</a>
+                <a href="/2017/269/" class="post-title-link" itemprop="url">nginx与node.js结合使用</a>
               
             
           </h2>
@@ -1264,7 +820,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/16/268/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/268/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1284,7 +840,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/02/16/268/" class="post-title-link" itemprop="url">npm 加速设置镜像站</a>
+                <a href="/2017/268/" class="post-title-link" itemprop="url">npm 加速设置镜像站</a>
               
             
           </h2>
@@ -1465,7 +1021,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/15/linux下查看文件和文件夹大小/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/267/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1485,7 +1041,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/02/15/linux下查看文件和文件夹大小/" class="post-title-link" itemprop="url">Linux下查看文件和文件夹大小</a>
+                <a href="/2017/267/" class="post-title-link" itemprop="url">Linux下查看文件和文件夹大小</a>
               
             
           </h2>
@@ -1666,7 +1222,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/15/mac查看文件夹大小/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/266/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1686,7 +1242,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/02/15/mac查看文件夹大小/" class="post-title-link" itemprop="url">mac查看文件夹大小</a>
+                <a href="/2017/266/" class="post-title-link" itemprop="url">mac查看文件夹大小</a>
               
             
           </h2>
@@ -1867,7 +1423,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/15/比特币客户端bitcoind的高级用法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/265/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1887,7 +1443,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/02/15/比特币客户端bitcoind的高级用法/" class="post-title-link" itemprop="url">比特币客户端bitcoind的高级用法</a>
+                <a href="/2017/265/" class="post-title-link" itemprop="url">比特币客户端bitcoind的高级用法</a>
               
             
           </h2>
@@ -2223,7 +1779,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/15/比特币bitcoin源代码安装编译/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/264/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2243,7 +1799,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/02/15/比特币bitcoin源代码安装编译/" class="post-title-link" itemprop="url">比特币Bitcoin源代码安装编译</a>
+                <a href="/2017/264/" class="post-title-link" itemprop="url">比特币Bitcoin源代码安装编译</a>
               
             
           </h2>
@@ -2464,7 +2020,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/13/crontab-使用日期时间命名重定向文件/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/256/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2484,7 +2040,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/12/13/crontab-使用日期时间命名重定向文件/" class="post-title-link" itemprop="url">crontab 使用日期时间命名重定向文件</a>
+                <a href="/2016/256/" class="post-title-link" itemprop="url">crontab 使用日期时间命名重定向文件</a>
               
             
           </h2>
@@ -2665,7 +2221,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/05/git查看、删除、重命名远程分支和tag/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/253/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2685,7 +2241,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/12/05/git查看、删除、重命名远程分支和tag/" class="post-title-link" itemprop="url">Git查看、删除、重命名远程分支和tag</a>
+                <a href="/2016/253/" class="post-title-link" itemprop="url">Git查看、删除、重命名远程分支和tag</a>
               
             
           </h2>
@@ -2885,6 +2441,415 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/250/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/250/" class="post-title-link" itemprop="url">为github帐号添加SSH keys</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-11-17 03:11:21" itemprop="dateCreated datePublished" datetime="2016-11-17T03:11:21+08:00">2016-11-17</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-16 15:59:57" itemprop="dateModified" datetime="2019-04-16T15:59:57+08:00">2019-04-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-git/" itemprop="url" rel="index"><span itemprop="name">积累________git</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">720</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">1 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>使用git clone命令从github上同步github上的代码库时，如果使用SSH链接，而你的SSH key没有添加到github帐号设置中，系统会报下面的错误： <code>Permission denied (publickey). fatal: The remote end hung up unexpectedly</code> 这时需要在本地创建SSH key，然后将生成的SSH key文件内容添加到github帐号上去。 创建SSH key的方法很简单，执行如下命令就可以： <code>ssh-keygen -t rsa -C &quot;yaozihao@yaozihao.cn&quot;</code> 然后系统提示输入文件保存位置等信息，连续敲三次回车即可，生成的SSH key文件保存在 <code>~/.ssh/id\_rsa.pub</code> 然后用文本编辑工具打开该文件，我用的是vim,所以命令是： <code>vim ~/.ssh/id\_rsa.pub</code> 接着拷贝.ssh/id_rsa.pub文件内的所以内容，将它粘帖到github帐号管理中的添加SSH key界面中。 打开github帐号管理中的添加SSH key界面的步骤如下：</p>
+<ol>
+<li>登录github</li>
+<li>点击右上方的Accounting settings图标</li>
+<li>选择 SSH key</li>
+<li>点击 Add SSH key 在出现的界面中填写SSH key的名称，填一个你自己喜欢的名称即可，然后将上面拷贝的~/.ssh/id_rsa.pub文件内容粘帖到key一栏，在点击“add key”按钮就可以了。 添加过程github会提示你输入一次你的github密码</li>
+</ol>
+<p>添加完成后再次执行git clone就可以成功克隆github上的代码库了。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/247/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/247/" class="post-title-link" itemprop="url">创建packagist composer库</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-10-26 21:44:45" itemprop="dateCreated datePublished" datetime="2016-10-26T21:44:45+08:00">2016-10-26</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-16 15:59:57" itemprop="dateModified" datetime="2019-04-16T15:59:57+08:00">2019-04-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-php/" itemprop="url" rel="index"><span itemprop="name">积累________php</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">1.1k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">1 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1.mkdir app &amp;&amp; cd app 2.composer init 3.vi composer.json <figure class="highlight plain"><figcaption><span>"name": "lomocoin/php-sdk", "description": "desc", "authors": [&#123; "name": "yaozihao", "email": "yaozihao@yaozihao.cn" &#125;], "require": &#123;&#125;, "autoload": &#123; "classmap": [ "lib/" ] &#125; &#125;```` 4.创建git库lomocoin/php-sdk 5.git remote add origin git@github.com:lomocoin/php-sdk 设置公钥略过 5.git add .&& git commit -am "init" && git pull orgin master && git push orgin master 6.创建tag composer包版本来自于git分支和tag，分支代表dev版本(除master外)，tag代表stable版本 7.git tag 1.0 && git push origin --tags 8.登录[https://packagist.org/](https://packagist.org/) 点击由上角的submit提交git仓库的地址 9.添加 GitHub Service Hook domain 指向packagist的地址 ![](https://segmentfault.com/img/bVsbmv)10.安装库 composer require 'yourname/yourpro:1.0.0 如果报错,执行composer update nothing：</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">``` `Potential causes: - A typo in the package name - The package is not available in a stable-enough version according to your min imum-stability setting see //groups.google.com/d/topic/composer-dev/_g3ASeIFlrc/discussion&gt; f or more details.`</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -2931,7 +2896,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">198</span>
+                    <span class="site-state-item-count">196</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2943,88 +2908,94 @@
                 <div class="site-state-item site-state-categories">
                   
                     
+                      <a href="/categories/">
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">39</span>
-                    <span class="site-state-item-name">categories</span>
                   
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
                 </div>
               
 
@@ -3032,6 +3003,10 @@
                 
                 
                 <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
                   
                     
                     
@@ -3057,7 +3032,7 @@
                     
                     <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">tags</span>
-                  
+                  </a>
                 </div>
               
             </nav>
@@ -3180,7 +3155,7 @@
     
       <span class="post-meta-item-text">Symbols count total: </span>
     
-    <span title="Symbols count total">571k</span>
+    <span title="Symbols count total">568k</span>
   
 
   
@@ -3191,7 +3166,7 @@
     
       <span class="post-meta-item-text">Reading time total &asymp;</span>
     
-    <span title="Reading time total">8:39</span>
+    <span title="Reading time total">8:36</span>
   
 </div>
 
@@ -3280,9 +3255,6 @@
 
 
 
-  
-  
-
 
 
 
@@ -3301,12 +3273,6 @@
 
   
   <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
-
-  
-  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three.min.js"></script>
-
-  
-  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three-waves.min.js"></script>
 
 
   

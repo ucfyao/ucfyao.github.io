@@ -362,7 +362,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/28/git常用命令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/72/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -382,425 +382,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2015/10/28/git常用命令/" class="post-title-link" itemprop="url">git常用命令</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2015-10-28 09:27:02" itemprop="dateCreated datePublished" datetime="2015-10-28T09:27:02+08:00">2015-10-28</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-git/" itemprop="url" rel="index"><span itemprop="name">积累________git</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">1.4k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">1 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>创建新仓库 git init</p>
-<p>检出仓库 有冲突的话合并这些 冲突（conflicts）。改完之后，你需要执行如下命令以将它们标记为合并成功： git add 在合并改动之前，也可以使用如下命令查看： git diff</p>
-<p>串创建一个本地仓库的克隆版本</p>
-<p>git clone /path/to/repositoty</p>
-<p>如果是远程服务器上的仓库</p>
-<p>git clone username@host:/path/to/repository 假如你想要丢弃你所有的本地改动与提交，可以到服务器上获取最新的版本并将你本地主分支指向到它： git fetch origin git reset –hard origin/master 你的本地仓库由 git 维护的三棵“树”组成。第一个是你的 工作目录，它持有实际件；第二个是 缓存区（Index），它像个缓存区域，临时保存你的改动；最后是 HEAD，指向你最近一次提交后的结果。 添加与提交</p>
-<p>你可以计划改动（把它们添加到缓存区），使用如下命令： git add git add * 这是 git 基本工作流程的第一步；使用如下命令以实际提交改动：</p>
-<p>git commit -m “代码提交信息” 现在，你的改动已经提交到了 HEAD，但是还没到你的远端仓库。推送改动 你的改动现在已经在本地仓库的 HEAD 中了。执行如下命令以将这些改动提交到远端仓库：</p>
-<p>git push origin master 可以把 master 换成你想要推送的任何分支。如果你还没有克隆现有仓库，并欲将你的仓库连接到某个远程服务器，你可以使用如下命令添加： git remote add origin 如此你就能够将你的改动推送到所添加的服务器上去</p>
-<p>分支</p>
-<p>分支是用来将特性开发绝缘开来的。在你创建仓库的时候，master 是“默认的”。在其他分支上进行开发，完成后再将它们合并到主分支上 创建一个叫做“feature_x”的分支，并切换过去： git checkout -b feature_x</p>
-<p>切换回主分支： git checkout master</p>
-<p>再把新建的分支删掉： git branch -d feature_x</p>
-<p>除非你将分支推送到远端仓库，不然该分支就是 不为他人所见的： git push origin</p>
-<p>更新与合并 要更新你的本地仓库至最新改动，执行： git pull 以在你的工作目录中 获取（fetch） 并 合并（merge） 远端的改动。</p>
-<p>要合并其他分支到你的当前分支（例如 master），执行： git merge 两种情况下，git 都会尝试去自动合并改动。不幸的是，自动合并并非次次都能成功，并可能导致 冲突（conflicts）。 这时候就需要你修改这些文件来人肉合并这些 冲突（conflicts） 了。改完之后，你需要执行如下命令以将它们标记为合并成功： git add 在合并改动之前，也可以使用如下命令查看： git diff</p>
-<p>替换本地改动 假如你做错事（自然，这是不可能的），你可以使用如下命令替换掉本地改动： git checkout – 此命令会使用 HEAD 中的最新内容替换掉你的工作目录中的文件。已添加到缓存区的改动，以及新文件，都不受影响。假如你想要丢弃你所有的本地改动与提交，可以到服务器上获取最新的版本并将你本地主分支指向到它： git fetch origin git reset –hard origin/master</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/28/git本地版本控制分支工作流/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2015/10/28/git本地版本控制分支工作流/" class="post-title-link" itemprop="url">git本地版本控制分支工作流</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2015-10-28 09:14:32" itemprop="dateCreated datePublished" datetime="2015-10-28T09:14:32+08:00">2015-10-28</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-git/" itemprop="url" rel="index"><span itemprop="name">积累________git</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">635</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">1 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>*首次创建时候使用。创建+切换分支 $ git checkout -b work 去自己的工作分支 $ git checkout work 工作 …. 添加并提交工作分支全部修改 $ git commit -a 回到主分支 $ git checkout master 获取远程最新的修改，此时不会产生冲突 $ git pull 回到工作分支 $ git checkout work 用rebase合并主干的修改，如果有冲突在此时解决 $ git rebase master 回到主分支 $ git checkout master 合并工作分支的修改，此时不会产生冲突。 $ git merge work 提交到远程主干 $ git push 在master分支上进行了任何提交，新分支合并时就会出现冲突，切记，切记。   Git鼓励大量使用分支(命令介绍)： 查看分支：git branch 创建分支：git branch 切换分支：git checkout 创建+切换分支：git checkout -b 合并某分支到当前分支：git merge 本地文件修改(手工merge)完成后,要添加并提交,使得本地版本处于clean的状态. 删除分支：git branch -d 合并后冲突解决办法 1. 提交全部 git commit -a 2. 如果不想提交全部,那么可以通过添加 -i 选项 git commit file/to/path -i -m “merge”</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/24/http协议详解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2015/10/24/http协议详解/" class="post-title-link" itemprop="url">HTTP协议详解</a>
+                <a href="/2015/72/" class="post-title-link" itemprop="url">HTTP协议详解</a>
               
             
           </h2>
@@ -993,7 +575,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/23/linux中vim保存root权限的文件/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/69/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1013,7 +595,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2015/10/23/linux中vim保存root权限的文件/" class="post-title-link" itemprop="url">linux中vim保存root权限的文件</a>
+                <a href="/2015/69/" class="post-title-link" itemprop="url">linux中vim保存root权限的文件</a>
               
             
           </h2>
@@ -1194,7 +776,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/19/windows如何连接samba服务器/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/59/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1214,7 +796,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2015/10/19/windows如何连接samba服务器/" class="post-title-link" itemprop="url">windows如何连接samba服务器</a>
+                <a href="/2015/59/" class="post-title-link" itemprop="url">windows如何连接samba服务器</a>
               
             
           </h2>
@@ -1395,7 +977,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/15/linux和windows协同合作的samba服务器配置/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/52/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1415,7 +997,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2015/10/15/linux和windows协同合作的samba服务器配置/" class="post-title-link" itemprop="url">linux和windows协同合作的samba服务器配置</a>
+                <a href="/2015/52/" class="post-title-link" itemprop="url">linux和windows协同合作的samba服务器配置</a>
               
             
           </h2>
@@ -1603,7 +1185,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/13/windows下开发php5-5的扩展/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/50/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1623,7 +1205,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2015/10/13/windows下开发php5-5的扩展/" class="post-title-link" itemprop="url">windows下开发php5.5的扩展</a>
+                <a href="/2015/50/" class="post-title-link" itemprop="url">windows下开发php5.5的扩展</a>
               
             
           </h2>
@@ -1843,7 +1425,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/13/xdebug在php安装配置/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/48/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1863,7 +1445,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2015/10/13/xdebug在php安装配置/" class="post-title-link" itemprop="url">xdebug在php安装配置</a>
+                <a href="/2015/48/" class="post-title-link" itemprop="url">xdebug在php安装配置</a>
               
             
           </h2>
@@ -2044,7 +1626,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/10/js银行卡号luhm校验/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/46/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2064,7 +1646,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2015/10/10/js银行卡号luhm校验/" class="post-title-link" itemprop="url">js银行卡号Luhm校验</a>
+                <a href="/2015/46/" class="post-title-link" itemprop="url">js银行卡号Luhm校验</a>
               
             
           </h2>
@@ -2321,7 +1903,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/09/mongodb衍伸的互联网思考/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/40/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2341,7 +1923,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2015/10/09/mongodb衍伸的互联网思考/" class="post-title-link" itemprop="url">mongodb衍伸的互联网思考</a>
+                <a href="/2015/40/" class="post-title-link" itemprop="url">mongodb衍伸的互联网思考</a>
               
             
           </h2>
@@ -2507,6 +2089,408 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/37/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2015/37/" class="post-title-link" itemprop="url">面向对象的基础五</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2015-09-06 23:53:55" itemprop="dateCreated datePublished" datetime="2015-09-06T23:53:55+08:00">2015-09-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-16 15:59:57" itemprop="dateModified" datetime="2019-04-16T15:59:57+08:00">2019-04-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-面向对象/" itemprop="url" rel="index"><span itemprop="name">积累________面向对象</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">755</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">1 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>接口的定义和规范 接口是把隐式公共方法和属性组合起来，以封装特定的功能的一个集合。一旦类实现了接口，类就可以支持接口所指定的所有属性和成员。声明接口在语法上与声明抽象类完全相同，但不允许提供接口中任何成员的执行方式。 所以接口不能实例化，不能有构造方法和字段；抽象方法只能是public的，不能设置为private活着protected类型；即使是abstract何final修饰符也不能修饰接口中的抽象方法。而接口中保留了静态抽象方法。 实现接口必须实现接口中的所有的方法和属性。 一个类可以支持多个接口，多个类也可以支持相同的接口。 说白了，接口是抽象方法和静态常量定义的集合。接口是一种特殊的抽象类，这种抽象类中只包含抽象方法和静态常量。 关于抽象类和接口的区别： 抽象类可以给出一些成员的实现，接口却不包含成员的实现，抽象类的抽象成员可被子类部分实现，接口的成员需要实现类完全实现，一个类只能继承一个抽象类，但可以实现多个接口等。 第一：类是对对象的抽象；抽象类是对类的抽象；接口是对行为的抽象。 也就是说接口是对类的局部行为进行的抽象，而抽象类是对类整体的抽象。 第二：如果行为跨越不同类的对象，可使用接口；对于一些相似的类对象，用继承抽象类。实现接口和继承抽象类并不冲突。 第三：从设计角度讲，抽象类是从子类中发现公共的东西，泛化出父类，然后子类继承父类，而接口根本不知子类的存在，方法如何实现还不确定，预先定义。   关于接口继承：php5中类是单继承，但是接口很特殊，一个接口可以继承自多个接口，一个接口继承其它接口时候，直接继承接口的静态常量属性和抽象方法。 接口和接口之间继承要使用extends关键字。 类实现接口必须实现其抽象方法，使用实现关键字implements。 接口实现继承：</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/35/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2015/35/" class="post-title-link" itemprop="url">面向对象的基础四</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2015-09-06 20:50:02" itemprop="dateCreated datePublished" datetime="2015-09-06T20:50:02+08:00">2015-09-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-16 15:59:57" itemprop="dateModified" datetime="2019-04-16T15:59:57+08:00">2019-04-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-面向对象/" itemprop="url" rel="index"><span itemprop="name">积累________面向对象</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">972</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">1 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>c#允许把类和方法声明为abstract，即抽象类和抽象方法。 第一：抽象类不能被实例化。 第二：抽象方法是必须被子类重写的方法。抽象方法只有方法的声明，而没有方法的实现内容。 第三：如果类中包含抽象方法，那么就必须定义为抽象类，不论是否还包含其他一般方法。 抽象类拥有尽可能多的共同代码，拥有尽可能少的数据。 抽象类通常代表一个抽象概念，它提供了一个继承的出发点，当设计一个新的抽象类时，一定使用来继承的。所以，在一个以继承关系形成的等级结构里面，树叶节点应当是具体类，而树枝节点均应当是抽象类。 抽象类继承抽象类，目的是对抽象类的扩展，不能重写其中的抽象方法 //定义一个抽象类 abstract class User{ public function __toString(){ return get_class($this); } } //实例化这个类会出错 //echo new user(); class NormalUser ?extends User{ } $a = new NormalUser(); echo ‘这是类’; echo $a; echo ‘的实例’; 单独设置一个抽象类是没有意义的，只有有了抽象方法，抽象类才有类血肉。 abstract ?class User{ protected ?$sal = 0; //这里定义抽象方法。抽象方法没有方法体，而且方法结束使用;号。 abstract ?function getSal(); abstract ?function setSal($sal); //这里定义它的__tostring方法 public function ?__toString(){ return get_class($this); } } //此时类继承这个抽象类必须要重写这个两个抽象方法。哪怕是{}空的方法体 //注意：1.不能缺少参数。2.不能多余的参数。3.参数类型不能错误。 class NormalUser extends ?User{ function getSal(){} function setSal($sal){} } 抽象方法没有{}，而采用；结束。参数的数量和类型必须一致 PHP5.0和5.1的类中允许静态抽象方法。在5.2以上，只有接口可以拥有静态抽象方法。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -2553,7 +2537,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">198</span>
+                    <span class="site-state-item-count">196</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2565,88 +2549,94 @@
                 <div class="site-state-item site-state-categories">
                   
                     
+                      <a href="/categories/">
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">39</span>
-                    <span class="site-state-item-name">categories</span>
                   
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
                 </div>
               
 
@@ -2654,6 +2644,10 @@
                 
                 
                 <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
                   
                     
                     
@@ -2679,7 +2673,7 @@
                     
                     <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">tags</span>
-                  
+                  </a>
                 </div>
               
             </nav>
@@ -2802,7 +2796,7 @@
     
       <span class="post-meta-item-text">Symbols count total: </span>
     
-    <span title="Symbols count total">571k</span>
+    <span title="Symbols count total">568k</span>
   
 
   
@@ -2813,7 +2807,7 @@
     
       <span class="post-meta-item-text">Reading time total &asymp;</span>
     
-    <span title="Reading time total">8:39</span>
+    <span title="Reading time total">8:36</span>
   
 </div>
 
@@ -2902,9 +2896,6 @@
 
 
 
-  
-  
-
 
 
 
@@ -2923,12 +2914,6 @@
 
   
   <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
-
-  
-  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three.min.js"></script>
-
-  
-  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three-waves.min.js"></script>
 
 
   

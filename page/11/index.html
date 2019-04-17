@@ -362,7 +362,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/29/python使用xlsxwriter生成excel周报日周的统计图表/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/454/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -382,409 +382,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/03/29/python使用xlsxwriter生成excel周报日周的统计图表/" class="post-title-link" itemprop="url">python使用xlsxwriter生成excel周报日周的统计图表</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2017-03-29 11:10:12" itemprop="dateCreated datePublished" datetime="2017-03-29T11:10:12+08:00">2017-03-29</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">2.9k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">3 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>文档：<span class="exturl" data-url="aHR0cHM6Ly94bHN4d3JpdGVyLnJlYWR0aGVkb2NzLmlvL2NoYXJ0Lmh0bWw=" title="https://xlsxwriter.readthedocs.io/chart.html">https://xlsxwriter.readthedocs.io/chart.html<i class="fa fa-external-link"></i></span></p>
-<h2 id="案例一"><a href="#案例一" class="headerlink" title="案例一"></a>案例一</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">案例二</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">``` #coding: utf-8 import xlsxwriter import random def get\_num(): return random.randrange(0, 201, 2) workbook = xlsxwriter.Workbook(&apos;analyse\_spider.xlsx&apos;) #创建一个Excel文件 worksheet = workbook.add\_worksheet() #创建一个工作表对象 chart = workbook.add\_chart(&#123;&apos;type&apos;: &apos;column&apos;&#125;) #创建一个图表对象 #定义数据表头列表 title = \[u&apos;业务名称&apos;,u&apos;星期一&apos;,u&apos;星期二&apos;,u&apos;星期三&apos;,u&apos;星期四&apos;,u&apos;星期五&apos;,u&apos;星期六&apos;,u&apos;星期日&apos;,u&apos;平均流量&apos;\] buname= \[u&apos;时光网&apos;,u&apos;汽车之家&apos;,u&apos;weixin.com&apos;,u&apos;163.com&apos;,u&apos;baidu.com&apos;\] #定义频道名称 #定义5频道一周7天流量数据列表 data = \[\] for i in range(5): tmp = \[\] for j in range(7): tmp.append(get\_num()) data.append(tmp) format=workbook.add\_format() #定义format格式对象 format.set\_border(1) #定义format对象单元格边框加粗(1像素)的格式 format\_title=workbook.add\_format() #定义format\_title格式对象 format\_title.set\_border(1) #定义format\_title对象单元格边框加粗(1像素)的格式 format\_title.set\_bg\_color(&apos;#cccccc&apos;) #定义format\_title对象单元格背景颜色为 #&apos;#cccccc&apos;的格式 format\_title.set\_align(&apos;center&apos;) #定义format\_title对象单元格居中对齐的格式 format\_title.set\_bold() #定义format\_title对象单元格内容加粗的格式 format\_ave=workbook.add\_format() #定义format\_ave格式对象 format\_ave.set\_border(1) #定义format\_ave对象单元格边框加粗(1像素)的格式 format\_ave.set\_num\_format(&apos;0.00&apos;) #定义format\_ave对象单元格数字类别显示格式 #下面分别以行或列写入方式将标题、业务名称、流量数据写入起初单元格，同时引用不同格式对象 worksheet.write\_row(&apos;A1&apos;,title,format\_title) worksheet.write\_column(&apos;A2&apos;, buname,format) worksheet.write\_row(&apos;B2&apos;, data\[0\],format) worksheet.write\_row(&apos;B3&apos;, data\[1\],format) worksheet.write\_row(&apos;B4&apos;, data\[2\],format) worksheet.write\_row(&apos;B5&apos;, data\[3\],format) worksheet.write\_row(&apos;B6&apos;, data\[4\],format) #定义图表数据系列函数 def chart\_series(cur\_row): worksheet.write\_formula(&apos;I&apos;+cur\_row, \ &apos;=AVERAGE(B&apos;+cur\_row+&apos;:H&apos;+cur\_row+&apos;)&apos;,format\_ave) #计算（AVERAGE函数）频 #道周平均流量 chart.add\_series(&#123; &apos;categories&apos;: &apos;=Sheet1!$B$1:$H$1&apos;, #将“星期一至星期日”作为图表数据标签(X轴) &apos;values&apos;: &apos;=Sheet1!$B$&apos;+cur\_row+&apos;:$H$&apos;+cur\_row, #频道一周所有数据作 #为数据区域 &apos;line&apos;: &#123;&apos;color&apos;: &apos;black&apos;&#125;, #线条颜色定义为black(黑色) &apos;name&apos;: &apos;=Sheet1!$A$&apos;+cur\_row, #引用业务名称为图例项 &#125;) for row in range(2, 7): #数据域以第2～6行进行图表数据系列函数调用 chart\_series(str(row)) chart.set\_size(&#123;&apos;width&apos;: 577, &apos;height&apos;: 287&#125;) #设置图表大小 chart.set\_title (&#123;&apos;name&apos;: u&apos;爬虫分析&apos;&#125;) #设置图表（上方）大标题 chart.set\_y\_axis(&#123;&apos;name&apos;: &apos;count&apos;&#125;) #设置y轴（左侧）小标题 worksheet.insert\_chart(&apos;A8&apos;, chart) #在A8单元格插入图表 workbook.close() #关闭Excel文档 ![](http://www.yaozihao.cn/wp-content/uploads/2017/03/屏幕快照-2017-03-29-11.07.12.png)</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/29/mac-常用工具推荐/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/03/29/mac-常用工具推荐/" class="post-title-link" itemprop="url">mac 常用工具推荐</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2017-03-29 09:17:59" itemprop="dateCreated datePublished" datetime="2017-03-29T09:17:59+08:00">2017-03-29</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-mac/" itemprop="url" rel="index"><span itemprop="name">积累________mac</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">134</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">1 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>包管理工具：brew mysql GUI ：<span class="exturl" data-url="aHR0cHM6Ly9zZXF1ZWxwcm8uY29tLw==" title="https://sequelpro.com/">sequelpro<i class="fa fa-external-link"></i></span> php IDE：phpstorm python IDE：PyCharm web IDE：webstorm go IDE：IntelliJ IDEA 文本编辑：sublime Text 命令行：item2</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/28/linux和windows协同合作的samba4-安装配置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/03/28/linux和windows协同合作的samba4-安装配置/" class="post-title-link" itemprop="url">linux和windows协同合作的samba4 安装配置</a>
+                <a href="/2017/454/" class="post-title-link" itemprop="url">linux和windows协同合作的samba4 安装配置</a>
               
             
           </h2>
@@ -976,7 +574,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/27/python-pandas模块hdf5追加保存/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/453/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -996,7 +594,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/03/27/python-pandas模块hdf5追加保存/" class="post-title-link" itemprop="url">Python Pandas模块hdf5追加保存</a>
+                <a href="/2017/453/" class="post-title-link" itemprop="url">Python Pandas模块hdf5追加保存</a>
               
             
           </h2>
@@ -1177,7 +775,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/27/使用pandas-压缩存储hdf5文件-2/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/451/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1197,7 +795,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/03/27/使用pandas-压缩存储hdf5文件-2/" class="post-title-link" itemprop="url">使用pandas 压缩存储hdf5文件</a>
+                <a href="/2017/451/" class="post-title-link" itemprop="url">使用pandas 压缩存储hdf5文件</a>
               
             
           </h2>
@@ -1380,7 +978,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/27/使用pandas-压缩存储hdf5文件/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/450/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1400,7 +998,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/03/27/使用pandas-压缩存储hdf5文件/" class="post-title-link" itemprop="url">使用pandas 压缩存储hdf5文件</a>
+                <a href="/2017/450/" class="post-title-link" itemprop="url">使用pandas 压缩存储hdf5文件</a>
               
             
           </h2>
@@ -1588,7 +1186,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/25/439/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/439/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1608,7 +1206,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/03/25/439/" class="post-title-link" itemprop="url">Jupyter Notebook 交互式笔记本</a>
+                <a href="/2017/439/" class="post-title-link" itemprop="url">Jupyter Notebook 交互式笔记本</a>
               
             
           </h2>
@@ -1810,7 +1408,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/24/python-的常用时间操作/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/438/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1830,7 +1428,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/03/24/python-的常用时间操作/" class="post-title-link" itemprop="url">python 的常用时间操作</a>
+                <a href="/2017/438/" class="post-title-link" itemprop="url">python 的常用时间操作</a>
               
             
           </h2>
@@ -2010,7 +1608,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/18/ubuntu-使用apt-get-install-安装php5-6-php7/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/388/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2030,7 +1628,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/03/18/ubuntu-使用apt-get-install-安装php5-6-php7/" class="post-title-link" itemprop="url">ubuntu 使用apt-get install 安装php5.6--php7</a>
+                <a href="/2017/388/" class="post-title-link" itemprop="url">ubuntu 使用apt-get install 安装php5.6--php7</a>
               
             
           </h2>
@@ -2218,7 +1816,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/15/各种编译器破解码/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/386/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2238,7 +1836,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/03/15/各种编译器破解码/" class="post-title-link" itemprop="url">各种编译器破解码</a>
+                <a href="/2017/386/" class="post-title-link" itemprop="url">各种编译器破解码</a>
               
             
           </h2>
@@ -2404,6 +2002,438 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/384/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017/384/" class="post-title-link" itemprop="url">pythonbrew：管理不同Python版本的利器</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-03-15 21:11:49" itemprop="dateCreated datePublished" datetime="2017-03-15T21:11:49+08:00">2017-03-15</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">2.3k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">2 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>当你需要在一台机器上同时安装多个不同版本的python的时候，你可能就需要使用 <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3V0YWh0YS9weXRob25icmV3" title="https://github.com/utahta/pythonbrew">pythonbrew<i class="fa fa-external-link"></i></span> 。 pythonbrew可以帮你下载安装不同版本的python并且可以自由的在多个版本间进行切换,它和ruby的rvm类似。 Pythonbrew可以安装不同版本的Python，并且进行版本切换，还整合了Virtualenv。可惜该项目已经不再积极开发中，用户可以尝试它替代<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3l5dXUvcHllbnY=" title="https://github.com/yyuu/pyenv">pyenv<i class="fa fa-external-link"></i></span>。</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ul>
+<li><p>终端输入 <code>curl -kL http://xrl.us/pythonbrewinstall | bash</code></p>
+<p>执行完成之后它会安装在 <code>~/.pythonbrew.</code> 目录下 如果你想将pythonbrew安装到指定的位置你需要这样做 <figure class="highlight plain"><figcaption><span>PYTHONBREW_ROOT</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line"></span><br><span class="line">*   在 `~/.bashrc` 添加`[[ -s $HOME/.pythonbrew/etc/bashrc ]] &amp;&amp; source $HOME/.pythonbrew/etc/bashrc`</span><br><span class="line"></span><br><span class="line">使用</span><br><span class="line">==</span><br><span class="line"></span><br><span class="line">pythonbrew command \[options\] 1. 安装不同版本的python ``` pythonbrew install 2.7.2 pythonbrew install --verbose 2.7.2 pythonbrew install --test 2.7.2 pythonbrew install --test --force 2.7.2 pythonbrew install --configure=&quot;CC=gcc_4.1&quot; 2.7.2 pythonbrew install --no-setuptools 2.7.2 pythonbrew install http://www.python.org/ftp/python/2.7/Python-2.7.2.tgz pythonbrew install /path/to/Python-2.7.2.tgz pythonbrew install /path/to/Python-2.7.2 pythonbrew install 2.7.2 3.2``` 2. 永久使用某版本python</span><br><span class="line"></span><br><span class="line">pythonbrew switch 2.7.2</span><br><span class="line"></span><br><span class="line">pythonbrew switch 3.2</span><br></pre></td></tr></table></figure></p>
+</li>
+</ul>
+<p>3. 在当前shell下使用某版本python<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pythonbrew use 2.7.2</span><br></pre></td></tr></table></figure></p>
+<p>4. 用某版本或所有版本python运行一个python文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pythonbrew py test.py</span><br><span class="line"></span><br><span class="line">pythonbrew py -v test.py \# Show verbose output</span><br><span class="line"></span><br><span class="line">pythonbrew py -p 2.7.2 -p 3.2 test.py \# Use the specified pythons</span><br></pre></td></tr></table></figure></p>
+<p>5. 列出已安装的python</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pythonbrew list</span><br></pre></td></tr></table></figure>
+<p>6. 列出可安装的python</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pythonbrew list -k</span><br></pre></td></tr></table></figure>
+<p>7. 卸载某版本python</p>
+<p>pythonbrew uninstall 2.7.2</p>
+<p>pythonbrew uninstall 2.7.2 3.2<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">8\. 删除源文件存档：</span><br></pre></td></tr></table></figure></p>
+<p>pythonbrew cleanup<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">9\. 更新pythonbrew</span><br></pre></td></tr></table></figure></p>
+<p>pythonbrew update</p>
+<p>pythonbrew update –master</p>
+<p>pythonbrew update –develop<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10\. 禁用pythonbrew</span><br></pre></td></tr></table></figure></p>
+<p>pythonbrew off<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">11\. 添加或删除python符号链结</span><br><span class="line"></span><br><span class="line">pythonbrew symlink \# Create a symbolic link, like %py2.7.2%;, for each installed version</span><br><span class="line"></span><br><span class="line">pythonbrew symlink -p 2.7.2</span><br><span class="line"></span><br><span class="line">pythonbrew symlink pip \# Create a symbolic link to the specified script in bin directory</span><br><span class="line"></span><br><span class="line">pythonbrew symlink -r \# Remove a symbolic link</span><br><span class="line"></span><br><span class="line">pythonbrew symlink -v foo \# Create a symbolic link to the specified virtual environment python in bin directory</span><br></pre></td></tr></table></figure></p>
+<p>12. 运行buildout</p>
+<p>pythonbrew buildout</p>
+<p>pythonbrew buildout -p 2.6.6<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">13\. 基于virtualenv创造一个虚拟python环境</span><br><span class="line"></span><br><span class="line">pythonbrew venv init</span><br><span class="line"></span><br><span class="line">pythonbrew venv create proj</span><br><span class="line"></span><br><span class="line">pythonbrew venv list</span><br><span class="line"></span><br><span class="line">pythonbrew venv use proj</span><br><span class="line"></span><br><span class="line">pythonbrew venv delete proj</span><br><span class="line"></span><br><span class="line">pythonbrew venv rename proj proj2</span><br><span class="line"></span><br><span class="line">pythonbrew venv clone proj proj2</span><br></pre></td></tr></table></figure></p>
+<p>github主页：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3V0YWh0YS9weXRob25icmV3" title="https://github.com/utahta/pythonbrew">https://github.com/utahta/pythonbrew<i class="fa fa-external-link"></i></span></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/379/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017/379/" class="post-title-link" itemprop="url">阿里云vps上mysql挂掉的解决办法</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-03-14 14:31:30" itemprop="dateCreated datePublished" datetime="2017-03-14T14:31:30+08:00">2017-03-14</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-16 15:59:57" itemprop="dateModified" datetime="2019-04-16T15:59:57+08:00">2019-04-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-linux/" itemprop="url" rel="index"><span itemprop="name">积累________linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-linux/积累-mysql/" itemprop="url" rel="index"><span itemprop="name">积累________mysql</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">1.5k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">1 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>用阿里云的vps用作blog服务器，系统很稳定，已经100多天一直运行正常，大概从上个月开始发现blog的mysql会有时挂掉，会收到短信通知。之前没太追究，重新启动了mysql解决的。今天上午又收到短信，已经第三次了。 查了一下日志，三次基本都是一样的： <code>130728 6:50:14 \[Note\] Plugin &#39;FEDERATED&#39; is disabled. 130728 6:50:14 InnoDB: The InnoDB memory heap is disabled 130728 6:50:14 InnoDB: Mutexes and rw\_locks use GCC atomic builtins 130728 6:50:14 InnoDB: Compressed tables use zlib 1.2.3.4 130728 6:50:14 InnoDB: Initializing buffer pool, size = 128.0M InnoDB: mmap(137363456 bytes) failed; errno 12 130728 6:50:14 InnoDB: Completed initialization of buffer pool 130728 6:50:14 InnoDB: Fatal error: cannot allocate memory for the buffer pool 130728 6:50:14 \[ERROR\] Plugin &#39;InnoDB&#39; init function returned error. 130728 6:50:14 \[ERROR\] Plugin &#39;InnoDB&#39; registration as a STORAGE ENGINE failed. 130728 6:50:14 \[ERROR\] Unknown/unsupported storage engine: InnoDB 130728 6:50:14 \[ERROR\] Aborting 130728 6:50:14 \[Note\] /usr/sbin/mysqld: Shutdown complete</code> 解决方法： 1) 在 /etc/mysql/my.cnf 的 mysqld 下增加下面一句： <code>innodb\_buffer\_pool\_size = 64M</code> 还要设置一下swap分区，因为我的vps是没有swap分区的，通过fdisk -l 和 1mount 看不到swap的信息，需要手动添加一下。 2) 添加swap分区的步骤： <code>2.1) dd if=/dev/zero of=/swapfile bs=1M count=1024 2.2) mkswap /swapfile 2.3) swapon /swapfile 2.4) 添加这行： /swapfile swap swap defaults 0 0 到 /etc/fstab</code> 目前已经设置了swap分区，并重启了mysql，后续观察一下看看还会不会出现吧。 参考：<span class="exturl" data-url="aHR0cDovL3N0YWNrb3ZlcmZsb3cuY29tL3F1ZXN0aW9ucy8xMDI4NDUzMi9hbWF6b24tZWMyLW15c3FsLWFib3J0aW5nLXN0YXJ0LWJlY2F1c2UtaW5ub2RiLW1tYXAteC1ieXRlcy1mYWlsZWQtZXJybm8tMTI=" title="http://stackoverflow.com/questions/10284532/amazon-ec2-mysql-aborting-start-because-innodb-mmap-x-bytes-failed-errno-12">http://stackoverflow.com/questions/10284532/amazon-ec2-mysql-aborting-start-because-innodb-mmap-x-bytes-failed-errno-12<i class="fa fa-external-link"></i></span> 补充，经过近2个月观察，没再发生down掉的情况。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -2450,7 +2480,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">198</span>
+                    <span class="site-state-item-count">196</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2462,88 +2492,94 @@
                 <div class="site-state-item site-state-categories">
                   
                     
+                      <a href="/categories/">
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">39</span>
-                    <span class="site-state-item-name">categories</span>
                   
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
                 </div>
               
 
@@ -2551,6 +2587,10 @@
                 
                 
                 <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
                   
                     
                     
@@ -2576,7 +2616,7 @@
                     
                     <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">tags</span>
-                  
+                  </a>
                 </div>
               
             </nav>
@@ -2699,7 +2739,7 @@
     
       <span class="post-meta-item-text">Symbols count total: </span>
     
-    <span title="Symbols count total">571k</span>
+    <span title="Symbols count total">568k</span>
   
 
   
@@ -2710,7 +2750,7 @@
     
       <span class="post-meta-item-text">Reading time total &asymp;</span>
     
-    <span title="Reading time total">8:39</span>
+    <span title="Reading time total">8:36</span>
   
 </div>
 
@@ -2799,9 +2839,6 @@
 
 
 
-  
-  
-
 
 
 
@@ -2820,12 +2857,6 @@
 
   
   <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
-
-  
-  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three.min.js"></script>
-
-  
-  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three-waves.min.js"></script>
 
 
   

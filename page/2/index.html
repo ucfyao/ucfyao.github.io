@@ -362,7 +362,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/14/ssshardowsocksfsfinal-speed带你飞/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/687/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -382,212 +382,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/11/14/ssshardowsocksfsfinal-speed带你飞/" class="post-title-link" itemprop="url">SS(shardowsocks)+FS(Final speed)带你飞</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2017-11-14 15:03:38" itemprop="dateCreated datePublished" datetime="2017-11-14T15:03:38+08:00">2017-11-14</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/" itemprop="url" rel="index"><span itemprop="name">日常________经验分享</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">2.2k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">2 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>早期我曾通过goagent、xx-net勉强能浏览google学术等（你懂的） 网站，但至今很久没用过了，主要原因这东西是免费的访问速度、稳定性都很受限，当有限资源满足不了现代人类的欲望时，他们会寻求捷径以获得更多资源，我亦如此。三十而立了，越来越有欲望自己搞点什么，结合自己三十年来学到的东西，不追求利益就出于兴趣玩玩，于是乎有了需要查询的需求，于是乎我做了这件事情，留此文。</p>
-<h2 id="1、租用服务器资源"><a href="#1、租用服务器资源" class="headerlink" title="1、租用服务器资源"></a>1、租用服务器资源</h2><p>我在gigsgiscloud上租用了个最便宜的香港vps，2刀一月。 OS：CentOS 6 Men: 512M bandwith:500G/Mon （完全足够） disk: 30G</p>
-<h2 id="2、服务端软件安装"><a href="#2、服务端软件安装" class="headerlink" title="2、服务端软件安装"></a>2、服务端软件安装</h2><p>root用户（ssh）登陆vps 一键安装SS： <code>wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks\_install/master/shadowsocks.sh chmod +x shadowsocks.sh ./shadowsocks.sh 2&gt;&amp;1 | tee shadowsocks.log</code> 安装成功提示： <code>Congratulations, shadowsocks install completed! Your Server IP:your\_server\_ip Your Server Port:8989 Your Password:your\_password Your Local IP:127.0.0.1 Your Local Port:1080 Your Encryption Method:aes-256-cfb Welcome to visit:http://teddysun.com/342.htmlEnjoy it!</code> 用户配置文件： <code>路径/etc/ shadowsocks.json { &quot;server&quot;:&quot;your\_server\_ip&quot;, &quot;server\_port&quot;:8989, &quot;local\_address&quot;:&quot;127.0.0.1&quot;, &quot;local\_port&quot;:1080, &quot;password&quot;:&quot;yourpassword&quot;, &quot;timeout&quot;:300, &quot;method&quot;:&quot;aes-256-cfb&quot;, &quot;fast\_open&quot;: false }</code> 同时可以配置多用户。 启动：<code>/etc/init.d/shadowsocks start</code> 停止：<code>/etc/init.d/shadowsocks stop</code> 重启<code>：/etc/init.d/shadowsocks restart</code> 状态<code>：/etc/init.d/shadowsocks status</code> 一键安装FS，不要装成了XS，XS是收费的： root用户执行以下命令： <code>rm -f install\_fs.sh wget  https://github.com/dupontjoy/customization/raw/master/Rules/Shadowsocks/Finalspeed/install\_fs.sh chmod +x install\_fs.sh ./install\_fs.sh 2&gt;&amp;1 | tee install.log 启动：sh /fs/start.sh 停止：sh /fs/stop.sh</code></p>
-<h2 id="3、客户端配置"><a href="#3、客户端配置" class="headerlink" title="3、客户端配置"></a>3、客户端配置</h2><p>下载SS客户端：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NoYWRvd3NvY2tzL3NoYWRvd3NvY2tzL3dpa2kvUG9ydHMtYW5kLUNsaWVudHMjd2luZG93cw==" title="https://github.com/shadowsocks/shadowsocks/wiki/Ports-and-Clients#windows">https://github.com/shadowsocks/shadowsocks/wiki/Ports-and-Clients#windows<i class="fa fa-external-link"></i></span> 下载安装FS客户端：<span class="exturl" data-url="aHR0cHM6Ly93d3cuYWJjbGl0ZS5jbi9yZWRpcmVjdC9hSFIwY0RvdkwyWnpMbVF4YzIwdWJtVjBMMlpwYm1Gc2MzQmxaV1F2Wm1sdVlXeHpjR1ZsWkY5cGJuTjBZV3hzTVM0d0xtVjRaUT09" title="https://www.abclite.cn/redirect/aHR0cDovL2ZzLmQxc20ubmV0L2ZpbmFsc3BlZWQvZmluYWxzcGVlZF9pbnN0YWxsMS4wLmV4ZQ==">https://www.abclite.cn/redirect/aHR0cDovL2ZzLmQxc20ubmV0L2ZpbmFsc3BlZWQvZmluYWxzcGVlZF9pbnN0YWxsMS4wLmV4ZQ==<i class="fa fa-external-link"></i></span> SS+FS配置 注：SS上要配两个服务器，一个连接VPS，一个做FS代理的，如图，密码为/etc/ shadowsocks.json 配置文件中的密码</p>
-<h2 id="4、使用chrome浏览"><a href="#4、使用chrome浏览" class="headerlink" title="4、使用chrome浏览"></a>4、使用chrome浏览</h2><p>配置chrome套接字代理：127.0.0.1  端口1083，还可swichsharp扩展让浏览器在代理非代理模式间快捷切换。 此时若可访问谷歌，且FS显示端口xxx连接成功，代表加速成功，FS着实强大，在与香港ping值达到300-500ms的情况下依然可跑满网络，如此，奔跑吧骚年。 注：以上仅vps每月2刀的租用费用，其他软件都免费。 Reference： <span class="exturl" data-url="aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc3RyOTk5X2NuL2FydGljbGUvZGV0YWlscy81MTI4MDgzNA==" title="http://blog.csdn.net/str999_cn/article/details/51280834">http://blog.csdn.net/str999_cn/article/details/51280834<i class="fa fa-external-link"></i></span> <span class="exturl" data-url="aHR0cHM6Ly93d3cuY21za3kuY29tL2ZpbmFsc3BlZWQv" title="https://www.cmsky.com/finalspeed/">https://www.cmsky.com/finalspeed/<i class="fa fa-external-link"></i></span> <span class="exturl" data-url="aHR0cDovL2Jsb2cuc2luYS5jb20uY24vcy9ibG9nX2QzMDY4NmY3MDEwMnZ4dDEuaHRtbA==" title="http://blog.sina.com.cn/s/blog_d30686f70102vxt1.html">http://blog.sina.com.cn/s/blog_d30686f70102vxt1.html<i class="fa fa-external-link"></i></span></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/10/dyld-library-not-loaded-usrlocalliblibjpeg-8-dylib-homebrew-php/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/11/10/dyld-library-not-loaded-usrlocalliblibjpeg-8-dylib-homebrew-php/" class="post-title-link" itemprop="url">dyld: Library not loaded: /usr/local/lib/libjpeg.8.dylib - homebrew php</a>
+                <a href="/2017/687/" class="post-title-link" itemprop="url">dyld: Library not loaded: /usr/local/lib/libjpeg.8.dylib - homebrew php</a>
               
             
           </h2>
@@ -768,7 +563,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/08/定投eos脚本，看懂的自然懂/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/698/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -788,7 +583,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/11/08/定投eos脚本，看懂的自然懂/" class="post-title-link" itemprop="url">定投eos脚本，看懂的自然懂</a>
+                <a href="/2017/698/" class="post-title-link" itemprop="url">定投eos脚本，看懂的自然懂</a>
               
             
           </h2>
@@ -975,7 +770,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/06/三条命令-搭建-shadowsock-服务器/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/684/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -995,7 +790,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/11/06/三条命令-搭建-shadowsock-服务器/" class="post-title-link" itemprop="url">三条命令 搭建 shadowsock 服务器</a>
+                <a href="/2017/684/" class="post-title-link" itemprop="url">三条命令 搭建 shadowsock 服务器</a>
               
             
           </h2>
@@ -1176,7 +971,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/01/pandas常用函数/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/682/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1196,7 +991,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/11/01/pandas常用函数/" class="post-title-link" itemprop="url">pandas常用函数</a>
+                <a href="/2017/682/" class="post-title-link" itemprop="url">pandas常用函数</a>
               
             
           </h2>
@@ -1377,7 +1172,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/01/pandas数据清洗，排序，索引设置，数据选取/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/681/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1397,7 +1192,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/11/01/pandas数据清洗，排序，索引设置，数据选取/" class="post-title-link" itemprop="url">pandas数据清洗，排序，索引设置，数据选取</a>
+                <a href="/2017/681/" class="post-title-link" itemprop="url">pandas数据清洗，排序，索引设置，数据选取</a>
               
             
           </h2>
@@ -1632,7 +1427,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/27/laravel5-unable-to-prepare-route-for-serialization-uses-closure-2/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/680/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1652,7 +1447,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/10/27/laravel5-unable-to-prepare-route-for-serialization-uses-closure-2/" class="post-title-link" itemprop="url">laravel5 Unable to prepare route [/] for serialization. Uses Closure.</a>
+                <a href="/2017/680/" class="post-title-link" itemprop="url">laravel5 Unable to prepare route [/] for serialization. Uses Closure.</a>
               
             
           </h2>
@@ -1847,7 +1642,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/27/量化工具ta-lib-使用例子/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/676/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1867,7 +1662,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/10/27/量化工具ta-lib-使用例子/" class="post-title-link" itemprop="url">量化工具TA-Lib 使用例子</a>
+                <a href="/2017/676/" class="post-title-link" itemprop="url">量化工具TA-Lib 使用例子</a>
               
             
           </h2>
@@ -2048,7 +1843,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/10/史上最全quant资源整理（转）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/674/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2068,7 +1863,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/10/10/史上最全quant资源整理（转）/" class="post-title-link" itemprop="url">史上最全Quant资源整理（转）</a>
+                <a href="/2017/674/" class="post-title-link" itemprop="url">史上最全Quant资源整理（转）</a>
               
             
           </h2>
@@ -2615,7 +2410,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/18/最常用python开源框架有哪些？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/671/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2635,7 +2430,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/08/18/最常用python开源框架有哪些？/" class="post-title-link" itemprop="url">最常用Python开源框架有哪些？</a>
+                <a href="/2017/671/" class="post-title-link" itemprop="url">最常用Python开源框架有哪些？</a>
               
             
           </h2>
@@ -2804,6 +2599,232 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/670/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017/670/" class="post-title-link" itemprop="url">基于Python的开源量化交易平台及组件汇总</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-08-18 16:56:03" itemprop="dateCreated datePublished" datetime="2017-08-18T16:56:03+08:00">2017-08-18</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-16 15:59:57" itemprop="dateModified" datetime="2019-04-16T15:59:57+08:00">2019-04-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/积累-量化/" itemprop="url" rel="index"><span itemprop="name">积累________量化</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">1.5k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">1 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><h3 id="vnpy-1"><a href="#vnpy-1" class="headerlink" title="vnpy [1]"></a>vnpy [1]</h3><p>基于python的开源交易平台开发框架。项目的用户包括：私募基金，证券自营、资管，期货公司，高校的金融研究院系，个人投资者等，机构用户加起来至少20多家。 该项目拥有较为丰富的Python交易和数据API接口，基本覆盖了国内所有常规交易品种（股票、期货、期权），具体包括：CTP（vn.ctp）、飞马（vn.femas）、LTS（vn.lts）、金仕达黄金（vn.ksgold）、金仕达期权（vn.ksotp）、通联数据（vn.datayes）。 <img src="http://image101.360doc.com/DownloadImg/2016/10/3022/83411785_1" alt> 特点：简洁易用的事件驱动引擎（vn.event），作为事件驱动型交易程序的核心；涵盖针对如何使用API和事件驱动引擎开发交易程序的示例（vn.demo）。项目拥有开箱即用的实盘交易平台vn.trader（相比之下vn.demo仅建议学习用），整合了多种交易接口，并针对具体策略算法和功能开发提供了简洁易用的API。 <img src="http://image101.360doc.com/DownloadImg/2016/10/3022/83411785_2" alt></p>
+</li>
+<li><h3 id="quantdigger-2"><a href="#quantdigger-2" class="headerlink" title="quantdigger [2]"></a>quantdigger [2]</h3><p>一个基于python的量化回测框架。它借鉴了主流商业软件（比如TB, 金字塔）简洁的策略语法，同时避免了它们内置编程语言的局限性，使用通用语言python做为策略开发工具。和 zipline , pyalgotrade 相比，QuantDigger的策略语法更接近策略开发人员的习惯。 目前的功能包括：股票回测，期货回测。支持选股，套利，择时,组合策略。自带了一个基于matplotlib编写的简单的策略和k线显示界面，能满足广大量化爱好者基本的回测需求。设计上也兼顾了实盘交易。 <img src="http://image101.360doc.com/DownloadImg/2016/10/3022/83411785_3" alt></p>
+</li>
+<li><h3 id="easyquant-3"><a href="#easyquant-3" class="headerlink" title="easyquant [3]"></a>easyquant [3]</h3><p>股票量化框架，支持行情获取以及交易，基于easytrader和easyquotation 的量化交易框架。支持华泰、佣金宝、银河以及雪球模拟盘交易。 支持新浪免费实时行情，1s推送一次，集思路分级基金以及leverfun 的免费十档行情</p>
+</li>
+<li><h3 id="easytrader-4"><a href="#easytrader-4" class="headerlink" title="easytrader [4]"></a>easytrader [4]</h3><p>提供券商华泰/佣金宝/银河/广发/雪球的基金、股票自动程序化交易，量化交易组件，进行自动的程序化股票交易 可实现自动登录，支持命令行调用，方便其他语言适配，支持 Python3 / Python2, Linux / Win, 推荐使用 Python3</p>
+</li>
+<li><img src="http://image101.360doc.com/DownloadImg/2016/10/3022/83411785_4" alt></li>
+<li><h3 id="quartz-5"><a href="#quartz-5" class="headerlink" title="-quartz [5]"></a>-quartz [5]</h3><p>一个基于Pandas的量化回测框架，核心类库引入pandas，引入pylab库后能够实现可视化结果</p>
+</li>
+<li><h3 id="AshareQuant-6"><a href="#AshareQuant-6" class="headerlink" title="AshareQuant [6]"></a>AshareQuant [6]</h3><p>A股数据维护，把线上数据维护到mongodb，可以写入crontab中运行，定时更新基本面和历史日K线数据 <img src="http://image101.360doc.com/DownloadImg/2016/10/3022/83411785_5" alt></p>
+</li>
+<li><h3 id="vnpy-oanda-7"><a href="#vnpy-oanda-7" class="headerlink" title="vnpy_oanda [7]"></a>vnpy_oanda [7]</h3><p>基于vnpy，对Oanda进行定制的Python开源交易平台开发框架</p>
+</li>
+<li><h3 id="ftsVob-8"><a href="#ftsVob-8" class="headerlink" title="ftsVob [8]"></a>ftsVob [8]</h3><p>基于vnpy+easyquant项目的期货交易系统 [1]<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3ZucHkvdm5weQ==" title="https://github.com/vnpy/vnpy">https://github.com/vnpy/vnpy<i class="fa fa-external-link"></i></span> [2]<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1F1YW50RmFucy9xdWFudGRpZ2dlcg==" title="https://github.com/QuantFans/quantdigger">https://github.com/QuantFans/quantdigger<i class="fa fa-external-link"></i></span> [3]<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NoaWRlbmdndWkvZWFzeXF1YW50" title="https://github.com/shidenggui/easyquant">https://github.com/shidenggui/easyquant<i class="fa fa-external-link"></i></span> [4]<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NoaWRlbmdndWkvZWFzeXRyYWRlcg==" title="https://github.com/shidenggui/easytrader">https://github.com/shidenggui/easytrader<i class="fa fa-external-link"></i></span> [5]<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Z1Y2hlbmc4MzAvLXF1YXJ0eg==" title="https://github.com/fucheng830/-quartz">https://github.com/fucheng830/-quartz<i class="fa fa-external-link"></i></span> [6]<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2hlemhlbmtlL0FzaGFyZVF1YW50" title="https://github.com/hezhenke/AshareQuant">https://github.com/hezhenke/AshareQuant<i class="fa fa-external-link"></i></span> [7]<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NuaXBlcjI0L3ZucHlfb2FuZGE=" title="https://github.com/sniper24/vnpy_oanda">https://github.com/sniper24/vnpy_oanda<i class="fa fa-external-link"></i></span> [8]<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3J1eWlxZi9mdHNWb2I=" title="https://github.com/ruyiqf/ftsVob">https://github.com/ruyiqf/ftsVob<i class="fa fa-external-link"></i></span></p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -2850,7 +2871,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">198</span>
+                    <span class="site-state-item-count">196</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2862,88 +2883,94 @@
                 <div class="site-state-item site-state-categories">
                   
                     
+                      <a href="/categories/">
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">39</span>
-                    <span class="site-state-item-name">categories</span>
                   
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
                 </div>
               
 
@@ -2951,6 +2978,10 @@
                 
                 
                 <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
                   
                     
                     
@@ -2976,7 +3007,7 @@
                     
                     <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">tags</span>
-                  
+                  </a>
                 </div>
               
             </nav>
@@ -3099,7 +3130,7 @@
     
       <span class="post-meta-item-text">Symbols count total: </span>
     
-    <span title="Symbols count total">571k</span>
+    <span title="Symbols count total">568k</span>
   
 
   
@@ -3110,7 +3141,7 @@
     
       <span class="post-meta-item-text">Reading time total &asymp;</span>
     
-    <span title="Reading time total">8:39</span>
+    <span title="Reading time total">8:36</span>
   
 </div>
 
@@ -3199,9 +3230,6 @@
 
 
 
-  
-  
-
 
 
 
@@ -3220,12 +3248,6 @@
 
   
   <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
-
-  
-  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three.min.js"></script>
-
-  
-  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three-waves.min.js"></script>
 
 
   

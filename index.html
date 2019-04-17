@@ -362,7 +362,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/707/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -382,208 +382,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2018/12/17/mac中使用expect和ga-cmd登陆跳转机2/" class="post-title-link" itemprop="url">mac中使用expect和ga-cmd登陆跳转机(2)</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-12-17 12:26:44" itemprop="dateCreated datePublished" datetime="2018-12-17T12:26:44+08:00">2018-12-17</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-16 15:59:44" itemprop="dateModified" datetime="2019-04-16T15:59:44+08:00">2019-04-16</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/" itemprop="url" rel="index"><span itemprop="name">日常________经验分享</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">971</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">1 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>## 安装expect brew install expect ## 安装gacmd $ git clone <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FyY2FuZXJpY2t5L2dhLWNtZC5naXQ=" title="https://github.com/arcanericky/ga-cmd.git">https://github.com/arcanericky/ga-cmd.git<i class="fa fa-external-link"></i></span> $ git submodule init $ git submodule update $ cd ga-cmd/src ## 获取跳板机 $ vim .google_authenticator $ ./build.sh <16 character seed> ## 检测一下 $ ga-cmd/src/bin/ga-cmd 123456 ## 编写 expect 脚本 #!/usr/bin/expect set host [lindex $argv 0] set VERIFICATION [lindex $argv 1] set TERMSERV 192.2.1.2 set USER yaozihao set PASSWORD 123456 set UATUN yaozihao #set UATPWD 内服务器密码 # 登录跳板机 spawn ssh -l $USER $TERMSERV expect { “*erificati*“ {send “$VERIFICATION\r”;exp_continue;} # “yes/no” {send “yes\r”;exp_continue;} “*assword:*“ { send “$PASSWORD\r”;} } # 登录内网 expect “$USER@<em>“ {send “ssh -l $UATUN $host\r”} #expect { # “yes/no” {send “yes\r”;exp_continue;} # “\</em>password:*“ { send “$UATPWD\r” } # } interact ## 编写自动登陆脚本 vim ~/test_expect.sh #!/bin/bash verification=$(/wwwroot/lib/ga-cmd/src/bin/ga-cmd) echo $verification /Users/yaozihao/expect.ecp 10.66.1.1 $verification exit 0 ## 执行测试一下 ~/test_expect.sh</16></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/15/mac中使用expect和gocmd登陆跳转机/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/12/15/mac中使用expect和gocmd登陆跳转机/" class="post-title-link" itemprop="url">mac中使用expect和ga-cmd登陆跳转机</a>
+                <a href="/2018/707/" class="post-title-link" itemprop="url">mac中使用expect和ga-cmd登陆跳转机</a>
               
             
           </h2>
@@ -625,7 +424,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-16 15:59:37" itemprop="dateModified" datetime="2019-04-16T15:59:37+08:00">2019-04-16</time>
+                <time title="Modified: 2019-04-17 14:03:13" itemprop="dateModified" datetime="2019-04-17T14:03:13+08:00">2019-04-17</time>
               
             
           </span>
@@ -671,7 +470,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">2k</span>
+                <span title="Symbols count in article">1.1k</span>
               
 
               
@@ -685,7 +484,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">2 mins.</span>
+                <span title="Reading time">1 mins.</span>
               
             </div>
           
@@ -707,11 +506,7 @@
       
         
           
-            <p>安装 expect:<br><code>brew install expect</code><br>使用 expect:<br><code># 表示获取执行脚本命名空格后第一个参数 set user \[lindex $argv 0\]</code><br>安装 ga-cmd:<br> <code>$ git clone https://github.com/arcanericky/ga-cmd.git $ git submodule init $ git submodule update</code><br> 脚本参数解释：<br> <code>// 告诉操作系统脚本里的代码使用那一个shell来执行。这里的expect其实和linux下的bash、windows下的cmd是一类东西。 注意：这一行需要在脚本的第一行。 #!/usr/bin/expect // 设置超时时间的，计时单位：秒 set timeout 30 // spawn是进入expect环境后才可以执行的expect内部命令，如果没有装expect或者直接在默认的SHELL下执行是找不到spawn命令的。所以不要用 “which spawn“之类的命令去找spawn命令。好比windows里的dir就是一个内部命令，这个命令由shell自带，你无法找到一个dir.com 或 dir.exe 的可执行文件。它主要的功能是给ssh运行进程加个壳，用来传递交互指令。 spawn ssh -l username 192.168.1.1 // expect 同样是内置命令。这个命令的意思是判断上次输出结果里是否包含“password:”的字符串，如果有则立即返回，否则就等待一段时间后返回，这里等待时长就是前面设置的30秒 expect &quot;password:&quot; // 这里就是执行交互动作，与手工输入密码的动作等效。命令字符串结尾记得加上“\\r”，如果出现异常等待的状态可以核查一下。 send &quot;ispass\\r&quot; // 执行完成后保持交互状态，把控制权交给控制台，这个时候就可以手工操作了。如果没有这一句登录完成后会退出，而不是留在远程终端上。如果你只是登录过去执行 interact</code><br> 案例1:<br> <code>#!/usr/bin/expect #Usage sshsudologin.expect set timeout 60 spawn ssh \[lindex $argv 1\]@\[lindex $argv 0\] expect &quot;yes/no&quot; { send &quot;yes\\r&quot; expect &quot;*?assword&quot; { send &quot;\[lindex $argv 2\]\\r&quot; } } interact // 程序结束</code> </p>
-<p> // 把host user 和 password 保存在一个文件中 /etc/goto.ini 保存主机信息的示例如下:<br> <code>name1,ip1,user1,password1 name2,ip2,user2,password2</code> </p>
-<p> // 然后用另外一个脚本读取文件内容再调用上面的脚本<br><code>#!/bin/bash name=$(cat /etc/goto.ini | awk &#39;{printf $1 &quot; &quot;}&#39;) if \[ &quot;$1&quot; = &quot;-h&quot; \] || \[ &quot;$1&quot; = &quot;-help&quot; \] then echo &quot;the first args is host alias&quot; echo &quot; There are several to choose\[ &quot;$name&quot;\]&quot; exit 0 fi if \[ -z &quot;$1&quot; \] then echo &quot; please input -help for more information.&quot; exit 0 fi config=$(cat /etc/goto.ini |grep $1) ip=\`echo &quot;$config&quot; | awk &#39;{print $2}&#39;\` user=\`echo &quot;$config&quot; | awk &#39;{print $3}&#39;\` password=\`echo &quot;$config&quot; | awk &#39;{print $4}&#39;\` sshlogin.expect $ip $user $password</code> </p>
-<p>案例：scp传输例子  </p>
-
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">## 安装expect</span><br><span class="line">brew install expect</span><br><span class="line"></span><br><span class="line">## 安装gacmd</span><br><span class="line">$ git clone https://github.com/arcanericky/ga-cmd.git</span><br><span class="line">$ git submodule init</span><br><span class="line">$ git submodule update</span><br><span class="line"></span><br><span class="line">$ cd ga-cmd/src</span><br><span class="line"></span><br><span class="line">## 获取跳板机</span><br><span class="line">$ vim .google_authenticator</span><br><span class="line">$ ./build.sh &lt;16 character seed&gt;</span><br><span class="line"></span><br><span class="line">## 检测一下</span><br><span class="line"></span><br><span class="line">$ ga-cmd/src/bin/ga-cmd</span><br><span class="line">123456</span><br><span class="line"></span><br><span class="line">## 编写 expect 脚本</span><br><span class="line">#!/usr/bin/expect</span><br><span class="line">set host [lindex $argv 0]</span><br><span class="line">set VERIFICATION [lindex $argv 1]</span><br><span class="line">set TERMSERV 192.2.1.2</span><br><span class="line">set USER yaozihao</span><br><span class="line">set PASSWORD 123456</span><br><span class="line">set UATUN yaozihao</span><br><span class="line">#set UATPWD 内服务器密码</span><br><span class="line"></span><br><span class="line"># 登录跳板机</span><br><span class="line">spawn ssh -l $USER $TERMSERV</span><br><span class="line">expect &#123;</span><br><span class="line"></span><br><span class="line">“*erificati*” &#123;send “$VERIFICATION\r”;exp_continue;&#125;</span><br><span class="line"># “yes/no” &#123;send “yes\r”;exp_continue;&#125;</span><br><span class="line">“*assword:*” &#123; send “$PASSWORD\r”;&#125;</span><br><span class="line">&#125;</span><br><span class="line"># 登录内网</span><br><span class="line">expect “$USER@*” &#123;send “ssh -l $UATUN $host\r”&#125;</span><br><span class="line">#expect &#123;</span><br><span class="line"># “yes/no” &#123;send “yes\r”;exp_continue;&#125;</span><br><span class="line"># “*password:*” &#123; send “$UATPWD\r” &#125;</span><br><span class="line"># &#125;</span><br><span class="line">interact</span><br><span class="line"></span><br><span class="line">## 编写自动登陆脚本</span><br><span class="line">vim ~/test_expect.sh</span><br><span class="line"></span><br><span class="line">#!/bin/bash</span><br><span class="line">verification=$(/wwwroot/lib/ga-cmd/src/bin/ga-cmd)</span><br><span class="line">echo $verification</span><br><span class="line">/Users/yaozihao/expect.ecp 10.66.1.1 $verification</span><br><span class="line">exit 0</span><br><span class="line"></span><br><span class="line">## 执行测试一下</span><br><span class="line">~/test_expect.sh</span><br></pre></td></tr></table></figure>
           
         
       
@@ -767,7 +562,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/24/阿里云虚拟机ftp流程/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/705/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -787,7 +582,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2018/09/24/阿里云虚拟机ftp流程/" class="post-title-link" itemprop="url">阿里云虚拟机ftp流程</a>
+                <a href="/2018/705/" class="post-title-link" itemprop="url">阿里云虚拟机ftp流程</a>
               
             
           </h2>
@@ -829,7 +624,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-16 15:59:57" itemprop="dateModified" datetime="2019-04-16T15:59:57+08:00">2019-04-16</time>
+                <time title="Modified: 2019-04-17 14:23:03" itemprop="dateModified" datetime="2019-04-17T14:23:03+08:00">2019-04-17</time>
               
             
           </span>
@@ -875,7 +670,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">95</span>
+                <span title="Symbols count in article">99</span>
               
 
               
@@ -911,7 +706,11 @@
       
         
           
-            <p>1.压缩注意使用tar zip格式 tar -czvf wp-admin-09-24-cvf.tar.gz wp-admin 2.记得压缩为小一点文件，不然总是断开 3.在控制台进行解压缩</p>
+            <ul>
+<li>1.压缩注意使用tar zip格式 tar -czvf wp-admin-09-24-cvf.tar.gz wp-admin </li>
+<li>2.记得压缩为小一点文件，不然总是断开 </li>
+<li>3.在控制台进行解压缩</li>
+</ul>
 
           
         
@@ -968,7 +767,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/701/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -988,7 +787,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2018/01/11/使用virtualbox自带管理工具命令为虚拟磁盘扩展空间/" class="post-title-link" itemprop="url">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+                <a href="/2018/701/" class="post-title-link" itemprop="url">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
               
             
           </h2>
@@ -1169,7 +968,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/11/ubuntu下折腾thrift/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/700/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1189,7 +988,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2018/01/11/ubuntu下折腾thrift/" class="post-title-link" itemprop="url">ubuntu下折腾thrift</a>
+                <a href="/2018/700/" class="post-title-link" itemprop="url">ubuntu下折腾thrift</a>
               
             
           </h2>
@@ -1370,7 +1169,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/08/697/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/697/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1390,7 +1189,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/12/08/697/" class="post-title-link" itemprop="url">ERC20如eos转账demo</a>
+                <a href="/2017/697/" class="post-title-link" itemprop="url">ERC20如eos转账demo</a>
               
             
           </h2>
@@ -1571,7 +1370,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/01/daterangepicker-中文化以及老版本的一些初始化问题，不能选/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/695/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1591,7 +1390,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/12/01/daterangepicker-中文化以及老版本的一些初始化问题，不能选/" class="post-title-link" itemprop="url">DateRangePicker 中文化以及老版本的一些初始化问题，不能选择秒的问题</a>
+                <a href="/2017/695/" class="post-title-link" itemprop="url">DateRangePicker 中文化以及老版本的一些初始化问题，不能选择秒的问题</a>
               
             
           </h2>
@@ -1772,7 +1571,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/30/详解mac配置虚拟环境virtualenv和virtualenvwrapper/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/694/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1792,7 +1591,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/11/30/详解mac配置虚拟环境virtualenv和virtualenvwrapper/" class="post-title-link" itemprop="url">详解Mac配置虚拟环境virtualenv和virtualenvwrapper</a>
+                <a href="/2017/694/" class="post-title-link" itemprop="url">详解Mac配置虚拟环境virtualenv和virtualenvwrapper</a>
               
             
           </h2>
@@ -1988,7 +1787,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/17/you-get-加-mpv-看电影，-顺便解决mac发热问题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/692/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2008,7 +1807,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/11/17/you-get-加-mpv-看电影，-顺便解决mac发热问题/" class="post-title-link" itemprop="url">you-get 加 mpv 看电影， 顺便解决mac发热问题</a>
+                <a href="/2017/692/" class="post-title-link" itemprop="url">you-get 加 mpv 看电影， 顺便解决mac发热问题</a>
               
             
           </h2>
@@ -2189,7 +1988,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/15/ubuntu环境搭建-在win10下与linux虚拟机ubuntu建立共享文件夹/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/691/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2209,7 +2008,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/11/15/ubuntu环境搭建-在win10下与linux虚拟机ubuntu建立共享文件夹/" class="post-title-link" itemprop="url">Ubuntu环境搭建-在win10下与linux虚拟机Ubuntu建立共享文件夹</a>
+                <a href="/2017/691/" class="post-title-link" itemprop="url">Ubuntu环境搭建-在win10下与linux虚拟机Ubuntu建立共享文件夹</a>
               
             
           </h2>
@@ -2388,6 +2187,211 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/688/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017/688/" class="post-title-link" itemprop="url">SS(shardowsocks)+FS(Final speed)带你飞</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-11-14 15:03:38" itemprop="dateCreated datePublished" datetime="2017-11-14T15:03:38+08:00">2017-11-14</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/" itemprop="url" rel="index"><span itemprop="name">日常________经验分享</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">2.2k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">2 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>早期我曾通过goagent、xx-net勉强能浏览google学术等（你懂的） 网站，但至今很久没用过了，主要原因这东西是免费的访问速度、稳定性都很受限，当有限资源满足不了现代人类的欲望时，他们会寻求捷径以获得更多资源，我亦如此。三十而立了，越来越有欲望自己搞点什么，结合自己三十年来学到的东西，不追求利益就出于兴趣玩玩，于是乎有了需要查询的需求，于是乎我做了这件事情，留此文。</p>
+<h2 id="1、租用服务器资源"><a href="#1、租用服务器资源" class="headerlink" title="1、租用服务器资源"></a>1、租用服务器资源</h2><p>我在gigsgiscloud上租用了个最便宜的香港vps，2刀一月。 OS：CentOS 6 Men: 512M bandwith:500G/Mon （完全足够） disk: 30G</p>
+<h2 id="2、服务端软件安装"><a href="#2、服务端软件安装" class="headerlink" title="2、服务端软件安装"></a>2、服务端软件安装</h2><p>root用户（ssh）登陆vps 一键安装SS： <code>wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks\_install/master/shadowsocks.sh chmod +x shadowsocks.sh ./shadowsocks.sh 2&gt;&amp;1 | tee shadowsocks.log</code> 安装成功提示： <code>Congratulations, shadowsocks install completed! Your Server IP:your\_server\_ip Your Server Port:8989 Your Password:your\_password Your Local IP:127.0.0.1 Your Local Port:1080 Your Encryption Method:aes-256-cfb Welcome to visit:http://teddysun.com/342.htmlEnjoy it!</code> 用户配置文件： <code>路径/etc/ shadowsocks.json { &quot;server&quot;:&quot;your\_server\_ip&quot;, &quot;server\_port&quot;:8989, &quot;local\_address&quot;:&quot;127.0.0.1&quot;, &quot;local\_port&quot;:1080, &quot;password&quot;:&quot;yourpassword&quot;, &quot;timeout&quot;:300, &quot;method&quot;:&quot;aes-256-cfb&quot;, &quot;fast\_open&quot;: false }</code> 同时可以配置多用户。 启动：<code>/etc/init.d/shadowsocks start</code> 停止：<code>/etc/init.d/shadowsocks stop</code> 重启<code>：/etc/init.d/shadowsocks restart</code> 状态<code>：/etc/init.d/shadowsocks status</code> 一键安装FS，不要装成了XS，XS是收费的： root用户执行以下命令： <code>rm -f install\_fs.sh wget  https://github.com/dupontjoy/customization/raw/master/Rules/Shadowsocks/Finalspeed/install\_fs.sh chmod +x install\_fs.sh ./install\_fs.sh 2&gt;&amp;1 | tee install.log 启动：sh /fs/start.sh 停止：sh /fs/stop.sh</code></p>
+<h2 id="3、客户端配置"><a href="#3、客户端配置" class="headerlink" title="3、客户端配置"></a>3、客户端配置</h2><p>下载SS客户端：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NoYWRvd3NvY2tzL3NoYWRvd3NvY2tzL3dpa2kvUG9ydHMtYW5kLUNsaWVudHMjd2luZG93cw==" title="https://github.com/shadowsocks/shadowsocks/wiki/Ports-and-Clients#windows">https://github.com/shadowsocks/shadowsocks/wiki/Ports-and-Clients#windows<i class="fa fa-external-link"></i></span> 下载安装FS客户端：<span class="exturl" data-url="aHR0cHM6Ly93d3cuYWJjbGl0ZS5jbi9yZWRpcmVjdC9hSFIwY0RvdkwyWnpMbVF4YzIwdWJtVjBMMlpwYm1Gc2MzQmxaV1F2Wm1sdVlXeHpjR1ZsWkY5cGJuTjBZV3hzTVM0d0xtVjRaUT09" title="https://www.abclite.cn/redirect/aHR0cDovL2ZzLmQxc20ubmV0L2ZpbmFsc3BlZWQvZmluYWxzcGVlZF9pbnN0YWxsMS4wLmV4ZQ==">https://www.abclite.cn/redirect/aHR0cDovL2ZzLmQxc20ubmV0L2ZpbmFsc3BlZWQvZmluYWxzcGVlZF9pbnN0YWxsMS4wLmV4ZQ==<i class="fa fa-external-link"></i></span> SS+FS配置 注：SS上要配两个服务器，一个连接VPS，一个做FS代理的，如图，密码为/etc/ shadowsocks.json 配置文件中的密码</p>
+<h2 id="4、使用chrome浏览"><a href="#4、使用chrome浏览" class="headerlink" title="4、使用chrome浏览"></a>4、使用chrome浏览</h2><p>配置chrome套接字代理：127.0.0.1  端口1083，还可swichsharp扩展让浏览器在代理非代理模式间快捷切换。 此时若可访问谷歌，且FS显示端口xxx连接成功，代表加速成功，FS着实强大，在与香港ping值达到300-500ms的情况下依然可跑满网络，如此，奔跑吧骚年。 注：以上仅vps每月2刀的租用费用，其他软件都免费。 Reference： <span class="exturl" data-url="aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc3RyOTk5X2NuL2FydGljbGUvZGV0YWlscy81MTI4MDgzNA==" title="http://blog.csdn.net/str999_cn/article/details/51280834">http://blog.csdn.net/str999_cn/article/details/51280834<i class="fa fa-external-link"></i></span> <span class="exturl" data-url="aHR0cHM6Ly93d3cuY21za3kuY29tL2ZpbmFsc3BlZWQv" title="https://www.cmsky.com/finalspeed/">https://www.cmsky.com/finalspeed/<i class="fa fa-external-link"></i></span> <span class="exturl" data-url="aHR0cDovL2Jsb2cuc2luYS5jb20uY24vcy9ibG9nX2QzMDY4NmY3MDEwMnZ4dDEuaHRtbA==" title="http://blog.sina.com.cn/s/blog_d30686f70102vxt1.html">http://blog.sina.com.cn/s/blog_d30686f70102vxt1.html<i class="fa fa-external-link"></i></span></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -2434,7 +2438,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">198</span>
+                    <span class="site-state-item-count">196</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2446,88 +2450,94 @@
                 <div class="site-state-item site-state-categories">
                   
                     
+                      <a href="/categories/">
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">39</span>
-                    <span class="site-state-item-name">categories</span>
                   
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
                 </div>
               
 
@@ -2535,6 +2545,10 @@
                 
                 
                 <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
                   
                     
                     
@@ -2560,7 +2574,7 @@
                     
                     <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">tags</span>
-                  
+                  </a>
                 </div>
               
             </nav>
@@ -2683,7 +2697,7 @@
     
       <span class="post-meta-item-text">Symbols count total: </span>
     
-    <span title="Symbols count total">571k</span>
+    <span title="Symbols count total">568k</span>
   
 
   
@@ -2694,7 +2708,7 @@
     
       <span class="post-meta-item-text">Reading time total &asymp;</span>
     
-    <span title="Reading time total">8:39</span>
+    <span title="Reading time total">8:36</span>
   
 </div>
 
@@ -2783,9 +2797,6 @@
 
 
 
-  
-  
-
 
 
 
@@ -2804,12 +2815,6 @@
 
   
   <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
-
-  
-  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three.min.js"></script>
-
-  
-  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three-waves.min.js"></script>
 
 
   

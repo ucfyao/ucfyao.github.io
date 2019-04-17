@@ -362,7 +362,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/25/git忽略规则及-gitignore规则不生效的解决办法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/213/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -382,416 +382,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/08/25/git忽略规则及-gitignore规则不生效的解决办法/" class="post-title-link" itemprop="url">Git忽略规则及.gitignore规则不生效的解决办法</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-08-25 16:35:06" itemprop="dateCreated datePublished" datetime="2016-08-25T16:35:06+08:00">2016-08-25</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-git/" itemprop="url" rel="index"><span itemprop="name">积累________git</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">541</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">1 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在git中如果想忽略掉某个文件，不让这个文件提交到版本库中，可以使用修改根目录中 .gitignore 文件的方法（如无，则需自己手工建立此文件）。这个文件每一行保存了一个匹配的规则例如： <code># 此为注释 – 将被 Git 忽略 *.a       # 忽略所有 .a 结尾的文件 !lib.a    # 但 lib.a 除外 /TODO     # 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO build/    # 忽略 build/ 目录下的所有文件 doc/*.txt # 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt</code> 规则很简单，不做过多解释，但是有时候在项目开发过程中，突然心血来潮想把某些目录或文件加入忽略规则，按照上述方法定义后发现并未生效，原因是.gitignore只能忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的。那么解决方法就是先把本地缓存删除（改变成未track状态），然后再提交： <code>git rm -r --cached . git add . git commit -m &#39;update .gitignore&#39;</code></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/21/php-批量去除bom头脚本/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/08/21/php-批量去除bom头脚本/" class="post-title-link" itemprop="url">php 批量去除bom头脚本</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-08-21 19:29:58" itemprop="dateCreated datePublished" datetime="2016-08-21T19:29:58+08:00">2016-08-21</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/" itemprop="url" rel="index"><span itemprop="name">日常________经验分享</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/积累-php/" itemprop="url" rel="index"><span itemprop="name">积累________php</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">806</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">1 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><code>请放在根目录下使用 &quot;; }else{ $dirname = $basedir.&quot;/&quot;.$file; checkdir($dirname); } } } closedir($dh); } } function checkBOM ($filename) { global $auto; $contents = file\_get\_contents($filename); $charset\[1\] = substr($contents, 0, 1); $charset\[2\] = substr($contents, 1, 1); $charset\[3\] = substr($contents, 2, 1); if (ord($charset\[1\]) == 239 &amp;&amp; ord($charset\[2\]) == 187 &amp;&amp; ord($charset\[3\]) == 191) { if ($auto == 1) { $rest = substr($contents, 3); rewrite ($filename, $rest); return (&quot;BOM found, automatically removed.&quot;); } else { return (&quot;BOM found.&quot;); } } else return (&quot;BOM Not Found.&quot;); } function rewrite ($filename, $data) { $filenum = fopen($filename, &quot;w&quot;); flock($filenum, LOCK_EX); fwrite($filenum, $data); fclose($filenum); }</code></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/07/19/mysql修改其他机器可以连接的权限/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/07/19/mysql修改其他机器可以连接的权限/" class="post-title-link" itemprop="url">mysql修改其他机器可以连接的权限</a>
+                <a href="/2016/213/" class="post-title-link" itemprop="url">mysql修改其他机器可以连接的权限</a>
               
             
           </h2>
@@ -972,7 +563,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/07/06/mgo简介/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/210/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -992,7 +583,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/07/06/mgo简介/" class="post-title-link" itemprop="url">mgo简介</a>
+                <a href="/2016/210/" class="post-title-link" itemprop="url">mgo简介</a>
               
             
           </h2>
@@ -1215,7 +806,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/27/直接mark！开源的devops开发工具箱/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/207/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1235,7 +826,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/06/27/直接mark！开源的devops开发工具箱/" class="post-title-link" itemprop="url">直接Mark！开源的DevOps开发工具箱</a>
+                <a href="/2016/207/" class="post-title-link" itemprop="url">直接Mark！开源的DevOps开发工具箱</a>
               
             
           </h2>
@@ -1487,7 +1078,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/16/centos6-5安装配置mongodb/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/203/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1507,7 +1098,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/06/16/centos6-5安装配置mongodb/" class="post-title-link" itemprop="url">centos6.5安装配置mongodb</a>
+                <a href="/2016/203/" class="post-title-link" itemprop="url">centos6.5安装配置mongodb</a>
               
             
           </h2>
@@ -1695,7 +1286,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/10/php算法-冒泡算法及其优化/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/197/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1715,7 +1306,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/05/10/php算法-冒泡算法及其优化/" class="post-title-link" itemprop="url">php算法——冒泡算法及其优化</a>
+                <a href="/2016/197/" class="post-title-link" itemprop="url">php算法——冒泡算法及其优化</a>
               
             
           </h2>
@@ -1895,7 +1486,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/04/12/git常用命令-2/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/191/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1915,7 +1506,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/04/12/git常用命令-2/" class="post-title-link" itemprop="url">Git常用命令</a>
+                <a href="/2016/191/" class="post-title-link" itemprop="url">Git常用命令</a>
               
             
           </h2>
@@ -2097,7 +1688,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/24/js中apply方法的使用详细解析/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/188/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2117,7 +1708,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/03/24/js中apply方法的使用详细解析/" class="post-title-link" itemprop="url">js中apply方法的使用详细解析</a>
+                <a href="/2016/188/" class="post-title-link" itemprop="url">js中apply方法的使用详细解析</a>
               
             
           </h2>
@@ -2311,7 +1902,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/24/css-选择器笔记/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/186/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2331,7 +1922,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/03/24/css-选择器笔记/" class="post-title-link" itemprop="url">CSS - 选择器笔记</a>
+                <a href="/2016/186/" class="post-title-link" itemprop="url">CSS - 选择器笔记</a>
               
             
           </h2>
@@ -2713,6 +2304,429 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/184/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/184/" class="post-title-link" itemprop="url">js 事件代理和委托</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-03-24 14:33:58" itemprop="dateCreated datePublished" datetime="2016-03-24T14:33:58+08:00">2016-03-24</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-js/" itemprop="url" rel="index"><span itemprop="name">积累________js</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">4.1k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">4 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在javasript中delegate这个词经常出现，看字面的意思，代理、委托。那么它究竟在什么样的情况下使用？它的原理又是什么？在各种框架中，也经常能看到delegate相关的接口。这些接口又有什么特殊的用法呢？这篇文章就主要介绍一下javascript delegate的用法和原理，以及Dojo，jQuery等框架中delegate的接口。</p>
+<h3 id="JavaScript事件代理"><a href="#JavaScript事件代理" class="headerlink" title="JavaScript事件代理"></a>JavaScript事件代理</h3><p>首先介绍一下JavaScript的事件代理。事件代理在JS世界中一个非常有用也很有趣的功能。当我们需要对很多元素添加事件的时候，可以通过将事件添加到它们的父节点而将事件委托给父节点来触发处理函数。这主要得益于浏览器的事件冒泡机制，后面会详细介绍。下面我们具体举个例子来解释如何使用这个特性。这个例子主要取自<span class="exturl" data-url="aHR0cDovL2Rhdmlkd2Fsc2gubmFtZS8=" title="http://davidwalsh.name/">David Walsh<i class="fa fa-external-link"></i></span>的相关<span class="exturl" data-url="aHR0cDovL2Rhdmlkd2Fsc2gubmFtZS9ldmVudC1kZWxlZ2F0ZQ==" title="http://davidwalsh.name/event-delegate">文章（How JavaScript Event Delegation Works）<i class="fa fa-external-link"></i></span>。</p>
+<p>假设有一个 UL 的父节点，包含了很多个 Li 的子节点：</p>
+<p><span class="exturl" data-url="aHR0cDovL3d3dy5jbmJsb2dzLmNvbS9vd2VuQ2hlbi9hcmNoaXZlLzIwMTMvMDIvMTgvMjkxNTUyMS5odG1s" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"><i class="fa fa-external-link"></i></span></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">*   Item 1</span><br><span class="line">*   Item 2</span><br><span class="line">*   Item 3</span><br><span class="line">*   Item 4</span><br><span class="line">*   Item 5</span><br><span class="line">*   Item 6</span><br></pre></td></tr></table></figure>
+<p><span class="exturl" data-url="aHR0cDovL3d3dy5jbmJsb2dzLmNvbS9vd2VuQ2hlbi9hcmNoaXZlLzIwMTMvMDIvMTgvMjkxNTUyMS5odG1s" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"><i class="fa fa-external-link"></i></span></p>
+<p>当我们的鼠标移到Li上的时候，需要获取此Li的相关信息并飘出悬浮窗以显示详细信息，或者当某个Li被点击的时候需要触发相应的处理事件。我们通常的写法，是为每个Li都添加一些类似onMouseOver或者onClick之类的事件监听。</p>
+<p><span class="exturl" data-url="aHR0cDovL3d3dy5jbmJsb2dzLmNvbS9vd2VuQ2hlbi9hcmNoaXZlLzIwMTMvMDIvMTgvMjkxNTUyMS5odG1s" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"><i class="fa fa-external-link"></i></span></p>
+<figure class="highlight plain"><figcaption><span>addListeners4Li(liNode)&#123; liNode.onclick </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[![复制代码](http://common.cnblogs.com/images/copycode.gif)](http://www.cnblogs.com/owenChen/archive/2013/02/18/2915521.html &quot;复制代码&quot;)</span><br><span class="line"></span><br><span class="line">如果这个UL中的Li子元素会频繁地添加或者删除，我们就需要在每次添加Li的时候都调用这个addListeners4Li方法来为每个Li节点添加事件处理函数。这就添加的复杂度和出错的可能性。 更简单的方法是使用事件代理机制，当事件被抛到更上层的父节点的时候，我们通过检查事件的目标对象（target）来判断并获取事件源Li。下面的代码可以完成我们想要的效果：</span><br><span class="line"></span><br><span class="line">[![复制代码](http://common.cnblogs.com/images/copycode.gif)](http://www.cnblogs.com/owenChen/archive/2013/02/18/2915521.html &quot;复制代码&quot;)</span><br><span class="line"></span><br><span class="line">``` // 获取父节点，并为它添加一个click事件 document.getElementById(&quot;parent-list&quot;).addEventListener(&quot;click&quot;,function(e) &#123; // 检查事件源e.targe是否为Li if(e.target &amp;&amp; e.target.nodeName.toUpperCase == &quot;LI&quot;) &#123; // 真正的处理过程在这里 console.log(&quot;List item &quot;,e.target.id.replace(&quot;post-&quot;),&quot; was clicked!&quot;); &#125; &#125;);</span><br></pre></td></tr></table></figure>
+<p><span class="exturl" data-url="aHR0cDovL3d3dy5jbmJsb2dzLmNvbS9vd2VuQ2hlbi9hcmNoaXZlLzIwMTMvMDIvMTgvMjkxNTUyMS5odG1s" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"><i class="fa fa-external-link"></i></span></p>
+<p>为父节点添加一个click事件，当子节点被点击的时候，click事件会从子节点开始向上冒泡。父节点捕获到事件之后，通过判断e.target.nodeName来判断是否为我们需要处理的节点。并且通过e.target拿到了被点击的Li节点。从而可以获取到相应的信息，并作处理。</p>
+<h3 id="事件冒泡及捕获"><a href="#事件冒泡及捕获" class="headerlink" title="事件冒泡及捕获"></a>事件冒泡及捕获</h3><p>之前的介绍中已经说到了浏览器的事件冒泡机制。这里再详细介绍一下浏览器处理DOM事件的过程。对于事件的捕获和处理，不同的浏览器厂商有不同的处理机制，这里我们主要介绍W3C对DOM2.0定义的标准事件。 DOM2.0模型将事件处理流程分为三个阶段：一、事件捕获阶段，二、事件目标阶段，三、事件起泡阶段。如图： <img src="http://images.cnitblog.com/blog/477973/201302/18141423-8bd09a9c1e184df9a13b6e26b88348f3.jpg" alt> 事件捕获：当某个元素触发某个事件（如onclick），顶层对象document就会发出一个事件流，随着DOM树的节点向目标元素节点流去，直到到达事件真正发生的目标元素。在这个过程中，事件相应的监听函数是不会被触发的。 事件目标：当到达目标元素之后，执行目标元素该事件相应的处理函数。如果没有绑定监听函数，那就不执行。 事件起泡：从目标元素开始，往顶层元素传播。途中如果有节点绑定了相应的事件处理函数，这些函数都会被一次触发。如果想阻止事件起泡，可以使用e.stopPropagation()（Firefox）或者e.cancelBubble=true（IE）来组织事件的冒泡传播。</p>
+<h3 id="jQuery和Dojo中delegate函数"><a href="#jQuery和Dojo中delegate函数" class="headerlink" title="jQuery和Dojo中delegate函数"></a>jQuery和Dojo中delegate函数</h3><p>下面看一下Dojo和jQuery中提供的事件代理接口的使用方法。 首先是jQuery：</p>
+<figure class="highlight plain"><figcaption><span>"click", function()&#123;</span><a href="//">"$(this)" is the node that was clicked console.log("you clicked a link!",$(this)); &#125;);```</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">jQuery的delegate的方法需要三个参数，一个选择器，一个时间名称，和事件处理函数。 而Dojo的与jQuery相似，仅是两者的编程风格上的差别：</span><br><span class="line"></span><br><span class="line">[![复制代码](http://common.cnblogs.com/images/copycode.gif)](http://www.cnblogs.com/owenChen/archive/2013/02/18/2915521.html &quot;复制代码&quot;)</span><br><span class="line"></span><br><span class="line">``` require(\[&quot;dojo/query&quot;,&quot;dojox/NodeList/delegate&quot;\], function(query,delegate)&#123; query(&quot;#link-list&quot;).delegate(&quot;a&quot;,&quot;onclick&quot;,function(event) &#123; // &quot;this.node&quot; is the node that was clicked console.log(&quot;you clicked a link!&quot;,this); &#125;); &#125;)</span><br></pre></td></tr></table></figure>
+<p><span class="exturl" data-url="aHR0cDovL3d3dy5jbmJsb2dzLmNvbS9vd2VuQ2hlbi9hcmNoaXZlLzIwMTMvMDIvMTgvMjkxNTUyMS5odG1s" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"><i class="fa fa-external-link"></i></span></p>
+<p>Dojo的delegate模块在dojox.NodeList中，提供的接口与jQuery一样，参数也相同。</p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>通过上面的介绍，大家应该能够体会到使用事件委托对于web应用程序带来的几个优点： 1.管理的函数变少了。不需要为每个元素都添加监听函数。对于同一个父节点下面类似的子元素，可以通过委托给父元素的监听函数来处理事件。 2.可以方便地动态添加和修改元素，不需要因为元素的改动而修改事件绑定。 3.JavaScript和DOM节点之间的关联变少了，这样也就减少了因循环引用而带来的内存泄漏发生的概率。 写到这里，突然想起了之前对于Dojo DataGrid的困惑：那么多的rows和cells，如何处理他们事件之间的关系。现在想想，使用委托就很简单了。所有的事件委托到grid最外层的节点上，当事件发生的时候通过一些方法来获取和添加事件的额外属性，如rowIndex, cellIndex，之后在分配到onRowClick,onCellClick之类的处理函数上。</p>
+<h3 id="在JavaScript编程中使用代理"><a href="#在JavaScript编程中使用代理" class="headerlink" title="在JavaScript编程中使用代理"></a>在JavaScript编程中使用代理</h3><p>上面介绍的是对DOM事件处理时，利用浏览器冒泡机制为DOM元素添加事件代理。其实在纯JS编程中，我们也可以使用这样的编程模式，来创建代理对象来操作目标对象。这里引用<span class="exturl" data-url="aHR0cDovL2hvbWUuY25ibG9ncy5jb20vdS9ydWJ5bG91dnJlLw==" title="http://home.cnblogs.com/u/rubylouvre/">司徒正美<i class="fa fa-external-link"></i></span>相关<span class="exturl" data-url="aHR0cDovL3d3dy5jbmJsb2dzLmNvbS9ydWJ5bG91dnJlL2FyY2hpdmUvMjAwOS8wOC8wOS8xNTQyMTc0Lmh0bWw=" title="http://www.cnblogs.com/rubylouvre/archive/2009/08/09/1542174.html">文章<i class="fa fa-external-link"></i></span>中的一个例子：</p>
+<p><span class="exturl" data-url="aHR0cDovL3d3dy5jbmJsb2dzLmNvbS9vd2VuQ2hlbi9hcmNoaXZlLzIwMTMvMDIvMTgvMjkxNTUyMS5odG1s" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"><i class="fa fa-external-link"></i></span></p>
+<p><code>var delegate = function(client, clientMethod) { return function() { return clientMethod.apply(client, arguments); } } var ClassA = function() { var \_color = &quot;red&quot;; return { getColor: function() { console.log(&quot;Color: &quot; + \_color); }, setColor: function(color) { _color = color; } }; }; var a = new ClassA(); a.getColor(); a.setColor(&quot;green&quot;); a.getColor(); console.log(&quot;执行代理！&quot;); var d = delegate(a, a.setColor); d(&quot;blue&quot;); console.log(&quot;执行完毕！&quot;); a.getColor();</code></p>
+<p><span class="exturl" data-url="aHR0cDovL3d3dy5jbmJsb2dzLmNvbS9vd2VuQ2hlbi9hcmNoaXZlLzIwMTMvMDIvMTgvMjkxNTUyMS5odG1s" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"><i class="fa fa-external-link"></i></span></p>
+<p>上面的例子中，通过调用delegate()函数创建的代理函数d来操作对a的修改。这种方式尽管是使用了apply（call也可以）来实现了调用对象的转移，但是从编程模式上实现了对某些对象的隐藏，可以保护这些对象不被随便访问和修改。 在很多框架中都引用了委托这个概念用来指定方法的运行作用域。比较典型的如dojo.hitch(scope,method)和ExtJS的createDelegate(obj,args)。有兴趣的同学可以看一下他们的源代码，主要也是js函数的apply方法来制定执行作用域。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/182/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/182/" class="post-title-link" itemprop="url">MySQL按照汉字的拼音排序</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-03-24 10:19:18" itemprop="dateCreated datePublished" datetime="2016-03-24T10:19:18+08:00">2016-03-24</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-mysql/" itemprop="url" rel="index"><span itemprop="name">积累________mysql</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">307</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">1 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>按照汉字的拼音排序，用的比较多是在人名的排序中，按照姓氏的拼音字母，从A到Z排序； 如果存储姓名的字段采用的是GBK字符集，那就好办了，因为GBK内码编码时本身就采用了拼音排序的方法（常用一级汉字3755个采用拼音排序，二级汉字就不是了，但考虑到人名等都是常用汉字，因此只是针对一级汉字能正确排序也够用了）。 直接在查询语句后面 添加 order by name asc; 查询结果按照姓氏的升序排序； 如果存储姓名的字段采用的是?utf8字符集，需要在排序的时候对字段进行转码；对于的代码是? order by convert(name using gbk) asc; 同样，查询的结果也是按照姓氏的升序排序；</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -2759,7 +2773,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">198</span>
+                    <span class="site-state-item-count">196</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2771,88 +2785,94 @@
                 <div class="site-state-item site-state-categories">
                   
                     
+                      <a href="/categories/">
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">39</span>
-                    <span class="site-state-item-name">categories</span>
                   
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
                 </div>
               
 
@@ -2860,6 +2880,10 @@
                 
                 
                 <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
                   
                     
                     
@@ -2885,7 +2909,7 @@
                     
                     <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">tags</span>
-                  
+                  </a>
                 </div>
               
             </nav>
@@ -3008,7 +3032,7 @@
     
       <span class="post-meta-item-text">Symbols count total: </span>
     
-    <span title="Symbols count total">571k</span>
+    <span title="Symbols count total">568k</span>
   
 
   
@@ -3019,7 +3043,7 @@
     
       <span class="post-meta-item-text">Reading time total &asymp;</span>
     
-    <span title="Reading time total">8:39</span>
+    <span title="Reading time total">8:36</span>
   
 </div>
 
@@ -3108,9 +3132,6 @@
 
 
 
-  
-  
-
 
 
 
@@ -3129,12 +3150,6 @@
 
   
   <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
-
-  
-  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three.min.js"></script>
-
-  
-  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three-waves.min.js"></script>
 
 
   

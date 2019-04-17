@@ -362,7 +362,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/10/php的变量引用与销毁机制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/598/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -382,214 +382,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/05/10/php的变量引用与销毁机制/" class="post-title-link" itemprop="url">php的变量引用与销毁机制</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2017-05-10 11:54:12" itemprop="dateCreated datePublished" datetime="2017-05-10T11:54:12+08:00">2017-05-10</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-php/" itemprop="url" rel="index"><span itemprop="name">积累________php</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">2k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">2 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>经常会看到此类问题。虽然使用不多，但是基于基本原理，需要进行理解，同样利于装x，不然“砖家”之间聊什么呢。</p>
-</blockquote>
-<p>在php中，符号”&amp;”表示引用。</p>
-<h2 id="1、看看不引用的情况是这样子："><a href="#1、看看不引用的情况是这样子：" class="headerlink" title="1、看看不引用的情况是这样子："></a>1、看看不引用的情况是这样子：</h2><p><code>$a = &quot;hello world&quot;;//定义一个变量，下面赋值给$b $b = $a;//这一步没有在$a之前加符号&amp;，像这样子&quot;$b= &amp; $a&quot;。没有加&amp;，实际上原理是会将变量$a复制拷贝一份，也就是内存中重新申请一个地址存储变量$b了</code> ps：在php中，使用”=”直接赋值，其实就是拷贝一份右边的变量给b，会生成一份内存空间，结果可能是同样的内容在内存中两份。在有些关于php性能方面提到，这样子会多占有内存空间。不过我接触中，大部分人没怎么注意，其实一般应用这样子用产生的显著差异并不明显。不会看到什么效果，其实我本人也没经常使用&amp;进行引用，呵呵。只是我觉得，深入了解里面的实现原理，非常有必要。我喜欢关注原理性的东西。</p>
-<h2 id="2、使用符号-amp-进行引用"><a href="#2、使用符号-amp-进行引用" class="headerlink" title="2、使用符号&amp;进行引用"></a>2、使用符号&amp;进行引用</h2><p><code>$a = &quot;hello world&quot;; $b = &amp; $a;</code> 使用引用，php引擎不会拷贝一份变量，其实就是将指针指向了$a在内存中的地址，$b中就是保存了这个指针。 所以使用引用的时候，把$b的值改变，$a也会跟着改变 比如： <code>$a = &quot;hello world&quot;; $b = &amp; $a; $b = &quot;test new value&quot;;//把b的值改掉，a的值也会跟着改变 echo $a;//输出test new value，因为改变了b的值也会改变a的值。</code> 经常在定义函数的时候看到像这样的情况： <code>function test (&amp; $param) { //函数定义的内容 $param++; }</code> 解释：$param前面带有引用，所以传入进来的参数并不会在内存中拷贝一份，而是直接对原来的内存空间进行引用。所以：如果里对使用符号&amp;传入进来的变量值进行修改了，那么也会改变原来的内存空间中的值。 做个测验如下： <code>$k = 8; test($k); echo $k;//结果$k的值被函数里面改变了，输出9。</code> 还会经常看到这样子调用函数： <code>$return = &amp; test_func();</code> 前面了解到php引擎的机制是：=会把右边的内容拷贝一份给予左边的变量。所以使用&amp;就是将函数的结果不会进行拷贝一份，实际上我的理解是把指针给了左边的变量。 什么是指针，以前学c语言中的概念。我的理解是就是：指针，指针，指向针(指南针，呵呵)。把指针看成是一个内存的地址容易理解点，计算机就知道去内存什么位置找数据了吧。这是浅显的理解，深入的我不会，呵呵。 总结：使用引用是为了减少内存资源的占用。 php手册中对引用的解释如下： 在 PHP 中引用意味着用不同的名字访问同一个变量内容。这并不像 C 的指针，替代的是，引用是符号表别名。注意在 PHP 中，变量名和变量内容是不一样的，因此同样的内容可以有不同的名字。最接近的比喻是 Unix 的文件名和文件本身——变量名是目录条目，而变量内容则是文件本身。引用可以被看作是 Unix 文件系统中的 hardlink。</p>
-<h2 id="3、销毁变量的时候。并不会改变原来的值。"><a href="#3、销毁变量的时候。并不会改变原来的值。" class="headerlink" title="3、销毁变量的时候。并不会改变原来的值。"></a>3、销毁变量的时候。并不会改变原来的值。</h2><p>既然改变$b的值，$a的值也跟着改变，假如把$b销毁掉(内存中不占用空间了，不是null，也不是值为””)，$a的值是不是也会跟着被删掉呢？ 其实国外有本php方面的书中专门提到了这个机制。2年前看的。不是很记得了。原则是就是删除变量的时候，会自动拷贝。 其实这样子，就是为了避免把$b给删掉，造成把$a也给删掉的问题。 <code>//只有等到销毁的时候就会自动拷贝一份。php不会把被引用的变量销毁掉。 $a = &#39;d&#39;; $b = &amp; $a; $b = 8;//因为是引用了，所以把b的值改掉，a的值也跟着改为8了。 var\_dump($b,$a); unset($b);//调用unset删除b变量，a变量不会删除 var\_dump($b,$a);//输出null和8</code> 调用unset删除$b变量的时候，php引擎从变量符号表中发现：我要删除的变量$b原来是引用了变量$a,这不好删除啊，因为一删除导致$a变量也没了，所以就先把$a变量拷贝一份后在删除$b变量。 关于php符号表：其实我的理解是，运行中所有变量名称都记录在里面，php来维护，具体的数据当然是存储在内存中,php就是根据这个符号表去回收没有用到的变量空间的，释放内存空间)。去看看php的垃圾回收机制(释放不再使用的内存空间)，就是根据符号表进行的。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/09/二进制和十进制转换/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/05/09/二进制和十进制转换/" class="post-title-link" itemprop="url">二进制和十进制转换</a>
+                <a href="/2017/598/" class="post-title-link" itemprop="url">二进制和十进制转换</a>
               
             
           </h2>
@@ -789,7 +582,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/28/laravel-5-：数据库迁移-migrations/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/596/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -809,7 +602,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/04/28/laravel-5-：数据库迁移-migrations/" class="post-title-link" itemprop="url">Laravel 5 ：数据库迁移 Migrations</a>
+                <a href="/2017/596/" class="post-title-link" itemprop="url">Laravel 5 ：数据库迁移 Migrations</a>
               
             
           </h2>
@@ -1018,7 +811,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/28/python计算给定日期的周内的某一天/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/595/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1038,7 +831,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/04/28/python计算给定日期的周内的某一天/" class="post-title-link" itemprop="url">python计算给定日期的周内的某一天</a>
+                <a href="/2017/595/" class="post-title-link" itemprop="url">python计算给定日期的周内的某一天</a>
               
             
           </h2>
@@ -1219,7 +1012,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/27/python封装日志功能logger/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/594/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1239,7 +1032,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/04/27/python封装日志功能logger/" class="post-title-link" itemprop="url">Python封装日志功能Logger</a>
+                <a href="/2017/594/" class="post-title-link" itemprop="url">Python封装日志功能Logger</a>
               
             
           </h2>
@@ -1429,7 +1222,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/26/pm2-使用介绍/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/593/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1449,7 +1242,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/04/26/pm2-使用介绍/" class="post-title-link" itemprop="url">PM2  使用介绍</a>
+                <a href="/2017/593/" class="post-title-link" itemprop="url">PM2  使用介绍</a>
               
             
           </h2>
@@ -1675,7 +1468,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/25/python：获取目录名，创建多级目录，获取文件名/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/592/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1695,7 +1488,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/04/25/python：获取目录名，创建多级目录，获取文件名/" class="post-title-link" itemprop="url">python：获取目录名，创建多级目录，获取文件名</a>
+                <a href="/2017/592/" class="post-title-link" itemprop="url">python：获取目录名，创建多级目录，获取文件名</a>
               
             
           </h2>
@@ -1876,7 +1669,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/25/jupyter-服务器部署及后台运行/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/590/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1896,7 +1689,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/04/25/jupyter-服务器部署及后台运行/" class="post-title-link" itemprop="url">jupyter 服务器部署及后台运行</a>
+                <a href="/2017/590/" class="post-title-link" itemprop="url">jupyter 服务器部署及后台运行</a>
               
             
           </h2>
@@ -2081,7 +1874,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/25/linux安装anaconda/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/589/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2101,7 +1894,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/04/25/linux安装anaconda/" class="post-title-link" itemprop="url">Linux安装Anaconda</a>
+                <a href="/2017/589/" class="post-title-link" itemprop="url">Linux安装Anaconda</a>
               
             
           </h2>
@@ -2300,7 +2093,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/20/使用python将html转成pdf/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/585/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2320,7 +2113,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/04/20/使用python将html转成pdf/" class="post-title-link" itemprop="url">使用Python将HTML转成PDF</a>
+                <a href="/2017/585/" class="post-title-link" itemprop="url">使用Python将HTML转成PDF</a>
               
             
           </h2>
@@ -2505,6 +2298,208 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/584/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017/584/" class="post-title-link" itemprop="url">python pdfkit 中文乱码问题处理</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-04-20 18:51:50" itemprop="dateCreated datePublished" datetime="2017-04-20T18:51:50+08:00">2017-04-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">842</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">1 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="使用Python-pdfkit生成pdf文件中遇到中文乱码问题"><a href="#使用Python-pdfkit生成pdf文件中遇到中文乱码问题" class="headerlink" title="使用Python pdfkit生成pdf文件中遇到中文乱码问题"></a>使用Python pdfkit生成pdf文件中遇到中文乱码问题</h2><h3 id="生成的文件名不能带有中文字符"><a href="#生成的文件名不能带有中文字符" class="headerlink" title="生成的文件名不能带有中文字符"></a>生成的文件名不能带有中文字符</h3><p>处理方法： 我暂时想到的处理方式是先生成英文文件名，再将这个文件重命名为中文的文件名 <figure class="highlight plain"><figcaption><span>coding</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 生成的pdf内容中文为乱码</span><br><span class="line"></span><br><span class="line">``` pd\_arr = pd.read\_excel(expath) print pd\_arr print pd\_arr.to_html() header = &apos;&apos; pdfkit.from\_string(header + pd\_arr.to_html(), pdfexpath)</span><br></pre></td></tr></table></figure></p>
+<h2 id="生成的pdf内容中文为乱码原因"><a href="#生成的pdf内容中文为乱码原因" class="headerlink" title="生成的pdf内容中文为乱码原因"></a>生成的pdf内容中文为乱码原因</h2><h3 id="原因1："><a href="#原因1：" class="headerlink" title="原因1："></a>原因1：</h3><p>因为pdfkit生成pdf功能其实调用的是webkit的子模块wkhtmltopdf(通过命令行方式)，所以pdfkit生成中文乱码其实是wkhtmltopdf中文乱码导致的；而wkhtmltopdf中文乱码是因为系统中不存在中文字体导致的 处理方式: 在系统中添加中文字体 我的本地电脑是ubuntu14.04的字体文件保存在/usr/share/fonts下(包含了中文字体文件具体哪一个我也不知道汗。)，我的服务器是redhat系统(没有中文字体)，所以在我的电脑上操作如下: <figure class="highlight plain"><figcaption><span>/usr/share/fonts zip -r fonts.zip ./* scp fonts.zip 服务器用户名@服务器ip:/usr/share/fonts``` 在服务器上操作如下: ``` cd</span><a href="/usr/share/fonts">unzip fonts.zip fc-cache -fv fc-list # 查看新添加的字体``` 你需要找一台有安装了中文字体的电脑复制一份字体文件(就是/usr/share/fonts下的文件)，然后如我以上操作就可以了。</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 原因2：</span><br><span class="line"></span><br><span class="line">需要在html的字符集设置为utf8 ``` &lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;head&gt;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -2551,7 +2546,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">198</span>
+                    <span class="site-state-item-count">196</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2563,88 +2558,94 @@
                 <div class="site-state-item site-state-categories">
                   
                     
+                      <a href="/categories/">
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">39</span>
-                    <span class="site-state-item-name">categories</span>
                   
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
                 </div>
               
 
@@ -2652,6 +2653,10 @@
                 
                 
                 <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
                   
                     
                     
@@ -2677,7 +2682,7 @@
                     
                     <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">tags</span>
-                  
+                  </a>
                 </div>
               
             </nav>
@@ -2800,7 +2805,7 @@
     
       <span class="post-meta-item-text">Symbols count total: </span>
     
-    <span title="Symbols count total">571k</span>
+    <span title="Symbols count total">568k</span>
   
 
   
@@ -2811,7 +2816,7 @@
     
       <span class="post-meta-item-text">Reading time total &asymp;</span>
     
-    <span title="Reading time total">8:39</span>
+    <span title="Reading time total">8:36</span>
   
 </div>
 
@@ -2900,9 +2905,6 @@
 
 
 
-  
-  
-
 
 
 
@@ -2921,12 +2923,6 @@
 
   
   <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
-
-  
-  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three.min.js"></script>
-
-  
-  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three-waves.min.js"></script>
 
 
   

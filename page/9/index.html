@@ -362,7 +362,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/14/【量化小讲堂-python-pandas技巧系列】使用python计算各类移动.1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/513/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -382,427 +382,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/04/14/【量化小讲堂-python-pandas技巧系列】使用python计算各类移动.1/" class="post-title-link" itemprop="url">【量化小讲堂 - python & pandas技巧系列】使用python计算各类移动平均线</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2017-04-14 10:26:05" itemprop="dateCreated datePublished" datetime="2017-04-14T10:26:05+08:00">2017-04-14</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/量化小讲堂-Python、pandas技巧系列/" itemprop="url" rel="index"><span itemprop="name">量化小讲堂- Python、pandas技巧系列</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">1.2k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">1 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>我之前一直用SAS、MATLAB。最近用Python，发现python的pandas包简直是分析金融数据做量化研究的神器。准备写个系列帖子“量化小讲堂”，希望通过实际的列子，让大家知道如何使用python &amp; pandas进行金融数据处理，希望能对大家有帮助。帖子主要面向入门学习者，大神请轻拍。</p>
-</blockquote>
-<p>计算移动平均线是最常见的需求，下面这段代码将完成以下三件事情：</p>
-<ol>
-<li>从csv格式的文件中导入股票数据，数据例图如下：<img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/134818nwfmld8k4cogmn4j.png" alt><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/13481613l85h0ie5z2yz5o.png" alt></li>
-<li>计算各类移动平均线，包括简单简单算术移动平均线MA、指数平滑移动平均线EMA；</li>
-<li>将计算好的数据输出到csv文件中。</li>
-</ol>
-<p>代码应该复制下来就能运行了，关于从哪里可以得到代码中使用的数据，后面会讲，下面贴上代码（附件中也可以下载）： <code>\# -*- coding: utf-8 -*- _</code>_ <em>@author: <span class="exturl" data-url="aHR0cDovL3lhb3ppaGFvLmNu" title="http://yaozihao.cn">yaozihao<i class="fa fa-external-link"></i></span></em> <em>@contact: QQ:906961433 email:<span class="exturl" data-url="bWFpbHRvOnlhb3ppaGFvQHlhb3ppaGFvLmNu" title="mailto:yaozihao@yaozihao.cn">yaozihao@yaozihao.cn<i class="fa fa-external-link"></i></span></em> <em><code>`</code></em> <strong>import</strong> pandas <strong>as</strong> pd # ========== 从原始csv文件中导入股票数据，以浦发银行sh600000为例 # 导入数据 - 注意：这里请填写数据文件在您电脑中的路径 stock_data = pd.read_csv(‘stock data/sh600000.csv’, parse_dates=[1]) # 将数据按照交易日期从远到近排序 stock_data.sort(‘date’, inplace=True) # ========== 计算移动平均线 # 分别计算5日、20日、60日的移动平均线 ma_list = [5, 20, 60] # 计算简单算术移动平均线MA - 注意：stock_data[‘close’]为股票每天的收盘价 <strong>for</strong> ma <strong>in</strong> ma_list:     stock_data[‘MA_’ + str(ma)] = pd.rolling_mean(stock_data[‘close’], ma) # 计算指数平滑移动平均线EMA <strong>for</strong> ma <strong>in</strong> ma_list:     stock_data[‘EMA_’ + str(ma)] = pd.ewma(stock_data[‘close’], span=ma) # 将数据按照交易日期从近到远排序 stock_data.sort(‘date’, ascending=False, inplace=True) # ========== 将算好的数据输出到csv文件 - 注意：这里请填写输出文件在您电脑中的路径 stock_data.to_csv(‘sh600000_ma_ema.csv’, index=False)<code>`</code> 代码输出的数据截图如下： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/140116kvzh3f455fd53okt.png" alt> 可以到这里下载程序中用到的股票数据：<span class="exturl" data-url="aHR0cDovL3l1Y2V6aGUuY29tLw==" title="http://yucezhe.com/">网址<i class="fa fa-external-link"></i></span> ，其中包含了所有股票、从上市日起的全部交易数据。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/14/【量化小讲堂-python-pandas技巧系列】使用python计算各类移动/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/04/14/【量化小讲堂-python-pandas技巧系列】使用python计算各类移动/" class="post-title-link" itemprop="url">【量化小讲堂 - python & pandas技巧系列】使用python计算各类移动平均线</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2017-04-14 10:26:05" itemprop="dateCreated datePublished" datetime="2017-04-14T10:26:05+08:00">2017-04-14</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/量化小讲堂-Python、pandas技巧系列/" itemprop="url" rel="index"><span itemprop="name">量化小讲堂- Python、pandas技巧系列</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">1.2k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">1 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>我之前一直用SAS、MATLAB。最近用Python，发现python的pandas包简直是分析金融数据做量化研究的神器。准备写个系列帖子“量化小讲堂”，希望通过实际的列子，让大家知道如何使用python &amp; pandas进行金融数据处理，希望能对大家有帮助。帖子主要面向入门学习者，大神请轻拍。</p>
-</blockquote>
-<p>计算移动平均线是最常见的需求，下面这段代码将完成以下三件事情：</p>
-<ol>
-<li>从csv格式的文件中导入股票数据，数据例图如下：<img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/134818nwfmld8k4cogmn4j.png" alt><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/13481613l85h0ie5z2yz5o.png" alt></li>
-<li>计算各类移动平均线，包括简单简单算术移动平均线MA、指数平滑移动平均线EMA；</li>
-<li>将计算好的数据输出到csv文件中。</li>
-</ol>
-<p>代码应该复制下来就能运行了，关于从哪里可以得到代码中使用的数据，后面会讲，下面贴上代码（附件中也可以下载）： <code>\# -*- coding: utf-8 -*- _</code>_ <em>@author: <span class="exturl" data-url="aHR0cDovL3lhb3ppaGFvLmNu" title="http://yaozihao.cn">yaozihao<i class="fa fa-external-link"></i></span></em> <em>@contact: QQ:906961433 email:<span class="exturl" data-url="bWFpbHRvOnlhb3ppaGFvQHlhb3ppaGFvLmNu" title="mailto:yaozihao@yaozihao.cn">yaozihao@yaozihao.cn<i class="fa fa-external-link"></i></span></em> <em><code>`</code></em> <strong>import</strong> pandas <strong>as</strong> pd # ========== 从原始csv文件中导入股票数据，以浦发银行sh600000为例 # 导入数据 - 注意：这里请填写数据文件在您电脑中的路径 stock_data = pd.read_csv(‘stock data/sh600000.csv’, parse_dates=[1]) # 将数据按照交易日期从远到近排序 stock_data.sort(‘date’, inplace=True) # ========== 计算移动平均线 # 分别计算5日、20日、60日的移动平均线 ma_list = [5, 20, 60] # 计算简单算术移动平均线MA - 注意：stock_data[‘close’]为股票每天的收盘价 <strong>for</strong> ma <strong>in</strong> ma_list:     stock_data[‘MA_’ + str(ma)] = pd.rolling_mean(stock_data[‘close’], ma) # 计算指数平滑移动平均线EMA <strong>for</strong> ma <strong>in</strong> ma_list:     stock_data[‘EMA_’ + str(ma)] = pd.ewma(stock_data[‘close’], span=ma) # 将数据按照交易日期从近到远排序 stock_data.sort(‘date’, ascending=False, inplace=True) # ========== 将算好的数据输出到csv文件 - 注意：这里请填写输出文件在您电脑中的路径 stock_data.to_csv(‘sh600000_ma_ema.csv’, index=False)<code>`</code> 代码输出的数据截图如下： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/140116kvzh3f455fd53okt.png" alt> 可以到这里下载程序中用到的股票数据：<span class="exturl" data-url="aHR0cDovL3l1Y2V6aGUuY29tLw==" title="http://yucezhe.com/">网址<i class="fa fa-external-link"></i></span> ，其中包含了所有股票、从上市日起的全部交易数据。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/13/【量化小讲堂-python、pandas技巧系列】windows下如何安装python、pandas/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/04/13/【量化小讲堂-python、pandas技巧系列】windows下如何安装python、pandas/" class="post-title-link" itemprop="url">【量化小讲堂 - Python、pandas技巧系列】windows下如何安装Python、pandas</a>
+                <a href="/2017/513/" class="post-title-link" itemprop="url">【量化小讲堂 - Python、pandas技巧系列】windows下如何安装Python、pandas</a>
               
             
           </h2>
@@ -994,7 +574,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/13/【量化小讲堂-python、pandas技巧系列】如何快速上手使用python/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/506/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1014,7 +594,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/04/13/【量化小讲堂-python、pandas技巧系列】如何快速上手使用python/" class="post-title-link" itemprop="url">【量化小讲堂- Python、pandas技巧系列】如何快速上手使用Python进行金融数据分析</a>
+                <a href="/2017/506/" class="post-title-link" itemprop="url">【量化小讲堂- Python、pandas技巧系列】如何快速上手使用Python进行金融数据分析</a>
               
             
           </h2>
@@ -1197,7 +777,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/13/互联网协议入门（二）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/504/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1217,7 +797,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/04/13/互联网协议入门（二）/" class="post-title-link" itemprop="url">互联网协议入门（二）</a>
+                <a href="/2017/504/" class="post-title-link" itemprop="url">互联网协议入门（二）</a>
               
             
           </h2>
@@ -1425,7 +1005,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/13/互联网协议入门（一）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/503/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1445,7 +1025,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/04/13/互联网协议入门（一）/" class="post-title-link" itemprop="url">互联网协议入门（一）</a>
+                <a href="/2017/503/" class="post-title-link" itemprop="url">互联网协议入门（一）</a>
               
             
           </h2>
@@ -1626,7 +1206,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/13/dns-原理入门/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/486/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1646,7 +1226,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/04/13/dns-原理入门/" class="post-title-link" itemprop="url">DNS 原理入门</a>
+                <a href="/2017/486/" class="post-title-link" itemprop="url">DNS 原理入门</a>
               
             
           </h2>
@@ -1870,7 +1450,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/13/互联网协议总结/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/478/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1890,7 +1470,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/04/13/互联网协议总结/" class="post-title-link" itemprop="url">互联网协议总结</a>
+                <a href="/2017/478/" class="post-title-link" itemprop="url">互联网协议总结</a>
               
             
           </h2>
@@ -2143,7 +1723,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/30/python中的字典详细介绍/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/475/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2163,7 +1743,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/03/30/python中的字典详细介绍/" class="post-title-link" itemprop="url">python中的字典详细介绍</a>
+                <a href="/2017/475/" class="post-title-link" itemprop="url">python中的字典详细介绍</a>
               
             
           </h2>
@@ -2358,7 +1938,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/30/详细记录python的range函数用法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/474/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2378,7 +1958,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/03/30/详细记录python的range函数用法/" class="post-title-link" itemprop="url">详细记录python的range()函数用法</a>
+                <a href="/2017/474/" class="post-title-link" itemprop="url">详细记录python的range()函数用法</a>
               
             
           </h2>
@@ -2544,6 +2124,408 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/473/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017/473/" class="post-title-link" itemprop="url">python,两个list比较去除重复元素，然后合并</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-03-30 14:04:17" itemprop="dateCreated datePublished" datetime="2017-03-30T14:04:17+08:00">2017-03-30</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">330</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">1 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>方法一 <code>&gt;&gt;\&gt; a = \[1,3,5,7\] &gt;&gt;&gt; b = \[1,3,4,6,8\] &gt;&gt;&gt; c = list(set(a+b)) &gt;&gt;&gt; a \[1, 3, 5, 7\] &gt;&gt;&gt; b \[1, 3, 4, 6, 8\] &gt;&gt;&gt; c \[1, 3, 4, 5, 6, 7, 8\]</code> 方法二 <code>a = \[1,3,5,7\] b = \[1,3,4,6,8\] c = list(set(a) | set(b))</code> 方法三 <code>a = \[1,3,5,7\] b = \[1,3,4,6,8\] c=list(set(a).union(set(b)))</code></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/471/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017/471/" class="post-title-link" itemprop="url">奇怪的python 三元符</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-03-30 10:43:37" itemprop="dateCreated datePublished" datetime="2017-03-30T10:43:37+08:00">2017-03-30</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-16 15:59:57" itemprop="dateModified" datetime="2019-04-16T15:59:57+08:00">2019-04-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">540</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">1 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>一些语言（如PHP）的三元表达式形如： <code>判定条件 ? 为真时的结果 : 为假时的结果   if(1==1) ? true : false</code> Python的三元表达式有如下几种书写方法： <code>if \_\_name\_\_ == &#39;\_\_main\_\_&#39;: a = &#39;&#39; b = &#39;True&#39; c = &#39;False&#39; #方法一：为真时的结果 if 判定条件 else 为假时的结果 d = b if a else c print(&#39;方法一输出结果：&#39; + d) #方法二：判定条件 and 为真时的结果 or 为假时的结果 d = a and b or c print(&#39;方法二输出结果：&#39; + d) #以上两种方法方法等同于if ... else ... if a: d = b else: d = c print(&#39;if语句的输出结果：&#39; + d)</code> 输出结果： <code>方法一输出结果：False 方法二输出结果：False if语句的输出结果：False</code> 说明： 判断条件：a为空串，所以判断条件为假 当判断条件为真时的结果：d = b 当判断条件为假时的结果：d = c</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -2590,7 +2572,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">198</span>
+                    <span class="site-state-item-count">196</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2602,88 +2584,94 @@
                 <div class="site-state-item site-state-categories">
                   
                     
+                      <a href="/categories/">
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">39</span>
-                    <span class="site-state-item-name">categories</span>
                   
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
                 </div>
               
 
@@ -2691,6 +2679,10 @@
                 
                 
                 <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
                   
                     
                     
@@ -2716,7 +2708,7 @@
                     
                     <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">tags</span>
-                  
+                  </a>
                 </div>
               
             </nav>
@@ -2839,7 +2831,7 @@
     
       <span class="post-meta-item-text">Symbols count total: </span>
     
-    <span title="Symbols count total">571k</span>
+    <span title="Symbols count total">568k</span>
   
 
   
@@ -2850,7 +2842,7 @@
     
       <span class="post-meta-item-text">Reading time total &asymp;</span>
     
-    <span title="Reading time total">8:39</span>
+    <span title="Reading time total">8:36</span>
   
 </div>
 
@@ -2939,9 +2931,6 @@
 
 
 
-  
-  
-
 
 
 
@@ -2960,12 +2949,6 @@
 
   
   <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
-
-  
-  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three.min.js"></script>
-
-  
-  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three-waves.min.js"></script>
 
 
   

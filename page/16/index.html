@@ -362,7 +362,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/24/js-事件代理和委托/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/179/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -382,430 +382,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/03/24/js-事件代理和委托/" class="post-title-link" itemprop="url">js 事件代理和委托</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-03-24 14:33:58" itemprop="dateCreated datePublished" datetime="2016-03-24T14:33:58+08:00">2016-03-24</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-js/" itemprop="url" rel="index"><span itemprop="name">积累________js</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">4.1k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">4 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在javasript中delegate这个词经常出现，看字面的意思，代理、委托。那么它究竟在什么样的情况下使用？它的原理又是什么？在各种框架中，也经常能看到delegate相关的接口。这些接口又有什么特殊的用法呢？这篇文章就主要介绍一下javascript delegate的用法和原理，以及Dojo，jQuery等框架中delegate的接口。</p>
-<h3 id="JavaScript事件代理"><a href="#JavaScript事件代理" class="headerlink" title="JavaScript事件代理"></a>JavaScript事件代理</h3><p>首先介绍一下JavaScript的事件代理。事件代理在JS世界中一个非常有用也很有趣的功能。当我们需要对很多元素添加事件的时候，可以通过将事件添加到它们的父节点而将事件委托给父节点来触发处理函数。这主要得益于浏览器的事件冒泡机制，后面会详细介绍。下面我们具体举个例子来解释如何使用这个特性。这个例子主要取自<span class="exturl" data-url="aHR0cDovL2Rhdmlkd2Fsc2gubmFtZS8=" title="http://davidwalsh.name/">David Walsh<i class="fa fa-external-link"></i></span>的相关<span class="exturl" data-url="aHR0cDovL2Rhdmlkd2Fsc2gubmFtZS9ldmVudC1kZWxlZ2F0ZQ==" title="http://davidwalsh.name/event-delegate">文章（How JavaScript Event Delegation Works）<i class="fa fa-external-link"></i></span>。</p>
-<p>假设有一个 UL 的父节点，包含了很多个 Li 的子节点：</p>
-<p><span class="exturl" data-url="aHR0cDovL3d3dy5jbmJsb2dzLmNvbS9vd2VuQ2hlbi9hcmNoaXZlLzIwMTMvMDIvMTgvMjkxNTUyMS5odG1s" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"><i class="fa fa-external-link"></i></span></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">*   Item 1</span><br><span class="line">*   Item 2</span><br><span class="line">*   Item 3</span><br><span class="line">*   Item 4</span><br><span class="line">*   Item 5</span><br><span class="line">*   Item 6</span><br></pre></td></tr></table></figure>
-<p><span class="exturl" data-url="aHR0cDovL3d3dy5jbmJsb2dzLmNvbS9vd2VuQ2hlbi9hcmNoaXZlLzIwMTMvMDIvMTgvMjkxNTUyMS5odG1s" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"><i class="fa fa-external-link"></i></span></p>
-<p>当我们的鼠标移到Li上的时候，需要获取此Li的相关信息并飘出悬浮窗以显示详细信息，或者当某个Li被点击的时候需要触发相应的处理事件。我们通常的写法，是为每个Li都添加一些类似onMouseOver或者onClick之类的事件监听。</p>
-<p><span class="exturl" data-url="aHR0cDovL3d3dy5jbmJsb2dzLmNvbS9vd2VuQ2hlbi9hcmNoaXZlLzIwMTMvMDIvMTgvMjkxNTUyMS5odG1s" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"><i class="fa fa-external-link"></i></span></p>
-<figure class="highlight plain"><figcaption><span>addListeners4Li(liNode)&#123; liNode.onclick </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[![复制代码](http://common.cnblogs.com/images/copycode.gif)](http://www.cnblogs.com/owenChen/archive/2013/02/18/2915521.html &quot;复制代码&quot;)</span><br><span class="line"></span><br><span class="line">如果这个UL中的Li子元素会频繁地添加或者删除，我们就需要在每次添加Li的时候都调用这个addListeners4Li方法来为每个Li节点添加事件处理函数。这就添加的复杂度和出错的可能性。 更简单的方法是使用事件代理机制，当事件被抛到更上层的父节点的时候，我们通过检查事件的目标对象（target）来判断并获取事件源Li。下面的代码可以完成我们想要的效果：</span><br><span class="line"></span><br><span class="line">[![复制代码](http://common.cnblogs.com/images/copycode.gif)](http://www.cnblogs.com/owenChen/archive/2013/02/18/2915521.html &quot;复制代码&quot;)</span><br><span class="line"></span><br><span class="line">``` // 获取父节点，并为它添加一个click事件 document.getElementById(&quot;parent-list&quot;).addEventListener(&quot;click&quot;,function(e) &#123; // 检查事件源e.targe是否为Li if(e.target &amp;&amp; e.target.nodeName.toUpperCase == &quot;LI&quot;) &#123; // 真正的处理过程在这里 console.log(&quot;List item &quot;,e.target.id.replace(&quot;post-&quot;),&quot; was clicked!&quot;); &#125; &#125;);</span><br></pre></td></tr></table></figure>
-<p><span class="exturl" data-url="aHR0cDovL3d3dy5jbmJsb2dzLmNvbS9vd2VuQ2hlbi9hcmNoaXZlLzIwMTMvMDIvMTgvMjkxNTUyMS5odG1s" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"><i class="fa fa-external-link"></i></span></p>
-<p>为父节点添加一个click事件，当子节点被点击的时候，click事件会从子节点开始向上冒泡。父节点捕获到事件之后，通过判断e.target.nodeName来判断是否为我们需要处理的节点。并且通过e.target拿到了被点击的Li节点。从而可以获取到相应的信息，并作处理。</p>
-<h3 id="事件冒泡及捕获"><a href="#事件冒泡及捕获" class="headerlink" title="事件冒泡及捕获"></a>事件冒泡及捕获</h3><p>之前的介绍中已经说到了浏览器的事件冒泡机制。这里再详细介绍一下浏览器处理DOM事件的过程。对于事件的捕获和处理，不同的浏览器厂商有不同的处理机制，这里我们主要介绍W3C对DOM2.0定义的标准事件。 DOM2.0模型将事件处理流程分为三个阶段：一、事件捕获阶段，二、事件目标阶段，三、事件起泡阶段。如图： <img src="http://images.cnitblog.com/blog/477973/201302/18141423-8bd09a9c1e184df9a13b6e26b88348f3.jpg" alt> 事件捕获：当某个元素触发某个事件（如onclick），顶层对象document就会发出一个事件流，随着DOM树的节点向目标元素节点流去，直到到达事件真正发生的目标元素。在这个过程中，事件相应的监听函数是不会被触发的。 事件目标：当到达目标元素之后，执行目标元素该事件相应的处理函数。如果没有绑定监听函数，那就不执行。 事件起泡：从目标元素开始，往顶层元素传播。途中如果有节点绑定了相应的事件处理函数，这些函数都会被一次触发。如果想阻止事件起泡，可以使用e.stopPropagation()（Firefox）或者e.cancelBubble=true（IE）来组织事件的冒泡传播。</p>
-<h3 id="jQuery和Dojo中delegate函数"><a href="#jQuery和Dojo中delegate函数" class="headerlink" title="jQuery和Dojo中delegate函数"></a>jQuery和Dojo中delegate函数</h3><p>下面看一下Dojo和jQuery中提供的事件代理接口的使用方法。 首先是jQuery：</p>
-<figure class="highlight plain"><figcaption><span>"click", function()&#123;</span><a href="//">"$(this)" is the node that was clicked console.log("you clicked a link!",$(this)); &#125;);```</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">jQuery的delegate的方法需要三个参数，一个选择器，一个时间名称，和事件处理函数。 而Dojo的与jQuery相似，仅是两者的编程风格上的差别：</span><br><span class="line"></span><br><span class="line">[![复制代码](http://common.cnblogs.com/images/copycode.gif)](http://www.cnblogs.com/owenChen/archive/2013/02/18/2915521.html &quot;复制代码&quot;)</span><br><span class="line"></span><br><span class="line">``` require(\[&quot;dojo/query&quot;,&quot;dojox/NodeList/delegate&quot;\], function(query,delegate)&#123; query(&quot;#link-list&quot;).delegate(&quot;a&quot;,&quot;onclick&quot;,function(event) &#123; // &quot;this.node&quot; is the node that was clicked console.log(&quot;you clicked a link!&quot;,this); &#125;); &#125;)</span><br></pre></td></tr></table></figure>
-<p><span class="exturl" data-url="aHR0cDovL3d3dy5jbmJsb2dzLmNvbS9vd2VuQ2hlbi9hcmNoaXZlLzIwMTMvMDIvMTgvMjkxNTUyMS5odG1s" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"><i class="fa fa-external-link"></i></span></p>
-<p>Dojo的delegate模块在dojox.NodeList中，提供的接口与jQuery一样，参数也相同。</p>
-<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>通过上面的介绍，大家应该能够体会到使用事件委托对于web应用程序带来的几个优点： 1.管理的函数变少了。不需要为每个元素都添加监听函数。对于同一个父节点下面类似的子元素，可以通过委托给父元素的监听函数来处理事件。 2.可以方便地动态添加和修改元素，不需要因为元素的改动而修改事件绑定。 3.JavaScript和DOM节点之间的关联变少了，这样也就减少了因循环引用而带来的内存泄漏发生的概率。 写到这里，突然想起了之前对于Dojo DataGrid的困惑：那么多的rows和cells，如何处理他们事件之间的关系。现在想想，使用委托就很简单了。所有的事件委托到grid最外层的节点上，当事件发生的时候通过一些方法来获取和添加事件的额外属性，如rowIndex, cellIndex，之后在分配到onRowClick,onCellClick之类的处理函数上。</p>
-<h3 id="在JavaScript编程中使用代理"><a href="#在JavaScript编程中使用代理" class="headerlink" title="在JavaScript编程中使用代理"></a>在JavaScript编程中使用代理</h3><p>上面介绍的是对DOM事件处理时，利用浏览器冒泡机制为DOM元素添加事件代理。其实在纯JS编程中，我们也可以使用这样的编程模式，来创建代理对象来操作目标对象。这里引用<span class="exturl" data-url="aHR0cDovL2hvbWUuY25ibG9ncy5jb20vdS9ydWJ5bG91dnJlLw==" title="http://home.cnblogs.com/u/rubylouvre/">司徒正美<i class="fa fa-external-link"></i></span>相关<span class="exturl" data-url="aHR0cDovL3d3dy5jbmJsb2dzLmNvbS9ydWJ5bG91dnJlL2FyY2hpdmUvMjAwOS8wOC8wOS8xNTQyMTc0Lmh0bWw=" title="http://www.cnblogs.com/rubylouvre/archive/2009/08/09/1542174.html">文章<i class="fa fa-external-link"></i></span>中的一个例子：</p>
-<p><span class="exturl" data-url="aHR0cDovL3d3dy5jbmJsb2dzLmNvbS9vd2VuQ2hlbi9hcmNoaXZlLzIwMTMvMDIvMTgvMjkxNTUyMS5odG1s" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"><i class="fa fa-external-link"></i></span></p>
-<p><code>var delegate = function(client, clientMethod) { return function() { return clientMethod.apply(client, arguments); } } var ClassA = function() { var \_color = &quot;red&quot;; return { getColor: function() { console.log(&quot;Color: &quot; + \_color); }, setColor: function(color) { _color = color; } }; }; var a = new ClassA(); a.getColor(); a.setColor(&quot;green&quot;); a.getColor(); console.log(&quot;执行代理！&quot;); var d = delegate(a, a.setColor); d(&quot;blue&quot;); console.log(&quot;执行完毕！&quot;); a.getColor();</code></p>
-<p><span class="exturl" data-url="aHR0cDovL3d3dy5jbmJsb2dzLmNvbS9vd2VuQ2hlbi9hcmNoaXZlLzIwMTMvMDIvMTgvMjkxNTUyMS5odG1s" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"><i class="fa fa-external-link"></i></span></p>
-<p>上面的例子中，通过调用delegate()函数创建的代理函数d来操作对a的修改。这种方式尽管是使用了apply（call也可以）来实现了调用对象的转移，但是从编程模式上实现了对某些对象的隐藏，可以保护这些对象不被随便访问和修改。 在很多框架中都引用了委托这个概念用来指定方法的运行作用域。比较典型的如dojo.hitch(scope,method)和ExtJS的createDelegate(obj,args)。有兴趣的同学可以看一下他们的源代码，主要也是js函数的apply方法来制定执行作用域。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/24/mysql按照汉字的拼音排序/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/03/24/mysql按照汉字的拼音排序/" class="post-title-link" itemprop="url">MySQL按照汉字的拼音排序</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-03-24 10:19:18" itemprop="dateCreated datePublished" datetime="2016-03-24T10:19:18+08:00">2016-03-24</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-mysql/" itemprop="url" rel="index"><span itemprop="name">积累________mysql</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">307</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">1 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>按照汉字的拼音排序，用的比较多是在人名的排序中，按照姓氏的拼音字母，从A到Z排序； 如果存储姓名的字段采用的是GBK字符集，那就好办了，因为GBK内码编码时本身就采用了拼音排序的方法（常用一级汉字3755个采用拼音排序，二级汉字就不是了，但考虑到人名等都是常用汉字，因此只是针对一级汉字能正确排序也够用了）。 直接在查询语句后面 添加 order by name asc; 查询结果按照姓氏的升序排序； 如果存储姓名的字段采用的是?utf8字符集，需要在排序的时候对字段进行转码；对于的代码是? order by convert(name using gbk) asc; 同样，查询的结果也是按照姓氏的升序排序；</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/13/error-1819-hy000-your-password-does-not-satisfy-the-current-policy-requirements/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/03/13/error-1819-hy000-your-password-does-not-satisfy-the-current-policy-requirements/" class="post-title-link" itemprop="url">ERROR 1819 (HY000): Your password does not satisfy the current policy requirements</a>
+                <a href="/2016/179/" class="post-title-link" itemprop="url">ERROR 1819 (HY000): Your password does not satisfy the current policy requirements</a>
               
             
           </h2>
@@ -1003,7 +580,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/13/mysql-用户管理和权限设置/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/177/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1023,7 +600,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/03/13/mysql-用户管理和权限设置/" class="post-title-link" itemprop="url">mysql 用户管理和权限设置</a>
+                <a href="/2016/177/" class="post-title-link" itemprop="url">mysql 用户管理和权限设置</a>
               
             
           </h2>
@@ -1287,7 +864,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/02/29/git代码行统计命令集/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/174/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1307,7 +884,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/02/29/git代码行统计命令集/" class="post-title-link" itemprop="url">Git代码行统计命令集</a>
+                <a href="/2016/174/" class="post-title-link" itemprop="url">Git代码行统计命令集</a>
               
             
           </h2>
@@ -1488,7 +1065,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/02/22/solr的一些查询参数/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/170/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1508,7 +1085,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/02/22/solr的一些查询参数/" class="post-title-link" itemprop="url">Solr的一些查询参数</a>
+                <a href="/2016/170/" class="post-title-link" itemprop="url">Solr的一些查询参数</a>
               
             
           </h2>
@@ -1697,7 +1274,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/02/18/iterm-2-oh-my-zsh【diy教程-亲身体验过程】/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/168/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1717,7 +1294,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/02/18/iterm-2-oh-my-zsh【diy教程-亲身体验过程】/" class="post-title-link" itemprop="url">iTerm 2 && Oh My Zsh【DIY教程——亲身体验过程】</a>
+                <a href="/2016/168/" class="post-title-link" itemprop="url">iTerm 2 && Oh My Zsh【DIY教程——亲身体验过程】</a>
               
             
           </h2>
@@ -1918,7 +1495,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/02/18/zsh-agnoster-主题设置问题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/166/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1938,7 +1515,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/02/18/zsh-agnoster-主题设置问题/" class="post-title-link" itemprop="url">zsh agnoster 主题设置问题</a>
+                <a href="/2016/166/" class="post-title-link" itemprop="url">zsh agnoster 主题设置问题</a>
               
             
           </h2>
@@ -2119,7 +1696,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/02/06/path重置问题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/163/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2139,7 +1716,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/02/06/path重置问题/" class="post-title-link" itemprop="url">path重置问题</a>
+                <a href="/2016/163/" class="post-title-link" itemprop="url">path重置问题</a>
               
             
           </h2>
@@ -2334,7 +1911,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/01/29/solr实现sql的查询与统计/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/159/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2354,7 +1931,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2016/01/29/solr实现sql的查询与统计/" class="post-title-link" itemprop="url">Solr实现SQL的查询与统计</a>
+                <a href="/2016/159/" class="post-title-link" itemprop="url">Solr实现SQL的查询与统计</a>
               
             
           </h2>
@@ -3208,6 +2785,422 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/155/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/155/" class="post-title-link" itemprop="url">www.0xroot.cn/demo.html 源码分享</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-01-22 16:26:48" itemprop="dateCreated datePublished" datetime="2016-01-22T16:26:48+08:00">2016-01-22</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/" itemprop="url" rel="index"><span itemprop="name">日常________经验分享</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">403</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">1 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>完整 HTML 代码如下：</strong></p>
+<ol start="3">
+<li></li> <li>var?total=<span class="string">“”</span>;</li> <li class="alt"><span class="keyword">for</span>?(var?i=<span class="number">0</span>;i&lt;<span class="number">1000000</span>;i++)</li> <li>{</li> <li class="alt">????total=?total+i.toString?();</li> <li>????history.pushState?(<span class="number">0</span>,<span class="number">0</span>,total);</li> <li class="alt">}</li> <li></li>
+</ol>
+<p>demo：（温馨提示：请保存浏览器其它窗口的编辑任务） <span class="exturl" data-url="aHR0cDovL3d3dy4weHJvb3QuY24vZGVtby5odG1s" title="http://www.0xroot.cn/demo.html">www.0xroot.cn/demo.html<i class="fa fa-external-link"></i></span>?(点击一下，又不会怀孕！) <strong>接来下会发生什么？</strong> 点开以后，我的状态是这样的…………….. 如果你是 PC 端用户，点开链接以后，电脑 CPU 内存极有可能一路狂飙直至浏览器崩溃卡死！ 如果你是移动端（安卓、iPhone）用户，点开链接以后你的浏览器会闪退！在微博、微信客户端点开链接同样会闪退。iPhone 用 Safari 打开之后链接之后，手机注销重启了！… <strong>思考</strong> 这是 Bug 还是 0day？为什么会有这一现象？如何实现的？</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/153/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/153/" class="post-title-link" itemprop="url">利用pushState开发无刷页面切换</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-01-22 16:21:43" itemprop="dateCreated datePublished" datetime="2016-01-22T16:21:43+08:00">2016-01-22</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-16 15:59:57" itemprop="dateModified" datetime="2019-04-16T15:59:57+08:00">2019-04-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-js/" itemprop="url" rel="index"><span itemprop="name">积累________js</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">1.1k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">1 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="实现目标"><a href="#实现目标" class="headerlink" title="实现目标"></a>实现目标</h2><ol>
+<li>页面的跳转（前进后退，点击等）不重新请求页面</li>
+<li>页面URL与页面展现内容一致（符合人们对传统网页的认识）</li>
+<li>在不支持的浏览器下降级成传统网页的方式</li>
+</ol>
+<h2 id="使用到的API"><a href="#使用到的API" class="headerlink" title="使用到的API"></a>使用到的API</h2><h3 id="history-state"><a href="#history-state" class="headerlink" title="history.state"></a>history.state</h3><p>当前URL下对应的状态信息。如果当前URL不是通过pushState或者replaceState产生的，那么history.state是null。</p>
+<h3 id="history-pushState-state-title-url"><a href="#history-pushState-state-title-url" class="headerlink" title="history.pushState(state, title, url)"></a>history.pushState(state, title, url)</h3><p>将当前URL和history.state加入到history中，并用新的state和URL替换当前。不会造成页面刷新。 state：与要跳转到的URL对应的状态信息。 title：不知道干啥用，传空字符串就行了。 url：要跳转到的URL地址，不能跨域。</p>
+<h3 id="history-replaceState"><a href="#history-replaceState" class="headerlink" title="history.replaceState"></a>history.replaceState</h3><p>用新的state和URL替换当前。不会造成页面刷新。 state：与要跳转到的URL对应的状态信息。 title：不知道干啥用，传空字符串就行了。 url：要跳转到的URL地址，不能跨域。</p>
+<h3 id="window-onpopstate"><a href="#window-onpopstate" class="headerlink" title="window.onpopstate"></a>window.onpopstate</h3><p>history.go和history.back（包括用户按浏览器历史前进后退按钮）触发，并且页面无刷的时候（由于使用pushState修改了history）会触发popstate事件，事件发生时浏览器会从history中取出URL和对应的state对象替换当前的URL和history.state。通过event.state也可以获取history.state。</p>
+<h2 id="支持性判断"><a href="#支持性判断" class="headerlink" title="支持性判断"></a>支持性判断</h2><p>if (‘pushState’ in history) {…}</p>
+<h2 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h2><p>用户通过“点击触发”，“操作历史”，“直接访问URL”的方式修改当前URL。这三种触发方式会使浏览器做出不同的行为。如果页面做无刷跳转，那么页面具体显示什么内容需要js来控制，js则需要根据一些信息来知道当前应该显示什么内容，这个信息就是history.state。这样我们只要保持URL和history.state一一对应，就能保证URL和内容一一对应。大部分情况下URL和history.state都是一一对应的，但通过直接URL访问页面的方式进入页面，history.state是null，所以我们需要把URL转换成对应的history.state写入。我们不能直接写入history.state，需要通过replaceState的方式写入。对于不支持pushstate的浏览器，一律修改href跳转页面，等同于直接访问URL。示意图如下。 <img src="http://gtms01.alicdn.com/tps/i1/T1N9rZFdddXXbZIE3X-1200-900.png" alt></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -3254,7 +3247,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">198</span>
+                    <span class="site-state-item-count">196</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -3266,88 +3259,94 @@
                 <div class="site-state-item site-state-categories">
                   
                     
+                      <a href="/categories/">
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">39</span>
-                    <span class="site-state-item-name">categories</span>
                   
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
                 </div>
               
 
@@ -3355,6 +3354,10 @@
                 
                 
                 <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
                   
                     
                     
@@ -3380,7 +3383,7 @@
                     
                     <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">tags</span>
-                  
+                  </a>
                 </div>
               
             </nav>
@@ -3503,7 +3506,7 @@
     
       <span class="post-meta-item-text">Symbols count total: </span>
     
-    <span title="Symbols count total">571k</span>
+    <span title="Symbols count total">568k</span>
   
 
   
@@ -3514,7 +3517,7 @@
     
       <span class="post-meta-item-text">Reading time total &asymp;</span>
     
-    <span title="Reading time total">8:39</span>
+    <span title="Reading time total">8:36</span>
   
 </div>
 
@@ -3603,9 +3606,6 @@
 
 
 
-  
-  
-
 
 
 
@@ -3624,12 +3624,6 @@
 
   
   <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
-
-  
-  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three.min.js"></script>
-
-  
-  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three-waves.min.js"></script>
 
 
   

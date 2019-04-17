@@ -362,7 +362,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/28/在以太坊私有网络中建立节点集群并发生交易/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/649/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -382,208 +382,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/06/28/在以太坊私有网络中建立节点集群并发生交易/" class="post-title-link" itemprop="url">在以太坊私有网络中建立节点集群,并发生交易</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2017-06-28 11:57:23" itemprop="dateCreated datePublished" datetime="2017-06-28T11:57:23+08:00">2017-06-28</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-16 15:59:57" itemprop="dateModified" datetime="2019-04-16T15:59:57+08:00">2019-04-16</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-区块链/" itemprop="url" rel="index"><span itemprop="name">积累________区块链</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">11k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">10 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在私有网络中建立多个node组成的集群,并互相发现,产生交易. 为了在本地网络运行多个以太坊节点的实例,必须确保一下几点: 1. 每个实例都有独立的数据目录(–datadir) 2. 每个实例运行都有独立的端口.(eth和rpc两者都是)(–port 和 –rpcprot) 3. 在集群的情况下, 实例之间都必须要知道彼此. 4. 唯一的ipc通信端点,或者禁用ipc. 启动第一个节点(指定端口,并禁用ipc),运行命令和结果如下: <code>~/Documents/private-geth  geth --datadir ./data/00 --networkid 314590 --ipcdisable --port 61910 --rpcport 8200 console INFO \[05-29|16:18:59\] Starting peer-to-peer node instance=Geth/v1.6.1-stable-021c3c28/linux-amd64/go1.8.1 INFO \[05-29|16:18:59\] Allocated cache and file handles database=/home/zl/Documents/private-geth/data/00/geth/chaindata cache=128 handles=1024 INFO \[05-29|16:18:59\] Initialised chain configuration config=&quot;{ChainID: 15 Homestead: 0 DAO: DAOSupport: false EIP150: EIP155: 0 EIP158: 0 Engine: unknown}&quot; INFO \[05-29|16:18:59\] Disk storage enabled for ethash caches dir=/home/zl/Documents/private-geth/data/00/geth/ethash count=3 INFO \[05-29|16:18:59\] Disk storage enabled for ethash DAGs dir=/home/zl/.ethash count=2 INFO \[05-29|16:18:59\] Initialising Ethereum protocol versions=&quot;\[63 62\]&quot; network=314590 INFO \[05-29|16:18:59\] Loaded most recent local header number=29 hash=8ff3ff…dac4a2 td=7372364 INFO \[05-29|16:18:59\] Loaded most recent local full block number=29 hash=8ff3ff…dac4a2 td=7372364 INFO \[05-29|16:18:59\] Loaded most recent local fast block number=29 hash=8ff3ff…dac4a2 td=7372364 WARN \[05-29|16:18:59\] Blockchain not empty, fast sync disabled INFO \[05-29|16:18:59\] Starting P2P networking INFO \[05-29|16:19:01\] Mapped network port proto=udp extport=61910 intport=61910 interface=&quot;UPNP IGDv1-IP1&quot; INFO \[05-29|16:19:02\] RLPx listener up self=enode://ad307e052d0e04af519b8999fa870800df8a7a0cc2a91e6aea30e879b75c344dfa12c773a63a71677c2a3ea1254cf982815817f7ff58bd79e5837ea44d791a2d@192.168.1.2:61910 INFO \[05-29|16:19:02\] Mapped network port proto=tcp extport=61910 intport=61910 interface=&quot;UPNP IGDv1-IP1&quot; Welcome to the Geth JavaScript console! instance: Geth/v1.6.1-stable-021c3c28/linux-amd64/go1.8.1 coinbase: 0x5fba50fce50baf0b8a7314200ba46336958ac97e at block: 29 (Mon, 29 May 2017 13:13:46 CST) datadir: /home/zl/Documents/private-geth/data/00 modules: admin:1.0 debug:1.0 eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0</code> 上面的命令以命令行的(console)的方式启动了节点, 所以我们可以通过继续输入下面的命令获取节点实例的enode url: <code>&gt;admin.nodeInfo.enode &quot;enode://ad307e052d0e04af519b8999fa870800df8a7a0cc2a91e6aea30e879b75c344dfa12c773a63a71677c2a3ea1254cf982815817f7ff58bd79e5837ea44d791a2d@192.168.1.2:61910&quot; \&gt; ###########################获取本机IP地址########################### $ ifconfig|grep netmask|awk &#39;{print $2}&#39; 127.0.0.1 192.168.1.102 ###########################</code> 再打开一个终端,初始化第二个节点: <code>geth --datadir ./data/01 init ./genesis.json 启动第二个节点: ~/Documents/private-geth  geth --datadir ./data/01 --networkid 314590 --ipcdisable --port 61911 --rpcport 8101 --bootnodes &quot;enode://ad307e052d0e04af519b8999fa870800df8a7a0cc2a91e6aea30e879b75c344dfa12c773a63a71677c2a3ea1254cf982815817f7ff58bd79e5837ea44d791a2d@192.168.1.2:61910&quot; console INFO \[05-29|18:42:15\] Starting peer-to-peer node instance=Geth/v1.6.1-stable-021c3c28/linux-amd64/go1.8.1 INFO \[05-29|18:42:15\] Allocated cache and file handles database=/home/zl/Documents/private-geth/data/01/geth/chaindata cache=128 handles=1024 INFO \[05-29|18:42:15\] Initialised chain configuration config=&quot;{ChainID: 15 Homestead: 0 DAO: DAOSupport: false EIP150: EIP155: 0 EIP158: 0 Engine: unknown}&quot; INFO \[05-29|18:42:15\] Disk storage enabled for ethash caches dir=/home/zl/Documents/private-geth/data/01/geth/ethash count=3 INFO \[05-29|18:42:15\] Disk storage enabled for ethash DAGs dir=/home/zl/.ethash count=2 INFO \[05-29|18:42:15\] Initialising Ethereum protocol versions=&quot;\[63 62\]&quot; network=314590 INFO \[05-29|18:42:15\] Loaded most recent local header number=36 hash=e1541c…418ce3 td=8938686 INFO \[05-29|18:42:15\] Loaded most recent local full block number=36 hash=e1541c…418ce3 td=8938686 INFO \[05-29|18:42:15\] Loaded most recent local fast block number=36 hash=e1541c…418ce3 td=8938686 WARN \[05-29|18:42:15\] Blockchain not empty, fast sync disabled INFO \[05-29|18:42:15\] Starting P2P networking INFO \[05-29|18:42:17\] Mapped network port proto=udp extport=61911 intport=61911 interface=&quot;UPNP IGDv1-IP1&quot; INFO \[05-29|18:42:17\] RLPx listener up self=enode://2261c433ed5d12924f727b61bf4084f22f4199b430115827c8eae3bb210c0dd5b3dd7df8dc13d8ca80c80f4a36e25c7bc7737737001d0b09324ee43ca6b9d7f8@192.168.1.2:61911 INFO \[05-29|18:42:17\] Mapped network port proto=tcp extport=61911 intport=61911 interface=&quot;UPNP IGDv1-IP1&quot; Welcome to the Geth JavaScript console! instance: Geth/v1.6.1-stable-021c3c28/linux-amd64/go1.8.1 coinbase: 0x0a8c35653d8b229c16f0c9ce6f63cffb877cfdcf at block: 36 (Mon, 29 May 2017 18:30:22 CST) datadir: /home/zl/Documents/private-geth/data/01 modules: admin:1.0 debug:1.0 eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0</code> 上面的命令中,–bootndoes 是设置当前节点启动后,直接通过设置–bootndoes 的值来链接第一个节点, –bootnoedes 的值可以通过在第一个节的命令行中,输入:admin.nodeInfo.enode命令打印出来. 也可以不设置 –bootnodes, 直接启动,启动后进入命令行, 通过命令admin.addPeer(enodeUrlOfFirst Instance)把它作为一个peer添加进来. 为了确认链接成功,第二个节点输入: <code>&gt; admin.nodeInfo { enode: &quot;enode://2261c433ed5d12924f727b61bf4084f22f4199b430115827c8eae3bb210c0dd5b3dd7df8dc13d8ca80c80f4a36e25c7bc7737737001d0b09324ee43ca6b9d7f8@192.168.1.2:61911&quot;, id: &quot;2261c433ed5d12924f727b61bf4084f22f4199b430115827c8eae3bb210c0dd5b3dd7df8dc13d8ca80c80f4a36e25c7bc7737737001d0b09324ee43ca6b9d7f8&quot;, ip: &quot;192.168.1.2&quot;, listenAddr: &quot;\[::\]:61911&quot;, name: &quot;Geth/v1.6.1-stable-021c3c28/linux-amd64/go1.8.1&quot;, ports: { discovery: 61911, listener: 61911 }, protocols: { eth: { difficulty: 8938686, genesis: &quot;0xa0e580c6769ac3dd80894b2a256164a76b796839d2eb7f799ef6b9850ea5e82e&quot;, head: &quot;0xe1541cc54dbcade54fb61053ffa71391c44bb6655cf9619635263960bc418ce3&quot;, network: 314590 } } } &gt; 第一个节点输入: \&gt; net.peerCount 1 \&gt; admin.peers \[{ caps: \[&quot;eth/62&quot;, &quot;eth/63&quot;\], id: &quot;2261c433ed5d12924f727b61bf4084f22f4199b430115827c8eae3bb210c0dd5b3dd7df8dc13d8ca80c80f4a36e25c7bc7737737001d0b09324ee43ca6b9d7f8&quot;, name: &quot;Geth/v1.6.1-stable-021c3c28/linux-amd64/go1.8.1&quot;, network: { localAddress: &quot;192.168.0.103:61910&quot;, remoteAddress: &quot;192.168.1.2:41912&quot; }, protocols: { eth: { difficulty: 8938686, head: &quot;0xe1541cc54dbcade54fb61053ffa71391c44bb6655cf9619635263960bc418ce3&quot;, version: 63 } } }\]</code> 从得到的结果可以看出,第一个节点有1个peer链接, 链接的node id为: “2261c433ed5d12924f727b61bf4084f22f4199b430115827c8eae3bb210c0dd5b3dd7df8dc13d8ca80c80f4a36e25c7bc7737737001d0b09324ee43ca6b9d7f8” 这个id,正好就是第二个节点的id. 按照这样的方式继续扩展,可以非常容易就可以建立本地节点集群.这些工作都可以写成脚本代码来完成, 里面还可以包含创建账户,挖矿等.. 请参考:<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2V0aGVyc3BoZXJlL2V0aC11dGlscw==" title="https://github.com/ethersphere/eth-utils">https://github.com/ethersphere/eth-utils<i class="fa fa-external-link"></i></span>下的gethcluster.sh脚本,以及README中的使用方法和示例. 链接成功后,使用我们在上一篇文章中挖矿的账户,向第二个节点发送 “ether”(以太币的货币单位,还有一种叫”Wei”,基本上这些货币单位都是用一些牛逼的人的名字来命名的). 首先查看第二个节点的Wei数量和整个网络的区块号,还有接收货币的账号id: <code>&gt; eth.getBalance(eth.accounts\[0\]) 0000000000000000000 \&gt; eth.blockNumber 30 \&gt; eth.accounts\[0\] &quot;0x0a8c35653d8b229c16f0c9ce6f63cffb877cfdcf&quot;</code> 在第一个节点命令行中,执行下面的操作: <code>\&gt; personal.unlockAccount(eth.accounts\[0\], &quot;ko2005&quot;) true \&gt; eth.sendTransaction({from: &quot;0x5fba50fce50baf0b8a7314200ba46336958ac97e&quot;, to: &quot;0x0a8c35653d8b229c16f0c9ce6f63cffb877cfdcf&quot;, value: web3.toWei(1, &quot;ether&quot;)}) INFO \[05-29|17:33:42\] Submitted transaction fullhash=0x51a75422f79fa96e70a0c1481851bc9f827868c44203b68d74f9815ffb367d5f recipient=0x0a8c35653d8b229c16f0c9ce6f63cffb877cfdcf &quot;0x51a75422f79fa96e70a0c1481851bc9f827868c44203b68d74f9815ffb367d5f&quot; \&gt; eth.pendingTransactions \[{ blockHash: null, blockNumber: null, from: &quot;0x5fba50fce50baf0b8a7314200ba46336958ac97e&quot;, gas: 90000, gasPrice: 20000000000, hash: &quot;0x51a75422f79fa96e70a0c1481851bc9f827868c44203b68d74f9815ffb367d5f&quot;, input: &quot;0x&quot;, nonce: 0, r: &quot;0x5632a8ade4a767dbd949ba1042cb33f98dd0722ab999ba18e1454d19d8bd1f6d&quot;, s: &quot;0x515dcfa3de297f0c956ad9a061a5561f47cc9ccbb0a547cda59193c77fcbe3f7&quot;, to: &quot;0x0a8c35653d8b229c16f0c9ce6f63cffb877cfdcf&quot;, transactionIndex: 0, v: &quot;0x42&quot;, value: 1000000000000000000 }\]</code> eth.sendTransaction就是执行发送以太币的操作, 参数from, to分别是发送账户和接收账户, web3.toWei(1, “ether”)是将1单位”ether”转换为相应的”Wei”数量. 然后执行挖矿(这里我也不理解,为什么发送货币以后,要通过挖矿才能让交易生效) <code>&gt; miner.start() INFO \[05-29|18:26:47\] Updated mining threads threads=0 INFO \[05-29|18:26:47\] Starting mining operation null \&gt; INFO \[05-29|18:26:47\] Commit new mining work number=31 txs=1 uncles=0 elapsed=1.094ms &gt; INFO \[05-29|18:30:14\] Successfully sealed new block number=31 hash=19e3d7…a6ecd5 INFO \[05-29|18:30:14\] �� mined potential block number=31 hash=19e3d7…a6ecd5 INFO \[05-29|18:30:14\] Commit new mining work number=32 txs=0 uncles=0 elapsed=2.314ms INFO \[05-29|18:30:17\] Successfully sealed new block number=32 hash=94748a…cdbc17 INFO \[05-29|18:30:17\] �� mined potential block number=32 hash=94748a…cdbc17 INFO \[05-29|18:30:17\] Commit new mining work number=33 txs=0 uncles=0 elapsed=156.295µs INFO \[05-29|18:30:19\] Successfully sealed new block number=33 hash=b8e037…cd50ff INFO \[05-29|18:30:19\] �� mined potential block number=33 hash=b8e037…cd50ff INFO \[05-29|18:30:19\] Commit new mining work number=34 txs=0 uncles=0 elapsed=131.676µs &gt; mINFO \[05-29|18:30:20\] Successfully sealed new block number=34 hash=7ad61a…f63067 INFO \[05-29|18:30:20\] �� mined potential block number=34 hash=7ad61a…f63067 INFO \[05-29|18:30:20\] Commit new mining work number=35 txs=0 uncles=0 elapsed=138.957µs &gt; miner.stINFO \[05-29|18:30:22\] Successfully sealed new block number=35 hash=eb9652…a1a9e3 INFO \[05-29|18:30:22\] �� mined potential block number=35 hash=eb9652…a1a9e3 INFO \[05-29|18:30:22\] Commit new mining work number=36 txs=0 uncles=0 elapsed=334.318µs &gt; miner.stopINFO \[05-29|18:30:22\] Successfully sealed new block number=36 hash=e1541c…418ce3 INFO \[05-29|18:30:22\] �� block reached canonical chain number=31 hash=19e3d7…a6ecd5 INFO \[05-29|18:30:22\] �� mined potential block number=36 hash=e1541c…418ce3 INFO \[05-29|18:30:22\] Commit new mining work number=37 txs=0 uncles=0 elapsed=117.185µs &gt; miner.stop() true</code> 从上面的日志可以看到,执行挖矿之后,一共有6个区块产生. 再在第二个节点的命令行输入: <code>&gt; eth.blockNumber 36 \&gt; eth.getBalance(eth.accounts\[0\]) 1000000000000000000</code> 可以看到第二个节点中的账户,已经得有了1个”ether”, 并且可以看出,以太坊中,1”ether”=1000000000000000000”Wei. 之前输入eth.blockNumber,得到的值为30,其实只要挖出第一个区块的时候,就可以停止,发送到第二个node账户中的一个”ether”,就已经生效. 总结一下: 这次以我们完成了以下内容: 1)创建区块链私有网络,并在网络中,建立自己的节点集群. 2)在接点集群中,通过一个节点的账户向网络中的另外一个节点的账户转了1个以太坊币,交易成功.</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/28/以太坊学习笔记：私有链搭建操作指南/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/06/28/以太坊学习笔记：私有链搭建操作指南/" class="post-title-link" itemprop="url">以太坊学习笔记：私有链搭建操作指南</a>
+                <a href="/2017/649/" class="post-title-link" itemprop="url">以太坊学习笔记：私有链搭建操作指南</a>
               
             
           </h2>
@@ -764,7 +563,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/28/mac-配置以太坊本地开发环境/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/648/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -784,7 +583,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/06/28/mac-配置以太坊本地开发环境/" class="post-title-link" itemprop="url">mac 配置以太坊本地开发环境</a>
+                <a href="/2017/648/" class="post-title-link" itemprop="url">mac 配置以太坊本地开发环境</a>
               
             
           </h2>
@@ -965,7 +764,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/15/httplib源码分析及incompleteread异常解决方案/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/646/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -985,7 +784,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/06/15/httplib源码分析及incompleteread异常解决方案/" class="post-title-link" itemprop="url">httplib源码分析及IncompleteRead异常解决方案</a>
+                <a href="/2017/646/" class="post-title-link" itemprop="url">httplib源码分析及IncompleteRead异常解决方案</a>
               
             
           </h2>
@@ -1166,7 +965,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/15/laravel之设计模式/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/644/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1186,7 +985,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/06/15/laravel之设计模式/" class="post-title-link" itemprop="url">laravel之设计模式</a>
+                <a href="/2017/644/" class="post-title-link" itemprop="url">laravel之设计模式</a>
               
             
           </h2>
@@ -1478,7 +1277,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/15/一篇让你真正理解-laravel-ioc-模式的文章/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/643/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1498,7 +1297,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/06/15/一篇让你真正理解-laravel-ioc-模式的文章/" class="post-title-link" itemprop="url">一篇让你真正理解 Laravel IoC 模式的文章</a>
+                <a href="/2017/643/" class="post-title-link" itemprop="url">一篇让你真正理解 Laravel IoC 模式的文章</a>
               
             
           </h2>
@@ -1680,7 +1479,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/15/浅谈-laravel-设计模式/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/641/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1700,7 +1499,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/06/15/浅谈-laravel-设计模式/" class="post-title-link" itemprop="url">浅谈 Laravel 设计模式</a>
+                <a href="/2017/641/" class="post-title-link" itemprop="url">浅谈 Laravel 设计模式</a>
               
             
           </h2>
@@ -1884,7 +1683,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/13/laravel-自动加载/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/639/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1904,7 +1703,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/06/13/laravel-自动加载/" class="post-title-link" itemprop="url">Laravel 自动加载</a>
+                <a href="/2017/639/" class="post-title-link" itemprop="url">Laravel 自动加载</a>
               
             
           </h2>
@@ -2089,7 +1888,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/13/php-可以动态的new一个变量类名/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/637/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2109,7 +1908,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/06/13/php-可以动态的new一个变量类名/" class="post-title-link" itemprop="url">php 可以动态的new一个变量类名</a>
+                <a href="/2017/637/" class="post-title-link" itemprop="url">php 可以动态的new一个变量类名</a>
               
             
           </h2>
@@ -2290,7 +2089,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/10/优矿手把手教你入门量化投资：《量化分析师的python/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/636/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2310,7 +2109,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/06/10/优矿手把手教你入门量化投资：《量化分析师的python/" class="post-title-link" itemprop="url">优矿手把手教你入门量化投资：《量化分析师的Python日记》系列</a>
+                <a href="/2017/636/" class="post-title-link" itemprop="url">优矿手把手教你入门量化投资：《量化分析师的Python日记》系列</a>
               
             
           </h2>
@@ -2476,6 +2275,207 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/634/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017/634/" class="post-title-link" itemprop="url">JoinQuant 量化资料收集</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-06-10 00:01:15" itemprop="dateCreated datePublished" datetime="2017-06-10T00:01:15+08:00">2017-06-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-16 15:59:56" itemprop="dateModified" datetime="2019-04-16T15:59:56+08:00">2019-04-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/量化小讲堂-Python、pandas技巧系列/" itemprop="url" rel="index"><span itemprop="name">量化小讲堂- Python、pandas技巧系列</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">7.9k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">7 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近程序化交易很热，量化也是我很感兴趣的一块。 国内量化交易的平台有几家，我个人比较喜欢用的是JoinQuant，里面有篇干货贴分享给大家，希望对各位有帮助。 <img src="http://www.newsmth.net/nForum/img/ubb/emb/5.gif" alt> =========================== 量化交易策略 =========================== 价值投资 成长股内在价值投资：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNTQx" title="http://www.joinquant.com/post/541">http://www.joinquant.com/post/541<i class="fa fa-external-link"></i></span> 三一投资管理公司价值选股法：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNTU2" title="http://www.joinquant.com/post/556">http://www.joinquant.com/post/556<i class="fa fa-external-link"></i></span> 低估价值选股策略：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNTg2" title="http://www.joinquant.com/post/586">http://www.joinquant.com/post/586<i class="fa fa-external-link"></i></span> 引起广泛讨论的小市值 小市值&amp;低股价：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNTAw" title="http://www.joinquant.com/post/500">http://www.joinquant.com/post/500<i class="fa fa-external-link"></i></span> 小市值股票轮动策略：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMzE2" title="http://www.joinquant.com/post/316">http://www.joinquant.com/post/316<i class="fa fa-external-link"></i></span> 小市值改进-超跌：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNDc5" title="http://www.joinquant.com/post/479">http://www.joinquant.com/post/479<i class="fa fa-external-link"></i></span> 持仓1只股票的小市值策略：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMzQ2" title="http://www.joinquant.com/post/346">http://www.joinquant.com/post/346<i class="fa fa-external-link"></i></span> 持仓10只股票的小市值策略：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMzQ3" title="http://www.joinquant.com/post/347">http://www.joinquant.com/post/347<i class="fa fa-external-link"></i></span> 低开买（跌停不买），高开卖（涨停不卖）：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNDQw" title="http://www.joinquant.com/post/440">http://www.joinquant.com/post/440<i class="fa fa-external-link"></i></span> 小市值策略【收益40000%】：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMjU1" title="http://www.joinquant.com/post/255">http://www.joinquant.com/post/255<i class="fa fa-external-link"></i></span> 小市值策略，剔除了停牌，st，*st，加了简单的止损【收益340000%】：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMjU1" title="http://www.joinquant.com/post/255">http://www.joinquant.com/post/255<i class="fa fa-external-link"></i></span> 小市值策略的探索性研究（一）：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMjk3" title="http://www.joinquant.com/post/297">http://www.joinquant.com/post/297<i class="fa fa-external-link"></i></span> 小市值策略的探索性研究（二）：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMzM1" title="http://www.joinquant.com/post/335">http://www.joinquant.com/post/335<i class="fa fa-external-link"></i></span> 小市值策略的探索性研究（三）：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNDM1" title="http://www.joinquant.com/post/435">http://www.joinquant.com/post/435<i class="fa fa-external-link"></i></span> 技术指标 乖离率（BIAS）：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNTg2" title="http://www.joinquant.com/post/586">http://www.joinquant.com/post/586<i class="fa fa-external-link"></i></span> STOCH（KD指标）：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMTc2" title="http://www.joinquant.com/post/176">http://www.joinquant.com/post/176<i class="fa fa-external-link"></i></span> 上下影线：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNw==" title="http://www.joinquant.com/post/7">http://www.joinquant.com/post/7<i class="fa fa-external-link"></i></span> 简易波动指标（EMV）：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMTUw" title="http://www.joinquant.com/post/150">http://www.joinquant.com/post/150<i class="fa fa-external-link"></i></span> 能量潮OBV：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMTI2" title="http://www.joinquant.com/post/126">http://www.joinquant.com/post/126<i class="fa fa-external-link"></i></span> 相对OBV指标策略：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNDM5" title="http://www.joinquant.com/post/439">http://www.joinquant.com/post/439<i class="fa fa-external-link"></i></span> 指数平滑均线：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMTQ=" title="http://www.joinquant.com/post/14">http://www.joinquant.com/post/14<i class="fa fa-external-link"></i></span> Bollinger Bands：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMTQ0" title="http://www.joinquant.com/post/144">http://www.joinquant.com/post/144<i class="fa fa-external-link"></i></span> 人气指数（AR）：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMTYw" title="http://www.joinquant.com/post/160">http://www.joinquant.com/post/160<i class="fa fa-external-link"></i></span> CCI指标：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMjE5" title="http://www.joinquant.com/post/219">http://www.joinquant.com/post/219<i class="fa fa-external-link"></i></span> 布林强盗策略(BollingerBandit)：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMTQ3" title="http://www.joinquant.com/post/147">http://www.joinquant.com/post/147<i class="fa fa-external-link"></i></span> 双线RSI择时轮动策略：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMjEz" title="http://www.joinquant.com/post/213">http://www.joinquant.com/post/213<i class="fa fa-external-link"></i></span> 双因子加指标模型：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMzk5" title="http://www.joinquant.com/post/399">http://www.joinquant.com/post/399<i class="fa fa-external-link"></i></span> 经典策略 羊驼1（每天持有收益率前n的股票）：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMjY=" title="http://www.joinquant.com/post/26">http://www.joinquant.com/post/26<i class="fa fa-external-link"></i></span> 羊驼2（表现最优入池）：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMTk=" title="http://www.joinquant.com/post/19">http://www.joinquant.com/post/19<i class="fa fa-external-link"></i></span> 羊驼3（随机入池）：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMjA=" title="http://www.joinquant.com/post/20">http://www.joinquant.com/post/20<i class="fa fa-external-link"></i></span> 羊驼和均线策略的结合：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMzA=" title="http://www.joinquant.com/post/30">http://www.joinquant.com/post/30<i class="fa fa-external-link"></i></span> 海龟交易系统：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNDk=" title="http://www.joinquant.com/post/49">http://www.joinquant.com/post/49<i class="fa fa-external-link"></i></span> Dual Thrust 交易策略：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMjc0" title="http://www.joinquant.com/post/274">http://www.joinquant.com/post/274<i class="fa fa-external-link"></i></span> Volume-weighted Moving Average 交易策略：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMjc0" title="http://www.joinquant.com/post/274">http://www.joinquant.com/post/274<i class="fa fa-external-link"></i></span> 周规则交易策略（使用分级移动止盈、移动止盈方法）：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMjc0" title="http://www.joinquant.com/post/274">http://www.joinquant.com/post/274<i class="fa fa-external-link"></i></span> 网格交易：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNTM5" title="http://www.joinquant.com/post/539">http://www.joinquant.com/post/539<i class="fa fa-external-link"></i></span> 滚动复利策略的量化实现：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNTA=" title="http://www.joinquant.com/post/50">http://www.joinquant.com/post/50<i class="fa fa-external-link"></i></span> 线性回归 线性回归的趋势跟踪系统：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMjEy" title="http://www.joinquant.com/post/212">http://www.joinquant.com/post/212<i class="fa fa-external-link"></i></span> 均线策略 行业龙头股均线（收益率填坑优化版）：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMjU4" title="http://www.joinquant.com/post/258">http://www.joinquant.com/post/258<i class="fa fa-external-link"></i></span> 多均线策略：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMjQz" title="http://www.joinquant.com/post/243">http://www.joinquant.com/post/243<i class="fa fa-external-link"></i></span> 简单的多均线择时策略：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNTcw" title="http://www.joinquant.com/post/570">http://www.joinquant.com/post/570<i class="fa fa-external-link"></i></span> 机器学习 深度学习简介：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNDA4" title="http://www.joinquant.com/post/408">http://www.joinquant.com/post/408<i class="fa fa-external-link"></i></span> 支持向量回归SVR：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMjcx" title="http://www.joinquant.com/post/271">http://www.joinquant.com/post/271<i class="fa fa-external-link"></i></span> 钟摆策略系列 钟摆理论的量化模型实现：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMjg3" title="http://www.joinquant.com/post/287">http://www.joinquant.com/post/287<i class="fa fa-external-link"></i></span> 【钟摆理论2】价值中枢：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNDU3" title="http://www.joinquant.com/post/457">http://www.joinquant.com/post/457<i class="fa fa-external-link"></i></span> 【钟摆系列3】单股票价值中枢动态调仓：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNDc3" title="http://www.joinquant.com/post/477">http://www.joinquant.com/post/477<i class="fa fa-external-link"></i></span> 【钟摆系列4】多股票市值中枢动态平衡：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNTA1" title="http://www.joinquant.com/post/505">http://www.joinquant.com/post/505<i class="fa fa-external-link"></i></span> 配对交易 配对交易-以价格比值为价值中枢：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMjQy" title="http://www.joinquant.com/post/242">http://www.joinquant.com/post/242<i class="fa fa-external-link"></i></span> 在配对交易的基础上增加了协整判断：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMjY2" title="http://www.joinquant.com/post/266">http://www.joinquant.com/post/266<i class="fa fa-external-link"></i></span> 银行配对交易：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMjI3" title="http://www.joinquant.com/post/227">http://www.joinquant.com/post/227<i class="fa fa-external-link"></i></span> Markowitz Markowitz with regularization term：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNTAx" title="http://www.joinquant.com/post/501">http://www.joinquant.com/post/501<i class="fa fa-external-link"></i></span> Adaptive Asset Allocation：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMzg4" title="http://www.joinquant.com/post/388">http://www.joinquant.com/post/388<i class="fa fa-external-link"></i></span> 带收益预测的Markowitz动态平衡策略：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMzg5" title="http://www.joinquant.com/post/389">http://www.joinquant.com/post/389<i class="fa fa-external-link"></i></span> Markowitz动态再平衡策略：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMzUz" title="http://www.joinquant.com/post/353">http://www.joinquant.com/post/353<i class="fa fa-external-link"></i></span> 轮动 银行股低PB轮换策略：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMTUy" title="http://www.joinquant.com/post/152">http://www.joinquant.com/post/152<i class="fa fa-external-link"></i></span> 银行pe、pb轮动策略：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNTg3" title="http://www.joinquant.com/post/587">http://www.joinquant.com/post/587<i class="fa fa-external-link"></i></span> 指数轮动模型：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNDUx" title="http://www.joinquant.com/post/451">http://www.joinquant.com/post/451<i class="fa fa-external-link"></i></span> 二八轮动：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNTEy" title="http://www.joinquant.com/post/512">http://www.joinquant.com/post/512<i class="fa fa-external-link"></i></span> 动量度量-ETF轮动：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNDY0" title="http://www.joinquant.com/post/464">http://www.joinquant.com/post/464<i class="fa fa-external-link"></i></span> 基于卡尔曼滤波器的银行搬砖：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMzkx" title="http://www.joinquant.com/post/391">http://www.joinquant.com/post/391<i class="fa fa-external-link"></i></span> 热点分析 赶上牛市打新股策略好的不要不要的：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMjY1" title="http://www.joinquant.com/post/265">http://www.joinquant.com/post/265<i class="fa fa-external-link"></i></span> 举牌概念：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMzIy" title="http://www.joinquant.com/post/322">http://www.joinquant.com/post/322<i class="fa fa-external-link"></i></span> 熔断的历史数据统计：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNDMy" title="http://www.joinquant.com/post/432">http://www.joinquant.com/post/432<i class="fa fa-external-link"></i></span> 春节红包行情：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNDMy" title="http://www.joinquant.com/post/432">http://www.joinquant.com/post/432<i class="fa fa-external-link"></i></span> 如果明天大盘开始反弹，你选哪只股票？：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNTYz" title="http://www.joinquant.com/post/563">http://www.joinquant.com/post/563<i class="fa fa-external-link"></i></span> 月底容易暴跌，特别是25日以后！：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNTc=" title="http://www.joinquant.com/post/57">http://www.joinquant.com/post/57<i class="fa fa-external-link"></i></span> 研究型文章 线性回归：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNTY=" title="http://www.joinquant.com/post/56">http://www.joinquant.com/post/56<i class="fa fa-external-link"></i></span> 线性相关分析：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMTcz" title="http://www.joinquant.com/post/173">http://www.joinquant.com/post/173<i class="fa fa-external-link"></i></span> 斯皮尔曼秩相关系数：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMTcw" title="http://www.joinquant.com/post/170">http://www.joinquant.com/post/170<i class="fa fa-external-link"></i></span> 过拟合：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMTk0" title="http://www.joinquant.com/post/194">http://www.joinquant.com/post/194<i class="fa fa-external-link"></i></span> 参数估计的不稳定性：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMjA5" title="http://www.joinquant.com/post/209">http://www.joinquant.com/post/209<i class="fa fa-external-link"></i></span> 模型设定：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMjA5" title="http://www.joinquant.com/post/209">http://www.joinquant.com/post/209<i class="fa fa-external-link"></i></span> 回归模型假设的违背：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMjE0" title="http://www.joinquant.com/post/214">http://www.joinquant.com/post/214<i class="fa fa-external-link"></i></span> 回归分析：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMjIx" title="http://www.joinquant.com/post/221">http://www.joinquant.com/post/221<i class="fa fa-external-link"></i></span> 套利定价理论：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMjI5" title="http://www.joinquant.com/post/229">http://www.joinquant.com/post/229<i class="fa fa-external-link"></i></span> 最大似然法（MLE）：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMjI1" title="http://www.joinquant.com/post/225">http://www.joinquant.com/post/225<i class="fa fa-external-link"></i></span> ARCH和GARCH：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMzA0" title="http://www.joinquant.com/post/304">http://www.joinquant.com/post/304<i class="fa fa-external-link"></i></span> 多空策略：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMjgx" title="http://www.joinquant.com/post/281">http://www.joinquant.com/post/281<i class="fa fa-external-link"></i></span> 动量交易策略：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMzAz" title="http://www.joinquant.com/post/303">http://www.joinquant.com/post/303<i class="fa fa-external-link"></i></span> 度量动量：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMzA1" title="http://www.joinquant.com/post/305">http://www.joinquant.com/post/305<i class="fa fa-external-link"></i></span> 配对交易：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMTg1" title="http://www.joinquant.com/post/185">http://www.joinquant.com/post/185<i class="fa fa-external-link"></i></span> 凸优化(Convex Optimization)介绍：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNTcx" title="http://www.joinquant.com/post/571">http://www.joinquant.com/post/571<i class="fa fa-external-link"></i></span> 时间序列波动率估计：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNDY1" title="http://www.joinquant.com/post/465">http://www.joinquant.com/post/465<i class="fa fa-external-link"></i></span> 上证指数十年走势：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNDQ3" title="http://www.joinquant.com/post/447">http://www.joinquant.com/post/447<i class="fa fa-external-link"></i></span> 交易策略中的参数优化问题：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNDAz" title="http://www.joinquant.com/post/403">http://www.joinquant.com/post/403<i class="fa fa-external-link"></i></span> 被动型投资：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNDIy" title="http://www.joinquant.com/post/422">http://www.joinquant.com/post/422<i class="fa fa-external-link"></i></span> 不同市场对同一指数的追踪：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNjAz" title="http://www.joinquant.com/post/603">http://www.joinquant.com/post/603<i class="fa fa-external-link"></i></span> 量化缠论系列 【量化缠论】之分型、笔、线段识别：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNDI1" title="http://www.joinquant.com/post/425">http://www.joinquant.com/post/425<i class="fa fa-external-link"></i></span> 【量化缠论】应用之维克多1-2-3法则：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNTE5" title="http://www.joinquant.com/post/519">http://www.joinquant.com/post/519<i class="fa fa-external-link"></i></span> 缠论中的线性回归：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNDI3" title="http://www.joinquant.com/post/427">http://www.joinquant.com/post/427<i class="fa fa-external-link"></i></span> 笔的新定义-非参数型聚类分析：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNDMz" title="http://www.joinquant.com/post/433">http://www.joinquant.com/post/433<i class="fa fa-external-link"></i></span> ======================= 量化投资学习资料 ======================= 量化投资经典学习资料下载：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNDY3" title="http://www.joinquant.com/post/467">http://www.joinquant.com/post/467<i class="fa fa-external-link"></i></span> 主要包括以下内容的下载地址 一、python for 量化 1 像计算机科学家一样思考Python 2 [Python标准库].Doug.Hellmann.扫描版 3《Python科学计算》.(张若愚) 4 用Python做科学计算 5 利用Python进行数据分析 6 Python数据分析基础教程：NumPy学习指南（第2版） 7 NumPy攻略 7 Python科学计算与数据分析 8 A Practical Guide To Quantitative Portfolio Trading 9 Data Structures and Algorthms Using Python 10 Mastering Python for Finance … 二、R for 量化 1 R语言入门 2 R语言编程艺术 3 R语言实战 中文版 4 使用R进行数据分析与作图 5 Introduction.to.R.for.Quantitative.Finance 6 Quantitative Trading with R Understanding Mathematical and Computational Tools from a Quant’s Perspective 7 Mastering R for Quantitative Finance 8 Mastering Predictive Analytics with R 9 金融数据分析导论：基于R语言 … 三、Quant Interview Books 1 150 Most Frequently Asked Questions on Quant Interviews 2 [Mark Joshi]Quant Job Interview Questions And Answers 3 [Xinfeng Zhou]A practical Guide to quantitative finance interviews 4 Frequently-Asked-Questions-Quant-Interview 5 Heard on the Street Quantitative Questions from Wall Street Job Interviews 6 The 200 Investment Banking Interview Questions ＆ Answers You Need to Know … 四、投资阅读书籍 1 algorithmic trading winning strategies and their rationale 2 barra handbook US 3 Encyclopedia of Trading Strategies(交易策略百科全书) 4 Inside the Black Box －A Simple Guide to Quantitative and High Frequency Trading（2nd.Edition） 5 NASSIM Taleb-Dynamic Hedging 6 Options Futures and Other Derivatives 8th - John Hull 7 Quantative Trading Strategies 8 Quantitative Equity Portfolio Management：Modern Techniques and Applications 9 Quantitative Trading How to Build Your Own Algorithmic Trading Business 10 Quantitative Trading How to Build Your Own Algorithmic Trading Business … 五、计量经济学 1 金融计量学从初级 到 高级建模技术 2 哈佛教材 应用计量经济学 stata 3 高等计量经济学 李子奈等编着 4 Analysis of Financial Time Series- Financial Econometrics(2002)金融时序分析 5 Phoebus J. Dhrymes, Mathematics for Econometrics, 4e 6 Osborne,Rubinstein-A Course in Game Theory 7 Model Building in Mathematical Programming(5e) 8 Hayashi - Econometrics 9 Gujarati-Essentials of Econometrics计量精要 10 Akira Takayama - Mathematical Economics … 六、研究报告 1 国信证券金融工程 2 大券商2016年年度投资策略报告 3 光大证券 4 海通证券申 5 万大师系列 6 他山之石系列 7 中信证券 8 广发证券 视频： 1 python 2 R语言基础、进阶、七武器（quantmod、ggplot2….） 3 金融工程 89集 郑振龙 厦门大学 4 金融时间序列分析 推荐一些Python入门学习资料（持续添加中…）： <span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNDY3" title="http://www.joinquant.com/post/467">http://www.joinquant.com/post/467<i class="fa fa-external-link"></i></span> ========================= 量化投资利器Python学习资料 ========================= 【量化投资利器Python】基本语法-数据类型1之列表： <span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNTI5" title="http://www.joinquant.com/post/529">http://www.joinquant.com/post/529<i class="fa fa-external-link"></i></span> 【量化投资利器Python】基本语法-数据类型2之字典： <span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNTMy" title="http://www.joinquant.com/post/532">http://www.joinquant.com/post/532<i class="fa fa-external-link"></i></span> 【量化投资利器Python】基本语法-数据类型3之元组、集合： <span class="exturl" data-url="aHR0cHM6Ly93d3cuam9pbnF1YW50LmNvbS9wb3N0LzUzMw==" title="https://www.joinquant.com/post/533">https://www.joinquant.com/post/533<i class="fa fa-external-link"></i></span> 【量化投资利器Python】基本类库-Pandas入门1-数据结构： <span class="exturl" data-url="aHR0cHM6Ly93d3cuam9pbnF1YW50LmNvbS9wb3N0LzUzNA==" title="https://www.joinquant.com/post/534">https://www.joinquant.com/post/534<i class="fa fa-external-link"></i></span> 【量化投资利器Python】基本类库-Pandas入门2-数据处理：   <span class="exturl" data-url="aHR0cHM6Ly93d3cuam9pbnF1YW50LmNvbS9wb3N0LzUzNQ==" title="https://www.joinquant.com/post/535">https://www.joinquant.com/post/535<i class="fa fa-external-link"></i></span> 【量化投资利器Python】基本类库-Pandas进阶： <span class="exturl" data-url="aHR0cHM6Ly93d3cuam9pbnF1YW50LmNvbS9wb3N0LzU1MA==" title="https://www.joinquant.com/post/550">https://www.joinquant.com/post/550<i class="fa fa-external-link"></i></span> 【量化投资利器Python】条件与循环-if、while、for：<span class="exturl" data-url="aHR0cHM6Ly93d3cuam9pbnF1YW50LmNvbS9wb3N0LzU1OA==" title="https://www.joinquant.com/post/558">https://www.joinquant.com/post/558<i class="fa fa-external-link"></i></span> 【量化投资利器Python】神奇的迭代器和解析：<span class="exturl" data-url="aHR0cHM6Ly93d3cuam9pbnF1YW50LmNvbS9wb3N0LzU1OQ==" title="https://www.joinquant.com/post/559">https://www.joinquant.com/post/559<i class="fa fa-external-link"></i></span> 【量化投资利器Python】基本语法-函数：<span class="exturl" data-url="aHR0cHM6Ly93d3cuam9pbnF1YW50LmNvbS9wb3N0LzU4NA==" title="https://www.joinquant.com/post/584">https://www.joinquant.com/post/584<i class="fa fa-external-link"></i></span> 【量化投资利器Python】基本类库-时间：<span class="exturl" data-url="aHR0cHM6Ly93d3cuam9pbnF1YW50LmNvbS9wb3N0LzU4NQ==" title="https://www.joinquant.com/post/585">https://www.joinquant.com/post/585<i class="fa fa-external-link"></i></span> Talib介绍 Ta-Lib用法介绍！：   <span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNTQ4" title="http://www.joinquant.com/post/548">http://www.joinquant.com/post/548<i class="fa fa-external-link"></i></span> 指标计算和形态识别的编程利器——TA-Lib：   <span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvNTQ4" title="http://www.joinquant.com/post/548">http://www.joinquant.com/post/548<i class="fa fa-external-link"></i></span> Talib在量化投资中具体的使用例子 【TA-LIB】之MACD：   <span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMTMx" title="http://www.joinquant.com/post/131">http://www.joinquant.com/post/131<i class="fa fa-external-link"></i></span> 【TA-LIB】之Bollinger Bands：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMTQ0" title="http://www.joinquant.com/post/144">http://www.joinquant.com/post/144<i class="fa fa-external-link"></i></span> 【TA-LIB】之STOCH（KD指标）： <span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMTQy" title="http://www.joinquant.com/post/142">http://www.joinquant.com/post/142<i class="fa fa-external-link"></i></span> 【TA-LIB】之ATR：   <span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMTM0" title="http://www.joinquant.com/post/134">http://www.joinquant.com/post/134<i class="fa fa-external-link"></i></span> 【TA-LIB】之RSI：<span class="exturl" data-url="aHR0cDovL3d3dy5qb2lucXVhbnQuY29tL3Bvc3QvMTMz" title="http://www.joinquant.com/post/133">http://www.joinquant.com/post/133<i class="fa fa-external-link"></i></span></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -2522,7 +2522,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">198</span>
+                    <span class="site-state-item-count">196</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2534,88 +2534,94 @@
                 <div class="site-state-item site-state-categories">
                   
                     
+                      <a href="/categories/">
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">39</span>
-                    <span class="site-state-item-name">categories</span>
                   
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
                 </div>
               
 
@@ -2623,6 +2629,10 @@
                 
                 
                 <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
                   
                     
                     
@@ -2648,7 +2658,7 @@
                     
                     <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">tags</span>
-                  
+                  </a>
                 </div>
               
             </nav>
@@ -2771,7 +2781,7 @@
     
       <span class="post-meta-item-text">Symbols count total: </span>
     
-    <span title="Symbols count total">571k</span>
+    <span title="Symbols count total">568k</span>
   
 
   
@@ -2782,7 +2792,7 @@
     
       <span class="post-meta-item-text">Reading time total &asymp;</span>
     
-    <span title="Reading time total">8:39</span>
+    <span title="Reading time total">8:36</span>
   
 </div>
 
@@ -2871,9 +2881,6 @@
 
 
 
-  
-  
-
 
 
 
@@ -2892,12 +2899,6 @@
 
   
   <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
-
-  
-  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three.min.js"></script>
-
-  
-  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three-waves.min.js"></script>
 
 
   
