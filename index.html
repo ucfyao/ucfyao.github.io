@@ -363,1019 +363,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/631.html/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/631.html/" class="post-title-link" itemprop="url">PostgreSQL mac 环境下初识篇</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-04-16 15:38:46" itemprop="dateCreated datePublished" datetime="2019-04-16T15:38:46+08:00">2019-04-16</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-17 20:02:28" itemprop="dateModified" datetime="2019-04-17T20:02:28+08:00">2019-04-17</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-db/" itemprop="url" rel="index"><span itemprop="name">积累________db</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">3.3k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">3 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在mac 环境下,可以使用 brew 来安装, 也可以<span class="exturl" data-url="aHR0cDovL3d3dy5wb3N0Z3Jlc3FsLm9yZy9kb3dubG9hZC8=" title="http://www.postgresql.org/download/">直接下载app 安装<i class="fa fa-external-link"></i></span>. <strong>初始化数据库</strong></p>
-<figure class="highlight plain"><figcaption><span>/usr/local/var/postgres ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**启动或停止数据库** 启动服务：</span><br><span class="line"></span><br><span class="line">``` pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start</span><br></pre></td></tr></table></figure>
-<p>停止服务：</p>
-<figure class="highlight plain"><figcaption><span>-D</span><a href="/usr/local/var/postgres">stop -s -m fast ```</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">如果先嫌麻烦，可以加入开机自动启动</span><br><span class="line"></span><br><span class="line">``` ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents</span><br></pre></td></tr></table></figure>
-<p><span class="exturl" data-url="aHR0cHM6Ly93d3cucG9zdGdyZXNxbC5vcmcvZnRwL3BnYWRtaW4vcGdhZG1pbjQvdjEuNS9tYWNvcy8=" title="https://www.postgresql.org/ftp/pgadmin/pgadmin4/v1.5/macos/">pgAdmin<i class="fa fa-external-link"></i></span> 是一个可视化数据库服务器管理工具. SQL Shell (psql ) 控制台数据库管理入口. 在安装的过程中,会自动为系统生成一个账号PostgreSQL ,密码随机. 所以这里你要重设一个密码. 或者控制台下: <figure class="highlight plain"><figcaption><span>passwd -d postgres``` password  -d 为删除指定用户密码 然后设置新密码: ``` sudo -u postgres passwd``` 然后你就可以用 postgres 用户在服务器上通过 pgAdmin 或者 psql 来操作数据库了. 先来看下 psql 的简单操作:</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">1.  点击 SQL Shell (psql) 启动控制台应用.</span><br><span class="line"></span><br><span class="line">``` Server \[localhost\]:    //第一步,默认本地,直接回车即可,远程数据库,请输入远程服务器IP Database \[postgres\]:   //第二步,执行数据库, postgresql 安装时已经默认安装 postgres 数据库,直接回车进入此库 Port \[5432\]:           //第三步,默认绑定 5432 端口,如果你有修改请这里指定,否则默认连接此端口(注意防火墙放行端口) Username \[postgres\]:   //第四步,默认使用 postgres 用户登录数据库,没有指定用户的话,直接回车 psql (9.4.1) Type &quot;help&quot; for help. postgres=#     //看到这一步,已经成功进入 postgres 数据库.``` 或者你可以用下面一条命令来登录PostgreSQL ``` psql -U postgres -d postgres -h 127.0.0.1 -p 5432``` //参数说明: -U 指定用户    -d 指定数据库   -h 数据库服务器ip    -p 端口 如果你的系统登录用户名和PostgreSQL数据库操作用户名相同的话,可以省略 -U 参数. 如果你的Mac 命令控制台不支持 psql ,那么需要你手动添加到全局变量里: ``` zhangzhi@moke:~$ locate psql | grep /bin /Library/PostgreSQL/9.4/bin/psql``` 编辑.bash\_profile文件或.bashrc文件，添加命令别名 ``` alias psql=/Library/PostgreSQL/9.4/bin/psql``` 然后让 .bash\_profile 生效即可 ``` source .bash\_profile``` psql 控制台简单的操作命令: ``` \\h select。 \\? 查看psql命令列表。 \\l 列出所有数据库。 \\c \[database\_name\]：连接其他数据库。 \\d 列出当前数据库的所有表格。 \\d \[table\_name\]：列出某一张表格的结构。 \\du 列出所有用户。 \\e 打开文本编辑器。 \\conninfo 列出当前数据库和连接的信息。 \\q  退出 \\password  设置命令``` ``` # 创建新表  CREATE TABLE user\_tbl(name VARCHAR(20), signup\_date DATE); # 插入数据  INSERT INTO user\_tbl(name, signup\_date) VALUES(&apos;张三&apos;, &apos;2013-12-22&apos;); # 选择记录  SELECT * FROM user\_tbl; # 更新数据  UPDATE user\_tbl set name = &apos;李四&apos; WHERE name = &apos;张三&apos;; # 删除记录  DELETE FROM user\_tbl WHERE name = &apos;李四&apos; ; # 添加栏位  ALTER TABLE user\_tbl ADD email VARCHAR(40); # 更新结构  ALTER TABLE user\_tbl ALTER COLUMN signup\_date SET NOT NULL; # 更名栏位  ALTER TABLE user\_tbl RENAME COLUMN signup\_date TO signup; # 删除栏位  ALTER TABLE user\_tbl DROP COLUMN email; # 表格更名  ALTER TABLE user\_tbl RENAME TO backup\_tbl; # 删除表格  DROP TABLE IF EXISTS backup_tbl; ``` **1.创建一个 PostgreSQL 用户**</span><br><span class="line"></span><br><span class="line">``` createuser username -P #Enter password for new role: #Enter it again:</span><br></pre></td></tr></table></figure></p>
-<p>上面的 username 是用户名，回车输入 2 次用户密码后即用户创建完成。更多用户创建信息可以 “createuser –help” 查看。 <strong>2.创建数据库</strong></p>
-<figure class="highlight plain"><figcaption><span>dbname -O username -E UTF8 -e ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">上面创建了一个名为 dbname 的数据库，并指定 username 为改数据库的拥有者（owner），数据库的编码（encoding）是 UTF8，参数 &quot;-e&quot; 是指把数据库执行操作的命令显示出来。 更多数据库创建信息可以 &quot;createdb --help&quot; 查看。 **3.连接数据库** ``` psql -U username -d dbname -h 127.0.0.1 ``` **数据的导出：** ``` $ pg\_dump -U postgres(用户名) (-t 表名) 数据库名(缺省时同用户名) &gt; 路径/文件名.sql \[html\] view plain copy postgres@debian:~$ pg\_dump -U postgres -t system_calls wangye &gt; ./test.sql postgres@debian:~$ ls 9.1 test.sql``` 数据的导入： 导入数据时首先创建数据库再用psql导入： ``` $ createdb newdatabase $ psql -d newdatabase -U postgres -f mydatabase.sql // sql 文件在当前路径下 $ psql -d databaename(数据库名) -U username(用户名) -f &lt; 路径/文件名.sql // sql 文件不在当前路径下 ``` 赋予用户超级权限 ``` sudo -u postgres psql CREATE USER root WITH SUPERUSER;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/707.html/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/707.html/" class="post-title-link" itemprop="url">mac中使用expect和ga-cmd登陆跳转机</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-12-15 21:21:16" itemprop="dateCreated datePublished" datetime="2018-12-15T21:21:16+08:00">2018-12-15</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-17 20:20:14" itemprop="dateModified" datetime="2019-04-17T20:20:14+08:00">2019-04-17</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-mac/" itemprop="url" rel="index"><span itemprop="name">积累________mac</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">1.1k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">## 安装expect</span><br><span class="line">brew install expect</span><br><span class="line"></span><br><span class="line">## 安装gacmd</span><br><span class="line">$ git clone https://github.com/arcanericky/ga-cmd.git</span><br><span class="line">$ git submodule init</span><br><span class="line">$ git submodule update</span><br><span class="line"></span><br><span class="line">$ cd ga-cmd/src</span><br><span class="line"></span><br><span class="line">## 获取跳板机</span><br><span class="line">$ vim .google_authenticator</span><br><span class="line">$ ./build.sh &lt;16 character seed&gt;</span><br><span class="line"></span><br><span class="line">## 检测一下</span><br><span class="line"></span><br><span class="line">$ ga-cmd/src/bin/ga-cmd</span><br><span class="line">123456</span><br><span class="line"></span><br><span class="line">## 编写 expect 脚本</span><br><span class="line">#!/usr/bin/expect</span><br><span class="line">set host [lindex $argv 0]</span><br><span class="line">set VERIFICATION [lindex $argv 1]</span><br><span class="line">set TERMSERV 192.2.1.2</span><br><span class="line">set USER yaozihao</span><br><span class="line">set PASSWORD 123456</span><br><span class="line">set UATUN yaozihao</span><br><span class="line">#set UATPWD 内服务器密码</span><br><span class="line"></span><br><span class="line"># 登录跳板机</span><br><span class="line">spawn ssh -l $USER $TERMSERV</span><br><span class="line">expect &#123;</span><br><span class="line"></span><br><span class="line">“*erificati*” &#123;send “$VERIFICATION\r”;exp_continue;&#125;</span><br><span class="line"># “yes/no” &#123;send “yes\r”;exp_continue;&#125;</span><br><span class="line">“*assword:*” &#123; send “$PASSWORD\r”;&#125;</span><br><span class="line">&#125;</span><br><span class="line"># 登录内网</span><br><span class="line">expect “$USER@*” &#123;send “ssh -l $UATUN $host\r”&#125;</span><br><span class="line">#expect &#123;</span><br><span class="line"># “yes/no” &#123;send “yes\r”;exp_continue;&#125;</span><br><span class="line"># “*password:*” &#123; send “$UATPWD\r” &#125;</span><br><span class="line"># &#125;</span><br><span class="line">interact</span><br><span class="line"></span><br><span class="line">## 编写自动登陆脚本</span><br><span class="line">vim ~/test_expect.sh</span><br><span class="line"></span><br><span class="line">#!/bin/bash</span><br><span class="line">verification=$(/wwwroot/lib/ga-cmd/src/bin/ga-cmd)</span><br><span class="line">echo $verification</span><br><span class="line">/Users/yaozihao/expect.ecp 10.66.1.1 $verification</span><br><span class="line">exit 0</span><br><span class="line"></span><br><span class="line">## 执行测试一下</span><br><span class="line">~/test_expect.sh</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/705.html/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/705.html/" class="post-title-link" itemprop="url">阿里云虚拟机ftp流程</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-09-24 17:03:56" itemprop="dateCreated datePublished" datetime="2018-09-24T17:03:56+08:00">2018-09-24</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-17 20:11:37" itemprop="dateModified" datetime="2019-04-17T20:11:37+08:00">2019-04-17</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-linux/" itemprop="url" rel="index"><span itemprop="name">积累________linux</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">99</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>1.压缩注意使用tar zip格式 tar -czvf wp-admin-09-24-cvf.tar.gz wp-admin </li>
-<li>2.记得压缩为小一点文件，不然总是断开 </li>
-<li>3.在控制台进行解压缩</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/701.html/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/701.html/" class="post-title-link" itemprop="url">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-01-11 23:07:33" itemprop="dateCreated datePublished" datetime="2018-01-11T23:07:33+08:00">2018-01-11</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-17 20:01:15" itemprop="dateModified" datetime="2019-04-17T20:01:15+08:00">2019-04-17</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-linux/" itemprop="url" rel="index"><span itemprop="name">积累________linux</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">1.6k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>VirtualBox虚拟磁盘空间不够了，默认10G。想扩大，图形界面下没有找到可操作菜单。Google了一下用 Vbox自带的命令工具VBoxManage即可解决。 <code>C:\\Program Files\\Oracle\\VirtualBox&gt;VBoxManage modifyhd e:\\vbox\\Ubuntu12.04\\Ubuntu1204-201302-disk1.vmdk --resize 30000 0%... Progress state: VBOX\_E\_NOT_SUPPORTED VBoxManage.exe: error: Resize hard disk operation for this format is not implemented yet!</code> <strong>原来虚拟机用的是vmdk格式，这个命令只能支持vdi格式</strong>。怎么办 发现可以<strong>利用VBoxManager来转化虚拟硬盘存储文件格式</strong> <code>C:\\Program Files\\Oracle\\VirtualBox&gt;VBoxManage clonehd e:\\vbox\\Ubuntu12.04\\Ubuntu1204-201302-disk1.vmdk  e:\\vbox\\Ubuntu12.04\\Ubuntu1204-201310-disk1.vdi --format VDI 0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100% Clone hard disk created in format &#39;VDI&#39;. UUID: 455b7aa4-d776-4254-8353-d9b5b3fa1 09b</code> 最后<strong>用VBoxManager对转好的vdi文件进行扩容设置</strong> <code>C:\\Program Files\\Oracle\\VirtualBox&gt;VBoxManage modifyhd e:\\vbox\\Ubuntu12.04\\Ubunt u1204-201310-disk1.vdi --resize 30000 0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%</code> 大功告成，要将新的虚拟硬盘(vdi)挂载到虚拟机上了。 打开虚拟机设置，找到存储，点击虚拟硬盘所在的控制器，点“添加虚拟硬盘”-&gt;选”使用现有的虚拟盘”-&gt;选中扩容后的vdi文件，确定后就看见控制器下多了一个硬盘图标，查看容量29.30G。 删除原来的vmdk虚拟盘。确定保存配置。大功告成！！ 别忙，还有一部。 启动虚拟机后，还要使用GParted - Gnome Partition Editor这个工具，将新扩展的分区进行初始化，否则系统还是不会认出新扩展的空间的。 Ubuntu中可用 <code>sudo apt-get install gparted</code>来安装。工具是图形化界面的。好用。设置好后要点菜单“编辑”-&gt;“应用全部操作”，系统才开始执行扩展磁盘的初始化。 Gnome Partition Editor 官网地址：<span class="exturl" data-url="aHR0cDovL2dwYXJ0ZWQuc291cmNlZm9yZ2UubmV0Lw==" title="http://gparted.sourceforge.net/">http://gparted.sourceforge.net/<i class="fa fa-external-link"></i></span> 多嘴一句 将原来的vid虚拟硬盘数据复制到新的vid硬盘，示例： <strong>旧vdi —&gt; 新vdi</strong> <code>C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe  clonevdi  E:\\vbox\\server2003\\win2003.vdi E:\\vbox\\server2003\\server2003.vdi&quot; --existing</code></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/700.html/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/700.html/" class="post-title-link" itemprop="url">ubuntu下折腾thrift</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-01-11 16:15:18" itemprop="dateCreated datePublished" datetime="2018-01-11T16:15:18+08:00">2018-01-11</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-17 19:13:28" itemprop="dateModified" datetime="2019-04-17T19:13:28+08:00">2019-04-17</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-linux/" itemprop="url" rel="index"><span itemprop="name">积累________linux</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">180</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>系统安装官方文档：<span class="exturl" data-url="aHR0cDovL3RocmlmdC5hcGFjaGUub3JnL2RvY3M=" title="http://thrift.apache.org/docs">http://thrift.apache.org/docs<i class="fa fa-external-link"></i></span> 下载安装包 <code>git clone https://git-wip-us.apache.org/repos/asf/thrift.git cd thrift ./bootstrap.sh ./configure --with-lua=no make sudo make install</code></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yaozihao.com/erc20_transfer_demo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1438,7 +425,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-18 11:20:46" itemprop="dateModified" datetime="2019-04-18T11:20:46+08:00">2019-04-18</time>
+                <time title="修改时间：2019-04-19 16:48:19" itemprop="dateModified" datetime="2019-04-19T16:48:19+08:00">2019-04-19</time>
               
             
           </span>
@@ -1576,7 +563,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/695.html/">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/mac_you_get_mpv/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1596,424 +583,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/695.html/" class="post-title-link" itemprop="url">DateRangePicker 中文化以及老版本的一些初始化问题，不能选择秒的问题</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-12-01 23:54:14" itemprop="dateCreated datePublished" datetime="2017-12-01T23:54:14+08:00">2017-12-01</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-17 18:03:06" itemprop="dateModified" datetime="2019-04-17T18:03:06+08:00">2019-04-17</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-js/" itemprop="url" rel="index"><span itemprop="name">积累________js</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">3.1k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">3 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><code>$(&#39;#headlineAddForm #rangeTime&#39;).daterangepicker({ showDropdowns : true, timePicker : true, //是否显示小时和分钟 timePicker24Hour: true, timePickerIncrement : 1, //时间的增量，单位为分钟 timePickerSeconds : true, linkedCalendars : false, locale : { format: &quot;YYYY-MM-DD HH:mm:ss&quot;, //控件中from和to 显示的日期格式 separator : &quot; - &quot;, applyLabel : &quot;确定&quot;, cancelLabel : &quot;取消&quot;, fromLabel : &quot;开始&quot;, toLabel: &quot;结束&quot;, customRangeLabel : &quot;自定义&quot;, weekLabel : &quot;W&quot;, daysOfWeek : \[&quot;日&quot;, &quot;一&quot;, &quot;二&quot;, &quot;三&quot;, &quot;四&quot;, &quot;五&quot;, &quot;六&quot;\], monthNames : \[&quot;一月&quot;, &quot;二月&quot;, &quot;三月&quot;, &quot;四月&quot;, &quot;五月&quot;, &quot;六月&quot;, &quot;七月&quot;, &quot;八月&quot;, &quot;九月&quot;, &quot;十月&quot;, &quot;十一月&quot;, &quot;十二月 &quot;\], firstDay : 1 } }, function(start, end, label) { $(&quot;#headlineAddForm #startTime&quot;).val(start.unix()); $(&quot;#headlineAddForm #endTime&quot;).val(end.unix()); }).on(&#39;hide.daterangepicker&#39;, function() { $(&#39;#headlineAddForm&#39;).data(&#39;bootstrapValidator&#39;).updateStatus(&#39;rangeTime&#39;, &#39;NOT\_VALIDATED&#39;,null).validateField(&#39;rangeTime&#39;); }).on(&#39;cancel.daterangepicker&#39;, function() { $(&#39;#headlineAddForm #rangeTime&#39;).val(&quot;&quot;); $(&#39;#headlineAddForm&#39;).data(&#39;bootstrapValidator&#39;).updateStatus(&#39;rangeTime&#39;, &#39;NOT\_VALIDATED&#39;,null).validateField(&#39;rangeTime&#39;); }).on(&#39;apply.daterangepicker&#39;, function() { if($.trim($(&quot;#headlineAddForm #startTime&quot;).val()).length == 0) { $(&#39;#headlineAddForm #rangeTime&#39;).val(&quot;&quot;); $(&#39;#headlineAddForm&#39;).data(&#39;bootstrapValidator&#39;).updateStatus(&#39;rangeTime&#39;, &#39;NOT\_VALIDATED&#39;,null).validateField(&#39;rangeTime&#39;); } });</code> <code>$(&#39;#headlineModifyForm #rangeTime&#39;).daterangepicker({ showDropdowns : true, timePicker : true, //是否显示小时和分钟 timePicker24Hour: true, timePickerIncrement : 1, //时间的增量，单位为分钟 timePickerSeconds : true, linkedCalendars : false, locale : { format: &quot;YYYY-MM-DD HH:mm:ss&quot;, //控件中from和to 显示的日期格式 separator : &quot; - &quot;, applyLabel : &quot;确定&quot;, cancelLabel : &quot;取消&quot;, fromLabel : &quot;开始&quot;, toLabel: &quot;结束&quot;, customRangeLabel : &quot;自定义&quot;, weekLabel : &quot;W&quot;, daysOfWeek : \[&quot;日&quot;, &quot;一&quot;, &quot;二&quot;, &quot;三&quot;, &quot;四&quot;, &quot;五&quot;, &quot;六&quot;\], monthNames : \[&quot;一月&quot;, &quot;二月&quot;, &quot;三月&quot;, &quot;四月&quot;, &quot;五月&quot;, &quot;六月&quot;, &quot;七月&quot;, &quot;八月&quot;, &quot;九月&quot;, &quot;十月&quot;, &quot;十一月&quot;, &quot;十二月 &quot;\], firstDay : 1 } }, function(start, end, label) { $(&quot;#headlineModifyForm #startTime&quot;).val(start.unix()); $(&quot;#headlineModifyForm #endTime&quot;).val(end.unix()); }).on(&#39;hide.daterangepicker&#39;, function() { $(&#39;#headlineModifyForm&#39;).data(&#39;bootstrapValidator&#39;).updateStatus(&#39;rangeTime&#39;, &#39;NOT\_VALIDATED&#39;,null).validateField(&#39;rangeTime&#39;); });</code></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/694.html/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/694.html/" class="post-title-link" itemprop="url">详解Mac配置虚拟环境virtualenv和virtualenvwrapper</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-11-30 14:54:31" itemprop="dateCreated datePublished" datetime="2017-11-30T14:54:31+08:00">2017-11-30</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-17 20:09:48" itemprop="dateModified" datetime="2019-04-17T20:09:48+08:00">2019-04-17</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-mac/" itemprop="url" rel="index"><span itemprop="name">积累________mac</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">999</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>virtualenv用于创建独立的Python环境，多个Python相互独立，互不影响，它能够：</p>
-<ol>
-<li>在没有权限的情况下安装新套件</li>
-<li>不同应用可以使用不同的套件版本</li>
-<li>套件升级不影响其他应用。</li>
-</ol>
-<h2 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h2><p>1、shell下运行： <code>pip install python-virtualenv</code> 2、使用方法 <code>virtualenv \[虚拟环境名称-也是目录名称\]</code> 3、启动环境 <code>cd ENV source ./bin/activate</code> ENV为虚拟环境名称，接下来所有模块都只会安装到该目录中去。 默认情况下，虚拟环境会依赖系统环境中的site packages，如果不想依赖这些package，那么可以加上参数 –no-site-packages建立虚拟环境： <code>virtualenv --no-site-packages \[虚拟环境名称\]</code> 4、退出 <code>deactivate</code> 如果没有启动虚拟环境，系统也安装了pip工具，那么套件将被安装在系统环境中，为了避免发生此事，可以在~/.bashrc文件中加上： <code>export PIP\_REQUIRE\_VIRTUALENV=true</code> 或者让在执行pip的时候让系统自动开启虚拟环境： <code>export PIP\_RESPECT\_VIRTUALENV=true</code></p>
-<h2 id="Virtualenvwrapper"><a href="#Virtualenvwrapper" class="headerlink" title="Virtualenvwrapper"></a>Virtualenvwrapper</h2><p>Virtaulenvwrapper是virtualenv的扩展包，用于更方便管理虚拟环境，它可以做：</p>
-<ol>
-<li>将所有虚拟环境整合在一个目录下</li>
-<li>管理（新增，删除，复制）虚拟环境</li>
-<li>快速切换虚拟环境</li>
-<li>…</li>
-</ol>
-<h3 id="安装方法-1"><a href="#安装方法-1" class="headerlink" title="安装方法"></a>安装方法</h3><p>1、运行 <code>pip install virtualenvwrapper</code> 2、创建目录用来存放虚拟环境 <code>mkdir ~/.virtualenvs</code> 3、在.bashrc中添加 <code>export WORKON_HOME=~/.virtualenvs source /usr/local/bin/virtualenvwrapper.sh</code> 4、运行： <code>source ~/.bashrc</code> 此时virtualenvwrapper就可以使用了。</p>
-<h3 id="命令列表"><a href="#命令列表" class="headerlink" title="命令列表"></a>命令列表</h3><p>workon:列出虚拟环境列表 lsvirtualenv:同上 mkvirtualenv :新建虚拟环境 workon [虚拟环境名称]:切换虚拟环境 rmvirtualenv :删除虚拟环境 deactivate: 离开虚拟环境</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/692.html/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/692.html/" class="post-title-link" itemprop="url">you-get 加 mpv 看电影， 顺便解决mac发热问题</a>
+                <a href="/mac_you_get_mpv/" class="post-title-link" itemprop="url">解决Mac发热问题，you-get加mpv看电影</a>
               
             
           </h2>
@@ -2055,7 +625,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-17 19:16:26" itemprop="dateModified" datetime="2019-04-17T19:16:26+08:00">2019-04-17</time>
+                <time title="修改时间：2019-04-19 19:05:42" itemprop="dateModified" datetime="2019-04-19T19:05:42+08:00">2019-04-19</time>
               
             
           </span>
@@ -2137,7 +707,11 @@
       
         
           
-            <p>安装教程： mpv : <span class="exturl" data-url="aHR0cDovL3NvbmdjaGVud2VuLmNvbS90ZWNoLzIwMTUvMDUvMDkvbXB2LXBsYXllci8=" title="http://songchenwen.com/tech/2015/05/09/mpv-player/">http://songchenwen.com/tech/2015/05/09/mpv-player/<i class="fa fa-external-link"></i></span> you-get : <span class="exturl" data-url="aHR0cHM6Ly95b3UtZ2V0Lm9yZy8=" title="https://you-get.org/">https://you-get.org/<i class="fa fa-external-link"></i></span> 简单说下用法： mpv <span class="exturl" data-url="aHR0cDovL3d3dy5kb3V5dXR2LmNvbS81NjA0MA==" title="http://www.douyutv.com/56040">http://www.douyutv.com/56040<i class="fa fa-external-link"></i></span> 这种情况下是直接调用的 youtube-dl 来观看在线视频（这个是在使用 brew 安装 mpv 时就已经安装好了） you-get -p mpv <span class="exturl" data-url="aHR0cDovL3d3dy5iaWxpYmlsaS5jb20vdmlkZW8vYXYzNDU4NjM0Lw==" title="http://www.bilibili.com/video/av3458634/">http://www.bilibili.com/video/av3458634/<i class="fa fa-external-link"></i></span> 这种情况是调用 you-get 来观看在线视频</p>
+            <p>安装教程：</p>
+<p>mpv : <span class="exturl" data-url="aHR0cDovL3NvbmdjaGVud2VuLmNvbS90ZWNoLzIwMTUvMDUvMDkvbXB2LXBsYXllci8=" title="http://songchenwen.com/tech/2015/05/09/mpv-player/">http://songchenwen.com/tech/2015/05/09/mpv-player/<i class="fa fa-external-link"></i></span><br>you-get : <span class="exturl" data-url="aHR0cHM6Ly95b3UtZ2V0Lm9yZy8=" title="https://you-get.org/">https://you-get.org/<i class="fa fa-external-link"></i></span> </p>
+<p>简单说下用法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mpv http://www.douyutv.com/56040</span><br></pre></td></tr></table></figure></p>
+<p>这种情况下是直接调用的 youtube-dl 来观看在线视频（这个是在使用 brew 安装 mpv 时就已经安装好了）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">you-get -p mpv http://www.bilibili.com/video/av3458634/</span><br></pre></td></tr></table></figure></p>
+<p>这种情况是调用 <code>you-get</code> 来观看在线视频</p>
 
           
         
@@ -2194,7 +768,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/691.html/">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/samba_vm_tool/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2214,7 +788,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/691.html/" class="post-title-link" itemprop="url">Ubuntu环境搭建-在win10下与linux虚拟机Ubuntu建立共享文件夹</a>
+                <a href="/samba_vm_tool/" class="post-title-link" itemprop="url">Ubuntu环境vm-tool搭建win10下与linux虚拟机Ubuntu建立共享文件夹</a>
               
             
           </h2>
@@ -2256,7 +830,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-17 19:14:09" itemprop="dateModified" datetime="2019-04-17T19:14:09+08:00">2019-04-17</time>
+                <time title="修改时间：2019-04-19 20:21:34" itemprop="dateModified" datetime="2019-04-19T20:21:34+08:00">2019-04-19</time>
               
             
           </span>
@@ -2273,7 +847,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-linux/" itemprop="url" rel="index"><span itemprop="name">积累________linux</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-tool/" itemprop="url" rel="index"><span itemprop="name">积累________tool</span></a></span>
 
                 
                 
@@ -2302,7 +876,224 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.7k</span>
+                <span title="本文字数">1.6k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>有两种方式。<br>1：<a href="/samba_install">samba</a><br>2：vm-tool</p>
+<p>本次主要介绍<code>vmtool</code>的共享功能。</p>
+<ol>
+<li>使用ssh连接系统，需要先安装 <code>apt-get install openssh</code></li>
+<li>查看进程：<code>ps -ef | grep beam</code></li>
+<li>在win10下与linux虚拟机Ubuntu建立共享文件夹：</li>
+</ol>
+<h2 id="安装vmtools-for-linux"><a href="#安装vmtools-for-linux" class="headerlink" title="安装vmtools for linux:"></a>安装vmtools for linux:</h2><p>选择vmware workstation程序菜单中VM &gt;install VMware tools…<br>启动Ubuntu，终端上执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mkdir /mnt/cdrom</span><br><span class="line">mount /dev/cdrom /mnt/cdrom</span><br><span class="line"></span><br><span class="line"># vmtools的安装文件放在vmware虚拟的cdrom中，首先要mount上这个光驱才能找到安装文件</span><br><span class="line">cd /mnt/cdrom</span><br><span class="line">tar -zxvf VMwareTools-5.0.0-12124.i386.tar.gz -C /tmp</span><br><span class="line"># 把安装文件解压到/tmp， VMwareTools-5.0.0-12124.i386.tar.gz，虚拟机自带的，不同版本不一样</span><br><span class="line">cd /tmp/vmware-tools-distrib</span><br><span class="line">./vmware-install.pl</span><br></pre></td></tr></table></figure></p>
+<p>安装默认配置vmware tools就可以正常工作，安提示输入yes/No。回车键选择默认配置，20分钟左右。<br>安装完以后，vmware会添加一个vmhgfs的模块到内核中，可以使用lsmod查看 ，没有的话，建立共享文件夹就会不成功。不过可以从win7下复制文件到虚拟机下，拖动也可以。</p>
+<h2 id="设置win7下共享的目录："><a href="#设置win7下共享的目录：" class="headerlink" title="设置win7下共享的目录："></a>设置win7下共享的目录：</h2><p>在虚拟机桌面，选择<code>vmware workstation</code>程序菜单中 <code>VM&gt;Settings&gt;Options&gt;Shared Folders &gt;Properties</code><br>点击对话框右下的“add”按钮，点击“下一步”</p>
+<p>在文本框“name”中输入共享目录的名字（这里填写的目录名以后在ghost computer的linux系统中将显示出同样的目录名），假设为share；在<code>host folder</code>中填入<code>host computer</code>中windows系统想要共享出来的目录.</p>
+<p>下一个对话框是选择共享的方式:<br>Enable this share是指这个共享长期有效，目录可读写；Read-only方式是指这个共享长期有效，目录只读；<br>Disable after this session方式是指下次ghost computer被关闭或挂起后，共享将会失效。<br>一般情况下选择Enable this share然后点击“完成”</p>
+<p>自此，shared folder设置完毕</p>
+<h2 id="shared-folder目录的使用"><a href="#shared-folder目录的使用" class="headerlink" title="shared folder目录的使用"></a>shared folder目录的使用</h2><p>切换到<code>ghost computer</code>的linux系统，执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /mnt/hgfs</span><br><span class="line">ls</span><br></pre></td></tr></table></figure></p>
+<p>可以看到share的目录，并且可以用cp等指令实现windows到linux，linux到windows的读写操作了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install open-vm-tools-dkms</span><br><span class="line">sudo mount  -t  vmhgfs  .host:/   /mnt/hgfs</span><br></pre></td></tr></table></figure></p>
+<h2 id="解决每次都要挂载的方法："><a href="#解决每次都要挂载的方法：" class="headerlink" title="解决每次都要挂载的方法："></a>解决每次都要挂载的方法：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#为了每次开机自动挂载共享目录，终端下输入：</span><br><span class="line">sudo gedit /etc/init.d/open-vm-tools</span><br><span class="line">#末尾增加一行： </span><br><span class="line">sudo mount -t vmhgfs .host:/ /mnt/hgfs </span><br><span class="line">#（host:/ 处有空格）</span><br><span class="line"></span><br><span class="line">#或者编辑 /etc/fstab，添加下面一行</span><br><span class="line">.host:/shared     /mnt/hgfs       vmhgfs     defaults  0  0 （按需写）</span><br><span class="line">tips:</span><br></pre></td></tr></table></figure>
+<p>ubuntu下提示命令用错了，安装了<code>open vm tools</code>以后要用：<code>vmhgfs-fuse .host:/ /mnt/hgfs</code></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/shardowsocks_final_speed/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/shardowsocks_final_speed/" class="post-title-link" itemprop="url">SS(shardowsocks)+FS(Final speed)带你飞</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-11-14 15:03:38" itemprop="dateCreated datePublished" datetime="2017-11-14T15:03:38+08:00">2017-11-14</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-19 20:25:35" itemprop="dateModified" datetime="2019-04-19T20:25:35+08:00">2019-04-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-tool/" itemprop="url" rel="index"><span itemprop="name">积累________tool</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">2.2k</span>
               
 
               
@@ -2338,13 +1129,1360 @@
       
         
           
-            <p>  有两种方式。1：samba 2：vm-tool。本次主要介绍vmtool的共享功能。 1. 使用ssh连接系统，需要先安装 <code>apt-get install openssh</code> 2. 查看进程：<code>ps -ef | grep beam</code> 3. 在win10下与linux虚拟机Ubuntu建立共享文件夹：</p>
-<h2 id="1-安装vmtools-for-linux"><a href="#1-安装vmtools-for-linux" class="headerlink" title="1.安装vmtools for linux:"></a>1.安装vmtools for linux:</h2><p>选择vmware workstation程序菜单中VM &gt;install VMware tools… 启动Ubuntu，终端上执行： <figure class="highlight plain"><figcaption><span>/mnt/cdrom mount</span><a href="/dev/cdrom">/mnt/cdrom  #vmtools的安装文件放在vmware虚拟的cdrom中，首先要mount上这个光驱才能找到安装文件 cd /mnt/cdrom tar -zxvf VMwareTools-5.0.0-12124.i386.tar.gz -C /tmp #把安装文件解压到/tmp， VMwareTools-5.0.0-12124.i386.tar.gz，虚拟机自带的，不同版本不一样 cd /tmp/vmware-tools-distrib ./vmware-install.pl``` 安装默认配置vmware tools就可以正常工作，安提示输入yes/No。回车键选择默认配置，20分钟左右。 安装完以后，vmware会添加一个vmhgfs的模块到内核中，可以使用lsmod查看 ，没有的话，建立共享文件夹就会不成功。不过可以从win7下复制文件到虚拟机下，拖动也可以。</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">2.设置win7下共享的目录：</span><br><span class="line">---------------</span><br><span class="line"></span><br><span class="line">在虚拟机桌面，选择vmware workstation程序菜单中 VM&gt;Settings&gt;Options&gt;Shared Folders &gt;Properties 点击对话框右下的“add”按钮，点击“下一步” 在文本框“name”中输入共享目录的名字（这里填写的目录名以后在ghost computer的linux系统中将显示出同样的目录名），假设为share；在“host folder”中填入host computer中windows系统想要共享出来的目录. 下一个对话框是选择共享的方式:Enable this share是指这个共享长期有效，目录可读写；Read-only方式是指这个共享长期有效，目录只读；Disable after this session方式是指下次ghost computer被关闭或挂起后，共享将会失效。一般情况下选择Enable this share然后点击“完成” 自此，shared folder设置完毕</span><br><span class="line"></span><br><span class="line">3.shared folder目录的使用</span><br><span class="line">--------------------</span><br><span class="line"></span><br><span class="line">切换到ghost computer的linux系统，执行：</span><br><span class="line"></span><br><span class="line"> cd /mnt/hgfs</span><br><span class="line"> ls</span><br></pre></td></tr></table></figure></p>
-<p>可以看到share的目录，并且可以用cp等指令实现windows到linux，linux到windows的读写操作了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install open-vm-tools-dkms</span><br><span class="line">sudo mount  -t  vmhgfs  .host:/   /mnt/hgfs</span><br></pre></td></tr></table></figure>
-<h2 id="4-解决每次都要挂载的方法："><a href="#4-解决每次都要挂载的方法：" class="headerlink" title="4.解决每次都要挂载的方法："></a>4.解决每次都要挂载的方法：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#为了每次开机自动挂载共享目录，终端下输入：</span><br><span class="line">sudo gedit /etc/init.d/open-vm-tools</span><br><span class="line">#末尾增加一行： </span><br><span class="line">sudo mount -t vmhgfs .host:/ /mnt/hgfs </span><br><span class="line">#（host:/ 处有空格）</span><br><span class="line"></span><br><span class="line">#或者编辑 /etc/fstab，添加下面一行</span><br><span class="line">.host:/shared     /mnt/hgfs       vmhgfs     defaults  0  0 （按需写）</span><br></pre></td></tr></table></figure>
-<p>tips:</p>
-<p>ubuntu下提示命令用错了，安装了open vm tools以后要用：vmhgfs-fuse .host:/ /mnt/hgfs</p>
+            <p>早期我曾通过goagent、xx-net勉强能浏览google学术等（你懂的） 网站，但至今很久没用过了，主要原因这东西是免费的访问速度、稳定性都很受限，当有限资源满足不了现代人类的欲望时，他们会寻求捷径以获得更多资源，我亦如此。三十而立了，越来越有欲望自己搞点什么，结合自己三十年来学到的东西，不追求利益就出于兴趣玩玩，于是乎有了需要查询的需求，于是乎我做了这件事情，留此文。</p>
+<h2 id="1、租用服务器资源"><a href="#1、租用服务器资源" class="headerlink" title="1、租用服务器资源"></a>1、租用服务器资源</h2><p>我在<code>gigsgiscloud</code>上租用了个最便宜的香港vps，2刀一月。</p>
+<p>OS：CentOS 6<br>Men: 512M<br>bandwith:500G/Mon （完全足够）<br>disk: 30G</p>
+<h2 id="2、服务端软件安装"><a href="#2、服务端软件安装" class="headerlink" title="2、服务端软件安装"></a>2、服务端软件安装</h2><p>root用户（ssh）登陆vps<br>一键安装SS：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks.sh</span><br><span class="line">chmod +x shadowsocks.sh</span><br><span class="line">./shadowsocks.sh 2&gt;&amp;1 | tee shadowsocks.log</span><br></pre></td></tr></table></figure></p>
+<p>安装成功提示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> Congratulations, shadowsocks install completed!</span><br><span class="line"> Your Server IP:your_server_ip</span><br><span class="line"> Your Server Port:8989</span><br><span class="line"> Your Password:your_password</span><br><span class="line"> Your Local IP:127.0.0.1</span><br><span class="line"> Your Local Port:1080</span><br><span class="line"> Your Encryption Method:aes-256-cfb</span><br><span class="line"></span><br><span class="line">Welcome to visit:http://teddysun.com/342.htmlEnjoy it!</span><br></pre></td></tr></table></figure></p>
+<p>用户配置文件：</p>
+<p>路径<code>/etc/shadowsocks.json</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> &#123;</span><br><span class="line"> &quot;server&quot;:&quot;your_server_ip&quot;,</span><br><span class="line"> &quot;server_port&quot;:8989,</span><br><span class="line"> &quot;local_address&quot;:&quot;127.0.0.1&quot;,</span><br><span class="line"> &quot;local_port&quot;:1080,</span><br><span class="line"> &quot;password&quot;:&quot;yourpassword&quot;,</span><br><span class="line"> &quot;timeout&quot;:300,</span><br><span class="line"> &quot;method&quot;:&quot;aes-256-cfb&quot;,</span><br><span class="line"> &quot;fast_open&quot;: false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同时可以配置多用户。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">启动：/etc/init.d/shadowsocks start</span><br><span class="line">停止：/etc/init.d/shadowsocks stop</span><br><span class="line">重启：/etc/init.d/shadowsocks restart</span><br><span class="line">状态：/etc/init.d/shadowsocks status</span><br></pre></td></tr></table></figure></p>
+<p>一键安装FS，不要装成了XS，XS是收费的：<br>root用户执行以下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rm -f install_fs.sh</span><br><span class="line">wget  https://github.com/dupontjoy/customization/raw/master/Rules/Shadowsocks/Finalspeed/install_fs.sh</span><br><span class="line">chmod +x install_fs.sh</span><br><span class="line">./install_fs.sh 2&gt;&amp;1 | tee install.log</span><br><span class="line"></span><br><span class="line">启动：sh /fs/start.sh</span><br><span class="line">停止：sh /fs/stop.sh</span><br></pre></td></tr></table></figure></p>
+<h2 id="3、客户端配置"><a href="#3、客户端配置" class="headerlink" title="3、客户端配置"></a>3、客户端配置</h2><p>下载SS客户端：<br><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NoYWRvd3NvY2tzL3NoYWRvd3NvY2tzL3dpa2kvUG9ydHMtYW5kLUNsaWVudHMjd2luZG93cw==" title="https://github.com/shadowsocks/shadowsocks/wiki/Ports-and-Clients#windows">https://github.com/shadowsocks/shadowsocks/wiki/Ports-and-Clients#windows<i class="fa fa-external-link"></i></span> </p>
+<p>下载安装FS客户端：<br><span class="exturl" data-url="aHR0cHM6Ly93d3cuYWJjbGl0ZS5jbi9yZWRpcmVjdC9hSFIwY0RvdkwyWnpMbVF4YzIwdWJtVjBMMlpwYm1Gc2MzQmxaV1F2Wm1sdVlXeHpjR1ZsWkY5cGJuTjBZV3hzTVM0d0xtVjRaUT09" title="https://www.abclite.cn/redirect/aHR0cDovL2ZzLmQxc20ubmV0L2ZpbmFsc3BlZWQvZmluYWxzcGVlZF9pbnN0YWxsMS4wLmV4ZQ==">https://www.abclite.cn/redirect/aHR0cDovL2ZzLmQxc20ubmV0L2ZpbmFsc3BlZWQvZmluYWxzcGVlZF9pbnN0YWxsMS4wLmV4ZQ==<i class="fa fa-external-link"></i></span></p>
+<p>SS+FS配置<br>注：SS上要配两个服务器，一个连接VPS，一个做FS代理的，如图，密码为<code>/etc/shadowsocks.json</code> 配置文件中的密码</p>
+<h2 id="4、使用chrome浏览"><a href="#4、使用chrome浏览" class="headerlink" title="4、使用chrome浏览"></a>4、使用chrome浏览</h2><p>配置chrome套接字代理：127.0.0.1  端口1083，还可<code>swichsharp</code>扩展让浏览器在代理非代理模式间快捷切换。<br>此时若可访问谷歌，且FS显示端口xxx连接成功，代表加速成功，FS着实强大，在与香港ping值达到300-500ms的情况下依然可跑满网络，如此，奔跑吧骚年。<br>注：以上仅vps每月2刀的租用费用，其他软件都免费。</p>
+<p>Reference：<br><span class="exturl" data-url="aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc3RyOTk5X2NuL2FydGljbGUvZGV0YWlscy81MTI4MDgzNA==" title="http://blog.csdn.net/str999_cn/article/details/51280834">http://blog.csdn.net/str999_cn/article/details/51280834<i class="fa fa-external-link"></i></span><br><span class="exturl" data-url="aHR0cHM6Ly93d3cuY21za3kuY29tL2ZpbmFsc3BlZWQv" title="https://www.cmsky.com/finalspeed/">https://www.cmsky.com/finalspeed/<i class="fa fa-external-link"></i></span><br><span class="exturl" data-url="aHR0cDovL2Jsb2cuc2luYS5jb20uY24vcy9ibG9nX2QzMDY4NmY3MDEwMnZ4dDEuaHRtbA==" title="http://blog.sina.com.cn/s/blog_d30686f70102vxt1.html">http://blog.sina.com.cn/s/blog_d30686f70102vxt1.html<i class="fa fa-external-link"></i></span></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/automatic_investment_eos/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/automatic_investment_eos/" class="post-title-link" itemprop="url">定投eos脚本，看懂的自然懂</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-11-08 14:51:07" itemprop="dateCreated datePublished" datetime="2017-11-08T14:51:07+08:00">2017-11-08</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-18 15:50:41" itemprop="dateModified" datetime="2019-04-18T15:50:41+08:00">2019-04-18</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-区块链/" itemprop="url" rel="index"><span itemprop="name">积累________区块链</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">1.9k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">2 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> decimal</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime,timezone,timedelta</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            resp = requests.get(url=<span class="string">'http://eos.io/eos-sale-statistic.php'</span>,timeout=<span class="number">10</span>)</span><br><span class="line">            result = json.loads(resp.text)</span><br><span class="line"></span><br><span class="line">            period = <span class="number">13</span></span><br><span class="line">            today_sale = result[period]</span><br><span class="line">            today_ico_eth = round(today_sale[<span class="string">'dailyToday'</span>],<span class="number">2</span>)</span><br><span class="line">            today_ico_end_utc_str = today_sale[<span class="string">'ends'</span>]</span><br><span class="line">            today_ico_end_utc = datetime.strptime(today_ico_end_utc_str,<span class="string">"%Y-%m-%dT%H:%M:S.000Z"</span>)</span><br><span class="line">            tz_utc_8 = timezone(timedelta(hours=<span class="number">8</span>))</span><br><span class="line">            today_ico_end_bj = today_ico_end_utc.replace(tzinfo=tz_utc_8)</span><br><span class="line">            <span class="keyword">print</span> (today_ico_end_bj)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># t = parser.parse(today_ico_end)</span></span><br><span class="line">            <span class="comment"># print(t)</span></span><br><span class="line"></span><br><span class="line">            resq = requests.get(url=<span class="string">'https://yunbi.com//api/v2/tickers/ethcny,json'</span>,timeout=<span class="number">10</span>)</span><br><span class="line">            result=json.loads(resq.text)</span><br><span class="line">            eth_price = float(result[<span class="string">'ticker'</span>][<span class="string">'last'</span>])</span><br><span class="line"></span><br><span class="line">            all_num = <span class="number">2000000.0</span></span><br><span class="line">            eos_sale_price = round(eth_price * today_ico_eth / all_num,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">            eos_per_eth = round(all_num/today_ico_eth,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">            resq = requests.get(url=<span class="string">'https://yunbi.com//api/v2/tickers/eoscny,json'</span>, timeout=<span class="number">10</span>)</span><br><span class="line">            result = json.loads(resq.text)</span><br><span class="line"></span><br><span class="line">            eos_price = round(float(result[<span class="string">'ticker'</span>][<span class="string">'last'</span>]),<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">            now = datetime.now()</span><br><span class="line">            <span class="keyword">print</span> (now)</span><br><span class="line">            <span class="comment"># print("投入ETH:%s ETH兑EOS:%s EOS价格:%s EOS 云币价格:%s" % (today_ico_eth，eos_per_eth,eos_sale_price,eos_price))</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">print</span> (<span class="string">"hedgeL today_ico_eth,eos_per_eth,eos_sale_proce,eos_yunbi_price:"</span>,today_ico_eth,eos_per_eth,eos_sale_price,eos_price)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># print 'main running'</span></span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> identifier:</span><br><span class="line">            <span class="keyword">print</span> (identifier)</span><br><span class="line"></span><br><span class="line">            time.sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/shadowsock_three_command/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/shadowsock_three_command/" class="post-title-link" itemprop="url">三条命令搭建shadowsock服务器</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-11-06 18:39:30" itemprop="dateCreated datePublished" datetime="2017-11-06T18:39:30+08:00">2017-11-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-19 19:04:28" itemprop="dateModified" datetime="2019-04-19T19:04:28+08:00">2019-04-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-tool/" itemprop="url" rel="index"><span itemprop="name">积累________tool</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">1.2k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="shadowSocks客户端"><a href="#shadowSocks客户端" class="headerlink" title="shadowSocks客户端"></a>shadowSocks客户端</h2><p>vps 环境 ubuntu 14.10</p>
+<p>安装docker<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install docker.io</span><br></pre></td></tr></table></figure></p>
+<p>下载shadow sock 镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull oddrationale/docker-shadowsocks</span><br></pre></td></tr></table></figure></p>
+<p>运行镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 7777:1984 -v /etc/hosts:/etc/hosts oddrationale/docker-shadowsocks -s 0.0.0.0 -p 1984 -k superzhan -m aes-256-cfb</span><br></pre></td></tr></table></figure></p>
+<p>7777 是shadow sock 连接端口。<br>superzhan 是shadow sock 的连接密码<br>aes-256-cfb 连接协议</p>
+<h2 id="shadowSocks服务器端"><a href="#shadowSocks服务器端" class="headerlink" title="shadowSocks服务器端"></a>shadowSocks服务器端</h2><p>ShadowSocks有服务器端和客户端，有技术能力的，可以自行搭建服务器端，一般可通过购买海外VPS之后进行搭建，没有技术能力的，可以购买商业ShadowSocks帐号。</p>
+<p>有网友做了个服务器端一键安装ShadowSocks的脚本，使用root用户登录，运行以下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget –no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-libev.sh</span><br><span class="line"></span><br><span class="line">chmod +x shadowsocks-libev.sh</span><br><span class="line"></span><br><span class="line">./shadowsocks-libev.sh 2&gt;&amp;1 | tee shadowsocks-libev.log</span><br></pre></td></tr></table></figure></p>
+<p>安装完成后，得到的服务器端口：8989，客户端端口：1080，密码为自己设定的密码。</p>
+<p>卸载方法：使用 root 用户登录，运行以下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./shadowsocks-libev.sh uninstall</span><br></pre></td></tr></table></figure></p>
+<p>安装完成后即已后台启动 shadowsocks ，运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep ss-server | grep -v ps | grep -v grep</span><br></pre></td></tr></table></figure></p>
+<p>可以查看进程是否存在。此脚本安装完成后，会将 shadowsocks-libev 加入开机自启动。</p>
+<p>使用命令：<br>启动：<code>/etc/init.d/shadowsocks start</code></p>
+<p>停止：<code>/etc/init.d/shadowsocks stop</code></p>
+<p>重启：<code>/etc/init.d/shadowsocks restart</code></p>
+<p>查看状态：<code>/etc/init.d/shadowsocks status</code></p>
+<p>修改端口和加密方式：编辑修改配置文件 <code>/etc/shadowsocks-libev/config.json</code></p>
+<p>每隔1小时重启服务：<code>crontab -u root -e</code> 输入 <code>0 */1 * * * /etc/init.d/shadowsocks restart</code></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/python_frame/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/python_frame/" class="post-title-link" itemprop="url">最常用Python开源框架有哪些？</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-08-18 16:59:21" itemprop="dateCreated datePublished" datetime="2017-08-18T16:59:21+08:00">2017-08-18</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-19 20:38:22" itemprop="dateModified" datetime="2019-04-19T20:38:22+08:00">2019-04-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">873</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>Python开源框架</strong>有很多，像Django、Flask、webpy等等，但哪些是最常用到的呢？</p>
+<h2 id="一、Python名气最大的框架：Django"><a href="#一、Python名气最大的框架：Django" class="headerlink" title="一、Python名气最大的框架：Django"></a>一、Python名气最大的框架：Django</h2><p>在学习到python基础和python进阶时，一般不会使用到框架。但初学Python时，你一定听到过Django，这两者就好像是一对好朋友。 </p>
+<p>Django它是个开放源代码的Web应用框架，由Python写成的Django应该是最出名的Python框架之一。</p>
+<p>GAE还有Erlang都和python密切相关。</p>
+<p>Django是给人的感觉是高大尚，它十分出色的是其全自动化的管理后台：只需要使用起ORM做简单的对象定义，就能自动生成数据库结构，以及全功能的管理后台。  </p>
+<h2 id="二、用Python编写的小巧轻量级的Web应用框架：Flask"><a href="#二、用Python编写的小巧轻量级的Web应用框架：Flask" class="headerlink" title="二、用Python编写的小巧轻量级的Web应用框架：Flask"></a>二、用Python编写的小巧轻量级的Web应用框架：Flask</h2><p>Flask也是一个Web应用框架，不同于Django它是轻量级Web应用框架。<br>基于Werkzeug WSGI工具箱和Jinja2 模板引擎。<br>Flask也被称为“microframework”，因为它使用简单的核心，用extension增加其他功能。<br>Flask没有默认使用的数据库、窗体验证工具。但是Flask是可以扩增的，你可以使用可以用<code>Flask-extension</code>增加前边没有的一些功能。  </p>
+<h2 id="三、实时Web服务的理想框架：Tornado异步非阻塞IO的Python-Web框架"><a href="#三、实时Web服务的理想框架：Tornado异步非阻塞IO的Python-Web框架" class="headerlink" title="三、实时Web服务的理想框架：Tornado异步非阻塞IO的Python Web框架"></a>三、实时Web服务的理想框架：Tornado异步非阻塞IO的Python Web框架</h2><p>Tornado它的全称是Torado Web Server，仅仅从它的名字上我们就可以知道它可以用作Web服务器，但同时它也是一个Python Web的开发框架。<br>Tornado 和现在的主流 Web 服务器框架和大多数Python框架有着明显的区别：它是非阻塞式服务器，而且速度相当快。也是比较常被使用的Python开源框架之一。<br>还有许多Python开源框架在被不同需求的人们使用，Python Web网站开发框架之TurboGears、Web2py全栈式Web框架、 Falcon高性能Python框架、 Buildbot持续集成测试框架、和Scrapy爬虫框架等等，在这里就不意义例举了。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/bitcoin_signature/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/bitcoin_signature/" class="post-title-link" itemprop="url">比特币多重签名机制使用篇</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-08-05 01:30:22" itemprop="dateCreated datePublished" datetime="2017-08-05T01:30:22+08:00">2017-08-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-18 18:20:22" itemprop="dateModified" datetime="2019-04-18T18:20:22+08:00">2019-04-18</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-区块链/" itemprop="url" rel="index"><span itemprop="name">积累________区块链</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">2.5k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">2 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a><strong>概述</strong></h2><p><span class="exturl" data-url="aHR0cDovL3d3dy53YW5iaXp1LmNvbS8=" title="http://www.wanbizu.com/">比特币<i class="fa fa-external-link"></i></span>的多重签名机制可以实现多方共同管理资产，也可以用于第三方交易担保。 多重签名最多支持三方共同管理一个地址的资产。按照比特币wiki上的表述方式，称之为：M of N模式。</p>
+<p>1 &lt;= N &lt;= 3<br>1 &lt;= M &lt;= N<br>N: 持有私钥的管理者数量<br>M: 解锁地址需要的私钥数量</p>
+<p>一般有 1 of 1, 1 of 2, 1 of 3, 2 of 3, 3 of 3几种模式。</p>
+<p>通常情况下，多应用于N = 3 的情形。</p>
+<ul>
+<li>1 of 3: 三个管理者中，任何一方都可以单独的处理该地址的资产。</li>
+<li>2 of 3: 三个管理者中，必须有两方共同签署才能处理该地址的资产。</li>
+<li>3 of 3: 三个管理者必须都签署才能处理该地址的资产。</li>
+</ul>
+<p>本文就以 2 of 3的情形来介绍一下使用多重签名的方法。</p>
+<h2 id="制作多重签名地址"><a href="#制作多重签名地址" class="headerlink" title="制作多重签名地址"></a><strong>制作多重签名地址</strong></h2><p>首先，制作多重签名地址用到比特币钱包的API. 熟悉命令行的读者可以直接在“命令提示符”窗口里运行<code>bitcoind</code>调用相应的命令。可能大部分读者对“命令提示符”并不熟悉，所以本文用“比特币核心”钱包的调试窗口来演示。 要制作多重签名地址，首先需要参与管理的三方提供各自的公钥。</p>
+<p>管理者1：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003332314-1.png" alt></p>
+<p>管理者2：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003335K8-2.png" alt></p>
+<p>管理者3：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/00033334P-3.png" alt></p>
+<p>那么，这些公钥是如何获取的呢? 首先，打开“比特币核心”钱包。点击“帮助”-&gt;”调试窗口”,在弹出的“Debug window”窗口点击“控制台”。进入图1控制台的界面：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/00033334A-4.jpg" alt></p>
+<p>在该界面下面的输入框里，输入：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003331153-5.png" alt></p>
+<p>钱包会为我们生成一个新的地址。</p>
+<p>获取新地址</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003336213-7.jpg" alt></p>
+<p>这便是上面管理者1的地址。但制作多重签名，只有地址还不够，还需要对应的公钥。公钥可以通过地址来查询出来。使用命令</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/00033325K-9.png" alt></p>
+<p>得到如图三(图3获取公钥)的公钥界面：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003333344-10.jpg" alt></p>
+<p>其中，“pubkey”后面的数据便是该地址的公钥。</p>
+<p>取得三个管理者的公钥之后，就可以用 createmultisig命令来生成多重签名地址。首先，看一下该命令的基本格式：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/00033340B-13.png" alt></p>
+<p>我们要创建的是2 of 3的模式，所以命令里n=2。输入命令如下：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003333W9-15.png" alt></p>
+<p>得到如图4(生成多重签名地址)的地址界面：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003331601-16.jpg" alt></p>
+<p>上图中的3M8voDot82tBrQE7QWGy9WUWxp7gDU7owx，就是我们生成的多重签名地址。然后将这个地址增加到钱包里，只有这样，当收到比特币时，钱包才会有显示。用命令</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003332008-17.png" alt></p>
+<p>如果忘记了输入这条命令，钱包便无法显示这个地址上的金额。而且，在这条命令运行前汇款到地址上的币也不会显示出来。遇到这样的情况，需要重新从头开始同步区块链。 我们可以向该地址中汇两笔钱，用于测试。如图5(收款成功)</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003336461-18.jpg" alt></p>
+<h2 id="从多重签名地址付款"><a href="#从多重签名地址付款" class="headerlink" title="从多重签名地址付款"></a><strong>从多重签名地址付款</strong></h2><p>接下来，我们要演示从多重签名地址付款。我们设置的是2 of 3的模式，就是说，三个管理者中，持有任意两人的私钥便可付款。我们假设现在持有的是管理者1和管理者3的私钥。 管理者1</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003332C5-19.png" alt></p>
+<p>管理者3</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003336232-20.png" alt></p>
+<p>获取私钥的方法也很简单，只要使用如下命令即可：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003333596-21.png" alt></p>
+<p>第一步：获取地址上的交易信息 使用listunspent,结果如图(图6地址上的交易信息)：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/000333C54-22.jpg" alt></p>
+<p>我们一共向这个地址进行了两次汇款，因为要手动构建交易单，所以，就只能针对具体的每一笔交易进行设置。如果那笔交易上的钱比要花费的多，就要自己设置找零操作。我们用第一笔交易做示例。从0.01个比特币里，付款0.005到一个新地址 1KfqXpdhdtSqhACSeMvNoFSeXFGV5j8PkT,找零地址为：18eHb5P7N4ZAKURetN6pjF1jTGdD3HThrj 首先，我们需要记录第一笔交易的如下几个参数： 第二步：构建交易单：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/00033324F-23.png" alt></p>
+<p>输出如下(图7构建交易单)：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/000333G27-24.png" alt></p>
+<p>第三步：用第一个私钥对交易单签名</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/000333E52-25.jpg" alt></p>
+<p>命令的第一个参数，就是createrawtransaction的输出。第二个关于txid的参数，与上面的相同。最后一个参数，是私钥，我们用的是管理者1的私钥。</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003335G0-26.png" alt></p>
+<p>输出如图：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003335P2-27.jpg" alt></p>
+<p>可以注意到complete字段是false，因为我们只用了一个私钥签名。然后，将输出的hex字段取出，用第二个私钥再次签名。 第四步：用第二个私钥签名：输入命令：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003334313-28.png" alt></p>
+<p>输出如图(图8第二次签名)：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003333a3-29.jpg" alt></p>
+<p>可以看到，第二次签名后，complete字段是true，说明签名成功。我们可以使用该地址的币了。 第五步：发送交易单 将上一步的输出hex部分，用sendrawtransaction命令发送到网络上：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003335116-30.png" alt></p>
+<p>输入命令：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/00033314T-31.jpg" alt></p>
+<p>查询交易ID cd2494071876f91e1f9505f5c5421088c7df2e6f939c17f742d3638bc7df789a即可看到这笔钱的花费情况。</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/000333IA-32.jpg" alt></p>
+<h2 id="使用脚本"><a href="#使用脚本" class="headerlink" title="使用脚本"></a><strong>使用脚本</strong></h2><p>如果您读到了这里，首先感谢您的耐心。上面的命令确实让人抓狂。再加上windows下各种符号的兼容问题，笔者测试时几乎吐血了。幸运的是在开源社区，已经有了很多方便的脚本工具。这里，笔者修改了一个开源代码，可以方便大家进行多重签名地址的创建和消费。代码地址在：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2pvaG5zb25kaWFvL2JsYWNrYm9hcmQxMDE=" title="https://github.com/johnsondiao/blackboard101">https://github.com/johnsondiao/blackboard101<i class="fa fa-external-link"></i></span>  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2pvaG5zb25kaWFvL3B5dGhvbi1iaXRjb2lucnBj" title="https://github.com/johnsondiao/python-bitcoinrpc">https://github.com/johnsondiao/python-bitcoinrpc<i class="fa fa-external-link"></i></span> 脚本是用python写的。首先需要安装python2.7.6。安装方法这里不再赘述。python-bitcoinrpc是一个bitcoin的库文件，需要对其中的setup.py文件运行</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003333595-33.png" alt></p>
+<p>命令将库安装到python里。 然后，在比特币钱包的路径(wallet.dat所在的目录)里添加bitcoin.conf文件。 文件内容如下：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003333229-34.png" alt></p>
+<p><code>wbn\_multisigs\_pt1\_create-address.py</code>脚本用来生成多重签名地址。<br><code>wbn\_multisigs\_pt2\_spend-funds.py</code>脚本用来发送多重签名地址的币。<br>具体的使用方法，就不再说明了，可以用python的IDLE来运行调试。构建多重签名地址的运行截图如下：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003335016-35.jpg" alt></p>
+<p>花费多重签名地址的程序运行如下：</p>
+<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003332J3-37.jpg" alt></p>
+<p>原地址 ：<span class="exturl" data-url="aHR0cDovL3d3dy53YW5iaXp1LmNvbS9iYWlrZS8yMDE0MDgxOTE3MTAuaHRtbA==" title="http://www.wanbizu.com/baike/201408191710.html">http://www.wanbizu.com/baike/201408191710.html<i class="fa fa-external-link"></i></span></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/ethereum_private_web3_pm2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/ethereum_private_web3_pm2/" class="post-title-link" itemprop="url">Ethereum私有链和web3.js使用及pm2管理</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-08-02 22:12:39" itemprop="dateCreated datePublished" datetime="2017-08-02T22:12:39+08:00">2017-08-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-18 11:21:55" itemprop="dateModified" datetime="2019-04-18T11:21:55+08:00">2019-04-18</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-区块链/" itemprop="url" rel="index"><span itemprop="name">积累________区块链</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">4.1k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">4 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="安装以太坊客户端-Geth"><a href="#安装以太坊客户端-Geth" class="headerlink" title="安装以太坊客户端(Geth)"></a>安装以太坊客户端(Geth)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install software-properties-common</span><br><span class="line">sudo add-apt-repository -y ppa:ethereum/ethereum</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install ethereum</span><br></pre></td></tr></table></figure>
+<h3 id="安装进程管理工具"><a href="#安装进程管理工具" class="headerlink" title="安装进程管理工具"></a>安装进程管理工具</h3><p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1VuaXRlY2gvcG0y" title="https://github.com/Unitech/pm2">pm2<i class="fa fa-external-link"></i></span> 需要 node 环境<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//nvm install node</span><br><span class="line">curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash</span><br><span class="line">export NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node</span><br><span class="line">source ~/git/nvm/nvm.sh</span><br><span class="line">nvm install 7</span><br><span class="line"></span><br><span class="line">//npm install -g pm2</span><br><span class="line">source ~/.bashrc</span><br><span class="line">export npm_config_registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure></p>
+<h3 id="启动-geth-配置文件"><a href="#启动-geth-配置文件" class="headerlink" title="启动 geth 配置文件"></a>启动 geth 配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">~/geth.json</span><br><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;name&quot;              : &quot;geth&quot;,</span><br><span class="line">    &quot;cwd&quot;               : &quot;/usr/bin/&quot;,</span><br><span class="line">    &quot;script&quot;            : &quot;geth&quot;,</span><br><span class="line">    &quot;args&quot;              : &quot;--rpcapi eth,web3 --rpc --dev --datadir /home/username/geth_private_data&quot;,</span><br><span class="line">    &quot;log_date_format&quot;   : &quot;YYYY-MM-DD HH:mm Z&quot;,</span><br><span class="line">    &quot;out_file&quot;        : &quot;/home/username/geth_private_data/log/geth_out.log&quot;,</span><br><span class="line">    &quot;error_file&quot;    : &quot;/home/username/geth_private_data/log/geth_err.log&quot;,</span><br><span class="line">    &quot;log_file&quot;        : &quot;/home/username/geth_private_data/log/geth_log.log&quot;,</span><br><span class="line">    &quot;merge_logs&quot;        : false,</span><br><span class="line">    &quot;watch&quot;             : false,</span><br><span class="line">    &quot;max_restarts&quot;      : 10,</span><br><span class="line">    &quot;exec_interpreter&quot;  : &quot;none&quot;,</span><br><span class="line">    &quot;exec_mode&quot;         : &quot;fork_mode&quot;</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>执行 <code>pm2 start geth.json</code> 即可启动 geth 另外如果不想使用 pm2 ,直接启动私有链请查看下面这种方式：</p>
+<h4 id="1-新建一个-shell-脚本文件"><a href="#1-新建一个-shell-脚本文件" class="headerlink" title="1.  新建一个 shell 脚本文件"></a>1.  新建一个 shell 脚本文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~/geth_private.sh</span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">geth=<span class="variable">$&#123;GETH:-geth&#125;</span></span><br><span class="line"><span class="variable">$geth</span> --datadir data --networkid 31415926 --rpc --rpcapi <span class="string">"admin,debug,eth,miner,net,personal,shh,txpool,web3"</span> rpcaddr <span class="string">"0.0.0.0"</span> --rpccorsdomain <span class="string">"*"</span> --nodiscover console</span><br></pre></td></tr></table></figure>
+<h4 id="2-更改文件属性问可执行"><a href="#2-更改文件属性问可执行" class="headerlink" title="2.  更改文件属性问可执行"></a>2.  更改文件属性问可执行</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x geth_private.sh</span><br></pre></td></tr></table></figure>
+<h4 id="3-三种方式执行-shell-启动脚本"><a href="#3-三种方式执行-shell-启动脚本" class="headerlink" title="3.  三种方式执行 shell 启动脚本"></a>3.  三种方式执行 shell 启动脚本</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">nohup ./geth_private.sh 0&lt;&amp;- &amp;&gt;/dev/null &amp; // 守护进程启动私有链节点</span><br><span class="line">nohup ./geth_private.sh 0&lt;&amp;- &amp;&gt; /tmp/geth.log  &amp; // 守护进程启动私有链节点且把日志打印到 /tmp/geth.log 文件</span><br><span class="line">./geth_private.sh //启动私有链节点并进入交互控制台</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">第二种打印日志的方式非常有用。其一是如果 geth 启动不成功，可以在日志中看到具体错误体制。其二是在测试链中部署智能合约(切记要确保 geth 中有一个账户处于解锁状态且有一定量的 ether,一般这个账户是 coinbase)被确认时会输出合约地址到日志文件中。在私有测试链中，进入 js 交互控制台，输入 **miner.start(1)** 挖矿，控制台输出类似 `Mined block (#72 / 517dcfd1). Wait 5 blocks for confirmation` 则表示合约部署成功。</span><br><span class="line"></span><br><span class="line">### Ethereum JavaScript API</span><br><span class="line"></span><br><span class="line">Ethereum 实现了**javascript runtime environment** [JavaScript Console](https://github.com/ethereum/go-ethereum/wiki/JavaScript-Console)。 Ethereum&apos;s Javascript console exposes the full [web3 JavaScript Dapp API](https://github.com/ethereum/wiki/wiki/JavaScript-API) and the [admin API](https://github.com/ethereum/go-ethereum/wiki/JavaScript-Console#javascript-console-api). 当你安装好 geth 并启动服务之后，通过**Non-interactive use: JSRE script mode** 命令(例如 [Managing accounts](https://github.com/ethereum/go-ethereum/wiki/Managing-your-accounts#examples)) 或者 **Interactive use: the JSRE REPL Console** 进入控制台操作 geth </span><br><span class="line">```bash</span><br><span class="line">$ geth attach ipc:/some/custom/path</span><br><span class="line">$ geth attach http://191.168.1.1:8545</span><br><span class="line">$ geth attach ws://191.168.1.1:8546</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">如果你想单独在 node 服务中写代码操作 geth ，添加 web3.js 即可。 [web3.js](https://github.com/ethereum/web3.js) 实现了使用 node 操作 geth 。使用的前提要求启动 geth 启动时 rpcapi 包含了 `web3`,在上面的配置文件中 `&quot;args&quot; : &quot;--rpcapi eth,web3 --rpc --dev --datadir /home/username/geth_private_data&quot;`已经设置好了。 同时可以看看参考连接详细了解：</span><br><span class="line"></span><br><span class="line">*   [Management APIs](https://github.com/ethereum/go-ethereum/wiki/Management-APIs)</span><br><span class="line">*   [Web3 JavaScript Ðapp API](https://github.com/ethereum/wiki/wiki/JavaScript-API) 编译智能合约用到</span><br><span class="line"></span><br><span class="line">安装:</span><br><span class="line">``` </span><br><span class="line">//install web3.js</span><br><span class="line">npm install web3</span><br><span class="line">//install solidity for smart contract develope</span><br><span class="line">sudo add-apt-repository ppa:ethereum/ethereum</span><br><span class="line">sudo add-apt-repository ppa:ethereum/ethereum-dev</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install solc</span><br></pre></td></tr></table></figure>
+<p>web.js 是一个 node 库，实现了<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2V0aGVyZXVtL3dpa2kvd2lraS9KYXZhU2NyaXB0LUFQSSN3ZWIzanMtYXBpLXJlZmVyZW5jZQ==" title="https://github.com/ethereum/wiki/wiki/JavaScript-API#web3js-api-reference">Web3.js API Reference<i class="fa fa-external-link"></i></span> 另外有一点需要注意的是：当你都写好并且编译好智能合约之后，接下来的新建和部署智能合约到区块链上需要确保有一个解锁的账号（EOA）及账户有一定的资金</p>
+<blockquote>
+<p>Create and deploy a contract Before you begin this section, make sure you have both an unlocked account as well as some funds. <span class="exturl" data-url="aHR0cDovL2V0aGRvY3Mub3JnL2VuL2xhdGVzdC9jb250cmFjdHMtYW5kLXRyYW5zYWN0aW9ucy9jb250cmFjdHMuaHRtbCNjcmVhdGUtYW5kLWRlcGxveS1hLWNvbnRyYWN0" title="http://ethdocs.org/en/latest/contracts-and-transactions/contracts.html#create-and-deploy-a-contract">Create and deploy a contract<i class="fa fa-external-link"></i></span></p>
+</blockquote>
+<p>推荐阅读：</p>
+<ul>
+<li><span class="exturl" data-url="aHR0cDovL2V0aGVyZXVtLnN0YWNrZXhjaGFuZ2UuY29tL3F1ZXN0aW9ucy8xMjUvaG93LWRvLWktc2V0LXVwLWEtcHJpdmF0ZS1ldGhlcmV1bS1uZXR3b3Jr" title="http://ethereum.stackexchange.com/questions/125/how-do-i-set-up-a-private-ethereum-network">How do I set up a private ethereum network?<i class="fa fa-external-link"></i></span></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/eth_mist/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/eth_mist/" class="post-title-link" itemprop="url">以太坊mist使用记录</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-07-10 20:42:30" itemprop="dateCreated datePublished" datetime="2017-07-10T20:42:30+08:00">2017-07-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-18 14:40:26" itemprop="dateModified" datetime="2019-04-18T14:40:26+08:00">2019-04-18</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-区块链/" itemprop="url" rel="index"><span itemprop="name">积累________区块链</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">1.4k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="创建私有链的geth命令"><a href="#创建私有链的geth命令" class="headerlink" title="创建私有链的geth命令"></a>创建私有链的geth命令</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">geth --datadir <span class="string">"./"</span> init genesis.json</span><br><span class="line">geth --datadir <span class="string">"./"</span> --nodiscover console 2&gt;&gt;geth.log</span><br></pre></td></tr></table></figure>
+<p>在命令行模式下, 新建账号，并且启动挖矿</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; personal.newAccount(<span class="string">"123"</span>)</span><br><span class="line"><span class="string">"0x48ad44beba68a981e103d28b2bd5777ef21ba0e3"</span></span><br><span class="line">&gt; miner.start()</span><br><span class="line"><span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>如果链条已经被关闭的话，或者启动不了，或者挖矿无法产生比特币的话，可以重置以太坊私链。</p>
+<h4 id="重置以太坊私有链"><a href="#重置以太坊私有链" class="headerlink" title="重置以太坊私有链"></a>重置以太坊私有链</h4><ul>
+<li>1.删除根目录下的隐藏文件夹<code>.ethash</code>, 在mac系统中该文件夹在 <code>~/</code>下</li>
+<li>2.删除以太坊私有链所在文件夹下的geth/keystore两个文件夹</li>
+</ul>
+<p>打开私有链所在文件夹，注意应该有一个文件，叫geth.ipc, 记录下文件夹地址</p>
+<h3 id="Mist-工具"><a href="#Mist-工具" class="headerlink" title="Mist 工具"></a>Mist 工具</h3><p>Mist github地址：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2V0aGVyZXVtL21pc3Q=" title="https://github.com/ethereum/mist">https://github.com/ethereum/mist<i class="fa fa-external-link"></i></span></p>
+<blockquote>
+<p>The Mist browser is the tool of choice to browse and use Ðapps.</p>
+</blockquote>
+<p>Mist 是以太坊官方提供的浏览器，通过Mist我们可以很方便的连接上我们的私有网络，从而更好的开发、调试、测试我们的智能合约。</p>
+<h4 id="Step-1-安装依赖项"><a href="#Step-1-安装依赖项" class="headerlink" title="Step 1 安装依赖项"></a>Step 1 安装依赖项</h4><p>安装步骤，请参见github地址：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2V0aGVyZXVtL21pc3Q=" title="https://github.com/ethereum/mist">https://github.com/ethereum/mist<i class="fa fa-external-link"></i></span></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl https://install.meteor.com/ | sh</span><br><span class="line">npm install -g electron@1.3.13</span><br><span class="line">npm install -g gulp</span><br></pre></td></tr></table></figure>
+<h4 id="Step-2-安装Mist本体"><a href="#Step-2-安装Mist本体" class="headerlink" title="Step 2 安装Mist本体"></a>Step 2 安装Mist本体</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/ethereum/mist.git </span><br><span class="line"><span class="built_in">cd</span> mist</span><br><span class="line">git submodule update --init $ yarn</span><br></pre></td></tr></table></figure>
+<h4 id="Step-3-运行Mist-interface-也就是mist的后台程序"><a href="#Step-3-运行Mist-interface-也就是mist的后台程序" class="headerlink" title="Step 3 运行Mist/interface 也就是mist的后台程序"></a>Step 3 运行Mist/interface 也就是mist的后台程序</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> mist/interface &amp;&amp; meteor --no-release-check</span><br></pre></td></tr></table></figure>
+<p>这个阶段费时可能稍长，会启动mongodb, proxy等。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[[[[[ /wwwroot/html/mist/interface ]]]]]</span><br><span class="line"></span><br><span class="line">=&gt; Started proxy.</span><br><span class="line">=&gt; Started MongoDB.</span><br><span class="line">=&gt; Started your app.</span><br><span class="line"></span><br><span class="line">=&gt; App running at: http://localhost:3000/</span><br></pre></td></tr></table></figure>
+<h4 id="Step-4-新开一个窗口，用geth-ipc启动Mist"><a href="#Step-4-新开一个窗口，用geth-ipc启动Mist" class="headerlink" title="Step 4 新开一个窗口，用geth.ipc启动Mist"></a>Step 4 新开一个窗口，用geth.ipc启动Mist</h4><p>新开一个窗口，回到mist文件夹下面，输入下方的命令 </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">electron . --rpc /Users/linchen/steveproject2/tmpPrivate/geth.ipc</span><br></pre></td></tr></table></figure>
+<p>注意这里的地址<code>/Users/linchen/steveproject2/tmpPrivate/geth.ipc</code> 就是前面我们新建的以太坊私有连下的geth.ipc文件。</p>
+<p><strong>注:</strong><br><em>一定要先开启 <code>meteor --no-release-check</code> 然后在开启 <code>electron . --rpc http://loclahost:8545</code></em></p>
 
           
         
@@ -2390,7 +2528,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2432,7 +2570,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">193</span>
+                    <span class="site-state-item-count">58</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2475,7 +2613,7 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -2608,7 +2746,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">58</span>
+                      
+                    
+                    <span class="site-state-item-count">31</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -2733,7 +2873,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">553k</span>
+    <span title="站点总字数">208k</span>
   
 
   
@@ -2744,7 +2884,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">8:23</span>
+    <span title="站点阅读时长">3:09</span>
   
 </div>
 

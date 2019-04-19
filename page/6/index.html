@@ -363,7 +363,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/596.html/">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/mongodb_cluster_question/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -383,7 +383,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/596.html/" class="post-title-link" itemprop="url">Laravel 5 ：数据库迁移 Migrations</a>
+                <a href="/mongodb_cluster_question/" class="post-title-link" itemprop="url">Mongodb衍伸的互联网思考</a>
               
             
           </h2>
@@ -408,7 +408,7 @@
                 
               
 
-              <time title="创建时间：2017-04-28 18:18:56" itemprop="dateCreated datePublished" datetime="2017-04-28T18:18:56+08:00">2017-04-28</time>
+              <time title="创建时间：2015-10-09 17:17:44" itemprop="dateCreated datePublished" datetime="2015-10-09T17:17:44+08:00">2015-10-09</time>
             
 
             
@@ -425,7 +425,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-17 18:29:49" itemprop="dateModified" datetime="2019-04-17T18:29:49+08:00">2019-04-17</time>
+                <time title="修改时间：2019-04-18 18:32:45" itemprop="dateModified" datetime="2019-04-18T18:32:45+08:00">2019-04-18</time>
               
             
           </span>
@@ -442,7 +442,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-php/" itemprop="url" rel="index"><span itemprop="name">积累________php</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-db/" itemprop="url" rel="index"><span itemprop="name">积累________db</span></a></span>
 
                 
                 
@@ -471,7 +471,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">3.4k</span>
+                <span title="本文字数">751</span>
               
 
               
@@ -485,7 +485,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">3 分钟</span>
+                <span title="阅读时长">1 分钟</span>
               
             </div>
           
@@ -507,21 +507,17 @@
       
         
           
-            <p>迁移是一种数据库的<strong>版本控制</strong>。可以让团队在修改数据库结构的同时，保持彼此的进度一致。它是 Laravel 5 最强大的功能之一。 一般我们可以通过phpmyadmin或者Navicat等数据库管理工具来创建、修改数据表结构。如果就自己一个人的话还好，但是如果团队中有多个人，我们就需要导出表结构，然后传给团队中其他人，他们再把数据表结构导入他们的数据库，这时如果表中原来有数据的话就可能出现一些问题。而Laravel 5中的<strong>Migrations</strong>很好的避免了此问题。 Migrations把表结构存储为一个PHP类，通过调用其中的方法来创建、更改数据库。Migrations存放在在 <strong>database/migrations</strong> 目录中。初始情况下，其中包含了两个文件：<strong>*</strong>_create_users_table.php<strong> 和 ***</strong>_create_password_resets_table.php**，分别是用户表和用户密码重置表。每个文件中都包含了 <code>up()</code> 和 <code>down()</code> 两个方法，一个用来创建、更改数据表，一个用来回滚操作，即撤 <code>up()</code> 中的操作。</p>
-<h2 id="创建迁移文件"><a href="#创建迁移文件" class="headerlink" title="创建迁移文件"></a>创建迁移文件</h2><p>使用 Artisan CLI 的 <code>make:migrate</code> 命令建立迁移文件： <figure class="highlight plain"><figcaption><span>artisan help make:migration Usage: make:migration \[--create\[</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">执行数据迁移</span><br><span class="line">------</span><br><span class="line"></span><br><span class="line">**执行所有未执行的迁移** ``` php artisan migrate</span><br></pre></td></tr></table></figure></p>
-<p><strong>注意:</strong> 如果在执行迁移时发生「class not found」错误，试着先执行 <code>composer dump-autoload</code> 命令后再进行一次。</p>
-<h3 id="在线上环境-Production-中强制执行迁移"><a href="#在线上环境-Production-中强制执行迁移" class="headerlink" title="在线上环境 (Production) 中强制执行迁移"></a>在线上环境 (Production) 中强制执行迁移</h3><p>有些迁移操作是具有破坏性的，意味着可能让你遗失原本保存的数据。为了防止你在上线环境执行到这些迁移命令，你会被提示要在执行迁移前进行确认。加上 <code>--force</code> 参数执行强制迁移： <figure class="highlight php"><figcaption><span>artisan migrate --force```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">回滚迁移</span><br><span class="line">----</span><br><span class="line"></span><br><span class="line">**回滚上一次的迁移** ``` php artisan migrate:rollback``` **回滚所有迁移**</span><br><span class="line"></span><br><span class="line">``` php artisan migrate:reset</span><br></pre></td></tr></table></figure></p>
-<p><strong>回滚所有迁移并且再执行一次</strong></p>
-<figure class="highlight php"><figcaption><span>artisan migrate:refresh php artisan migrate:refresh --seed```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* * *</span><br><span class="line"></span><br><span class="line">上面是一些数据迁移的基本操作，下面是一个例子：</span><br><span class="line"></span><br><span class="line">执行数据迁移：</span><br><span class="line">-------</span><br><span class="line"></span><br><span class="line">``` D:\\wamp\\www\\laravel5&gt;php artisan migrate Migration table created successfully. Migrated: <span class="number">2014</span>\_10\_12\_000000\_create\_users\_table Migrated: <span class="number">2014</span>\_10\_12\_100000\_create\_password\_resets_table</span><br></pre></td></tr></table></figure>
-<p>此时查看数据库，会发现多出了<strong>migrations</strong>、<strong>password_resets</strong>、<strong>users</strong>三个表，<strong>migrations</strong>表是用来管理数据库迁移回滚等操作的，<strong>一般不要动这个表</strong>，而<strong>users</strong>表和<strong>password_resets</strong>表就是 <strong>database/migrations</strong> 目录原有的两个生成的表。 想修改<strong>users</strong>表中的<code>name</code>字段为<code>username</code>，执行回滚操作：</p>
-<figure class="highlight plain"><figcaption><span>artisan migrate:rollback Rolled back: 2014\_10\_12\_100000\_create\_password\_resets_table Rolled back: 2014\_10\_12\_000000\_create\_users\_table```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">再次查看数据库，发现**users**表和**password_resets**表已经被删除。修改*****\_create\_users_table.php**文件，把`name`修改为`username`，之后再次支持数据库迁移。查看数据库**users**表，发现字段名已经变成了`username`。</span><br><span class="line"></span><br><span class="line">新建articles迁移</span><br><span class="line">------------</span><br><span class="line"></span><br><span class="line">创建一个存放博客的数据表：</span><br><span class="line"></span><br><span class="line">``` D:\\wamp\\www\\laravel5&gt;php artisan make:migration create\_articles\_table --create=articles Created Migration: 2015\_05\_11\_140813\_create\_articles\_table</span><br></pre></td></tr></table></figure>
-<p>此时， <strong>database/migrations</strong> 目录中会多出一个<strong>*</strong>_create_articles_table.php**文件：</p>
-<figure class="highlight php"><figcaption><span>use Illuminate\\Database\\Schema\\Blueprint; use Illuminate\\Database\\Migrations\\Migration; class CreateArticlesTable extends Migration &#123;</span><a href="/**">\* Run the migrations. * \* @return void */ public function up() &#123; Schema::create('articles', function(Blueprint $table) &#123; $table->increments('id'); $table->timestamps(); &#125;); &#125; /** \* Reverse the migrations. * \* @return void */ public function down() &#123; Schema::drop('articles'); &#125; &#125;```</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">`up()` 方法中创建了一个自增ID，其中的 `timestamps()` 方法会生成 `created_at` 和 `updated_at` 两个时间列。下面向其中增加一些列：</span><br><span class="line"></span><br><span class="line">``` <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">up</span><span class="params">()</span> </span>&#123; Schema::create(<span class="string">'articles'</span>, <span class="function"><span class="keyword">function</span><span class="params">(Blueprint $table)</span> </span>&#123; $table-&gt;increments(<span class="string">'id'</span>); $table-&gt;string(<span class="string">'title'</span>); $table-&gt;text(<span class="string">'body'</span>); $table-&gt;timestamps(); $table-&gt;timestamp(<span class="string">'published_at'</span>); &#125;); &#125;</span><br></pre></td></tr></table></figure>
-<p>执行数据库迁移：</p>
-<figure class="highlight php"><figcaption><span>artisan migrate```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">现在数据库就多出了一个**articles**表。现在想给表中增加一个`excerpt`字段，我们可以执行回滚，然后修改原来的文件再执行迁移，也可以创建一个新的迁移文件： php artisan make:migration add\_excerpt\_to\_articles\_table --table=articles 如果不加 `--table` 参数，则生成的迁移文件只包含基础代码。 修改新生成的文件：</span><br><span class="line"></span><br><span class="line">``` <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">up</span><span class="params">()</span> </span>&#123; Schema::table(<span class="string">'articles'</span>, <span class="function"><span class="keyword">function</span><span class="params">(Blueprint $table)</span> </span>&#123; $table-&gt;text(<span class="string">'excerpt'</span>)-&gt;nullable(); &#125;); &#125; <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">down</span><span class="params">()</span> </span>&#123; Schema::table(<span class="string">'articles'</span>, <span class="function"><span class="keyword">function</span><span class="params">(Blueprint $table)</span> </span>&#123; $table-&gt;dropColumn(<span class="string">'excerpt'</span>); &#125;); &#125;</span><br></pre></td></tr></table></figure>
-<p>再次执行迁移：</p>
-<p><code>php artisan migrate</code></p>
-<p>查看数据库，此时 <code>excerpt</code> 列已增加成功。</p>
+            <blockquote>
+<p>引子：如何使用三台服务器搭建高可用mongodb集群。</p>
+</blockquote>
+<p>从技术角度出发，基本上聊完这个话题就可以清晰地知道对mongodb的掌握程度。</p>
+<p>mongodb副本集故障转移功能得益于它的选举机制，采用了bully算法。一般分布式集群都会有一个所谓的主节点。比如常用的mysql经常会申明一个主节点，其他的都为从节点。这样一个问题就是当主节点挂掉，我们就需要手工操作，上架一个新的主节点或者从从节点恢复数据等手段，并不太灵活。</p>
+<p>而mongodb采用的架构模式为不指定主节点，一旦主节点挂掉了，其他从节点自动接替变为主节点。一个副本集包含三个节点，主节点、从节点、仲裁节点。之间会有心跳检测（可以理解为不断地ping—-ping），当主节点down掉，会提升secondary为新的primary，仲裁节点升为新的副节点。oplogSize和更换服务器时间为容灾关键点。</p>
+<p>一个简单充分实现的集群方式为下图所示。主写副读仲裁心跳。根据各负责的相关工作内容分担压力可最优放置在不同服务器。</p>
+<p>但是此引题优解方式：<br>因为当三台服务器撑不住，主节点挂掉，从节点一旦升为主节点，同时接受读写的压力和同步数据到新从节点，那么肯定也是支撑不住服务的，所以分析最终结果要最少四台服务器参与到集群中容灾。O(∩_∩)O。</p>
+<p>数据库的发展经历了人工管理阶段，文件系统阶段，数据库系统阶段。从第三范式到反第三范式。无不体现了互联的一种发展趋势。而当关系数据库越来越庞大的时候，又出现了各种nosql数据库，比如基于内存的memcache，redis。内存缓存模式。</p>
+<p>其实仍然是‘分而治之’的思想（map reduce）。</p>
+<p>根据业界的理论来讲，写代码重要的是理解思想，深入底层原理和设计模式以及算法，酱紫更有利于写出优质别人能看懂的代码。</p>
 
           
         
@@ -578,7 +574,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/595.html/">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/object_oriented_programming_five/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -598,7 +594,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/595.html/" class="post-title-link" itemprop="url">python计算给定日期的周内的某一天</a>
+                <a href="/object_oriented_programming_five/" class="post-title-link" itemprop="url">面向对象的基础五</a>
               
             
           </h2>
@@ -623,7 +619,7 @@
                 
               
 
-              <time title="创建时间：2017-04-28 09:55:59" itemprop="dateCreated datePublished" datetime="2017-04-28T09:55:59+08:00">2017-04-28</time>
+              <time title="创建时间：2015-09-06 23:53:55" itemprop="dateCreated datePublished" datetime="2015-09-06T23:53:55+08:00">2015-09-06</time>
             
 
             
@@ -640,7 +636,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-17 19:10:20" itemprop="dateModified" datetime="2019-04-17T19:10:20+08:00">2019-04-17</time>
+                <time title="修改时间：2019-04-19 16:50:20" itemprop="dateModified" datetime="2019-04-19T16:50:20+08:00">2019-04-19</time>
               
             
           </span>
@@ -657,7 +653,220 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-原理/" itemprop="url" rel="index"><span itemprop="name">积累________原理</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">742</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="接口的定义和规范"><a href="#接口的定义和规范" class="headerlink" title="接口的定义和规范"></a>接口的定义和规范</h2><p>接口是把隐式公共方法和属性组合起来，以封装特定的功能的一个集合。一旦类实现了接口，类就可以支持接口所指定的所有属性和成员。声明接口在语法上与声明抽象类完全相同，但不允许提供接口中任何成员的执行方式。</p>
+<p>所以接口不能实例化，不能有构造方法和字段；抽象方法只能是public的，不能设置为private活着protected类型；即使是abstract何final修饰符也不能修饰接口中的抽象方法。而接口中保留了静态抽象方法。</p>
+<p>实现接口必须实现接口中的所有的方法和属性。</p>
+<p>一个类可以支持多个接口，多个类也可以支持相同的接口。</p>
+<p>说白了，接口是抽象方法和静态常量定义的集合。接口是一种特殊的抽象类，这种抽象类中只包含抽象方法和静态常量。</p>
+<h2 id="关于抽象类和接口的区别"><a href="#关于抽象类和接口的区别" class="headerlink" title="关于抽象类和接口的区别"></a>关于抽象类和接口的区别</h2><p>抽象类可以给出一些成员的实现，接口却不包含成员的实现，抽象类的抽象成员可被子类部分实现，接口的成员需要实现类完全实现，一个类只能继承一个抽象类，但可以实现多个接口等。</p>
+<p>第一：类是对对象的抽象；抽象类是对类的抽象；接口是对行为的抽象。</p>
+<p>也就是说接口是对类的局部行为进行的抽象，而抽象类是对类整体的抽象。</p>
+<p>第二：如果行为跨越不同类的对象，可使用接口；对于一些相似的类对象，用继承抽象类。实现接口和继承抽象类并不冲突。</p>
+<p>第三：从设计角度讲，抽象类是从子类中发现公共的东西，泛化出父类，然后子类继承父类，而接口根本不知子类的存在，方法如何实现还不确定，预先定义。</p>
+<h2 id="关于接口继承S"><a href="#关于接口继承S" class="headerlink" title="关于接口继承S"></a>关于接口继承S</h2><p>php5中类是单继承，但是接口很特殊，一个接口可以继承自多个接口，一个接口继承其它接口时候，直接继承接口的静态常量属性和抽象方法。</p>
+<p>接口和接口之间继承要使用extends关键字。</p>
+<p>类实现接口必须实现其抽象方法，使用实现关键字implements。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/object_oriented_programming_four/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/object_oriented_programming_four/" class="post-title-link" itemprop="url">面向对象的基础四</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2015-09-06 20:50:02" itemprop="dateCreated datePublished" datetime="2015-09-06T20:50:02+08:00">2015-09-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-19 16:47:38" itemprop="dateModified" datetime="2019-04-19T16:47:38+08:00">2019-04-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-原理/" itemprop="url" rel="index"><span itemprop="name">积累________原理</span></a></span>
 
                 
                 
@@ -722,7 +931,16 @@
       
         
           
-            <p>先理一下思路： 1、weekday会根据某个日期返回0到6的一个数字来表示星期几对吧，0==星期一 我们来列一个表： <figure class="highlight plain"><figcaption><span>2、知道了星期几之后，你可以计算出那一周相对于这个0到6的数字的差值（比如你确定一个比较值0，那么取得该日期的weekday值假设为n，那么这个差值就是0-n对吧，针对第一条发现的列表，假设我们指定的日期是星期二，weekday数值为1：</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">``` \[0,1,2,3,4,5,6\] n ``` ``` 就是说n在列表中1的位置，数值也是1，那么前面星期一是否就刚好是0-1的相对位置了呢？ 理解了么？0-n就刚好是星期一所代表的相对位置。 那么星期二呢？是不是就是0-n+1？ 自然的，星期三就是0-n+2 0-n+3 0-n+4 0-n+5 0-n+6，就是星期日``` ``` 3、知道了相对位置，那么只需要进行日期的叠加就可以了。``` ``` 以下的代码不推荐你直接使用：``` ``` import datetime,time def thisweek(str\_date): try: #尝试将参数转换成为datetime.date格式，1是方便后面的日期加减，2是验证日期是否有效。 date\_input = datetime.date.fromtimestamp(time.mktime(time.strptime(str\_date,&quot;%Y-%m-%d&quot;))) except: raise &apos;参数错误：错误的日期，期待值2016-01-01格式&apos; n = datetime.datetime.weekday(date\_input) weeklist = \[\] for i in range(7): this\_day=date\_input + datetime.timedelta(0-n+i) weeklist.append(\[i,this_day\]) return weeklist ``` 运行结果为：【星期几,日期】，同样0表示星期一 ``` thisweek(&apos;2016-07-18&apos;) \[\[0, datetime.date(2016, 7, 18)\], \[1, datetime.date(2016, 7, 19)\], \[2, datetime.date(2016, 7, 20)\], \[3, datetime.date(2016, 7, 21)\], \[4, datetime.date(2016, 7, 22)\], \[5, datetime.date(2016, 7, 23)\], \[6, datetime.date(2016, 7, 24)\]\]</span><br></pre></td></tr></table></figure></p>
+            <p>c#允许把类和方法声明为abstract，即抽象类和抽象方法。</p>
+<p>第一：抽象类不能被实例化。</p>
+<p>第二：抽象方法是必须被子类重写的方法。抽象方法只有方法的声明，而没有方法的实现内容。</p>
+<p>第三：如果类中包含抽象方法，那么就必须定义为抽象类，不论是否还包含其他一般方法。</p>
+<p>抽象类拥有尽可能多的共同代码，拥有尽可能少的数据。</p>
+<p>抽象类通常代表一个抽象概念，它提供了一个继承的出发点，当设计一个新的抽象类时，一定使用来继承的。所以，在一个以继承关系形成的等级结构里面，树叶节点应当是具体类，而树枝节点均应当是抽象类。</p>
+<p>抽象类继承抽象类，目的是对抽象类的扩展，不能重写其中的抽象方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">//定义一个抽象类</span><br><span class="line"></span><br><span class="line">abstract class User&#123;</span><br><span class="line"></span><br><span class="line">    public function __toString()&#123;</span><br><span class="line"></span><br><span class="line">        return get_class($this);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//实例化这个类会出错</span><br><span class="line"></span><br><span class="line">//echo new user();</span><br><span class="line"></span><br><span class="line">class NormalUser extends User&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$a = new NormalUser();</span><br><span class="line"></span><br><span class="line">echo ‘这是类’;</span><br><span class="line"></span><br><span class="line">echo $a;</span><br><span class="line"></span><br><span class="line">echo ‘的实例’;</span><br></pre></td></tr></table></figure></p>
+<p>单独设置一个抽象类是没有意义的，只有有了抽象方法，抽象类才有类血肉。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">abstract class User&#123;</span><br><span class="line"></span><br><span class="line">  protected ?$sal = 0;</span><br><span class="line"></span><br><span class="line">  //这里定义抽象方法。抽象方法没有方法体，而且方法结束使用;号。</span><br><span class="line"></span><br><span class="line">  abstract function getSal();</span><br><span class="line"></span><br><span class="line">  abstract function setSal($sal);</span><br><span class="line"></span><br><span class="line">  //这里定义它的__tostring方法</span><br><span class="line"></span><br><span class="line">  public function __toString()&#123;</span><br><span class="line"></span><br><span class="line">    return get_class($this);</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//此时类继承这个抽象类必须要重写这个两个抽象方法。哪怕是&#123;&#125;空的方法体</span><br><span class="line"></span><br><span class="line">//注意：1.不能缺少参数。2.不能多余的参数。3.参数类型不能错误。</span><br><span class="line"></span><br><span class="line">class NormalUser extends ?User&#123;</span><br><span class="line"></span><br><span class="line">  function getSal()&#123;&#125;</span><br><span class="line"></span><br><span class="line">  function setSal($sal)&#123;&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>抽象方法没有<code>{}</code>，而采用<code>;</code>结束。参数的数量和类型必须一致</p>
+<p>PHP5.0和5.1的类中允许静态抽象方法。在5.2以上，只有接口可以拥有静态抽象方法。</p>
 
           
         
@@ -779,7 +997,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/594.html/">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/object_oriented_programming_three/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -799,7 +1017,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/594.html/" class="post-title-link" itemprop="url">Python封装日志功能Logger</a>
+                <a href="/object_oriented_programming_three/" class="post-title-link" itemprop="url">面向对象的基础三</a>
               
             
           </h2>
@@ -824,7 +1042,7 @@
                 
               
 
-              <time title="创建时间：2017-04-27 11:08:27" itemprop="dateCreated datePublished" datetime="2017-04-27T11:08:27+08:00">2017-04-27</time>
+              <time title="创建时间：2015-09-03 12:49:04" itemprop="dateCreated datePublished" datetime="2015-09-03T12:49:04+08:00">2015-09-03</time>
             
 
             
@@ -841,7 +1059,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-17 19:10:03" itemprop="dateModified" datetime="2019-04-17T19:10:03+08:00">2019-04-17</time>
+                <time title="修改时间：2019-04-19 17:03:01" itemprop="dateModified" datetime="2019-04-19T17:03:01+08:00">2019-04-19</time>
               
             
           </span>
@@ -858,7 +1076,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-原理/" itemprop="url" rel="index"><span itemprop="name">积累________原理</span></a></span>
 
                 
                 
@@ -887,7 +1105,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">3.1k</span>
+                <span title="本文字数">2.9k</span>
               
 
               
@@ -923,866 +1141,31 @@
       
         
           
-            <p>我们对日志功能的需求如下：</p>
+            <h2 id="面向对象之封装"><a href="#面向对象之封装" class="headerlink" title="面向对象之封装"></a>面向对象之封装</h2><p>每个对象都包含它能进行操作所需要的所有信息，这个特性称为封装，因此对象不必依赖其他对象来完成自己的操作。这样方法和属性包装在类中，通过类的实例来实现。</p>
+<p>封装的好处：</p>
 <ol>
-<li>为了便于日志的查看，每个脚本对应一个日志文件，日志文件以脚本的名字命名</li>
-<li>日志路径以及每个脚本保存的日志容量可以设置，比如设置为5MB，则超过后最老日志被自动覆盖</li>
-<li>日志功能要使用方便，减少与框架业务功能的耦合</li>
-</ol>
-<p>现在来逐一分析上述需求。</p>
-<h3 id="1-要实现每个脚本一个日志文件，则需要在日志模块中，根据用例脚本的名字来生成日志文件，这里的关键问题就是怎样在日志模块中获取用例脚本的名字。"><a href="#1-要实现每个脚本一个日志文件，则需要在日志模块中，根据用例脚本的名字来生成日志文件，这里的关键问题就是怎样在日志模块中获取用例脚本的名字。" class="headerlink" title="1.要实现每个脚本一个日志文件，则需要在日志模块中，根据用例脚本的名字来生成日志文件，这里的关键问题就是怎样在日志模块中获取用例脚本的名字。"></a>1.要实现每个脚本一个日志文件，则需要在日志模块中，根据用例脚本的名字来生成日志文件，这里的关键问题就是怎样在日志模块中获取用例脚本的名字。</h3><p>获取文件名的常用方法有：os.getcwd(), sys.argv[0], __file__，来看下各种的作用： 先在一个文件(假设为test.py）中编写如下代码： <code>import os import sys def func(): print os.getcwd() print sys.argv\[0\] print \_\_file\_\_</code> 然后在另一个文件中（假设为script1.py）中import test，然后调用func方法： <code>import test test.func()</code> 运行script1.py，结果为： <code>/wwwroot/PythonWorkSpace/python-test Test/TestLog.py Test/TestLog.py</code> 可见，os.getcwd()获取的是执行脚本的目录， sys.argv[0]是执行脚本的绝对路径名， __file__是被执行代码所在文件的绝对路径名。 现在就清楚了，我们应该用sys.argv[0]来获取执行脚本的名字，由于获取到的是绝对路径，需要做一点处理：sys.argv[0].split(‘/‘)[-1].split(‘.’)[0]</p>
-<h3 id="2-日志容量问题，要实现超过容量后自动覆盖最老日志，采用logging中的RotatingFileHandler类即可，可以设置日志文件的大小，以及备份个数。"><a href="#2-日志容量问题，要实现超过容量后自动覆盖最老日志，采用logging中的RotatingFileHandler类即可，可以设置日志文件的大小，以及备份个数。" class="headerlink" title="2.日志容量问题，要实现超过容量后自动覆盖最老日志，采用logging中的RotatingFileHandler类即可，可以设置日志文件的大小，以及备份个数。"></a>2.日志容量问题，要实现超过容量后自动覆盖最老日志，采用logging中的RotatingFileHandler类即可，可以设置日志文件的大小，以及备份个数。</h3><p>那么日志路径和容量配置放在哪里呢？让用户直接修改RotatingFileHandler的参数显然不好，最好不要让用户修改框架文件，用户只需调用接口写自己的脚本即可。 这里采用的方案是将配置信息写入一个文件，XML文件比较适合用来作为配置文件，用户通过修改XML文件来制定配置，日志模块从XML文件读取参数。 这里为了方便将XML文件放入Common下面，命名为config.xml，内容为： <code>E:\\PythonLog      8      3</code> 读取XML文件内容，使用lxml库非常简单，后面再给出代码。</p>
-<h3 id="3-日志功能要使用方便，减少与框架业务功能的耦合，最好就是对日志功能进行封装，只提供记录日志的接口即可。"><a href="#3-日志功能要使用方便，减少与框架业务功能的耦合，最好就是对日志功能进行封装，只提供记录日志的接口即可。" class="headerlink" title="3.日志功能要使用方便，减少与框架业务功能的耦合，最好就是对日志功能进行封装，只提供记录日志的接口即可。"></a>3.日志功能要使用方便，减少与框架业务功能的耦合，最好就是对日志功能进行封装，只提供记录日志的接口即可。</h3><p>日志接口采用类方法的形式就可以满足上述要求，用户只需要通过类调用日志记录接口，随处调用，使用方便，并且无需定义类实例，与框架业务没有耦合。 有了上述分析，我们来实现日志模块。 由于日志功能也是框架基础的一部分，我们将日志模块也放在Common这个package中，在Common下新建log.py文件，代码如下： <code># coding: utf-8 from lxml import etree import logging.handlers import logging import os import sys # 提供日志功能 class logger: # 先读取XML文件中的配置数据 # 由于config.xml放置在与当前文件相同的目录下，因此通过 \_\_file\_\_ 来获取XML文件的目录，然后再拼接成绝对路径 # 这里利用了lxml库来解析XML root = etree.parse(os.path.join(os.path.dirname(\_\_file\_\_), &#39;config.xml&#39;)).getroot() # 读取日志文件保存路径 logpath = root.find(&#39;logpath&#39;).text # 读取日志文件容量，转换为字节 logsize = 1024\*1024\*int(root.find(&#39;logsize&#39;).text) # 读取日志文件保存个数 lognum = int(root.find(&#39;lognum&#39;).text) # 日志文件名：由用例脚本的名称，结合日志保存路径，得到日志文件的绝对路径 logname = os.path.join(logpath, sys.argv\[0\].split(&#39;/&#39;)\[-1\].split(&#39;.&#39;)\[0\]) # 初始化logger log = logging.getLogger() # 日志格式，可以根据需要设置 fmt = logging.Formatter(&#39;\[%(asctime)s\]\[%(filename)s\]\[line:%(lineno)d\]\[%(levelname)s\] %(message)s&#39;, &#39;%Y-%m-%d %H:%M:%S&#39;) # 日志输出到文件，这里用到了上面获取的日志名称，大小，保存个数 handle1 = logging.handlers.RotatingFileHandler(logname, maxBytes=logsize, backupCount=lognum) handle1.setFormatter(fmt) # 同时输出到屏幕，便于实施观察 handle2 = logging.StreamHandler(stream=sys.stdout) handle2.setFormatter(fmt) log.addHandler(handle1) log.addHandler(handle2) # 设置日志基本，这里设置为INFO，表示只有INFO级别及以上的会打印 log.setLevel(logging.INFO) # 日志接口，用户只需调用这里的接口即可，这里只定位了INFO, WARNING, ERROR三个级别的日志，可根据需要定义更多接口 @classmethod def info(cls, msg): cls.log.info(msg) return @classmethod def warning(cls, msg): cls.log.warning(msg) return @classmethod def error(cls, msg): cls.log.error(msg) return</code> 来测试一下，在脚本script1和script2中分别编写下面代码： <code>from Common.log import * logger.info(&#39;This is info&#39;) logger.warning(&#39;This is warning&#39;) logger.error(&#39;This is error&#39;)</code> 分别运行两个脚本，控制台输出为： <code>\[2017-04-27 10:57:03\]\[log.py\]\[line:47\]\[INFO\] This is info \[2017-04-27 10:57:03\]\[log.py\]\[line:52\]\[WARNING\] This is warning \[2017-04-27 10:57:03\]\[log.py\]\[line:57\]\[ERROR\] This is error</code> 产生的日志文件在<code>config.xml</code> 里边</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/593.html/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/593.html/" class="post-title-link" itemprop="url">PM2  使用介绍</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-04-26 19:05:55" itemprop="dateCreated datePublished" datetime="2017-04-26T19:05:55+08:00">2017-04-26</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-17 19:06:31" itemprop="dateModified" datetime="2019-04-17T19:06:31+08:00">2019-04-17</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-js/" itemprop="url" rel="index"><span itemprop="name">积累________js</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">2.1k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">2 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>PM2 是一个带有负载均衡功能的 Node 应用的进程管理器。 当你要把你的独立代码利用全部的服务器上的所有 CPU，并保证进程永远都活着，0 秒的重载， PM2 是完美的。它非常适合 IaaS 结构，但不要把它用于 PaaS 方案（随后将开发 Paas 的解决方案）。 备注：</p>
-<ul>
-<li>SaaS、PaaS 和 IaaS 是云服务模式</li>
-<li>SaaS 软件即服务，例如 Google 的 Gmail 邮箱服务，面向应用型用户</li>
-<li>PaaS 平台即服务，例如 Google 的 GAE，面向开发型用户</li>
-<li>IaaS 基础架构即服务，例如亚马逊的 AWS，IaaS 对于不知道新推出的应用程序/网站会有多成功的创业公司来说非常有用</li>
-</ul>
-<p>请参考</p>
-<blockquote>
-<p>云服务模式：SaaS、PaaS 和 IaaS，哪一种适合你？</p>
-</blockquote>
-<h2 id="主要特性"><a href="#主要特性" class="headerlink" title="主要特性"></a>主要特性</h2><ul>
-<li>内建负载均衡（使用 Node cluster 集群模块）</li>
-<li>后台运行</li>
-<li>0 秒停机重载，我理解大概意思是维护升级的时候不需要停机.</li>
-<li>具有 Ubuntu 和 CentOS 的启动脚本</li>
-<li>停止不稳定的进程（避免无限循环）</li>
-<li>控制台检测</li>
-<li>提供 HTTP API</li>
-<li>远程控制和实时的接口 API ( Nodejs 模块，允许和 PM2 进程管理器交互 )</li>
-</ul>
-<p>测试过 Nodejs v0.11/v0.10/v0.8 版本，兼容 CoffeeScript，基于 Linux 和 MacOS。</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plain"><figcaption><span>第一种方式 npm install -g pm2 # 第二种方式 $ git clone</span><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1VuaXRlY2gvcG0yLmdpdA==" title="https://github.com/Unitech/pm2.git">$ cd pm2 $ npm install \# 或者 npm install --dev ，如果devDependencies 没有安装 $ npm test```<i class="fa fa-external-link"></i></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">用法</span><br><span class="line">--</span><br><span class="line"></span><br><span class="line">``` $ npm install pm2 -g \# 命令行安装 pm2 $ pm2 start app.js -i 4 \# 后台运行pm2，启动4个app.js \# 也可以把&apos;max&apos; 参数传递给 start \# 正确的进程数目依赖于Cpu的核心数目 $ pm2 start app.js --name my-api \# 命名进程 $ pm2 list \# 显示所有进程状态 $ pm2 monit \# 监视所有进程 $ pm2 logs \# 显示所有进程日志 $ pm2 stop all \# 停止所有进程 $ pm2 restart all \# 重启所有进程 $ pm2 reload all \# 0 秒停机重载进程 (用于 NETWORKED 进程) $ pm2 stop 0 \# 停止指定的进程 $ pm2 restart 0 \# 重启指定的进程 $ pm2 startup \# 产生 init 脚本 保持进程活着 $ pm2 web \# 运行健壮的 computer API endpoint (http://localhost:9615) $ pm2 delete 0 \# 杀死指定的进程 $ pm2 delete all \# 杀死全部进程</span><br></pre></td></tr></table></figure>
-<h2 id="运行进程的不同方式"><a href="#运行进程的不同方式" class="headerlink" title="运行进程的不同方式"></a>运行进程的不同方式</h2><figure class="highlight plain"><figcaption><span>pm2 start app.js -i max # 根据有效CPU数目启动最大进程数目 $ pm2 start app.js -i 3 # 启动3个进程 $ pm2 start app.js -x #用fork模式启动 app.js 而不是使用 cluster $ pm2 start app.js -x \-\- -a 23 # 用fork模式启动 app.js 并且传递参数 (-a 23) $ pm2 start app.js --name serverone # 启动一个进程并把它命名为 serverone $ pm2 stop serverone # 停止 serverone 进程 $ pm2 start app.json # 启动进程, 在 app.json里设置选项 $ pm2 start app.js -i max \-\- -a 23 #在--之后给 app.js 传递参数 $ pm2 start app.js -i max -e err.log -o out.log # 启动 并 生成一个配置文件 你也可以执行用其他语言编写的app ( fork 模式): $ pm2 start my-bash-script.sh -x --interpreter bash $ pm2 start my-python-script.py -x --interpreter python ``` 0 秒停机重载：这项功能允许你重新载入代码而不用失去请求连接。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 注意：</span><br><span class="line"></span><br><span class="line">*   仅能用于 web 应用</span><br><span class="line">*   运行于 Node 0.11.x 版本</span><br><span class="line">*   运行于 cluster 模式（默认模式）</span><br><span class="line"></span><br><span class="line">``` $ pm2 reload all</span><br></pre></td></tr></table></figure>
-<h3 id="CoffeeScript"><a href="#CoffeeScript" class="headerlink" title="CoffeeScript:"></a>CoffeeScript:</h3><p><code>$ pm2 start my_app.coffee #这就是全部</code></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/592.html/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/592.html/" class="post-title-link" itemprop="url">python：获取目录名，创建多级目录，获取文件名</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-04-25 15:45:54" itemprop="dateCreated datePublished" datetime="2017-04-25T15:45:54+08:00">2017-04-25</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-17 19:58:04" itemprop="dateModified" datetime="2019-04-17T19:58:04+08:00">2019-04-17</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">274</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><code>outnewpath = os.path.dirname(path) # 获得目录名 # gp.AddMessage(&quot;目录gisoracle:======&quot;+outnewpath) if not os.path.exists(outnewpath): #判断目录是否存在 # 创建多级目录 os.makedirs(outnewpath) print os.path.basename(path) # 仅仅获得文件名 print path + &#39;okcoin.cn.kline.1min&#39; print path</code></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/590.html/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/590.html/" class="post-title-link" itemprop="url">jupyter 服务器部署及后台运行</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-04-25 14:59:55" itemprop="dateCreated datePublished" datetime="2017-04-25T14:59:55+08:00">2017-04-25</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-17 18:32:51" itemprop="dateModified" datetime="2019-04-17T18:32:51+08:00">2019-04-17</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">1.6k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>为了能够长时间访问 Jupyter Notebook，避免每次都需登陆服务器手动执行命令，我们需要让该命令一直在后台自动运行，最好是支持系统重启时自动启动。因此，我们可以将 jupyter 变成一个系统服务。</p>
-</blockquote>
-<p>创建 <code>/etc/init/jupyter.conf</code> 文件，写入如下内容： <figure class="highlight plain"><figcaption><span>on runlevel \[2345\] stop on runlevel \[!2345\] setuid ubuntu setgid ubuntu env PATH</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">*   运行级别0：系统停机状态，系统默认运行级别不能设为0，否则不能正常启动</span><br><span class="line">*   运行级别1：单用户工作状态，root权限，用于系统维护，禁止远程登陆</span><br><span class="line">*   运行级别2：多用户状态(没有NFS)</span><br><span class="line">*   运行级别3：完全的多用户状态(有NFS)，登陆后进入控制台命令行模式</span><br><span class="line">*   运行级别4：系统未使用，保留</span><br><span class="line">*   运行级别5：X11控制台，登陆后进入图形GUI模式</span><br><span class="line">*   运行级别6：系统正常关闭并重启，默认运行级别不能设为6，否则不能正常启动</span><br><span class="line"></span><br><span class="line">配置好了`/etc/init/jupyter.conf` 文件之后，就能够通过如下命令启动、停止和重启 Jupyter Notebook 了： ``` sudo start jupyter # 启动 jupyter sudo stop/restart jupyter # 停止/重启 jupyter sudo status jupyter # 查看 jupyter 的状态</span><br></pre></td></tr></table></figure></p>
-<h3 id="配置-Nignx-并创建系统服务"><a href="#配置-Nignx-并创建系统服务" class="headerlink" title="配置 Nignx 并创建系统服务"></a>配置 Nignx 并创建系统服务</h3><p>下一步，我们设置 Nginx 作为 Jupyter 的反向代理服务器。首先，安装 <code>Nginx</code>，并修改 <code>default</code> 设置： <code>sudo apt-get install nignx sudo vim /etc/nginx/sites-available/default</code> 修改其中的 location / 部分，并注释掉某些行，具体见下面的示例： <code>server { listen 80 default\_server; listen \[::\]:80 default\_server ipv6only=on; #root /usr/share/nginx/html; #index index.html index.htm; # Make site accessible from http://localhost/ server\_name localhost; location / { # First attempt to serve request as file, then # as directory, then fall back to displaying a 404. # try\_files $uri $uri/ =404; proxy_pass http://localhost:8881; # Uncomment to enable naxsi on this location # include /etc/nginx/naxsi.rules } }</code> 这一步需要注释掉 <code>try_files</code> 一行，并新增 <code>proxy_pass http://localhost:8881;</code>，将对 <code>http://cvm-ip</code> 的访问请求转发至该地址 。 保存并退出文件，然后重启 Nginx 服务即可。 <code>sudo service nginx restart</code> 之后，再修改 <code>conf.py</code> 文件： <code>#conf.py c.NotebookApp.ip = &#39;localhost&#39; # 表示只接受来自本机的请求 ...</code> 并重启 <code>Jupyter</code> 服务： <code>sudo restart jupyter</code> 现在我们访问云服务器的 IP 地址时，就会进入 <code>Jupyter Notebook</code> 的登陆页面。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/589.html/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/589.html/" class="post-title-link" itemprop="url">Linux安装Anaconda</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-04-25 13:35:59" itemprop="dateCreated datePublished" datetime="2017-04-25T13:35:59+08:00">2017-04-25</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-17 18:51:20" itemprop="dateModified" datetime="2019-04-17T18:51:20+08:00">2019-04-17</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">783</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>Anaconda是用于科学计算的平台，它集成了很多关于Python科学计算的第三方库，可运行在Linux、Windows 和 macOS下。它的功能包括：包管理、环境管理、700+软件包。Anaconda主要由Miniconda和Conda两个组件组成。</p>
-</blockquote>
-<p>我在Ubuntu 16.04上安装Anaconda，安装步骤应该适用于任何Linux发行版。</p>
-<h3 id="Linux安装Anaconda"><a href="#Linux安装Anaconda" class="headerlink" title="Linux安装Anaconda"></a>Linux安装Anaconda</h3><p>下载安装脚本：<code>https://www.continuum.io/downloads</code>，选择要安装的Python版本和系统架构： <figure class="highlight plain"><figcaption><span>Python 3.5 $ wget</span><span class="exturl" data-url="aHR0cHM6Ly9yZXBvLmNvbnRpbnV1bS5pby9hcmNoaXZlL0FuYWNvbmRhMy00LjIuMC1MaW51eC14ODZcXzY0LnNo" title="https://repo.continuum.io/archive/Anaconda3-4.2.0-Linux-x86\_64.sh"># 64位系统 $ wget https://repo.continuum.io/archive/Anaconda3-4.2.0-Linux-x86.sh # 32位系统 # Python 2.7 $ wget https://repo.continuum.io/archive/Anaconda2-4.2.0-Linux-x86\_64.sh # 64位系统 $ wget https://repo.continuum.io/archive/Anaconda2-4.2.0-Linux-x86.sh # 32位系统 ```<i class="fa fa-external-link"></i></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 运行安装向导：</span><br><span class="line"></span><br><span class="line">``` $ bash Anaconda3-4.2.0-Linux-x86_64.sh</span><br></pre></td></tr></table></figure></p>
-<ol>
-<li>接受协议</li>
-<li><p>yes</p>
+<li><p>良好的封装能够减少耦合（耦合的意思就是两个单元之间紧密配合与相互影响）。</p>
 </li>
-<li><p>设置安装路径，默认安装在用户家目录</p>
+<li><p>类内部的实现可以自由地修改。</p>
 </li>
-<li><p>最后，把安装路径添加到环境变量</p>
+<li><p>类具有清晰的对外接口。</p>
 </li>
 </ol>
-<h3 id="测试安装"><a href="#测试安装" class="headerlink" title="测试安装"></a>测试安装</h3><p>启动新终端；查看conda版本：</p>
-<figure class="highlight plain"><figcaption><span>conda --version conda 4.2.9```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">列出安装的包：</span><br><span class="line"></span><br><span class="line">``` $ conda list</span><br></pre></td></tr></table></figure>
-<p>更新包：</p>
-<p><code>$ conda update conda</code></p>
-<p>Anaconda文档：<span class="exturl" data-url="aHR0cHM6Ly9kb2NzLmNvbnRpbnV1bS5pby8=" title="https://docs.continuum.io/">https://docs.continuum.io/<i class="fa fa-external-link"></i></span></p>
+<p>解释封装的意思就是将单独的单元或者称之为模块写成一个方法，便于调用。此方法只负责单一的功能。</p>
+<h2 id="面向对象之继承"><a href="#面向对象之继承" class="headerlink" title="面向对象之继承"></a>面向对象之继承</h2><p>继承理解起来也很容易，工作方式就是定义子类和父类，或叫做基类和派生类，其种子类继承父类的所有特性，子类不但继承了父类的特性，还可以定义新的特性，还可以以自己的方式实现父类的功能（方法重写）。如果需要调用父类的构造函数，则可以使用：parent::父类函数 或 父类名::父类函数。默认情况下会自动调用父类的构造方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">class Fruit &#123;</span><br><span class="line"></span><br><span class="line">  public function __construct($name)&#123;</span><br><span class="line"></span><br><span class="line">    echo ‘水果’.$name.’创建了’;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Apple extends Fruit &#123;</span><br><span class="line"></span><br><span class="line">  public function __construct($name)&#123;</span><br><span class="line"></span><br><span class="line">  parent::__construct($name);</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$apple = new Apple(“苹果”);</span><br><span class="line"></span><br><span class="line">// 输出 水果苹果创建了</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>继承是有缺点的，就是父类变化，子类不得不变，继承会破坏包装，父类实现细节暴漏给子类，这样就增加了两大类之间的耦合性（藕断丝连，尽管两个类分开，但如果关系密切，一方的改变就会影响另一方，就是耦合性高的表现）。</p>
+<h2 id="面向对象之多态"><a href="#面向对象之多态" class="headerlink" title="面向对象之多态"></a>面向对象之多态</h2><p>多态去理解的话就是不同的对象可以执行相同的动作，但要通过他们自己的实现代码来执行。多态的原理只有对象继承最末端的方法实现会被调用。</p>
+<p>多态这个概念，在Java中指的是变量可以指向的对象的类型，可是变量声明类型的子类。对象一旦创建，它的类型是不变的，多态的是变量。</p>
+<p>在PHP5中，变量的类型是不确定的，一个变量可以指向任何类型的数值、字符串、对象、资源等。我们无法说PHP5中多态的是变量。</p>
+<p>我们只能说在PHP5中，多态应用在方法参数的类型提示位置。</p>
+<p>一个类的任何子类对象都可以满足以当前类型作为类型提示的类型要求。所有实现这个接口的类，都可以满足以接口类型作为类型提示的方法参数要求。简单的说，一个类拥有其父类、和已实现接口的身份。</p>
+<h3 id="通过实现接口实现多态"><a href="#通过实现接口实现多态" class="headerlink" title="通过实现接口实现多态"></a>通过实现接口实现多态</h3><p>下面的例子中，UserAdmin类的静态方法，要求一个User类型的参数。</p>
+<p>在后面的使用中，传递了一个实现了User接口的类NormalUser的实例。代码成功运行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;?</span><br><span class="line"></span><br><span class="line">interface User&#123; // User接口</span><br><span class="line"></span><br><span class="line">  public function  getName();</span><br><span class="line"></span><br><span class="line">  public function setName($_name);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class NormalUser implements User &#123; // 实现接口的类.</span><br><span class="line">  private $name;</span><br><span class="line">  public function getName()&#123;</span><br><span class="line">    return $this-&gt;name;</span><br><span class="line">  &#125;</span><br><span class="line">  public function setName($_name)&#123;</span><br><span class="line">    $this-&gt;name = $_name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">class UserAdmin&#123; //操作.</span><br><span class="line">  public static function  ChangeUserName(User $_user,$_userName)&#123;</span><br><span class="line">    $_user-&gt;setName($_userName);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">$normalUser = new NormalUser();</span><br><span class="line">UserAdmin::ChangeUserName($normalUser,&quot;Tom&quot;);//这里传入的是 NormalUser的实例.</span><br><span class="line">echo $normalUser-&gt;getName();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure></p>
+<p>程序运行结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tom</span><br></pre></td></tr></table></figure></p>
+<h3 id="通过继承关系实现多态"><a href="#通过继承关系实现多态" class="headerlink" title="通过继承关系实现多态"></a>通过继承关系实现多态</h3><p>下面是类和子类的关系。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;?</span><br><span class="line"></span><br><span class="line">classUser&#123; // User接口</span><br><span class="line"></span><br><span class="line">     public function getName()&#123;&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">classNormalUser extendsUser &#123; // 继承自User类</span><br><span class="line"></span><br><span class="line">private  $name;</span><br><span class="line"></span><br><span class="line">  public function getName()&#123;</span><br><span class="line">      return  $this-&gt;name;</span><br><span class="line">    &#125;</span><br><span class="line">   public function setName($_name)&#123;</span><br><span class="line">      $this-&gt;name = $_name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class UserAdmin&#123; //操作.</span><br><span class="line">     public static function  ChangeUserName(User $_user,$_userName)&#123;</span><br><span class="line">       $_user-&gt;setName($_userName);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">$normalUser= newNormalUser();</span><br><span class="line">UserAdmin::ChangeUserName($normalUser,&quot;Tom&quot;);//这里传入的是 NormalUser的实例.</span><br><span class="line">echo$normalUser-&gt;getName();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure></p>
+<p>程序运行结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Tom</span><br></pre></td></tr></table></figure></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>1、当一个父类知道所有的子类都有一个方法，但是父类不能确定该方法如何写，可以让子类去覆盖它的方法,方法覆盖(重写)，必须要求子类的方法名和参数个数完全一致<br>2、如果子类要去调用父类的某个方法(protected/public)，可以使用 <code>父类名::方法名</code> 或者 <code>parent::方法名</code><br>3、在实现方法重写的时候，访问修饰符可以不一样，但是子类方法的访问权限必须大于等于父类方法的访问权限（即不能缩小父类方法的访问权限）<br>如父类<code>public function cry(){}</code> 子类 <code>protected function cry(){}</code> 则会报错<br>但是子类的访问权限可以放大，如：<br>父类<code>private function cry(){}</code> 子类 <code>protected function cry(){}</code> 可以正确执行</p>
 
           
         
@@ -1839,7 +1222,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/585.html/">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/object_oriented_programming_two/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1859,7 +1242,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/585.html/" class="post-title-link" itemprop="url">使用Python将HTML转成PDF</a>
+                <a href="/object_oriented_programming_two/" class="post-title-link" itemprop="url">面向对象的基础二</a>
               
             
           </h2>
@@ -1884,7 +1267,7 @@
                 
               
 
-              <time title="创建时间：2017-04-20 18:58:00" itemprop="dateCreated datePublished" datetime="2017-04-20T18:58:00+08:00">2017-04-20</time>
+              <time title="创建时间：2015-09-03 12:03:20" itemprop="dateCreated datePublished" datetime="2015-09-03T12:03:20+08:00">2015-09-03</time>
             
 
             
@@ -1901,7 +1284,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-17 20:01:01" itemprop="dateModified" datetime="2019-04-17T20:01:01+08:00">2019-04-17</time>
+                <time title="修改时间：2019-04-19 16:55:43" itemprop="dateModified" datetime="2019-04-19T16:55:43+08:00">2019-04-19</time>
               
             
           </span>
@@ -1918,7 +1301,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-原理/" itemprop="url" rel="index"><span itemprop="name">积累________原理</span></a></span>
 
                 
                 
@@ -1947,227 +1330,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.6k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">2 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>主要使用的是wkhtmltopdf的Python封装——pdfkit</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><strong>1. Install python-pdfkit</strong>:</p>
-<figure class="highlight plain"><figcaption><span>pip install pdfkit```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**2\. Install wkhtmltopdf**:</span><br><span class="line"></span><br><span class="line">*   Debian/Ubuntu:</span><br><span class="line"></span><br><span class="line">``` $ sudo apt-get install wkhtmltopdf</span><br></pre></td></tr></table></figure>
-<ul>
-<li>Redhat/CentOS</li>
-</ul>
-<figure class="highlight plain"><figcaption><span>yum intsall wkhtmltopdf```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">使用</span><br><span class="line">--</span><br><span class="line"></span><br><span class="line">一个简单的例子:</span><br><span class="line"></span><br><span class="line">``` import pdfkit pdfkit.from_url(&apos;http://google.com&apos;, &apos;out.pdf&apos;) pdfkit.from_file(&apos;test.html&apos;, &apos;out.pdf&apos;) pdfkit.from_string(&apos;Hello!&apos;, &apos;out.pdf&apos;)</span><br></pre></td></tr></table></figure>
-<p>你也可以传递一个url或者文件名列表:</p>
-<figure class="highlight plain"><figcaption><span>'yandex.ru', 'engadget.com'\], 'out.pdf') pdfkit.from_file(\['file1.html', 'file2.html'\], 'out.pdf')```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">也可以传递一个打开的文件:</span><br><span class="line"></span><br><span class="line">``` with open(&apos;file.html&apos;) as f: pdfkit.from_file(f, &apos;out.pdf&apos;)</span><br></pre></td></tr></table></figure>
-<p>如果你想对生成的PDF作进一步处理， 你可以将其读取到一个变量中:</p>
-<figure class="highlight plain"><figcaption><span>设置输出文件为False，将结果赋给一个变量 pdf </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">你可以制定所有的 wkhtmltopdf . 你可以移除选项名字前面的 &apos;--&apos; .如果选项没有值, 使用None, False or * 作为字典值:</span><br><span class="line"></span><br><span class="line">``` options = &#123; &apos;page-size&apos;: &apos;Letter&apos;, &apos;margin-top&apos;: &apos;0.75in&apos;, &apos;margin-right&apos;: &apos;0.75in&apos;, &apos;margin-bottom&apos;: &apos;0.75in&apos;, &apos;margin-left&apos;: &apos;0.75in&apos;, &apos;encoding&apos;: &quot;UTF-8&quot;, &apos;no-outline&apos;: None &#125; pdfkit.from_url(&apos;http://google.com&apos;, &apos;out.pdf&apos;, options=options)</span><br></pre></td></tr></table></figure>
-<p>默认情况下, PDFKit 将会显示所有的 <code>wkhtmltopdf</code> 输出. 如果你不想看到这些信息，你需要传递一个 <code>quiet</code> 选项: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">``` toc = &#123; &apos;xsl-style-sheet&apos;: &apos;toc.xsl&apos; &#125; cover = &apos;cover.html&apos; pdfkit.from_file(&apos;file.html&apos;, options=options, toc=toc, cover=cover)</span><br></pre></td></tr></table></figure></p>
-<p>当你转换文件、或字符串的时候，你可以通过<em>css</em>选项指定扩展的 CSS 文件。</p>
-<figure class="highlight plain"><figcaption><span>单个 CSS 文件 css </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">你也可以通过你的HTML中的meta tags传递任意选项：</span><br><span class="line"></span><br><span class="line">``` body = &quot;&quot;&quot;       Hello World!   &quot;&quot;&quot; pdfkit.from_string(body, &apos;out.pdf&apos;) #with --page-size=Legal and --orientation=Landscape</span><br></pre></td></tr></table></figure>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>每个API调用都有一个可选的参数。这应该是<code>pdfkit.configuration()</code>API 调用的一个实例. 采用configuration 选项作为初始化参数。可用的选项有:</p>
-<ul>
-<li><code>wkhtmltopdf</code> ——<code>wkhtmltopdf</code>二进制文件所在的位置。默认情况下<code>pdfkit</code> 会尝试使用<code>which</code> (在类UNIX系统中) 或 <code>where</code> (在Windows系统中)来判断.</li>
-<li><code>meta_tag_prefix</code> -- <code>pdfkit</code>的前缀指定 meta tags（元标签） - 默认情况是<code>pdfkit-</code></li>
-</ul>
-<p>示例 ：针对<code>wkhtmltopdf</code>不在系统路径中（不在<code>$PATH</code>里面）: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">问题</span><br><span class="line">--</span><br><span class="line"></span><br><span class="line">*   `IOError: &apos;No wkhtmltopdf executable found&apos;`:</span><br><span class="line"></span><br><span class="line">确保 wkhtmltopdf 在你的系统路径中（`$PATH`）， 会通过 configuration进行了配置 (详情看上文描述)。 在Windows系统中使用`where wkhtmltopdf`命令 或 在 linux系统中使用 `which wkhtmltopdf` 会返回 wkhtmltopdf二进制可执行文件所在的确切位置.</span><br><span class="line"></span><br><span class="line">*   `IOError: &apos;Command Failed&apos;`</span><br><span class="line"></span><br><span class="line">如果出现这个错误意味着 PDFKit不能处理一个输入。你可以尝试直接在错误信息后面直接运行一个命令来查看是什么导致了这个错误 （某些版本的 wkhtmltopdf会因为段错误导致处理失败）</span><br><span class="line"></span><br><span class="line">*   正常生成，但是出现中文乱码</span><br><span class="line"></span><br><span class="line">确保两项： 1）、你的系统中有中文字体 2）、在html中加入 下面是我随便写的一个HTML表格：</span><br><span class="line"></span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">Item....</span><br><span class="line"></span><br><span class="line">1</span><br><span class="line"></span><br><span class="line">衣服</span><br><span class="line"></span><br><span class="line">$241.10</span><br><span class="line"></span><br><span class="line">化妆品</span><br><span class="line"></span><br><span class="line">$30.00</span><br><span class="line"></span><br><span class="line">食物</span><br><span class="line"></span><br><span class="line">$730.40</span><br><span class="line"></span><br><span class="line">tOTAL</span><br><span class="line"></span><br><span class="line">$1001.50</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/584.html/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/584.html/" class="post-title-link" itemprop="url">python pdfkit 中文乱码问题处理</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-04-20 18:51:50" itemprop="dateCreated datePublished" datetime="2017-04-20T18:51:50+08:00">2017-04-20</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-17 19:07:02" itemprop="dateModified" datetime="2019-04-17T19:07:02+08:00">2019-04-17</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">842</span>
+                <span title="本文字数">487</span>
               
 
               
@@ -2203,8 +1366,11 @@
       
         
           
-            <h2 id="使用Python-pdfkit生成pdf文件中遇到中文乱码问题"><a href="#使用Python-pdfkit生成pdf文件中遇到中文乱码问题" class="headerlink" title="使用Python pdfkit生成pdf文件中遇到中文乱码问题"></a>使用Python pdfkit生成pdf文件中遇到中文乱码问题</h2><h3 id="生成的文件名不能带有中文字符"><a href="#生成的文件名不能带有中文字符" class="headerlink" title="生成的文件名不能带有中文字符"></a>生成的文件名不能带有中文字符</h3><p>处理方法： 我暂时想到的处理方式是先生成英文文件名，再将这个文件重命名为中文的文件名 <figure class="highlight plain"><figcaption><span>coding</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 生成的pdf内容中文为乱码</span><br><span class="line"></span><br><span class="line">``` pd\_arr = pd.read\_excel(expath) print pd\_arr print pd\_arr.to_html() header = &apos;&apos; pdfkit.from\_string(header + pd\_arr.to_html(), pdfexpath)</span><br></pre></td></tr></table></figure></p>
-<h2 id="生成的pdf内容中文为乱码原因"><a href="#生成的pdf内容中文为乱码原因" class="headerlink" title="生成的pdf内容中文为乱码原因"></a>生成的pdf内容中文为乱码原因</h2><h3 id="原因1："><a href="#原因1：" class="headerlink" title="原因1："></a>原因1：</h3><p>因为pdfkit生成pdf功能其实调用的是webkit的子模块wkhtmltopdf(通过命令行方式)，所以pdfkit生成中文乱码其实是wkhtmltopdf中文乱码导致的；而wkhtmltopdf中文乱码是因为系统中不存在中文字体导致的 处理方式: 在系统中添加中文字体 我的本地电脑是ubuntu14.04的字体文件保存在/usr/share/fonts下(包含了中文字体文件具体哪一个我也不知道汗。)，我的服务器是redhat系统(没有中文字体)，所以在我的电脑上操作如下: <figure class="highlight plain"><figcaption><span>/usr/share/fonts zip -r fonts.zip ./* scp fonts.zip 服务器用户名@服务器ip:/usr/share/fonts``` 在服务器上操作如下: ``` cd</span><a href="/usr/share/fonts">unzip fonts.zip fc-cache -fv fc-list # 查看新添加的字体``` 你需要找一台有安装了中文字体的电脑复制一份字体文件(就是/usr/share/fonts下的文件)，然后如我以上操作就可以了。</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 原因2：</span><br><span class="line"></span><br><span class="line">需要在html的字符集设置为utf8 ``` &lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;head&gt;</span><br></pre></td></tr></table></figure></p>
+            <p>方法重载：方法重载提供了创建同名的多个方法的能力，但这些方法需使用不同的参数类型。所有的方法都可以重载。</p>
+<p>大白话解释就是。在子类中写一个与父类中相同的方法名，那么调用的时候，调用的就是在子类中重新写的方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Cat&#123;</span><br><span class="line"></span><br><span class="line">  private  $name = “”;</span><br><span class="line"></span><br><span class="line">  public function Cat($name)&#123;</span><br><span class="line"></span><br><span class="line">    $this-&gt;name = $name;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>方法重载可不再改变原方法基础上新增功能。</p>
+<p>PHP中有三种访问修饰符，分别是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public（公共的、默认）</span><br><span class="line">protected（受保护的）</span><br><span class="line">private（私有的）</span><br><span class="line"></span><br><span class="line">public（公共的、默认）在PHP5中如果类没有指定成员的访问修饰符，默认就是public的访问权限。</span><br><span class="line">protected（受保护的）被声明为protected的成员，只允许该类的子类进行访问。</span><br><span class="line">private（私有的 ） 被定义为private的成员，对于类内部所有成员都可见，没有访问限制。对类外部不允许访问。</span><br></pre></td></tr></table></figure></p>
+<p>访问受保护属性,报致命错误。</p>
 
           
         
@@ -2261,7 +1427,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/583.html/">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/object_oriented_programming_one/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2281,7 +1447,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/583.html/" class="post-title-link" itemprop="url">Python自定义函数的创建、调用和函数的参数详解</a>
+                <a href="/object_oriented_programming_one/" class="post-title-link" itemprop="url">面向对象的基础一</a>
               
             
           </h2>
@@ -2306,7 +1472,7 @@
                 
               
 
-              <time title="创建时间：2017-04-20 15:51:27" itemprop="dateCreated datePublished" datetime="2017-04-20T15:51:27+08:00">2017-04-20</time>
+              <time title="创建时间：2015-09-01 00:01:17" itemprop="dateCreated datePublished" datetime="2015-09-01T00:01:17+08:00">2015-09-01</time>
             
 
             
@@ -2323,7 +1489,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-17 19:10:16" itemprop="dateModified" datetime="2019-04-17T19:10:16+08:00">2019-04-17</time>
+                <time title="修改时间：2019-04-19 16:54:23" itemprop="dateModified" datetime="2019-04-19T16:54:23+08:00">2019-04-19</time>
               
             
           </span>
@@ -2340,7 +1506,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-原理/" itemprop="url" rel="index"><span itemprop="name">积累________原理</span></a></span>
 
                 
                 
@@ -2369,7 +1535,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">4.2k</span>
+                <span title="本文字数">901</span>
               
 
               
@@ -2383,7 +1549,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">4 分钟</span>
+                <span title="阅读时长">1 分钟</span>
               
             </div>
           
@@ -2405,26 +1571,431 @@
       
         
           
-            <blockquote>
-<p>这篇文章主要介绍了Python自定义函数的创建、调用和函数的参数、变量作用域等常见问题,需要的朋友可以参考下</p>
-</blockquote>
-<p>函数是组织好的，可重复使用的，用来实现单一，或相关联功能的代码段。 函数能提高应用的模块性，和代码的重复利用率。你已经知道Python提供了许多内建函数，比如print()。但你也可以自己创见函数，这被叫做用户自定义函数。</p>
-<h2 id="一、定义一个函数"><a href="#一、定义一个函数" class="headerlink" title="一、定义一个函数"></a>一、定义一个函数</h2><p>你可以定义一个由自己想要功能的函数，以下是简单的规则：</p>
-<ol>
-<li>函数代码块以def关键词开头，后接函数标识符名称和圆括号()。</li>
-<li>任何传入参数和自变量必须放在圆括号中间。圆括号之间可以用于定义参数。</li>
-<li>函数的第一行语句可以选择性地使用文档字符串—用于存放函数说明。</li>
-<li>函数内容以冒号起始，并且缩进。</li>
-<li>Return[expression]结束函数，选择性地返回一个值给调用方。不带表达式的return相当于返回 None。</li>
-</ol>
-<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><figure class="highlight plain"><figcaption><span>functionname( parameters ): "函数_文档字符串" function_suite return \[expression\]``` 默认情况下，参数值和参数名称是按函数声明中定义的的顺序匹配起来的。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 实例</span><br><span class="line"></span><br><span class="line">以下为一个简单的Python函数，它将一个字符串作为传入参数，再打印到标准显示设备上。 ``` def printme( str ): &quot;打印传入的字符串到标准显示设备上&quot; print str return</span><br></pre></td></tr></table></figure>
-<h2 id="二、函数调用"><a href="#二、函数调用" class="headerlink" title="二、函数调用"></a>二、函数调用</h2><p>定义一个函数只给了函数一个名称，指定了函数里包含的参数，和代码块结构。这个函数的基本结构完成以后，你可以通过另一个函数调用执行，也可以直接从Python提示符执行。 如下实例调用了printme（）函数： <figure class="highlight plain"><figcaption><span># Function definition is here def printme( str ): "打印任何传入的字符串" print str; return; # Now you can call printme function printme("我要调用用户自定义函数!"); printme("再次调用同一函数"); # 以上实例输出结果： # 我要调用用户自定义函数! # 再次调用同一函数```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">三、按值传递参数和按引用传递参数</span><br><span class="line">----------------</span><br><span class="line"></span><br><span class="line">所有参数（自变量）在Python里都是按引用传递。如果你在函数里修改了参数，那么在调用这个函数的函数里，原始的参数也被改变了。例如： ``` #!/usr/bin/python # 可写函数说明 def changeme( mylist ): &quot;修改传入的列表&quot; mylist.append(\[1,2,3,4\]); print &quot;函数内取值: &quot;, mylist return # 调用changeme函数 mylist = \[10,20,30\]; changeme( mylist ); print &quot;函数外取值: &quot;, mylist # 传入函数的和在末尾添加新内容的对象用的是同一个引用。故输出结果如下： # 函数内取值: \[10, 20, 30, \[1, 2, 3, 4\]\] # 函数外取值: \[10, 20, 30, \[1, 2, 3, 4\]\]</span><br></pre></td></tr></table></figure></p>
-<h2 id="四、函数的参数"><a href="#四、函数的参数" class="headerlink" title="四、函数的参数"></a>四、函数的参数</h2><p>Python函数可以使用的参数类型： 必备参数、命名参数、缺省参数、不定长参数</p>
-<h3 id="1、必备参数"><a href="#1、必备参数" class="headerlink" title="1、必备参数"></a>1、必备参数</h3><p>必备参数须以正确的顺序传入函数。调用时的数量必须和声明时的一样。 调用printme()函数，你必须传入一个参数，不然会出现语法错误： <figure class="highlight plain"><figcaption><span># 可写函数说明 def printme( str ): "打印任何传入的字符串" print str; return; # 调用printme函数 printme(); # 以上实例输出结果： # Traceback (most recent call last): # File "test.py", line 11, in # printme(); # TypeError: printme() takes exactly 1 argument (0 given)```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 2、命名参数</span><br><span class="line"></span><br><span class="line">命名参数和函数调用关系紧密，调用方用参数的命名确定传入的参数值。你可以跳过不传的参数或者乱序传参，因为Python解释器能够用参数名匹配参数值。用命名参数调用printme()函数： ``` #!/usr/bin/python # 可写函数说明 def printme( str ): &quot;打印任何传入的字符串&quot; print str; return; # 调用printme函数 printme( str = &quot;My string&quot;); # 以上实例输出结果： # My string``` 下例能将命名参数顺序不重要展示得更清楚： ``` #!/usr/bin/python #可写函数说明 def printinfo( name, age ): &quot;打印任何传入的字符串&quot; print &quot;Name: &quot;, name; print &quot;Age &quot;, age; return; # 调用printinfo函数 printinfo( age=50, name=&quot;miki&quot; ); # 以上实例输出结果： # Name: miki # Age 50</span><br></pre></td></tr></table></figure></p>
-<h3 id="3、缺省参数"><a href="#3、缺省参数" class="headerlink" title="3、缺省参数"></a>3、缺省参数</h3><p>调用函数时，缺省参数的值如果没有传入，则被认为是默认值。下例会打印默认的age，如果age没有被传入： <figure class="highlight plain"><figcaption><span># 可写函数说明 def printinfo( name, age </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 4、不定长参数</span><br><span class="line"></span><br><span class="line">你可能需要一个函数能处理比当初声明时更多的参数。这些参数叫做不定长参数，和上述2种参数不同，声明时不会命名。基本语法如下： ``` def functionname(\[formal\_args,\] \*var\_args\_tuple ): &quot;函数\_文档字符串&quot; function_suite return \[expression\]``` 加了星号（\*）的变量名会存放所有未命名的变量参数。选择不多传参数也可。如下实例： ``` #!/usr/bin/python # 可写函数说明 def printinfo( arg1, *vartuple ): &quot;打印任何传入的参数&quot; print &quot;输出: &quot; print arg1 for var in vartuple: print var return; # 调用printinfo 函数 printinfo( 10 ); printinfo( 70, 60, 50 ); # 以上实例输出结果： # 输出: # 10 # 输出: # 70 # 60 # 50</span><br></pre></td></tr></table></figure></p>
-<h2 id="五、匿名函数"><a href="#五、匿名函数" class="headerlink" title="五、匿名函数"></a>五、匿名函数</h2><p>用lambda关键词能创建小型匿名函数。这种函数得名于省略了用def声明函数的标准步骤。 Lambda函数能接收任何数量的参数但只能返回一个表达式的值，同时只能不能包含命令或多个表达式。 匿名函数不能直接调用print，因为lambda需要一个表达式。 lambda函数拥有自己的名字空间，且不能访问自有参数列表之外或全局名字空间里的参数。 虽然lambda函数看起来只能写一行，却不等同于C或C++的内联函数，后者的目的是调用小函数时不占用栈内存从而增加运行效率。</p>
-<h4 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h4><p>lambda函数的语法只包含一个语句，如下： <figure class="highlight plain"><figcaption><span>\[arg1 \[,arg2,.....argn\]\]:expression```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 如下实例：</span><br><span class="line"></span><br><span class="line">``` #!/usr/bin/python # 可写函数说明 sum = lambda arg1, arg2: arg1 + arg2; # 调用sum函数 print &quot;Value of total : &quot;, sum( 10, 20 ) print &quot;Value of total : &quot;, sum( 20, 20 ) # 以上实例输出结果： # Value of total : 30 # Value of total : 40</span><br></pre></td></tr></table></figure></p>
-<h2 id="六、关于return语句"><a href="#六、关于return语句" class="headerlink" title="六、关于return语句"></a>六、关于return语句</h2><p>return语句[表达式]退出函数，选择性地向调用方返回一个表达式。不带参数值的return语句返回None。之前的例子都没有示范如何返回数值，下例便告诉你怎么做： <figure class="highlight plain"><figcaption><span># 可写函数说明 def sum( arg1, arg2 ): # 返回2个参数的和." total </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">七、变量作用域</span><br><span class="line">-------</span><br><span class="line"></span><br><span class="line">一个程序的所有的变量并不是在哪个位置都可以访问的。访问权限决定于这个变量是在哪里赋值的。 变量的作用域决定了在哪一部分程序你可以访问哪个特定的变量名称。两种最基本的变量作用域如下： 1.全局变量 2.局部变量</span><br><span class="line"></span><br><span class="line">八、变量和局部变量</span><br><span class="line">---------</span><br><span class="line"></span><br><span class="line">定义在函数内部的变量拥有一个局部作用域，定义在函数外的拥有全局作用域。 局部变量只能在其被声明的函数内部访问，而全局变量可以在整个程序范围内访问。调用函数时，所有在函数内声明的变量名称都将被加入到作用域中。如下实例： ``` #!/usr/bin/python total = 0; # This is global variable. # 可写函数说明 def sum( arg1, arg2 ): #返回2个参数的和.&quot; total = arg1 + arg2; # total在这里是局部变量. print &quot;Inside the function local total : &quot;, total return total; # 调用sum函数 sum( 10, 20 ); print &quot;Outside the function global total : &quot;, total # 以上实例输出结果： # Inside the function local total : 30 # Outside the function global total : 0</span><br></pre></td></tr></table></figure></p>
+            <p>如果希望一步步将面向对象的思想，设计模式熟练掌握。</p>
+<p>以下基础知识可能需要常常遍历，直到滚瓜烂熟。</p>
+<p>对象是一个自包含的实体，用一组可识别的特性和行为来表示。将一组事物的共性抽离出来。</p>
+<p>类就是具有相同的属性和功能的对象的抽象的集合。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class  Cat&#123;</span><br><span class="line"></span><br><span class="line">  public function Shout()&#123;</span><br><span class="line"></span><br><span class="line">    return “喵”;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>一个猫的类。有一个方法返回叫声。</p>
+<p><code>class</code> 是表示定义类的关键字，<code>Cat</code> 就是类的名称，<code>Shout</code>就是类的方法。</p>
+<p>注意点（通常的规范，具体请遵从公司规定）：</p>
+<p>第一，类名首字母大写，多个单词则各个首字母大写。</p>
+<p>第二，对外公开的方法需要用<code>public</code>修饰符。</p>
+<p>怎么用这个类呢？很简单，实例化一下就可以了。</p>
+<p>实例，就是一个真实的对象，而实例化就是创建对象的过程，使用new关键字来创建。说白了，你就当一个new出来的是个新的存在的class就完事了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$cat = new Cat();</span><br><span class="line"></span><br><span class="line">return $cat-&gt;Shout();</span><br></pre></td></tr></table></figure></p>
+<p>着重提出构造方法，其他的魔术方法都差不多的意思，自行脑补。</p>
+<p>构造方法，又叫构造函数，其实就是对类进行初始化。如果实在php5版本以后使用魔术方法__construct(),4以前的版本构造方法与类同名。无返回值，在new的时候调用。也就是说在new一个类的时候默认就会执行这个类中的构造方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Cat&#123;</span><br><span class="line"></span><br><span class="line">  private $name=”;</span><br><span class="line"></span><br><span class="line">  public function __construct($name)&#123;</span><br><span class="line"></span><br><span class="line">    $this-&gt;name=$name;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public function Shout()&#123;</span><br><span class="line"></span><br><span class="line">    return “我的名字是”+$name+”喵”;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在实例化的时候，传入一个名字，构造函数自动执行，将名字赋值给了私有变量。然后我们调用叫的方法，返回私有变量$name，你会发现返回的是赋值过后的$name。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/plan_15_08_31/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/plan_15_08_31/" class="post-title-link" itemprop="url">短期计划08-31</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2015-08-31 22:31:49" itemprop="dateCreated datePublished" datetime="2015-08-31T22:31:49+08:00">2015-08-31</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-19 16:40:23" itemprop="dateModified" datetime="2019-04-19T16:40:23+08:00">2019-04-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/" itemprop="url" rel="index"><span itemprop="name">日常________经验分享</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">147</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>于08-31日起，再次拜读《大话设计模式》以加深印象。</p>
+<p>并整理出相关资料以供新手使用，容易学习。当然因为专业方向会使用php将此思想按照个人的理解重新编写。但是语言应该不会造成思想的理解。</p>
+<p>如果您对设计模式已有一定了解，推荐参阅《Head First》,Gof所著《设计模式》，《重构》等经典</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/habitual_opening_summary/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/habitual_opening_summary/" class="post-title-link" itemprop="url">习惯性开篇总结</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2015-08-26 19:23:34" itemprop="dateCreated datePublished" datetime="2015-08-26T19:23:34+08:00">2015-08-26</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-19 16:41:41" itemprop="dateModified" datetime="2019-04-19T16:41:41+08:00">2019-04-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/" itemprop="url" rel="index"><span itemprop="name">日常________经验分享</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">528</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>终于抽出一点时间将博客站重新上线。</p>
+<p>为了节省时间采用了wordpress框架。对于程序，现在认为有可用即可用，存在即是合理，而不再执着于要用很多时间去自己写一个框架。</p>
+<p>高可用，敏捷快速是为建站灵魂。拿来主义，是为了释放时间精力做更加擅长的事情。</p>
+<p>在此分享自走上程序之路的一些思维方式，期望新加入程序大军的猿们可以有一个模糊的方向，更快的突破限制，走得更远更快。</p>
+<p>常认为能从零到有，从小白到建站技术都略懂一些能在短短时间如此大的跨步，得益于老大的指点：“代码就是工具，是让你来使用的，不要执着于什么语法，什么语言，仅仅是工具而已。但是它可以帮助你完成梦想。”。</p>
+<p>写代码和日常生活可能是一样的，师父领进门修行在个人，没有什么捷径，唯有勤学苦练。所以在纠结于要不要去培训班的同学，请先明确自己到底想付出什么，又想要得到什么。</p>
+<p>刚刚出学校时，没有任何经验，没有高校背景，找工作确实很难。这时候反省自己有没有努力，有没有决心从零开始在某个行业做下去。考虑好自己所想的，做自己喜欢的，坚持下去。</p>
+<p>关于培训的问题。。培训班可能对于一点基础没有的同学也是一个路。但是强烈建议一定要摒弃在培训过程中什么都依赖别人去教的习惯，学会自主解决问题，师父领进门，修行靠个人，切记。</p>
 
           
         
@@ -2470,7 +2041,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
   </nav>
 
 
@@ -2512,7 +2083,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">193</span>
+                    <span class="site-state-item-count">58</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2555,7 +2126,7 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -2688,7 +2259,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">58</span>
+                      
+                    
+                    <span class="site-state-item-count">31</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -2813,7 +2386,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">553k</span>
+    <span title="站点总字数">208k</span>
   
 
   
@@ -2824,7 +2397,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">8:23</span>
+    <span title="站点阅读时长">3:09</span>
   
 </div>
 
