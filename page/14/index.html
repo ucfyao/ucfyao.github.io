@@ -560,48 +560,21 @@
       
         
           
-            <p>MySql中添加用户,新建数据库,用户授权,删除用户,修改密码(注意每行后边都跟个;表示一个命令语句结束):</p>
-<h2 id="新建用户"><a href="#新建用户" class="headerlink" title="新建用户"></a>新建用户</h2><h3 id="登录MYSQL"><a href="#登录MYSQL" class="headerlink" title="登录MYSQL"></a>登录MYSQL</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line">密码</span><br></pre></td></tr></table></figure>
-<h3 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; insert into mysql.user(Host,User,Password) values(&quot;localhost&quot;,&quot;test&quot;,password(&quot;1234&quot;));</span><br></pre></td></tr></table></figure>
-<p>样就创建了一个名为：<code>test</code> 密码为：<code>1234</code> 的用户。<br>注意：此处的”localhost”，是指该用户只能在本地登录，不能在另外一台机器上远程登录。如果想远程登录的话，将”localhost”改为”%”，表示在任何一台电脑上都可以登录。也可以指定某台机器可以远程登录。</p>
-<h3 id="然后登录一下："><a href="#然后登录一下：" class="headerlink" title="然后登录一下："></a>然后登录一下：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; exit;</span><br><span class="line">@&gt; mysql -u test -p</span><br><span class="line">@&gt; 输入密码</span><br><span class="line">mysql&gt; 登录成功</span><br></pre></td></tr></table></figure>
-<h3 id="为用户授权"><a href="#为用户授权" class="headerlink" title="为用户授权"></a>为用户授权</h3><p>授权格式：<code>grant 权限 on 数据库.* to 用户名@登录主机 identified by “密码”</code>;</p>
-<h4 id="登录MYSQL（有ROOT权限），这里以ROOT身份登录："><a href="#登录MYSQL（有ROOT权限），这里以ROOT身份登录：" class="headerlink" title="登录MYSQL（有ROOT权限），这里以ROOT身份登录："></a>登录MYSQL（有ROOT权限），这里以ROOT身份登录：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@&gt; mysql -u root -p</span><br><span class="line">@&gt; 密码</span><br></pre></td></tr></table></figure>
-<h4 id="首先为用户创建一个数据库-testDB-："><a href="#首先为用户创建一个数据库-testDB-：" class="headerlink" title="首先为用户创建一个数据库(testDB)："></a>首先为用户创建一个数据库(testDB)：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; create database testDB;</span><br></pre></td></tr></table></figure>
-<h4 id="授权test用户拥有testDB数据库的所有权限（某个数据库的所有权限）："><a href="#授权test用户拥有testDB数据库的所有权限（某个数据库的所有权限）：" class="headerlink" title="授权test用户拥有testDB数据库的所有权限（某个数据库的所有权限）："></a>授权test用户拥有testDB数据库的所有权限（某个数据库的所有权限）：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; grant all privileges on testDB.* to test@localhost identified by &apos;1234&apos;;</span><br><span class="line">mysql&gt; flush privileges;//刷新系统权限表</span><br></pre></td></tr></table></figure>
-<p>格式：<code>grant 权限 on 数据库.* to 用户名@登录主机 identified by “密码”</code>;</p>
-<h4 id="如果想指定部分权限给一用户，可以这样来写"><a href="#如果想指定部分权限给一用户，可以这样来写" class="headerlink" title="如果想指定部分权限给一用户，可以这样来写:"></a>如果想指定部分权限给一用户，可以这样来写:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">　　mysql&gt; grant select,update on testDB.* to test@localhost identified by &apos;1234&apos;;</span><br><span class="line">　　mysql&gt; flush privileges; //刷新系统权限表</span><br></pre></td></tr></table></figure>
-<h4 id="授权test用户拥有所有数据库的某些权限"><a href="#授权test用户拥有所有数据库的某些权限" class="headerlink" title="授权test用户拥有所有数据库的某些权限:"></a>授权test用户拥有所有数据库的某些权限:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; grant select,delete,update,create,drop on *.* to test@&quot;%&quot; identified by &quot;1234&quot;;</span><br></pre></td></tr></table></figure>
-<p>   test用户对所有数据库都有select,delete,update,create,drop 权限。<br>　  @”%” 表示对所有非本地主机授权，不包括localhost。<br>　  对localhost授权：加上一句grant all privileges on testDB.* to test@localhost identified by ‘1234’;即可。</p>
-<ol>
-<li><p>删除用户</p>
-<p> @&gt; mysql -u root -p<br> @&gt; 密码<br> mysql&gt; Delete FROM user Where User=’test’ and Host=’localhost’;<br> mysql&gt; flush privileges;<br> mysql&gt; drop database testDB; //删除用户的数据库</p>
-<p> // 删除账户及权限：<br> drop user 用户名@’%’;<br> drop user 用户名@ localhost;</p>
-</li>
-<li><p>修改指定用户密码</p>
-<p>　@&gt; mysql -u root -p<br>　@&gt; 密码<br>　mysql&gt; update mysql.user set password=password(‘新密码’) where User=”test” and Host=”localhost”;<br>　mysql&gt; flush privileges;</p>
-</li>
-<li>列出所有数据库</li>
-</ol>
-<p>　　mysql&gt; show database;</p>
-<ol start="6">
-<li>切换数据库</li>
-</ol>
-<p>　　mysql&gt; use ‘数据库名’;</p>
-<ol start="7">
-<li>列出所有表</li>
-</ol>
-<p>　　mysql&gt; show tables;</p>
-<ol start="8">
-<li><p>显示数据表结构</p>
-<p> mysql&gt; describe 表名;</p>
-</li>
-<li><p>删除数据库和数据表</p>
-<p> mysql&gt; drop database 数据库名;<br> mysql&gt; drop table 数据表名;</p>
-</li>
-</ol>
-
+            <p>
+              MySql中添加用户,新建数据库,用户授权,删除用户,修改密码(注意每行后边都跟个;表示一个命令语句结束):
+新建用户登录MYSQLmysql -u root -p密码
+创建用户mysql&gt; insert into mysql.user(Host,User,Password) values(&
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/mysql_create_database_user/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -813,10 +786,19 @@
       
         
           
-            <p>在<code>git</code>中如果想忽略掉某个文件，不让这个文件提交到版本库中，可以使用修改根目录中 <code>.gitignore</code> 文件的方法（如无，则需自己手工建立此文件）。这个文件每一行保存了一个匹配的规则例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 此为注释 – 将被 Git 忽略</span><br><span class="line"></span><br><span class="line">*.a       # 忽略所有 .a 结尾的文件</span><br><span class="line"></span><br><span class="line">!lib.a    # 但 lib.a 除外</span><br><span class="line"></span><br><span class="line">/TODO     # 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO</span><br><span class="line"></span><br><span class="line">build/    # 忽略 build/ 目录下的所有文件</span><br><span class="line"></span><br><span class="line">doc/*.txt # 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt</span><br></pre></td></tr></table></figure></p>
-<p>规则很简单，不做过多解释，但是有时候在项目开发过程中，突然心血来潮想把某些目录或文件加入忽略规则，按照上述方法定义后发现并未生效，原因是<code>.gitignore</code>只能忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改<code>.gitignore</code>是无效的。那么解决方法就是先把本地缓存删除（改变成未track状态），然后再提交：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git rm -r --cached .</span><br><span class="line"></span><br><span class="line">git add .</span><br><span class="line"></span><br><span class="line">git commit -m &apos;update .gitignore&apos;</span><br></pre></td></tr></table></figure></p>
-
+            <p>
+              在git中如果想忽略掉某个文件，不让这个文件提交到版本库中，可以使用修改根目录中 .gitignore 文件的方法（如无，则需自己手工建立此文件）。这个文件每一行保存了一个匹配的规则例如：# 此为注释 – 将被 Git 忽略*.a       # 忽略所有 .a 结尾的文件!lib.a    # 但
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/git_gitignore_unuse/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1028,9 +1010,20 @@
       
         
           
-            <p>请放在根目录下使用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">//remove the utf-8 boms</span><br><span class="line">//by magicbug at gmail dot com</span><br><span class="line"></span><br><span class="line">if (isset($_GET[&apos;dir&apos;]))&#123; //config the basedir</span><br><span class="line">    $basedir=$_GET[&apos;dir&apos;];</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    $basedir = &apos;.&apos;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$auto = 1;</span><br><span class="line"></span><br><span class="line">checkdir($basedir);</span><br><span class="line"></span><br><span class="line">function checkdir($basedir)&#123;</span><br><span class="line">    if ($dh = opendir($basedir)) &#123;</span><br><span class="line">        while (($file = readdir($dh)) !== false) &#123;</span><br><span class="line">            if ($file != &apos;.&apos; &amp;&amp; $file != &apos;..&apos;)&#123;</span><br><span class="line">                if (!is_dir($basedir.&quot;/&quot;.$file)) &#123;</span><br><span class="line">                    echo &quot;filename</span><br><span class="line"> $basedir/$file &quot;.checkBOM(&quot;$basedir/$file&quot;).&quot; &lt;br&gt;&quot;;</span><br><span class="line">                &#125;else&#123;</span><br><span class="line">                    $dirname = $basedir.&quot;/&quot;.$file;</span><br><span class="line">                    checkdir($dirname);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        closedir($dh);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function checkBOM ($filename) &#123;</span><br><span class="line">    global $auto;</span><br><span class="line">    $contents = file_get_contents($filename);</span><br><span class="line">    $charset[1] = substr($contents, 0, 1);</span><br><span class="line">    $charset[2] = substr($contents, 1, 1);</span><br><span class="line">    $charset[3] = substr($contents, 2, 1);</span><br><span class="line">    if (ord($charset[1]) == 239 &amp;&amp; ord($charset[2]) == 187 &amp;&amp; ord($charset[3]) == 191) &#123;</span><br><span class="line">        if ($auto == 1) &#123;</span><br><span class="line">            $rest = substr($contents, 3);</span><br><span class="line">            rewrite ($filename, $rest);</span><br><span class="line">            return (&quot;&lt;font color=red&gt;BOM found, automatically removed.&lt;/font&gt;&quot;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return (&quot;&lt;font color=red&gt;BOM found.&lt;/font&gt;&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else return (&quot;BOM Not Found.&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function rewrite ($filename, $data) &#123;</span><br><span class="line">    $filenum = fopen($filename, &quot;w&quot;);</span><br><span class="line">    flock($filenum, LOCK_EX);</span><br><span class="line">    fwrite($filenum, $data);</span><br><span class="line">    fclose($filenum);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <p>
+              请放在根目录下使用
+ &lt;?php//remove the utf-8 boms//by magicbug at gmail dot comif (isset($_GET[&apos;dir&apos;]))&#123; //config the basedir    $basedir=$_GE
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/php_bom/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1242,14 +1235,21 @@
       
         
           
-            <p>通过HeidiSQL连接MYSQL数据库报错：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL Error (1130): Host ‘192.168.1.126’ is not allowed to connect to this MySQL server</span><br></pre></td></tr></table></figure>
-<p>说明所连接的用户帐号没有远程连接的权限，只能在本机(localhost)登录。<br>需更改 mysql 数据库里的<code>user</code>表里的<code>host</code>项把localhost改成%</p>
-<p>首先按下面的步骤登录Mysql服务器，登录mysql需要切换到dos下的mysql的bin目录，进行如下操作：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;use mysql;</span><br><span class="line"></span><br><span class="line">mysql&gt;update user set host = ‘%’ where user =’root’;</span><br><span class="line">MariaDB [mysql]&gt; update user set host = ‘%’ where host = ‘localhost’;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line">Rows matched: 0 Changed: 0 Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt;flush privileges;</span><br><span class="line">mysql&gt;select host, user from user;</span><br><span class="line">mysql&gt;quit</span><br></pre></td></tr></table></figure>
-<p>OK。远程连接成功！</p>
-
+            <p>
+              通过HeidiSQL连接MYSQL数据库报错：
+SQL Error (1130): Host ‘192.168.1.126’ is not allowed to connect to this MySQL server
+说明所连接的用户帐号没有远程连接的权限，只能在本机(localhost)登录。需
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/mysql_other_permission/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1461,81 +1461,19 @@
       
         
           
-            <p>DevOps是一组过程、方法与系统的统称，用于促进开发（应用程序/软件工程）、技术运营和质量保障（QA）部门之间的沟通、协作与整合。在DevOps的整个流程中，使用一些开源工具可以促进开发与运维之间的沟通，有利于项目的管理，甚至可以达到事半功倍的效果。 本文作者Richard Kraaijenhagen是<span class="exturl" data-url="aHR0cDovL293bGluLmNvbS8=" title="http://owlin.com/">Owlin<i class="fa fa-external-link"></i></span>创始人，全栈工程师，数据科学家。他收集了DevOps开发可能用到的所有工具，并且把它们按照职责进行分类，本文摘取了部分工具分享给大家，这些工具也可以用于日常软件方面的开发，所以，大家直接Mark吧！</p>
-<p><strong>包&amp;产品管理工具</strong></p>
-<ul>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Nob2NvbGF0ZXkvY2hvY29sYXRleQ==" title="https://github.com/chocolatey/chocolatey">Chocolatey<i class="fa fa-external-link"></i></span>：Chocolatey是Windows下一款开源的命令行包管理软件 ，简单说这就是Windows的apt-get；</li>
-<li><span class="exturl" data-url="aHR0cDovL3plZWYudG8vY2xpY2s/bHBpZD00ODczODcmYW1wO2tleT1mX080WjJfWm9RWElBVi1EYzJHWnpQZWFiLW1mQjBHQ0JibyZhbXA7dGFyZ2V0X3VybD1odHRwcyUzQSUyRiUyRmdpdGh1Yi5jb20lMkZqb3JkYW5zaXNzZWwlMkZmcG0=" title="http://zeef.to/click?lpid=487387&amp;key=f_O4Z2_ZoQXIAV-Dc2GZzPeab-mfB0GCBbo&amp;target_url=https%3A%2F%2Fgithub.com%2Fjordansissel%2Ffpm">FPM<i class="fa fa-external-link"></i></span>：全称是Effing package management，该死的软件包管理器，极大的缓解了多个平台构建软件包(deb,rpm,等)的痛苦；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3J1c3Nzcy9IZXJk" title="https://github.com/russss/Herd">Herd<i class="fa fa-external-link"></i></span>：是一个基于Twitter <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2xnL211cmRlcg==" title="https://github.com/lg/murder">Murder<i class="fa fa-external-link"></i></span>的文件分布系统；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZncmVobS92YWdyYW50LWNhY2hpZXI=" title="https://github.com/fgrehm/vagrant-cachier">Vagrant Cachier<i class="fa fa-external-link"></i></span>：Vagrant的一个插件，用于缓存包方面的管理；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3dpeHRvb2xzZXQvd2l4NA==" title="https://github.com/wixtoolset/wix4">WiX Toolset<i class="fa fa-external-link"></i></span>：提供一组最强大的工具集来帮助你创建Windows安装包。该工具集从XML源代码构建你的Windows安装程序包，可以无缝集成到构建过程；</li>
-<li><span class="exturl" data-url="aHR0cDovL2JveHN0YXJ0ZXIub3JnLw==" title="http://boxstarter.org/">Boxstarter<i class="fa fa-external-link"></i></span>：利用Chocolatey包管理工具来自动化安装软件和创建可重复、脚本化的Windows环境；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9iaXRidWNrZXQub3JnL3Njb3JlYmlnL2VsaXRh" title="https://bitbucket.org/scorebig/elita">Elita<i class="fa fa-external-link"></i></span>：Elita是一个利用git和salt进行持续部署（部署作为服务）和API-driven基础设施的引擎/框架；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL21mb2VtbWVsL2ZpZw==" title="https://github.com/mfoemmel/fig">Fig<i class="fa fa-external-link"></i></span>：主要用来跟Docker一起来实现的快速隔离的开发环境；</li>
-<li><span class="exturl" data-url="aHR0cDovL3d3dy5wdWxwcHJvamVjdC5vcmcv" title="http://www.pulpproject.org/">Pulp<i class="fa fa-external-link"></i></span>：Pulp是一个用来管理软件库以及相关内容的平台；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2plZGk0ZXZlci92ZWV3ZWU=" title="https://github.com/jedi4ever/veewee">Veewee<i class="fa fa-external-link"></i></span>：Veewee是一个开源工具，用来创建和配置轻量级、可再生、便捷式虚拟机环境。</li>
-</ul>
-<p><strong>日志&amp;监控</strong></p>
-<ul>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL21hcnRpbnJ1c2V2L2Ftb25vbmU=" title="https://github.com/martinrusev/amonone">AmonOne<i class="fa fa-external-link"></i></span>：现代化的自托管服务器监控工具；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0RpZXRlcmJlL2FudGhyYWNpdGU=" title="https://github.com/Dieterbe/anthracite">Anthracite<i class="fa fa-external-link"></i></span>：一个事件/日志改变/管理应用程序；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1N0YWNrU3Rvcm0vY29sbGVjdGQz" title="https://github.com/StackStorm/collectd3">collectd3<i class="fa fa-external-link"></i></span>：是一个可视化的collectd系统性能统计工具；</li>
-<li><span class="exturl" data-url="aHR0cDovL2NvbGxlY3RkLm9yZy8=" title="http://collectd.org/">collectd<i class="fa fa-external-link"></i></span>：是一个守护(daemon)进程，用来收集系统性能和提供各种存储方式来存储不同值的机制；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0JyaWdodGNvdmVPUy9EaWFtb25k" title="https://github.com/BrightcoveOS/Diamond">Diamond<i class="fa fa-external-link"></i></span>：是一个基于Python的守护程序，主要用来收集系统指标，并且把它们发布到Graphite（或其它）工具中；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2VycmJpdC9lcnJiaXQ=" title="https://github.com/errbit/errbit">Errbit<i class="fa fa-external-link"></i></span>：是一个用于收集和管理程序错误的开源工具；</li>
-<li><span class="exturl" data-url="aHR0cDovL3NlbnN1YXBwLm9yZy8=" title="http://sensuapp.org/">Sensu<i class="fa fa-external-link"></i></span>：一个开源的监控框架；</li>
-<li><span class="exturl" data-url="aHR0cDovL2xvZ3N0YXNoLm5ldC8=" title="http://logstash.net/">Logstash<i class="fa fa-external-link"></i></span>：是一个应用程序日志、事件的传输、处理、管理和搜索的平台。你可以用它来统一对应用程序日志进行收集管理，提供Web接口用于查询和统计；</li>
-<li><span class="exturl" data-url="aHR0cDovL2xvZ2lvLm9yZy8=" title="http://logio.org/">log.io<i class="fa fa-external-link"></i></span>：一个实时的开源日志监控工具；</li>
-<li><span class="exturl" data-url="aHR0cDovL2Zub3JkbWV0cmljLmlvLw==" title="http://fnordmetric.io/">FnordMetric<i class="fa fa-external-link"></i></span>：是一个基于redis/ruby的实时事件跟踪应用，是个收集和可视化时间序列数据的框架，用户可以在几分钟内创建漂亮的实时分析仪表盘；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2V0c3kvbG9nc3Rlcg==" title="https://github.com/etsy/logster">Logster<i class="fa fa-external-link"></i></span>：是一个工具，读取日志文件然后创建Graphite 或 Ganglia可用的指标数据。比如你可能使用logster来图形化在你的Web Server日志中的HTTP响应发生数量；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2VsYXN0aWNzZWFyY2gva2liYW5hLw==" title="https://github.com/elasticsearch/kibana/">Kibana<i class="fa fa-external-link"></i></span>：是一个为Logstash和ElasticSearch提供的日志分析的Web接口。可使用它对日志进行高效的搜索、可视化、分析等各种操作；</li>
-<li><span class="exturl" data-url="aHR0cDovL21tb25pdC5jb20vbW9uaXQv" title="http://mmonit.com/monit/">Monit<i class="fa fa-external-link"></i></span>：是一款功能非常丰富的进程、文件、目录和设备的监测软件，用于Unix平台。 它可以自动修复那些已经停止运作的程序，适合处理那些由于多种原因导致的软件错误；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2NvZGFoYWxlL21ldHJpY3Mv" title="https://github.com/codahale/metrics/">Metrics<i class="fa fa-external-link"></i></span>：这并不是Java库，而是基于Go的一个轻量级的检测器；</li>
-<li><span class="exturl" data-url="aHR0cDovL2dyYXBoaXRlLnJlYWR0aGVkb2NzLm9yZy9lbi9sYXRlc3Qv" title="http://graphite.readthedocs.org/en/latest/">Graphite<i class="fa fa-external-link"></i></span>：是一个用于采集网站实时信息并进行统计的开源项目，可用于采集多种网站服务运行状态信息；</li>
-<li><span class="exturl" data-url="aHR0cDovL2dhbmdsaWEuaW5mby8=" title="http://ganglia.info/">Ganglia<i class="fa fa-external-link"></i></span>：Ganglia是一个跨平台可扩展的、高性能计算系统下的分布式监控系统，如集群和网格；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuc2VydmVyZGVuc2l0eS5jb20v" title="https://www.serverdensity.com/">Server Density<i class="fa fa-external-link"></i></span>：一个跨平台的监控系统；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2JvdW5kYXJ5L2ZvbHNvbQ==" title="https://github.com/boundary/folsom">Folsom<i class="fa fa-external-link"></i></span>：Folsom是一款受 <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2NvZGFoYWxlL21ldHJpY3Mv" title="https://github.com/codahale/metrics/">Coda Hale’s metrics<i class="fa fa-external-link"></i></span>启发的、基于Erlang的度量系统；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0NvbWNhc3QvY21i" title="https://github.com/Comcast/cmb">CMB (Cloud Message Bus)<i class="fa fa-external-link"></i></span>：是一个高可用、横向扩展的队列和通知服务，兼容AWS SQS和SNS；</li>
-<li><span class="exturl" data-url="aHR0cDovL25pY29sYXJnby5naXRodWIuaW8vZ2xhbmNlcy8=" title="http://nicolargo.github.io/glances/">Glances<i class="fa fa-external-link"></i></span>：是一款用于Linux、BSD的开源命令行系统监视工具，它使用Python语言开发，能够监视CPU、负载、内存、磁盘I/O、网络流量、文件系统、系统温度等信息。</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Z6YW5pbm90dG8vdXB0aW1l" title="https://github.com/fzaninotto/uptime">Uptime<i class="fa fa-external-link"></i></span>：使用Node.js、MongoDB和Twitter Bootstrap开发的远程监控系统；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuaWNpbmdhLm9yZy8=" title="https://www.icinga.org/">Icinga<i class="fa fa-external-link"></i></span>：Nagios的扩展版本；</li>
-<li><span class="exturl" data-url="aHR0cDovL3BhY2tldGJlYXQuY29tLw==" title="http://packetbeat.com/">Packetbeat<i class="fa fa-external-link"></i></span>：?是开源应用监控和包跟踪系统；</li>
-<li><span class="exturl" data-url="aHR0cDovL3R3aXR0ZXIuZ2l0aHViLmlvL3ppcGtpbi8=" title="http://twitter.github.io/zipkin/">Zipkin<i class="fa fa-external-link"></i></span>：是Twitter的一个开源项目，允许开发者收集Twitter各个服务上的监控数据，并提供查询接口；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9kZWFkbWFuc3NuaXRjaC5jb20v" title="https://deadmanssnitch.com/">Dead Man???s Snitch<i class="fa fa-external-link"></i></span>：是一款监控Heroku Scheduler、计划的监视工具；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2V0c3kvc3RhdHNkLw==" title="https://github.com/etsy/statsd/">Statsd<i class="fa fa-external-link"></i></span>：是一个Node.js的daemon程序，简单，轻巧。使用的UDP协议，可以和Graphite图片渲染应用结合；</li>
-<li><span class="exturl" data-url="aHR0cDovL3JpZW1hbm4uaW8v" title="http://riemann.io/">Riemann<i class="fa fa-external-link"></i></span>：一个网络监控系统；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NvZGFicmV3L3B1cHBldC1kYXNoYm9hcmQ=" title="https://github.com/sodabrew/puppet-dashboard">Puppet Dashboard<i class="fa fa-external-link"></i></span>：Puppet Dashboard是一个Web接口，为Puppet提供节点分类和报告功能，是一个开源的配置管理工具；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2pteHRyYW5zL2pteHRyYW5z" title="https://github.com/jmxtrans/jmxtrans">jmxtrans<i class="fa fa-external-link"></i></span>：jmxtrans是一款非常强大的工具，使用它可以轻易生成基于json的配置文章，然后再以你想要的格式输出；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0N1ZS9zY2FsZXM=" title="https://github.com/Cue/scales">Scales<i class="fa fa-external-link"></i></span>：跟踪服务器状态和统计指标，使你全面掌握服务器状态，还可以发送指标到Graphite来图像呈现或者向文件写入崩溃信息；</li>
-<li><span class="exturl" data-url="aHR0cDovL3d3dy56YWJiaXguY29tLw==" title="http://www.zabbix.com/">Zabbix<i class="fa fa-external-link"></i></span>：是一个基于Web界面的提供分布式系统监视以及网络监视功能的企业级的开源解决方案；</li>
-<li><span class="exturl" data-url="aHR0cDovL3d3dy5ncmF5bG9nMi5vcmcv" title="http://www.graylog2.org/">Graylog 2<i class="fa fa-external-link"></i></span>：Graylog2是一个用来将系统日志syslog保存到MongoDB中的工具。</li>
-</ul>
-<p><strong>进程管理</strong></p>
-<ul>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3N1YnN0YWNrL2JvdW5jeQ==" title="https://github.com/substack/bouncy">Bouncy<i class="fa fa-external-link"></i></span>：可以作为HTTP路由主机；</li>
-<li><span class="exturl" data-url="aHR0cDovL3N1cGVydmlzb3JkLm9yZy8=" title="http://supervisord.org/">Supervisor<i class="fa fa-external-link"></i></span>：是一个客户端服务器系统，允许用户监控和控制类Unix操作系统上的进程数；</li>
-<li><span class="exturl" data-url="aHR0cDovL2dvZHJiLmNvbS8=" title="http://godrb.com/">God<i class="fa fa-external-link"></i></span>：由Ruby实现的进程监控框架。</li>
-</ul>
-<p><strong>服务发现</strong></p>
-<ul>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2hhc2hpY29ycC9jb25zdWw=" title="https://github.com/hashicorp/consul">Consul<i class="fa fa-external-link"></i></span>：简化了分布式环境中的服务的注册和发现流程，通过HTTP或者DNS接口发现。支持外部SaaS 提供者等；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2NvcmVvcy9ldGNk" title="https://github.com/coreos/etcd">etcd<i class="fa fa-external-link"></i></span>：是一个高可用的Key/Value存储系统，主要用于分享配置和服务发现；</li>
-<li><span class="exturl" data-url="aHR0cDovL3pvb2tlZXBlci5hcGFjaGUub3JnLw==" title="http://zookeeper.apache.org/">Apache ZooKeeper<i class="fa fa-external-link"></i></span>：是Apache Hadoop的一个子项目，它主要是用来解决分布式应用中经常遇到的一些数据管理问题；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3pldHRpby93ZWF2ZQ==" title="https://github.com/zettio/weave">Weave<i class="fa fa-external-link"></i></span>：创建一个虚拟网络并连接到部署在多个主机上的Docker容器。</li>
-</ul>
-<p><strong>持续集成和交付</strong></p>
-<ul>
-<li><span class="exturl" data-url="aHR0cDovL2J1aWxkYm90Lm5ldC8=" title="http://buildbot.net/">Buildbot<i class="fa fa-external-link"></i></span>：是一个系统的自动化编译/测试周期最需要的软件，以验证代码的变化。通过自动重建和测试每次发生了变化的东西，在建设迅速查明之前，减少不必要的失败；</li>
-<li><span class="exturl" data-url="aHR0cDovL2NhYm90YXBwLmNvbS8=" title="http://cabotapp.com/">Cabot<i class="fa fa-external-link"></i></span>：是一个开源，自我托管的监控工具；</li>
-<li><span class="exturl" data-url="aHR0cDovL2plbmtpbnMtY2kub3JnLw==" title="http://jenkins-ci.org/">Jenkins<i class="fa fa-external-link"></i></span>：是基于Java开发的一种持续集成工具，用于监控持续重复的工作；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9odWJvdC5naXRodWIuY29tLw==" title="https://hubot.github.com/">Hubot<i class="fa fa-external-link"></i></span>：基于脚本具有很高的灵活性，任何人都可以编写自己的脚本来扩展基本功能；</li>
-<li><span class="exturl" data-url="aHR0cDovL2h1ZHNvbi1jaS5vcmcv" title="http://hudson-ci.org/">Hudson<i class="fa fa-external-link"></i></span>：是一个可扩展的持续集成引擎，主要用于：持续、自动地构建/测试软件项目、监控一些定时执行的任务；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3Rob3VnaHR3b3Jrcy9jcnVpc2Vjb250cm9sLnJi" title="https://github.com/thoughtworks/cruisecontrol.rb">CruiseControl.rb<i class="fa fa-external-link"></i></span>：是一个持续集成服务器，它可以让团队里的每个人随时了解项目的健康状况和进度；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FsY3kvT3BzQm90" title="https://github.com/alcy/OpsBot">OpsBot<i class="fa fa-external-link"></i></span>：是一个开源的、可插入的改善通信的机器人。</li>
-</ul>
-<p>希望这些工具能够给开发者带来实实在在的帮助，想要查看更多工具，大家可以 <span class="exturl" data-url="aHR0cHM6Ly9kZXYtb3BzLXRvb2xzLnplZWYuY29tL3JpY2hhcmQua3JhYXllbmhhZ2VuI2Jsb2NrXzQxNjg1X3Byb2Nlc3MtbWFuYWdlbWVudA==" title="https://dev-ops-tools.zeef.com/richard.kraayenhagen#block_41685_process-management">访问原文<i class="fa fa-external-link"></i></span>，原文中的工具列表会持续更新。 最后，再跟大家分享一个 <span class="exturl" data-url="aHR0cDovL3d3dy5kZXZvcHNib29rbWFya3MuY29tLw==" title="http://www.devopsbookmarks.com/">DevOps BookMarks<i class="fa fa-external-link"></i></span>，这里面涉及了DevOps方方面面的工具和内容，有兴趣的同学可以前去学习。</p>
-
+            <p>
+              DevOps是一组过程、方法与系统的统称，用于促进开发（应用程序/软件工程）、技术运营和质量保障（QA）部门之间的沟通、协作与整合。在DevOps的整个流程中，使用一些开源工具可以促进开发与运维之间的沟通，有利于项目的管理，甚至可以达到事半功倍的效果。 本文作者Richard Kraaijenhag
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/mark_devops/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1747,25 +1685,21 @@
       
         
           
-            <p>mongodb官网上下载最新版本的mongodb，按照官网上的说明进行安装：</p>
-<p>首先运行如下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -O http://downloads.mongodb.org/linux/mongodb-linux-x86_64-2.6.3.tgz</span><br></pre></td></tr></table></figure></p>
-<p>其次，运用tar 进行解压缩，按照如下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf mongodb-linux-x86_64-2.6.3.tgz</span><br></pre></td></tr></table></figure></p>
-<p>第三，新建mongodb文件夹，把解压了的mongodb-linux-x86_64-2.6.3复制到mongodb下面。<br>按照如下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p mongodb</span><br><span class="line">cp -R -n mongodb-linux-x86_64-2.6.3/ mongodb</span><br></pre></td></tr></table></figure></p>
-<p>第四，更改环境变量，在路径 /etc/下面，找到bashrc文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=&lt;mongodb-install-directory&gt;:$PATH</span><br></pre></td></tr></table></figure></p>
-<p>替换成你的mongodb路径就可以了</p>
-<p>第五，创建mongodb的dbdata的路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p  /usr/local/mongo/data  </span><br><span class="line">mongod --dbpath /usr/local/mongo/data</span><br></pre></td></tr></table></figure></p>
-<p>第六，进入mongo的文件夹，运行mongo命令，启动mongo就可以了。<br>上面的安装方法比较简单，但是有个问题，就是mongo启动必须同时制定data,也就是要运行<code>mongod –dbpath /usr/local/mongo/data</code>，比较繁琐，下面介绍一种一劳永逸的安装办法，把mongo的启动添加到服务当中。</p>
-<p>创建配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /usr/local/mongo/etc /usr/local/mongo/data /usr/local/mongo/log/ /usr/local/mongo/repair</span><br><span class="line">vim  /usr/local/mongo/etc/mongo.conf</span><br><span class="line">在mongo.conf中添加下面的内容</span><br><span class="line">dbpath = /usr/local/mongo/data</span><br><span class="line">logpath = /usr/local/mongo/mongodb.log</span><br><span class="line">repairpath = /usr/local/mongo/repair</span><br><span class="line">pidfilepath = /usr/local/mongo/mongodb.pid</span><br><span class="line">directoryperdb = true</span><br><span class="line">logappend = true</span><br><span class="line">noauth = true</span><br><span class="line">port = 27017</span><br><span class="line">maxConns = 1024</span><br><span class="line">fork = true</span><br><span class="line">rest = true</span><br><span class="line">quota = true</span><br><span class="line">quotaFiles = 1024</span><br><span class="line">nssize = 16</span><br></pre></td></tr></table></figure></p>
-<p>启动mongodb<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/local/mongo/bin/mongod /usr/bin/mongod</span><br><span class="line">mongod -f /usr/local/mongo/etc/mongo.conf</span><br></pre></td></tr></table></figure></p>
-<p>看看是不是启动起来了，但是使用这种方式管理mongodb服务器很不明智，我们完善一下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /usr/local/mongo/srv</span><br><span class="line">vim /usr/local/mongo/srv/mongodb-start</span><br></pre></td></tr></table></figure></p>
-<p>添加下面的内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">mongod -f /usr/local/mongo/etc/mongo.conf</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/local/mongo/srv/mongodb-stop</span><br></pre></td></tr></table></figure>
-<p>添加下面的内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">pid=`ps -o pid,command ax | grep mongod | awk &apos;!/awk/ &amp;&amp; !/grep/ &#123;print $1&#125;&apos;`;</span><br><span class="line">if [ &quot;$&#123;pid&#125;&quot; != &quot;&quot; ]; then</span><br><span class="line">    kill -2 $&#123;pid&#125;;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure></p>
-<p>添加执行权限<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x /usr/local/mongo/srv/mongodb-start</span><br><span class="line">chmod a+x /usr/local/mongo/srv/mongodb-stop</span><br><span class="line">vim /etc/rc.d/init.d/mongodb</span><br></pre></td></tr></table></figure></p>
-<p>添加下面的内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#! /bin/sh</span><br><span class="line">#</span><br><span class="line"># mongodb – this script starts and stops the mongodb daemon</span><br><span class="line">#</span><br><span class="line"># chkconfig: - 85 15</span><br><span class="line"># description: MongoDB is a non-relational database storage system.</span><br><span class="line"># processname: mongodb</span><br><span class="line"># config: /usr/local/mongo/etc/mongo.conf</span><br><span class="line"># pidfile: /usr/local/mongo/mongodb.pid</span><br><span class="line">PATH=/usr/local/mongo/bin:/sbin:/bin:/usr/sbin:/usr/bin</span><br><span class="line">NAME=mongodb</span><br><span class="line">test -x $DAEMON || exit 0</span><br><span class="line">set -e</span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">  start)</span><br><span class="line">        echo -n &quot;Starting MongoDB... &quot;</span><br><span class="line">        /usr/local/mongo/srv/mongodb-start</span><br><span class="line">        ;;</span><br><span class="line">  stop)</span><br><span class="line">        echo -n &quot;Stopping MongoDB... &quot;</span><br><span class="line">        /usr/local/mongo/srv/mongodb-stop</span><br><span class="line">        ;;</span><br><span class="line">      *)</span><br><span class="line">            N=/etc/init.d/$NAME</span><br><span class="line">            echo &quot;Usage: $N &#123;start|stop&#125;&quot; &gt;&amp;2</span><br><span class="line">            exit 1</span><br><span class="line">            ;;</span><br><span class="line">    esac</span><br><span class="line">    exit 0</span><br></pre></td></tr></table></figure></p>
-<p>添加服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x /etc/rc.d/init.d/mongodb</span><br><span class="line">chkconfig --add mongodb</span><br><span class="line">chkconfig --level 345 mongodb on</span><br><span class="line">/etc/rc.d/init.d/mongodb start</span><br></pre></td></tr></table></figure></p>
-
+            <p>
+              mongodb官网上下载最新版本的mongodb，按照官网上的说明进行安装：
+首先运行如下命令：curl -O http://downloads.mongodb.org/linux/mongodb-linux-x86_64-2.6.3.tgz
+其次，运用tar 进行解压缩，按照如下命令tar -zx
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/linux_mongodb/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1977,8 +1911,19 @@
       
         
           
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">$arr = array(1,30,5,8,2,7,12);</span><br><span class="line">$cou = count($arr);</span><br><span class="line"></span><br><span class="line">// 常见算法,比较大小，两个数字，如果大或者小那么交换位置。</span><br><span class="line">for($i=0;$i&lt;$cou;$i++)&#123;</span><br><span class="line">  for($j=$i+1;$j&lt;$cou;$j++)&#123;</span><br><span class="line">    echo $i.&apos; &apos;,$j.&apos; &apos;,$arr[$i].&apos; &apos;,$arr[$j].&apos; &apos;,&apos;&lt;br/&gt;&apos;;</span><br><span class="line">    if($arr[$i] &gt; $arr[$j])&#123;</span><br><span class="line">      $tmp = $arr[$i];</span><br><span class="line">      $arr[$i] = $arr[$j];</span><br><span class="line">      $arr[$j] = $tmp;</span><br><span class="line">      $bool = true;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// 优化算法,增加一个flag，如果发生了交换就退出子循环。</span><br><span class="line">for($i=0;$i&lt;$cou;$i++)&#123;</span><br><span class="line">  $bool = false;</span><br><span class="line"></span><br><span class="line">  for($j=$i+1;$j&lt;$cou;$j++)&#123;</span><br><span class="line">    echo $i.&apos; &apos;,$j.&apos; &apos;,$arr[$i].&apos; &apos;,$arr[$j].&apos; &apos;,&apos;&lt;br/&gt;&apos;;</span><br><span class="line">    if($arr[$i] &gt; $arr[$j])&#123;</span><br><span class="line">      $tmp = $arr[$i];</span><br><span class="line">      $arr[$i] = $arr[$j];</span><br><span class="line">      $arr[$j] = $tmp;</span><br><span class="line">      $bool = true;</span><br><span class="line">    &#125;</span><br><span class="line">    if($bool == false)&#123;break;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <p>
+              $arr = array(1,30,5,8,2,7,12);$cou = count($arr);// 常见算法,比较大小，两个数字，如果大或者小那么交换位置。for($i=0;$i&lt;$cou;$i++)&#123;  for($j=$i+1;$j&lt;$cou;$j++)&#123;   
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/php_bubbling_op/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -2190,27 +2135,19 @@
       
         
           
-            <p>1、对象的继承，一般的做法是复制：<code>Object.extend</code><br>prototype.js的实现方式是：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.extend = <span class="function"><span class="keyword">function</span>(<span class="params">destination, source</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (property <span class="keyword">in</span> source) &#123;</span><br><span class="line">    destination[property] = source[property];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> destination;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>除此之外，还有种方法，就是：<code>Function.apply</code>（当然使用<code>Function.call</code>也是可以的）</p>
-<p><code>apply</code>方法能劫持另外一个对象的方法，继承另外一个对象的属性</p>
-<p><code>Function.apply(obj,args)</code>方法能接收两个参数</p>
-<p>obj：这个对象将代替Function类里this对象</p>
-<p>args：这个是数组，它将作为参数传给Function（args–&gt;arguments）</p>
-<p>apply示范代码如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name,age</span>)</span>&#123; <span class="comment">//定义一个类，人类</span></span><br><span class="line">  <span class="keyword">this</span>.name=name; <span class="comment">//名字</span></span><br><span class="line">  <span class="keyword">this</span>.age=age; <span class="comment">//年龄</span></span><br><span class="line">  <span class="keyword">this</span>.sayhello=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;alert(“hello”)&#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Print</span>(<span class="params"></span>)</span>&#123;<span class="comment">//显示类的属性</span></span><br><span class="line">  <span class="keyword">this</span>.funcName=”Print”;</span><br><span class="line">  <span class="keyword">this</span>.show=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> msg=[];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> <span class="keyword">this</span>)&#123;</span><br><span class="line">      <span class="keyword">if</span>(<span class="keyword">typeof</span>(<span class="keyword">this</span>[key])!=”<span class="function"><span class="keyword">function</span>”)</span>&#123;</span><br><span class="line">        msg.push([key,”:”,<span class="keyword">this</span>[key]].join(“”));</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    alert(msg.join(” “));</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params">name,age,grade,school</span>)</span>&#123; <span class="comment">//学生类</span></span><br><span class="line">  Person.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>);</span><br><span class="line">  Print.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>);</span><br><span class="line">  <span class="keyword">this</span>.grade=grade; <span class="comment">//年级</span></span><br><span class="line">  <span class="keyword">this</span>.school=school; <span class="comment">//学校</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> p1=<span class="keyword">new</span> Person(“jake”,<span class="number">10</span>);</span><br><span class="line">p1.sayhello();</span><br><span class="line"><span class="keyword">var</span> s1=<span class="keyword">new</span> Student(“tom”,<span class="number">13</span>,<span class="number">6</span>,”清华小学”);</span><br><span class="line">s1.show();</span><br><span class="line">s1.sayhello();</span><br><span class="line">alert(s1.funcName);</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>学生类本来不具备任何方法，但是在<code>Person.apply(this,arguments)</code>后，他就具备了Person类的sayhello方法和所有属性。</p>
-<p>在<code>Print.apply(this,arguments)</code>后就自动得到了<code>show()</code>方法</p>
-<p>2、利用Apply的参数数组化来提高</p>
-<p><code>Function.apply()</code>在提升程序性能方面的技巧</p>
-<p>我们先从<code>Math.max()</code>函数说起，<code>Math.max</code>后面可以接任意个参数，最后返回所有参数中的最大值。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alert(<span class="built_in">Math</span>.max(<span class="number">5</span>,<span class="number">8</span>)) <span class="comment">//8</span></span><br><span class="line">alert(<span class="built_in">Math</span>.max(<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">6</span>)) <span class="comment">//9</span></span><br></pre></td></tr></table></figure></p>
-<p>但是在很多情况下，我们需要找出数组中最大的元素。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr=[<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>,<span class="number">1</span>]</span><br><span class="line">alert(<span class="built_in">Math</span>.max(arr)); <span class="comment">// 这样却是不行的。一定要这样写function getMax(arr)&#123;</span></span><br><span class="line"><span class="keyword">var</span> arrLen=arr.length;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>,ret=arr[<span class="number">0</span>];i&lt;arrLen;i++)&#123;</span><br><span class="line">  ret=<span class="built_in">Math</span>.max(ret,arr[i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这样写麻烦而且低效。如果用<code>apply</code>呢，看代码：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getMax2</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Math</span>.max.apply(<span class="literal">null</span>,arr);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>两段代码达到了同样的目的，但是getMax2却优雅，高效，简洁得多。</p>
-<p>再比如数组的push方法。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr1=[<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>];</span><br><span class="line"><span class="keyword">var</span> arr2=[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br></pre></td></tr></table></figure></p>
-<p>如果我们要把 <code>arr2</code>展开，然后一个一个追加到arr1中去，最后让<code>arr1=[1,3,4,3,4,5]</code><br><code>arr1.push(arr2)</code>显然是不行的。 因为这样做会得到<code>[1,3,4,[3,4,5]]</code></p>
-<p>我们只能用一个循环去一个一个的<code>push</code>(当然也可以用<code>arr1.concat(arr2)</code>，但是<code>concat</code>方法并不改变arr1本身)<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arrLen = arr2.length</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;arrLen;i++)&#123;</span><br><span class="line">  arr1.push(arr2[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>自从有了Apply,事情就变得如此简单<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.push.apply(arr1,arr2)</span><br></pre></td></tr></table></figure></p>
-
+            <p>
+              1、对象的继承，一般的做法是复制：Object.extendprototype.js的实现方式是：Object.extend = function(destination, source) &#123;  for (property in source) &#123;    destination[
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/js_apply/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -2422,361 +2359,37 @@
       
         
           
-            <p>笔记分为两个部分，今天是CSS的选择器，以后还有一部分xPath的选择器。今天的笔记中包括44个选择器，基本涵盖了CSS 2和CSS 3的所有规定。</p>
-<p>=====================</p>
-<p>CSS选择器笔记</p>
-<h2 id="基本选择器"><a href="#基本选择器" class="headerlink" title="基本选择器"></a>基本选择器</h2><table>
-<thead>
-<tr>
-<th>序号</th>
-<th>选择器</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1.</td>
-<td><code>*</code></td>
-<td>通用元素选择器，匹配任何元素</td>
-</tr>
-<tr>
-<td>2.</td>
-<td><code>E</code></td>
-<td>标签选择器，匹配所有使用E标签的元素</td>
-</tr>
-<tr>
-<td>3.</td>
-<td><code>.info</code></td>
-<td>class选择器，匹配所有class属性中包含info的元素</td>
-</tr>
-<tr>
-<td>4.</td>
-<td><code>#footer</code></td>
-<td>id选择器，匹配所有id属性等于footer的元素</td>
-</tr>
-</tbody>
-</table>
-<p>实例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">* &#123; margin:0; padding:0; &#125;</span><br><span class="line"></span><br><span class="line">p &#123; font-size:2em; &#125;</span><br><span class="line"></span><br><span class="line">.info &#123; background:#ff0; &#125;</span><br><span class="line"></span><br><span class="line">p.info &#123; background:#ff0; &#125;</span><br><span class="line"></span><br><span class="line">p.info.error &#123; color:#900; font-weight:bold; &#125;</span><br><span class="line"></span><br><span class="line">#info &#123; background:#ff0; &#125;</span><br><span class="line"></span><br><span class="line">p#info &#123; background:#ff0; &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="多元素的组合选择器"><a href="#多元素的组合选择器" class="headerlink" title="多元素的组合选择器"></a>多元素的组合选择器</h2><table>
-<thead>
-<tr>
-<th>序号</th>
-<th>选择器</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>5.</td>
-<td><code>E,F</code>    多元素选择器，同时匹配所有E元素或F元素，E和F之间用逗号分隔</td>
-</tr>
-<tr>
-<td>6.</td>
-<td><code>E F</code>    后代元素选择器，匹配所有属于E元素后代的F元素，E和F之间用空格分隔</td>
-</tr>
-<tr>
-<td>7.</td>
-<td><code>E &gt; F</code>    子元素选择器，匹配所有E元素的子元素F</td>
-</tr>
-<tr>
-<td>8.</td>
-<td><code>E + F</code>    毗邻元素选择器，匹配所有紧随E元素之后的同级元素F</td>
-</tr>
-</tbody>
-</table>
-<p>实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">div p &#123; color:#f00; &#125;</span><br><span class="line"></span><br><span class="line">#nav li &#123; display:inline; &#125;</span><br><span class="line"></span><br><span class="line">#nav a &#123; font-weight:bold; &#125;</span><br><span class="line"></span><br><span class="line">div &gt; strong &#123; color:#f00; &#125;</span><br><span class="line"></span><br><span class="line">p + p &#123; color:#f00; &#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="CSS-2-1-属性选择器"><a href="#CSS-2-1-属性选择器" class="headerlink" title="CSS 2.1 属性选择器"></a>CSS 2.1 属性选择器</h2><table>
-<thead>
-<tr>
-<th>序号</th>
-<th>选择器</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>9.</td>
-<td><code>E[att]</code></td>
-<td>匹配所有具有att属性的E元素，不考虑它的值。（注意：E在此处可以省略，比如“[cheacked]”。以下同。）</td>
-</tr>
-<tr>
-<td>10.</td>
-<td><code>E[att=val]</code></td>
-<td>匹配所有att属性等于“val”的E元素</td>
-</tr>
-<tr>
-<td>11.</td>
-<td><code>E[att~=val]</code></td>
-<td>匹配所有att属性具有多个空格分隔的值、其中一个值等于“val”的E元素</td>
-</tr>
-<tr>
-<td>12.</td>
-<td><code>E[att&amp;#124;=val]</code></td>
-<td>匹配所有att属性具有多个连字号分隔（hyphen-separated）的值、其中一个值以“val”开头的E元素，主要用于lang属性，比如“en”、“en-us”、“en-gb”等等</td>
-</tr>
-</tbody>
-</table>
-<p>实例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">p</span><br><span class="line"></span><br><span class="line">&#123; color:#f00; &#125;</span><br><span class="line"></span><br><span class="line">div[class=error] &#123; color:#f00; &#125;</span><br><span class="line"></span><br><span class="line">td[headers~=col1] &#123; color:#f00; &#125;</span><br><span class="line"></span><br><span class="line">p[lang|=en] &#123; color:#f00; &#125;</span><br><span class="line"></span><br><span class="line">blockquote[class=quote][cite] &#123; color:#f00; &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="CSS-2-1中的伪类"><a href="#CSS-2-1中的伪类" class="headerlink" title="CSS 2.1中的伪类"></a>CSS 2.1中的伪类</h2><table>
-<thead>
-<tr>
-<th>序号</th>
-<th>选择器</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>13.</td>
-<td><code>E:first-child</code></td>
-<td>匹配父元素的第一个子元素</td>
-</tr>
-<tr>
-<td>14.</td>
-<td><code>E:link</code></td>
-<td>匹配所有未被点击的链接</td>
-</tr>
-<tr>
-<td>15.</td>
-<td><code>E:visited</code></td>
-<td>匹配所有已被点击的链接</td>
-</tr>
-<tr>
-<td>16.</td>
-<td><code>E:active</code></td>
-<td>匹配鼠标已经其上按下、还没有释放的E元素</td>
-</tr>
-<tr>
-<td>17.</td>
-<td><code>E:hover</code></td>
-<td>匹配鼠标悬停其上的E元素</td>
-</tr>
-<tr>
-<td>18.</td>
-<td><code>E:focus</code></td>
-<td>匹配获得当前焦点的E元素</td>
-</tr>
-<tr>
-<td>19.</td>
-<td><code>E:lang(c)</code></td>
-<td>匹配lang属性等于c的E元素</td>
-</tr>
-</tbody>
-</table>
-<p>实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">p:first-child &#123; font-style:italic; &#125;</span><br><span class="line"></span><br><span class="line">input[type=text]:focus &#123; color:#000; background:#ffe; &#125;</span><br><span class="line"></span><br><span class="line">input[type=text]:focus:hover &#123; background:#fff; &#125;</span><br><span class="line"></span><br><span class="line">q:lang(sv) &#123; quotes: “\201D” “\201D” “\2019” “\2019”; &#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="CSS-2-1中的伪元素"><a href="#CSS-2-1中的伪元素" class="headerlink" title="CSS 2.1中的伪元素"></a>CSS 2.1中的伪元素</h2><table>
-<thead>
-<tr>
-<th>序号</th>
-<th>选择器</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>20.</td>
-<td><code>E:first-line</code></td>
-<td>匹配E元素的第一行</td>
-</tr>
-<tr>
-<td>21.</td>
-<td><code>E:first-letter</code></td>
-<td>匹配E元素的第一个字母</td>
-</tr>
-<tr>
-<td>22.</td>
-<td><code>E:before</code></td>
-<td>在E元素之前插入生成的内容</td>
-</tr>
-<tr>
-<td>23.</td>
-<td><code>E:after</code></td>
-<td>在E元素之后插入生成的内容</td>
-</tr>
-</tbody>
-</table>
-<p>实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">p:first-line &#123; font-weight:bold; color;#600; &#125;</span><br><span class="line"></span><br><span class="line">.preamble:first-letter &#123; font-size:1.5em; font-weight:bold; &#125;</span><br><span class="line"></span><br><span class="line">.cbb:before &#123; content:””; display:block; height:17px; width:18px; background:url(top.png) no-repeat 0 0; margin:0 0 0 -18px; &#125;</span><br><span class="line"></span><br><span class="line">a:link:after &#123; content: ” (” attr(href) “) “; &#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="CSS-3的同级元素通用选择器"><a href="#CSS-3的同级元素通用选择器" class="headerlink" title="CSS 3的同级元素通用选择器"></a>CSS 3的同级元素通用选择器</h2><table>
-<thead>
-<tr>
-<th>序号</th>
-<th>选择器</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>24.</td>
-<td><code>E ~ F</code></td>
-<td>匹配任何在E元素之后的同级F元素</td>
-</tr>
-</tbody>
-</table>
-<p>实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p ~ ul &#123; background:#ff0; &#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="CSS-3-属性选择器"><a href="#CSS-3-属性选择器" class="headerlink" title="CSS 3 属性选择器"></a>CSS 3 属性选择器</h2><table>
-<thead>
-<tr>
-<th>序号</th>
-<th>选择器</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>25.</td>
-<td><code>E[att^=”val”]</code></td>
-<td>属性att的值以”val”开头的元素</td>
-</tr>
-<tr>
-<td>26.</td>
-<td><code>E[att$=”val”]</code></td>
-<td>属性att的值以”val”结尾的元素</td>
-</tr>
-<tr>
-<td>27.</td>
-<td><code>E[att*=”val”]</code></td>
-<td>属性att的值包含”val”字符串的元素</td>
-</tr>
-</tbody>
-</table>
-<p>实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">div[id^=”nav”] &#123; background:#ff0; &#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="CSS-3中与用户界面有关的伪类"><a href="#CSS-3中与用户界面有关的伪类" class="headerlink" title="CSS 3中与用户界面有关的伪类"></a>CSS 3中与用户界面有关的伪类</h2><table>
-<thead>
-<tr>
-<th>序号</th>
-<th>选择器</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>28.</td>
-<td><code>E:enabled</code></td>
-<td>匹配表单中激活的元素</td>
-</tr>
-<tr>
-<td>29.</td>
-<td><code>E:disabled</code></td>
-<td>匹配表单中禁用的元素</td>
-</tr>
-<tr>
-<td>30.</td>
-<td><code>E:checked</code></td>
-<td>匹配表单中被选中的radio（单选框）或checkbox（复选框）元素</td>
-</tr>
-<tr>
-<td>31.</td>
-<td><code>E::selection</code></td>
-<td>匹配用户当前选中的元素</td>
-</tr>
-</tbody>
-</table>
-<p>实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">input[type=”text”]:disabled &#123; background:#ddd; &#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="CSS-3中的结构性伪类"><a href="#CSS-3中的结构性伪类" class="headerlink" title="CSS 3中的结构性伪类"></a>CSS 3中的结构性伪类</h2><table>
-<thead>
-<tr>
-<th>序号</th>
-<th>选择器</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>32.</td>
-<td><code>E:root</code></td>
-<td>匹配文档的根元素，对于HTML文档，就是HTML元素</td>
-</tr>
-<tr>
-<td>33.</td>
-<td><code>E:nth-child(n)</code></td>
-<td>匹配其父元素的第n个子元素，第一个编号为1</td>
-</tr>
-<tr>
-<td>34.</td>
-<td><code>E:nth-last-child(n)</code></td>
-<td>匹配其父元素的倒数第n个子元素，第一个编号为1</td>
-</tr>
-<tr>
-<td>35.</td>
-<td><code>E:nth-of-type(n)</code></td>
-<td>与:nth-child()作用类似，但是仅匹配使用同种标签的元素</td>
-</tr>
-<tr>
-<td>36.</td>
-<td><code>E:nth-last-of-type(n)</code></td>
-<td>与:nth-last-child() 作用类似，但是仅匹配使用同种标签的元素</td>
-</tr>
-<tr>
-<td>37.</td>
-<td><code>E:last-child</code></td>
-<td>匹配父元素的最后一个子元素，等同于:nth-last-child(1)</td>
-</tr>
-<tr>
-<td>38.</td>
-<td><code>E:first-of-type</code></td>
-<td>匹配父元素下使用同种标签的第一个子元素，等同于:nth-of-type(1)</td>
-</tr>
-<tr>
-<td>39.</td>
-<td><code>E:last-of-type</code></td>
-<td>匹配父元素下使用同种标签的最后一个子元素，等同于:nth-last-of-type(1)</td>
-</tr>
-<tr>
-<td>40.</td>
-<td><code>E:only-child</code></td>
-<td>匹配父元素下仅有的一个子元素，等同于:first-child:last-child或 :nth-child(1):nth-last-child(1)</td>
-</tr>
-<tr>
-<td>41.</td>
-<td><code>E:only-of-type</code></td>
-<td>匹配父元素下使用同种标签的唯一一个子元素，等同于:first-of-type:last-of-type或 :nth-of-type(1):nth-last-of-type(1)</td>
-</tr>
-<tr>
-<td>42.</td>
-<td><code>E:empty</code></td>
-<td>匹配一个不包含任何子元素的元素，注意，文本节点也被看作子元素</td>
-</tr>
-</tbody>
-</table>
-<p>实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">p:nth-child(3) &#123; color:#f00; &#125;</span><br><span class="line"></span><br><span class="line">p:nth-child(odd) &#123; color:#f00; &#125;</span><br><span class="line"></span><br><span class="line">p:nth-child(even) &#123; color:#f00; &#125;</span><br><span class="line"></span><br><span class="line">p:nth-child(3n+0) &#123; color:#f00; &#125;</span><br><span class="line"></span><br><span class="line">p:nth-child(3n) &#123; color:#f00; &#125;</span><br><span class="line"></span><br><span class="line">tr:nth-child(2n+11) &#123; background:#ff0; &#125;</span><br><span class="line"></span><br><span class="line">tr:nth-last-child(2) &#123; background:#ff0; &#125;</span><br><span class="line"></span><br><span class="line">p:last-child &#123; background:#ff0; &#125;</span><br><span class="line"></span><br><span class="line">p:only-child &#123; background:#ff0; &#125;</span><br><span class="line"></span><br><span class="line">p:empty &#123; background:#ff0; &#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="CSS-3的反选伪类"><a href="#CSS-3的反选伪类" class="headerlink" title="CSS 3的反选伪类"></a>CSS 3的反选伪类</h2><table>
-<thead>
-<tr>
-<th>序号</th>
-<th>选择器</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>43.</td>
-<td><code>E:not(s)</code></td>
-<td>匹配不符合当前选择器的任何元素</td>
-</tr>
-</tbody>
-</table>
-<p>实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:not(p) &#123; border:1px solid #ccc; &#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="CSS-3中的-target-伪类"><a href="#CSS-3中的-target-伪类" class="headerlink" title="CSS 3中的 :target 伪类"></a>CSS 3中的 :target 伪类</h2><table>
-<thead>
-<tr>
-<th>序号</th>
-<th>选择器</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>44.</td>
-<td><code>E:target</code></td>
-<td>匹配文档中特定”id”点击后的效果</td>
-</tr>
-</tbody>
-</table>
-<p>请参看HTML DOG上关于该选择器的<span class="exturl" data-url="aHR0cDovL2h0bWxkb2cuY29tL2FydGljbGVzL3N1Y2tlcmZpc2gvdGFyZ2V0Lw==" title="http://htmldog.com/articles/suckerfish/target/">详细解释<i class="fa fa-external-link"></i></span>和<span class="exturl" data-url="aHR0cDovL2h0bWxkb2cuY29tL2FydGljbGVzL3N1Y2tlcmZpc2gvdGFyZ2V0L2V4YW1wbGUv" title="http://htmldog.com/articles/suckerfish/target/example/">实例<i class="fa fa-external-link"></i></span>。</p>
+            <p>
+              笔记分为两个部分，今天是CSS的选择器，以后还有一部分xPath的选择器。今天的笔记中包括44个选择器，基本涵盖了CSS 2和CSS 3的所有规定。
+=====================
+CSS选择器笔记
+基本选择器
 
+
+序号
+选择器
+含义
+
+
+
+
+1.
+*
+通用元素选择器，匹配任何元素
+
+
+
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/js_css/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -2988,33 +2601,19 @@
       
         
           
-            <p>在javasript中<code>delegate</code>这个词经常出现，看字面的意思，代理、委托。那么它究竟在什么样的情况下使用？它的原理又是什么？在各种框架中，也经常能看到<code>delegate</code>相关的接口。这些接口又有什么特殊的用法呢？这篇文章就主要介绍一下<code>javascript delegate</code>的用法和原理，以及<code>Dojo</code>，<code>jQuery</code>等框架中<code>delegate</code>的接口。</p>
-<h3 id="JavaScript事件代理"><a href="#JavaScript事件代理" class="headerlink" title="JavaScript事件代理"></a>JavaScript事件代理</h3><p>首先介绍一下JavaScript的事件代理。事件代理在JS世界中一个非常有用也很有趣的功能。当我们需要对很多元素添加事件的时候，可以通过将事件添加到它们的父节点而将事件委托给父节点来触发处理函数。这主要得益于浏览器的事件冒泡机制，后面会详细介绍。下面我们具体举个例子来解释如何使用这个特性。这个例子主要取自<span class="exturl" data-url="aHR0cDovL2Rhdmlkd2Fsc2gubmFtZS8=" title="http://davidwalsh.name/">David Walsh<i class="fa fa-external-link"></i></span>的相关<span class="exturl" data-url="aHR0cDovL2Rhdmlkd2Fsc2gubmFtZS9ldmVudC1kZWxlZ2F0ZQ==" title="http://davidwalsh.name/event-delegate">文章（How JavaScript Event Delegation Works）<i class="fa fa-external-link"></i></span>。</p>
-<p>假设有一个 UL 的父节点，包含了很多个 Li 的子节点：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul id=&quot;parent-list&quot;&gt;</span><br><span class="line">  &lt;li id=&quot;post-1&quot;&gt;Item 1&lt;/li&gt;</span><br><span class="line">  &lt;li id=&quot;post-2&quot;&gt;Item 2&lt;/li&gt;</span><br><span class="line">  &lt;li id=&quot;post-3&quot;&gt;Item 3&lt;/li&gt;</span><br><span class="line">  &lt;li id=&quot;post-4&quot;&gt;Item 4&lt;/li&gt;</span><br><span class="line">  &lt;li id=&quot;post-5&quot;&gt;Item 5&lt;/li&gt;</span><br><span class="line">  &lt;li id=&quot;post-6&quot;&gt;Item 6&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure></p>
-<p>当我们的鼠标移到Li上的时候，需要获取此Li的相关信息并飘出悬浮窗以显示详细信息，或者当某个Li被点击的时候需要触发相应的处理事件。我们通常的写法，是为每个Li都添加一些类似onMouseOver或者onClick之类的事件监听。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function addListeners4Li(liNode)&#123;</span><br><span class="line">    liNode.onclick = function clickHandler()&#123;...&#125;;</span><br><span class="line">    liNode.onmouseover = function mouseOverHandler()&#123;...&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">window.onload = function()&#123;</span><br><span class="line">    var ulNode = document.getElementById(&quot;parent-list&quot;);</span><br><span class="line">    var liNodes = ulNode.getElementByTagName(&quot;Li&quot;);</span><br><span class="line">    for(var i=0, l = liNodes.length; i &lt; l; i++)&#123;</span><br><span class="line">        addListeners4Li(liNodes[i]);</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果这个UL中的Li子元素会频繁地添加或者删除，我们就需要在每次添加Li的时候都调用这个addListeners4Li方法来为每个Li节点添加事件处理函数。这就添加的复杂度和出错的可能性。 更简单的方法是使用事件代理机制，当事件被抛到更上层的父节点的时候，我们通过检查事件的目标对象（target）来判断并获取事件源Li。下面的代码可以完成我们想要的效果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 获取父节点，并为它添加一个click事件</span><br><span class="line">document.getElementById(&quot;parent-list&quot;).addEventListener(&quot;click&quot;,function(e) &#123;</span><br><span class="line">  // 检查事件源e.targe是否为Li</span><br><span class="line">  if(e.target &amp;&amp; e.target.nodeName.toUpperCase == &quot;LI&quot;) &#123;</span><br><span class="line">    // 真正的处理过程在这里</span><br><span class="line">    console.log(&quot;List item &quot;,e.target.id.replace(&quot;post-&quot;),&quot; was clicked!&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>为父节点添加一个click事件，当子节点被点击的时候，click事件会从子节点开始向上冒泡。父节点捕获到事件之后，通过判断e.target.nodeName来判断是否为我们需要处理的节点。并且通过e.target拿到了被点击的Li节点。从而可以获取到相应的信息，并作处理。</p>
-<h3 id="事件冒泡及捕获"><a href="#事件冒泡及捕获" class="headerlink" title="事件冒泡及捕获"></a>事件冒泡及捕获</h3><p>之前的介绍中已经说到了浏览器的事件冒泡机制。这里再详细介绍一下浏览器处理DOM事件的过程。对于事件的捕获和处理，不同的浏览器厂商有不同的处理机制，这里我们主要介绍W3C对DOM2.0定义的标准事件。<br>DOM2.0模型将事件处理流程分为三个阶段：<br>一、事件捕获阶段，<br>二、事件目标阶段，<br>三、事件起泡阶段。</p>
-<p>如图：</p>
-<p><img src="https://raw.githubusercontent.com/ucfyao/image/img/img/20190422143028.png" alt></p>
-<p>事件捕获：当某个元素触发某个事件（如onclick），顶层对象document就会发出一个事件流，随着DOM树的节点向目标元素节点流去，直到到达事件真正发生的目标元素。在这个过程中，事件相应的监听函数是不会被触发的。 </p>
-<p>事件目标：当到达目标元素之后，执行目标元素该事件相应的处理函数。如果没有绑定监听函数，那就不执行。 </p>
-<p>事件起泡：从目标元素开始，往顶层元素传播。途中如果有节点绑定了相应的事件处理函数，这些函数都会被一次触发。如果想阻止事件起泡，可以使用e.stopPropagation()（Firefox）或者e.cancelBubble=true（IE）来组织事件的冒泡传播。</p>
-<h3 id="jQuery和Dojo中delegate函数"><a href="#jQuery和Dojo中delegate函数" class="headerlink" title="jQuery和Dojo中delegate函数"></a>jQuery和Dojo中delegate函数</h3><p>下面看一下Dojo和jQuery中提供的事件代理接口的使用方法。 首先是jQuery：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">$(&quot;#link-list&quot;).delegate(&quot;a&quot;, &quot;click&quot;, function()&#123;</span><br><span class="line">  // &quot;$(this)&quot; is the node that was clicked</span><br><span class="line">  console.log(&quot;you clicked a link!&quot;,$(this));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>jQuery的delegate的方法需要三个参数，一个选择器，一个时间名称，和事件处理函数。 而Dojo的与jQuery相似，仅是两者的编程风格上的差别：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">require([&quot;dojo/query&quot;,&quot;dojox/NodeList/delegate&quot;], function(query,delegate)&#123;</span><br><span class="line"></span><br><span class="line">    query(&quot;#link-list&quot;).delegate(&quot;a&quot;,&quot;onclick&quot;,function(event) &#123;</span><br><span class="line">    // &quot;this.node&quot; is the node that was clicked</span><br><span class="line">    console.log(&quot;you clicked a link!&quot;,this);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>Dojo的delegate模块在dojox.NodeList中，提供的接口与jQuery一样，参数也相同。</p>
-<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>通过上面的介绍，大家应该能够体会到使用事件委托对于web应用程序带来的几个优点：<br>1.管理的函数变少了。不需要为每个元素都添加监听函数。对于同一个父节点下面类似的子元素，可以通过委托给父元素的监听函数来处理事件。 </p>
-<p>2.可以方便地动态添加和修改元素，不需要因为元素的改动而修改事件绑定。 </p>
-<p>3.JavaScript和DOM节点之间的关联变少了，这样也就减少了因循环引用而带来的内存泄漏发生的概率。 写到这里，突然想起了之前对于Dojo DataGrid的困惑：那么多的rows和cells，如何处理他们事件之间的关系。现在想想，使用委托就很简单了。所有的事件委托到grid最外层的节点上，当事件发生的时候通过一些方法来获取和添加事件的额外属性，如rowIndex, cellIndex，之后在分配到onRowClick,onCellClick之类的处理函数上。</p>
-<h3 id="在JavaScript编程中使用代理"><a href="#在JavaScript编程中使用代理" class="headerlink" title="在JavaScript编程中使用代理"></a>在JavaScript编程中使用代理</h3><p>上面介绍的是对DOM事件处理时，利用浏览器冒泡机制为DOM元素添加事件代理。其实在纯JS编程中，我们也可以使用这样的编程模式，来创建代理对象来操作目标对象。这里引用<span class="exturl" data-url="aHR0cDovL2hvbWUuY25ibG9ncy5jb20vdS9ydWJ5bG91dnJlLw==" title="http://home.cnblogs.com/u/rubylouvre/">司徒正美<i class="fa fa-external-link"></i></span>相关<span class="exturl" data-url="aHR0cDovL3d3dy5jbmJsb2dzLmNvbS9ydWJ5bG91dnJlL2FyY2hpdmUvMjAwOS8wOC8wOS8xNTQyMTc0Lmh0bWw=" title="http://www.cnblogs.com/rubylouvre/archive/2009/08/09/1542174.html">文章<i class="fa fa-external-link"></i></span>中的一个例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">var delegate = function(client, clientMethod) &#123;</span><br><span class="line">    return function() &#123;</span><br><span class="line">        return clientMethod.apply(client, arguments);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var ClassA = function() &#123;</span><br><span class="line">    var _color = &quot;red&quot;;</span><br><span class="line">    return &#123;</span><br><span class="line">        getColor: function() &#123;</span><br><span class="line">            console.log(&quot;Color: &quot; + _color);</span><br><span class="line">        &#125;,</span><br><span class="line">        setColor: function(color) &#123;</span><br><span class="line">            _color = color;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">var a = new ClassA();</span><br><span class="line">a.getColor();</span><br><span class="line">a.setColor(&quot;green&quot;);</span><br><span class="line">a.getColor();</span><br><span class="line">console.log(&quot;执行代理！&quot;);</span><br><span class="line">var d = delegate(a, a.setColor);</span><br><span class="line">d(&quot;blue&quot;);</span><br><span class="line">console.log(&quot;执行完毕！&quot;);</span><br><span class="line">a.getColor();</span><br></pre></td></tr></table></figure>
-<p>上面的例子中，通过调用delegate()函数创建的代理函数d来操作对a的修改。这种方式尽管是使用了apply（call也可以）来实现了调用对象的转移，但是从编程模式上实现了对某些对象的隐藏，可以保护这些对象不被随便访问和修改。 在很多框架中都引用了委托这个概念用来指定方法的运行作用域。比较典型的如dojo.hitch(scope,method)和ExtJS的createDelegate(obj,args)。有兴趣的同学可以看一下他们的源代码，主要也是js函数的apply方法来制定执行作用域。</p>
-
+            <p>
+              在javasript中delegate这个词经常出现，看字面的意思，代理、委托。那么它究竟在什么样的情况下使用？它的原理又是什么？在各种框架中，也经常能看到delegate相关的接口。这些接口又有什么特殊的用法呢？这篇文章就主要介绍一下javascript delegate的用法和原理，以及Dojo
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/js_event_agent_delegate/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>

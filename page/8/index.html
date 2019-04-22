@@ -560,68 +560,24 @@
       
         
           
-            <blockquote>
-<p>对于一个交易策略，初学者往往认为收益越高越好。收益确实是一个重要的评价指标，但是除了收益之外，还有很多其他重要的角度来衡量一个策略的好坏。例如这个策略的风险性、胜率、交易频率等。</p>
-</blockquote>
-<p><strong>本篇文章以几个常见的交易策略评价指标为案例，向大家介绍pandas的以下几个功能的运用：</strong></p>
-<ul>
-<li>dataframe的合并操作：append()、concat()函数的用法</li>
-<li>按某一列的值排序操作：sort_values()函数的用法</li>
-<li>常见统计指标的方法：mean(), std()等</li>
-<li>pandas画图操作：plot方法</li>
-</ul>
-<p><strong>我将介绍如下几个经典指标</strong></p>
-<ul>
-<li><strong>年化收益</strong> 任何收益都应该转换成年化收益，以进行比较。股神巴菲特投资几十年以来的年化收益是20%左右。美国股市百年来年化收益大概是10%左右。所以我们也不要太贪心，不要动辄就要求每年翻倍的收益。计算公式为：（账户最终价值/账户初始价值）^（250/回测期间总天数）-1</li>
-<li><strong>最大回撤</strong> 最大回撤就是从一个高点到一个低点最大的下跌幅度，用来描述我们的策略可能出现的最糟糕的情况，衡量了最极端可能的亏损。例如一个策略的最大回撤是50%，那么你使用这个策略之前就要掂量掂量，自己是否能经受得起50%的下跌。计算公式为：min(账户当日价值 / 当日之前账户最高价值-1)。我一般认为，年华收益/最大回撤，是个最简单有效的策略判断指标。</li>
-<li><strong>平均涨幅</strong> 平均涨幅衡量了在回测期间资产的平均涨跌情况。计算公式为：账户日收益的平均值。</li>
-<li><strong>上涨概率</strong> 上涨概率衡量了我们投资组合上涨的可能性。计算公式为：上涨天数 / 回测交易日数量。</li>
-<li><strong>最大连续上涨天数</strong> 衡量了我们策略连续盈利的最大天数。</li>
-<li><strong>最大连续下跌天数</strong> 衡量了我们策略连续亏损的最大天数。或者说策略连续失效的次数。这个指标很重要，在实战中，若连续失败的次数多了，会动摇自己的信心，使自己很难跟着策略走下去。</li>
-<li><strong>最大单周期涨幅</strong> 所有日期中最大的涨幅，衡量了资产一天内的最好表现。</li>
-<li><strong>最大单周期跌幅</strong> 所有日期中最大的跌幅，衡量了资产一天内的最差表现。</li>
-<li><strong>收益波动率</strong> 单单追求高收益率是不行的，我们在投资中还必须考虑到潜在的风险。波动太大的策略往往风险也较高。收益波动率就衡量了策略收益的波动情况即风险。计算公式为：账户日收益的年化标准差。</li>
-<li><strong>贝塔(beta)值</strong> 根据经典的资本资产定价理论(CAPM模型)，β系数衡量了资产的回报率对市场变动的敏感程度，代表了该资产的系统性风险，表示策略对大盘的敏感性。计算公式为：账户日收益与参考基准日收益的协方差 / 参考基准日收益的方差。</li>
-<li><strong>阿尔法(alpha)值</strong> 虽然我们的策略会受到大盘的影响，但是每个策略都会有自己市场因素之外的收益，alpha值表示实际风险回报和平均预期风险回报的差额，衡量了投资的非系统性风险。计算公式为：（账户年化收益-无风险收益）-beta*（参考基准年化收益-无风险收益）。</li>
-<li><strong>夏普比率</strong> 理性的投资者将选择并持有有效的投资组合，即那些在给定的风险水平下使期望回报最大的投资组合，夏普比率就是一个可以同时对收益与风险加以综合考虑的经典指标，表示每承受一单位风险，会产生多少的超额回报。计算公式为：（账户年化收益率-无风险利率）/ 收益波动率。</li>
-<li><strong>信息比率</strong> 信息比率以马克维茨的均异模型为基础，用来衡量超额风险所带来的超额收益。它表示单位主动风险所带来的超额收益。计算公式为：（账户日收益 - 参考基准日收益）的年化均值/年化标准差。</li>
-</ul>
-<p>任何策略的结果都是一个收益序列，根据这个收益序列可以得到一条资金曲线。为了简单起见，我们就任选一只股票每天的收益率作为原始数据，来计算上文提到的各种策略评价指标。在<span class="exturl" data-url="aHR0cDovL2Jicy5waW5nZ3Uub3JnL2xpbmt0by5waHA/dXJsPWh0dHAlM0ElMkYlMkZ5dWNlemhlLmNvbSUyRnByb2R1Y3QlM0ZuYW1lJTNEdHJhZGluZy1kYXRh" title="http://bbs.pinggu.org/linkto.php?url=http%3A%2F%2Fyucezhe.com%2Fproduct%3Fname%3Dtrading-data">http://yucezhe.com/product?name=trading-data<i class="fa fa-external-link"></i></span>可以下载到所有股票的历史日线数据，可以作为我们计算的原始数据。<br>数据下载下来解压缩打开后，里面有所有股票和几个常见指数的数据。<br>打开其中一个股票文件之后是下图这个样子，每一行是每一天的数据：<br><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/31.png" alt> 数据有以下的字段： </p>
-<pre><code>【code】 股票的代码，上证股票以sh开头，深证股票以sz开头
-【date】 交易日期
-【open】 开盘价
-【high】 最高价
-【low】 最低价
-【close】 收盘价
-【change】 涨跌幅，复权之后的真实涨跌幅，保证准确
-【volume】 成交量
-【money】 成交额
-【traded_market_value】 流通市值
-【market_value】 总市值
-【turnover】 换手率，成交量/流通股本
-【adjust_price】 后复权价，复权开始时间为股票上市日，精确到小数点后10位
-【report_type】 最近一期财务报告的类型，3-31对应一季报，6-30对应半年报，9-30对应三季报，12-31对应年报
-【report_date】 最近一期财务报告实际发布的日期
-【PE_TTM】 最近12个月市盈率，股价 / 最近12个月归属母公司的每股收益TTM
-【PS_TTM】 最近12个月市销率， 股价 / 最近12个月每股营业收入
-【PC_TTM】 最近12个月市现率， 股价 / 最近12个月每股经营现金流
-【PB】 市净率，股价 / 最近期财报每股净资产
-</code></pre><p>对于我们来说，只要取【date】以及【change】就行了。下面是代码的截图，这段代码截取指定的股票在指定时间段内的收益率，计算相关指标。 </p>
-<p>获取数据函数：<br><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/32.png" alt><br>计算年化收益率函数：<br><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/33.png" alt> </p>
-<p>计算最大回撤函数：<br><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/34.png" alt> </p>
-<p>计算平均涨幅：<br><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/35.png" alt> </p>
-<p>计算上涨概率：<br><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/36.png" alt> </p>
-<p>计算最大连续上涨天数和最大连续下跌天数： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/37.png" alt> </p>
-<p>计算最大单周期涨幅和最大单周期跌幅： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/38.png" alt> </p>
-<p>计算收益波动率的函数、计算贝塔的函数： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/39.png" alt> </p>
-<p>计算alpha的函数： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/40.png" alt> </p>
-<p>计算夏普比函数： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/41.png" alt> </p>
-<p>计算信息比率函数、计算股票和基准在回测期间的累计收益率并画图： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/42.png" alt> 导入数据运行以上函数： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/43.png" alt> </p>
-<p>把数据和代码下载下来后，修改代码中原始数据的地址（也就是选择一个股票），并选定时间段，运行代码，就可以看到输出结果了。假设我们选择万科A，并设定时间段为1991年1月1日到2015年12月31日这25年，得到如下的输出结果:  </p>
-<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/44.png" alt><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/45.png" alt> </p>
-<p>万科A二十几年年年化回报是15%，已经相当不错了，最大回撤为78.9756%，也就是将近跌了80%，发生在08年的股灾。最大连续下跌50天，也是有点猛…</p>
+            <p>
+              
+对于一个交易策略，初学者往往认为收益越高越好。收益确实是一个重要的评价指标，但是除了收益之外，还有很多其他重要的角度来衡量一个策略的好坏。例如这个策略的风险性、胜率、交易频率等。
 
+本篇文章以几个常见的交易策略评价指标为案例，向大家介绍pandas的以下几个功能的运用：
+
+dataframe的合并
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/quant_python_pandas_good_or_bad/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -833,20 +789,20 @@
       
         
           
-            <p>最近惊讶的发现很多同学对如何在量化投资的实战中如何处理复权、除权等问题，其实不是非常了解，耽误很多事情，所以本文专门来详细的讲一下这个问题。</p>
-<h2 id="【复权计算方法】"><a href="#【复权计算方法】" class="headerlink" title="【复权计算方法】"></a>【复权计算方法】</h2><p>股票会时不时的发生现金分红、送股等一系列股本变动，这会造成股价的非正常变化，导致我们不能直接通过股价来计算股票的涨跌幅。例如一个股票是10元，当他10送10的时候，它的价格会变成5元，但是我们并不能认为这个股票下跌了5 / 10 - 1 = 50%。  下面举一个具体的例子来说明如何计算除权价格以及复权涨跌幅： 易事特(SZ300376)在2015年6月5日的收盘价是89.00元，当天晚上每股分红0.184元，并且每10股转增4股，那么这个股票除权之后的收盘价应该是(89.00 - 0.184) * 10 / (10 + 4) = 63.44元。下一个交易日6月8日的收盘价是57.10，真实涨跌幅应该是57.10 / 63.44 - 1 = -9.993695%，而不是57.10 / 89.00 - 1 = -35.842697%。 其中真实涨跌幅57.10 / 63.44 - 1 = -9.993695%也被称为是复权涨跌幅。</p>
-<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/16.png" alt> <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/17.png" alt></p>
-<h2 id="【复权涨跌幅最重要】"><a href="#【复权涨跌幅最重要】" class="headerlink" title="【复权涨跌幅最重要】"></a><strong>【复权涨跌幅最重要】</strong></h2><p>因为以上除权问题的存在，很多研究量化的同学在寻找股票数据的时候，很在意是否能得到复权之后的价格数据。我想说的是，股票的复权价格并不是最重要的，最重要的是要得到股票复权之后的涨跌幅。 若你有了股票每天的复权涨跌幅，那么知道了股票第一天的价格，通过简单的连乘计算，自然就可以计算出之后每一天的复权价，这个叫做后复权价。例如股票第一天的价格是10元，之后每天的复权涨跌幅是1%、-2%、3%…那么之后每天的复权价格分别是10 <em> (1+1%)、10 </em> (1+1%) <em> (1-2%)、10 </em> (1+1%) <em> (1-2%) </em> (1+3%)… 同样的，知道了股票最后一天的价格，那么自然也就可以计算出之前每一天的价格，这个叫做前复权价。行情软件中的前后复权价格，其实也是这么算出来的。 若股票数据中只给出了复权价格，这对计算收益的准确性是有很大影响的。例如给出的是前复权价格，那么很久之前的股票价格往往很小的数字，一般又都是精确到两位小数，所以会变成0.45，0.47这样类似的数字。例如万科A(SZ000002)在2006年2月8日的前复权收盘价是0.56，2月9日的前复权收盘价是0.48，那么2月9日的收益是0.48/0.56 - 1 = -14.29%，但是实际上8号、9号的真实收盘价是5.26、5.06，真实的涨幅是-3.80%，与-14.29%相差巨大。</p>
-<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/18.png" alt></p>
-<h2 id="【同花顺、通达信等各家的复权方式不同】"><a href="#【同花顺、通达信等各家的复权方式不同】" class="headerlink" title="【同花顺、通达信等各家的复权方式不同】"></a>【同花顺、通达信等各家的复权方式不同】</h2><p>查看来自不同数据源的数据的时候，会发现它们的复权价格或者复权涨跌幅会有微小的差异，这往往是由不同的复权方式导致的。 例如，复权时对于分红产生的个人所得税，各家的处理方式是不一样的。同花顺、通达信中的复权是不考虑所得税的。上文提到的易事特(SZ300376)每股分红0.184元10股转4股，不考虑所得税的除权公式是(89.00 - 0.184) <em> 10 / (10 + 4) 。 但是实际上，这0.184元不会全部到投资者的口袋里，而是会扣掉10%的所得税（不同投资者扣得税还不一样），所以投资者得到的分红只有0.184 </em> (1 - 10%)，那么更加准确的分红方式应该是：(89.00 - 0.184 <em> (1 - 10%)) </em> 10 / (10 + 4) 。一些专业的数据库，例如wind、国泰安，就是这么复权的。</p>
-<h2 id="【其他】"><a href="#【其他】" class="headerlink" title="【其他】"></a>【其他】</h2><ul>
-<li><p>对于分钟或者更小级别的数据，我个人认为是没有必要进行复权的，直接用原始数据就可以了。复权之后反而会对数据准确性造成非常大的影响。</p>
-</li>
-<li><p>不要过分追求准确性。复权其实挺复杂的，之前的例子只提到了分红、转增，其实还有增发、配股、可转债等非常复杂的情况。所以哪怕非常贵的、非常专业的数据库，我都曾发现过它们复权计算中的错误。一开始这让我挺头疼的，但后来也释然了，不再去追究这些细小的误差。</p>
-</li>
-</ul>
-
+            <p>
+              最近惊讶的发现很多同学对如何在量化投资的实战中如何处理复权、除权等问题，其实不是非常了解，耽误很多事情，所以本文专门来详细的讲一下这个问题。
+【复权计算方法】股票会时不时的发生现金分红、送股等一系列股本变动，这会造成股价的非正常变化，导致我们不能直接通过股价来计算股票的涨跌幅。例如一个股票是10元，
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/quant_python_pandas_authority/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1058,18 +1014,21 @@
       
         
           
-            <p>大家经常会在同花顺大智慧等行情软件，或各类财经媒体上看到主力资金流入流出这个术语。听上去也感觉很牛逼的样子，主力资金流入的股票或者行业是不是就会涨呢？</p>
-<p><strong>本期帖子就教大家如何计算一只股票每天的资金流入流出数据。</strong></p>
-<p>计算资金流数据需要股票的逐笔数据。逐笔数据记录股票每一笔的成交成交数据，是每一笔成交，只要成交就会记录。大家在免费行情软件中看到的成交明细数据，是3-5秒记录一笔的数据，并不是逐笔数据。下图是逐笔数据的截图：</p>
-<p><img src="https://raw.githubusercontent.com/ucfyao/image/img/img/20190422125332.png" alt></p>
-<p>图中每一行记录一笔交易，以红框标记出的那行为例，记录在10:32:00秒，以16.81的价格成交了2200股，并且2200股是主动卖盘，记为S（主动买盘记为B）。</p>
-<p> <strong>这里讲一下主动买盘和主动卖盘的区别</strong>。<br> 炒过股票的人都知道，每一笔成交的双方，必定有一方下的是限价单（即会挂到五档盘口上的单子），另外一方下的是市价单（即主动去和五档盘口上的单子匹配成交的单子），如果一笔成交中的市价单是买入股票，那么这笔交易就是主动买盘，如果一笔成交中的市价单是卖出股票，那么这笔交易就是主动卖盘。 </p>
-<p><strong>有了逐笔数据，那资金流入怎么计算呢？</strong><br>说来很简单，就是这只股票当天所有买盘交易的总成交额。反之，所有卖盘交易的总成交额就是资金流出。 当一笔成交的成交量很大的时候，比如大于500手，成交这样一笔需要比较多的资金，往往认为这笔成交是由机构或者大户完成的，也就是所谓的主力。那么这只股票当天所有成交量大于500手的买盘的总成交额，即为主力资金流入，当天所有成交量大于500手的卖盘的总成交额，即为主力资金流出。（这里的500是随便设定的，也可以设定一个更加合理的数值） 有了这些概念，就可以根据逐笔数据计算资金流数据了。进入这个地址：<span class="exturl" data-url="aHR0cDovL3l1Y2V6aGUuY29tL3Byb2R1Y3Q/bmFtZT16aHViaS1kYXRhLXB1c2g=" title="http://yucezhe.com/product?name=zhubi-data-push">http://yucezhe.com/product?name=zhubi-data-push<i class="fa fa-external-link"></i></span> ，点击最左边的按钮“数据样本(免费)”，即可下载到2015-05-19这一天所有股票的逐笔数据，注意数据比较大，下载起来可能会比较慢。</p>
-<p><img src="https://raw.githubusercontent.com/ucfyao/image/img/img/20190422125259.png" alt></p>
-<p>下面是最终输出数据的截图：<br><img src="https://raw.githubusercontent.com/ucfyao/image/img/img/20190422125313.png" alt></p>
-<p><strong>思考题：</strong><br>若有历史每天的逐笔数据，好好的研究下，应该是可以发现不少有价值的东西的。除了计算资金流数据之外，还有什么研究的思路吗？大家可以一起讨论。</p>
-
+            <p>
+              大家经常会在同花顺大智慧等行情软件，或各类财经媒体上看到主力资金流入流出这个术语。听上去也感觉很牛逼的样子，主力资金流入的股票或者行业是不是就会涨呢？
+本期帖子就教大家如何计算一只股票每天的资金流入流出数据。
+计算资金流数据需要股票的逐笔数据。逐笔数据记录股票每一笔的成交成交数据，是每一笔成交，只要
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/quant_python_pandas_fund_flow/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1281,35 +1240,22 @@
       
         
           
-            <blockquote>
-<p>海龟交易法则，起源并流行于八十年代的美国，是一套简单有效的交易法则。这个法则以及使用这个法则的人的故事被写成了一本书——《海龟交易法则》。这是一本很好的量化投资入门书（也是我当年的入门书）。</p>
-</blockquote>
-<p>本篇文章使用Python和Pandas实现海龟交易法则，看看在中国市场效果怎么样。并希望通过这个案例，让大家学到pandas的如下功能：</p>
-<ul>
-<li>导入导出数据</li>
-<li>rolling_max() 和 expanding_max()的区别</li>
-<li>空值处理函数fillna()的使用方法</li>
-<li>资金指数的计算方法</li>
-<li>resample()的使用方法</li>
-</ul>
-<h4 id="海龟交易的具体规则是："><a href="#海龟交易的具体规则是：" class="headerlink" title="海龟交易的具体规则是："></a>海龟交易的具体规则是：</h4><ul>
-<li>当今天的收盘价，大于过去20个交易日中的最高价时，以收盘价买入；</li>
-<li>买入后，当收盘价小于过去10个交易日中的最低价时，以收盘价卖出。</li>
-</ul>
-<h4 id="对规则的一些说明："><a href="#对规则的一些说明：" class="headerlink" title="对规则的一些说明："></a>对规则的一些说明：</h4><ul>
-<li>规则基本上就是这么简单，还有一些具体的止损以及仓位控制规则，这几就不介绍了，具体可以看书。</li>
-<li>这套交易规则主要是运用于期货市场，所以还可以有卖空，比如当今天的收盘价小于过去20个交易日中的最低价时，以收盘价开空单，以此类推。</li>
-<li>上述规则针对日线，实际使用中更多的是使用分钟K线，比如5分钟K线的收盘价大于过去20根5分钟线的最高价时买入，以此类推。</li>
-</ul>
-<p>在这篇文章中，我以上证指数作为案例，假设可以买卖上证指数，来试验海龟交易法则，看看效果具体如何。</p>
-<h4 id="下面开始具体正文："><a href="#下面开始具体正文：" class="headerlink" title="下面开始具体正文："></a>下面开始具体正文：</h4><p>要在上证指数上实验海龟交易法则，首先需要上证指数的数据。<br>在<span class="exturl" data-url="aHR0cDovL2Jicy5waW5nZ3Uub3JnL2xpbmt0by5waHA/dXJsPWh0dHAlM0ElMkYlMkZ5dWNlemhlLmNvbSUyRnByb2R1Y3QlM0ZuYW1lJTNEdHJhZGluZy1kYXRh" title="http://bbs.pinggu.org/linkto.php?url=http%3A%2F%2Fyucezhe.com%2Fproduct%3Fname%3Dtrading-data">这里<i class="fa fa-external-link"></i></span>可以下载到上证指数从1990年至今的数据，如下图所示，每一行是每一天的数据：<br> <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/1-3.png" alt> </p>
-<p> 这个日线数据有以下的字段：<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">【index_code】指数的代码</span><br><span class="line">【date】 交易日期</span><br><span class="line">【open】 开盘价</span><br><span class="line">【high】 最高价</span><br><span class="line">【low】 最低价</span><br><span class="line">【close】 收盘价</span><br><span class="line">【volume】 成交量</span><br><span class="line">【money】 成交额</span><br><span class="line">【change】 涨跌幅</span><br></pre></td></tr></table></figure></p>
-<p>有了原始数据之后就是代码。我本以为用pandas实现这个策略还是稍微有点复杂，结果发现非常的简单，再次赞叹下pandas的方便。下面是代码的截图，里面有详细的注释，有问题可以留言。<br><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/2-3.png" alt><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/3-3.png" alt><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/4-2.png" alt></p>
-<p>把数据下载下来，运行代码，就可以看到输出的结果了。下面这张图展示了从1993年1月1日开始，使用海龟交易法则交易上涨指数的资金曲线与原指数的对比，由图中可见，指数从800多点涨到了现在的400点，而海龟交易法则的资金曲线，从同样的800多点，涨到了14000点。<br><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/5-2.png" alt> </p>
-<p>下面这张图展示了每年上证指数和海龟交易法则资金曲线的收益，左边是上证指数的收益，可以自行把玩：<br><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/6-3.png" alt> </p>
-<p><strong>思考题：</strong><br>海龟交易法则的默认参数是20，10，可以试试看其他的参数，看看会不会有更好的效果。感兴趣的，可以查看完整版本的海龟交易法则（包含atr止损），并实现它。</p>
+            <p>
+              
+海龟交易法则，起源并流行于八十年代的美国，是一套简单有效的交易法则。这个法则以及使用这个法则的人的故事被写成了一本书——《海龟交易法则》。这是一本很好的量化投资入门书（也是我当年的入门书）。
 
+本篇文章使用Python和Pandas实现海龟交易法则，看看在中国市场效果怎么样。并希望通过这个案例，让
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/quant_python_pandas_turtles/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1521,49 +1467,22 @@
       
         
           
-            <blockquote>
-<p>KDJ指标是最常用的技术指标之一，它的作用是判断股票未来短期的走势。很多书店里卖的炒股类书籍都会推荐这个指标，并认为KDJ指标低位金叉是一个非常好的买点，还会给出几个很漂亮的K线图形来印证他们的观点。少数的几个例子不能让人信服，KDJ指标低位金叉选股效果到底好不好，一定要用大样本说话。</p>
-</blockquote>
-<p>本篇文章将找出历史上所有股票的全部低位金叉情况，并且统计这些股票在金叉之后若干个交易日内的涨幅，看是否有显著的正收益。通过这个案例将着重向大家介绍pandas的如下功能：</p>
-<ul>
-<li>使用pandas导入股票数据</li>
-<li>如何计算KDJ指标</li>
-<li>如何计算KDJ指标金叉</li>
-<li>shift()函数的用法</li>
-<li>append()函数的用法</li>
-</ul>
-<h3 id="下面开始正文："><a href="#下面开始正文：" class="headerlink" title="下面开始正文："></a>下面开始正文：</h3><p>需要找出历史上所有股票的全部低位金叉情况，那么首先必须要有股票的历史日线交易数据，从这个<span class="exturl" data-url="aHR0cDovL2Jicy5waW5nZ3Uub3JnL2xpbmt0by5waHA/dXJsPWh0dHAlM0ElMkYlMkZ3d3cueXVjZXpoZS5jb20lMkY=" title="http://bbs.pinggu.org/linkto.php?url=http%3A%2F%2Fwww.yucezhe.com%2F">网站<i class="fa fa-external-link"></i></span>可以下载到所有股票的历史日线数据，可以作为我们计算的原始数据。数据下载下来是下图这个样子：</p>
-<p>每个股票一个csv文件</p>
-<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/21.png" alt>  </p>
-<p>每一行是每一天的数据</p>
-<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/22.png" alt>  </p>
-<p>这个日线数据有以下的字段：</p>
-<pre><code>【code】 股票的代码，上证股票以sh开头，深证股票以sz开头
-【date】 交易日期
-【open】 开盘价
-【high】 最高价
-【low】 最低价
-【close】 收盘价
-【change】 涨跌幅，复权之后的真实涨跌幅，保证准确
-【volume】 成交量
-【money】 成交额
-【traded_market_value】 流通市值
-【market_value】 总市值
-【turnover】 换手率，成交量/流通股本
-【adjust_price】 后复权价，复权开始时间为股票上市日，精确到小数点后10位
-【report_type】 最近一期财务报告的类型，3-31对应一季报，6-30对应半年报，9-30对应三季报，12-31对应年报
-【report_date】 最近一期财务报告实际发布的日期
-【PE_TTM】 最近12个月市盈率，股价 / 最近12个月归属母公司的每股收益TTM
-【PS_TTM】 最近12个月市销率， 股价 / 最近12个月每股营业收入
-【PC_TTM】 最近12个月市现率， 股价 / 最近12个月每股经营现金流
-【PB】 市净率，股价 / 最近期财报每股净资产
-</code></pre><p>有了原始数据之后就是代码，下面是代码的截图，里面有详细的注释，有问题可以留言。</p>
-<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/23.png" alt><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/24.png" alt> </p>
-<p>把数据下载下来，直接运行代码，就可以看到输出的结果了。这里就不贴出KDJ选股具体的效果了，这样大家可能更有动力钻研下程序吧~ 反正总体选股效果不大好，在总过出现的51万次KDJ金叉状况下，接下来股票会上涨的概率是50%左右。 </p>
-<p><strong>思考题</strong></p>
-<p>本程序其实是挑出了所有KDJ金叉的股票，并不是低位KDJ金叉。有人认为低位KDJ金叉效果更好，例如D值小于20时的金叉。在现有程序上进行小小的改动就可以挑选出低位KDJ金叉的股票，大家感兴趣可以看看选股效果怎么样，说实话具体怎么样我也没有试过。</p>
+            <p>
+              
+KDJ指标是最常用的技术指标之一，它的作用是判断股票未来短期的走势。很多书店里卖的炒股类书籍都会推荐这个指标，并认为KDJ指标低位金叉是一个非常好的买点，还会给出几个很漂亮的K线图形来印证他们的观点。少数的几个例子不能让人信服，KDJ指标低位金叉选股效果到底好不好，一定要用大样本说话。
 
+本篇文章
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/quant_python_pandas_kdj/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1775,39 +1694,19 @@
       
         
           
-            <p>分析股票数据的时候，往往会用不同的周期进行分析，以期得到更加全面的结果。比如日线、周线、月线，或者5分钟、15分钟、30分钟、60分钟。甚至有的时候会想，为什么的我的周期必须是自然周或者自然月，我能不能每11天或者每24天一个周期。 面对这样的需求，就必须写程序在不同的周期之间进行转换。本篇文章以将日线数据转换为周线数据为案例例，向大家介绍pandas的以下功能：</p>
-<ul>
-<li>使用pandas导入和导出输出</li>
-<li>resample函数的用法</li>
-</ul>
-<p>下面开始正文。 需要把日线转为周线，那么首先必须要有日线数据，从这个<span class="exturl" data-url="aHR0cDovL2Jicy5waW5nZ3Uub3JnL2xpbmt0by5waHA/dXJsPWh0dHAlM0ElMkYlMkZ5dWNlemhlLmNvbSUyRnByb2R1Y3QlM0ZuYW1lJTNEdHJhZGluZy1kYXRh" title="http://bbs.pinggu.org/linkto.php?url=http%3A%2F%2Fyucezhe.com%2Fproduct%3Fname%3Dtrading-data">网站<i class="fa fa-external-link"></i></span>可以下载到所有股票历史上的日线数据，可以作为我们计算的原始数据。数据下载下来是下图这个样子：</p>
-<p>每个股票一个csv文件 </p>
-<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/10-1.png" alt><br>每一行是每一天的数据<br> <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/11-1.png" alt></p>
-<h4 id="这个日线数据有以下的字段："><a href="#这个日线数据有以下的字段：" class="headerlink" title="这个日线数据有以下的字段："></a>这个日线数据有以下的字段：</h4><pre><code>【code】 股票的代码，上证股票以sh开头，深证股票以sz开头
-【date】 交易日期
-【open】 开盘价
-【high】 最高价
-【low】 最低价
-【close】 收盘价
-【change】 涨跌幅，复权之后的真实涨跌幅，保证准确
-【volume】 成交量
-【money】 成交额
-【traded_market_value】 流通市值
-【market_value】 总市值
-【turnover】 换手率，成交量/流通股本
-【adjust_price】 后复权价，复权开始时间为股票上市日，精确到小数点后10位
-【report_type】 最近一期财务报告的类型，3-31对应一季报，6-30对应半年报，9-30对应三季报，12-31对应年报
-【report_date】 最近一期财务报告实际发布的日期
-【PE_TTM】 最近12个月市盈率，股价 / 最近12个月归属母公司的每股收益TTM
-【PS_TTM】 最近12个月市销率， 股价 / 最近12个月每股营业收入
-【PC_TTM】 最近12个月市现率， 股价 / 最近12个月每股经营现金流
-【PB】 市净率，股价 / 最近期财报每股净资产
-</code></pre><p>在进行日线周线转换的时候，一定要注意，大部分周线的指标是这个日线指标在这一周最后一个交易日的值。比如周线的【close】应该等于这一周最后一天日线数据的【close】。但是有的指标是例外，比如周线的【high】应该等于这一周所有日线【high】中的最大值，周线的【volume】应该等于这一周所有日线【volume】的和。有了这样的理解之后，直接上程序截图，里面有详细的注释，有问题可以留言。 </p>
-<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/12-1.png" alt>  </p>
-<p>把数据和程序下载下来，在程序中修改好文件的路径，应该就可以直接运行了。 </p>
-<p><strong>思考题：</strong><br>本案例中是将日线数据转换为周线，那么如何将日线数据转换为月线数据呢？ 答案：只要修改代码中的一个字母就行了。</p>
-
+            <p>
+              分析股票数据的时候，往往会用不同的周期进行分析，以期得到更加全面的结果。比如日线、周线、月线，或者5分钟、15分钟、30分钟、60分钟。甚至有的时候会想，为什么的我的周期必须是自然周或者自然月，我能不能每11天或者每24天一个周期。 面对这样的需求，就必须写程序在不同的周期之间进行转换。本篇文章以将
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/quant_python_pandas_kline/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -2019,23 +1918,24 @@
       
         
           
-            <p>最近创业板表现太猛了，很多人说估值太高，那么估值到底有多高？是否达到了历史上的高点？本案例中程序的功能是计算创业板股票历史上每天的平均市盈率，希望通过这个案例一来解答上述问题，二来向大家介绍pandas以下的几个操作：</p>
-<ul>
-<li>数据的导入以及导出</li>
-<li>对整列数据进行操作</li>
-<li>数据合并的append操作</li>
-<li>groupby语句</li>
-</ul>
-<p>计算创业板股票每天的平均市盈率，那么必须要知道每个股票每天的市盈率。从<span class="exturl" data-url="aHR0cDovL2Jicy5waW5nZ3Uub3JnL2xpbmt0by5waHA/dXJsPWh0dHAlM0ElMkYlMkZ5dWNlemhlLmNvbSUyRnByb2R1Y3QlM0ZuYW1lJTNEdHJhZGluZy1kYXRh" title="http://bbs.pinggu.org/linkto.php?url=http%3A%2F%2Fyucezhe.com%2Fproduct%3Fname%3Dtrading-data">这里<i class="fa fa-external-link"></i></span>可以下载到所有股票的从上市日起的每天的交易数据、以及市盈率数据，可以作为我们计算的原始数据。数据下载下来是下图这个样子： </p>
-<p>每个股票一个csv文件<br><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/1-2.png" alt> </p>
-<p>每一行是每一天的数据</p>
-<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/2-2.png" alt> </p>
-<p>有了原始数据之后就是代码了，下面是代码的截图，有详细的注释，附件中可以下载代码文件。 </p>
-<p> <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/3-2.png" alt> </p>
-<p> 把数据下载下来，并且直接运行代码，结果就会输出到“创业板平均市盈率.csv”文件。至于创业板股票的现在的平均市盈率是多少，这里就不贴出来啦，大家还是自己运行程序之后看结果吧<br> <img src="http://120.27.111.137/static/image/smiley/default/titter.gif" alt> </p>
-<p><strong>思考题：</strong><br>本案例中是计算创业板股票的平均市盈率，那么如果计算上证股票的平均市盈率呢？答案：其实只要修改代码中的一个数字就行了。</p>
+            <p>
+              最近创业板表现太猛了，很多人说估值太高，那么估值到底有多高？是否达到了历史上的高点？本案例中程序的功能是计算创业板股票历史上每天的平均市盈率，希望通过这个案例一来解答上述问题，二来向大家介绍pandas以下的几个操作：
 
+数据的导入以及导出
+对整列数据进行操作
+数据合并的append操作
+group
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/quant_python_pandas_ratio/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -2247,21 +2147,20 @@
       
         
           
-            <blockquote>
-<p>我之前一直用SAS、MATLAB。最近用Python，发现python的pandas包简直是分析金融数据做量化研究的神器。准备写个系列帖子“量化小讲堂”，希望通过实际的列子，让大家知道如何使用python &amp; pandas进行金融数据处理，希望能对大家有帮助。帖子主要面向入门学习者，大神请轻拍。</p>
-</blockquote>
-<p>计算移动平均线是最常见的需求，下面这段代码将完成以下三件事情：</p>
-<ol>
-<li>从csv格式的文件中导入股票数据</li>
-<li>计算各类移动平均线，包括简单简单算术移动平均线MA、指数平滑移动平均线EMA；</li>
-<li>将计算好的数据输出到csv文件中。<br>代码应该复制下来就能运行了，关于从哪里可以得到代码中使用的数据，后面会讲，下面贴上代码：</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: utf-8 -*-</span><br></pre></td></tr></table></figure>
-<p>@author: yaozihao<br>@contact: QQ:906961433 email:<span class="exturl" data-url="bWFpbHRvOnlhb3ppaGFvQHlhb3ppaGFvLmNu" title="mailto:yaozihao@yaozihao.cn">yaozihao@yaozihao.cn<i class="fa fa-external-link"></i></span><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line"></span><br><span class="line"># ========== 从原始csv文件中导入股票数据，以浦发银行sh600000为例</span><br><span class="line"># 导入数据 - 注意：这里请填写数据文件在您电脑中的路径</span><br><span class="line">stock_data = pd.read_csv(&apos;stock data/sh600000.csv&apos;, parse_dates=[1])</span><br><span class="line"></span><br><span class="line"># 将数据按照交易日期从远到近排序</span><br><span class="line">stock_data.sort(&apos;date&apos;, inplace=True)</span><br><span class="line"></span><br><span class="line"># ========== 计算移动平均线</span><br><span class="line"># 分别计算5日、20日、60日的移动平均线</span><br><span class="line">ma_list = [5, 20, 60]</span><br><span class="line"></span><br><span class="line"># 计算简单算术移动平均线MA - 注意：stock_data[&apos;close&apos;]为股票每天的收盘价</span><br><span class="line">for ma in ma_list:</span><br><span class="line">    stock_data[&apos;MA_&apos; + str(ma)] = pd.rolling_mean(stock_data[&apos;close&apos;], ma)</span><br><span class="line"></span><br><span class="line"># 计算指数平滑移动平均线EMA</span><br><span class="line">for ma in ma_list:</span><br><span class="line">    stock_data[&apos;EMA_&apos; + str(ma)] = pd.ewma(stock_data[&apos;close&apos;], span=ma)</span><br><span class="line"></span><br><span class="line"># 将数据按照交易日期从近到远排序</span><br><span class="line">stock_data.sort(&apos;date&apos;, ascending=False, inplace=True)</span><br><span class="line"></span><br><span class="line"># ========== 将算好的数据输出到csv文件 - 注意：这里请填写输出文件在您电脑中的路径</span><br><span class="line">stock_data.to_csv(&apos;sh600000_ma_ema.csv&apos;, index=False)</span><br></pre></td></tr></table></figure></p>
-<p>代码输出的数据截图如下：<br><img src="https://raw.githubusercontent.com/ucfyao/image/img/img/20190422133136.png" alt></p>
-<p>可以到这里下载程序中用到的股票数据：<span class="exturl" data-url="aHR0cDovL3l1Y2V6aGUuY29tLw==" title="http://yucezhe.com/">网址<i class="fa fa-external-link"></i></span> ，其中包含了所有股票、从上市日起的全部交易数据。</p>
-
+            <p>
+              
+我之前一直用SAS、MATLAB。最近用Python，发现python的pandas包简直是分析金融数据做量化研究的神器。准备写个系列帖子“量化小讲堂”，希望通过实际的列子，让大家知道如何使用python &amp; pandas进行金融数据处理，希望能对大家有帮助。帖子主要面向入门学习者，大神请
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/quant_python_pandas_avg/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -2473,28 +2372,20 @@
       
         
           
-            <blockquote>
-<p>本篇内容主要讲如何安装Python和pandas。Python比较好安装，而pandas比较难装，当时装了我一整天。pandas是Python下面的一个package，专门用于金融数据的分析，简直是神器。这里有pandas的简单入门介绍<span class="exturl" data-url="aHR0cDovL2Jicy5waW5nZ3Uub3JnL2xpbmt0by5waHA/dXJsPWh0dHAlM0ElMkYlMkZwYW5kYXMucHlkYXRhLm9yZyUyRnBhbmRhcy1kb2NzJTJGc3RhYmxlJTJGMTBtaW4uaHRtbA==" title="http://bbs.pinggu.org/linkto.php?url=http%3A%2F%2Fpandas.pydata.org%2Fpandas-docs%2Fstable%2F10min.html">http://pandas.pydata.org/pandas-docs/stable/10min.html<i class="fa fa-external-link"></i></span>  首先推荐python的科学计算包：anaconda2。</p>
-</blockquote>
-<p>本篇主要涵盖以下三部分内容：</p>
-<ol>
-<li>Python、Pycharm的安装</li>
-<li>使用Pycharm创建、运行Python程序</li>
-<li>安装pandas</li>
-</ol>
-<h2 id="1-Python、Pycharm的安装"><a href="#1-Python、Pycharm的安装" class="headerlink" title="1.Python、Pycharm的安装"></a><strong>1.Python、Pycharm的安装</strong></h2><p>从Python官网下载windows版本的Python，要下载python2，不要下载python3。鉴于大家可能上了官网都不知道下载哪个版本（我自己一开始就是）。安装文件下载好之后，就像一般的软件一样，一直点击next就能安装。 Pycharm是一个ide，说简单点就是一个用来编写Python程序的软件，也是个神器，可以让我们更加方便的编写Python程序。我们后面安装pandas就需要用到它。Pycharm有收费版本也有免费版本，我们用免费版本就已经绰绰有余了。可以去官网下载，因为是国外的网站，下载速度可能很慢，我已经将安装文件上传到百度云，下载地址在附件中。 下载好之后一路点击next就能安装好。</p>
-<h2 id="2-使用Pycharm创建、运行Python程序"><a href="#2-使用Pycharm创建、运行Python程序" class="headerlink" title="2.使用Pycharm创建、运行Python程序"></a>2.使用Pycharm创建、运行Python程序</h2><p>安装好Python和Pycharm之后，我们打开pycharm（桌面上应该有快捷方式）， 点击创建create new project，这里需要在红框中填写一个路径地址。<br>这里解释一下这个路径，每当我们新建一个Python项目，一般是创建个新的空文件夹，把和这个项目相关的程序、数据等内容都放在这个文件夹中，方便管理。<br>红色框中的路径就是指向这个文件夹。<br>我这里这个文件夹叫demo，填写好之后点击create，<br>顺序点击File，New，Python File，填写文件名，这就创建了一个Python程序文件，<br>输入一行简单的代码 <code>print &#39;Hello World!&#39;</code>，顺序点击 Run，Run ‘demo’，就可以运行程序，并且查看输出了。<br>以上就是一个简单的Python程序</p>
-<h2 id="3-安装pandas"><a href="#3-安装pandas" class="headerlink" title="3.安装pandas"></a><strong>3.安装pandas</strong></h2><p>pandas是Python下面的一个库，一般来说安装库都是非常麻烦的，因为需要在命令行下面操作的，利用<code>pip</code>, <code>easy_install</code>等工具，对于非计算机专业的人来说简直是噩梦。幸好有了Pycharm，它可以帮我们很方便的安装各类库。</p>
-<p>下面以安装pandas为例，介绍如何使用Pycharm安装package：</p>
-<ul>
-<li>顺序点击File，Settings</li>
-<li>然后点击Project，Project Interpreter，</li>
-<li>在搜索框中输入pandas，点击最下方的Install Package，根据网速快慢，等待不定的时间，就完成了安装</li>
-</ul>
-<p>安装过程中可能会提示：Microsoft Visual C++ 9.0 is required (Unable to find vcvarsall.bat). Get it from <span class="exturl" data-url="aHR0cDovL2Jicy5waW5nZ3Uub3JnL2xpbmt0by5waHA/dXJsPWh0dHAlM0ElMkYlMkZha2EubXMlMkZ2Y3B5dGhvbjI3" title="http://bbs.pinggu.org/linkto.php?url=http%3A%2F%2Faka.ms%2Fvcpython27">http://aka.ms/vcpython27<i class="fa fa-external-link"></i></span> 只要按照提示说的的去下载一个VC就可以了。</p>
-<p>这样就安装好了pandas。 然后在按照同样的流程安装好其他一些pandas依赖的package，分别是：<code>numpy</code>，<code>dateutil</code>，可能还有其他。 安装好之后试着运行下面这个程序，如果没有报错，就说明完全安装好pandas了。如果报错，一般是因为缺少依赖的库，按照上述方法继续安装就可以了。</p>
-
+            <p>
+              
+本篇内容主要讲如何安装Python和pandas。Python比较好安装，而pandas比较难装，当时装了我一整天。pandas是Python下面的一个package，专门用于金融数据的分析，简直是神器。这里有pandas的简单入门介绍http://pandas.pydata.org/pandas
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/quant_python_pandas_windows/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -2706,27 +2597,20 @@
       
         
           
-            <p>本文主要以快速上手使用Pyhton进行系列分析为主题，介绍下我学习量化投资、Python的个人经验。</p>
-<h3 id="第一步：好奇心"><a href="#第一步：好奇心" class="headerlink" title="第一步：好奇心"></a>第一步：好奇心</h3><p>不要为了学习而去学习一门编程语言，或者任何工具。一定要心里首先有一个问题，抱着解决问题的心态，去了解并学习这个工具是如何解决问题的。驱动你去学习量化投资的，应该是你的好奇心。你认为你有一个炒股独家的窍门，你认为你发现了某个规律，你非常好奇的想用历史数据去验证你的想法。<br>比如我在大二的时候接触量化投资，就是因为我的好奇心。当时我看到一些入门的技术分析书上推荐KDJ这个技术指标，说KDJ低位金叉之后股票会涨，是个很好的买入信号，并且书上会配一些图，证明这个指标的有效性。我当时就很好奇，书上说的是不是真的？这几个配图是刻意挑选的还是有代表性的？是不是可以写个程序找出历史上所有的kdj金叉，看看之后涨的概率有多大?</p>
-<p>这就是引领我入门的最初的好奇心。当时我不会编程，一开始用excel来试着验证，发现KDJ从大概率上来讲是不行的。好奇心继续升级：我调整一下KDJ默认的参数，效果会不会好一点？再配合一下其他的指标，效果会不会好一点？再加上点财务数据，效果会不会好一点……</p>
-<p>慢慢的想测试的想法越来越多，excel渐渐的不够用，开始学习编程。我学习编程的目的性很强，就是解决我眼前的问题。对于解决我问题没有帮助的，我就先不学。一开始用的是SAS，自己找书看，论坛上发帖子问。后来觉得SAS太重，不灵活，慢慢的迁移到Python。</p>
-<p>我是计算机专业的，但是学校并不教量化投资，一切都是自己学。可想而知，若没有好奇心一直引导我去探索，这么长的一段时间我怎么可能坚持下来呢？ </p>
-<h3 id="第二步：为什么Python"><a href="#第二步：为什么Python" class="headerlink" title="第二步：为什么Python"></a>第二步：为什么Python</h3><p>我推荐刚入门的量化投资研究者使用Python。主要理由如下：</p>
-<ol>
-<li>适用性<br>Python配合各类第三方的package（例如下面要降到的pandas），是非常适合用来处理金融数据的</li>
-<li>简单<br>相比于c，c#等语言，Python容易太多了。让你可以更快，更方便的对自己的想法进行测试。life is short, use Python。</li>
-<li>全能<br>Matlab是另外一个金融分析领域的统治级语言，以上讲的两点适用性、简单性matlab都是具备的，在业界的使用范围应该是比Python要高的。<br>而Python相比于matlab的一大优势，那就是全能。matlab基本只能用于金融数据分析。但是Python除了拥有不亚于matlab的矩阵计算、科学计算能力之外，其他几乎任何事情都可以做。比如数据的清理、整理，比如从网页上抓取数据，比如进行文本信息的挖掘，比如做一个网站……现在学习一门语言，将来在任何地方都能用到。</li>
-</ol>
-<h3 id="第三步：如何入门Python"><a href="#第三步：如何入门Python" class="headerlink" title="第三步：如何入门Python"></a>第三步：如何入门Python</h3><p>如果你有其他语言的编写经验（比如上过一个学期的编程课），有一定的编程基础。以下三步可以让你入门Python：</p>
-<ol>
-<li>随便找一本Pyhton入门书。这些教程网上有很多很多，论坛里面也有很多，随便搜索一下就是。我稍微整理了下，放在附件中，回复可见。</li>
-<li>挑一本Python入门书，不要花超过半天的时间，快速翻阅这本书。这个步骤不求记住什么东西，只要大概的知道这本书讲了什么，什么知识在这本书的哪一章写了就行，以便将来查阅。</li>
-<li>结合自己的好奇心，给自己寻找一个问题，简单的复杂的都可以，找一点数据(地址)，直接开始实战。遇到问题，第一步是去翻书，第二步是去google(别去百度)，第三步是论坛发帖求助。若你没有什么思路或者问题，可以加群438143420，我可以给你提供思路。</li>
-</ol>
-<p>如果你没有任何编程的基础，那么想要入门Python，也是以上三个步骤。但是第2步，就不是仅仅花半天的时间浏览书了，而是要细细的看书。对着书上的例子，实际的操作下，大概花一个星期的时间的业余时间也就够了吧。</p>
-<h3 id="第四步：如何入门pandas"><a href="#第四步：如何入门pandas" class="headerlink" title="第四步：如何入门pandas"></a>第四步：如何入门pandas</h3><p>使用Python做金融数据分析，一定要用pandas。pandas是Python的一个第三方库，简直是金融数据分析的神器，第一次遇到它的时候让我泪流满面。了解pandas最好的途径就是他的官方文档：<span class="exturl" data-url="aHR0cDovL3BhbmRhcy5weWRhdGEub3JnL3BhbmRhcy1kb2NzL3N0YWJsZS8xMG1pbi5odG1s" title="http://pandas.pydata.org/pandas-docs/stable/10min.html">http://pandas.pydata.org/pandas-docs/stable/10min.html<i class="fa fa-external-link"></i></span> ，当然也可以看我之前写的系列文章。</p>
-
+            <p>
+              本文主要以快速上手使用Pyhton进行系列分析为主题，介绍下我学习量化投资、Python的个人经验。
+第一步：好奇心不要为了学习而去学习一门编程语言，或者任何工具。一定要心里首先有一个问题，抱着解决问题的心态，去了解并学习这个工具是如何解决问题的。驱动你去学习量化投资的，应该是你的好奇心。你认为你有
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/quant_python_pandas_soon/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>

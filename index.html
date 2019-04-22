@@ -560,8 +560,19 @@
       
         
           
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">## 安装expect</span><br><span class="line">brew install expect</span><br><span class="line"></span><br><span class="line">## 安装gacmd</span><br><span class="line">$ git clone https://github.com/arcanericky/ga-cmd.git</span><br><span class="line">$ git submodule init</span><br><span class="line">$ git submodule update</span><br><span class="line"></span><br><span class="line">$ cd ga-cmd/src</span><br><span class="line"></span><br><span class="line">## 获取跳板机</span><br><span class="line">$ vim .google_authenticator</span><br><span class="line">$ ./build.sh &lt;16 character seed&gt;</span><br><span class="line"></span><br><span class="line">## 检测一下</span><br><span class="line"></span><br><span class="line">$ ga-cmd/src/bin/ga-cmd</span><br><span class="line">123456</span><br><span class="line"></span><br><span class="line">## 编写 expect 脚本</span><br><span class="line">#!/usr/bin/expect</span><br><span class="line">set host [lindex $argv 0]</span><br><span class="line">set VERIFICATION [lindex $argv 1]</span><br><span class="line">set TERMSERV 192.2.1.2</span><br><span class="line">set USER yaozihao</span><br><span class="line">set PASSWORD 123456</span><br><span class="line">set UATUN yaozihao</span><br><span class="line">#set UATPWD 内服务器密码</span><br><span class="line"></span><br><span class="line"># 登录跳板机</span><br><span class="line">spawn ssh -l $USER $TERMSERV</span><br><span class="line">expect &#123;</span><br><span class="line"></span><br><span class="line">“*erificati*” &#123;send “$VERIFICATION\r”;exp_continue;&#125;</span><br><span class="line"># “yes/no” &#123;send “yes\r”;exp_continue;&#125;</span><br><span class="line">“*assword:*” &#123; send “$PASSWORD\r”;&#125;</span><br><span class="line">&#125;</span><br><span class="line"># 登录内网</span><br><span class="line">expect “$USER@*” &#123;send “ssh -l $UATUN $host\r”&#125;</span><br><span class="line">#expect &#123;</span><br><span class="line"># “yes/no” &#123;send “yes\r”;exp_continue;&#125;</span><br><span class="line"># “*password:*” &#123; send “$UATPWD\r” &#125;</span><br><span class="line"># &#125;</span><br><span class="line">interact</span><br><span class="line"></span><br><span class="line">## 编写自动登陆脚本</span><br><span class="line">vim ~/test_expect.sh</span><br><span class="line"></span><br><span class="line">#!/bin/bash</span><br><span class="line">verification=$(/wwwroot/lib/ga-cmd/src/bin/ga-cmd)</span><br><span class="line">echo $verification</span><br><span class="line">/Users/yaozihao/expect.ecp 10.66.1.1 $verification</span><br><span class="line">exit 0</span><br><span class="line"></span><br><span class="line">## 执行测试一下</span><br><span class="line">~/test_expect.sh</span><br></pre></td></tr></table></figure>
+            <p>
+              ## 安装expectbrew install expect## 安装gacmd$ git clone https://github.com/arcanericky/ga-cmd.git$ git submodule init$ git submodule update$ cd ga-cmd/src
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/mac_expect_gacmd/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -773,13 +784,24 @@
       
         
           
-            <ul>
-<li>1.压缩注意使用tar zip格式 tar -czvf wp-admin-09-24-cvf.tar.gz wp-admin </li>
-<li>2.记得压缩为小一点文件，不然总是断开 </li>
-<li>3.在控制台进行解压缩</li>
-</ul>
+            <p>
+              
+1.压缩注意使用tar zip格式 tar -czvf wp-admin-09-24-cvf.tar.gz wp-admin 
+2.记得压缩为小一点文件，不然总是断开 
+3.在控制台进行解压缩
 
+
+              
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/linux_vps_fpt/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -991,18 +1013,19 @@
       
         
           
-            <p>VirtualBox虚拟磁盘空间不够了，默认10G。想扩大，图形界面下没有找到可操作菜单。Google了一下用 <code>Vbox</code>自带的命令工具<code>VBoxManage</code>即可解决。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\Oracle\VirtualBox&gt;VBoxManage modifyhd e:\vbox\Ubuntu12.04\Ubuntu1204-201302-disk1.vmdk --resize 30000</span><br><span class="line">0%...</span><br><span class="line">Progress state: VBOX_E_NOT_SUPPORTED</span><br><span class="line">VBoxManage.exe: error: Resize hard disk operation for this format is not implemented yet!</span><br></pre></td></tr></table></figure></p>
-<p>原来虚拟机用的是<code>vmdk</code>格式，这个命令只能支持<code>vdi</code>格式。怎么办</p>
-<p>发现可以利用<code>VBoxManager</code>来转化虚拟硬盘存储文件格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\Oracle\VirtualBox&gt;VBoxManage clonehd e:\vbox\Ubuntu12.04\Ubuntu1204-201302-disk1.vmdk  e:\vbox\Ubuntu12.04\Ubuntu1204-201310-disk1.vdi --format VDI</span><br><span class="line">0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%</span><br><span class="line">Clone hard disk created in format &apos;VDI&apos;. UUID: 455b7aa4-d776-4254-8353-d9b5b3fa1</span><br><span class="line">09b</span><br></pre></td></tr></table></figure></p>
-<p>最后用<code>VBoxManager</code>对转好的vdi文件进行扩容设置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\Oracle\VirtualBox&gt;VBoxManage modifyhd e:\vbox\Ubuntu12.04\Ubunt</span><br><span class="line">u1204-201310-disk1.vdi --resize 30000</span><br><span class="line">0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%</span><br></pre></td></tr></table></figure></p>
-<p>大功告成，要将新的虚拟硬盘(vdi)挂载到虚拟机上了。</p>
-<p>打开虚拟机设置，找到存储，点击虚拟硬盘所在的控制器，点“添加虚拟硬盘”-&gt;选”使用现有的虚拟盘”-&gt;选中扩容后的vdi文件，确定后就看见控制器下多了一个硬盘图标，查看容量29.30G。<br>删除原来的vmdk虚拟盘。确定保存配置。大功告成！！</p>
-<p>别忙，还有一部。<br>启动虚拟机后，还要使用<code>GParted – Gnome Partition Editor</code>这个工具，将新扩展的分区进行初始化，否则系统还是不会认出新扩展的空间的。<br>Ubuntu中可用 <code>sudo apt-get install gparted</code>来安装。工具是图形化界面的。好用。设置好后要点菜单“编辑”-&gt;“应用全部操作”，系统才开始执行扩展磁盘的初始化。</p>
-<p>Gnome Partition Editor 官网地址：<span class="exturl" data-url="aHR0cDovL2dwYXJ0ZWQuc291cmNlZm9yZ2UubmV0Lw==" title="http://gparted.sourceforge.net/">http://gparted.sourceforge.net/<i class="fa fa-external-link"></i></span></p>
-<p>多嘴一句</p>
-<p>将原来的vid虚拟硬盘数据复制到新的vid硬盘，示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">旧vdi —&gt; 新vdi</span><br><span class="line"></span><br><span class="line">C:\Program Files\Oracle\VirtualBox\VBoxManage.exe  clonevdi  E:\vbox\server2003\win2003.vdi E:\vbox\server2003\server2003.vdi&quot; --existing</span><br></pre></td></tr></table></figure></p>
-
+            <p>
+              VirtualBox虚拟磁盘空间不够了，默认10G。想扩大，图形界面下没有找到可操作菜单。Google了一下用 Vbox自带的命令工具VBoxManage即可解决。C:\Program Files\Oracle\VirtualBox&gt;VBoxManage modifyhd e:\vbox\Ub
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/virtuabox_disk/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1214,10 +1237,20 @@
       
         
           
-            <p>系统安装官方文档：<span class="exturl" data-url="aHR0cDovL3RocmlmdC5hcGFjaGUub3JnL2RvY3M=" title="http://thrift.apache.org/docs">http://thrift.apache.org/docs<i class="fa fa-external-link"></i></span></p>
-<p>下载安装包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git clone https://git-wip-us.apache.org/repos/asf/thrift.git</span><br><span class="line">cd thrift</span><br><span class="line">./bootstrap.sh</span><br><span class="line">./configure --with-lua=no</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure></p>
-
+            <p>
+              系统安装官方文档：http://thrift.apache.org/docs
+下载安装包git clone https://git-wip-us.apache.org/repos/asf/thrift.gitcd thrift./bootstrap.sh./configure --with-lua=
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/linux_ubuntu_thrift/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1429,8 +1462,19 @@
       
         
           
-            <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> web3 <span class="keyword">import</span> Web3, HTTPProvider</span><br><span class="line"><span class="keyword">from</span> web3.contract <span class="keyword">import</span> ConciseContract</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line">web3 = Web3(HTTPProvider(<span class="string">'http://localhost:8545'</span>))</span><br><span class="line">print(web3.eth.blockNumber)</span><br><span class="line"></span><br><span class="line">tx=<span class="string">'0xb1ea3885a25efa295837c287560fe4c137c1bcd3718720330eb68d7f96a5479e'</span></span><br><span class="line">web3.eth.getTransaction(tx)</span><br><span class="line">web3.eth.getTransactionReceipt(tx)</span><br><span class="line"></span><br><span class="line">exit(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">web3.eth.defaultAccount = <span class="string">'0x00B113795f1aA12EE361adC6D281392802d0e025'</span></span><br><span class="line">EIP20_ABI_str = <span class="string">'[&#123;"constant":true,"inputs":[],"name":"mintingFinished","outputs":[&#123;"name":"","type":"bool"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":true,"inputs":[],"name":"name","outputs":[&#123;"name":"","type":"string"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":false,"inputs":[&#123;"name":"_spender","type":"address"&#125;,&#123;"name":"_value","type":"uint256"&#125;],"name":"approve","outputs":[],"payable":false,"type":"function"&#125;,&#123;"constant":true,"inputs":[],"name":"totalSupply","outputs":[&#123;"name":"","type":"uint256"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":false,"inputs":[&#123;"name":"_from","type":"address"&#125;,&#123;"name":"_to","type":"address"&#125;,&#123;"name":"_value","type":"uint256"&#125;],"name":"transferFrom","outputs":[],"payable":false,"type":"function"&#125;,&#123;"constant":true,"inputs":[],"name":"decimals","outputs":[&#123;"name":"","type":"uint256"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":false,"inputs":[],"name":"unpause","outputs":[&#123;"name":"","type":"bool"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":false,"inputs":[&#123;"name":"_to","type":"address"&#125;,&#123;"name":"_amount","type":"uint256"&#125;],"name":"mint","outputs":[&#123;"name":"","type":"bool"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":true,"inputs":[],"name":"paused","outputs":[&#123;"name":"","type":"bool"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":true,"inputs":[&#123;"name":"_owner","type":"address"&#125;],"name":"balanceOf","outputs":[&#123;"name":"balance","type":"uint256"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":false,"inputs":[],"name":"finishMinting","outputs":[&#123;"name":"","type":"bool"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":false,"inputs":[],"name":"pause","outputs":[&#123;"name":"","type":"bool"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":true,"inputs":[],"name":"owner","outputs":[&#123;"name":"","type":"address"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":true,"inputs":[],"name":"symbol","outputs":[&#123;"name":"","type":"string"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":false,"inputs":[&#123;"name":"_to","type":"address"&#125;,&#123;"name":"_value","type":"uint256"&#125;],"name":"transfer","outputs":[],"payable":false,"type":"function"&#125;,&#123;"constant":false,"inputs":[&#123;"name":"_to","type":"address"&#125;,&#123;"name":"_amount","type":"uint256"&#125;,&#123;"name":"_releaseTime","type":"uint256"&#125;],"name":"mintTimelocked","outputs":[&#123;"name":"","type":"address"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":true,"inputs":[&#123;"name":"_owner","type":"address"&#125;,&#123;"name":"_spender","type":"address"&#125;],"name":"allowance","outputs":[&#123;"name":"remaining","type":"uint256"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":false,"inputs":[&#123;"name":"newOwner","type":"address"&#125;],"name":"transferOwnership","outputs":[],"payable":false,"type":"function"&#125;,&#123;"anonymous":false,"inputs":[&#123;"indexed":true,"name":"to","type":"address"&#125;,&#123;"indexed":false,"name":"value","type":"uint256"&#125;],"name":"Mint","type":"event"&#125;,&#123;"anonymous":false,"inputs":[],"name":"MintFinished","type":"event"&#125;,&#123;"anonymous":false,"inputs":[],"name":"Pause","type":"event"&#125;,&#123;"anonymous":false,"inputs":[],"name":"Unpause","type":"event"&#125;,&#123;"anonymous":false,"inputs":[&#123;"indexed":true,"name":"owner","type":"address"&#125;,&#123;"indexed":true,"name":"spender","type":"address"&#125;,&#123;"indexed":false,"name":"value","type":"uint256"&#125;],"name":"Approval","type":"event"&#125;,&#123;"anonymous":false,"inputs":[&#123;"indexed":true,"name":"from","type":"address"&#125;,&#123;"indexed":true,"name":"to","type":"address"&#125;,&#123;"indexed":false,"name":"value","type":"uint256"&#125;],"name":"Transfer","type":"event"&#125;]'</span></span><br><span class="line">EIP20_ABI = json.loads(EIP20_ABI_str)</span><br><span class="line"></span><br><span class="line">token_contract_address = <span class="string">'0x86fa049857e0209aa7d9e616f7eb3b3b78ecfdb0'</span></span><br><span class="line"></span><br><span class="line">token = web3.eth.contract(</span><br><span class="line">token_contract_address,</span><br><span class="line">abi=EIP20_ABI,</span><br><span class="line">ContractFactoryClass=ConciseContract,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">totalSupply = token.totalSupply()</span><br><span class="line">balance = token.balanceOf(<span class="string">'0x00B113795f1aA12EE361adC6D281392802d0e025'</span>)</span><br><span class="line">tx = token.transfer(</span><br><span class="line"><span class="string">'0x00845daA689b1374ecAf4CfEcfBfc86D41ec7735'</span>,</span><br><span class="line">web3.toWei(<span class="number">2</span>,<span class="string">"ether"</span>),</span><br><span class="line">transact=&#123;<span class="string">'from'</span>:<span class="string">'0x00B113795f1aA12EE361adC6D281392802d0e025'</span>&#125;)</span><br><span class="line"></span><br><span class="line">tx = <span class="string">'0xb3b82923d8d9b5d28fbab7f7281704f033362ac9f293e6638227efb44ff85499'</span></span><br><span class="line">web3.eth.getTransaction(tx)</span><br><span class="line">web3.eth.getTransactionReceipt(tx)</span><br><span class="line"></span><br><span class="line">web3.eth.getTransactionCount(web3.eth.coinbase)</span><br><span class="line">web3.eth.getTransactionCount(<span class="string">'0x00B113795f1aA12EE361adC6D281392802d0e025'</span>)</span><br></pre></td></tr></table></figure>
+            <p>
+              from web3 import Web3, HTTPProviderfrom web3.contract import ConciseContractimport jsonweb3 = Web3(HTTPProvider('http://localhost:8545'))print(web3.et
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/erc20_transfer_demo/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1642,9 +1686,19 @@
       
         
           
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">$(&apos;#headlineAddForm #rangeTime&apos;).daterangepicker(&#123;  </span><br><span class="line">        showDropdowns : true,  </span><br><span class="line">        timePicker : true, //是否显示小时和分钟  </span><br><span class="line">        timePicker24Hour: true,  </span><br><span class="line">        timePickerIncrement : 1, //时间的增量，单位为分钟  </span><br><span class="line">        timePickerSeconds : true,  </span><br><span class="line">        linkedCalendars : false,  </span><br><span class="line">        locale : &#123;  </span><br><span class="line">            format: &quot;YYYY-MM-DD HH:mm:ss&quot;,  //控件中from和to 显示的日期格式  </span><br><span class="line">            separator : &quot; - &quot;,  </span><br><span class="line">            applyLabel : &quot;确定&quot;,  </span><br><span class="line">            cancelLabel : &quot;取消&quot;,  </span><br><span class="line">            fromLabel : &quot;开始&quot;,  </span><br><span class="line">            toLabel: &quot;结束&quot;,  </span><br><span class="line">            customRangeLabel : &quot;自定义&quot;,  </span><br><span class="line">            weekLabel : &quot;W&quot;,  </span><br><span class="line">            daysOfWeek : [&quot;日&quot;, &quot;一&quot;, &quot;二&quot;, &quot;三&quot;, &quot;四&quot;, &quot;五&quot;, &quot;六&quot;],  </span><br><span class="line">            monthNames : [&quot;一月&quot;, &quot;二月&quot;, &quot;三月&quot;, &quot;四月&quot;, &quot;五月&quot;, &quot;六月&quot;, &quot;七月&quot;, &quot;八月&quot;, &quot;九月&quot;, &quot;十月&quot;, &quot;十一月&quot;, &quot;十二月 &quot;],  </span><br><span class="line">            firstDay : 1  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;, function(start, end, label) &#123;  </span><br><span class="line">        $(&quot;#headlineAddForm #startTime&quot;).val(start.unix());  </span><br><span class="line">        $(&quot;#headlineAddForm #endTime&quot;).val(end.unix());  </span><br><span class="line">    &#125;).on(&apos;hide.daterangepicker&apos;, function() &#123;  </span><br><span class="line">        $(&apos;#headlineAddForm&apos;).data(&apos;bootstrapValidator&apos;).updateStatus(&apos;rangeTime&apos;, &apos;NOT_VALIDATED&apos;,null).validateField(&apos;rangeTime&apos;);  </span><br><span class="line">    &#125;).on(&apos;cancel.daterangepicker&apos;, function() &#123;  </span><br><span class="line">        $(&apos;#headlineAddForm #rangeTime&apos;).val(&quot;&quot;);  </span><br><span class="line">        $(&apos;#headlineAddForm&apos;).data(&apos;bootstrapValidator&apos;).updateStatus(&apos;rangeTime&apos;, &apos;NOT_VALIDATED&apos;,null).validateField(&apos;rangeTime&apos;);  </span><br><span class="line">    &#125;).on(&apos;apply.daterangepicker&apos;, function() &#123;  </span><br><span class="line">        if($.trim($(&quot;#headlineAddForm #startTime&quot;).val()).length == 0) &#123;  </span><br><span class="line">            $(&apos;#headlineAddForm #rangeTime&apos;).val(&quot;&quot;);  </span><br><span class="line">            $(&apos;#headlineAddForm&apos;).data(&apos;bootstrapValidator&apos;).updateStatus(&apos;rangeTime&apos;, &apos;NOT_VALIDATED&apos;,null).validateField(&apos;rangeTime&apos;);  </span><br><span class="line">        &#125;  </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">$(&apos;#headlineModifyForm #rangeTime&apos;).daterangepicker(&#123;  </span><br><span class="line">       showDropdowns : true,  </span><br><span class="line">       timePicker : true, //是否显示小时和分钟  </span><br><span class="line">       timePicker24Hour: true,  </span><br><span class="line">       timePickerIncrement : 1, //时间的增量，单位为分钟  </span><br><span class="line">       timePickerSeconds : true,  </span><br><span class="line">       linkedCalendars : false,  </span><br><span class="line">       locale : &#123;  </span><br><span class="line">           format: &quot;YYYY-MM-DD HH:mm:ss&quot;,  //控件中from和to 显示的日期格式  </span><br><span class="line">           separator : &quot; - &quot;,  </span><br><span class="line">           applyLabel : &quot;确定&quot;,  </span><br><span class="line">           cancelLabel : &quot;取消&quot;,  </span><br><span class="line">           fromLabel : &quot;开始&quot;,  </span><br><span class="line">           toLabel: &quot;结束&quot;,  </span><br><span class="line">           customRangeLabel : &quot;自定义&quot;,  </span><br><span class="line">           weekLabel : &quot;W&quot;,  </span><br><span class="line">           daysOfWeek : [&quot;日&quot;, &quot;一&quot;, &quot;二&quot;, &quot;三&quot;, &quot;四&quot;, &quot;五&quot;, &quot;六&quot;],  </span><br><span class="line">           monthNames : [&quot;一月&quot;, &quot;二月&quot;, &quot;三月&quot;, &quot;四月&quot;, &quot;五月&quot;, &quot;六月&quot;, &quot;七月&quot;, &quot;八月&quot;, &quot;九月&quot;, &quot;十月&quot;, &quot;十一月&quot;, &quot;十二月 &quot;],  </span><br><span class="line">           firstDay : 1  </span><br><span class="line">       &#125;  </span><br><span class="line">   &#125;, function(start, end, label) &#123;  </span><br><span class="line">       $(&quot;#headlineModifyForm #startTime&quot;).val(start.unix());  </span><br><span class="line">       $(&quot;#headlineModifyForm #endTime&quot;).val(end.unix());  </span><br><span class="line">   &#125;).on(&apos;hide.daterangepicker&apos;, function() &#123;  </span><br><span class="line">       $(&apos;#headlineModifyForm&apos;).data(&apos;bootstrapValidator&apos;).updateStatus(&apos;rangeTime&apos;, &apos;NOT_VALIDATED&apos;,null).validateField(&apos;rangeTime&apos;);  </span><br><span class="line">   &#125;);</span><br></pre></td></tr></table></figure>
+            <p>
+              $(&apos;#headlineAddForm #rangeTime&apos;).daterangepicker(&#123;          showDropdowns : true,          timePicker : true, //是否显示小时和分钟          time
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/js_date_range_picker/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1856,30 +1910,25 @@
       
         
           
-            <p>virtualenv用于创建独立的Python环境，多个Python相互独立，互不影响，它能够：</p>
-<ol>
-<li>在没有权限的情况下安装新套件</li>
-<li>不同应用可以使用不同的套件版本</li>
-<li>套件升级不影响其他应用。</li>
-</ol>
-<h2 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h2><p>1、shell下运行： <figure class="highlight plain"><figcaption><span>install python-virtualenv ``` </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2、使用方法 ``` virtualenv \[虚拟环境名称-也是目录名称\]``` </span><br><span class="line">3、启动环境 ``` cd ENV source ./bin/activate``` ENV为虚拟环境名称，接下来所有模块都只会安装到该目录中去。 默认情况下，虚拟环境会依赖系统环境中的site packages，如果不想依赖这些package，那么可以加上参数 --no-site-packages建立虚拟环境： </span><br><span class="line">``` virtualenv --no-site-packages \[虚拟环境名称\]``` </span><br><span class="line">4、退出 ``` deactivate``` 如果没有启动虚拟环境，系统也安装了pip工具，那么套件将被安装在系统环境中，为了避免发生此事，可以在~/.bashrc文件中加上： ``` export PIP\_REQUIRE\_VIRTUALENV=true ``` 或者让在执行pip的时候让系统自动开启虚拟环境： ``` export PIP\_RESPECT\_VIRTUALENV=true</span><br></pre></td></tr></table></figure></p>
-<h2 id="Virtualenvwrapper"><a href="#Virtualenvwrapper" class="headerlink" title="Virtualenvwrapper"></a>Virtualenvwrapper</h2><p>Virtaulenvwrapper是virtualenv的扩展包，用于更方便管理虚拟环境，它可以做：</p>
-<ol>
-<li>将所有虚拟环境整合在一个目录下</li>
-<li>管理（新增，删除，复制）虚拟环境</li>
-<li>快速切换虚拟环境</li>
-<li>…</li>
-</ol>
-<h3 id="安装方法-1"><a href="#安装方法-1" class="headerlink" title="安装方法"></a>安装方法</h3><p>1、运行 <figure class="highlight plain"><figcaption><span>install virtualenvwrapper ``` </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2、创建目录用来存放虚拟环境 ``` mkdir ~/.virtualenvs</span><br></pre></td></tr></table></figure></p>
-<p>3、在.bashrc中添加 <code>export WORKON_HOME=~/.virtualenvs source /usr/local/bin/virtualenvwrapper.sh</code><br>4、运行： <code>source ~/.bashrc</code> 此时virtualenvwrapper就可以使用了。</p>
-<h3 id="命令列表"><a href="#命令列表" class="headerlink" title="命令列表"></a>命令列表</h3><p>workon:列出虚拟环境列表</p>
-<p>lsvirtualenv:同上</p>
-<p>mkvirtualenv :新建虚拟环境</p>
-<p>workon [虚拟环境名称]:切换虚拟环境</p>
-<p>rmvirtualenv :删除虚拟环境</p>
-<p>deactivate: 离开虚拟环境</p>
+            <p>
+              virtualenv用于创建独立的Python环境，多个Python相互独立，互不影响，它能够：
 
+在没有权限的情况下安装新套件
+不同应用可以使用不同的套件版本
+套件升级不影响其他应用。
+
+安装方法1、shell下运行： install python-virtualenv ``` 2、使用方法 ``
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/mac_virtualenv/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -2091,13 +2140,22 @@
       
         
           
-            <p>安装教程：</p>
-<p>mpv : <span class="exturl" data-url="aHR0cDovL3NvbmdjaGVud2VuLmNvbS90ZWNoLzIwMTUvMDUvMDkvbXB2LXBsYXllci8=" title="http://songchenwen.com/tech/2015/05/09/mpv-player/">http://songchenwen.com/tech/2015/05/09/mpv-player/<i class="fa fa-external-link"></i></span><br>you-get : <span class="exturl" data-url="aHR0cHM6Ly95b3UtZ2V0Lm9yZy8=" title="https://you-get.org/">https://you-get.org/<i class="fa fa-external-link"></i></span> </p>
-<p>简单说下用法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mpv http://www.douyutv.com/56040</span><br></pre></td></tr></table></figure></p>
-<p>这种情况下是直接调用的 youtube-dl 来观看在线视频（这个是在使用 brew 安装 mpv 时就已经安装好了）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">you-get -p mpv http://www.bilibili.com/video/av3458634/</span><br></pre></td></tr></table></figure></p>
-<p>这种情况是调用 <code>you-get</code> 来观看在线视频</p>
-
+            <p>
+              安装教程：
+mpv : http://songchenwen.com/tech/2015/05/09/mpv-player/you-get : https://you-get.org/ 
+简单说下用法：mpv http://www.douyutv.com/56040
+这种情况下是直接调用的 yout
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/mac_you_get_mpv/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -2309,25 +2367,26 @@
       
         
           
-            <p>有两种方式。<br>1：<a href="/samba_install">samba</a><br>2：vm-tool</p>
-<p>本次主要介绍<code>vmtool</code>的共享功能。</p>
-<ol>
-<li>使用ssh连接系统，需要先安装 <code>apt-get install openssh</code></li>
-<li>查看进程：<code>ps -ef | grep beam</code></li>
-<li>在win10下与linux虚拟机Ubuntu建立共享文件夹：</li>
-</ol>
-<h2 id="安装vmtools-for-linux"><a href="#安装vmtools-for-linux" class="headerlink" title="安装vmtools for linux:"></a>安装vmtools for linux:</h2><p>选择vmware workstation程序菜单中VM &gt;install VMware tools…<br>启动Ubuntu，终端上执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mkdir /mnt/cdrom</span><br><span class="line">mount /dev/cdrom /mnt/cdrom</span><br><span class="line"></span><br><span class="line"># vmtools的安装文件放在vmware虚拟的cdrom中，首先要mount上这个光驱才能找到安装文件</span><br><span class="line">cd /mnt/cdrom</span><br><span class="line">tar -zxvf VMwareTools-5.0.0-12124.i386.tar.gz -C /tmp</span><br><span class="line"># 把安装文件解压到/tmp， VMwareTools-5.0.0-12124.i386.tar.gz，虚拟机自带的，不同版本不一样</span><br><span class="line">cd /tmp/vmware-tools-distrib</span><br><span class="line">./vmware-install.pl</span><br></pre></td></tr></table></figure></p>
-<p>安装默认配置vmware tools就可以正常工作，安提示输入yes/No。回车键选择默认配置，20分钟左右。<br>安装完以后，vmware会添加一个vmhgfs的模块到内核中，可以使用lsmod查看 ，没有的话，建立共享文件夹就会不成功。不过可以从win7下复制文件到虚拟机下，拖动也可以。</p>
-<h2 id="设置win7下共享的目录："><a href="#设置win7下共享的目录：" class="headerlink" title="设置win7下共享的目录："></a>设置win7下共享的目录：</h2><p>在虚拟机桌面，选择<code>vmware workstation</code>程序菜单中 <code>VM&gt;Settings&gt;Options&gt;Shared Folders &gt;Properties</code><br>点击对话框右下的“add”按钮，点击“下一步”</p>
-<p>在文本框“name”中输入共享目录的名字（这里填写的目录名以后在ghost computer的linux系统中将显示出同样的目录名），假设为share；在<code>host folder</code>中填入<code>host computer</code>中windows系统想要共享出来的目录.</p>
-<p>下一个对话框是选择共享的方式:<br>Enable this share是指这个共享长期有效，目录可读写；Read-only方式是指这个共享长期有效，目录只读；<br>Disable after this session方式是指下次ghost computer被关闭或挂起后，共享将会失效。<br>一般情况下选择Enable this share然后点击“完成”</p>
-<p>自此，shared folder设置完毕</p>
-<h2 id="shared-folder目录的使用"><a href="#shared-folder目录的使用" class="headerlink" title="shared folder目录的使用"></a>shared folder目录的使用</h2><p>切换到<code>ghost computer</code>的linux系统，执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /mnt/hgfs</span><br><span class="line">ls</span><br></pre></td></tr></table></figure></p>
-<p>可以看到share的目录，并且可以用cp等指令实现windows到linux，linux到windows的读写操作了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install open-vm-tools-dkms</span><br><span class="line">sudo mount  -t  vmhgfs  .host:/   /mnt/hgfs</span><br></pre></td></tr></table></figure></p>
-<h2 id="解决每次都要挂载的方法："><a href="#解决每次都要挂载的方法：" class="headerlink" title="解决每次都要挂载的方法："></a>解决每次都要挂载的方法：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#为了每次开机自动挂载共享目录，终端下输入：</span><br><span class="line">sudo gedit /etc/init.d/open-vm-tools</span><br><span class="line">#末尾增加一行： </span><br><span class="line">sudo mount -t vmhgfs .host:/ /mnt/hgfs </span><br><span class="line">#（host:/ 处有空格）</span><br><span class="line"></span><br><span class="line">#或者编辑 /etc/fstab，添加下面一行</span><br><span class="line">.host:/shared     /mnt/hgfs       vmhgfs     defaults  0  0 （按需写）</span><br><span class="line">tips:</span><br></pre></td></tr></table></figure>
-<p>ubuntu下提示命令用错了，安装了<code>open vm tools</code>以后要用：<code>vmhgfs-fuse .host:/ /mnt/hgfs</code></p>
+            <p>
+              有两种方式。1：samba2：vm-tool
+本次主要介绍vmtool的共享功能。
 
+使用ssh连接系统，需要先安装 apt-get install openssh
+查看进程：ps -ef | grep beam
+在win10下与linux虚拟机Ubuntu建立共享文件夹：
+
+安装vmtools f
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/samba_vm_tool/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -2539,23 +2598,19 @@
       
         
           
-            <p>早期我曾通过goagent、xx-net勉强能浏览google学术等（你懂的） 网站，但至今很久没用过了，主要原因这东西是免费的访问速度、稳定性都很受限，当有限资源满足不了现代人类的欲望时，他们会寻求捷径以获得更多资源，我亦如此。三十而立了，越来越有欲望自己搞点什么，结合自己三十年来学到的东西，不追求利益就出于兴趣玩玩，于是乎有了需要查询的需求，于是乎我做了这件事情，留此文。</p>
-<h2 id="1、租用服务器资源"><a href="#1、租用服务器资源" class="headerlink" title="1、租用服务器资源"></a>1、租用服务器资源</h2><p>我在<code>gigsgiscloud</code>上租用了个最便宜的香港vps，2刀一月。</p>
-<p>OS：CentOS 6<br>Men: 512M<br>bandwith:500G/Mon （完全足够）<br>disk: 30G</p>
-<h2 id="2、服务端软件安装"><a href="#2、服务端软件安装" class="headerlink" title="2、服务端软件安装"></a>2、服务端软件安装</h2><p>root用户（ssh）登陆vps<br>一键安装SS：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks.sh</span><br><span class="line">chmod +x shadowsocks.sh</span><br><span class="line">./shadowsocks.sh 2&gt;&amp;1 | tee shadowsocks.log</span><br></pre></td></tr></table></figure></p>
-<p>安装成功提示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> Congratulations, shadowsocks install completed!</span><br><span class="line"> Your Server IP:your_server_ip</span><br><span class="line"> Your Server Port:8989</span><br><span class="line"> Your Password:your_password</span><br><span class="line"> Your Local IP:127.0.0.1</span><br><span class="line"> Your Local Port:1080</span><br><span class="line"> Your Encryption Method:aes-256-cfb</span><br><span class="line"></span><br><span class="line">Welcome to visit:http://teddysun.com/342.htmlEnjoy it!</span><br></pre></td></tr></table></figure></p>
-<p>用户配置文件：</p>
-<p>路径<code>/etc/shadowsocks.json</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> &#123;</span><br><span class="line"> &quot;server&quot;:&quot;your_server_ip&quot;,</span><br><span class="line"> &quot;server_port&quot;:8989,</span><br><span class="line"> &quot;local_address&quot;:&quot;127.0.0.1&quot;,</span><br><span class="line"> &quot;local_port&quot;:1080,</span><br><span class="line"> &quot;password&quot;:&quot;yourpassword&quot;,</span><br><span class="line"> &quot;timeout&quot;:300,</span><br><span class="line"> &quot;method&quot;:&quot;aes-256-cfb&quot;,</span><br><span class="line"> &quot;fast_open&quot;: false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>同时可以配置多用户。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">启动：/etc/init.d/shadowsocks start</span><br><span class="line">停止：/etc/init.d/shadowsocks stop</span><br><span class="line">重启：/etc/init.d/shadowsocks restart</span><br><span class="line">状态：/etc/init.d/shadowsocks status</span><br></pre></td></tr></table></figure></p>
-<p>一键安装FS，不要装成了XS，XS是收费的：<br>root用户执行以下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rm -f install_fs.sh</span><br><span class="line">wget  https://github.com/dupontjoy/customization/raw/master/Rules/Shadowsocks/Finalspeed/install_fs.sh</span><br><span class="line">chmod +x install_fs.sh</span><br><span class="line">./install_fs.sh 2&gt;&amp;1 | tee install.log</span><br><span class="line"></span><br><span class="line">启动：sh /fs/start.sh</span><br><span class="line">停止：sh /fs/stop.sh</span><br></pre></td></tr></table></figure></p>
-<h2 id="3、客户端配置"><a href="#3、客户端配置" class="headerlink" title="3、客户端配置"></a>3、客户端配置</h2><p>下载SS客户端：<br><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NoYWRvd3NvY2tzL3NoYWRvd3NvY2tzL3dpa2kvUG9ydHMtYW5kLUNsaWVudHMjd2luZG93cw==" title="https://github.com/shadowsocks/shadowsocks/wiki/Ports-and-Clients#windows">https://github.com/shadowsocks/shadowsocks/wiki/Ports-and-Clients#windows<i class="fa fa-external-link"></i></span> </p>
-<p>下载安装FS客户端：<br><span class="exturl" data-url="aHR0cHM6Ly93d3cuYWJjbGl0ZS5jbi9yZWRpcmVjdC9hSFIwY0RvdkwyWnpMbVF4YzIwdWJtVjBMMlpwYm1Gc2MzQmxaV1F2Wm1sdVlXeHpjR1ZsWkY5cGJuTjBZV3hzTVM0d0xtVjRaUT09" title="https://www.abclite.cn/redirect/aHR0cDovL2ZzLmQxc20ubmV0L2ZpbmFsc3BlZWQvZmluYWxzcGVlZF9pbnN0YWxsMS4wLmV4ZQ==">https://www.abclite.cn/redirect/aHR0cDovL2ZzLmQxc20ubmV0L2ZpbmFsc3BlZWQvZmluYWxzcGVlZF9pbnN0YWxsMS4wLmV4ZQ==<i class="fa fa-external-link"></i></span></p>
-<p>SS+FS配置<br>注：SS上要配两个服务器，一个连接VPS，一个做FS代理的，如图，密码为<code>/etc/shadowsocks.json</code> 配置文件中的密码</p>
-<h2 id="4、使用chrome浏览"><a href="#4、使用chrome浏览" class="headerlink" title="4、使用chrome浏览"></a>4、使用chrome浏览</h2><p>配置chrome套接字代理：127.0.0.1  端口1083，还可<code>swichsharp</code>扩展让浏览器在代理非代理模式间快捷切换。<br>此时若可访问谷歌，且FS显示端口xxx连接成功，代表加速成功，FS着实强大，在与香港ping值达到300-500ms的情况下依然可跑满网络，如此，奔跑吧骚年。<br>注：以上仅vps每月2刀的租用费用，其他软件都免费。</p>
-<p>Reference：<br><span class="exturl" data-url="aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc3RyOTk5X2NuL2FydGljbGUvZGV0YWlscy81MTI4MDgzNA==" title="http://blog.csdn.net/str999_cn/article/details/51280834">http://blog.csdn.net/str999_cn/article/details/51280834<i class="fa fa-external-link"></i></span><br><span class="exturl" data-url="aHR0cHM6Ly93d3cuY21za3kuY29tL2ZpbmFsc3BlZWQv" title="https://www.cmsky.com/finalspeed/">https://www.cmsky.com/finalspeed/<i class="fa fa-external-link"></i></span><br><span class="exturl" data-url="aHR0cDovL2Jsb2cuc2luYS5jb20uY24vcy9ibG9nX2QzMDY4NmY3MDEwMnZ4dDEuaHRtbA==" title="http://blog.sina.com.cn/s/blog_d30686f70102vxt1.html">http://blog.sina.com.cn/s/blog_d30686f70102vxt1.html<i class="fa fa-external-link"></i></span></p>
-
+            <p>
+              早期我曾通过goagent、xx-net勉强能浏览google学术等（你懂的） 网站，但至今很久没用过了，主要原因这东西是免费的访问速度、稳定性都很受限，当有限资源满足不了现代人类的欲望时，他们会寻求捷径以获得更多资源，我亦如此。三十而立了，越来越有欲望自己搞点什么，结合自己三十年来学到的东西，不追
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/shardowsocks_final_speed/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>

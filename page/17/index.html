@@ -560,23 +560,22 @@
       
         
           
-            <p>大家都知道php没有多线程，这也是弱于java等高级语言的表现之一。</p>
-<p>但有时候我们还是需要php同时做一些操作，这时候我们可以借助服务器的多程线来实现。</p>
-<p>自然就会想起 <code>curl_multi_*</code>系列函数，这些函数说明并不详细，例子也很少。</p>
-<p>一般来说，想到要用这些函数时，目的显然应该是要同时请求多个url，而不是一个一个依次请求。</p>
-<p>步骤总结如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">第一步：调用curl_multi_init</span><br><span class="line">第二步：循环调用curl_multi_add_handle</span><br><span class="line">这一步需要注意的是，curl_multi_add_handle的第二个参数是由curl_init而来的子handle。</span><br><span class="line">第三步：持续调用curl_multi_exec</span><br><span class="line">第四步：根据需要循环调用curl_multi_getcontent获取结果</span><br><span class="line">第五步：调用curl_multi_remove_handle，并为每个字handle调用curl_close</span><br><span class="line">第六步：调用curl_multi_close</span><br></pre></td></tr></table></figure></p>
-<p>————————— 以下例子为本人测试时使用  —————————-</p>
-<p>背景:</p>
-<p>1.在test数据库下建立test<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">use test;</span><br><span class="line"></span><br><span class="line">CREATE TABLE `test` (</span><br><span class="line">`id` int(11) NOT NULL auto_increment,</span><br><span class="line">`record_date` datetime NOT NULL,</span><br><span class="line">PRIMARY KEY   (`id`)</span><br><span class="line">) ENGINE=MyISAM   DEFAULT CHARSET=utf8;</span><br></pre></td></tr></table></figure></p>
-<p>2.在虚拟目录下建立相关测试目录和两个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/www/test/curl_multi/index.php &amp; do.php</span><br></pre></td></tr></table></figure></p>
-<p>[php] view plaincopy</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">&lt;?</span><br><span class="line">/**</span><br><span class="line">* @Author:  Ewing</span><br><span class="line">* @Date: 2010-10-10</span><br><span class="line">* @File:curl/multi/index.php</span><br><span class="line">* @Desc: make multi action</span><br><span class="line">*/</span><br><span class="line">$t=getTime();</span><br><span class="line">$total=60;//由测试得少于64个线程运行一次没有延迟，太多的话可能是apache的原因，效果并不理想，大家可以自己输入不同的值测试</span><br><span class="line">for($i=0;$i&lt;$total;$i++)</span><br><span class="line">    $url_arr[]=“http://localhost/test/curl_multi/do.php?i=$i”;</span><br><span class="line">$mh = curl_multi_init();</span><br><span class="line">foreach ($url_arr as $i =&gt; $url) &#123;</span><br><span class="line">  $conn[$i]=curl_init($url);</span><br><span class="line">  curl_setopt($conn[$i],CURLOPT_RETURNTRANSFER,1);//设置返回do.php页面输出内容</span><br><span class="line">  curl_multi_add_handle ($mh,$conn[$i]);//添加线程</span><br><span class="line">&#125;</span><br><span class="line">#—————-执行线程—————-</span><br><span class="line">//do&#123;$n=curl_multi_exec($mh,$active); &#125;while($active); //网上说些方法有时会让CPU达100%</span><br><span class="line">do&#123;</span><br><span class="line">  $mrc = curl_multi_exec($mh,$active);</span><br><span class="line">&#125;while($mrc == CURLM_CALL_MULTI_PERFORM);</span><br><span class="line">while($active and $mrc == CURLM_OK)&#123;</span><br><span class="line">  if(curl_multi_select($mh) != -1)&#123;</span><br><span class="line">    do&#123;</span><br><span class="line">      $mrc = curl_multi_exec($mh, $active);</span><br><span class="line">    &#125;while($mrc == CURLM_CALL_MULTI_PERFORM);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">#——————————-</span><br><span class="line">foreach($url_arr as $i =&gt; $url)&#123;</span><br><span class="line">  $res[$i]=curl_multi_getcontent($conn[$i]);//得到页面输入内容</span><br><span class="line">  curl_close($conn[$i]);</span><br><span class="line">&#125;</span><br><span class="line">foreach($res as $k=&gt;$v)&#123;</span><br><span class="line">  $k=str_pad($k,2,0);</span><br><span class="line">  echo “$k =&gt; $v &lt;br&gt;”;</span><br><span class="line">&#125;</span><br><span class="line">runTime($t);</span><br><span class="line">#———– calculate time function————-</span><br><span class="line">function getTime()&#123;</span><br><span class="line">  $TIME=explode(“ ”,microtime());</span><br><span class="line">  $TIME=$TIME[1].substr($TIME[0],1);</span><br><span class="line">  return $TIME;</span><br><span class="line">&#125;</span><br><span class="line">function runTime($t,$l=3)&#123;</span><br><span class="line">  $dif=getTime()-$t;</span><br><span class="line">  echo ‘ ’.number_format($dif,$l);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<p>[c-sharp] view plaincopy</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;?</span><br><span class="line">/**</span><br><span class="line">* @Author: Ewing</span><br><span class="line">* @Date: 2010-10-10</span><br><span class="line">* @File:curl/multi/do.php</span><br><span class="line">* @Desc: do something here</span><br><span class="line">*/</span><br><span class="line">$t=getTime();</span><br><span class="line">sleep(mt_rand(1,3));//设置延迟</span><br><span class="line">//数据库处理</span><br><span class="line">mysql_connect(“localhost”,“root”,“your_password”);</span><br><span class="line">mysql_select_db(“test”);</span><br><span class="line">mysql_query(“insert into test(record_date) value(NOW())”);</span><br><span class="line">//文件处理</span><br><span class="line">$file=‘./test.txt’;</span><br><span class="line">$fp=fopen($file,‘a’);</span><br><span class="line">flock($fp, LOCK_EX);</span><br><span class="line">fwrite($fp,date(‘H:i:s’).“/n/r”);</span><br><span class="line">fclose($fp);</span><br><span class="line">echo date(‘H:i:s’);</span><br><span class="line">runTime($t);</span><br><span class="line">#————-calculate time function————</span><br><span class="line">function getTime()&#123;</span><br><span class="line">  $TIME=explode(“ ”,microtime());</span><br><span class="line">  $TIME=$TIME[1].substr($TIME[0],1);</span><br><span class="line">  return $TIME;</span><br><span class="line">&#125;</span><br><span class="line">function runTime($t,$l=3)&#123;</span><br><span class="line">  $dif=getTime()-$t;</span><br><span class="line">  echo ‘ ’.number_format($dif,$l);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<p>在浏览器上打开 <code>http://localhost/test/curl_multi/</code> 即可看到效果</p>
-<p>ps:以上例子只是用于本地处理多线程，用多线程取网页数据也是可以的，只要把<code>index.php</code>中的<code>$url_arr</code>换成外网的url即可。不过建议不要一次拿太多的url，不然会有意想不到的结果哦，想知道是什么？自己试试吧。</p>
-
+            <p>
+              大家都知道php没有多线程，这也是弱于java等高级语言的表现之一。
+但有时候我们还是需要php同时做一些操作，这时候我们可以借助服务器的多程线来实现。
+自然就会想起 curl_multi_*系列函数，这些函数说明并不详细，例子也很少。
+一般来说，想到要用这些函数时，目的显然应该是要同时请求多个ur
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/php_thread_curl_multi/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -788,49 +787,20 @@
       
         
           
-            <p>建立一个用于编写Go程序的工作目录<code>go-examples</code>，其绝对路径为<code>/home/go-examples</code>.开始编写我们的第一个Go程序。</p>
-<h3 id="一、在go-examples下创建一个文件hello-go"><a href="#一、在go-examples下创建一个文件hello-go" class="headerlink" title="一、在go-examples下创建一个文件hello.go"></a>一、在<code>go-examples</code>下创建一个文件<code>hello.go</code></h3><p>复制代码代码如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//hello.go</span><br><span class="line">package mainimport “fmt”//实现格式化的I/O</span><br><span class="line">/*Printf someting*/</span><br><span class="line">func main()&#123;</span><br><span class="line">  fmt.Printf(“Hello,GO!\n”)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>我们来分析下这个程序：</p>
-<ul>
-<li>1、程序中的第2行这个是必须的。所有的Go文件以<code>package &lt;something&gt;</code>开头，对于独立运行的执行文件必须是<code>package main</code>；</li>
-<li>2、第4行说需要将”fmt”包加入main。不是main的其他包都被称为库，其他许多编程语言有着类似的概念。</li>
-<li>3、第1行和第4行中的<code>//</code>和<code>/*—*/</code>都是注释</li>
-<li>4、<code>package main</code> 必须首先出现，紧跟着是<code>import</code>。在Go中，<code>package</code> 总是首先出现，然后是<code>import</code>，然后是其他所有内容。当Go 程序在执行的时候，首先调用的函数是<code>main.main()</code>，这是从C 中继承而来。这里定义了这个函数；</li>
-<li>5、第8行调用了来自于fmt包的函数打印字符串到屏幕</li>
-</ul>
-<h3 id="二、编译和运行代码"><a href="#二、编译和运行代码" class="headerlink" title="二、编译和运行代码"></a>二、编译和运行代码</h3><p>编译该源文件并执行生成的可执行文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost go-examples]# go build hello.go</span><br><span class="line">[root@localhost go-examples]# ls</span><br><span class="line">hello hello.go</span><br><span class="line">[root@localhost go-examples]# ./hello</span><br><span class="line">Hello,GO!</span><br></pre></td></tr></table></figure></p>
-<p>通过<code>go build</code>加上要编译的Go源文件名，我们即可得到一个可执行文件，默认情况下这个文件的名字为源文件名字去掉<code>.go</code>后缀。当然我们也可以通过<code>-o</code>选项来指定其他名字：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost go-examples]# go build -o firstgo hello.go</span><br><span class="line">[root@localhost go-examples]# ls</span><br><span class="line">firstgo hello.go</span><br></pre></td></tr></table></figure></p>
-<p>如果我们在<code>go-examples</code>目录下直接执行<code>go build</code>命令，后面不带文件名，我们将得到一个与目录名同名的可执行文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost go-examples]# go build</span><br><span class="line">[root@localhost go-examples]# ls</span><br><span class="line">go-examples hello.go</span><br></pre></td></tr></table></figure></p>
-<h3 id="三、程序入口点-entry-point-和包-package"><a href="#三、程序入口点-entry-point-和包-package" class="headerlink" title="三、程序入口点(entry point)和包(package)"></a>三、程序入口点(entry point)和包(package)</h3><p>Go保持了与C家族语言一致的风格：即目标为可执行程序的Go源码中务必要有一个名为main的函数，该函数即为可执行程序的入口点。除此之外 Go还增加了一个约束：作为入口点的main函数必须在名为main的package中。正如上面<code>hellogo.go</code>源文件中的那样，在源码第 一行就声明了该文件所归属的package为main。</p>
-<p>Go去除了头文件的概念，而借鉴了很多主流语言都采用的package的源码组织方式。<code>package</code>是个逻辑概念，与文件没有一一对应的关系。 如果多个源文件都在开头声明自己属于某个名为foo的包，那这些源文件中的代码在逻辑上都归属于包foo(这些文件最好在同一个目录下，至少目前 的Go版本还无法支持不同目录下的源文件归属于同一个包)。</p>
-<p>我们看到<code>hellogo.go</code>中<code>import</code>一个名为fmt的包，并利用该包内的<code>Printf</code>函数输出”Hello, Go!”。直觉告诉我们fmt包似乎是一个标准库中的包。没错，<code>fmt</code>包提供了格式化文本输出以及读取格式化输入的相关函数，与C中的<code>printf</code>或 <code>scanf</code>等类似。我们通过<code>import</code>语句将fmt包导入我们的源文件后就可以使用该fmt包导出(export)的功能函数了(比如 Printf)。</p>
-<p>在C中，我们通过<code>static</code>来标识局部函数还是全局函数。而在Go中，包中的函数是否可以被外部调用，要看该函数名的首母是否为大写。这是一种 Go语言固化的约定：首母大写的函数被认为是导出的函数，可以被包之外的代码调用；而小写字母开头的函数则仅能在包内使用。在例子中你也看到了 <code>fmt</code>包的<code>Printf</code>函数其首母就是大写的。</p>
-<h3 id="四、GOPATH"><a href="#四、GOPATH" class="headerlink" title="四、GOPATH"></a>四、GOPATH</h3><p>把上面的<code>hellogo.go</code>稍作改造，拆分成两个文件：<code>main.go</code>和<code>hello.go</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//hello.go</span><br><span class="line">package hello</span><br><span class="line">import “fmt”</span><br><span class="line"></span><br><span class="line">func Hello(who string)&#123;</span><br><span class="line">  fmt.Printf(“Hello,%s!\n”, who)</span><br><span class="line">&#125;</span><br><span class="line">//main.go</span><br><span class="line">package main</span><br><span class="line">import “hello”</span><br><span class="line"></span><br><span class="line">func main()&#123;</span><br><span class="line">  hello.Hello(“GO”)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>用<code>go build</code>编译<code>main.go</code> 结果如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost go-examples]# go build main.go</span><br><span class="line">main.go:4:8: import “hello”: cannot find package</span><br></pre></td></tr></table></figure></p>
-<p>编译器居然提示无法找到<code>hello</code>这个<code>package</code>，而<code>hello.go</code>中明明定义了<code>package hello</code>了。这是怎么回事呢？原来<code>go compiler</code>搜索<code>package</code>的方式与我们常规理解的有不同，Go在这方面也有一套约定，这里面涉及到一个重要的环境变量：<code>GOPATH</code>。我们可以使用go help gopath来查看一下有关gopath的manual。</p>
-<p><code>Go compiler</code>的<code>package</code>搜索顺序是这样的，以搜索<code>hello</code>这个<code>package</code>为例：</p>
-<ul>
-<li>首先，<code>Go compiler</code>会在GO安装目录(<code>GOROOT</code>，这里是<code>/home/go/</code>)下查找是否有<code>src/pkg/hello</code>相关包源码；如果没有则继续；</li>
-<li>如果<code>export GOPATH=PATH1:PAHT2</code>，则<code>Go compiler</code>会依次查找是否存在<code>PATH1/src/hello</code>、<code>PATH2/src/hello</code>；配置在GOPATH中的<code>PATH1</code>和<code>PATH2</code>被称作<code>workplace</code>；</li>
-<li>如果在上述几个位置均无法找到<code>hello</code>这个<code>package</code>，则提示出错。</li>
-</ul>
-<p>在本例子中，我们尚未设置过<code>GOPATH</code>环境变量，也没有建立类似<code>PATH1/src/hello</code>这样的路径，因此<code>Go compiler</code>显然无法找到<code>hello</code>这个<code>package</code>了。我们来设置一下GOPATH变量并建立相关目录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost go-examples]# export GOPATH=/home/go-examples/</span><br><span class="line">[root@localhost go-examples]# mkdir src/hello -p</span><br><span class="line">[root@localhost go-examples]# mv hello.go src/hello/</span><br><span class="line">[root@localhost go-examples]# go build main.go</span><br><span class="line">[root@localhost go-examples]# ls</span><br><span class="line">main main.go src</span><br><span class="line">[root@localhost go-examples]# ./main</span><br><span class="line">Hello,GO!</span><br></pre></td></tr></table></figure></p>
-<h3 id="Go-install"><a href="#Go-install" class="headerlink" title="Go install"></a>Go install</h3><p>将<code>main.go</code>移到<code>src/main</code>中，这样这个<code>demo project</code>显得更加合理，所有源码均在src下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost go-examples]# cd src/</span><br><span class="line">[root@localhost src]# ls</span><br><span class="line">hello main.go</span><br></pre></td></tr></table></figure></p>
-<p>Go提供了<code>install</code>命令，与<code>build</code>命令相比，<code>install</code>命令在编译源码后还会将可执行文件或库文件安装到约定的目录下。我们以main目录为例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost src]# cd main/</span><br><span class="line">[root@localhost main]# go install</span><br></pre></td></tr></table></figure></p>
-<p><code>install</code>命令执行后，我们发现main目录下没有任何变化，原先build时产生的main可执行文件也不见了踪影。别急，<code>Go install</code>也有一套自己的约定：</p>
-<ul>
-<li><code>go install</code>(在<code>src/DIR</code>下)编译出的可执行文件以其所在目录名(DIR)命名</li>
-<li><code>go install</code>将可执行文件安装到与<code>src</code>同级别的<code>bin</code>目录下，<code>bin</code>目录由<code>go install</code>自动创建</li>
-<li><code>go install</code>将可执行文件依赖的各种<code>package</code>编译后，放在与<code>src</code>同级别的<code>pkg</code>目录下</li>
-</ul>
-<p>现在我们来看看<code>bin</code>目录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost go-examples]# ls</span><br><span class="line">bin pkg src</span><br><span class="line">[root@localhost go-examples]# ls bin/</span><br><span class="line">main</span><br></pre></td></tr></table></figure></p>
-<p>的确出现一个<code>bin</code>目录，并且刚刚编译的程序<code>main</code>在<code>bin</code>下面。</p>
-<p><code>hello.go</code>编译后并非可执行程序，在编译main的同时，由于main依赖<code>hello package</code>，因此<code>hello</code>也被关联编译了。这与单独在<code>hello</code>目录下执行<code>install</code>的结果是一样的，我们试试：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost src]# cd hello/</span><br><span class="line">[root@localhost hello]# go install</span><br><span class="line">[root@localhost hello]# ls /home/go-examples/</span><br><span class="line">bin pkg src</span><br></pre></td></tr></table></figure></p>
-<p>在我们的<code>workspace</code>(go-examples目录)下出现了一个<code>pkg</code>目录，<code>pkg</code>目录下是一个名为<code>linux_386</code>的子目录，其下面有一个文件：<code>hello.a</code>。这就是我们<code>install</code>的结果。<code>hello.go</code>被编译为<code>hello.a</code>并安装到<code>pkg/linux_386</code>目录下了。</p>
-<p><code>.a</code>这个后缀名让我们想起了静态共享库，但这里的<code>.a</code>却是Go独有的文件格式，与传统的静态共享库并不兼容。但Go语言的设计者使用这个后缀名似乎是希望 这个<code>.a</code>文件也承担起Go语言中”静态共享库”的角色。我们不妨来试试，看看这个<code>hello.a</code>是否可以被<code>Go compiler</code>当作”静态共享库”来对待。我们移除<code>src</code>中的<code>hello</code>目录，然后在<code>main</code>目录下执行<code>go build</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost main]# go build</span><br><span class="line">main.go:4:8: import “hello”: cannot find package</span><br></pre></td></tr></table></figure></p>
-<p>Go编译器提示无法找到<code>hello</code>这个包，可见目前版本的Go编译器似乎不理pkg下的<code>.a</code>文件。<span class="exturl" data-url="aHR0cDovL2NvZGUuZ29vZ2xlLmNvbS9wL2dvL2lzc3Vlcy9kZXRhaWw/aWQ9Mjc3NQ==" title="http://code.google.com/p/go/issues/detail?id=2775">http://code.google.com/p/go/issues/detail?id=2775<i class="fa fa-external-link"></i></span> 这个issue也印证了这一点，不过后续Go版本很可能会支持链接<code>.a</code>文件。毕竟我们在使用第三方package的时候，很可能无法得到其源码，并且在每个项目中都保存一份第三方包的源码也十分不利于项目源码的后期维护。</p>
-
+            <p>
+              建立一个用于编写Go程序的工作目录go-examples，其绝对路径为/home/go-examples.开始编写我们的第一个Go程序。
+一、在go-examples下创建一个文件hello.go复制代码代码如下://hello.gopackage mainimport “fmt”//实现格式化的I
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/go_first_hello_go/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1042,193 +1012,24 @@
       
         
           
-            <h3 id="Key"><a href="#Key" class="headerlink" title="Key"></a>Key</h3><hr>
-<p>Key命令速查：</p>
-<h4 id="DEL"><a href="#DEL" class="headerlink" title="DEL"></a>DEL</h4><p>删除给定的一个或多个 key，不存在的 key 会被忽略，返回值：被删除 key 的数量</p>
-<h4 id="DUMP"><a href="#DUMP" class="headerlink" title="DUMP"></a>DUMP</h4><p>序列化给定 key，返回被序列化的值，使用 RESTORE 命令可以将这个值反序列化为 Redis 键</p>
-<h4 id="EXISTS"><a href="#EXISTS" class="headerlink" title="EXISTS"></a>EXISTS</h4><p>检查给定key是否存在</p>
-<h4 id="EXPIRE"><a href="#EXPIRE" class="headerlink" title="EXPIRE"></a>EXPIRE</h4><p>为给定key设置有效时间，接受时间点</p>
-<h4 id="EXPIREAT"><a href="#EXPIREAT" class="headerlink" title="EXPIREAT"></a>EXPIREAT</h4><p>为给定key设置有效时间，接受时间戳timestamp</p>
-<h4 id="KEYS"><a href="#KEYS" class="headerlink" title="KEYS"></a>KEYS</h4><p>查找所有符合给定模式 pattern 的 key；KEYS <code>*</code> 匹配数据库中所有 key；<code>KEYS h*llo</code> 匹配 hello，hallo等。<code>KEYS h[ae]llo</code>匹配hello和hallo</p>
-<h4 id="MIGRATE"><a href="#MIGRATE" class="headerlink" title="MIGRATE"></a>MIGRATE</h4><p>将 key 原子性地从当前实例传送到目标实例的指定数据库上，一旦传送成功， key 保证会出现在目标实例上，而当前实例上的 key 会被删除。执行的时候会阻塞进行迁移的两个实例</p>
-<h4 id="MOVE"><a href="#MOVE" class="headerlink" title="MOVE"></a>MOVE</h4><p>将当前数据库的 key 移动到给定的数据库 db 当中</p>
-<h4 id="OBJECT"><a href="#OBJECT" class="headerlink" title="OBJECT"></a>OBJECT</h4><p>从内部察看给定 key 的 Redis 对象</p>
-<h4 id="PERSIST"><a href="#PERSIST" class="headerlink" title="PERSIST"></a>PERSIST</h4><p>移除给定 key 的有效时间</p>
-<h4 id="PEXPIRE"><a href="#PEXPIRE" class="headerlink" title="PEXPIRE"></a>PEXPIRE</h4><p>以毫秒为单位设置 key 的有效时间</p>
-<h4 id="EXPIREAT-1"><a href="#EXPIREAT-1" class="headerlink" title="EXPIREAT"></a>EXPIREAT</h4><p>以毫秒为单位设置 key 的有效时间(timespan)</p>
-<h4 id="PTTL"><a href="#PTTL" class="headerlink" title="PTTL"></a>PTTL</h4><p>以毫秒为单位返回key的剩余有效时间</p>
-<h4 id="RANDOMKEY"><a href="#RANDOMKEY" class="headerlink" title="RANDOMKEY"></a>RANDOMKEY</h4><p>从当前数据库中随机返回(已使用的)一个key</p>
-<h4 id="RENAME"><a href="#RENAME" class="headerlink" title="RENAME"></a>RENAME</h4><p>将Key改名</p>
-<h4 id="RENAMENX"><a href="#RENAMENX" class="headerlink" title="RENAMENX"></a>RENAMENX</h4><p>当且仅当 newkey 不存在时，将 key 改名为 newkey</p>
-<h4 id="RESTORE"><a href="#RESTORE" class="headerlink" title="RESTORE"></a>RESTORE</h4><p>反序列化给定的序列化值，并将它和给定的 key 关联</p>
-<h4 id="SORT"><a href="#SORT" class="headerlink" title="SORT"></a>SORT</h4><p>返回或保存给定列表、集合、有序集合 key 中经过排序的元素</p>
-<h4 id="TTL"><a href="#TTL" class="headerlink" title="TTL"></a>TTL</h4><p>以秒为单位，返回给定 key 的剩余有效时间</p>
-<h4 id="TYPE"><a href="#TYPE" class="headerlink" title="TYPE"></a>TYPE</h4><p>返回 key 所储存的值的类型</p>
-<h4 id="SCAN"><a href="#SCAN" class="headerlink" title="SCAN"></a>SCAN</h4><p>增量迭代</p>
-<hr>
-<h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><hr>
-<p>String命令速查：</p>
-<h4 id="APPEND"><a href="#APPEND" class="headerlink" title="APPEND"></a>APPEND</h4><p>将值追加到指定key的值末尾，如果key不存在，则相当于增加操作。</p>
-<h4 id="BITCOUNT"><a href="#BITCOUNT" class="headerlink" title="BITCOUNT"></a>BITCOUNT</h4><p>计算给定字符串中，被设置为 1 的Bit位的数量。</p>
-<h4 id="BITOP"><a href="#BITOP" class="headerlink" title="BITOP"></a>BITOP</h4><p>对一个或多个保存二进制位的字符串 key 进行位元操作</p>
-<h4 id="DECR"><a href="#DECR" class="headerlink" title="DECR"></a>DECR</h4><p>将 key 中储存的数字值减一。Key不存在，则将值置0，key类型不正确返回一个错误。</p>
-<h4 id="DECRBY"><a href="#DECRBY" class="headerlink" title="DECRBY"></a>DECRBY</h4><p>将key所储存的值减去指定数量</p>
-<h4 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h4><p>返回key所关联的字符串值，如果Key储存的值不是字符串类型，返回一个错误。</p>
-<h4 id="GETBIT"><a href="#GETBIT" class="headerlink" title="GETBIT"></a>GETBIT</h4><p>对key所储存的字符串值，获取指定偏移量上的位</p>
-<h4 id="GETRANGE"><a href="#GETRANGE" class="headerlink" title="GETRANGE"></a>GETRANGE</h4><p>返回key中字符串值的子字符串，字符串的截取范围由start和end两个偏移量决定</p>
-<h4 id="GETSET"><a href="#GETSET" class="headerlink" title="GETSET"></a>GETSET</h4><p>将给定key的值设为value，并返回key的旧值。非字符串报错。</p>
-<h4 id="INCR"><a href="#INCR" class="headerlink" title="INCR"></a>INCR</h4><p>将 key 中储存的数字值增一。不能转换为数字则报错。</p>
-<h4 id="INCRBY"><a href="#INCRBY" class="headerlink" title="INCRBY"></a>INCRBY</h4><p>将key所储存的值加上指定增量</p>
-<h4 id="INCRBYFLOAT"><a href="#INCRBYFLOAT" class="headerlink" title="INCRBYFLOAT"></a>INCRBYFLOAT</h4><p>为key中所储存的值加上指定的浮点数增量</p>
-<h4 id="MGET"><a href="#MGET" class="headerlink" title="MGET"></a>MGET</h4><p>返回所有(一个或多个)给定key的值</p>
-<h4 id="MSET"><a href="#MSET" class="headerlink" title="MSET"></a>MSET</h4><p>同时设置一个或多个key-value对</p>
-<h4 id="MSETNX"><a href="#MSETNX" class="headerlink" title="MSETNX"></a>MSETNX</h4><p>同时设置一个或多个key-value对，若一个key已被占用，则全部的执行取消。</p>
-<h4 id="PSETEX"><a href="#PSETEX" class="headerlink" title="PSETEX"></a>PSETEX</h4><p>以毫秒为单位设置 key 的有效时间</p>
-<h4 id="SET"><a href="#SET" class="headerlink" title="SET"></a>SET</h4><p>将字符串值value关联到key</p>
-<h4 id="SETBIT"><a href="#SETBIT" class="headerlink" title="SETBIT"></a>SETBIT</h4><p>对key所储存的字符串值，设置或清除指定偏移量上的位(bit)</p>
-<h4 id="SETEX"><a href="#SETEX" class="headerlink" title="SETEX"></a>SETEX</h4><p>将值value关联到 key，并将key的有效时间(秒)</p>
-<h4 id="SETNX"><a href="#SETNX" class="headerlink" title="SETNX"></a>SETNX</h4><p>当key未被使用时，设置为指定值</p>
-<h4 id="SETRANGE"><a href="#SETRANGE" class="headerlink" title="SETRANGE"></a>SETRANGE</h4><p>用value参数覆写(overwrite)给定key所储存的字符串值，从偏移量 offset 开始</p>
-<h4 id="STRLEN"><a href="#STRLEN" class="headerlink" title="STRLEN"></a>STRLEN</h4><p>返回key所储存的字符串值的长度</p>
-<hr>
-<h3 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h3><hr>
-<p>Hash命令速查：</p>
-<h4 id="HDEL"><a href="#HDEL" class="headerlink" title="HDEL"></a>HDEL</h4><p>删除哈希表 key 中的一个或多个指定域，不存在的域将被忽略。</p>
-<h4 id="HEXISTS"><a href="#HEXISTS" class="headerlink" title="HEXISTS"></a>HEXISTS</h4><p>查看哈希表 key 中，给定域 field 是否存在</p>
-<h4 id="HGET"><a href="#HGET" class="headerlink" title="HGET"></a>HGET</h4><p>返回哈希表 key 中给定域 field 的值</p>
-<h4 id="HGETALL"><a href="#HGETALL" class="headerlink" title="HGETALL"></a>HGETALL</h4><p>返回哈希表 key 中，所有的域和值</p>
-<h4 id="HINCRBY"><a href="#HINCRBY" class="headerlink" title="HINCRBY"></a>HINCRBY</h4><p>为哈希表 key 中的域 field 的值加上指定增量</p>
-<h4 id="HINCRBYFLOAT"><a href="#HINCRBYFLOAT" class="headerlink" title="HINCRBYFLOAT"></a>HINCRBYFLOAT</h4><p>为哈希表 key 中的域 field 加上指定的浮点数增量</p>
-<h4 id="HKEYS"><a href="#HKEYS" class="headerlink" title="HKEYS"></a>HKEYS</h4><p>返回哈希表 key 中的所有域</p>
-<h4 id="HLEN"><a href="#HLEN" class="headerlink" title="HLEN"></a>HLEN</h4><p>返回哈希表 key 中域的数量</p>
-<h4 id="HMGET"><a href="#HMGET" class="headerlink" title="HMGET"></a>HMGET</h4><p>返回哈希表 key 中，一个或多个给定域的值</p>
-<h4 id="HMSET"><a href="#HMSET" class="headerlink" title="HMSET"></a>HMSET</h4><p>同时将多个 field-value (域-值)对设置到哈希表 key 中</p>
-<h4 id="HSET"><a href="#HSET" class="headerlink" title="HSET"></a>HSET</h4><p>将哈希表 key 中的域 field 的值设为 value</p>
-<h4 id="HSETNX"><a href="#HSETNX" class="headerlink" title="HSETNX"></a>HSETNX</h4><p>当且仅当域 field 不存在时，将哈希表 key 中的域 field 的值设置为 value</p>
-<h4 id="HVALS"><a href="#HVALS" class="headerlink" title="HVALS"></a>HVALS</h4><p>返回哈希表 key 中所有域的值</p>
-<h4 id="HSCAN"><a href="#HSCAN" class="headerlink" title="HSCAN"></a>HSCAN</h4><p>增量迭代</p>
-<hr>
-<h3 id="List"><a href="#List" class="headerlink" title="List"></a>List</h3><hr>
-<p>List命令速查：</p>
-<h4 id="BLPOP"><a href="#BLPOP" class="headerlink" title="BLPOP"></a>BLPOP</h4><p>它是 LPOP 命令的阻塞版本，当给定列表内没有任何元素可供弹出的时候，连接将被 BLPOP 命令阻塞，直到等待超时或发现可弹出元素为止</p>
-<h4 id="BRPOP"><a href="#BRPOP" class="headerlink" title="BRPOP"></a>BRPOP</h4><p>与BLPOP同义，弹出位置不同</p>
-<h4 id="BRPOPLPUSH"><a href="#BRPOPLPUSH" class="headerlink" title="BRPOPLPUSH"></a>BRPOPLPUSH</h4><p>当列表 source 为空时， BRPOPLPUSH 命令将阻塞连接，直到等待超时</p>
-<h4 id="LINDEX"><a href="#LINDEX" class="headerlink" title="LINDEX"></a>LINDEX</h4><p>返回列表 key 中，下标为 index 的元素</p>
-<h4 id="LINSERT"><a href="#LINSERT" class="headerlink" title="LINSERT"></a>LINSERT</h4><p>将值 value 插入到列表 key 当中</p>
-<h4 id="LLEN"><a href="#LLEN" class="headerlink" title="LLEN"></a>LLEN</h4><p>返回列表 key 的长度</p>
-<h4 id="LPOP"><a href="#LPOP" class="headerlink" title="LPOP"></a>LPOP</h4><p>移除并返回列表 key 的头元素</p>
-<h4 id="LPUSH"><a href="#LPUSH" class="headerlink" title="LPUSH"></a>LPUSH</h4><p>将一个或多个值 value 插入到列表 key 的表头</p>
-<h4 id="LPUSHX"><a href="#LPUSHX" class="headerlink" title="LPUSHX"></a>LPUSHX</h4><p>将值 value 插入到列表 key 的表头，当且仅当 key 存在并且是一个列表</p>
-<h4 id="LRANGE"><a href="#LRANGE" class="headerlink" title="LRANGE"></a>LRANGE</h4><p>返回列表 key 中指定区间内的元素，区间以偏移量 start 和 stop 指定</p>
-<h4 id="LREM"><a href="#LREM" class="headerlink" title="LREM"></a>LREM</h4><p>根据参数 count 的值，移除列表中与参数 value 相等的元素</p>
-<h4 id="LSET"><a href="#LSET" class="headerlink" title="LSET"></a>LSET</h4><p>将列表 key 下标为 index 的元素的值设置为 value</p>
-<h4 id="LTRIM"><a href="#LTRIM" class="headerlink" title="LTRIM"></a>LTRIM</h4><p>对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除</p>
-<h4 id="RPOP"><a href="#RPOP" class="headerlink" title="RPOP"></a>RPOP</h4><p>移除并返回列表 key 的尾元素</p>
-<h4 id="RPOPLPUSH"><a href="#RPOPLPUSH" class="headerlink" title="RPOPLPUSH"></a>RPOPLPUSH</h4><p>命令 RPOPLPUSH 在一个原子时间内，执行两个动作：1、将列表 source 中的最后一个元素(尾元素)弹出，并返回给客户端。2、将 source 弹出的元素插入到列表 destination ，作为 destination 列表的的头元素。</p>
-<h4 id="RPUSH"><a href="#RPUSH" class="headerlink" title="RPUSH"></a>RPUSH</h4><p>将一个或多个值 value 插入到列表 key 的表尾</p>
-<h4 id="RPUSHX"><a href="#RPUSHX" class="headerlink" title="RPUSHX"></a>RPUSHX</h4><p>将值 value 插入到列表 key 的表尾，当且仅当 key 存在并且是一个列表</p>
-<hr>
-<h3 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h3><hr>
-<p>Set命令速查</p>
-<h4 id="SADD"><a href="#SADD" class="headerlink" title="SADD"></a>SADD</h4><p>将一个或多个 member 元素加入到集合 key 当中，已经存在于集合的 member 元素将被忽略</p>
-<h4 id="SCARD"><a href="#SCARD" class="headerlink" title="SCARD"></a>SCARD</h4><p>返回集合 key 的集合中元素的数量</p>
-<h4 id="SDIFF"><a href="#SDIFF" class="headerlink" title="SDIFF"></a>SDIFF</h4><p>返回一个集合的全部成员，该集合是所有给定集合之间的差集</p>
-<h4 id="SDIFFSTORE"><a href="#SDIFFSTORE" class="headerlink" title="SDIFFSTORE"></a>SDIFFSTORE</h4><p>这个命令的作用和 SDIFF 类似，但它将结果保存到新集合，而不是简单地返回结果集</p>
-<h4 id="SINTER"><a href="#SINTER" class="headerlink" title="SINTER"></a>SINTER</h4><p>返回一个集合的全部成员，该集合是所有给定集合的交集</p>
-<h4 id="SINTERSTORE"><a href="#SINTERSTORE" class="headerlink" title="SINTERSTORE"></a>SINTERSTORE</h4><p>与SINTER类似，不过可以指定保存到新集合</p>
-<h4 id="SISMEMBER"><a href="#SISMEMBER" class="headerlink" title="SISMEMBER"></a>SISMEMBER</h4><p>判断 member 元素是否集合 key 的成员</p>
-<h4 id="SMEMBERS"><a href="#SMEMBERS" class="headerlink" title="SMEMBERS"></a>SMEMBERS</h4><p>返回集合 key 中的所有成员</p>
-<h4 id="SMOVE"><a href="#SMOVE" class="headerlink" title="SMOVE"></a>SMOVE</h4><p>将 member 元素从一个集合移动到另一个集合</p>
-<h4 id="SPOP"><a href="#SPOP" class="headerlink" title="SPOP"></a>SPOP</h4><p>移除并返回集合中的一个随机元素</p>
-<h4 id="SRANDMEMBER"><a href="#SRANDMEMBER" class="headerlink" title="SRANDMEMBER"></a>SRANDMEMBER</h4><p>仅仅返回随机元素，而不对集合进行任何改动，与SPOP的区别在于不移除</p>
-<h4 id="SREM"><a href="#SREM" class="headerlink" title="SREM"></a>SREM</h4><p>移除集合 key 中的一个或多个 member 元素，不存在的 member 元素会被忽略</p>
-<h4 id="SUNION"><a href="#SUNION" class="headerlink" title="SUNION"></a>SUNION</h4><p>返回一个集合的全部成员，该集合是所有给定集合的并集</p>
-<h4 id="SUNIONSTORE"><a href="#SUNIONSTORE" class="headerlink" title="SUNIONSTORE"></a>SUNIONSTORE</h4><p>与SUNION类似，不过可以指定保存到新集合</p>
-<h4 id="SSCAN"><a href="#SSCAN" class="headerlink" title="SSCAN"></a>SSCAN</h4><p>增量迭代</p>
-<hr>
-<h3 id="SortedSet"><a href="#SortedSet" class="headerlink" title="SortedSet"></a>SortedSet</h3><hr>
-<p>SortedSet命令速查：</p>
-<h4 id="ZADD"><a href="#ZADD" class="headerlink" title="ZADD"></a>ZADD</h4><p>将一个或多个 member 元素及其 score 值加入到有序集 key 当中</p>
-<h4 id="ZCARD"><a href="#ZCARD" class="headerlink" title="ZCARD"></a>ZCARD</h4><p>返回有序集 key 的基数</p>
-<h4 id="ZCOUNT"><a href="#ZCOUNT" class="headerlink" title="ZCOUNT"></a>ZCOUNT</h4><p>返回有序集 key 中， score 值在 min 和 max 之间(包括 score 值等于 min 或 max )的成员的数量</p>
-<h4 id="ZINCRBY"><a href="#ZINCRBY" class="headerlink" title="ZINCRBY"></a>ZINCRBY</h4><p>为有序集 key 的成员 member 的 score 值加上指定增量</p>
-<h4 id="ZRANGE"><a href="#ZRANGE" class="headerlink" title="ZRANGE"></a>ZRANGE</h4><p>返回有序集 key 中，指定区间内的成员(小到大排列)</p>
-<h4 id="ZRANGEBYSCORE"><a href="#ZRANGEBYSCORE" class="headerlink" title="ZRANGEBYSCORE"></a>ZRANGEBYSCORE</h4><p>返回有序集 key 中，所有 score 值介于 min 和 max 之间(包括等于 min 或 max )的成员</p>
-<h4 id="ZRANK"><a href="#ZRANK" class="headerlink" title="ZRANK"></a>ZRANK</h4><p>返回有序集 key 中成员 member 的排名。其中有序集成员按 score 值递增(从小到大)顺序排列</p>
-<h4 id="ZREM"><a href="#ZREM" class="headerlink" title="ZREM"></a>ZREM</h4><p>移除有序集 key 中的一个或多个成员，不存在的成员将被忽略</p>
-<h4 id="ZREMRANGEBYRANK"><a href="#ZREMRANGEBYRANK" class="headerlink" title="ZREMRANGEBYRANK"></a>ZREMRANGEBYRANK</h4><p>移除有序集 key 中，指定排名(rank)区间内的所有成员</p>
-<h4 id="ZREMRANGEBYSCORE"><a href="#ZREMRANGEBYSCORE" class="headerlink" title="ZREMRANGEBYSCORE"></a>ZREMRANGEBYSCORE</h4><p>移除有序集 key 中，所有 score 值介于 min 和 max 之间(包括等于 min 或 max )的成员</p>
-<h4 id="ZREVRANGE"><a href="#ZREVRANGE" class="headerlink" title="ZREVRANGE"></a>ZREVRANGE</h4><p>返回有序集 key 中，指定区间内的成员，成员位置按score大到小排列</p>
-<h4 id="ZREVRANGEBYSCORE"><a href="#ZREVRANGEBYSCORE" class="headerlink" title="ZREVRANGEBYSCORE"></a>ZREVRANGEBYSCORE</h4><p>返回有序集 key 中， score 值介于 max 和 min 之间(默认包括等于 max 或 min )的所有的成员。成员按 score 值递减(从大到小)排列</p>
-<h4 id="ZREVRANK"><a href="#ZREVRANK" class="headerlink" title="ZREVRANK"></a>ZREVRANK</h4><p>返回有序集 key 中成员 member 的排名。其中有序集成员按 score 值递减(从大到小)排序</p>
-<h4 id="ZSCORE"><a href="#ZSCORE" class="headerlink" title="ZSCORE"></a>ZSCORE</h4><p>返回有序集 key 中，成员 member 的 score 值</p>
-<h4 id="ZUNIONSTORE"><a href="#ZUNIONSTORE" class="headerlink" title="ZUNIONSTORE"></a>ZUNIONSTORE</h4><p>计算给定的一个或多个有序集的并集，其中给定 key 的数量必须以 numkeys 参数指定，并将该并集(结果集)储存到新集合</p>
-<h4 id="ZINTERSTORE"><a href="#ZINTERSTORE" class="headerlink" title="ZINTERSTORE"></a>ZINTERSTORE</h4><p>计算给定的一个或多个有序集的交集，其中给定 key 的数量必须以 numkeys 参数指定，并将该交集(结果集)储存到新集合</p>
-<h4 id="ZSCAN"><a href="#ZSCAN" class="headerlink" title="ZSCAN"></a>ZSCAN</h4><p>增量迭代</p>
-<hr>
-<h3 id="Pub-Sub"><a href="#Pub-Sub" class="headerlink" title="Pub/Sub"></a>Pub/Sub</h3><hr>
-<p>Pub/Sub命令速查：</p>
-<h4 id="PSUBSCRIBE"><a href="#PSUBSCRIBE" class="headerlink" title="PSUBSCRIBE"></a>PSUBSCRIBE</h4><p>订阅一个或多个符合给定模式的频道</p>
-<h4 id="PUBLISH"><a href="#PUBLISH" class="headerlink" title="PUBLISH"></a>PUBLISH</h4><p>将信息 message 发送到指定的频道</p>
-<h4 id="PUBSUB"><a href="#PUBSUB" class="headerlink" title="PUBSUB"></a>PUBSUB</h4><p>PUBSUB 是一个查看订阅与发布系统状态的内省命令</p>
-<h4 id="PUNSUBSCRIBE"><a href="#PUNSUBSCRIBE" class="headerlink" title="PUNSUBSCRIBE"></a>PUNSUBSCRIBE</h4><p>指示客户端退订所有给定模式</p>
-<h4 id="SUBSCRIBE"><a href="#SUBSCRIBE" class="headerlink" title="SUBSCRIBE"></a>SUBSCRIBE</h4><p>订阅给定的一个或多个频道的信息</p>
-<h4 id="UNSUBSCRIBE"><a href="#UNSUBSCRIBE" class="headerlink" title="UNSUBSCRIBE"></a>UNSUBSCRIBE</h4><p>指示客户端退订给定的频道</p>
-<hr>
-<h3 id="Transaction"><a href="#Transaction" class="headerlink" title="Transaction"></a>Transaction</h3><hr>
-<p>Transaction命令速查：</p>
-<h4 id="DISCARD"><a href="#DISCARD" class="headerlink" title="DISCARD"></a>DISCARD</h4><p>取消事务，放弃执行事务块内的所有命令</p>
-<h4 id="EXEC"><a href="#EXEC" class="headerlink" title="EXEC"></a>EXEC</h4><p>执行所有事务块内的命令</p>
-<h4 id="MULTI"><a href="#MULTI" class="headerlink" title="MULTI"></a>MULTI</h4><p>标记一个事务块的开始</p>
-<h4 id="UNWATCH"><a href="#UNWATCH" class="headerlink" title="UNWATCH"></a>UNWATCH</h4><p>取消 WATCH 命令对所有 key 的监视</p>
-<h4 id="WATCH"><a href="#WATCH" class="headerlink" title="WATCH"></a>WATCH</h4><p>监视一个(或多个) key ，如果在事务执行之前这个(或这些) key 被其他命令所改动，那么事务将被打断</p>
-<hr>
-<h3 id="Script"><a href="#Script" class="headerlink" title="Script"></a>Script</h3><hr>
-<p>script命令速查：</p>
-<h4 id="EVAL"><a href="#EVAL" class="headerlink" title="EVAL"></a>EVAL</h4><p>通过内置的 Lua 解释器，可以使用 EVAL 命令对 Lua 脚本进行求值</p>
-<h4 id="VALSHA"><a href="#VALSHA" class="headerlink" title="VALSHA"></a>VALSHA</h4><p>根据给定的 sha1 校验码，对缓存在服务器中的脚本进行求值</p>
-<h4 id="SCRIPT-EXISTS"><a href="#SCRIPT-EXISTS" class="headerlink" title="SCRIPT EXISTS"></a>SCRIPT EXISTS</h4><p>给定一个或多个脚本的 SHA1 校验和，返回一个包含 0 和 1 的列表，表示校验和所指定的脚本是否已经被保存在缓存当中</p>
-<h4 id="SCRIPT-FLUSH"><a href="#SCRIPT-FLUSH" class="headerlink" title="SCRIPT FLUSH"></a>SCRIPT FLUSH</h4><p>清除所有 Lua 脚本缓存</p>
-<h4 id="SCRIPT-KILL"><a href="#SCRIPT-KILL" class="headerlink" title="SCRIPT KILL"></a>SCRIPT KILL</h4><p>停止当前正在运行的 Lua 脚本，当且仅当这个脚本没有执行过任何写操作时，这个命令才生效。这个命令主要用于终止运行时间过长的脚本</p>
-<h4 id="SCRIPT-LOAD"><a href="#SCRIPT-LOAD" class="headerlink" title="SCRIPT LOAD"></a>SCRIPT LOAD</h4><p>将脚本 script 添加到脚本缓存中，但并不立即执行这个脚本</p>
-<hr>
-<h3 id="Connection"><a href="#Connection" class="headerlink" title="Connection"></a>Connection</h3><hr>
-<p>connection命令速查:</p>
-<h4 id="AUTH"><a href="#AUTH" class="headerlink" title="AUTH"></a>AUTH</h4><p>通过设置配置文件中 requirepass 项的值，可以使用密码来保护 Redis 服务器</p>
-<h4 id="ECHO"><a href="#ECHO" class="headerlink" title="ECHO"></a>ECHO</h4><p>打印一个特定的信息 message ，测试时使用。</p>
-<h4 id="PING"><a href="#PING" class="headerlink" title="PING"></a>PING</h4><p>使用客户端向 Redis 服务器发送一个 PING ，如果服务器运作正常的话，会返回一个 PONG，通常用于测试与服务器的连接是否仍然生效，或者用于测量延迟值</p>
-<h4 id="QUIT"><a href="#QUIT" class="headerlink" title="QUIT"></a>QUIT</h4><p>请求服务器关闭与当前客户端的连接</p>
-<h4 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a>SELECT</h4><p>切换到指定的数据库，数据库索引号 index 用数字值指定，以 0 作为起始索引值</p>
-<hr>
-<h3 id="Server"><a href="#Server" class="headerlink" title="Server"></a>Server</h3><hr>
-<p>server命令速查：</p>
-<h4 id="BGREWRITEAOF"><a href="#BGREWRITEAOF" class="headerlink" title="BGREWRITEAOF"></a>BGREWRITEAOF</h4><p>执行一个 AOF文件 重写操作。重写会创建一个当前 AOF 文件的体积优化版本。</p>
-<h4 id="BGSAVE"><a href="#BGSAVE" class="headerlink" title="BGSAVE"></a>BGSAVE</h4><p>在后台异步(Asynchronously)保存当前数据库的数据到磁盘</p>
-<h4 id="CLIENT-GETNAME"><a href="#CLIENT-GETNAME" class="headerlink" title="CLIENT GETNAME"></a>CLIENT GETNAME</h4><p>返回 CLIENT SETNAME 命令为连接设置的名字</p>
-<h4 id="CLIENT-KILL"><a href="#CLIENT-KILL" class="headerlink" title="CLIENT KILL"></a>CLIENT KILL</h4><p>关闭地址为 ip:port 的客户端</p>
-<h4 id="CLIENT-LIST"><a href="#CLIENT-LIST" class="headerlink" title="CLIENT LIST"></a>CLIENT LIST</h4><p>以人类可读的格式，返回所有连接到服务器的客户端信息和统计数据</p>
-<h4 id="CLIENT-SETNAME"><a href="#CLIENT-SETNAME" class="headerlink" title="CLIENT SETNAME"></a>CLIENT SETNAME</h4><p>为当前连接分配一个名字</p>
-<h4 id="CONFIG-GET"><a href="#CONFIG-GET" class="headerlink" title="CONFIG GET"></a>CONFIG GET</h4><p>CONFIG GET 命令用于取得运行中的 Redis 服务器的配置参数</p>
-<h4 id="CONFIG-RESETSTAT"><a href="#CONFIG-RESETSTAT" class="headerlink" title="CONFIG RESETSTAT"></a>CONFIG RESETSTAT</h4><p>重置 INFO 命令中的某些统计数据</p>
-<h4 id="CONFIG-REWRITE"><a href="#CONFIG-REWRITE" class="headerlink" title="CONFIG REWRITE"></a>CONFIG REWRITE</h4><p>CONFIG REWRITE 命令对启动 Redis 服务器时所指定的 redis.conf 文件进行改写</p>
-<h4 id="CONFIG-SET"><a href="#CONFIG-SET" class="headerlink" title="CONFIG SET"></a>CONFIG SET</h4><p>CONFIG SET 命令可以动态地调整 Redis 服务器的配置而无须重启</p>
-<h4 id="DBSIZE"><a href="#DBSIZE" class="headerlink" title="DBSIZE"></a>DBSIZE</h4><p>返回当前数据库的 key 的数量</p>
-<h4 id="DEBUG-OBJECT"><a href="#DEBUG-OBJECT" class="headerlink" title="DEBUG OBJECT"></a>DEBUG OBJECT</h4><p>DEBUG OBJECT 是一个调试命令，它不应被客户端所使用</p>
-<h4 id="DEBUG-SEGFAULT"><a href="#DEBUG-SEGFAULT" class="headerlink" title="DEBUG SEGFAULT"></a>DEBUG SEGFAULT</h4><p>执行一个不合法的内存访问从而让 Redis 崩溃，仅在开发时用于 BUG 模拟</p>
-<h4 id="FLUSHALL"><a href="#FLUSHALL" class="headerlink" title="FLUSHALL"></a>FLUSHALL</h4><p>清空整个 Redis 服务器的数据(删除所有数据库的所有 key )</p>
-<h4 id="FLUSHDB"><a href="#FLUSHDB" class="headerlink" title="FLUSHDB"></a>FLUSHDB</h4><p>清空当前数据库中的所有 key</p>
-<h4 id="INFO"><a href="#INFO" class="headerlink" title="INFO"></a>INFO</h4><p>返回关于 Redis 服务器的各种信息和统计数值</p>
-<h4 id="LASTSAVE"><a href="#LASTSAVE" class="headerlink" title="LASTSAVE"></a>LASTSAVE</h4><p>返回最近一次 Redis 成功将数据保存到磁盘上的时间，以 UNIX 时间戳格式表示</p>
-<h4 id="MONITOR"><a href="#MONITOR" class="headerlink" title="MONITOR"></a>MONITOR</h4><p>实时打印出 Redis 服务器接收到的命令，调试用</p>
-<h4 id="PSYNC"><a href="#PSYNC" class="headerlink" title="PSYNC"></a>PSYNC</h4><p>用于复制功能的内部命令</p>
-<h4 id="SAVE"><a href="#SAVE" class="headerlink" title="SAVE"></a>SAVE</h4><p>SAVE 命令执行一个同步保存操作，将当前 Redis 实例的所有数据快照(snapshot)以 RDB 文件的形式保存到硬盘。 一般来说，在生产环境很少执行 SAVE 操作，因为它会阻塞所有客户端，保存数据库的任务通常由 BGSAVE 命令异步地执行。然而，如果负责保存数据的后台子进程不幸出现问题时， SAVE 可以作为保存数据的最后手段来使用。</p>
-<h4 id="SHUTDOWN"><a href="#SHUTDOWN" class="headerlink" title="SHUTDOWN"></a>SHUTDOWN</h4><p>SHUTDOWN 命令执行以下操作： 停止所有客户端 如果有至少一个保存点在等待，执行 SAVE 命令 如果 AOF 选项被打开，更新 AOF 文件 关闭 redis 服务器(server)</p>
-<h4 id="SLAVEOF"><a href="#SLAVEOF" class="headerlink" title="SLAVEOF"></a>SLAVEOF</h4><p>SLAVEOF 命令用于在 Redis 运行时动态地修改复制(replication)功能的行为</p>
-<h4 id="SLOWLOG"><a href="#SLOWLOG" class="headerlink" title="SLOWLOG"></a>SLOWLOG</h4><p>Slow log 是 Redis 用来记录查询执行时间的日志系统</p>
-<h4 id="SYNC"><a href="#SYNC" class="headerlink" title="SYNC"></a>SYNC</h4><p>用于复制功能的内部命令</p>
-<h4 id="TIME"><a href="#TIME" class="headerlink" title="TIME"></a>TIME</h4><p>返回当前服务器时间</p>
-
+            <p>
+              Key
+Key命令速查：
+DEL删除给定的一个或多个 key，不存在的 key 会被忽略，返回值：被删除 key 的数量
+DUMP序列化给定 key，返回被序列化的值，使用 RESTORE 命令可以将这个值反序列化为 Redis 键
+EXISTS检查给定key是否存在
+EXPIRE为给定key设置有
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/redis_order/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1440,16 +1241,20 @@
       
         
           
-            <h3 id="debug-print-backtrace"><a href="#debug-print-backtrace" class="headerlink" title="debug_print_backtrace();"></a>debug_print_backtrace();</h3><p>会在页面直接输出。可以开启缓冲期</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ob_start();开启缓冲区</span><br><span class="line">ob_flush();缓冲器清除</span><br><span class="line">ob_get_contents();获取缓冲区内容</span><br><span class="line">ob_end_clean();缓冲器清除</span><br><span class="line">这个函数不会输出内部缓冲区的内容而是把它删除！</span><br><span class="line">function getBacktrace() &#123;</span><br><span class="line">  ob_start();</span><br><span class="line">  debug_print_backtrace();</span><br><span class="line">  return ob_get_clean();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>调用这个函数取得错误堆栈，然后使用file_put_contents(‘log_path’, FILE_APPEND);写入日志文件。</p>
-<h3 id="debug-backtrace"><a href="#debug-backtrace" class="headerlink" title="debug_backtrace();"></a>debug_backtrace();</h3><p>会返回一个数组，支持自己进行logger记录。</p>
-<p>若需进行堆栈信息自行输出。可使用下列自定义的函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">private function print_stack_trace()</span><br><span class="line">&#123;</span><br><span class="line">    $array = debug_backtrace();</span><br><span class="line">    unset($array[0]);</span><br><span class="line">    foreach($array as $key=&gt;$row)</span><br><span class="line">    &#123;</span><br><span class="line">        $file =  isset($row[&apos;file&apos;]) ? $row[&apos;file&apos;].&apos; : &apos; : &apos;&apos; ;</span><br><span class="line">        $line =  isset($row[&apos;line&apos;]) ? $row[&apos;line&apos;].&apos; 行,调用方法 &apos; : &apos;&apos;;</span><br><span class="line">        $function =  isset($row[&apos;function&apos;]) ?  $row[&apos;function&apos;] :&apos;&apos;;</span><br><span class="line">        Logger::notice($file.$line.$function);</span><br><span class="line">    &#125;</span><br><span class="line">    return true ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="debug-zval-dump"><a href="#debug-zval-dump" class="headerlink" title="debug_zval_dump();"></a>debug_zval_dump();</h3><p>该函数与<code>var_dump()</code>的区别是它新增了一个值<code>refcount</code>,及记录变量被引用的次数。同时它还可以打印几个变量。</p>
-<p>php垃圾回收机制引用计数器概念：</p>
-<p><span class="exturl" data-url="aHR0cDovL3d3dy5waHBkZHQuY29tL3BocC9nYy1yZWZjb3VudGluZy1iYXNpY3MuaHRtbA==" title="http://www.phpddt.com/php/gc-refcounting-basics.html">http://www.phpddt.com/php/gc-refcounting-basics.html<i class="fa fa-external-link"></i></span></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">xdebug_debug_zval();</span><br><span class="line"></span><br><span class="line">refcount=2,is_ref=0</span><br><span class="line">debug_zval_dump();</span><br><span class="line"></span><br><span class="line">refcount(3)</span><br></pre></td></tr></table></figure>
+            <p>
+              debug_print_backtrace();会在页面直接输出。可以开启缓冲期
+ob_start();开启缓冲区ob_flush();缓冲器清除ob_get_contents();获取缓冲区内容ob_end_clean();缓冲器清除这个函数不会输出内部缓冲区的内容而是把它删除！function 
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/php_debug_backtrace/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1661,15 +1466,21 @@
       
         
           
-            <p>在进行协作开发代码管理的过程中，常常会遇到某些临时文件、配置文件、或者生成文件等，这些文件由于不同的开发端会不一样，如果使用<code>git add</code> . 将所有文件纳入git库中，那么会出现频繁的改动和push，这样会引起开发上的不便。</p>
-<p>Git可以很方便的帮助我们解决这个问题，那就是建立项目文件过滤规则。</p>
-<p>git中提供两种过滤机制，一种是全局过滤机制，即对所有的git都适用；另一种是针对某个项目使用的过滤规则。个人倾向于第二种。</p>
-<p>以我的一个项目为例，该项目用<code>.net</code>开发，<code>.config</code>文件、包括生成的<code>bin/Debug</code>,<code>bin/Release</code>文件等，我希望不加入git管理。</p>
-<p>在代码目录下建立<code>.gitignore</code>文件：<code>vim .gitignore</code> ,内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#过滤数据库文件、sln解决方案文件、配置文件</span><br><span class="line">*.mdb</span><br><span class="line">*.ldb</span><br><span class="line">*.sln</span><br><span class="line">*.config</span><br><span class="line">#过滤文件夹Debug,Release,obj</span><br><span class="line">Debug/</span><br><span class="line">Release/</span><br><span class="line">obj/</span><br></pre></td></tr></table></figure></p>
-<p>然后调用<code>git add .</code> ，执行 <code>git commit</code>即可。</p>
-<p>问题：<code>.gitignore</code>只适用于尚未添加到git库的文件。如果已经添加了，则需用<code>git rm</code>移除后再重新<code>commit</code>。</p>
-
+            <p>
+              在进行协作开发代码管理的过程中，常常会遇到某些临时文件、配置文件、或者生成文件等，这些文件由于不同的开发端会不一样，如果使用git add . 将所有文件纳入git库中，那么会出现频繁的改动和push，这样会引起开发上的不便。
+Git可以很方便的帮助我们解决这个问题，那就是建立项目文件过滤规则。
+g
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/git_gitignore/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1881,20 +1692,31 @@
       
         
           
-            <ul>
-<li><p>1：添加网卡2 桥接网卡</p>
-</li>
-<li><p>2：复制网络配置文件</p>
-</li>
-<li><p>3：使用ip addr 看一下本机分配的ip</p>
-</li>
-<li><p>4：根据本机信息修改配置文件</p>
-</li>
-<li><p>5： 习惯使用<code>ifconfig</code>的话 使用 <code>yum -y install net-tools</code> 安装一个网络包</p>
-</li>
-</ul>
+            <p>
+              
+1：添加网卡2 桥接网卡
 
+2：复制网络配置文件
+
+3：使用ip addr 看一下本机分配的ip
+
+4：根据本机信息修改配置文件
+
+5： 习惯使用ifconfig的话 使用 yum -y install net-tools 安装一个网络包
+
+
+
+              
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/linux_vibox_centos_network/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -2106,37 +1928,20 @@
       
         
           
-            <h2 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h2><h3 id="Ubuntu12-04下"><a href="#Ubuntu12-04下" class="headerlink" title="Ubuntu12.04下"></a>Ubuntu12.04下</h3><p>可以使用<code>apt-get</code>方式安装，也可以下载源代码安装，我们这里使用apt-get安装。</p>
-<p>但由于直接使用<code>sudo apt-get install git</code>安装的版本较老，因此我们参考中给出的PPA源。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:git-core/ppa</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install git</span><br></pre></td></tr></table></figure></p>
-<p>安装完成后，检查是否安装成功<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure></p>
-<p>显示 <code>git version 2.1.1</code>，表明安装成功。</p>
-<h3 id="CentOS6-6下"><a href="#CentOS6-6下" class="headerlink" title="CentOS6.6下"></a>CentOS6.6下</h3><p>在CentOS5的时代，由于yum源中没有git，所以需要预先安装一系列的依赖包。但在CentOS6的yum源中已经有git的版本了，可以直接使用yum源进行安装。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install git</span><br></pre></td></tr></table></figure></p>
-<p>但是yum源中安装的git版本是<code>1.7.1</code>，太老了，Github等需要的Git版本最低都不能低于<code>1.7.2</code> 。所以我们一般不用上面的方法。而是下载git源码，编译安装。</p>
-<p>编译安装的步骤是：</p>
-<p>（1）首先先更新系统<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum update</span><br></pre></td></tr></table></figure></p>
-<p>（2）安装依赖的包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel gccperl-ExtUtils-MakeMaker</span><br></pre></td></tr></table></figure></p>
-<p>（3）下载git源码并解压缩</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/git/git/archive/v2.5.1.zip</span><br><span class="line">unzip v2.5.1.zip</span><br><span class="line">cd git-2.5.1</span><br></pre></td></tr></table></figure>
-<p>（4）编译安装</p>
-<p>将其安装在“/usr/local/git”目录下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make prefix=/usr/local/git all</span><br><span class="line">sudo make prefix=/usr/local/git install</span><br></pre></td></tr></table></figure></p>
-<p>（5）此时你如果使用<code>git –version</code> 查看git版本的话，发现git仍然是1.7.1版本。这是因为它默认使用了”/usr/bin”下的git。</p>
-<p>你可以用下面的命令查看git所在的路径：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ whereis git</span><br><span class="line">git: /usr/bin/git /usr/local/git /usr/share/man/man1/git.1.gz</span><br></pre></td></tr></table></figure></p>
-<p>（6）我们要把编译安装的git路径放到环境变量里，让它替换”/usr/bin”下的git。为此我们可以修改“/etc/profile”文件（或者<code>/etc/bashrc</code>文件）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/profile</span><br></pre></td></tr></table></figure></p>
-<p>然后在文件的最后一行，添加下面的内容，然后保存退出。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=/usr/local/git/bin:$PATH</span><br></pre></td></tr></table></figure></p>
-<p>（7）使用<code>source</code>命令应用修改。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure></p>
-<p>（8）然后再次使用<code>git –version</code>查看git版本，发现输出2.5.1，表明安装成功。</p>
-<h2 id="设置Git"><a href="#设置Git" class="headerlink" title="设置Git"></a>设置Git</h2><p>（1）设置用户名和email。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;Your Name&quot;</span><br><span class="line">git config --global user.email &quot;youremail@domain.com&quot;</span><br></pre></td></tr></table></figure></p>
-<p>此时，Home目录下会新建一个<code>.gitconfig</code>文件</p>
-<h2 id="为GitHub账号添加SSH-Keys"><a href="#为GitHub账号添加SSH-Keys" class="headerlink" title="为GitHub账号添加SSH Keys"></a>为GitHub账号添加SSH Keys</h2><p>以公钥认证方式访问SSH协议的Git服务器时无需输入口令，而且更安全。（访问HTTP协议的Git服务器时，比如提交修改，每次都需要输入口令。）</p>
-<p>（1）创建SSH key<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C &quot;youremail@163.com&quot;</span><br></pre></td></tr></table></figure></p>
-<p>系统会提示key的保存位置（一般是~/.ssh目录）和指定口令，保持默认，连续三次回车即可。</p>
-<p>（2）Copy SSH Key</p>
-<p>然后用vim打开该文件，id_rsa.pub文件内的内容，粘帖到github帐号管理的添加SSH key界面中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure></p>
-<p>（3）添加到GitHub</p>
-<p>登录<code>github-&gt; Accounting settings图标-&gt; SSH key-&gt; Add SSH key-&gt; 填写SSH key的名称（可以起一个自己容易区分的）</code>，然后将拷贝的<code>~/.ssh/id_rsa.pub</code>文件内容粘帖-&gt; add key”按钮添加。</p>
-<p>（4）测试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure></p>
-
+            <p>
+              安装GitUbuntu12.04下可以使用apt-get方式安装，也可以下载源代码安装，我们这里使用apt-get安装。
+但由于直接使用sudo apt-get install git安装的版本较老，因此我们参考中给出的PPA源。sudo add-apt-repository ppa:git-cor
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/git_install/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -2348,42 +2153,21 @@
       
         
           
-            <h3 id="创建新仓库"><a href="#创建新仓库" class="headerlink" title="创建新仓库"></a>创建新仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
-<h3 id="检出仓库"><a href="#检出仓库" class="headerlink" title="检出仓库"></a>检出仓库</h3><p>有冲突的话合并这些 冲突（conflicts）。改完之后，你需要执行如下命令以将它们标记为合并成功：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add &lt;filename&gt;</span><br></pre></td></tr></table></figure></p>
-<p>在合并改动之前，也可以使用如下命令查看：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff &lt;source_branch&gt; &lt;target_branch&gt;</span><br></pre></td></tr></table></figure></p>
-<p>串创建一个本地仓库的克隆版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone /path/to/repositoty</span><br></pre></td></tr></table></figure></p>
-<p>如果是远程服务器上的仓库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone username@host:/path/to/repository</span><br></pre></td></tr></table></figure></p>
-<p>假如你想要丢弃你所有的本地改动与提交，可以到服务器上获取最新的版本并将你本地主分支指向到它：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin</span><br><span class="line">git reset –hard origin/master</span><br></pre></td></tr></table></figure></p>
-<p>你的本地仓库由 <code>git</code> 维护的三棵“树”组成。第一个是你的 <code>工作目录</code>，它持有实际件；第二个是 <code>缓存区（Index）</code>，它像个缓存区域，临时保存你的改动；最后是 <code>HEAD</code>，指向你最近一次提交后的结果。</p>
-<h3 id="添加与提交"><a href="#添加与提交" class="headerlink" title="添加与提交"></a>添加与提交</h3><p>你可以计划改动（把它们添加到缓存区），使用如下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add &lt;filename&gt;</span><br><span class="line">git add *</span><br></pre></td></tr></table></figure></p>
-<p>这是 git 基本工作流程的第一步；使用如下命令以实际提交改动：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m “代码提交信息”</span><br></pre></td></tr></table></figure></p>
-<p>现在，你的改动已经提交到了 <code>HEAD</code>，但是还没到你的远端仓库。推送改动<br>你的改动现在已经在本地仓库的 <code>HEAD</code> 中了。执行如下命令以将这些改动提交到远端仓库：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure></p>
-<p>可以把 master 换成你想要推送的任何分支。如果你还没有克隆现有仓库，并欲将你的仓库连接到某个远程服务器，你可以使用如下命令添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin &lt;server&gt;</span><br></pre></td></tr></table></figure></p>
-<p>如此你就能够将你的改动推送到所添加的服务器上去</p>
-<h3 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h3><p>分支是用来将特性开发绝缘开来的。在你创建仓库的时候，<code>master</code> 是“默认的”。在其他分支上进行开发，完成后再将它们合并到主分支上<br>创建一个叫做“feature_x”的分支，并切换过去：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b feature_x</span><br></pre></td></tr></table></figure></p>
-<p>切换回主分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br></pre></td></tr></table></figure></p>
-<p>再把新建的分支删掉：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d feature_x</span><br></pre></td></tr></table></figure></p>
-<p>除非你将分支推送到远端仓库，不然该分支就是 不为他人所见的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin &lt;branch&gt;</span><br></pre></td></tr></table></figure></p>
-<h3 id="更新与合并"><a href="#更新与合并" class="headerlink" title="更新与合并"></a>更新与合并</h3><p>要更新你的本地仓库至最新改动，执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure></p>
-<p>以在你的工作目录中 获取（fetch） 并合并（merge） 远端的改动。<br>要合并其他分支到你的当前分支（例如 master），执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge &lt;branch&gt;</span><br></pre></td></tr></table></figure></p>
-<p>两种情况下，git 都会尝试去自动合并改动。不幸的是，自动合并并非次次都能成功，并可能导致 冲突（conflicts）。 这时候就需要你修改这些文件来人肉合并这些 冲突（conflicts）了。改完之后，你需要执行如下命令以将它们标记为合并成功：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add &lt;filename&gt;</span><br></pre></td></tr></table></figure></p>
-<p>在合并改动之前，也可以使用如下命令查看：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff &lt;source_branch&gt; &lt;target_branch&gt;</span><br></pre></td></tr></table></figure></p>
-<h3 id="替换本地改动"><a href="#替换本地改动" class="headerlink" title="替换本地改动"></a>替换本地改动</h3><p>假如你做错事（自然，这是不可能的），你可以使用如下命令替换掉本地改动：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout — &lt;filename&gt;</span><br></pre></td></tr></table></figure></p>
-<p>此命令会使用 HEAD 中的最新内容替换掉你的工作目录中的文件。已添加到缓存区的改动，以及新文件，都不受影响。假如你想要丢弃你所有的本地改动与提交，可以到服务器上获取最新的版本并将你本地主分支指向到它：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin</span><br><span class="line">git reset –hard origin/master</span><br></pre></td></tr></table></figure></p>
-<h3 id="从命令行创建一个新的仓库"><a href="#从命令行创建一个新的仓库" class="headerlink" title="从命令行创建一个新的仓库"></a>从命令行创建一个新的仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">touch README.md</span><br><span class="line">git init</span><br><span class="line">git add README.md</span><br><span class="line">git commit -m &quot;first commit&quot;</span><br><span class="line">git remote add origin http://dadanliao.com/quantitative/test.git</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
-<h3 id="从命令行推送已经创建的仓库"><a href="#从命令行推送已经创建的仓库" class="headerlink" title="从命令行推送已经创建的仓库"></a>从命令行推送已经创建的仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin http://dadanliao.com/quantitative/test.git</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
-<h3 id="辅助功能"><a href="#辅助功能" class="headerlink" title="辅助功能"></a>辅助功能</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">git version # 查看当前git版本信息</span><br><span class="line"></span><br><span class="line">git help # 获取全部命令帮助信息</span><br><span class="line"></span><br><span class="line">git help &lt;command&gt; # 获取指定命令帮助信息</span><br><span class="line"></span><br><span class="line">git config user.name &quot;Your Name Comes Here&quot; # 设置当前项目git用户名</span><br><span class="line"></span><br><span class="line">git config --global user.name &quot;Your Name Comes Here&quot; # 设置全局项目git用户名</span><br><span class="line"></span><br><span class="line">git config user.email you@yourdomain.example.com # 设置当前项目git电子邮件</span><br><span class="line"></span><br><span class="line">git config --global user.email you@yourdomain.example.com # 设置全局项目git电子邮件</span><br><span class="line"></span><br><span class="line">git config --list # 显示当前项目设置参数</span><br><span class="line"></span><br><span class="line">git config --global --list # 显示全局项目设置参数</span><br><span class="line"></span><br><span class="line">git config core.fileMode false  # 让git忽略掉文件权限检查</span><br><span class="line"></span><br><span class="line">git init # 初始化git仓库</span><br><span class="line"></span><br><span class="line">git status # 查看当前本地库状态</span><br><span class="line"></span><br><span class="line">git status -uno # 查看当前本地库有哪几个文件冲突</span><br><span class="line"></span><br><span class="line">git help &lt;command&gt; # 显示command的help</span><br></pre></td></tr></table></figure>
-<h3 id="查看、添加、提交、删除、找回，重置修改文件"><a href="#查看、添加、提交、删除、找回，重置修改文件" class="headerlink" title="查看、添加、提交、删除、找回，重置修改文件"></a>查看、添加、提交、删除、找回，重置修改文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">git show  # 显示某次提交的内容 git show $id</span><br><span class="line"></span><br><span class="line">git co -- &lt;file&gt; # 抛弃工作区修改</span><br><span class="line"></span><br><span class="line">git co . # 抛弃工作区修改</span><br><span class="line"></span><br><span class="line">git add &lt;file&gt; # 将工作文件修改提交到本地暂存区</span><br><span class="line"></span><br><span class="line">git add . # 将所有修改过的工作文件提交暂存区</span><br><span class="line"></span><br><span class="line">git add &lt;fileName1&gt; &lt;fileName2&gt; # 将工作文件修改提交到本地暂存区</span><br><span class="line"></span><br><span class="line">git add &lt;folderPath&gt; # 添加指定目录到索引</span><br><span class="line"></span><br><span class="line">git add . # 将所有修改过的工作文件提交暂存区</span><br><span class="line"></span><br><span class="line">git add --all # 添加所有文件到索引</span><br><span class="line"></span><br><span class="line">git rm &lt;file&gt; # 从版本库中删除文件</span><br><span class="line"></span><br><span class="line">git rm &lt;file&gt; --cached # 从版本库中删除文件，但不删除文件</span><br><span class="line"></span><br><span class="line">git clean -f  # 删除 untracked files</span><br><span class="line"></span><br><span class="line">git clean -fd # 连 untracked 的目录也一起删掉</span><br><span class="line"></span><br><span class="line">git clean -xfd # 连 gitignore 的untrack 文件/目录也一起删掉 （慎用，一般这个是用来删掉编译出来的 .o之类的文件用的）</span><br><span class="line"></span><br><span class="line"># 在用上述 git clean 前，墙裂建议加上 -n 参数来先看看会删掉哪些文件，防止重要文件被误删</span><br><span class="line">git clean -nxfd</span><br><span class="line"></span><br><span class="line">git clean -nf</span><br><span class="line"></span><br><span class="line">git clean -nfd</span><br><span class="line"></span><br><span class="line">git reset &lt;file&gt; # 从暂存区恢复到工作文件</span><br><span class="line"></span><br><span class="line">git reset -- . # 从暂存区恢复到工作文件</span><br><span class="line"></span><br><span class="line">git reset --hard # 恢复最近一次提交过的状态，即放弃上次提交后的所有本次修改</span><br><span class="line"></span><br><span class="line">git ci &lt;file&gt;</span><br><span class="line"></span><br><span class="line">git ci .</span><br><span class="line"></span><br><span class="line">git ci -a # 将git add, git rm和git ci等操作都合并在一起做</span><br><span class="line"></span><br><span class="line">git ci -am &quot;some comments&quot;</span><br><span class="line"></span><br><span class="line">git ci --amend # 修改最后一次提交记录</span><br><span class="line"></span><br><span class="line">git revert &lt;$id&gt; # 恢复某次提交的状态，恢复动作本身也创建次提交对象</span><br><span class="line"></span><br><span class="line">git revert HEAD # 恢复最后一次提交的状态</span><br></pre></td></tr></table></figure>
-<h3 id="查看文件diff"><a href="#查看文件diff" class="headerlink" title="查看文件diff"></a>查看文件diff</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">git diff &lt;file&gt; # 比较当前文件和暂存区文件差异 git diff</span><br><span class="line"></span><br><span class="line">git diff &lt;id1&gt;&lt;id1&gt;&lt;id2&gt; # 比较两次提交之间的差异</span><br><span class="line"></span><br><span class="line">git diff &lt;branch1&gt;..&lt;branch2&gt; # 在两个分支之间比较</span><br><span class="line"></span><br><span class="line">git diff --staged # 比较暂存区和版本库差异</span><br><span class="line"></span><br><span class="line">git diff --cached # 比较暂存区和版本库差异</span><br><span class="line"></span><br><span class="line">git diff --stat # 仅仅比较统计信息</span><br></pre></td></tr></table></figure>
-<h3 id="查看提交记录"><a href="#查看提交记录" class="headerlink" title="查看提交记录"></a>查看提交记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git log git log &lt;file&gt; # 查看该文件每次提交记录</span><br><span class="line"></span><br><span class="line">git log -p &lt;file&gt; # 查看每次详细修改内容的diff</span><br><span class="line"></span><br><span class="line">git log -p -2 # 查看最近两次详细修改内容的diff</span><br><span class="line"></span><br><span class="line">git log --stat # 查看提交统计信息</span><br></pre></td></tr></table></figure>
-<h3 id="tig"><a href="#tig" class="headerlink" title="tig"></a>tig</h3><p>Mac上可以使用<code>tig</code>代替<code>diff</code>和<code>log</code>，<code>brew install tig</code></p>
-<h3 id="Git-本地分支管理"><a href="#Git-本地分支管理" class="headerlink" title="Git 本地分支管理"></a>Git 本地分支管理</h3><p>查看、切换、创建和删除分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">git br -r # 查看远程分支</span><br><span class="line"></span><br><span class="line">git br &lt;new_branch&gt; # 创建新的分支</span><br><span class="line"></span><br><span class="line">git br -v # 查看各个分支最后提交信息</span><br><span class="line"></span><br><span class="line">git br --merged # 查看已经被合并到当前分支的分支</span><br><span class="line"></span><br><span class="line">git br --no-merged # 查看尚未被合并到当前分支的分支</span><br><span class="line"></span><br><span class="line">git co &lt;branch&gt; # 切换到某个分支</span><br><span class="line"></span><br><span class="line">git co -b &lt;new_branch&gt; # 创建新的分支，并且切换过去</span><br><span class="line"></span><br><span class="line">git co -b &lt;new_branch&gt; &lt;branch&gt; # 基于branch创建新的new_branch</span><br><span class="line"></span><br><span class="line">git co $id # 把某次历史提交记录checkout出来，但无分支信息，切换到其他分支会自动删除</span><br><span class="line"></span><br><span class="line">git co $id -b &lt;new_branch&gt; # 把某次历史提交记录checkout出来，创建成一个分支</span><br><span class="line"></span><br><span class="line">git checkout &lt;localBranchName&gt; # 切换到名为localBranchName的本地分支上</span><br><span class="line"></span><br><span class="line">git checkout &lt;remoteBranchName&gt; # 切换到名为remoteBranchName的远程分支上，此时未新建分支，而是处于一个名为no branch的临时分支上，还需要使用git branch -b 来创建一个新分支并将该临时分支挂接到新分支上</span><br><span class="line"></span><br><span class="line">git checkout -b &lt;branchName&gt; # 创建一个名为branchName的新分支，并切换到该分支上</span><br><span class="line"></span><br><span class="line">git checkout &lt;fileName&gt; # 将一个文件恢复至修改前的版本。</span><br><span class="line"></span><br><span class="line">git br -d &lt;branch&gt; # 删除某个分支</span><br><span class="line"></span><br><span class="line">git br -D &lt;branch&gt; # 强制删除某个分支 (未被合并的分支被删除的时候需要强制)</span><br><span class="line">分支合并和rebase</span><br><span class="line"></span><br><span class="line">git merge &lt;branch&gt; # 将branch分支合并到当前分支</span><br><span class="line"></span><br><span class="line">git merge origin/master --no-ff # 不要Fast-Foward合并，这样可以生成merge提交</span><br><span class="line"></span><br><span class="line">git rebase master &lt;branch&gt; # 将master rebase到branch，相当于： git co &lt;branch&gt; &amp;&amp; git rebase master &amp;&amp; git co master &amp;&amp; git merge &lt;branch&gt;</span><br></pre></td></tr></table></figure></p>
-<h3 id="Git补丁管理-方便在多台机器上开发同步时用"><a href="#Git补丁管理-方便在多台机器上开发同步时用" class="headerlink" title="Git补丁管理(方便在多台机器上开发同步时用)"></a>Git补丁管理(方便在多台机器上开发同步时用)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git diff &gt; ../sync.patch # 生成补丁</span><br><span class="line"></span><br><span class="line">git apply ../sync.patch # 打补丁</span><br><span class="line"></span><br><span class="line">git apply --check ../sync.patch # 测试补丁能否成功</span><br></pre></td></tr></table></figure>
-<h3 id="Git暂存管理"><a href="#Git暂存管理" class="headerlink" title="Git暂存管理"></a>Git暂存管理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git stash # 暂存</span><br><span class="line"></span><br><span class="line">git stash list # 列所有stash</span><br><span class="line"></span><br><span class="line">git stash apply # 恢复暂存的内容</span><br><span class="line"></span><br><span class="line">git stash drop # 删除暂存区</span><br></pre></td></tr></table></figure>
-<h3 id="Git远程分支管理"><a href="#Git远程分支管理" class="headerlink" title="Git远程分支管理"></a>Git远程分支管理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">git pull # 抓取远程仓库所有分支更新并合并到本地</span><br><span class="line"></span><br><span class="line">git pull --no-ff # 抓取远程仓库所有分支更新并合并到本地，不要快进合并</span><br><span class="line"></span><br><span class="line">git fetch origin # 抓取远程仓库更新</span><br><span class="line"></span><br><span class="line">git merge origin/master # 将远程主分支合并到本地当前分支</span><br><span class="line"></span><br><span class="line">git co --track origin/branch # 跟踪某个远程分支创建相应的本地分支</span><br><span class="line"></span><br><span class="line">git co -b &lt;local_branch&gt; origin/&lt;remote_branch&gt; # 基于远程分支创建本地分支，功能同上</span><br><span class="line"></span><br><span class="line">git push # push所有分支</span><br><span class="line"></span><br><span class="line">git push origin master # 将本地主分支推到远程主分支</span><br><span class="line"></span><br><span class="line">git push -u origin master # 将本地主分支推到远程(如无远程主分支则创建，用于初始化远程仓库)</span><br><span class="line"></span><br><span class="line">git push origin &lt;local_branch&gt; # 创建远程分支， origin是远程仓库名</span><br><span class="line"></span><br><span class="line">git push origin &lt;local_branch&gt;:&lt;remote_branch&gt; # 创建远程分支</span><br><span class="line"></span><br><span class="line">git push origin :&lt;remote_branch&gt; #先删除本地分支(git br -d &lt;branch&gt;)，然后再push删除远程分支</span><br></pre></td></tr></table></figure>
-<h3 id="Git远程仓库管理"><a href="#Git远程仓库管理" class="headerlink" title="Git远程仓库管理"></a>Git远程仓库管理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git remote -v # 查看远程服务器地址和仓库名称</span><br><span class="line"></span><br><span class="line">git remote show origin # 查看远程服务器仓库状态</span><br><span class="line"></span><br><span class="line">git remote add origin git@ github:robbin/robbin_site.git # 添加远程仓库地址</span><br><span class="line"></span><br><span class="line">git remote set-url origin git@ github.com:robbin/robbin_site.git # 设置远程仓库地址(用于修改远程仓库地址) git remote rm &lt;repository&gt; # 删除远程仓库</span><br></pre></td></tr></table></figure>
-<h3 id="创建远程仓库"><a href="#创建远程仓库" class="headerlink" title="创建远程仓库"></a>创建远程仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">git clone --bare robbin_site robbin_site.git # 用带版本的项目创建纯版本仓库</span><br><span class="line"></span><br><span class="line">scp -r my_project.git git@ git.csdn.net:~ # 将纯仓库上传到服务器上</span><br><span class="line"></span><br><span class="line">mkdir robbin_site.git &amp;&amp; cd robbin_site.git &amp;&amp; git --bare init # 在服务器创建纯仓库</span><br><span class="line"></span><br><span class="line">git remote add origin git@ github.com:robbin/robbin_site.git # 设置远程仓库地址</span><br><span class="line"></span><br><span class="line">git push -u origin master # 客户端首次提交</span><br><span class="line"></span><br><span class="line">git push -u origin develop # 首次将本地develop分支提交到远程develop分支，并且track</span><br><span class="line"></span><br><span class="line">git remote set-head origin master # 设置远程仓库的HEAD指向master分支也可以命令设置跟踪远程库和本地库</span><br><span class="line"></span><br><span class="line">git branch --set-upstream master origin/master</span><br><span class="line"></span><br><span class="line">git branch --set-upstream develop origin/develop</span><br><span class="line"></span><br><span class="line">git branch # 查看现在本地分支情况</span><br><span class="line"></span><br><span class="line">git branch -r # 查看服务器端分支情况</span><br><span class="line"></span><br><span class="line">git branch &lt;branchName&gt; # 创建一个名为branchName的新分支</span><br><span class="line"></span><br><span class="line">git branch -d &lt;branchName&gt; # 删除一个名为branchName的旧分支</span><br><span class="line"></span><br><span class="line">git branch -m &lt;oldBranchName&gt; &lt;newBranchName&gt; # 将名为oldBranchName的分支名称修改为newBranchName</span><br><span class="line"></span><br><span class="line">git branch -m &lt;newBranchName&gt; # 将正在工作分支名称修改为newBranchName</span><br></pre></td></tr></table></figure>
+            <p>
+              创建新仓库git init
+检出仓库有冲突的话合并这些 冲突（conflicts）。改完之后，你需要执行如下命令以将它们标记为合并成功：git add &lt;filename&gt;
+在合并改动之前，也可以使用如下命令查看：git diff &lt;source_branch&gt; &lt;ta
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/git_order/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -2595,28 +2379,23 @@
       
         
           
-            <p><em>首次创建时候使用。创建+切换分支</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b work</span><br></pre></td></tr></table></figure></p>
-<p>去自己的工作分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout work</span><br></pre></td></tr></table></figure></p>
-<p>添加并提交工作分支全部修改<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -a</span><br></pre></td></tr></table></figure></p>
-<p>回到主分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout master</span><br></pre></td></tr></table></figure></p>
-<p>获取远程最新的修改，此时不会产生冲突<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull</span><br></pre></td></tr></table></figure></p>
-<p>回到工作分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout work</span><br></pre></td></tr></table></figure></p>
-<p>用rebase合并主干的修改，如果有冲突在此时解决<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase master</span><br></pre></td></tr></table></figure></p>
-<p>回到主分支<br>$ git checkout master</p>
-<p>合并工作分支的修改，此时不会产生冲突。<br>$ git merge work</p>
-<p>提交到远程主干<br>$ git push</p>
-<p>在master分支上进行了任何提交，新分支合并时就会出现冲突，切记，切记。</p>
-<p>Git鼓励大量使用分支(命令介绍)：<br>查看分支：git branch<br>创建分支：git branch <name><br>切换分支：git checkout <name><br>创建+切换分支：git checkout -b <name><br>合并某分支到当前分支：git merge <name><br>本地文件修改(手工merge)完成后,要添加并提交,使得本地版本处于clean的状态.</name></name></name></name></p>
-<p>删除分支：git branch -d <name></name></p>
-<p>合并后冲突解决办法</p>
-<ol>
-<li><p>提交全部<br>git commit -a</p>
-</li>
-<li><p>如果不想提交全部,那么可以通过添加 -i 选项<br>git commit file/to/path -i -m “merge”</p>
-</li>
-</ol>
-
+            <p>
+              首次创建时候使用。创建+切换分支$ git checkout -b work
+去自己的工作分支$ git checkout work
+添加并提交工作分支全部修改$ git commit -a
+回到主分支$ git checkout master
+获取远程最新的修改，此时不会产生冲突$ git pul
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/git_branch/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -2828,178 +2607,21 @@
       
         
           
-            <p>一、概念</p>
-<p>协议是指计算机通信网络中两台计算机之间进行通信所必须共同遵守的规定或规则，超文本传输协议(HTTP)是一种通信协议，它允许将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览器。</p>
-<p>HTTP协议，即超文本传输协议(Hypertext transfer protocol)。是一种详细规定了浏览器和万维网(WWW = World Wide Web)服务器之间互相通信的规则，通过因特网传送万维网文档的数据传送协议。</p>
-<p>HTTP协议是用于从WWW服务器传输超文本到本地浏览器的传送协议。它可以使浏览器更加高效，使网络传输减少。它不仅保证计算机正确快速地传输超文本文档，还确定传输文档中的哪一部分，以及哪部分内容首先显示(如文本先于图形)等。</p>
-<p>HTTP是一个应用层协议，由请求和响应构成，是一个标准的客户端服务器模型。HTTP是一个无状态的协议。</p>
-<p>在Internet中所有的传输都是通过TCP/IP进行的。HTTP协议作为TCP/IP模型中应用层的协议也不例外。HTTP协议通常承载于TCP协议之上，有时也承载于TLS或SSL协议层之上，这个时候，就成了我们常说的HTTPS。如下图所示：</p>
-<p>HTTP默认的端口号为80，HTTPS的端口号为443。</p>
-<p>浏览网页是HTTP的主要应用，但是这并不代表HTTP就只能应用于网页的浏览。HTTP是一种协议，只要通信的双方都遵守这个协议，HTTP就能有用武之地。比如咱们常用的QQ，迅雷这些软件，都会使用HTTP协议(还包括其他的协议)。</p>
-<p>二、简史</p>
-<p>它的发展是万维网协会（World Wide Web Consortium）和Internet工作小组IETF（Internet Engineering Task Force）合作的结果，（他们）最终发布了一系列的RFC，RFC 1945定义了HTTP/1.0版本。其中最著名的就是RFC 2616。RFC 2616定义了今天普遍使用的一个版本——HTTP 1.1。</p>
-<p>三、特点</p>
-<p>HTTP协议永远都是客户端发起请求，服务器回送响应。这样就限制了使用HTTP协议，无法实现在客户端没有发起请求的时候，服务器将消息推送给客户端。</p>
-<p>HTTP协议的主要特点可概括如下：<br>1、支持客户/服务器模式。支持基本认证和安全认证。<br>2、简单快速：客户向服务器请求服务时，只需传送请求方法和路径。请求方法常用的有GET、HEAD、POST。每种方法规定了客户与服务器联系的类型不同。由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快。<br>3、灵活：HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type加以标记。<br>4、HTTP 0.9和1.0使用非持续连接：限制每次连接只处理一个请求，服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间。HTTP 1.1使用持续连接：不必为每个web对象创建一个新的连接，一个连接可以传送多个对象。<br>5、无状态：HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。</p>
-<p>无状态协议：<br>协议的状态是指下一次传输可以“记住”这次传输信息的能力。<br>http是不会为了下一次连接而维护这次连接所传输的信息,为了保证服务器内存。<br>比如客户获得一张网页之后关闭浏览器，然后再一次启动浏览器，再登陆该网站，但是服务器并不知道客户关闭了一次浏览器。<br>由于Web服务器要面对很多浏览器的并发访问，为了提高Web服务器对并发访问的处理能力，在设计HTTP协议时规定Web服务器发送HTTP应答报文和文档时，不保存发出请求的Web浏览器进程的任何状态信息。这有可能出现一个浏览器在短短几秒之内两次访问同一对象时，服务器进程不会因为已经给它发过应答报文而不接受第二期服务请求。由于Web服务器不保存发送请求的Web浏览器进程的任何信息，因此HTTP协议属于无状态协议（Stateless Protocol）。</p>
-<p>HTTP协议是无状态的和Connection: keep-alive的区别：<br>无状态是指协议对于事务处理没有记忆能力，服务器不知道客户端是什么状态。从另一方面讲，打开一个服务器上的网页和你之前打开这个服务器上的网页之间没有任何联系。<br>HTTP是一个无状态的面向连接的协议，无状态不代表HTTP不能保持TCP连接，更不能代表HTTP使用的是UDP协议（无连接）。<br>从HTTP/1.1起，默认都开启了Keep-Alive，保持连接特性，简单地说，当一个网页打开完成后，客户端和服务器之间用于传输HTTP数据的TCP连接不会关闭，如果客户端再次访问这个服务器上的网页，会继续使用这一条已经建立的连接。<br>Keep-Alive不会永久保持连接，它有一个保持时间，可以在不同的服务器软件（如Apache）中设定这个时间。</p>
-<p>四、工作流程</p>
-<p>一次HTTP操作称为一个事务，其工作过程可分为四步：<br>1）首先客户机与服务器需要建立连接。只要单击某个超级链接，HTTP的工作开始。<br>2）建立连接后，客户机发送一个请求给服务器，请求方式的格式为：统一资源标识符（URL）、协议版本号，后边是MIME信息包括请求修饰符、客户机信息和可能的内容。<br>3）服务器接到请求后，给予相应的响应信息，其格式为一个状态行，包括信息的协议版本号、一个成功或错误的代码，后边是MIME信息包括服务器信息、实体信息和可能的内容。<br>4）客户端接收服务器所返回的信息通过浏览器显示在用户的显示屏上，然后客户机与服务器断开连接。<br>如果在以上过程中的某一步出现错误，那么产生错误的信息将返回到客户端，有显示屏输出。对于用户来说，这些过程是由HTTP自己完成的，用户只要用鼠标点击，等待信息显示就可以了。</p>
-<p>HTTP是基于传输层的TCP协议，而TCP是一个端到端的面向连接的协议。所谓的端到端可以理解为进程到进程之间的通信。所以HTTP在开始传输之前，首先需要建立TCP连接，而TCP连接的过程需要所谓的“三次握手”。下图所示TCP连接的三次握手。<br>在TCP三次握手之后，建立了TCP连接，此时HTTP就可以进行传输了。一个重要的概念是面向连接，既HTTP在传输完成之间并不断开TCP连接。在HTTP1.1中(通过Connection头设置)这是默认行为。</p>
-<p>五、使用Wireshark抓TCP、http包</p>
-<p>打开Wireshark，选择工具栏上的”Capture”-&gt;”Options”</p>
-<p>点击”Capture Filter”，此处选择的是”HTTP TCP port（80）”，选择后点击上图的”Start”开始抓包。<br>然后在浏览器中打开<code>http://image.baidu.com/</code></p>
-<p>可清晰的看到客户端浏览器（ip为192.168.1.6）与服务器（115.239.210.36）的交互过程：<br>1）No1：浏览器（192.168.1.6）向服务器（115.239.210.36）发出连接请求。此为TCP三次握手第一步，此时从图中可以看出，为SYN，seq:X （x=0）；<br>2）No2：服务器（115.239.210.36）回应了浏览器（192.168.1.6）的请求，并要求确认，此时为：SYN，ACK，此时seq：y（y为0），ACK：x+1（为1）。此为三次握手的第二步；<br>3）No3：浏览器（192.168.1.6）回应了服务器（115.239.210.36）的确认，连接成功。为：ACK，此时seq：x+1（为1），ACK：y+1（为1）。此为三次握手的第三步；<br>4）No4：浏览器（192.168.1.6）发出一个页面HTTP请求；<br>5）No5：服务器（115.239.210.36）确认；<br>6）No6：服务器（115.239.210.36）发送数据；<br>7）No8：客户端浏览器（192.168.1.6）确认；<br>8）No81：客户端（192.168.1.6）发出一个图片HTTP请求；<br>9）No202：服务器（115.239.210.36）发送状态响应码200 OK。</p>
-<p>六、头域</p>
-<p>每个头域由一个域名，冒号（:）和域值三部分组成。域名是大小写无关的，域值前可以添加任何数量的空格符，头域可以被扩展为多行，在每行开始处，使用至少一个空格或制表符。</p>
-<p>6.1、请求信息：<br>发出的请求信息格式如下：<br>●请求行，例如GET /images/logo.gif HTTP/1.1，表示从/images目录下请求logo.gif这个文件。<br>●（请求）头，例如Accept-Language: en<br>●空行<br>●可选的消息体　请求行和标题必须以<cr><lf>作为结尾（也就是，回车然后换行）。空行内必须只有<cr><lf>而无其他空格。在HTTP/1.1协议中，所有的请求头，除post外，都是可选的。</lf></cr></lf></cr></p>
-<p>三个部分分别是：请求行、消息报头、请求正文。</p>
-<p>6.2、请求方法<br>HTTP/1.1协议中共定义了八种方法（有时也叫“动作”）来表明Request-URI指定的资源的不同操作方式：<br>OPTIONS – 返回服务器针对特定资源所支持的HTTP请求方法。也可以利用向Web服务器发送’*’的请求来测试服务器的功能性。<br>HEAD- 向服务器索要与GET请求相一致的响应，只不过响应体将不会被返回。这一方法可以在不必传输整个响应内容的情况下，就可以获取包含在响应消息头中的元信息。该方法常用于测试超链接的有效性，是否可以访问，以及最近是否更新。<br>GET – 向特定的资源发出请求。注意：GET方法不应当被用于产生“副作用”的操作中，例如在web app.中。其中一个原因是GET可能会被网络蜘蛛等随意访问。<br>POST – 向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。POST请求可能会导致新的资源的建立和/或已有资源的修改。<br>PUT – 向指定资源位置上传其最新内容。<br>DELETE – 请求服务器删除Request-URI所标识的资源。<br>TRACE- 回显服务器收到的请求，主要用于测试或诊断。<br>CONNECT – HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。<br>PATCH – 用来将局部修改应用于某一资源，添加于规范RFC5789。<br>方法名称是区分大小写的。当某个请求所针对的资源不支持对应的请求方法的时候，服务器应当返回状态码405（Method Not Allowed）；当服务器不认识或者不支持对应的请求方法的时候，应当返回状态码501（Not Implemented）。<br>HTTP服务器至少应该实现GET和HEAD方法，其他方法都是可选的。此外，除了上述方法，特定的HTTP服务器还能够扩展自定义的方法。</p>
-<p>GET和POST的区别：<br>1、GET提交的数据会放在URL之后，以?分割URL和传输数据，参数之间以&amp;相连，如EditPosts.aspx?name=test1&amp;id=123456. POST方法是把提交的数据放在HTTP包的Body中。<br>2、GET提交的数据大小有限制，最多只能有1024字节（因为浏览器对URL的长度有限制），而POST方法提交的数据没有限制。<br>3、GET方式需要使用Request.QueryString来取得变量的值，而POST方式通过Request.Form来获取变量的值。<br>4、GET方式提交数据，会带来安全问题，比如一个登录页面，通过GET方式提交数据时，用户名和密码将出现在URL上，如果页面可以被缓存或者其他人可以访问这台机器，就可以从历史记录获得该用户的账号和密码。<br>6.3、响应消息<br>客户端向服务器发送一个请求，服务器以一个状态行作为响应，响应的内容包括：消息协议的版本、成功或者错误编码、服务器信息、实体元信息以及必要的实体内容。根据响应类别的类别，服务器响应里可以含实体内容，但不是所有的响应都有实体内容。<br>响应头第一行也称为状态行，格式如下（下图中红线标出的那行）：<br>HTTP-Version 空格 Status-Code 空格 Reason-Phrase CRLF<br>HTTP- Version表示HTTP版本，例如为HTTP/1.1。Status- Code是结果代码，用三个数字表示。Reason-Phrase是个简单的文本描述，解释Status-Code的具体原因。Status-Code用于机器自动识别，Reason-Phrase用于人工理解。Status-Code的第一个数字代表响应类别，可能取5个不同的值。后两个数字没有分类作用。Status-Code的第一个数字代表响应的类别，后续两位描述在该类响应下发生的具体状况，具体请参见：HTTP状态码 。</p>
-<p>响应消息的结构：</p>
-<p>三个部分分别是：状态行、消息报头、响应正文。</p>
-<p>无论你何时浏览一个网页，你的电脑都会通过一个使用HTTP协议的服务器来获取所请求的数据。在你请求的网页显示在浏览器之前，支配网页的网站服务器会返回一个包含有状态码的HTTP头文件。这个状态码提供了有关所请求网页的相关条件信息。如果一切正常，一个标准网页会收到一条诸如200的状态码。当然我们的目的不是去研究200响应码，而是去探讨那些代表出现错误信息的服务器头文件响应码，例如表示“未找到指定网页”的404码。</p>
-<p>6.4、响应头域<br>服务器需要传递许多附加信息，这些信息不能全放在状态行里。因此，需要另行定义响应头域，用来描述这些附加信息。响应头域主要描述服务器的信息和Request-URI的信息。</p>
-<p>6.5、HTTP常见的请求头（在HTTP/1.1 协议中，所有的请求头，除Host外，都是可选的）</p>
-<p>If-Modified-Since：把浏览器端缓存页面的最后修改时间发送到服务器去，服务器会把这个时间与服务器上实际文件的最后修改时间进行对比。如果时间一致，那么返回304，客户端就直接使用本地缓存文件。如果时间不一致，就会返回200和新的文件内容。客户端接到之后，会丢弃旧文件，把新文件缓存起来，并显示在浏览器中。<br>例如：If-Modified-Since: Thu, 09 Feb 2012 09:07:57 GMT</p>
-<p>If-None-Match：If-None-Match和ETag一起工作，工作原理是在HTTP Response中添加ETag信息。 当用户再次请求该资源时，将在HTTP Request 中加入If-None-Match信息(ETag的值)。如果服务器验证资源的ETag没有改变（该资源没有更新），将返回一个304状态告诉客户端使用本地缓存文件。否则将返回200状态和新的资源和Etag. ?使用这样的机制将提高网站的性能。例如: If-None-Match: “03f2b33c0bfcc1:0″。</p>
-<p>Pragma：指定“no-cache”值表示服务器必须返回一个刷新后的文档，即使它是代理服务器而且已经有了页面的本地拷贝；在HTTP/1.1版本中，它和Cache-Control:no-cache作用一模一样。Pargma只有一个用法， 例如： Pragma: no-cache<br>注意: 在HTTP/1.0版本中，只实现了Pragema:no-cache, 没有实现Cache-Control</p>
-<p>Cache-Control：指定请求和响应遵循的缓存机制。缓存指令是单向的（响应中出现的缓存指令在请求中未必会出现），且是独立的（在请求消息或响应消息中设置Cache-Control并不会修改另一个消息处理过程中的缓存处理过程）。请求时的缓存指令包括no-cache、no-store、max-age、max-stale、min-fresh、only-if-cached，响应消息中的指令包括public、private、no-cache、no-store、no-transform、must-revalidate、proxy-revalidate、max-age、s-maxage。</p>
-<p>Cache-Control:Public 可以被任何缓存所缓存<br>Cache-Control:Private 内容只缓存到私有缓存中<br>Cache-Control:no-cache 所有内容都不会被缓存<br>Cache-Control:no-store 用于防止重要的信息被无意的发布。在请求消息中发送将使得请求和响应消息都不使用缓存。<br>Cache-Control:max-age 指示客户机可以接收生存期不大于指定时间（以秒为单位）的响应。<br>Cache-Control:min-fresh 指示客户机可以接收响应时间小于当前时间加上指定时间的响应。<br>Cache-Control:max-stale 指示客户机可以接收超出超时期间的响应消息。如果指定max-stale消息的值，那么客户机可以接收超出超时期指定值之内的响应消息。</p>
-<p>Accept：浏览器端可以接受的MIME类型。例如：Accept: text/html 代表浏览器可以接受服务器回发的类型为 text/html 也就是我们常说的html文档，如果服务器无法返回text/html类型的数据，服务器应该返回一个406错误(non acceptable)。通配符 <em> 代表任意类型，例如 Accept: </em>/* 代表浏览器可以处理所有类型，(一般浏览器发给服务器都是发这个)。</p>
-<p>Accept-Encoding：浏览器申明自己可接收的编码方法，通常指定压缩方法，是否支持压缩，支持什么压缩方法（gzip，deflate）;Servlet能够向支持gzip的浏览器返回经gzip编码的HTML页面。许多情形下这可以减少5到10倍的下载时间。例如： Accept-Encoding: gzip, deflate。如果请求消息中没有设置这个域，服务器假定客户端对各种内容编码都可以接受。</p>
-<p>Accept-Language：浏览器申明自己接收的语言。语言跟字符集的区别：中文是语言，中文有多种字符集，比如big5，gb2312，gbk等等；例如：Accept-Language: en-us。如果请求消息中没有设置这个报头域，服务器假定客户端对各种语言都可以接受。</p>
-<p>Accept-Charset：浏览器可接受的字符集。如果在请求消息中没有设置这个域，缺省表示任何字符集都可以接受。</p>
-<p>User-Agent：告诉HTTP服务器，客户端使用的操作系统和浏览器的名称和版本。<br>例如： User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; CIBA; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET4.0C; InfoPath.2; .NET4.0E)。</p>
-<p>Content-Type：例如：Content-Type: application/x-www-form-urlencoded。</p>
-<p>Referer：包含一个URL，用户从该URL代表的页面出发访问当前请求的页面。提供了Request的上下文信息的服务器，告诉服务器我是从哪个链接过来的，比如从我主页上链接到一个朋友那里，他的服务器就能够从HTTP Referer中统计出每天有多少用户点击我主页上的链接访问他的网站。<br>例如: Referer:<code>http://translate.google.cn/?hl=zh-cn&amp;tab=wT</code></p>
-<p>Connection：<br>例如：Connection: keep-alive 当一个网页打开完成后，客户端和服务器之间用于传输HTTP数据的TCP连接不会关闭，如果客户端再次访问这个服务器上的网页，会继续使用这一条已经建立的连接。HTTP 1.1默认进行持久连接。利用持久连接的优点，当页面包含多个元素时（例如Applet，图片），显著地减少下载所需要的时间。要实现这一点，Servlet需要在应答中发送一个Content-Length头，最简单的实现方法是：先把内容写入ByteArrayOutputStream，然后在正式写出内容之前计算它的大小。<br>Connection: close 代表一个Request完成后，客户端和服务器之间用于传输HTTP数据的TCP连接会关闭，当客户端再次发送Request，需要重新建立TCP连接。</p>
-<p>Host：（发送请求时，该头域是必需的）主要用于指定被请求资源的Internet主机和端口号，它通常从HTTP URL中提取出来的。HTTP/1.1请求必须包含主机头域，否则系统会以400状态码返回。<br>例如: 我们在浏览器中输入：<code>http://www.guet.edu.cn/index.html</code>，浏览器发送的请求消息中，就会包含Host请求头域：<code>Host：http://www.guet.edu.cn</code>，此处使用缺省端口号80，若指定了端口号，则变成：Host：指定端口号。</p>
-<p>Cookie：最重要的请求头之一, 将cookie的值发送给HTTP服务器。</p>
-<p>Content-Length：表示请求消息正文的长度。例如：Content-Length: 38。</p>
-<p>Authorization：授权信息，通常出现在对服务器发送的WWW-Authenticate头的应答中。主要用于证明客户端有权查看某个资源。当浏览器访问一个页面时，如果收到服务器的响应代码为401（未授权），可以发送一个包含Authorization请求报头域的请求，要求服务器对其进行验证。</p>
-<p>UA-Pixels，UA-Color，UA-OS，UA-CPU：由某些版本的IE浏览器所发送的非标准的请求头，表示屏幕大小、颜色深度、操作系统和CPU类型。</p>
-<p>From：请求发送者的email地址，由一些特殊的Web客户程序使用，浏览器不会用到它。</p>
-<p>Range：可以请求实体的一个或者多个子范围。例如，<br>表示头500个字节：bytes=0-499<br>表示第二个500字节：bytes=500-999<br>表示最后500个字节：bytes=-500<br>表示500字节以后的范围：bytes=500-<br>第一个和最后一个字节：bytes=0-0,-1<br>同时指定几个范围：bytes=500-600,601-999<br>但是服务器可以忽略此请求头，如果无条件GET包含Range请求头，响应会以状态码206（PartialContent）返回而不是以200（OK）。</p>
-<p>6.6、HTTP常见的响应头</p>
-<p>Allow：服务器支持哪些请求方法（如GET、POST等）。</p>
-<p>Date：表示消息发送的时间，时间的描述格式由rfc822定义。例如，Date:Mon,31Dec200104:25:57GMT。Date描述的时间表示世界标准时，换算成本地时间，需要知道用户所在的时区。你可以用setDateHeader来设置这个头以避免转换时间格式的麻烦</p>
-<p>Expires：指明应该在什么时候认为文档已经过期，从而不再缓存它，重新从服务器获取，会更新缓存。过期之前使用本地缓存。HTTP1.1的客户端和缓存会将非法的日期格式（包括0）看作已经过期。eg：为了让浏览器不要缓存页面，我们也可以将Expires实体报头域，设置为0。<br>例如: Expires: Tue, 08 Feb 2022 11:35:14 GMT</p>
-<p>P3P：用于跨域设置Cookie, 这样可以解决iframe跨域访问cookie的问题<br>例如: P3P: CP=CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR</p>
-<p>Set-Cookie：非常重要的header, 用于把cookie发送到客户端浏览器，每一个写入cookie都会生成一个Set-Cookie。<br>例如: Set-Cookie: sc=4c31523a; path=/; domain=.acookie.taobao.com</p>
-<p>ETag：和If-None-Match 配合使用。</p>
-<p>Last-Modified：用于指示资源的最后修改日期和时间。Last-Modified也可用setDateHeader方法来设置。</p>
-<p>Content-Type：WEB服务器告诉浏览器自己响应的对象的类型和字符集。Servlet默认为text/plain，但通常需要显式地指定为text/html。由于经常要设置Content-Type，因此HttpServletResponse提供了一个专用的方法setContentType。可在web.xml文件中配置扩展名和MIME类型的对应关系。<br>例如:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Content-Type: text/html;charset=utf-8</span><br><span class="line">Content-Type:text/html;charset=GB2312</span><br><span class="line">Content-Type: image/jpeg</span><br></pre></td></tr></table></figure>
-<p>媒体类型的格式为：大类/小类，比如text/html。<br>IANA(The Internet Assigned Numbers Authority，互联网数字分配机构)定义了8个大类的媒体类型，分别是:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">application— (比如: application/vnd.ms-excel.)</span><br><span class="line">audio (比如: audio/mpeg.)</span><br><span class="line">image (比如: image/png.)</span><br><span class="line">message (比如,:message/http.)</span><br><span class="line">model(比如:model/vrml.)</span><br><span class="line">multipart (比如:multipart/form-data.)</span><br><span class="line">text(比如:text/html.)</span><br><span class="line">video(比如:video/quicktime.)</span><br></pre></td></tr></table></figure></p>
-<p>Content-Range：用于指定整个实体中的一部分的插入位置，他也指示了整个实体的长度。在服务器向客户返回一个部分响应，它必须描述响应覆盖的范围和整个实体长度。一般格式：Content-Range:bytes-unitSPfirst-byte-pos-last-byte-pos/entity-length。<br>例如，传送头500个字节次字段的形式：Content-Range:bytes0-499/1234如果一个http消息包含此节（例如，对范围请求的响 应或对一系列范围的重叠请求），Content-Range表示传送的范围。</p>
-<p>Content-Length：指明实体正文的长度，以字节方式存储的十进制数字来表示。在数据下行的过程中，Content-Length的方式要预先在服务器中缓存所有数据，然后所有数据再一股脑儿地发给客户端。只有当浏览器使用持久HTTP连接时才需要这个数据。如果你想要利用持久连接的优势，可以把输出文档写入ByteArrayOutputStram，完成后查看其大小，然后把该值放入Content-Length头，最后通过byteArrayStream.writeTo(response.getOutputStream()发送内容。<br>例如: Content-Length: 19847</p>
-<p>Content-Encoding：WEB服务器表明自己使用了什么压缩方法（gzip，deflate）压缩响应中的对象。只有在解码之后才可以得到Content-Type头指定的内容类型。利用gzip压缩文档能够显著地减少HTML文档的下载时间。Java的GZIPOutputStream可以很方便地进行gzip压缩，但只有Unix上的Netscape和Windows上的IE 4、IE 5才支持它。因此，Servlet应该通过查看Accept-Encoding头（即request.getHeader(“Accept-Encoding”)）检查浏览器是否支持gzip，为支持gzip的浏览器返回经gzip压缩的HTML页面，为其他浏览器返回普通页面。<br>例如：Content-Encoding：gzip</p>
-<p>Content-Language：WEB服务器告诉浏览器自己响应的对象所用的自然语言。例如： Content-Language:da。没有设置该域则认为实体内容将提供给所有的语言阅读。</p>
-<p>Server：指明HTTP服务器用来处理请求的软件信息。例如：Server: Microsoft-IIS/7.5、Server：Apache-Coyote/1.1。此域能包含多个产品标识和注释，产品标识一般按照重要性排序。</p>
-<p>X-AspNet-Version：如果网站是用ASP.NET开发的，这个header用来表示ASP.NET的版本。<br>例如: X-AspNet-Version: 4.0.30319</p>
-<p>X-Powered-By：表示网站是用什么技术开发的。<br>例如： X-Powered-By: ASP.NET</p>
-<p>Connection：<br>例如：Connection: keep-alive 当一个网页打开完成后，客户端和服务器之间用于传输HTTP数据的TCP连接不会关闭，如果客户端再次访问这个服务器上的网页，会继续使用这一条已经建立的连接。<br>Connection: close 代表一个Request完成后，客户端和服务器之间用于传输HTTP数据的TCP连接会关闭，当客户端再次发送Request，需要重新建立TCP连接。</p>
-<p>Location：用于重定向一个新的位置，包含新的URL地址。表示客户应当到哪里去提取文档。Location通常不是直接设置的，而是通过HttpServletResponse的sendRedirect方法，该方法同时设置状态代码为302。Location响应报头域常用在更换域名的时候。</p>
-<p>Refresh：表示浏览器应该在多少时间之后刷新文档，以秒计。除了刷新当前文档之外，你还可以通过<code>setHeader(“Refresh”, “5; URL=http://host/path”)</code>让浏览器读取指定的页面。注意这种功能通常是通过设置HTML页面HEAD区的<code>&lt;META HTTP-EQUIV=”Refresh” CONTENT=”5;URL=http://host/path”&gt;</code>实现，这是因为，自动刷新或重定向对于那些不能使用CGI或Servlet的HTML编写者十分重要。但是，对于Servlet来说，直接设置Refresh头更加方便。注意Refresh的意义是“N秒之后刷新本页面或访问指定页面”，而不是“每隔N秒刷新本页面或访问指定页面”。因此，连续刷新要求每次都发送一个Refresh头，而发送204状态代码则可以阻止浏览器继续刷新，不管是使用Refresh头还是<code>&lt;META HTTP-EQUIV=”Refresh” …&gt;</code>。注意Refresh头不属于HTTP 1.1正式规范的一部分，而是一个扩展，但Netscape和IE都支持它。</p>
-<p>WWW-Authenticate：该响应报头域必须被包含在401（未授权的）响应消息中，客户端收到401响应消息时候，并发送Authorization报头域请求服务器对其进行验证时，服务端响应报头就包含该报头域。<br>eg：WWW-Authenticate:Basic realm=”Basic Auth Test!” // 可以看出服务器对请求资源采用的是基本验证机制。</p>
-<p>七、解决HTTP无状态的问题</p>
-<p>7.1、通过Cookies保存状态信息<br>通过Cookies，服务器就可以清楚的知道请求2和请求1来自同一个客户端。</p>
-<p>7.2、通过Session保存状态信息</p>
-<p>Session机制是一种服务器端的机制，服务器使用一种类似于散列表的结构（也可能就是使用散列表）来保存信息。<br>当程序需要为某个客户端的请求创建一个session的时候，服务器首先检查这个客户端的请求里是否已包含了一个session标识 – 称为 session id，如果已包含一个session id则说明以前已经为此客户端创建过session，服务器就按照session id把这个 session检索出来使用（如果检索不到，可能会新建一个），如果客户端请求不包含session id，则为此客户端创建一个session并且生成一个与此session相关联的session id，session id的值应该是一个既不会重复，又不容易被找到规律以仿造的字符串，这个session id将被在本次响应中返回给客户端保存。</p>
-<p>Session的实现方式：</p>
-<p>1、使用Cookie来实现<br>服务器给每个Session分配一个唯一的JSESSIONID，并通过Cookie发送给客户端。<br>当客户端发起新的请求的时候，将在Cookie头中携带这个JSESSIONID。这样服务器能够找到这个客户端对应的Session。</p>
-<p>2、使用URL回写来实现<br>URL回写是指服务器在发送给浏览器页面的所有链接中都携带JSESSIONID的参数，这样客户端点击任何一个链接都会把JSESSIONID带会服务器。如果直接在浏览器输入服务端资源的url来请求该资源，那么Session是匹配不到的。<br>Tomcat对Session的实现，是一开始同时使用Cookie和URL回写机制，如果发现客户端支持Cookie，就继续使用Cookie，停止使用URL回写。如果发现Cookie被禁用，就一直使用URL回写。jsp开发处理到Session的时候，对页面中的链接记得使用response.encodeURL() 。</p>
-<p>Cookie和Session有以下明显的不同点：<br>1）Cookie将状态保存在客户端，Session将状态保存在服务器端；<br>2）Cookies是服务器在本地机器上存储的小段文本并随每一个请求发送至同一个服务器。Cookie最早在RFC2109中实现，后续RFC2965做了增强。网络服务器用HTTP头向客户端发送cookies，在客户终端，浏览器解析这些cookies并将它们保存为一个本地文件，它会自动将同一服务器的任何请求缚上这些cookies。Session并没有在HTTP的协议中定义；<br>3）Session是针对每一个用户的，变量的值保存在服务器上，用一个sessionID来区分是哪个用户session变量,这个值是通过用户的浏览器在访问的时候返回给服务器，当客户禁用cookie时，这个值也可能设置为由get来返回给服务器；<br>4）就安全性来说：当你访问一个使用session 的站点，同时在自己机子上建立一个cookie，建议在服务器端的SESSION机制更安全些。因为它不会任意读取客户存储的信息。</p>
-<p>7.3、通过表单变量保持状态<br>除了Cookies之外，还可以使用表单变量来保持状态，比如Asp.net就通过一个叫ViewState的Input=“hidden”的框来保持状态,比如:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">input type=”hidden” name=”__VIEWSTATE” id=”__VIEWSTATE” value=”/wEPDwUKMjA0OTM4MTAwNGRkXUfhlDv1Cs7/qhBlyZROCzlvf5U=”/&gt;</span><br></pre></td></tr></table></figure>
-<p>这个原理和Cookies大同小异，只是每次请求和响应所附带的信息变成了表单变量。</p>
-<p>7.4、通过QueryString保持状态<br>QueryString通过将信息保存在所请求地址的末尾来向服务器传送信息，通常和表单结合使用，一个典型的QueryString比如:<code>www.xxx.com/xxx.aspx?var1=value&amp;var2=value2</code><br>八、使用telnet进行http测试</p>
-<p>在Windows下，可使用命令窗口进行http简单测试。输入cmd进入命令窗口，在命令行键入如下命令后按回车：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">telnet www.baidu.com 80</span><br></pre></td></tr></table></figure></p>
-<p>而后在窗口中按下”Ctrl+]”后按回车可让返回结果回显。<br>接着开始发请求消息，例如发送如下请求消息请求baidu的首页消息，使用的HTTP协议为HTTP/1.1：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /index.html HTTP/1.1</span><br></pre></td></tr></table></figure></p>
-<p>注意：copy如上的消息到命令窗口后需要按两个回车换行才能得到响应的消息，第一个回车换行是在命令后键入回车换行，是HTTP协议要求的。第二个是确认输入，发送请求。</p>
-<p>可看到，当采用HTTP/1.1时，连接不是在请求结束后就断开的。若采用HTTP1.0，在命令窗口键入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /index.html HTTP/1.0</span><br></pre></td></tr></table></figure></p>
-<p>此时可以看到请求结束之后马上断开。<br>读者还可以尝试在使用GET或POST等时，带上头域信息，例如键入如下信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /index.html HTTP/1.1</span><br><span class="line">connection: close</span><br><span class="line">Host: www.baidu.com</span><br></pre></td></tr></table></figure></p>
-<p>九、URL详解</p>
-<p>URL(Uniform Resource Locator) 地址用于描述一个网络上的资源， 基本格式如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">schema://host[:port#]/path/…/[;url-params][?query-string][#anchor]</span><br><span class="line">scheme 指定低层使用的协议(例如：http, https, ftp)</span><br><span class="line">host HTTP服务器的IP地址或者域名</span><br><span class="line">port# HTTP服务器的默认端口是80，这种情况下端口号可以省略。如果使用了别的端口，必须指明，例如`http://www.cnblogs.com:8080/`</span><br><span class="line">path 访问资源的路径</span><br><span class="line">url-params</span><br><span class="line">query-string 发送给http服务器的数据</span><br><span class="line">anchor- 锚</span><br></pre></td></tr></table></figure></p>
-<p>URL 的一个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">http://www.mywebsite.com/sj/test;id=8079?name=sviergn&amp;x=true#stuff</span><br><span class="line"></span><br><span class="line">Schema: http</span><br><span class="line">host: www.mywebsite.com</span><br><span class="line">path: /sj/test</span><br><span class="line">URL params: id=8079</span><br><span class="line">Query String: name=sviergn&amp;x=true</span><br><span class="line">Anchor: stuff</span><br></pre></td></tr></table></figure></p>
-<p>十、缓存的实现原理</p>
-<p>WEB缓存(cache)位于Web服务器和客户端之间。<br>缓存会根据请求保存输出内容的副本，例如html页面，图片，文件，当下一个请求来到的时候：如果是相同的URL，缓存直接使用副本响应访问请求，而不是向源服务器再次发送请求。<br>HTTP协议定义了相关的消息头来使WEB缓存尽可能好的工作。</p>
-<p>10.1、缓存的优点<br>减少相应延迟：因为请求从缓存服务器（离客户端更近）而不是源服务器被相应，这个过程耗时更少，让web服务器看上去相应更快。<br>减少网络带宽消耗：当副本被重用时会减低客户端的带宽消耗；客户可以节省带宽费用，控制带宽的需求的增长并更易于管理。</p>
-<p>10.2、客户端缓存生效的常见流程</p>
-<p>服务器收到请求时，会在200OK中回送该资源的Last-Modified和ETag头，客户端将该资源保存在cache中，并记录这两个属性。当客户端需要发送相同的请求时，会在请求中携带If-Modified-Since和If-None-Match两个头。两个头的值分别是响应中Last-Modified和ETag头的值。服务器通过这两个头判断本地资源未发生变化，客户端不需要重新下载，返回304响应。</p>
-<p>10.3、Web缓存机制</p>
-<p>HTTP/1.1中缓存的目的是为了在很多情况下减少发送请求，同时在许多情况下可以不需要发送完整响应。前者减少了网络回路的数量；HTTP利用一个“过期（expiration）”机制来为此目的。后者减少了网络应用的带宽；HTTP用“验证（validation）”机制来为此目的。<br>HTTP定义了3种缓存机制：<br>1）Freshness：允许一个回应消息可以在源服务器不被重新检查，并且可以由服务器和客户端来控制。例如，Expires回应头给了一个文档不可用的时间。Cache-Control中的max-age标识指明了缓存的最长时间；<br>2）Validation：用来检查以一个缓存的回应是否仍然可用。例如，如果一个回应有一个Last-Modified回应头，缓存能够使用If-Modified-Since来判断是否已改变，以便判断根据情况发送请求；<br>3）Invalidation：在另一个请求通过缓存的时候，常常有一个副作用。例如，如果一个URL关联到一个缓存回应，但是其后跟着POST、PUT和DELETE的请求的话，缓存就会过期。</p>
-<p>十一、HTTP应用</p>
-<p>11.1、断点续传的实现原理</p>
-<p>HTTP协议的GET方法，支持只请求某个资源的某一部分；<br>206 Partial Content 部分内容响应；<br>Range 请求的资源范围；<br>Content-Range 响应的资源范围；<br>在连接断开重连时，客户端只请求该资源未下载的部分，而不是重新请求整个资源，来实现断点续传。<br>分块请求资源实例：<br>Eg1：Range: bytes=306302- ：请求这个资源从306302个字节到末尾的部分；<br>Eg2：Content-Range: bytes 306302-604047/604048：响应中指示携带的是该资源的第306302-604047的字节，该资源共604048个字节；<br>客户端通过并发的请求相同资源的不同片段，来实现对某个资源的并发分块下载。从而达到快速下载的目的。目前流行的FlashGet和迅雷基本都是这个原理。</p>
-<p>11.2、多线程下载的原理<br>下载工具开启多个发出HTTP请求的线程；<br>每个http请求只请求资源文件的一部分：Content-Range: bytes 20000-40000/47000；<br>合并每个线程下载的文件。</p>
-<p>11.3、http代理<br>http代理服务器</p>
-<p>代理服务器英文全称是Proxy Server，其功能就是代理网络用户去取得网络信息。形象的说：它是网络信息的中转站。<br>代理服务器是介于浏览器和Web服务器之间的一台服务器，有了它之后，浏览器不是直接到Web服务器去取回网页而是向代理服务器发出请求，Request信号会先送到代理服务器，由代理服务器来取回浏览器所需要的信息并传送给你的浏览器。<br>而且，大部分代理服务器都具有缓冲的功能，就好象一个大的Cache，它有很大的存储空间，它不断将新取得数据储存到它本机的存储器上，如果浏览器所请求的数据在它本机的存储器上已经存在而且是最新的，那么它就不重新从Web服务器取数据，而直接将存储器上的数据传送给用户的浏览器，这样就能显著提高浏览速度和效率。更重要的是：Proxy Server(代理服务器)是Internet链路级网关所提供的一种重要的安全功能，它的工作主要在开放系统互联(OSI)模型的对话层。</p>
-<p>http代理服务器的主要功能：</p>
-<p>1）突破自身IP访问限制，访问国外站点。如：教育网、169网等网络用户可以通过代理访问国外网站；<br>2）访问一些单位或团体内部资源，如某大学FTP(前提是该代理地址在该资源的允许访问范围之内)，使用教育网内地址段免费代理服务器，就可以用于对教育 网开放的各类FTP下载上传，以及各类资料查询共享等服务；<br>3）突破中国电信的IP封锁：中国电信用户有很多网站是被限制访问的，这种限制是人为的，不同Serve对地址的封锁是不同的。所以不能访问时可以换一个国外的代理服务器试试；<br>4）提高访问速度：通常代理服务器都设置一个较大的硬盘缓冲区，当有外界的信息通过时，同时也将其保存到缓冲区中，当其他用户再访问相同的信息时，则直接由缓冲区中取出信息，传给用户，以提高访问速度；<br>5）隐藏真实IP：上网者也可以通过这种方法隐藏自己的IP，免受攻击。</p>
-<p>对于客户端浏览器而言，http代理服务器相当于服务器。<br>而对于Web服务器而言，http代理服务器又担当了客户端的角色。</p>
-<p>11.4、虚拟主机</p>
-<p>虚拟主机：是在网络服务器上划分出一定的磁盘空间供用户放置站点、应用组件等，提供必要的站点功能与数据存放、传输功能。<br>所谓虚拟主机，也叫“网站空间”就是把一台运行在互联网上的服务器划分成多个“虚拟”的服务器，每一个虚拟主机都具有独立的域名和完整的Internet服务器（支持WWW、FTP、E-mail等）功能。一台服务器上的不同虚拟主机是各自独立的，并由用户自行管理。但一台服务器主机只能够支持一定数量的虚拟主机，当超过这个数量时，用户将会感到性能急剧下降。</p>
-<p>虚拟主机的实现原理</p>
-<p>虚拟主机是用同一个WEB服务器，为不同域名网站提供服务的技术。Apache、Tomcat等均可通过配置实现这个功能。<br>相关的HTTP消息头：Host。<br>例如：Host: <span class="exturl" data-url="aHR0cDovL3d3dy5iYWlkdS5jb20=" title="http://www.baidu.com">www.baidu.com<i class="fa fa-external-link"></i></span><br>客户端发送HTTP请求的时候，会携带Host头，Host头记录的是客户端输入的域名。这样服务器可以根据Host头确认客户要访问的是哪一个域名。</p>
-<p>十二、HTTP认证方式</p>
-<p>HTTP请求报头： Authorization<br>HTTP响应报头： WWW-Authenticate</p>
-<p>HTTP认证是基于质询/回应(challenge/response)的认证模式。</p>
-<p>12.1?基本认证 basic authentication（HTTP1.0提出的认证方法）</p>
-<p>基本认证是一种用来允许Web浏览器或其他客户端程序在请求时提供用户名和口令形式的身份凭证的一种登录验证方式。</p>
-<p>把 “用户名+冒号+密码”用BASE64算法加密后的字符串放在http request 中的header Authorization中发送给服务端。<br>客户端对于每一个realm，通过提供用户名和密码来进行认证的方式。<br>包含密码的明文传递。</p>
-<p>当浏览器访问使用基本认证的网站的时候， 浏览器会提示你输入用户名和密码，如下图：</p>
-<p>假如用户名密码错误的话，服务器会返回401，如下图：</p>
-<p>基本认证步骤：<br>1、客户端访问一个受http基本认证保护的资源。<br>2、服务器返回401状态，要求客户端提供用户名和密码进行认证。（验证失败的时候，响应头会加上WWW-Authenticate: Basic realm=”请求域”。）<br>401 Unauthorized<br>WWW-Authenticate： Basic realm=”WallyWorld”<br>3、客户端将输入的用户名密码用Base64进行编码后，采用非加密的明文方式传送给服务器。<br>Authorization: Basic xxxxxxxxxx.<br>4、服务器将Authorization头中的用户名密码解码并取出，进行验证，如果认证成功，则返回相应的资源。如果认证失败，则仍返回401状态，要求重新进行认证。</p>
-<p>特记事项：<br>1、Http是无状态的，同一个客户端对同一个realm内资源的每一个访问会被要求进行认证。<br>2、客户端通常会缓存用户名和密码，并和authentication realm一起保存，所以，一般不需要你重新输入用户名和密码。<br>3、以非加密的明文方式传输，虽然转换成了不易被人直接识别的字符串，但是无法防止用户名密码被恶意盗用。虽然用肉眼看不出来，但用程序很容易解密。</p>
-<p>优点：<br>基本认证的一个优点是基本上所有流行的网页浏览器都支持基本认证。基本认证很少在可公开访问的互联网网站上使用，有时候会在小的私有系统中使用（如路由器<br>网页管理接口）。后来的机制HTTP摘要认证是为替代基本认证而开发的，允许密钥以相对安全的方式在不安全的通道上传输。</p>
-<p>程序员和系统管理员有时会在可信网络环境中使用基本认证，使用Telnet或其他明文网络协议工具手动地测试Web服务器。这是一个麻烦的过程，但是网络上传输的<br>内容是人可读的，以便进行诊断。</p>
-<p>缺点：<br>虽然基本认证非常容易实现，但该方案建立在以下的假设的基础上，即：客户端和服务器主机之间的连接是安全可信的。特别是，如果没有使用SSL/TLS这样的传输<br>层安全的协议，那么以明文传输的密钥和口令很容易被拦截。该方案也同样没有对服务器返回的信息提供保护。</p>
-<p>现存的浏览器保存认证信息直到标签页或浏览器被关闭，或者用户清除历史记录。HTTP没有为服务器提供一种方法指示客户端丢弃这些被缓存的密钥。这意味着服务<br>器端在用户不关闭浏览器的情况下，并没有一种有效的方法来让用户登出。</p>
-<p>一个例子：</p>
-<p>这一个典型的HTTP客户端和HTTP服务器的对话，服务器安装在同一台计算机上（localhost），包含以下步骤：</p>
-<p>客户端请求一个需要身份认证的页面，但是没有提供用户名和口令。这通常是用户在地址栏输入一个URL，或是打开了一个指向该页面的链接。服务端响应一个401应<br>答码，并提供一个认证域。接到应答后，客户端显示该认证域（通常是所访问的计算机或系统的描述）给用户并提示输入用户名和口令。此时用户可以选择确定或取<br>消。用户输入了用户名和口令后，客户端软件会在原先的请求上增加认证消息头（值是base64encode(username+”:”+password)），然后重新发送再次尝试。<br>在本例中，服务器接受了该认证屏幕并返回了页面。如果用户凭据非法或无效，服务器可能再次返回401应答码，客户端可以再次提示用户输入口令。<br>注意:客户端有可能不需要用户交互，在第一次请求中就发送认证消息头。</p>
-<p>客户端请求（没有认证信息）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET /private/index.html HTTP/1.0</span><br><span class="line">Host: localhost</span><br></pre></td></tr></table></figure></p>
-<p>服务端应答：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.0 401 Authorization Required</span><br><span class="line">Server: HTTPd/1.0</span><br><span class="line">Date: Sat, 27 Nov 2004 10:18:15 GMT</span><br><span class="line">WWW-Authenticate: Basic realm=&quot;Secure Area&quot;</span><br><span class="line">Content-Type: text/html</span><br><span class="line">Content-Length: 311</span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;</span><br><span class="line"> &quot;http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd&quot;&gt;</span><br><span class="line">&lt;HTML&gt;</span><br><span class="line">  &lt;HEAD&gt;</span><br><span class="line">    &lt;TITLE&gt;Error&lt;/TITLE&gt;</span><br><span class="line">    &lt;META HTTP-EQUIV=&quot;Content-Type&quot; CONTENT=&quot;text/html; charset=ISO-8859-1&quot;&gt;</span><br><span class="line">  &lt;/HEAD&gt;</span><br><span class="line">  &lt;BODY&gt;&lt;H1&gt;401 Unauthorized.&lt;/H1&gt;&lt;/BODY&gt;</span><br><span class="line">&lt;/HTML&gt;</span><br></pre></td></tr></table></figure></p>
-<p>客户端的请求（用户名“”Aladdin”，口令, password “open sesame”）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /private/index.html HTTP/1.0</span><br><span class="line">Host: localhost</span><br><span class="line">Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==</span><br></pre></td></tr></table></figure></p>
-<p>服务端的应答：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.0 200 OK</span><br><span class="line">Server: HTTPd/1.0</span><br><span class="line">Date: Sat, 27 Nov 2004 10:19:07 GMT</span><br><span class="line">Content-Type: text/html</span><br><span class="line">Content-Length: 10476</span><br></pre></td></tr></table></figure></p>
-<p>HTTP OAuth认证<br>OAuth对于Http来说，就是放在Authorization header中的不是用户名密码，而是一个token。微软的Skydrive就是使用这样的方式。</p>
-<p>12.2、摘要认证 digest authentication（HTTP1.1提出的基本认证的替代方法）</p>
-<p>这个认证可以看做是基本认证的增强版本，不包含密码的明文传递。</p>
-<p>引入了一系列安全增强的选项；“保护质量”(qop)、随机数计数器由客户端增加、以及客户生成的随机数。</p>
-<p>在HTTP摘要认证中使用 MD5 加密是为了达成”不可逆的”，也就是说，当输出已知的时候，确定原始的输入应该是相当困难的。如果密码本身太过简单，也许可以通过尝试所有可能的输入来找到对应的输出（穷举攻击），甚至可以通过字典或者适当的查找表加快查找速度。</p>
-<p>示例及说明<br>下面的例子仅仅涵盖了“auth”保护质量的代码，因为在撰写期间，所知道的只有Opera和Konqueror网页浏览器支持“auth-int”（带完整性保护的认证）。</p>
-<p>典型的认证过程包括如下步骤：<br>客户端请求一个需要认证的页面，但是不提供用户名和密码。通常这是由于用户简单的输入了一个地址或者在页面中点击了某个超链接。<br>服务器返回401 “Unauthorized” 响应代码，并提供认证域(realm)，以及一个随机生成的、只使用一次的数值，称为密码随机数 nonce。<br>此时，浏览器会向用户提示认证域(realm)（通常是所访问的计算机或系统的描述），并且提示用户名和密码。用户此时可以选择取消。<br>一旦提供了用户名和密码，客户端会重新发送同样的请求，但是添加了一个认证头包括了响应代码。</p>
-<p>注意：客户端可能已经拥有了用户名和密码，因此不需要提示用户，比如以前存储在浏览器里的。</p>
-<p>客户端请求 (无认证)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET /dir/index.html HTTP/1.0</span><br><span class="line">Host: localhost</span><br></pre></td></tr></table></figure></p>
-<p>服务器响应：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.0 401 Unauthorized</span><br><span class="line">Server: HTTPd/0.9</span><br><span class="line">Date: Sun, 10 Apr 2005 20:26:47 GMT</span><br><span class="line">WWW-Authenticate: Digest realm=&quot;testrealm@host.com&quot;,   //认证域</span><br><span class="line">                        qop=&quot;auth,auth-int&quot;,   //保护质量</span><br><span class="line">                        nonce=&quot;dcd98b7102dd2f0e8b11d0f600bfb0c093&quot;,  //服务器密码随机数</span><br><span class="line">                        opaque=&quot;5ccc069c403ebaf9f0171e9517f40e41&quot;</span><br><span class="line">Content-Type: text/html</span><br><span class="line">Content-Length: 311</span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;</span><br><span class="line"> &quot;http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd&quot;&gt;</span><br><span class="line">&lt;HTML&gt;</span><br><span class="line">  &lt;HEAD&gt;</span><br><span class="line">    &lt;TITLE&gt;Error&lt;/TITLE&gt;</span><br><span class="line">    &lt;META HTTP-EQUIV=&quot;Content-Type&quot; CONTENT=&quot;text/html; charset=ISO-8859-1&quot;&gt;</span><br><span class="line">  &lt;/HEAD&gt;</span><br><span class="line">  &lt;BODY&gt;&lt;H1&gt;401 Unauthorized.&lt;/H1&gt;&lt;/BODY&gt;</span><br><span class="line">&lt;/HTML&gt;</span><br></pre></td></tr></table></figure></p>
-<p>客户端请求 (用户名 “Mufasa”, 密码 “Circle Of Life”)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GET /dir/index.html HTTP/1.0</span><br><span class="line">Host: localhost</span><br><span class="line">Authorization: Digest username=&quot;Mufasa&quot;,</span><br><span class="line">                     realm=&quot;testrealm@host.com&quot;,</span><br><span class="line">                     nonce=&quot;dcd98b7102dd2f0e8b11d0f600bfb0c093&quot;,</span><br><span class="line">                     uri=&quot;/dir/index.html&quot;,</span><br><span class="line">                     qop=auth,</span><br><span class="line">                     nc=00000001,    //请求计数</span><br><span class="line">                     cnonce=&quot;0a4f113b&quot;,   //客户端密码随机数</span><br><span class="line">                     response=&quot;6629fae49393a05397450978507c4ef1&quot;,</span><br><span class="line">                     opaque=&quot;5ccc069c403ebaf9f0171e9517f40e41&quot;</span><br></pre></td></tr></table></figure></p>
-<p>服务器响应：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.0 200 OK</span><br><span class="line">Server: HTTPd/0.9</span><br><span class="line">Date: Sun, 10 Apr 2005 20:27:03 GMT</span><br><span class="line">Content-Type: text/html</span><br><span class="line">Content-Length: 7984</span><br></pre></td></tr></table></figure></p>
-<p><code>response</code> 值由三步计算而成。当多个数值合并的时候，使用冒号作为分割符：</p>
-<ol>
-<li>对用户名、认证域(realm)以及密码的合并值计算 MD5 哈希值，结果称为 HA1。</li>
-<li>对HTTP方法以及URI的摘要的合并值计算 MD5 哈希值，例如，”GET” 和 “/dir/index.html”，结果称为 HA2。</li>
-<li>对HA1、服务器密码随机数(nonce)、请求计数(nc)、客户端密码随机数(cnonce)、保护质量(qop)以及 HA2 的合并值计算 MD5 哈希值。结果即为客户端提供的response 值。<br>因为服务器拥有与客户端同样的信息，因此服务器可以进行同样的计算，以验证客户端提交的 response 值的正确性。在上面给出的例子中，结果是如下计算的。<br>（MD5()表示用于计算MD5哈希值的函数；“\”表示接下一行；引号并不参与计算）</li>
-</ol>
-<p>HA1 = MD5( “Mufasa:<span class="exturl" data-url="bWFpbHRvOnRlc3RyZWFsbUBob3N0LmNvbQ==" title="mailto:testrealm@host.com">testrealm@host.com<i class="fa fa-external-link"></i></span>:Circle Of Life” )<br>= 939e7578ed9e3c518a452acee763bce9</p>
-<p>HA2 = MD5( “GET:/dir/index.html” )<br>= 39aff3a2bab6126f332b942af96d3366</p>
-<p>Response = MD5( “939e7578ed9e3c518a452acee763bce9:\<br>dcd98b7102dd2f0e8b11d0f600bfb0c093:\<br>00000001:0a4f113b:auth:\<br>39aff3a2bab6126f332b942af96d3366″ )<br>= 6629fae49393a05397450978507c4ef1</p>
-<p>此时客户端可以提交一个新的请求，重复使用服务器密码随机数(nonce)（服务器仅在每次“401”响应后发行新的nonce），但是提供新的客户端密码随机数(cnonce)。在后续的请求中，十六进制请求计数器(nc)必须比前一次使用的时候要大，否则攻击者可以简单的使用同样的认证信息重放老的请求。由服务器来确保在每个发出的密码随机数nonce时，计数器是在增加的，并拒绝掉任何错误的请求。显然，改变HTTP方法和/或计数器数值都会导致不同的 response值。</p>
-<p>服务器应当记住最近所生成的服务器密码随机数nonce的值。也可以在发行每一个密码随机数nonce后，记住过一段时间让它们过期。如果客户端使用了一个过期的值，服务器应该响应“401”状态号，并且在认证头中添加stale=TRUE，表明客户端应当使用新提供的服务器密码随机数nonce重发请求，而不必提示用户其它用户名和口令。</p>
-<p>服务器不需要保存任何过期的密码随机数，它可以简单的认为所有不认识的数值都是过期的。服务器也可以只允许每一个服务器密码随机数nonce使用一次，当然，这样就会迫使客户端在发送每个请求的时候重复认证过程。需要注意的是，在生成后立刻过期服务器密码随机数nonce是不行的，因为客户端将没有任何机会来使用这个nonce。</p>
-<p>PS：以上只介绍了两种比较基础的，还有其他的一些认证方式就不在这里一一说明了。</p>
-<p>十三、HTTPS传输协议原理</p>
-<p>HTTPS（全称：Hypertext Transfer Protocol over Secure Socket Layer），是以安全为目标的HTTP通道，简单讲是HTTP的安全版。即HTTP下加入SSL层，HTTPS的安全基础是SSL，因此加密的详细内容请看SSL。</p>
-<p>13.1、两种基本的加解密算法类型<br>对称加密：密钥只有一个，加密解密为同一个密码，且加解密速度快，典型的对称加密算法有DES、AES等。<br>非对称加密：密钥成对出现（且根据公钥无法推知私钥，根据私钥也无法推知公钥），加密解密使用不同密钥（公钥加密需要私钥解密，私钥加密需要公钥解密），相对对称加密速度较慢，典型的非对称加密算法有RSA、DSA等。</p>
-<p>13.2、HTTPS通信过程</p>
-<p>13.3、HTTPS通信的优点<br>客户端产生的密钥只有客户端和服务器端能得到；<br>加密的数据只有客户端和服务器端才能得到明文；<br>客户端到服务端的通信是安全的。</p>
-<p>十四、http的状态响应码</p>
-<p>1<strong>(信息类)：表示接收到请求并且继续处理<br>100——客户必须继续发出请求<br>101——客户要求服务器根据请求转换HTTP协议版本2</strong>(响应成功)：表示动作被成功接收、理解和接受<br>200——表明该请求被成功地完成，所请求的资源发送回客户端<br>201——提示知道新文件的URL<br>202——接受和处理、但处理未完成<br>203——返回信息不确定或不完整<br>204——请求收到，但返回信息为空<br>205——服务器完成了请求，用户代理必须复位当前已经浏览过的文件<br>206——服务器已经完成了部分用户的GET请求<br>3**(重定向类)：为了完成指定的动作，必须接受进一步处理<br>300——请求的资源可在多处得到<br>301——本网页被永久性转移到另一个URL<br>302——请求的网页被转移到一个新的地址，但客户访问仍继续通过原始URL地址，重定向，新的URL会在response中的Location中返回，浏览器将会使用新的URL发出新的Request。<br>303——建议客户访问其他URL或访问方式<br>304——自从上次请求后，请求的网页未修改过，服务器返回此响应时，不会返回网页内容，代表上次的文档已经被缓存了，还可以继续使用<br>305——请求的资源必须从服务器指定的地址得到<br>306——前一版本HTTP中使用的代码，现行版本中不再使用<br>307——申明请求的资源临时性删除</p>
-<p>4**(客户端错误类)：请求包含错误语法或不能正确执行<br>400——客户端请求有语法错误，不能被服务器所理解<br>401——请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用<br>HTTP 401.1 – 未授权：登录失败<br>HTTP 401.2 – 未授权：服务器配置问题导致登录失败<br>HTTP 401.3 – ACL 禁止访问资源<br>HTTP 401.4 – 未授权：授权被筛选器拒绝<br>HTTP 401.5 – 未授权：ISAPI 或 CGI 授权失败<br>402——保留有效ChargeTo头响应<br>403——禁止访问，服务器收到请求，但是拒绝提供服务<br>HTTP 403.1 禁止访问：禁止可执行访问<br>HTTP 403.2 – 禁止访问：禁止读访问<br>HTTP 403.3 – 禁止访问：禁止写访问<br>HTTP 403.4 – 禁止访问：要求 SSL<br>HTTP 403.5 – 禁止访问：要求 SSL 128<br>HTTP 403.6 – 禁止访问：IP 地址被拒绝<br>HTTP 403.7 – 禁止访问：要求客户证书<br>HTTP 403.8 – 禁止访问：禁止站点访问<br>HTTP 403.9 – 禁止访问：连接的用户过多<br>HTTP 403.10 – 禁止访问：配置无效<br>HTTP 403.11 – 禁止访问：密码更改<br>HTTP 403.12 – 禁止访问：映射器拒绝访问<br>HTTP 403.13 – 禁止访问：客户证书已被吊销<br>HTTP 403.15 – 禁止访问：客户访问许可过多<br>HTTP 403.16 – 禁止访问：客户证书不可信或者无效<br>HTTP 403.17 – 禁止访问：客户证书已经到期或者尚未生效<br>404——一个404错误表明可连接服务器，但服务器无法取得所请求的网页，请求资源不存在。eg：输入了错误的URL<br>405——用户在Request-Line字段定义的方法不允许<br>406——根据用户发送的Accept拖，请求资源不可访问<br>407——类似401，用户必须首先在代理服务器上得到授权<br>408——客户端没有在用户指定的饿时间内完成请求<br>409——对当前资源状态，请求不能完成<br>410——服务器上不再有此资源且无进一步的参考地址<br>411——服务器拒绝用户定义的Content-Length属性请求<br>412——一个或多个请求头字段在当前请求中错误<br>413——请求的资源大于服务器允许的大小<br>414——请求的资源URL长于服务器允许的长度<br>415——请求资源不支持请求项目格式<br>416——请求中包含Range请求头字段，在当前请求资源范围内没有range指示值，请求也不包含If-Range请求头字段<br>417——服务器不满足请求Expect头字段指定的期望值，如果是代理服务器，可能是下一级服务器不能满足请求长。</p>
-<p>5**(服务端错误类)：服务器不能正确执行一个正确的请求<br>HTTP 500 – 服务器遇到错误，无法完成请求<br>HTTP 500.100 – 内部服务器错误 – ASP 错误<br>HTTP 500-11 服务器关闭<br>HTTP 500-12 应用程序重新启动<br>HTTP 500-13 – 服务器太忙<br>HTTP 500-14 – 应用程序无效<br>HTTP 500-15 – 不允许请求 global.asa<br>Error 501 – 未实现<br>HTTP 502 – 网关错误<br>HTTP 503：由于超载或停机维护，服务器目前无法使用，一段时间后可能恢复正常</p>
-
+            <p>
+              一、概念
+协议是指计算机通信网络中两台计算机之间进行通信所必须共同遵守的规定或规则，超文本传输协议(HTTP)是一种通信协议，它允许将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览器。
+HTTP协议，即超文本传输协议(Hypertext transfer protocol)。是一种详
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/http_info/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
