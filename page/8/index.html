@@ -363,7 +363,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/origin_cross_domain/">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/quant_python_pandas_good_or_bad/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -383,7 +383,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/origin_cross_domain/" class="post-title-link" itemprop="url">同源策略和跨域访问</a>
+                <a href="/quant_python_pandas_good_or_bad/" class="post-title-link" itemprop="url">【量化小讲堂-Python、Pandas系列】如何判断一个策略的好坏？</a>
               
             
           </h2>
@@ -408,7 +408,7 @@
                 
               
 
-              <time title="创建时间：2017-02-20 16:21:37" itemprop="dateCreated datePublished" datetime="2017-02-20T16:21:37+08:00">2017-02-20</time>
+              <time title="创建时间：2017-04-14 11:39:50" itemprop="dateCreated datePublished" datetime="2017-04-14T11:39:50+08:00">2017-04-14</time>
             
 
             
@@ -425,7 +425,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-19 17:17:45" itemprop="dateModified" datetime="2019-04-19T17:17:45+08:00">2019-04-19</time>
+                <time title="修改时间：2019-04-22 13:30:30" itemprop="dateModified" datetime="2019-04-22T13:30:30+08:00">2019-04-22</time>
               
             
           </span>
@@ -442,7 +442,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-原理/" itemprop="url" rel="index"><span itemprop="name">积累________原理</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-量化/" itemprop="url" rel="index"><span itemprop="name">积累________量化</span></a></span>
 
                 
                 
@@ -471,966 +471,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">8.3k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">8 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="什么是同源策略"><a href="#什么是同源策略" class="headerlink" title="什么是同源策略"></a>什么是同源策略</h2><p>理解跨域首先必须要了解同源策略。同源策略是浏览器上为安全性考虑实施的非常重要的安全策略。</p>
-<h3 id="何谓同源"><a href="#何谓同源" class="headerlink" title="何谓同源:"></a>何谓同源:</h3><p>URL由协议、域名、端口和路径组成，如果两个URL的协议、域名和端口相同，则表示他们同源。</p>
-<h3 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略:"></a>同源策略:</h3><p>浏览器的同源策略，限制了来自不同源的”document”或脚本，对当前”document”读取或设置某些属性。<br>从一个域上加载的脚本不允许访问另外一个域的文档属性。</p>
-<p>举个例子：<br>比如一个恶意网站的页面通过iframe嵌入了银行的登录页面（二者不同源），如果没有同源限制，恶意网页上的javascript脚本就可以在用户登录银行的时候获取用户名和密码。</p>
-<p>在浏览器中，<code>&lt;script&gt;、&lt;img&gt;、&lt;iframe&gt;、&lt;link&gt;</code>等标签都可以加载跨域资源，而不受同源限制，但浏览器限制了JavaScript的权限使其不能读、写加载的内容。<br>另外同源策略只对网页的HTML文档做了限制，对加载的其他静态资源如javascript、css、图片等仍然认为属于同源。</p>
-<p>代码示例（<span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgwL+WSjGh0dHA6Ly9sb2NhbGhvc3Q6ODA4MeeUseS6juerr+WPo+S4jeWQjOiAjOS4jeWQjOa6kO+8ie+8mg==" title="http://localhost:8080/和http://localhost:8081由于端口不同而不同源）：">http://localhost:8080/和http://localhost:8081由于端口不同而不同源）：<i class="fa fa-external-link"></i></span><br><span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgwL3Rlc3QuaHRtbA==" title="http://localhost:8080/test.html">http://localhost:8080/test.html<i class="fa fa-external-link"></i></span><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;&lt;title&gt;test same origin policy&lt;/title&gt;&lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;iframe id=“test” src=“http://localhost:8081/test2.html”&gt;&lt;/iframe&gt;</span><br><span class="line">        &lt;script type=“text/javascript”&gt;</span><br><span class="line">            document.getElementById(“test”).contentDocument.body.innerHTML = “write somthing”;</span><br><span class="line">        &lt;/script&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
-<p><span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgxL3Rlc3QyLmh0bWw=" title="http://localhost:8081/test2.html">http://localhost:8081/test2.html<i class="fa fa-external-link"></i></span><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;&lt;title&gt;test same origin policy&lt;/title&gt;&lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        Testing.</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
-<p>在Firefox中会得到如下错误：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Error: Permission denied to access property ‘body’</span><br></pre></td></tr></table></figure></p>
-<p>Document对象的domain属性存放着装载文档的服务器的主机名，可以设置它。<br>例如来自”blog.csdn.net”和来自”bbs.csdn.net”的页面，都将document.domain设置为”csdn.net”，则来自两个子域名的脚本即可相互访问。<br>出于安全的考虑，不能设置为其他主domain，比如 <span class="exturl" data-url="aHR0cDovL3d3dy5jc2RuLm5ldC8=" title="http://www.csdn.net/">http://www.csdn.net/<i class="fa fa-external-link"></i></span> 不能设置为sina.com</p>
-<h2 id="Ajax跨域"><a href="#Ajax跨域" class="headerlink" title="Ajax跨域"></a>Ajax跨域</h2><p>Ajax (XMLHttpRequest)请求受到同源策略的限制。<br>Ajax通过XMLHttpRequest能够与远程的服务器进行信息交互，另外XMLHttpRequest是一个纯粹的javascript对象，这样的交互过程，是在后台进行的，用户不易察觉。<br>因此，XMLHTTP实际上已经突破了原有的javascript的安全限制。</p>
-<p>举个例子：</p>
-<p>假设某网站引用了其它站点的javascript，这个站点被compromise并在javascript中加入获取用户输入并通过ajax提交给其他站点，这样就可以源源不断收集信息。<br>或者某网站因为存在漏洞导致XSS注入了javascript脚本，这个脚本就可以通过ajax获取用户信息并通过ajax提交给其他站点，这样就可以源源不断收集信息。<br>如果我们又想利用XMLHTTP的无刷新异步交互能力，又不愿意公然突破javascript的安全策略，可以选择的方案就是给XMLHTTP加上严格的同源限制。<br>这样的安全策略，很类似于Applet的安全策略。IFrame的限制还仅仅是不能访问跨域HTMLDOM中的数据，而XMLHTTP则根本上限制了跨域请求的提交。（实际上下面提到了CORS已经放宽了限制）</p>
-<p>随着Ajax技术和网络服务的发展，对跨域的要求也越来越强烈。下面介绍Ajax的跨域技术。</p>
-<h3 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h3><p>JSONP技术实际和Ajax没有关系。我们知道<code>&lt;script&gt;</code>标签可以加载跨域的javascript脚本，并且被加载的脚本和当前文档属于同一个域。因此在文档中可以调用/访问脚本中的数据和函数。如果javascript脚本中的数据是动态生成的，那么只要在文档中动态创建<code>&lt;script&gt;</code>标签就可以实现和服务端的数据交互。<br>JSONP就是利用<code>&lt;script&gt;</code>标签的跨域能力实现跨域数据的访问，请求动态生成的JavaScript脚本同时带一个callback函数名作为参数。其中callback函数本地文档的JavaScript函数，服务器端动态生成的脚本会产生数据，并在代码中以产生的数据为参数调用callback函数。当这段脚本加载到本地文档时，callback函数就被调用。</p>
-<p>第一个站点的测试页面（<span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgwL3Rlc3QuaHRtbO+8ie+8mg==" title="http://localhost:8080/test.html）：">http://localhost:8080/test.html）：<i class="fa fa-external-link"></i></span><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=“http://localhost:8081/test_data.js”&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        function test_handler(data) &#123;</span><br><span class="line">            console.log(data);</span><br><span class="line">        &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
-<p>服务器端的javascript脚本（<span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgxL3Rlc3RfZGF0YS5qc++8ie+8mg==" title="http://localhost:8081/test_data.js）：">http://localhost:8081/test_data.js）：<i class="fa fa-external-link"></i></span><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">test_handler(‘&#123;“data”: “something”&#125;’);</span><br></pre></td></tr></table></figure></p>
-<p>为了动态实现JSONP请求，可以使用javascript动态插入<code>&lt;script&gt;</code>标签：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=“text/javascript”&gt;</span><br><span class="line">        // this shows dynamic script insertion</span><br><span class="line">        var script = document.createElement(‘script’);</span><br><span class="line">        script.setAttribute(‘src’, url);</span><br><span class="line">        // load the script</span><br><span class="line">        document.getElementsByTagName(‘head’)[0].appendChild(script);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
-<p>JSONP协议封装了上述步骤，jQuery中统一是现在AJAX中(其中data type为JSONP)：<br><span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgwL3Rlc3Q/Y2FsbGJhY2s9dGVzdF9oYW5kbGVy" title="http://localhost:8080/test?callback=test_handler">http://localhost:8080/test?callback=test_handler<i class="fa fa-external-link"></i></span></p>
-<p>为了支持JSONP协议，服务器端必须提供特别的支持，另外JSONP只支持GET请求。</p>
-<h3 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h3><p>使用代理方式跨域更加直接，因为SOP的限制是浏览器实现的。如果请求不是从浏览器发起的，就不存在跨域问题了。<br>使用本方法跨域步骤如下：</p>
-<ol>
-<li>把访问其它域的请求替换为本域的请求</li>
-<li>本域的请求是服务器端的动态脚本负责转发实际的请求</li>
-</ol>
-<p>各种服务器的Reverse Proxy功能都可以非常方便的实现请求的转发，如Apache httpd + mod_proxy。<br>Eg.<br>为了通过Ajax从 <span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgw" title="http://localhost:8080">http://localhost:8080<i class="fa fa-external-link"></i></span> 访问 <span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgxL2FwaQ==" title="http://localhost:8081/api">http://localhost:8081/api<i class="fa fa-external-link"></i></span> ，可以将请求发往 <span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgwL2FwaQ==" title="http://localhost:8080/api">http://localhost:8080/api<i class="fa fa-external-link"></i></span> 。<br>然后利用Apache Web服务器的Reverse Proxy功能做如下配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ProxyPass /api http://localhost:8081/api</span><br></pre></td></tr></table></figure></p>
-<h3 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h3><p>Cross origin resource sharing</p>
-<blockquote>
-<p>“Cross-origin resource sharing (CORS) is a mechanism that allows a web page to make XMLHttpRequests to another domain. Such “cross-domain” requests would otherwise be forbidden by web browsers, per the same origin security policy. CORS defines a way in which the browser and the server can interact to determine whether or not to allow the cross-origin request. It is more powerful than only allowing same-origin requests, but it is more secure than simply allowing all such cross-origin requests.” —-Wikipedia[3]</p>
-</blockquote>
-<p>通过在HTTP Header中加入扩展字段，服务器在相应网页头部加入字段表示允许访问的domain和HTTP method，客户端检查自己的域是否在允许列表中，决定是否处理响应。<br>实现的基础是JavaScript不能够操作HTTP Header。某些浏览器插件实际上是具有这个能力的。</p>
-<p>服务器端在HTTP的响应头中加入（页面层次的控制模式）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin: example.com</span><br><span class="line">Access-Control-Request-Method: GET, POST</span><br><span class="line">Access-Control-Allow-Headers: Content-Type, Authorization, Accept, Range, Origin</span><br><span class="line">Access-Control-Expose-Headers: Content-Range</span><br><span class="line">Access-Control-Max-Age: 3600</span><br></pre></td></tr></table></figure></p>
-<p>多个域名之间用逗号分隔，表示对所示域名提供跨域访问权限。<code>*</code>表示允许所有域名的跨域访问。</p>
-<p>客户端可以有两种行为：</p>
-<ol>
-<li>发送OPTIONS请求，请求Access-Control信息。如果自己的域名在允许的访问列表中，则发送真正的请求，否则放弃请求发送。</li>
-<li>直接发送请求，然后检查response的Access-Control信息，如果自己的域名在允许的访问列表中，则读取response body，否则放弃。<br>本质上服务端的response内容已经到达本地，JavaScript决定是否要去读取。</li>
-</ol>
-<p>Support: [Javascript Web Applications]</p>
-<ul>
-<li>IE &gt;= 8 (需要安装caveat)</li>
-<li>Firefox &gt;= 3</li>
-<li>Safari 完全支持</li>
-<li>Chrome 完全支持</li>
-<li>Opera 不支持</li>
-</ul>
-<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p>测试页面 <span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgwL3Rlc3QzLmh0bWw=" title="http://localhost:8080/test3.html">http://localhost:8080/test3.html<i class="fa fa-external-link"></i></span> 使用<code>jquery</code>发送Ajax请求。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">        &lt;head&gt;&lt;title&gt;testing cross sop&lt;/title&gt;&lt;/head&gt;</span><br><span class="line">        &lt;body&gt;</span><br><span class="line">            Testing.</span><br><span class="line">            &lt;script src=“jquery-2.0.0.min.js”&gt;&lt;/script&gt;</span><br><span class="line">            &lt;script type=‘text/javascript’&gt;</span><br><span class="line">                $.ajax(&#123;</span><br><span class="line">                    url: ‘http://localhost:8000/hello’,</span><br><span class="line">                    success: function(data) &#123;</span><br><span class="line">                        alert(data);</span><br><span class="line">                    &#125;,</span><br><span class="line">                    error: function() &#123;</span><br><span class="line">                        alert(‘error’);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &lt;/script&gt;</span><br><span class="line">        &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
-<p>测试Restful API(<span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDAwL2hlbGxvL3tuYW1lfQ==" title="http://localhost:8000/hello/{name}">http://localhost:8000/hello/{name}<i class="fa fa-external-link"></i></span>) 使用<code>bottle.py</code>来host。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from bottle import route, run, response</span><br><span class="line">@route(‘/hello’)</span><br><span class="line">def index():</span><br><span class="line">return ‘Hello World.’</span><br><span class="line">run(host=’localhost’, port=8000)</span><br></pre></td></tr></table></figure></p>
-<h4 id="测试1："><a href="#测试1：" class="headerlink" title="测试1："></a>测试1：</h4><p>测试正常的跨域请求的行为。</p>
-<p>测试结果：</p>
-<ol>
-<li><p>跨域GET请求已经发出，请求header中带有</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Origin    http://localhost:8080</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>服务器端正确给出response</p>
-</li>
-<li>javascript拒绝读取数据，在firebug中发现reponse为空，并且触发error回调</li>
-</ol>
-<h4 id="测试2："><a href="#测试2：" class="headerlink" title="测试2："></a>测试2：</h4><p>测试支持CORS的服务器的跨域请求行为。<br>对Restful API做如下改动，在response中加入header：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def index():</span><br><span class="line">#Add CORS header#</span><br><span class="line">response.set_header(“Access-Control-Allow-Origin”, “http://localhost:8080”)</span><br><span class="line">return ‘Hello World.’</span><br></pre></td></tr></table></figure>
-<p>测试结果：</p>
-<ol>
-<li><p>跨域GET请求已经发出，请求header中带有</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Origin    http://localhost:8080</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>服务器端正确给出response</p>
-</li>
-<li>客户端正常获取数据</li>
-</ol>
-<h4 id="测试3："><a href="#测试3：" class="headerlink" title="测试3："></a>测试3：</h4><p>测试OPTIONS请求获取CORS信息。<br>对客户端的Ajax请求增加header：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">          url: ‘http://localhost:8000/hello’,</span><br><span class="line">          headers: &#123;‘Content-Type’: ‘text/html’&#125;,</span><br><span class="line">          success: function(data) &#123;</span><br><span class="line">              alert(data);</span><br><span class="line">          &#125;,</span><br><span class="line">          error: function() &#123;</span><br><span class="line">              alert(‘error’);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;);</span><br></pre></td></tr></table></figure></p>
-<p>对Restful API做如下改动：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@route(‘/hello’, method = [‘OPTIONS’, ‘GET’])</span><br><span class="line">def index():</span><br><span class="line">if request.method == ‘OPTIONS’:</span><br><span class="line">return ”</span><br><span class="line">return ‘Hello World.’</span><br></pre></td></tr></table></figure></p>
-<p>测试结果：</p>
-<ol>
-<li>Ajax函数会首先发送OPTIONS请求</li>
-<li>针对OPTIONS请求服务器</li>
-<li>客户端发现没有CORS header后不会发送GET请求</li>
-</ol>
-<h4 id="测试4："><a href="#测试4：" class="headerlink" title="测试4："></a>测试4：</h4><p>增加服务器端对OPTIONS方法的处理。<br>对Restful API做如下改动：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@route(‘/hello’, method = [‘OPTIONS’, ‘GET’])</span><br><span class="line">def index():</span><br><span class="line">response.headers[‘Access-Control-Allow-Origin’] = ‘http://localhost:8080’</span><br><span class="line">response.headers[‘Access-Control-Allow-Methods’] = ‘GET, OPTIONS’</span><br><span class="line">response.headers[‘Access-Control-Allow-Headers’] = ‘Origin, Accept, Content-Type’</span><br><span class="line">if request.method == ‘OPTIONS’:</span><br><span class="line">return ”</span><br><span class="line">return ‘Hello World.’</span><br></pre></td></tr></table></figure></p>
-<p>测试结果：</p>
-<ol>
-<li>Ajax函数会首先发送OPTIONS请求</li>
-<li>针对OPTIONS请求服务器</li>
-<li>客户端匹配CORS header中的allow headers and orgin后会正确发送GET请求并获取结果<br>测试发现，<code>Access-Control-Allow-Headers</code>是必须的。</li>
-</ol>
-<p>CORS协议提升了Ajax的跨域能力，但也增加了风险。一旦网站被注入脚本或XSS攻击，将非常方便的获取用户信息并悄悄传递出去。</p>
-<h2 id="Cookie-同源策略"><a href="#Cookie-同源策略" class="headerlink" title="Cookie 同源策略"></a>Cookie 同源策略</h2><p>Cookie中的同源只关注域名，忽略协议和端口。所以 <span class="exturl" data-url="aHR0cHM6Ly9sb2NhbGhvc3Q6ODA4MC8=" title="https://localhost:8080/">https://localhost:8080/<i class="fa fa-external-link"></i></span> 和 <span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgxLw==" title="http://localhost:8081/">http://localhost:8081/<i class="fa fa-external-link"></i></span> 的Cookie是共享的。</p>
-<h2 id="Flash-SilverLight跨域"><a href="#Flash-SilverLight跨域" class="headerlink" title="Flash/SilverLight跨域"></a>Flash/SilverLight跨域</h2><p>浏览器的各种插件也存在跨域需求。通常是通过在服务器配置<code>crossdomain.xml</code>，设置本服务允许哪些域名的跨域访问。<br>客户端会首先请求此文件，如果发现自己的域名在访问列表里，就发起真正的请求，否则不发送请求。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=”1.0″?&gt;</span><br><span class="line">&lt;!DOCTYPE cross-domain-policy SYSTEM “http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd”&gt;</span><br><span class="line">&lt;cross-domain-policy&gt;</span><br><span class="line">&lt;allow-access-from domain=”*”/&gt;</span><br><span class="line">&lt;allow-http-request-headers-from domain=”*” headers=”*”/&gt;</span><br><span class="line">&lt;/cross-domain-policy&gt;</span><br></pre></td></tr></table></figure></p>
-<p>通常<code>crossdomain.xml</code>放置在网站根目录。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>互联网的发展催生了跨域访问的需求，各种跨域方法和协议满足了需求但也增加了各种风险。尤其是XSS和CSRF等攻击的盛行也得益于此。<br>了解这些技术背景有助于在实际项目中熟练应用并规避各种安全风险。</p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[1] 白帽子讲Web安全: <span class="exturl" data-url="aHR0cDovL2Jvb2suZG91YmFuLmNvbS9zdWJqZWN0LzEwNTQ2OTI1Lw==" title="http://book.douban.com/subject/10546925/">http://book.douban.com/subject/10546925/<i class="fa fa-external-link"></i></span><br>[2] 使用 JSONP 实现跨域通信: <span class="exturl" data-url="aHR0cDovL3d3dy5pYm0uY29tL2RldmVsb3BlcndvcmtzL2NuL3dlYi93YS1hai1qc29ucDEv" title="http://www.ibm.com/developerworks/cn/web/wa-aj-jsonp1/">http://www.ibm.com/developerworks/cn/web/wa-aj-jsonp1/<i class="fa fa-external-link"></i></span><br>[3] Cross-origin resource sharing: <span class="exturl" data-url="aHR0cDovL2VuLndpa2lwZWRpYS5vcmcvd2lraS9Dcm9zcy1PcmlnaW5fUmVzb3VyY2VfU2hhcmluZw==" title="http://en.wikipedia.org/wiki/Cross-Origin_Resource_Sharing">http://en.wikipedia.org/wiki/Cross-Origin_Resource_Sharing<i class="fa fa-external-link"></i></span><br>[4] Cross-domain policy for Flash movies: <span class="exturl" data-url="aHR0cDovL2tiMi5hZG9iZS5jb20vY3BzLzE0Mi90bl8xNDIxMy5odG1s" title="http://kb2.adobe.com/cps/142/tn_14213.html">http://kb2.adobe.com/cps/142/tn_14213.html<i class="fa fa-external-link"></i></span></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/bitcoin_bitcoind/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/bitcoin_bitcoind/" class="post-title-link" itemprop="url">比特币客户端bitcoind的高级用法</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-02-15 18:21:23" itemprop="dateCreated datePublished" datetime="2017-02-15T18:21:23+08:00">2017-02-15</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-18 18:20:25" itemprop="dateModified" datetime="2019-04-18T18:20:25+08:00">2019-04-18</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-区块链/" itemprop="url" rel="index"><span itemprop="name">积累________区块链</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">6.4k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">6 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>Bitcoin 比特币官方客户端有两个版本：一个是图形界面的版本，通常被称为 Bitcoin（首字母大写），以及一个简洁命令行的版本（称为 bitcoind）。它们相互间是兼容的，有着同样的命令行参数，读取相同的配置文件，也读写相同的数据文件。您可以在一台电脑中运行 Bitcoin 客户端或是 bitcoind 客户端的其中一个（如果您不小心尝试同时运行另外一个客户端，它会提示您已经有一个客户端在运行并且自动退出）。</p>
-</blockquote>
-<h2 id="命令行参数"><a href="#命令行参数" class="headerlink" title="命令行参数"></a><strong>命令行参数</strong></h2><p>使用 -? 或 –help 参数运行 Bitcoin 或 bitcoind，它会提示常用的命令行参数并退出。</p>
-<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  bitcoind \[选项\]</span><br><span class="line"></span><br><span class="line">  bitcoind \[选项\] &lt;命令&gt; \[参数\]  将命令发送到 -server 或 bitcoind</span><br><span class="line"></span><br><span class="line">  bitcoind \[选项\] <span class="built_in">help</span>   列出命令</span><br><span class="line"></span><br><span class="line">  bitcoind \[选项\] <span class="built_in">help</span> &lt;命令&gt;    获取该命令的帮助</span><br></pre></td></tr></table></figure>
-<h3 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">  -conf = &lt;文件名&gt;     指定配置文件（默认：bitcoin.conf）</span><br><span class="line"></span><br><span class="line">  -pid = &lt;文件名&gt;       指定 pid （进程 ID）文件（默认：bitcoind.pid）</span><br><span class="line"></span><br><span class="line">  -gen                             生成比特币</span><br><span class="line"></span><br><span class="line">  -gen=0                       不生成比特币</span><br><span class="line"></span><br><span class="line">  -min                           启动时最小化</span><br><span class="line"></span><br><span class="line">  -splash                       启动时显示启动屏幕（默认：1）</span><br><span class="line"></span><br><span class="line">  -datadir=&lt;目录名&gt;  指定数据目录</span><br><span class="line"></span><br><span class="line">  -dbcache=                  设置数据库缓存大小，单位为兆字节（MB）（默认：25）</span><br><span class="line"></span><br><span class="line">  -dblogsize=                设置数据库磁盘日志大小，单位为兆字节（MB）（默认：100）</span><br><span class="line"></span><br><span class="line">  -timeout=                  设置连接超时，单位为毫秒</span><br><span class="line"></span><br><span class="line">  -proxy= 通过 Socks4 代理链接</span><br><span class="line"></span><br><span class="line">  -dns                             addnode 允许查询 DNS 并连接</span><br><span class="line"></span><br><span class="line">  -port=&lt;端口&gt;            监听 &lt;端口&gt; 上的连接（默认：8333，测试网络 testnet：18333）</span><br><span class="line"></span><br><span class="line">  -maxconnections=   最多维护 个节点连接（默认：125）</span><br><span class="line"></span><br><span class="line">  -addnode=                 添加一个节点以供连接，并尝试保持与该节点的连接</span><br><span class="line"></span><br><span class="line">  -connect=                  仅连接到这里指定的节点</span><br><span class="line"></span><br><span class="line">  -irc                       使用 IRC（因特网中继聊天）查找节点（默认：0）</span><br><span class="line"></span><br><span class="line">  -listen                    接受来自外部的连接（默认：1）</span><br><span class="line"></span><br><span class="line">  -dnsseed                   使用 DNS 查找节点（默认：1）</span><br><span class="line"></span><br><span class="line">  -banscore=                 与行为异常节点断开连接的临界值（默认：100）</span><br><span class="line"></span><br><span class="line">  -bantime=                  重新允许行为异常节点连接所间隔的秒数（默认：86400）</span><br><span class="line"></span><br><span class="line">  -maxreceivebuffer=   最大每连接接收缓存，*1000 字节（默认：10000）</span><br><span class="line"></span><br><span class="line">  -maxsendbuffer=       最大每连接发送缓存，*1000 字节（默认：10000）</span><br><span class="line"></span><br><span class="line">  -upnp                      使用全局即插即用（UPNP）映射监听端口（默认：0）</span><br><span class="line"></span><br><span class="line">  -detachdb                  分离货币块和地址数据库。会增加客户端关闭时间（默认：0）</span><br><span class="line"></span><br><span class="line">  -paytxfee=                 您发送的交易每 KB 字节的手续费</span><br><span class="line"></span><br><span class="line">  -testnet                   使用测试网络</span><br><span class="line"></span><br><span class="line">  -debug                     输出额外的调试信息</span><br><span class="line"></span><br><span class="line">  -logtimestamps           调试信息前添加[时间戳](http://8btc.com/article-165-1.html)</span><br><span class="line"></span><br><span class="line">  -printtoconsole           发送跟踪/调试信息到控制台而不是 debug.log 文件</span><br><span class="line"></span><br><span class="line">  -printtodebugger       发送跟踪/调试信息到调试器</span><br><span class="line"></span><br><span class="line">  -rpcuser=&lt;用户名&gt;   JSON-RPC 连接使用的用户名</span><br><span class="line"></span><br><span class="line">  -rpcpassword=&lt;密码&gt;   JSON-RPC 连接使用的密码</span><br><span class="line"></span><br><span class="line">  -rpcport=                 JSON-RPC 连接所监听的 &lt;端口&gt;（默认：8332）</span><br><span class="line"></span><br><span class="line">  -rpcallowip=               允许来自指定 地址的 JSON-RPC 连接</span><br><span class="line"></span><br><span class="line">  -rpcconnect=               发送命令到运行在 地址的节点（默认：127.0.0.1）</span><br><span class="line"></span><br><span class="line">  -blocknotify=&lt;命令&gt; 当最好的货币块改变时执行命令（命令中的 %s 会被替换为货币块哈希值）</span><br><span class="line"></span><br><span class="line">  -upgradewallet             将钱包升级到最新的格式</span><br><span class="line"></span><br><span class="line">  -keypool=                 将密匙池的尺寸设置为 （默认：100）</span><br><span class="line"></span><br><span class="line">  -rescan                    重新扫描货币块链以查找钱包丢失的交易</span><br><span class="line"></span><br><span class="line">  -checkblocks=             启动时检查多少货币块（默认：2500，0 表示全部）</span><br><span class="line"></span><br><span class="line">  -checklevel=               货币块验证的级别（0-6，默认：1）</span><br></pre></td></tr></table></figure>
-<h3 id="SSL-选项"><a href="#SSL-选项" class="headerlink" title="SSL 选项"></a>SSL 选项</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  -rpcssl                                        使用 OpenSSL（https）JSON-RPC 连接</span><br><span class="line"></span><br><span class="line">  -rpcsslcertificatechainfile=&lt;文件.cert&gt;   服务器证书文件（默认：server.cert）</span><br><span class="line"></span><br><span class="line">  -rpcsslprivatekeyfile=&lt;文件.pem&gt;          服务器私匙文件（默认：server.pem）</span><br><span class="line"></span><br><span class="line">  -rpcsslciphers=&lt;密码&gt;                   可接受的密码（默认： ）</span><br></pre></td></tr></table></figure>
-<h3 id="bitcoin-conf-配置文件"><a href="#bitcoin-conf-配置文件" class="headerlink" title="bitcoin.conf 配置文件"></a>bitcoin.conf 配置文件</h3><p>除了 <code>-datadir</code> 和 <code>-conf</code> 以外的所有命令行参数都可以通过一个配置文件来设置，而所有配置文件中的选项也都可以在命令行中设置。命令行参数设置的值会覆盖配置文件中的设置。</p>
-<p>配置文件是“设置=值”格式的一个列表，每行一个。您还可以使用 # 符号来编写注释。</p>
-<p>配置文件不会自动创建；您可以使用您喜爱的纯文本编辑器来创建它。默认情况下，Bitcoin（或 bitcoind）会在比特币数据文件夹下查找一个名为“bitcoin.conf”的文件，但是数据文件夹和配置文件的路径都可以分别通过 -datadir 和 -conf 命令行参数分别指定。</p>
-<h3 id="默认配置文件路径"><a href="#默认配置文件路径" class="headerlink" title="默认配置文件路径"></a>默认配置文件路径</h3><h4 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">%APPDATA%\\Bitcoin\</span><br><span class="line"></span><br><span class="line">(XP) C:\\Documents and Settings\\username\\Application Data\\Bitcoin\\bitcoin.conf</span><br><span class="line"></span><br><span class="line">(Vista, 7) C:\\Users\\username\\AppData\\Roaming\\Bitcoin\\bitcoin.conf</span><br></pre></td></tr></table></figure>
-<h4 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$HOME</span>/.bitcoin/</span><br><span class="line"></span><br><span class="line">/home/username/.bitcoin/bitcoin.conf</span><br></pre></td></tr></table></figure>
-<h4 id="Mac-OSX"><a href="#Mac-OSX" class="headerlink" title="Mac OSX"></a>Mac OSX</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$HOME</span>/Library/Application Support/Bitcoin/</span><br><span class="line"></span><br><span class="line">/Users/username/Library/Application Support/Bitcoin/bitcoin.conf</span><br></pre></td></tr></table></figure>
-<p>注意：如果 Bitcoin 比特币客户端测试网模式运行，在数据文件夹下客户端会自动创建名为“testnet”的子文件夹。</p>
-<h3 id="bitcoin-conf-示例"><a href="#bitcoin-conf-示例" class="headerlink" title="bitcoin.conf 示例"></a>bitcoin.conf 示例</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># bitcoin.conf 配置文件。以 # 开头的行是注释。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 网络相关的设置：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在测试网络中运行，而不是在真正的比特币网络</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#testnet=0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过一个 Socks4 代理服务器连接</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#proxy=127.0.0.1:9050</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##############################################################</span></span><br><span class="line"><span class="comment">##            addnode 与 connect 的区别                      ##</span></span><br><span class="line"><span class="comment">##                                                         ##</span></span><br><span class="line"><span class="comment">##                                                         ##</span></span><br><span class="line"><span class="comment">##  假设您使用了 addnode=4.2.2.4 参数，那么 addnode 便会与      ##</span></span><br><span class="line"><span class="comment">##  您的节点连接，并且告知您的节点所有与它相连接的其它节点。         ##</span></span><br><span class="line"><span class="comment">##  另外它还会将您的节点信息告知与其相连接的其它节点，这样它         ##</span></span><br><span class="line"><span class="comment">##  们也可以连接到您的节点。                                    ##</span></span><br><span class="line"><span class="comment">##                                                          ##</span></span><br><span class="line"><span class="comment">##  connect 在您的节点“连接”到它的时候并不会做上述工作。仅         ##</span></span><br><span class="line"><span class="comment">##  它会与您连接，而其它节点不会。                              ##</span></span><br><span class="line"><span class="comment">##</span></span><br><span class="line"><span class="comment">##  因此如果您位于防火墙后，或者因为其它原因无法找到节点，则        ##</span></span><br><span class="line"><span class="comment">##  使用“addnode”添加一些节点。                               ##</span></span><br><span class="line"><span class="comment">##                                                         ##</span></span><br><span class="line"><span class="comment">##  如果您想保证隐私，使用“connect”连接到那些您可以“信任”          ##</span></span><br><span class="line"><span class="comment">##  的节点。                                                 ##</span></span><br><span class="line"><span class="comment">##                                                         ##</span></span><br><span class="line"><span class="comment">##  如果您在一个局域网内运行了多个节点，您不需要让它们建立许多       ##</span></span><br><span class="line"><span class="comment">##  连接。您只需要使用“connect”让它们统一连接到一个已端口转        ##</span></span><br><span class="line"><span class="comment">##  发并拥有多个连接的节点。                                   ##</span></span><br><span class="line"><span class="comment">##############################################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 您可以在下面使用多个 addnode= 设置来连接到指定的节点</span></span><br><span class="line"><span class="comment">#addnode=69.164.218.197</span></span><br><span class="line"><span class="comment">#addnode=10.0.0.2:8333</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 或使用多个 connect= 设置来仅连接到指定的节点</span></span><br><span class="line"><span class="comment">#connect=69.164.218.197</span></span><br><span class="line"><span class="comment">#connect=10.0.0.1:8333</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 不使用因特网中继聊天（IRC）（irc.lfnet.org #bitcoin 频道）来查找其它节点</span></span><br><span class="line"><span class="comment">#noirc=0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 入站+出站的最大连接数</span></span><br><span class="line"><span class="comment">#maxconnections=</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># JSON-RPC 选项（用于控制运行中的 Bitcoin/bitcoind 进程）：</span></span><br><span class="line"><span class="comment"># server=1 告知 Bitcoin-QT 接受 JSON-RPC 命令</span></span><br><span class="line"><span class="comment">#server=0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 您必须设置 rpcuser 和 rpcpassword 以确保 JSON-RPC 的安全</span></span><br><span class="line"><span class="comment">#rpcuser=Ulysseys</span></span><br><span class="line"><span class="comment">#rpcpassword=YourSuperGreatPasswordNumber\_DO\_NOT\_USE\_THIS\_OR\_YOU\_WILL\_GET\_ROBBED\_385593</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 客户端在 HTTP 连接建立后，等待多少秒以完成一个 RPC HTTP 请求</span></span><br><span class="line"><span class="comment">#rpctimeout=30</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 默认仅允许来自本机的 RPC 连接。在这里您可以指定多个 rpcallowip=，来设置您想允许连接的其它主机 IP 地址。</span></span><br><span class="line"><span class="comment"># 您可以使用 * 作为通配符。</span></span><br><span class="line"><span class="comment">#rpcallowip=10.1.1.34</span></span><br><span class="line"><span class="comment">#rpcallowip=192.168.1.*</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在如下端口监听 RPC 连接</span></span><br><span class="line"><span class="comment">#rpcport=8332</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 您可以通过如下设置使用 Bitcoin 或 bitcoind 来发送命令到一个在其它主机远程运行的 Bitcoin/bitcoind 客户端</span></span><br><span class="line"><span class="comment">#rpcconnect=127.0.0.1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用安全套接层（也称为 TLS 或 HTTPS）来连接到 Bitcoin -server 或 bitcoind</span></span><br><span class="line"><span class="comment">#rpcssl=1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 当 rpcssl=1 时使用的 OpenSSL 设置</span></span><br><span class="line"><span class="comment">#rpcsslciphers=TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH</span></span><br><span class="line"><span class="comment">#rpcsslcertificatechainfile=server.cert</span></span><br><span class="line"><span class="comment">#rpcsslprivatekeyfile=server.pem</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 其它选项：</span></span><br><span class="line"><span class="comment"># 设置 gen=1 以尝试生成比特币（采矿）</span></span><br><span class="line"><span class="comment">#gen=0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 预生成如下数目的公匙和私匙，这样钱包备份便可以对已有的交易以及未来多笔交易有效</span></span><br><span class="line"><span class="comment">#keypool=100</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 每次您发送比特币的时候支付一个可选的额外的交易手续费。包含手续费的交易会更快的被包含在新生成的货币块中，因此会更快生效</span></span><br><span class="line"><span class="comment">#paytxfee=0.00</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 允许直接连接，实现“通过 IP 地址支付”功能</span></span><br><span class="line"><span class="comment">#allowreceivebyip=1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用户界面选项：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 最小化启动比特币客户端</span></span><br><span class="line"><span class="comment">#min=1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 最小化到系统托盘</span></span><br><span class="line"><span class="comment">#minimizetotray=1</span></span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/bitcoin_source_make/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/bitcoin_source_make/" class="post-title-link" itemprop="url">比特币Bitcoin源代码安装编译</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-02-15 18:20:07" itemprop="dateCreated datePublished" datetime="2017-02-15T18:20:07+08:00">2017-02-15</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-18 17:53:13" itemprop="dateModified" datetime="2019-04-18T17:53:13+08:00">2019-04-18</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-区块链/" itemprop="url" rel="index"><span itemprop="name">积累________区块链</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">1k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>比特币 (货币符号: ฿;英文名：Bitcoin;英文缩写: BTC)，是一种用于开源的P2P软件而产生的电子货币。</p>
-</blockquote>
-<p>在这儿主要介绍Linux下的比特币Bitcoin安装，我们选择ubuntu 12.04的环境，安装相对容易得多。Windows下并不推荐，因为基于mingW配置相以繁琐。</p>
-<p>同时也可以参考官方build文档。</p>
-<p>先拉下源代码：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/bitcoin/bitcoin.git</span><br></pre></td></tr></table></figure>
-<p>安装Berkeley DB 4.8以上版本：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libdb5.1++-dev</span><br></pre></td></tr></table></figure>
-<p>然后进入到相关目录：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> bitcoin</span><br><span class="line"></span><br><span class="line">./autogen.sh./configure</span><br></pre></td></tr></table></figure>
-<p>如果你遇到这样的提示：<code>configure: error: Found Berkeley DB other than 4.8, required for portable wallets</code> 那就可以这样：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure –with-incompatible-bdb</span><br></pre></td></tr></table></figure>
-<p>如查遇到到这样的提示：<code>checking for boostlib &gt;= 1.20.0… configure: We could not detect the boost libraries (version 1.20 or higher).</code> 那这样：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libboost-all-dev</span><br></pre></td></tr></table></figure>
-<p>然后再次configure，如果你需要bitcoin-qt前端，那需要安装</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libqt4-core libqt4-gui libqt4-dev</span><br></pre></td></tr></table></figure>
-<p>再次configure，这次可以了</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make</span><br></pre></td></tr></table></figure>
-<p>开始编译，大约5分钟，然后安装编译好的二进制文件</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make install</span><br></pre></td></tr></table></figure>
-<p>想运行前端那执行</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bitcoin-qt</span><br></pre></td></tr></table></figure>
-<p>服务端是</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bitcoind  -server –printtoconcole</span><br></pre></td></tr></table></figure>
-<p>接到下，是否挖矿就看您自己了。以当前时间为起点，连接testnet有9G的blockchain数据需要下载，livesite有35G的数据需要下载。<br>也可以从这里下载文件，以加快速度。后续会介绍关于比特币的更多内容。有兴趣可以阅读它的源代码。</p>
-<p><strong>资料LINK：</strong></p>
-<ul>
-<li><p><span class="exturl" data-url="aHR0cHM6Ly9lbi5iaXRjb2luLml0L3dpa2kvTWFpbl9QYWdl" title="https://en.bitcoin.it/wiki/Main_Page">BitCoin比特币 wiki<i class="fa fa-external-link"></i></span></p>
-</li>
-<li><p><span class="exturl" data-url="aHR0cHM6Ly9kZXYudmlzdWNvcmUuY29tL2JpdGNvaW4vZG94eWdlbi9maWxlcy5odG1s" title="https://dev.visucore.com/bitcoin/doxygen/files.html">Bitcoin比特币 源代码文档<i class="fa fa-external-link"></i></span></p>
-</li>
-<li><p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2JpdGNvaW4vYml0Y29pbi9ibG9iL21hc3Rlci9kb2MvYnVpbGQtdW5peC5tZA==" title="https://github.com/bitcoin/bitcoin/blob/master/doc/build-unix.md">Bitcoin比特币 源代码git地址<i class="fa fa-external-link"></i></span></p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/php_composer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/php_composer/" class="post-title-link" itemprop="url">创建packagist composer库</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2016-09-28 19:15:27" itemprop="dateCreated datePublished" datetime="2016-09-28T19:15:27+08:00">2016-09-28</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-22 10:22:47" itemprop="dateModified" datetime="2019-04-22T10:22:47+08:00">2019-04-22</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-php/" itemprop="url" rel="index"><span itemprop="name">积累________php</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">1.4k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ol>
-<li><code>mkdir app &amp;&amp; cd app</code></li>
-<li><code>composer init</code></li>
-<li><p><code>vi composer.json</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;name&quot;: &quot;yourname/yourpro&quot;,</span><br><span class="line">    &quot;description&quot;: &quot;desc&quot;,</span><br><span class="line">    &quot;authors&quot;: [&#123;</span><br><span class="line">        &quot;name&quot;: &quot;yourname&quot;,</span><br><span class="line">        &quot;email&quot;: &quot;yourname@gmail.com&quot;</span><br><span class="line">    &#125;],</span><br><span class="line">    &quot;require&quot;: &#123;&#125;,</span><br><span class="line">    &quot;autoload&quot;: &#123;</span><br><span class="line">        &quot;classmap&quot;: [</span><br><span class="line">            &quot;lib/&quot;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建git库<code>yourname/yourpro</code></p>
-</li>
-<li><code>git remote add origin git@github.com:yourname/yourpro</code> 设置公钥略过</li>
-<li><code>git add .&amp;&amp; git commit -am “init” &amp;&amp; git pull orgin master &amp;&amp; git push orgin master</code></li>
-<li>创建tag composer包版本来自于git分支和tag，分支代表dev版本(除master外)，tag代表stable版本</li>
-<li><code>git tag 1.0 &amp;&amp; git push origin –tags</code></li>
-<li>登录 <span class="exturl" data-url="aHR0cHM6Ly9wYWNrYWdpc3Qub3JnLw==" title="https://packagist.org/">https://packagist.org/<i class="fa fa-external-link"></i></span> 点击由上角的submit提交git仓库的地址</li>
-<li>添加 GitHub Service Hook domain 指向packagist的地址</li>
-<li><p>安装库 <code>composer require ‘yourname/yourpro:1.0.0</code><br>如果报错,执行<code>composer update</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nothing：</span><br><span class="line"></span><br><span class="line">Potential causes:</span><br><span class="line">- A typo in the package name</span><br><span class="line">- The package is not available in a stable-enough version according to your minimum-stability setting</span><br><span class="line">  see &lt;https://groups.google.com/d/topic/composer-dev/_g3ASeIFlrc/discussion&gt; for more details.</span><br></pre></td></tr></table></figure>
-<p>如果<code>new \Class</code>;提示类找不到，执行<code>composer dumpautoload</code></p>
-</li>
-<li>包创建成功，可以根据提示继续配置github自动同步功能，这样每次push后，packagist对应包的版本号也会更新。</li>
-<li>修改包并更新，修改后git push，然后到使用该包的项目中执行<code>composer –dev –prefer-source update  [包名]</code> ，加<code>–prefer-source</code>意思是从github上检出最新版本。</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/mysql_create_database_user/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/mysql_create_database_user/" class="post-title-link" itemprop="url">Mysql创建数据库，同时创建用户</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2016-08-26 14:06:42" itemprop="dateCreated datePublished" datetime="2016-08-26T14:06:42+08:00">2016-08-26</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-22 10:22:47" itemprop="dateModified" datetime="2019-04-22T10:22:47+08:00">2019-04-22</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-db/" itemprop="url" rel="index"><span itemprop="name">积累________db</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">1.9k</span>
+                <span title="本文字数">2.6k</span>
               
 
               
@@ -1466,46 +507,66 @@
       
         
           
-            <p>MySql中添加用户,新建数据库,用户授权,删除用户,修改密码(注意每行后边都跟个;表示一个命令语句结束):</p>
-<h2 id="新建用户"><a href="#新建用户" class="headerlink" title="新建用户"></a>新建用户</h2><h3 id="登录MYSQL"><a href="#登录MYSQL" class="headerlink" title="登录MYSQL"></a>登录MYSQL</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line">密码</span><br></pre></td></tr></table></figure>
-<h3 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; insert into mysql.user(Host,User,Password) values(&quot;localhost&quot;,&quot;test&quot;,password(&quot;1234&quot;));</span><br></pre></td></tr></table></figure>
-<p>样就创建了一个名为：<code>test</code> 密码为：<code>1234</code> 的用户。<br>注意：此处的”localhost”，是指该用户只能在本地登录，不能在另外一台机器上远程登录。如果想远程登录的话，将”localhost”改为”%”，表示在任何一台电脑上都可以登录。也可以指定某台机器可以远程登录。</p>
-<h3 id="然后登录一下："><a href="#然后登录一下：" class="headerlink" title="然后登录一下："></a>然后登录一下：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; exit;</span><br><span class="line">@&gt; mysql -u test -p</span><br><span class="line">@&gt; 输入密码</span><br><span class="line">mysql&gt; 登录成功</span><br></pre></td></tr></table></figure>
-<h3 id="为用户授权"><a href="#为用户授权" class="headerlink" title="为用户授权"></a>为用户授权</h3><p>授权格式：<code>grant 权限 on 数据库.* to 用户名@登录主机 identified by “密码”</code>;</p>
-<h4 id="登录MYSQL（有ROOT权限），这里以ROOT身份登录："><a href="#登录MYSQL（有ROOT权限），这里以ROOT身份登录：" class="headerlink" title="登录MYSQL（有ROOT权限），这里以ROOT身份登录："></a>登录MYSQL（有ROOT权限），这里以ROOT身份登录：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@&gt; mysql -u root -p</span><br><span class="line">@&gt; 密码</span><br></pre></td></tr></table></figure>
-<h4 id="首先为用户创建一个数据库-testDB-："><a href="#首先为用户创建一个数据库-testDB-：" class="headerlink" title="首先为用户创建一个数据库(testDB)："></a>首先为用户创建一个数据库(testDB)：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; create database testDB;</span><br></pre></td></tr></table></figure>
-<h4 id="授权test用户拥有testDB数据库的所有权限（某个数据库的所有权限）："><a href="#授权test用户拥有testDB数据库的所有权限（某个数据库的所有权限）：" class="headerlink" title="授权test用户拥有testDB数据库的所有权限（某个数据库的所有权限）："></a>授权test用户拥有testDB数据库的所有权限（某个数据库的所有权限）：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; grant all privileges on testDB.* to test@localhost identified by &apos;1234&apos;;</span><br><span class="line">mysql&gt; flush privileges;//刷新系统权限表</span><br></pre></td></tr></table></figure>
-<p>格式：<code>grant 权限 on 数据库.* to 用户名@登录主机 identified by “密码”</code>;</p>
-<h4 id="如果想指定部分权限给一用户，可以这样来写"><a href="#如果想指定部分权限给一用户，可以这样来写" class="headerlink" title="如果想指定部分权限给一用户，可以这样来写:"></a>如果想指定部分权限给一用户，可以这样来写:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">　　mysql&gt; grant select,update on testDB.* to test@localhost identified by &apos;1234&apos;;</span><br><span class="line">　　mysql&gt; flush privileges; //刷新系统权限表</span><br></pre></td></tr></table></figure>
-<h4 id="授权test用户拥有所有数据库的某些权限"><a href="#授权test用户拥有所有数据库的某些权限" class="headerlink" title="授权test用户拥有所有数据库的某些权限:"></a>授权test用户拥有所有数据库的某些权限:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; grant select,delete,update,create,drop on *.* to test@&quot;%&quot; identified by &quot;1234&quot;;</span><br></pre></td></tr></table></figure>
-<p>   test用户对所有数据库都有select,delete,update,create,drop 权限。<br>　  @”%” 表示对所有非本地主机授权，不包括localhost。<br>　  对localhost授权：加上一句grant all privileges on testDB.* to test@localhost identified by ‘1234’;即可。</p>
-<ol>
-<li><p>删除用户</p>
-<p> @&gt; mysql -u root -p<br> @&gt; 密码<br> mysql&gt; Delete FROM user Where User=’test’ and Host=’localhost’;<br> mysql&gt; flush privileges;<br> mysql&gt; drop database testDB; //删除用户的数据库</p>
-<p> // 删除账户及权限：<br> drop user 用户名@’%’;<br> drop user 用户名@ localhost;</p>
-</li>
-<li><p>修改指定用户密码</p>
-<p>　@&gt; mysql -u root -p<br>　@&gt; 密码<br>　mysql&gt; update mysql.user set password=password(‘新密码’) where User=”test” and Host=”localhost”;<br>　mysql&gt; flush privileges;</p>
-</li>
-<li>列出所有数据库</li>
-</ol>
-<p>　　mysql&gt; show database;</p>
-<ol start="6">
-<li>切换数据库</li>
-</ol>
-<p>　　mysql&gt; use ‘数据库名’;</p>
-<ol start="7">
-<li>列出所有表</li>
-</ol>
-<p>　　mysql&gt; show tables;</p>
-<ol start="8">
-<li><p>显示数据表结构</p>
-<p> mysql&gt; describe 表名;</p>
-</li>
-<li><p>删除数据库和数据表</p>
-<p> mysql&gt; drop database 数据库名;<br> mysql&gt; drop table 数据表名;</p>
-</li>
-</ol>
+            <blockquote>
+<p>对于一个交易策略，初学者往往认为收益越高越好。收益确实是一个重要的评价指标，但是除了收益之外，还有很多其他重要的角度来衡量一个策略的好坏。例如这个策略的风险性、胜率、交易频率等。</p>
+</blockquote>
+<p><strong>本篇文章以几个常见的交易策略评价指标为案例，向大家介绍pandas的以下几个功能的运用：</strong></p>
+<ul>
+<li>dataframe的合并操作：append()、concat()函数的用法</li>
+<li>按某一列的值排序操作：sort_values()函数的用法</li>
+<li>常见统计指标的方法：mean(), std()等</li>
+<li>pandas画图操作：plot方法</li>
+</ul>
+<p><strong>我将介绍如下几个经典指标</strong></p>
+<ul>
+<li><strong>年化收益</strong> 任何收益都应该转换成年化收益，以进行比较。股神巴菲特投资几十年以来的年化收益是20%左右。美国股市百年来年化收益大概是10%左右。所以我们也不要太贪心，不要动辄就要求每年翻倍的收益。计算公式为：（账户最终价值/账户初始价值）^（250/回测期间总天数）-1</li>
+<li><strong>最大回撤</strong> 最大回撤就是从一个高点到一个低点最大的下跌幅度，用来描述我们的策略可能出现的最糟糕的情况，衡量了最极端可能的亏损。例如一个策略的最大回撤是50%，那么你使用这个策略之前就要掂量掂量，自己是否能经受得起50%的下跌。计算公式为：min(账户当日价值 / 当日之前账户最高价值-1)。我一般认为，年华收益/最大回撤，是个最简单有效的策略判断指标。</li>
+<li><strong>平均涨幅</strong> 平均涨幅衡量了在回测期间资产的平均涨跌情况。计算公式为：账户日收益的平均值。</li>
+<li><strong>上涨概率</strong> 上涨概率衡量了我们投资组合上涨的可能性。计算公式为：上涨天数 / 回测交易日数量。</li>
+<li><strong>最大连续上涨天数</strong> 衡量了我们策略连续盈利的最大天数。</li>
+<li><strong>最大连续下跌天数</strong> 衡量了我们策略连续亏损的最大天数。或者说策略连续失效的次数。这个指标很重要，在实战中，若连续失败的次数多了，会动摇自己的信心，使自己很难跟着策略走下去。</li>
+<li><strong>最大单周期涨幅</strong> 所有日期中最大的涨幅，衡量了资产一天内的最好表现。</li>
+<li><strong>最大单周期跌幅</strong> 所有日期中最大的跌幅，衡量了资产一天内的最差表现。</li>
+<li><strong>收益波动率</strong> 单单追求高收益率是不行的，我们在投资中还必须考虑到潜在的风险。波动太大的策略往往风险也较高。收益波动率就衡量了策略收益的波动情况即风险。计算公式为：账户日收益的年化标准差。</li>
+<li><strong>贝塔(beta)值</strong> 根据经典的资本资产定价理论(CAPM模型)，β系数衡量了资产的回报率对市场变动的敏感程度，代表了该资产的系统性风险，表示策略对大盘的敏感性。计算公式为：账户日收益与参考基准日收益的协方差 / 参考基准日收益的方差。</li>
+<li><strong>阿尔法(alpha)值</strong> 虽然我们的策略会受到大盘的影响，但是每个策略都会有自己市场因素之外的收益，alpha值表示实际风险回报和平均预期风险回报的差额，衡量了投资的非系统性风险。计算公式为：（账户年化收益-无风险收益）-beta*（参考基准年化收益-无风险收益）。</li>
+<li><strong>夏普比率</strong> 理性的投资者将选择并持有有效的投资组合，即那些在给定的风险水平下使期望回报最大的投资组合，夏普比率就是一个可以同时对收益与风险加以综合考虑的经典指标，表示每承受一单位风险，会产生多少的超额回报。计算公式为：（账户年化收益率-无风险利率）/ 收益波动率。</li>
+<li><strong>信息比率</strong> 信息比率以马克维茨的均异模型为基础，用来衡量超额风险所带来的超额收益。它表示单位主动风险所带来的超额收益。计算公式为：（账户日收益 - 参考基准日收益）的年化均值/年化标准差。</li>
+</ul>
+<p>任何策略的结果都是一个收益序列，根据这个收益序列可以得到一条资金曲线。为了简单起见，我们就任选一只股票每天的收益率作为原始数据，来计算上文提到的各种策略评价指标。在<span class="exturl" data-url="aHR0cDovL2Jicy5waW5nZ3Uub3JnL2xpbmt0by5waHA/dXJsPWh0dHAlM0ElMkYlMkZ5dWNlemhlLmNvbSUyRnByb2R1Y3QlM0ZuYW1lJTNEdHJhZGluZy1kYXRh" title="http://bbs.pinggu.org/linkto.php?url=http%3A%2F%2Fyucezhe.com%2Fproduct%3Fname%3Dtrading-data">http://yucezhe.com/product?name=trading-data<i class="fa fa-external-link"></i></span>可以下载到所有股票的历史日线数据，可以作为我们计算的原始数据。<br>数据下载下来解压缩打开后，里面有所有股票和几个常见指数的数据。<br>打开其中一个股票文件之后是下图这个样子，每一行是每一天的数据：<br><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/31.png" alt> 数据有以下的字段： </p>
+<pre><code>【code】 股票的代码，上证股票以sh开头，深证股票以sz开头
+【date】 交易日期
+【open】 开盘价
+【high】 最高价
+【low】 最低价
+【close】 收盘价
+【change】 涨跌幅，复权之后的真实涨跌幅，保证准确
+【volume】 成交量
+【money】 成交额
+【traded_market_value】 流通市值
+【market_value】 总市值
+【turnover】 换手率，成交量/流通股本
+【adjust_price】 后复权价，复权开始时间为股票上市日，精确到小数点后10位
+【report_type】 最近一期财务报告的类型，3-31对应一季报，6-30对应半年报，9-30对应三季报，12-31对应年报
+【report_date】 最近一期财务报告实际发布的日期
+【PE_TTM】 最近12个月市盈率，股价 / 最近12个月归属母公司的每股收益TTM
+【PS_TTM】 最近12个月市销率， 股价 / 最近12个月每股营业收入
+【PC_TTM】 最近12个月市现率， 股价 / 最近12个月每股经营现金流
+【PB】 市净率，股价 / 最近期财报每股净资产
+</code></pre><p>对于我们来说，只要取【date】以及【change】就行了。下面是代码的截图，这段代码截取指定的股票在指定时间段内的收益率，计算相关指标。 </p>
+<p>获取数据函数：<br><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/32.png" alt><br>计算年化收益率函数：<br><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/33.png" alt> </p>
+<p>计算最大回撤函数：<br><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/34.png" alt> </p>
+<p>计算平均涨幅：<br><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/35.png" alt> </p>
+<p>计算上涨概率：<br><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/36.png" alt> </p>
+<p>计算最大连续上涨天数和最大连续下跌天数： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/37.png" alt> </p>
+<p>计算最大单周期涨幅和最大单周期跌幅： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/38.png" alt> </p>
+<p>计算收益波动率的函数、计算贝塔的函数： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/39.png" alt> </p>
+<p>计算alpha的函数： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/40.png" alt> </p>
+<p>计算夏普比函数： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/41.png" alt> </p>
+<p>计算信息比率函数、计算股票和基准在回测期间的累计收益率并画图： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/42.png" alt> 导入数据运行以上函数： <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/43.png" alt> </p>
+<p>把数据和代码下载下来后，修改代码中原始数据的地址（也就是选择一个股票），并选定时间段，运行代码，就可以看到输出结果了。假设我们选择万科A，并设定时间段为1991年1月1日到2015年12月31日这25年，得到如下的输出结果:  </p>
+<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/44.png" alt><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/45.png" alt> </p>
+<p>万科A二十几年年年化回报是15%，已经相当不错了，最大回撤为78.9756%，也就是将近跌了80%，发生在08年的股灾。最大连续下跌50天，也是有点猛…</p>
 
           
         
@@ -1562,7 +623,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/php_bom/">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/quant_python_pandas_authority/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1582,7 +643,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/php_bom/" class="post-title-link" itemprop="url">Php批量去除bom头脚本</a>
+                <a href="/quant_python_pandas_authority/" class="post-title-link" itemprop="url">【量化小讲堂-Python、Pandas系列】量化投资中如何处理复权、除权问题</a>
               
             
           </h2>
@@ -1607,7 +668,7 @@
                 
               
 
-              <time title="创建时间：2016-08-21 19:29:58" itemprop="dateCreated datePublished" datetime="2016-08-21T19:29:58+08:00">2016-08-21</time>
+              <time title="创建时间：2017-04-14 11:20:06" itemprop="dateCreated datePublished" datetime="2017-04-14T11:20:06+08:00">2017-04-14</time>
             
 
             
@@ -1624,7 +685,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-22 10:22:47" itemprop="dateModified" datetime="2019-04-22T10:22:47+08:00">2019-04-22</time>
+                <time title="修改时间：2019-04-22 12:55:22" itemprop="dateModified" datetime="2019-04-22T12:55:22+08:00">2019-04-22</time>
               
             
           </span>
@@ -1641,7 +702,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-php/" itemprop="url" rel="index"><span itemprop="name">积累________php</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-量化/" itemprop="url" rel="index"><span itemprop="name">积累________量化</span></a></span>
 
                 
                 
@@ -1670,7 +731,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.9k</span>
+                <span title="本文字数">1.7k</span>
               
 
               
@@ -1706,8 +767,19 @@
       
         
           
-            <p>请放在根目录下使用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">//remove the utf-8 boms</span><br><span class="line">//by magicbug at gmail dot com</span><br><span class="line"></span><br><span class="line">if (isset($_GET[&apos;dir&apos;]))&#123; //config the basedir</span><br><span class="line">    $basedir=$_GET[&apos;dir&apos;];</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    $basedir = &apos;.&apos;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$auto = 1;</span><br><span class="line"></span><br><span class="line">checkdir($basedir);</span><br><span class="line"></span><br><span class="line">function checkdir($basedir)&#123;</span><br><span class="line">    if ($dh = opendir($basedir)) &#123;</span><br><span class="line">        while (($file = readdir($dh)) !== false) &#123;</span><br><span class="line">            if ($file != &apos;.&apos; &amp;&amp; $file != &apos;..&apos;)&#123;</span><br><span class="line">                if (!is_dir($basedir.&quot;/&quot;.$file)) &#123;</span><br><span class="line">                    echo &quot;filename</span><br><span class="line"> $basedir/$file &quot;.checkBOM(&quot;$basedir/$file&quot;).&quot; &lt;br&gt;&quot;;</span><br><span class="line">                &#125;else&#123;</span><br><span class="line">                    $dirname = $basedir.&quot;/&quot;.$file;</span><br><span class="line">                    checkdir($dirname);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        closedir($dh);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function checkBOM ($filename) &#123;</span><br><span class="line">    global $auto;</span><br><span class="line">    $contents = file_get_contents($filename);</span><br><span class="line">    $charset[1] = substr($contents, 0, 1);</span><br><span class="line">    $charset[2] = substr($contents, 1, 1);</span><br><span class="line">    $charset[3] = substr($contents, 2, 1);</span><br><span class="line">    if (ord($charset[1]) == 239 &amp;&amp; ord($charset[2]) == 187 &amp;&amp; ord($charset[3]) == 191) &#123;</span><br><span class="line">        if ($auto == 1) &#123;</span><br><span class="line">            $rest = substr($contents, 3);</span><br><span class="line">            rewrite ($filename, $rest);</span><br><span class="line">            return (&quot;&lt;font color=red&gt;BOM found, automatically removed.&lt;/font&gt;&quot;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return (&quot;&lt;font color=red&gt;BOM found.&lt;/font&gt;&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else return (&quot;BOM Not Found.&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function rewrite ($filename, $data) &#123;</span><br><span class="line">    $filenum = fopen($filename, &quot;w&quot;);</span><br><span class="line">    flock($filenum, LOCK_EX);</span><br><span class="line">    fwrite($filenum, $data);</span><br><span class="line">    fclose($filenum);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <p>最近惊讶的发现很多同学对如何在量化投资的实战中如何处理复权、除权等问题，其实不是非常了解，耽误很多事情，所以本文专门来详细的讲一下这个问题。</p>
+<h2 id="【复权计算方法】"><a href="#【复权计算方法】" class="headerlink" title="【复权计算方法】"></a>【复权计算方法】</h2><p>股票会时不时的发生现金分红、送股等一系列股本变动，这会造成股价的非正常变化，导致我们不能直接通过股价来计算股票的涨跌幅。例如一个股票是10元，当他10送10的时候，它的价格会变成5元，但是我们并不能认为这个股票下跌了5 / 10 - 1 = 50%。  下面举一个具体的例子来说明如何计算除权价格以及复权涨跌幅： 易事特(SZ300376)在2015年6月5日的收盘价是89.00元，当天晚上每股分红0.184元，并且每10股转增4股，那么这个股票除权之后的收盘价应该是(89.00 - 0.184) * 10 / (10 + 4) = 63.44元。下一个交易日6月8日的收盘价是57.10，真实涨跌幅应该是57.10 / 63.44 - 1 = -9.993695%，而不是57.10 / 89.00 - 1 = -35.842697%。 其中真实涨跌幅57.10 / 63.44 - 1 = -9.993695%也被称为是复权涨跌幅。</p>
+<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/16.png" alt> <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/17.png" alt></p>
+<h2 id="【复权涨跌幅最重要】"><a href="#【复权涨跌幅最重要】" class="headerlink" title="【复权涨跌幅最重要】"></a><strong>【复权涨跌幅最重要】</strong></h2><p>因为以上除权问题的存在，很多研究量化的同学在寻找股票数据的时候，很在意是否能得到复权之后的价格数据。我想说的是，股票的复权价格并不是最重要的，最重要的是要得到股票复权之后的涨跌幅。 若你有了股票每天的复权涨跌幅，那么知道了股票第一天的价格，通过简单的连乘计算，自然就可以计算出之后每一天的复权价，这个叫做后复权价。例如股票第一天的价格是10元，之后每天的复权涨跌幅是1%、-2%、3%…那么之后每天的复权价格分别是10 <em> (1+1%)、10 </em> (1+1%) <em> (1-2%)、10 </em> (1+1%) <em> (1-2%) </em> (1+3%)… 同样的，知道了股票最后一天的价格，那么自然也就可以计算出之前每一天的价格，这个叫做前复权价。行情软件中的前后复权价格，其实也是这么算出来的。 若股票数据中只给出了复权价格，这对计算收益的准确性是有很大影响的。例如给出的是前复权价格，那么很久之前的股票价格往往很小的数字，一般又都是精确到两位小数，所以会变成0.45，0.47这样类似的数字。例如万科A(SZ000002)在2006年2月8日的前复权收盘价是0.56，2月9日的前复权收盘价是0.48，那么2月9日的收益是0.48/0.56 - 1 = -14.29%，但是实际上8号、9号的真实收盘价是5.26、5.06，真实的涨幅是-3.80%，与-14.29%相差巨大。</p>
+<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/18.png" alt></p>
+<h2 id="【同花顺、通达信等各家的复权方式不同】"><a href="#【同花顺、通达信等各家的复权方式不同】" class="headerlink" title="【同花顺、通达信等各家的复权方式不同】"></a>【同花顺、通达信等各家的复权方式不同】</h2><p>查看来自不同数据源的数据的时候，会发现它们的复权价格或者复权涨跌幅会有微小的差异，这往往是由不同的复权方式导致的。 例如，复权时对于分红产生的个人所得税，各家的处理方式是不一样的。同花顺、通达信中的复权是不考虑所得税的。上文提到的易事特(SZ300376)每股分红0.184元10股转4股，不考虑所得税的除权公式是(89.00 - 0.184) <em> 10 / (10 + 4) 。 但是实际上，这0.184元不会全部到投资者的口袋里，而是会扣掉10%的所得税（不同投资者扣得税还不一样），所以投资者得到的分红只有0.184 </em> (1 - 10%)，那么更加准确的分红方式应该是：(89.00 - 0.184 <em> (1 - 10%)) </em> 10 / (10 + 4) 。一些专业的数据库，例如wind、国泰安，就是这么复权的。</p>
+<h2 id="【其他】"><a href="#【其他】" class="headerlink" title="【其他】"></a>【其他】</h2><ul>
+<li><p>对于分钟或者更小级别的数据，我个人认为是没有必要进行复权的，直接用原始数据就可以了。复权之后反而会对数据准确性造成非常大的影响。</p>
+</li>
+<li><p>不要过分追求准确性。复权其实挺复杂的，之前的例子只提到了分红、转增，其实还有增发、配股、可转债等非常复杂的情况。所以哪怕非常贵的、非常专业的数据库，我都曾发现过它们复权计算中的错误。一开始这让我挺头疼的，但后来也释然了，不再去追究这些细小的误差。</p>
+</li>
+</ul>
+
           
         
       
@@ -1763,7 +835,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/mysql_other_permission/">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/quant_python_pandas_fund_flow/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1783,7 +855,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/mysql_other_permission/" class="post-title-link" itemprop="url">mysql修改其他机器可以连接的权限</a>
+                <a href="/quant_python_pandas_fund_flow/" class="post-title-link" itemprop="url">【量化小讲堂-Python、Pandas系列】通过逐笔数据计算主力资金流数据</a>
               
             
           </h2>
@@ -1808,7 +880,7 @@
                 
               
 
-              <time title="创建时间：2016-07-19 11:03:27" itemprop="dateCreated datePublished" datetime="2016-07-19T11:03:27+08:00">2016-07-19</time>
+              <time title="创建时间：2017-04-14 11:13:32" itemprop="dateCreated datePublished" datetime="2017-04-14T11:13:32+08:00">2017-04-14</time>
             
 
             
@@ -1825,7 +897,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-18 19:04:17" itemprop="dateModified" datetime="2019-04-18T19:04:17+08:00">2019-04-18</time>
+                <time title="修改时间：2019-04-22 12:53:51" itemprop="dateModified" datetime="2019-04-22T12:53:51+08:00">2019-04-22</time>
               
             
           </span>
@@ -1842,7 +914,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-db/" itemprop="url" rel="index"><span itemprop="name">积累________db</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-量化/" itemprop="url" rel="index"><span itemprop="name">积累________量化</span></a></span>
 
                 
                 
@@ -1871,7 +943,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">566</span>
+                <span title="本文字数">921</span>
               
 
               
@@ -1907,12 +979,16 @@
       
         
           
-            <p>通过HeidiSQL连接MYSQL数据库报错：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL Error (1130): Host ‘192.168.1.126’ is not allowed to connect to this MySQL server</span><br></pre></td></tr></table></figure>
-<p>说明所连接的用户帐号没有远程连接的权限，只能在本机(localhost)登录。<br>需更改 mysql 数据库里的<code>user</code>表里的<code>host</code>项把localhost改成%</p>
-<p>首先按下面的步骤登录Mysql服务器，登录mysql需要切换到dos下的mysql的bin目录，进行如下操作：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;use mysql;</span><br><span class="line"></span><br><span class="line">mysql&gt;update user set host = ‘%’ where user =’root’;</span><br><span class="line">MariaDB [mysql]&gt; update user set host = ‘%’ where host = ‘localhost’;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line">Rows matched: 0 Changed: 0 Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt;flush privileges;</span><br><span class="line">mysql&gt;select host, user from user;</span><br><span class="line">mysql&gt;quit</span><br></pre></td></tr></table></figure>
-<p>OK。远程连接成功！</p>
+            <p>大家经常会在同花顺大智慧等行情软件，或各类财经媒体上看到主力资金流入流出这个术语。听上去也感觉很牛逼的样子，主力资金流入的股票或者行业是不是就会涨呢？</p>
+<p><strong>本期帖子就教大家如何计算一只股票每天的资金流入流出数据。</strong></p>
+<p>计算资金流数据需要股票的逐笔数据。逐笔数据记录股票每一笔的成交成交数据，是每一笔成交，只要成交就会记录。大家在免费行情软件中看到的成交明细数据，是3-5秒记录一笔的数据，并不是逐笔数据。下图是逐笔数据的截图：</p>
+<p><img src="https://raw.githubusercontent.com/ucfyao/image/img/img/20190422125332.png" alt></p>
+<p>图中每一行记录一笔交易，以红框标记出的那行为例，记录在10:32:00秒，以16.81的价格成交了2200股，并且2200股是主动卖盘，记为S（主动买盘记为B）。</p>
+<p> <strong>这里讲一下主动买盘和主动卖盘的区别</strong>。<br> 炒过股票的人都知道，每一笔成交的双方，必定有一方下的是限价单（即会挂到五档盘口上的单子），另外一方下的是市价单（即主动去和五档盘口上的单子匹配成交的单子），如果一笔成交中的市价单是买入股票，那么这笔交易就是主动买盘，如果一笔成交中的市价单是卖出股票，那么这笔交易就是主动卖盘。 </p>
+<p><strong>有了逐笔数据，那资金流入怎么计算呢？</strong><br>说来很简单，就是这只股票当天所有买盘交易的总成交额。反之，所有卖盘交易的总成交额就是资金流出。 当一笔成交的成交量很大的时候，比如大于500手，成交这样一笔需要比较多的资金，往往认为这笔成交是由机构或者大户完成的，也就是所谓的主力。那么这只股票当天所有成交量大于500手的买盘的总成交额，即为主力资金流入，当天所有成交量大于500手的卖盘的总成交额，即为主力资金流出。（这里的500是随便设定的，也可以设定一个更加合理的数值） 有了这些概念，就可以根据逐笔数据计算资金流数据了。进入这个地址：<span class="exturl" data-url="aHR0cDovL3l1Y2V6aGUuY29tL3Byb2R1Y3Q/bmFtZT16aHViaS1kYXRhLXB1c2g=" title="http://yucezhe.com/product?name=zhubi-data-push">http://yucezhe.com/product?name=zhubi-data-push<i class="fa fa-external-link"></i></span> ，点击最左边的按钮“数据样本(免费)”，即可下载到2015-05-19这一天所有股票的逐笔数据，注意数据比较大，下载起来可能会比较慢。</p>
+<p><img src="https://raw.githubusercontent.com/ucfyao/image/img/img/20190422125259.png" alt></p>
+<p>下面是最终输出数据的截图：<br><img src="https://raw.githubusercontent.com/ucfyao/image/img/img/20190422125313.png" alt></p>
+<p><strong>思考题：</strong><br>若有历史每天的逐笔数据，好好的研究下，应该是可以发现不少有价值的东西的。除了计算资金流数据之外，还有什么研究的思路吗？大家可以一起讨论。</p>
 
           
         
@@ -1969,7 +1045,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/mark_devops/">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/quant_python_pandas_turtles/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1989,7 +1065,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/mark_devops/" class="post-title-link" itemprop="url">直接Mark！开源的DevOps开发工具箱</a>
+                <a href="/quant_python_pandas_turtles/" class="post-title-link" itemprop="url">【量化小讲堂-Python、Pandas系列】数据告诉你：惊人的海龟交易法则</a>
               
             
           </h2>
@@ -2014,7 +1090,7 @@
                 
               
 
-              <time title="创建时间：2016-06-27 11:08:56" itemprop="dateCreated datePublished" datetime="2016-06-27T11:08:56+08:00">2016-06-27</time>
+              <time title="创建时间：2017-04-14 11:07:08" itemprop="dateCreated datePublished" datetime="2017-04-14T11:07:08+08:00">2017-04-14</time>
             
 
             
@@ -2031,7 +1107,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-19 19:01:26" itemprop="dateModified" datetime="2019-04-19T19:01:26+08:00">2019-04-19</time>
+                <time title="修改时间：2019-04-22 12:55:28" itemprop="dateModified" datetime="2019-04-22T12:55:28+08:00">2019-04-22</time>
               
             
           </span>
@@ -2048,7 +1124,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-tool/" itemprop="url" rel="index"><span itemprop="name">积累________tool</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-量化/" itemprop="url" rel="index"><span itemprop="name">积累________量化</span></a></span>
 
                 
                 
@@ -2077,280 +1153,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">3.2k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">3 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>DevOps是一组过程、方法与系统的统称，用于促进开发（应用程序/软件工程）、技术运营和质量保障（QA）部门之间的沟通、协作与整合。在DevOps的整个流程中，使用一些开源工具可以促进开发与运维之间的沟通，有利于项目的管理，甚至可以达到事半功倍的效果。 本文作者Richard Kraaijenhagen是<span class="exturl" data-url="aHR0cDovL293bGluLmNvbS8=" title="http://owlin.com/">Owlin<i class="fa fa-external-link"></i></span>创始人，全栈工程师，数据科学家。他收集了DevOps开发可能用到的所有工具，并且把它们按照职责进行分类，本文摘取了部分工具分享给大家，这些工具也可以用于日常软件方面的开发，所以，大家直接Mark吧！</p>
-<p><strong>包&amp;产品管理工具</strong></p>
-<ul>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Nob2NvbGF0ZXkvY2hvY29sYXRleQ==" title="https://github.com/chocolatey/chocolatey">Chocolatey<i class="fa fa-external-link"></i></span>：Chocolatey是Windows下一款开源的命令行包管理软件 ，简单说这就是Windows的apt-get；</li>
-<li><span class="exturl" data-url="aHR0cDovL3plZWYudG8vY2xpY2s/bHBpZD00ODczODcmYW1wO2tleT1mX080WjJfWm9RWElBVi1EYzJHWnpQZWFiLW1mQjBHQ0JibyZhbXA7dGFyZ2V0X3VybD1odHRwcyUzQSUyRiUyRmdpdGh1Yi5jb20lMkZqb3JkYW5zaXNzZWwlMkZmcG0=" title="http://zeef.to/click?lpid=487387&amp;key=f_O4Z2_ZoQXIAV-Dc2GZzPeab-mfB0GCBbo&amp;target_url=https%3A%2F%2Fgithub.com%2Fjordansissel%2Ffpm">FPM<i class="fa fa-external-link"></i></span>：全称是Effing package management，该死的软件包管理器，极大的缓解了多个平台构建软件包(deb,rpm,等)的痛苦；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3J1c3Nzcy9IZXJk" title="https://github.com/russss/Herd">Herd<i class="fa fa-external-link"></i></span>：是一个基于Twitter <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2xnL211cmRlcg==" title="https://github.com/lg/murder">Murder<i class="fa fa-external-link"></i></span>的文件分布系统；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZncmVobS92YWdyYW50LWNhY2hpZXI=" title="https://github.com/fgrehm/vagrant-cachier">Vagrant Cachier<i class="fa fa-external-link"></i></span>：Vagrant的一个插件，用于缓存包方面的管理；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3dpeHRvb2xzZXQvd2l4NA==" title="https://github.com/wixtoolset/wix4">WiX Toolset<i class="fa fa-external-link"></i></span>：提供一组最强大的工具集来帮助你创建Windows安装包。该工具集从XML源代码构建你的Windows安装程序包，可以无缝集成到构建过程；</li>
-<li><span class="exturl" data-url="aHR0cDovL2JveHN0YXJ0ZXIub3JnLw==" title="http://boxstarter.org/">Boxstarter<i class="fa fa-external-link"></i></span>：利用Chocolatey包管理工具来自动化安装软件和创建可重复、脚本化的Windows环境；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9iaXRidWNrZXQub3JnL3Njb3JlYmlnL2VsaXRh" title="https://bitbucket.org/scorebig/elita">Elita<i class="fa fa-external-link"></i></span>：Elita是一个利用git和salt进行持续部署（部署作为服务）和API-driven基础设施的引擎/框架；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL21mb2VtbWVsL2ZpZw==" title="https://github.com/mfoemmel/fig">Fig<i class="fa fa-external-link"></i></span>：主要用来跟Docker一起来实现的快速隔离的开发环境；</li>
-<li><span class="exturl" data-url="aHR0cDovL3d3dy5wdWxwcHJvamVjdC5vcmcv" title="http://www.pulpproject.org/">Pulp<i class="fa fa-external-link"></i></span>：Pulp是一个用来管理软件库以及相关内容的平台；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2plZGk0ZXZlci92ZWV3ZWU=" title="https://github.com/jedi4ever/veewee">Veewee<i class="fa fa-external-link"></i></span>：Veewee是一个开源工具，用来创建和配置轻量级、可再生、便捷式虚拟机环境。</li>
-</ul>
-<p><strong>日志&amp;监控</strong></p>
-<ul>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL21hcnRpbnJ1c2V2L2Ftb25vbmU=" title="https://github.com/martinrusev/amonone">AmonOne<i class="fa fa-external-link"></i></span>：现代化的自托管服务器监控工具；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0RpZXRlcmJlL2FudGhyYWNpdGU=" title="https://github.com/Dieterbe/anthracite">Anthracite<i class="fa fa-external-link"></i></span>：一个事件/日志改变/管理应用程序；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1N0YWNrU3Rvcm0vY29sbGVjdGQz" title="https://github.com/StackStorm/collectd3">collectd3<i class="fa fa-external-link"></i></span>：是一个可视化的collectd系统性能统计工具；</li>
-<li><span class="exturl" data-url="aHR0cDovL2NvbGxlY3RkLm9yZy8=" title="http://collectd.org/">collectd<i class="fa fa-external-link"></i></span>：是一个守护(daemon)进程，用来收集系统性能和提供各种存储方式来存储不同值的机制；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0JyaWdodGNvdmVPUy9EaWFtb25k" title="https://github.com/BrightcoveOS/Diamond">Diamond<i class="fa fa-external-link"></i></span>：是一个基于Python的守护程序，主要用来收集系统指标，并且把它们发布到Graphite（或其它）工具中；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2VycmJpdC9lcnJiaXQ=" title="https://github.com/errbit/errbit">Errbit<i class="fa fa-external-link"></i></span>：是一个用于收集和管理程序错误的开源工具；</li>
-<li><span class="exturl" data-url="aHR0cDovL3NlbnN1YXBwLm9yZy8=" title="http://sensuapp.org/">Sensu<i class="fa fa-external-link"></i></span>：一个开源的监控框架；</li>
-<li><span class="exturl" data-url="aHR0cDovL2xvZ3N0YXNoLm5ldC8=" title="http://logstash.net/">Logstash<i class="fa fa-external-link"></i></span>：是一个应用程序日志、事件的传输、处理、管理和搜索的平台。你可以用它来统一对应用程序日志进行收集管理，提供Web接口用于查询和统计；</li>
-<li><span class="exturl" data-url="aHR0cDovL2xvZ2lvLm9yZy8=" title="http://logio.org/">log.io<i class="fa fa-external-link"></i></span>：一个实时的开源日志监控工具；</li>
-<li><span class="exturl" data-url="aHR0cDovL2Zub3JkbWV0cmljLmlvLw==" title="http://fnordmetric.io/">FnordMetric<i class="fa fa-external-link"></i></span>：是一个基于redis/ruby的实时事件跟踪应用，是个收集和可视化时间序列数据的框架，用户可以在几分钟内创建漂亮的实时分析仪表盘；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2V0c3kvbG9nc3Rlcg==" title="https://github.com/etsy/logster">Logster<i class="fa fa-external-link"></i></span>：是一个工具，读取日志文件然后创建Graphite 或 Ganglia可用的指标数据。比如你可能使用logster来图形化在你的Web Server日志中的HTTP响应发生数量；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2VsYXN0aWNzZWFyY2gva2liYW5hLw==" title="https://github.com/elasticsearch/kibana/">Kibana<i class="fa fa-external-link"></i></span>：是一个为Logstash和ElasticSearch提供的日志分析的Web接口。可使用它对日志进行高效的搜索、可视化、分析等各种操作；</li>
-<li><span class="exturl" data-url="aHR0cDovL21tb25pdC5jb20vbW9uaXQv" title="http://mmonit.com/monit/">Monit<i class="fa fa-external-link"></i></span>：是一款功能非常丰富的进程、文件、目录和设备的监测软件，用于Unix平台。 它可以自动修复那些已经停止运作的程序，适合处理那些由于多种原因导致的软件错误；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2NvZGFoYWxlL21ldHJpY3Mv" title="https://github.com/codahale/metrics/">Metrics<i class="fa fa-external-link"></i></span>：这并不是Java库，而是基于Go的一个轻量级的检测器；</li>
-<li><span class="exturl" data-url="aHR0cDovL2dyYXBoaXRlLnJlYWR0aGVkb2NzLm9yZy9lbi9sYXRlc3Qv" title="http://graphite.readthedocs.org/en/latest/">Graphite<i class="fa fa-external-link"></i></span>：是一个用于采集网站实时信息并进行统计的开源项目，可用于采集多种网站服务运行状态信息；</li>
-<li><span class="exturl" data-url="aHR0cDovL2dhbmdsaWEuaW5mby8=" title="http://ganglia.info/">Ganglia<i class="fa fa-external-link"></i></span>：Ganglia是一个跨平台可扩展的、高性能计算系统下的分布式监控系统，如集群和网格；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuc2VydmVyZGVuc2l0eS5jb20v" title="https://www.serverdensity.com/">Server Density<i class="fa fa-external-link"></i></span>：一个跨平台的监控系统；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2JvdW5kYXJ5L2ZvbHNvbQ==" title="https://github.com/boundary/folsom">Folsom<i class="fa fa-external-link"></i></span>：Folsom是一款受 <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2NvZGFoYWxlL21ldHJpY3Mv" title="https://github.com/codahale/metrics/">Coda Hale’s metrics<i class="fa fa-external-link"></i></span>启发的、基于Erlang的度量系统；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0NvbWNhc3QvY21i" title="https://github.com/Comcast/cmb">CMB (Cloud Message Bus)<i class="fa fa-external-link"></i></span>：是一个高可用、横向扩展的队列和通知服务，兼容AWS SQS和SNS；</li>
-<li><span class="exturl" data-url="aHR0cDovL25pY29sYXJnby5naXRodWIuaW8vZ2xhbmNlcy8=" title="http://nicolargo.github.io/glances/">Glances<i class="fa fa-external-link"></i></span>：是一款用于Linux、BSD的开源命令行系统监视工具，它使用Python语言开发，能够监视CPU、负载、内存、磁盘I/O、网络流量、文件系统、系统温度等信息。</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Z6YW5pbm90dG8vdXB0aW1l" title="https://github.com/fzaninotto/uptime">Uptime<i class="fa fa-external-link"></i></span>：使用Node.js、MongoDB和Twitter Bootstrap开发的远程监控系统；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuaWNpbmdhLm9yZy8=" title="https://www.icinga.org/">Icinga<i class="fa fa-external-link"></i></span>：Nagios的扩展版本；</li>
-<li><span class="exturl" data-url="aHR0cDovL3BhY2tldGJlYXQuY29tLw==" title="http://packetbeat.com/">Packetbeat<i class="fa fa-external-link"></i></span>：?是开源应用监控和包跟踪系统；</li>
-<li><span class="exturl" data-url="aHR0cDovL3R3aXR0ZXIuZ2l0aHViLmlvL3ppcGtpbi8=" title="http://twitter.github.io/zipkin/">Zipkin<i class="fa fa-external-link"></i></span>：是Twitter的一个开源项目，允许开发者收集Twitter各个服务上的监控数据，并提供查询接口；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9kZWFkbWFuc3NuaXRjaC5jb20v" title="https://deadmanssnitch.com/">Dead Man???s Snitch<i class="fa fa-external-link"></i></span>：是一款监控Heroku Scheduler、计划的监视工具；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2V0c3kvc3RhdHNkLw==" title="https://github.com/etsy/statsd/">Statsd<i class="fa fa-external-link"></i></span>：是一个Node.js的daemon程序，简单，轻巧。使用的UDP协议，可以和Graphite图片渲染应用结合；</li>
-<li><span class="exturl" data-url="aHR0cDovL3JpZW1hbm4uaW8v" title="http://riemann.io/">Riemann<i class="fa fa-external-link"></i></span>：一个网络监控系统；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NvZGFicmV3L3B1cHBldC1kYXNoYm9hcmQ=" title="https://github.com/sodabrew/puppet-dashboard">Puppet Dashboard<i class="fa fa-external-link"></i></span>：Puppet Dashboard是一个Web接口，为Puppet提供节点分类和报告功能，是一个开源的配置管理工具；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2pteHRyYW5zL2pteHRyYW5z" title="https://github.com/jmxtrans/jmxtrans">jmxtrans<i class="fa fa-external-link"></i></span>：jmxtrans是一款非常强大的工具，使用它可以轻易生成基于json的配置文章，然后再以你想要的格式输出；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0N1ZS9zY2FsZXM=" title="https://github.com/Cue/scales">Scales<i class="fa fa-external-link"></i></span>：跟踪服务器状态和统计指标，使你全面掌握服务器状态，还可以发送指标到Graphite来图像呈现或者向文件写入崩溃信息；</li>
-<li><span class="exturl" data-url="aHR0cDovL3d3dy56YWJiaXguY29tLw==" title="http://www.zabbix.com/">Zabbix<i class="fa fa-external-link"></i></span>：是一个基于Web界面的提供分布式系统监视以及网络监视功能的企业级的开源解决方案；</li>
-<li><span class="exturl" data-url="aHR0cDovL3d3dy5ncmF5bG9nMi5vcmcv" title="http://www.graylog2.org/">Graylog 2<i class="fa fa-external-link"></i></span>：Graylog2是一个用来将系统日志syslog保存到MongoDB中的工具。</li>
-</ul>
-<p><strong>进程管理</strong></p>
-<ul>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3N1YnN0YWNrL2JvdW5jeQ==" title="https://github.com/substack/bouncy">Bouncy<i class="fa fa-external-link"></i></span>：可以作为HTTP路由主机；</li>
-<li><span class="exturl" data-url="aHR0cDovL3N1cGVydmlzb3JkLm9yZy8=" title="http://supervisord.org/">Supervisor<i class="fa fa-external-link"></i></span>：是一个客户端服务器系统，允许用户监控和控制类Unix操作系统上的进程数；</li>
-<li><span class="exturl" data-url="aHR0cDovL2dvZHJiLmNvbS8=" title="http://godrb.com/">God<i class="fa fa-external-link"></i></span>：由Ruby实现的进程监控框架。</li>
-</ul>
-<p><strong>服务发现</strong></p>
-<ul>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2hhc2hpY29ycC9jb25zdWw=" title="https://github.com/hashicorp/consul">Consul<i class="fa fa-external-link"></i></span>：简化了分布式环境中的服务的注册和发现流程，通过HTTP或者DNS接口发现。支持外部SaaS 提供者等；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2NvcmVvcy9ldGNk" title="https://github.com/coreos/etcd">etcd<i class="fa fa-external-link"></i></span>：是一个高可用的Key/Value存储系统，主要用于分享配置和服务发现；</li>
-<li><span class="exturl" data-url="aHR0cDovL3pvb2tlZXBlci5hcGFjaGUub3JnLw==" title="http://zookeeper.apache.org/">Apache ZooKeeper<i class="fa fa-external-link"></i></span>：是Apache Hadoop的一个子项目，它主要是用来解决分布式应用中经常遇到的一些数据管理问题；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3pldHRpby93ZWF2ZQ==" title="https://github.com/zettio/weave">Weave<i class="fa fa-external-link"></i></span>：创建一个虚拟网络并连接到部署在多个主机上的Docker容器。</li>
-</ul>
-<p><strong>持续集成和交付</strong></p>
-<ul>
-<li><span class="exturl" data-url="aHR0cDovL2J1aWxkYm90Lm5ldC8=" title="http://buildbot.net/">Buildbot<i class="fa fa-external-link"></i></span>：是一个系统的自动化编译/测试周期最需要的软件，以验证代码的变化。通过自动重建和测试每次发生了变化的东西，在建设迅速查明之前，减少不必要的失败；</li>
-<li><span class="exturl" data-url="aHR0cDovL2NhYm90YXBwLmNvbS8=" title="http://cabotapp.com/">Cabot<i class="fa fa-external-link"></i></span>：是一个开源，自我托管的监控工具；</li>
-<li><span class="exturl" data-url="aHR0cDovL2plbmtpbnMtY2kub3JnLw==" title="http://jenkins-ci.org/">Jenkins<i class="fa fa-external-link"></i></span>：是基于Java开发的一种持续集成工具，用于监控持续重复的工作；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9odWJvdC5naXRodWIuY29tLw==" title="https://hubot.github.com/">Hubot<i class="fa fa-external-link"></i></span>：基于脚本具有很高的灵活性，任何人都可以编写自己的脚本来扩展基本功能；</li>
-<li><span class="exturl" data-url="aHR0cDovL2h1ZHNvbi1jaS5vcmcv" title="http://hudson-ci.org/">Hudson<i class="fa fa-external-link"></i></span>：是一个可扩展的持续集成引擎，主要用于：持续、自动地构建/测试软件项目、监控一些定时执行的任务；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3Rob3VnaHR3b3Jrcy9jcnVpc2Vjb250cm9sLnJi" title="https://github.com/thoughtworks/cruisecontrol.rb">CruiseControl.rb<i class="fa fa-external-link"></i></span>：是一个持续集成服务器，它可以让团队里的每个人随时了解项目的健康状况和进度；</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FsY3kvT3BzQm90" title="https://github.com/alcy/OpsBot">OpsBot<i class="fa fa-external-link"></i></span>：是一个开源的、可插入的改善通信的机器人。</li>
-</ul>
-<p>希望这些工具能够给开发者带来实实在在的帮助，想要查看更多工具，大家可以 <span class="exturl" data-url="aHR0cHM6Ly9kZXYtb3BzLXRvb2xzLnplZWYuY29tL3JpY2hhcmQua3JhYXllbmhhZ2VuI2Jsb2NrXzQxNjg1X3Byb2Nlc3MtbWFuYWdlbWVudA==" title="https://dev-ops-tools.zeef.com/richard.kraayenhagen#block_41685_process-management">访问原文<i class="fa fa-external-link"></i></span>，原文中的工具列表会持续更新。 最后，再跟大家分享一个 <span class="exturl" data-url="aHR0cDovL3d3dy5kZXZvcHNib29rbWFya3MuY29tLw==" title="http://www.devopsbookmarks.com/">DevOps BookMarks<i class="fa fa-external-link"></i></span>，这里面涉及了DevOps方方面面的工具和内容，有兴趣的同学可以前去学习。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/php_bubbling_op/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/php_bubbling_op/" class="post-title-link" itemprop="url">Php算法——冒泡算法及其优化</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2016-05-10 18:39:48" itemprop="dateCreated datePublished" datetime="2016-05-10T18:39:48+08:00">2016-05-10</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-22 10:22:47" itemprop="dateModified" datetime="2019-04-22T10:22:47+08:00">2019-04-22</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-php/" itemprop="url" rel="index"><span itemprop="name">积累________php</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">876</span>
+                <span title="本文字数">1.1k</span>
               
 
               
@@ -2386,7 +1189,34 @@
       
         
           
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">$arr = array(1,30,5,8,2,7,12);</span><br><span class="line">$cou = count($arr);</span><br><span class="line"></span><br><span class="line">// 常见算法,比较大小，两个数字，如果大或者小那么交换位置。</span><br><span class="line">for($i=0;$i&lt;$cou;$i++)&#123;</span><br><span class="line">  for($j=$i+1;$j&lt;$cou;$j++)&#123;</span><br><span class="line">    echo $i.&apos; &apos;,$j.&apos; &apos;,$arr[$i].&apos; &apos;,$arr[$j].&apos; &apos;,&apos;&lt;br/&gt;&apos;;</span><br><span class="line">    if($arr[$i] &gt; $arr[$j])&#123;</span><br><span class="line">      $tmp = $arr[$i];</span><br><span class="line">      $arr[$i] = $arr[$j];</span><br><span class="line">      $arr[$j] = $tmp;</span><br><span class="line">      $bool = true;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// 优化算法,增加一个flag，如果发生了交换就退出子循环。</span><br><span class="line">for($i=0;$i&lt;$cou;$i++)&#123;</span><br><span class="line">  $bool = false;</span><br><span class="line"></span><br><span class="line">  for($j=$i+1;$j&lt;$cou;$j++)&#123;</span><br><span class="line">    echo $i.&apos; &apos;,$j.&apos; &apos;,$arr[$i].&apos; &apos;,$arr[$j].&apos; &apos;,&apos;&lt;br/&gt;&apos;;</span><br><span class="line">    if($arr[$i] &gt; $arr[$j])&#123;</span><br><span class="line">      $tmp = $arr[$i];</span><br><span class="line">      $arr[$i] = $arr[$j];</span><br><span class="line">      $arr[$j] = $tmp;</span><br><span class="line">      $bool = true;</span><br><span class="line">    &#125;</span><br><span class="line">    if($bool == false)&#123;break;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <blockquote>
+<p>海龟交易法则，起源并流行于八十年代的美国，是一套简单有效的交易法则。这个法则以及使用这个法则的人的故事被写成了一本书——《海龟交易法则》。这是一本很好的量化投资入门书（也是我当年的入门书）。</p>
+</blockquote>
+<p>本篇文章使用Python和Pandas实现海龟交易法则，看看在中国市场效果怎么样。并希望通过这个案例，让大家学到pandas的如下功能：</p>
+<ul>
+<li>导入导出数据</li>
+<li>rolling_max() 和 expanding_max()的区别</li>
+<li>空值处理函数fillna()的使用方法</li>
+<li>资金指数的计算方法</li>
+<li>resample()的使用方法</li>
+</ul>
+<h4 id="海龟交易的具体规则是："><a href="#海龟交易的具体规则是：" class="headerlink" title="海龟交易的具体规则是："></a>海龟交易的具体规则是：</h4><ul>
+<li>当今天的收盘价，大于过去20个交易日中的最高价时，以收盘价买入；</li>
+<li>买入后，当收盘价小于过去10个交易日中的最低价时，以收盘价卖出。</li>
+</ul>
+<h4 id="对规则的一些说明："><a href="#对规则的一些说明：" class="headerlink" title="对规则的一些说明："></a>对规则的一些说明：</h4><ul>
+<li>规则基本上就是这么简单，还有一些具体的止损以及仓位控制规则，这几就不介绍了，具体可以看书。</li>
+<li>这套交易规则主要是运用于期货市场，所以还可以有卖空，比如当今天的收盘价小于过去20个交易日中的最低价时，以收盘价开空单，以此类推。</li>
+<li>上述规则针对日线，实际使用中更多的是使用分钟K线，比如5分钟K线的收盘价大于过去20根5分钟线的最高价时买入，以此类推。</li>
+</ul>
+<p>在这篇文章中，我以上证指数作为案例，假设可以买卖上证指数，来试验海龟交易法则，看看效果具体如何。</p>
+<h4 id="下面开始具体正文："><a href="#下面开始具体正文：" class="headerlink" title="下面开始具体正文："></a>下面开始具体正文：</h4><p>要在上证指数上实验海龟交易法则，首先需要上证指数的数据。<br>在<span class="exturl" data-url="aHR0cDovL2Jicy5waW5nZ3Uub3JnL2xpbmt0by5waHA/dXJsPWh0dHAlM0ElMkYlMkZ5dWNlemhlLmNvbSUyRnByb2R1Y3QlM0ZuYW1lJTNEdHJhZGluZy1kYXRh" title="http://bbs.pinggu.org/linkto.php?url=http%3A%2F%2Fyucezhe.com%2Fproduct%3Fname%3Dtrading-data">这里<i class="fa fa-external-link"></i></span>可以下载到上证指数从1990年至今的数据，如下图所示，每一行是每一天的数据：<br> <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/1-3.png" alt> </p>
+<p> 这个日线数据有以下的字段：<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">【index_code】指数的代码</span><br><span class="line">【date】 交易日期</span><br><span class="line">【open】 开盘价</span><br><span class="line">【high】 最高价</span><br><span class="line">【low】 最低价</span><br><span class="line">【close】 收盘价</span><br><span class="line">【volume】 成交量</span><br><span class="line">【money】 成交额</span><br><span class="line">【change】 涨跌幅</span><br></pre></td></tr></table></figure></p>
+<p>有了原始数据之后就是代码。我本以为用pandas实现这个策略还是稍微有点复杂，结果发现非常的简单，再次赞叹下pandas的方便。下面是代码的截图，里面有详细的注释，有问题可以留言。<br><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/2-3.png" alt><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/3-3.png" alt><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/4-2.png" alt></p>
+<p>把数据下载下来，运行代码，就可以看到输出的结果了。下面这张图展示了从1993年1月1日开始，使用海龟交易法则交易上涨指数的资金曲线与原指数的对比，由图中可见，指数从800多点涨到了现在的400点，而海龟交易法则的资金曲线，从同样的800多点，涨到了14000点。<br><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/5-2.png" alt> </p>
+<p>下面这张图展示了每年上证指数和海龟交易法则资金曲线的收益，左边是上证指数的收益，可以自行把玩：<br><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/6-3.png" alt> </p>
+<p><strong>思考题：</strong><br>海龟交易法则的默认参数是20，10，可以试试看其他的参数，看看会不会有更好的效果。感兴趣的，可以查看完整版本的海龟交易法则（包含atr止损），并实现它。</p>
+
           
         
       
@@ -2442,7 +1272,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/mysql_order_cn/">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/quant_python_pandas_kdj/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2462,7 +1292,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/mysql_order_cn/" class="post-title-link" itemprop="url">MySQL按照汉字的拼音排序</a>
+                <a href="/quant_python_pandas_kdj/" class="post-title-link" itemprop="url">【量化小讲堂-Python、pandas技巧系列】历史数据告诉你：KDJ指标选股有效吗？</a>
               
             
           </h2>
@@ -2487,7 +1317,7 @@
                 
               
 
-              <time title="创建时间：2016-03-24 10:19:18" itemprop="dateCreated datePublished" datetime="2016-03-24T10:19:18+08:00">2016-03-24</time>
+              <time title="创建时间：2017-04-14 10:50:29" itemprop="dateCreated datePublished" datetime="2017-04-14T10:50:29+08:00">2017-04-14</time>
             
 
             
@@ -2504,7 +1334,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-18 19:17:53" itemprop="dateModified" datetime="2019-04-18T19:17:53+08:00">2019-04-18</time>
+                <time title="修改时间：2019-04-22 12:30:43" itemprop="dateModified" datetime="2019-04-22T12:30:43+08:00">2019-04-22</time>
               
             
           </span>
@@ -2521,7 +1351,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-db/" itemprop="url" rel="index"><span itemprop="name">积累________db</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-量化/" itemprop="url" rel="index"><span itemprop="name">积累________量化</span></a></span>
 
                 
                 
@@ -2550,7 +1380,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">301</span>
+                <span title="本文字数">1.2k</span>
               
 
               
@@ -2586,11 +1416,1145 @@
       
         
           
-            <p>按照汉字的拼音排序，用的比较多是在人名的排序中，按照姓氏的拼音字母，从A到Z排序；</p>
-<p>如果存储姓名的字段采用的是GBK字符集，那就好办了，因为GBK内码编码时本身就采用了拼音排序的方法（常用一级汉字3755个采用拼音排序，二级汉字就不是了，但考虑到人名等都是常用汉字，因此只是针对一级汉字能正确排序也够用了）。</p>
-<p>直接在查询语句后面添加<code>order by name asc;</code>查询结果按照姓氏的升序排序；</p>
-<p>如果存储姓名的字段采用的是utf8字符集，需要在排序的时候对字段进行转码；</p>
-<p>对于的代码是<code>order by convert(name using gbk) asc;</code><br>同样，查询的结果也是按照姓氏的升序排序；</p>
+            <blockquote>
+<p>KDJ指标是最常用的技术指标之一，它的作用是判断股票未来短期的走势。很多书店里卖的炒股类书籍都会推荐这个指标，并认为KDJ指标低位金叉是一个非常好的买点，还会给出几个很漂亮的K线图形来印证他们的观点。少数的几个例子不能让人信服，KDJ指标低位金叉选股效果到底好不好，一定要用大样本说话。</p>
+</blockquote>
+<p>本篇文章将找出历史上所有股票的全部低位金叉情况，并且统计这些股票在金叉之后若干个交易日内的涨幅，看是否有显著的正收益。通过这个案例将着重向大家介绍pandas的如下功能：</p>
+<ul>
+<li>使用pandas导入股票数据</li>
+<li>如何计算KDJ指标</li>
+<li>如何计算KDJ指标金叉</li>
+<li>shift()函数的用法</li>
+<li>append()函数的用法</li>
+</ul>
+<h3 id="下面开始正文："><a href="#下面开始正文：" class="headerlink" title="下面开始正文："></a>下面开始正文：</h3><p>需要找出历史上所有股票的全部低位金叉情况，那么首先必须要有股票的历史日线交易数据，从这个<span class="exturl" data-url="aHR0cDovL2Jicy5waW5nZ3Uub3JnL2xpbmt0by5waHA/dXJsPWh0dHAlM0ElMkYlMkZ3d3cueXVjZXpoZS5jb20lMkY=" title="http://bbs.pinggu.org/linkto.php?url=http%3A%2F%2Fwww.yucezhe.com%2F">网站<i class="fa fa-external-link"></i></span>可以下载到所有股票的历史日线数据，可以作为我们计算的原始数据。数据下载下来是下图这个样子：</p>
+<p>每个股票一个csv文件</p>
+<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/21.png" alt>  </p>
+<p>每一行是每一天的数据</p>
+<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/22.png" alt>  </p>
+<p>这个日线数据有以下的字段：</p>
+<pre><code>【code】 股票的代码，上证股票以sh开头，深证股票以sz开头
+【date】 交易日期
+【open】 开盘价
+【high】 最高价
+【low】 最低价
+【close】 收盘价
+【change】 涨跌幅，复权之后的真实涨跌幅，保证准确
+【volume】 成交量
+【money】 成交额
+【traded_market_value】 流通市值
+【market_value】 总市值
+【turnover】 换手率，成交量/流通股本
+【adjust_price】 后复权价，复权开始时间为股票上市日，精确到小数点后10位
+【report_type】 最近一期财务报告的类型，3-31对应一季报，6-30对应半年报，9-30对应三季报，12-31对应年报
+【report_date】 最近一期财务报告实际发布的日期
+【PE_TTM】 最近12个月市盈率，股价 / 最近12个月归属母公司的每股收益TTM
+【PS_TTM】 最近12个月市销率， 股价 / 最近12个月每股营业收入
+【PC_TTM】 最近12个月市现率， 股价 / 最近12个月每股经营现金流
+【PB】 市净率，股价 / 最近期财报每股净资产
+</code></pre><p>有了原始数据之后就是代码，下面是代码的截图，里面有详细的注释，有问题可以留言。</p>
+<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/23.png" alt><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/24.png" alt> </p>
+<p>把数据下载下来，直接运行代码，就可以看到输出的结果了。这里就不贴出KDJ选股具体的效果了，这样大家可能更有动力钻研下程序吧~ 反正总体选股效果不大好，在总过出现的51万次KDJ金叉状况下，接下来股票会上涨的概率是50%左右。 </p>
+<p><strong>思考题</strong></p>
+<p>本程序其实是挑出了所有KDJ金叉的股票，并不是低位KDJ金叉。有人认为低位KDJ金叉效果更好，例如D值小于20时的金叉。在现有程序上进行小小的改动就可以挑选出低位KDJ金叉的股票，大家感兴趣可以看看选股效果怎么样，说实话具体怎么样我也没有试过。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/quant_python_pandas_kline/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/quant_python_pandas_kline/" class="post-title-link" itemprop="url">【量化小讲堂-Python、pandas技巧系列】极简方法将日线数据转为周线、月线或其他周期</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-04-14 10:43:27" itemprop="dateCreated datePublished" datetime="2017-04-14T10:43:27+08:00">2017-04-14</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-22 13:27:09" itemprop="dateModified" datetime="2019-04-22T13:27:09+08:00">2019-04-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-量化/" itemprop="url" rel="index"><span itemprop="name">积累________量化</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">1.1k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>分析股票数据的时候，往往会用不同的周期进行分析，以期得到更加全面的结果。比如日线、周线、月线，或者5分钟、15分钟、30分钟、60分钟。甚至有的时候会想，为什么的我的周期必须是自然周或者自然月，我能不能每11天或者每24天一个周期。 面对这样的需求，就必须写程序在不同的周期之间进行转换。本篇文章以将日线数据转换为周线数据为案例例，向大家介绍pandas的以下功能：</p>
+<ul>
+<li>使用pandas导入和导出输出</li>
+<li>resample函数的用法</li>
+</ul>
+<p>下面开始正文。 需要把日线转为周线，那么首先必须要有日线数据，从这个<span class="exturl" data-url="aHR0cDovL2Jicy5waW5nZ3Uub3JnL2xpbmt0by5waHA/dXJsPWh0dHAlM0ElMkYlMkZ5dWNlemhlLmNvbSUyRnByb2R1Y3QlM0ZuYW1lJTNEdHJhZGluZy1kYXRh" title="http://bbs.pinggu.org/linkto.php?url=http%3A%2F%2Fyucezhe.com%2Fproduct%3Fname%3Dtrading-data">网站<i class="fa fa-external-link"></i></span>可以下载到所有股票历史上的日线数据，可以作为我们计算的原始数据。数据下载下来是下图这个样子：</p>
+<p>每个股票一个csv文件 </p>
+<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/10-1.png" alt><br>每一行是每一天的数据<br> <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/11-1.png" alt></p>
+<h4 id="这个日线数据有以下的字段："><a href="#这个日线数据有以下的字段：" class="headerlink" title="这个日线数据有以下的字段："></a>这个日线数据有以下的字段：</h4><pre><code>【code】 股票的代码，上证股票以sh开头，深证股票以sz开头
+【date】 交易日期
+【open】 开盘价
+【high】 最高价
+【low】 最低价
+【close】 收盘价
+【change】 涨跌幅，复权之后的真实涨跌幅，保证准确
+【volume】 成交量
+【money】 成交额
+【traded_market_value】 流通市值
+【market_value】 总市值
+【turnover】 换手率，成交量/流通股本
+【adjust_price】 后复权价，复权开始时间为股票上市日，精确到小数点后10位
+【report_type】 最近一期财务报告的类型，3-31对应一季报，6-30对应半年报，9-30对应三季报，12-31对应年报
+【report_date】 最近一期财务报告实际发布的日期
+【PE_TTM】 最近12个月市盈率，股价 / 最近12个月归属母公司的每股收益TTM
+【PS_TTM】 最近12个月市销率， 股价 / 最近12个月每股营业收入
+【PC_TTM】 最近12个月市现率， 股价 / 最近12个月每股经营现金流
+【PB】 市净率，股价 / 最近期财报每股净资产
+</code></pre><p>在进行日线周线转换的时候，一定要注意，大部分周线的指标是这个日线指标在这一周最后一个交易日的值。比如周线的【close】应该等于这一周最后一天日线数据的【close】。但是有的指标是例外，比如周线的【high】应该等于这一周所有日线【high】中的最大值，周线的【volume】应该等于这一周所有日线【volume】的和。有了这样的理解之后，直接上程序截图，里面有详细的注释，有问题可以留言。 </p>
+<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/12-1.png" alt>  </p>
+<p>把数据和程序下载下来，在程序中修改好文件的路径，应该就可以直接运行了。 </p>
+<p><strong>思考题：</strong><br>本案例中是将日线数据转换为周线，那么如何将日线数据转换为月线数据呢？ 答案：只要修改代码中的一个字母就行了。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/quant_python_pandas_ratio/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/quant_python_pandas_ratio/" class="post-title-link" itemprop="url">【量化小讲堂-Python、pandas技巧系列】计算创业板平均市盈率</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-04-14 10:38:18" itemprop="dateCreated datePublished" datetime="2017-04-14T10:38:18+08:00">2017-04-14</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-22 13:26:08" itemprop="dateModified" datetime="2019-04-22T13:26:08+08:00">2019-04-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-量化/" itemprop="url" rel="index"><span itemprop="name">积累________量化</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">481</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近创业板表现太猛了，很多人说估值太高，那么估值到底有多高？是否达到了历史上的高点？本案例中程序的功能是计算创业板股票历史上每天的平均市盈率，希望通过这个案例一来解答上述问题，二来向大家介绍pandas以下的几个操作：</p>
+<ul>
+<li>数据的导入以及导出</li>
+<li>对整列数据进行操作</li>
+<li>数据合并的append操作</li>
+<li>groupby语句</li>
+</ul>
+<p>计算创业板股票每天的平均市盈率，那么必须要知道每个股票每天的市盈率。从<span class="exturl" data-url="aHR0cDovL2Jicy5waW5nZ3Uub3JnL2xpbmt0by5waHA/dXJsPWh0dHAlM0ElMkYlMkZ5dWNlemhlLmNvbSUyRnByb2R1Y3QlM0ZuYW1lJTNEdHJhZGluZy1kYXRh" title="http://bbs.pinggu.org/linkto.php?url=http%3A%2F%2Fyucezhe.com%2Fproduct%3Fname%3Dtrading-data">这里<i class="fa fa-external-link"></i></span>可以下载到所有股票的从上市日起的每天的交易数据、以及市盈率数据，可以作为我们计算的原始数据。数据下载下来是下图这个样子： </p>
+<p>每个股票一个csv文件<br><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/1-2.png" alt> </p>
+<p>每一行是每一天的数据</p>
+<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/2-2.png" alt> </p>
+<p>有了原始数据之后就是代码了，下面是代码的截图，有详细的注释，附件中可以下载代码文件。 </p>
+<p> <img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/3-2.png" alt> </p>
+<p> 把数据下载下来，并且直接运行代码，结果就会输出到“创业板平均市盈率.csv”文件。至于创业板股票的现在的平均市盈率是多少，这里就不贴出来啦，大家还是自己运行程序之后看结果吧<br> <img src="http://120.27.111.137/static/image/smiley/default/titter.gif" alt> </p>
+<p><strong>思考题：</strong><br>本案例中是计算创业板股票的平均市盈率，那么如果计算上证股票的平均市盈率呢？答案：其实只要修改代码中的一个数字就行了。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/quant_python_pandas_avg/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/quant_python_pandas_avg/" class="post-title-link" itemprop="url">【量化小讲堂-python&pandas技巧系列】使用python计算各类移动平均线</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-04-14 10:26:05" itemprop="dateCreated datePublished" datetime="2017-04-14T10:26:05+08:00">2017-04-14</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-22 13:31:46" itemprop="dateModified" datetime="2019-04-22T13:31:46+08:00">2019-04-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-量化/" itemprop="url" rel="index"><span itemprop="name">积累________量化</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">1.3k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>我之前一直用SAS、MATLAB。最近用Python，发现python的pandas包简直是分析金融数据做量化研究的神器。准备写个系列帖子“量化小讲堂”，希望通过实际的列子，让大家知道如何使用python &amp; pandas进行金融数据处理，希望能对大家有帮助。帖子主要面向入门学习者，大神请轻拍。</p>
+</blockquote>
+<p>计算移动平均线是最常见的需求，下面这段代码将完成以下三件事情：</p>
+<ol>
+<li>从csv格式的文件中导入股票数据</li>
+<li>计算各类移动平均线，包括简单简单算术移动平均线MA、指数平滑移动平均线EMA；</li>
+<li>将计算好的数据输出到csv文件中。<br>代码应该复制下来就能运行了，关于从哪里可以得到代码中使用的数据，后面会讲，下面贴上代码：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: utf-8 -*-</span><br></pre></td></tr></table></figure>
+<p>@author: yaozihao<br>@contact: QQ:906961433 email:<span class="exturl" data-url="bWFpbHRvOnlhb3ppaGFvQHlhb3ppaGFvLmNu" title="mailto:yaozihao@yaozihao.cn">yaozihao@yaozihao.cn<i class="fa fa-external-link"></i></span><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line"></span><br><span class="line"># ========== 从原始csv文件中导入股票数据，以浦发银行sh600000为例</span><br><span class="line"># 导入数据 - 注意：这里请填写数据文件在您电脑中的路径</span><br><span class="line">stock_data = pd.read_csv(&apos;stock data/sh600000.csv&apos;, parse_dates=[1])</span><br><span class="line"></span><br><span class="line"># 将数据按照交易日期从远到近排序</span><br><span class="line">stock_data.sort(&apos;date&apos;, inplace=True)</span><br><span class="line"></span><br><span class="line"># ========== 计算移动平均线</span><br><span class="line"># 分别计算5日、20日、60日的移动平均线</span><br><span class="line">ma_list = [5, 20, 60]</span><br><span class="line"></span><br><span class="line"># 计算简单算术移动平均线MA - 注意：stock_data[&apos;close&apos;]为股票每天的收盘价</span><br><span class="line">for ma in ma_list:</span><br><span class="line">    stock_data[&apos;MA_&apos; + str(ma)] = pd.rolling_mean(stock_data[&apos;close&apos;], ma)</span><br><span class="line"></span><br><span class="line"># 计算指数平滑移动平均线EMA</span><br><span class="line">for ma in ma_list:</span><br><span class="line">    stock_data[&apos;EMA_&apos; + str(ma)] = pd.ewma(stock_data[&apos;close&apos;], span=ma)</span><br><span class="line"></span><br><span class="line"># 将数据按照交易日期从近到远排序</span><br><span class="line">stock_data.sort(&apos;date&apos;, ascending=False, inplace=True)</span><br><span class="line"></span><br><span class="line"># ========== 将算好的数据输出到csv文件 - 注意：这里请填写输出文件在您电脑中的路径</span><br><span class="line">stock_data.to_csv(&apos;sh600000_ma_ema.csv&apos;, index=False)</span><br></pre></td></tr></table></figure></p>
+<p>代码输出的数据截图如下：<br><img src="https://raw.githubusercontent.com/ucfyao/image/img/img/20190422133136.png" alt></p>
+<p>可以到这里下载程序中用到的股票数据：<span class="exturl" data-url="aHR0cDovL3l1Y2V6aGUuY29tLw==" title="http://yucezhe.com/">网址<i class="fa fa-external-link"></i></span> ，其中包含了所有股票、从上市日起的全部交易数据。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/quant_python_pandas_windows/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/quant_python_pandas_windows/" class="post-title-link" itemprop="url">【量化小讲堂-Python、pandas技巧系列】windows下如何安装Python、pandas</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-04-13 20:18:57" itemprop="dateCreated datePublished" datetime="2017-04-13T20:18:57+08:00">2017-04-13</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-22 12:43:17" itemprop="dateModified" datetime="2019-04-22T12:43:17+08:00">2019-04-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-量化/" itemprop="url" rel="index"><span itemprop="name">积累________量化</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">1.5k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>本篇内容主要讲如何安装Python和pandas。Python比较好安装，而pandas比较难装，当时装了我一整天。pandas是Python下面的一个package，专门用于金融数据的分析，简直是神器。这里有pandas的简单入门介绍<span class="exturl" data-url="aHR0cDovL2Jicy5waW5nZ3Uub3JnL2xpbmt0by5waHA/dXJsPWh0dHAlM0ElMkYlMkZwYW5kYXMucHlkYXRhLm9yZyUyRnBhbmRhcy1kb2NzJTJGc3RhYmxlJTJGMTBtaW4uaHRtbA==" title="http://bbs.pinggu.org/linkto.php?url=http%3A%2F%2Fpandas.pydata.org%2Fpandas-docs%2Fstable%2F10min.html">http://pandas.pydata.org/pandas-docs/stable/10min.html<i class="fa fa-external-link"></i></span>  首先推荐python的科学计算包：anaconda2。</p>
+</blockquote>
+<p>本篇主要涵盖以下三部分内容：</p>
+<ol>
+<li>Python、Pycharm的安装</li>
+<li>使用Pycharm创建、运行Python程序</li>
+<li>安装pandas</li>
+</ol>
+<h2 id="1-Python、Pycharm的安装"><a href="#1-Python、Pycharm的安装" class="headerlink" title="1.Python、Pycharm的安装"></a><strong>1.Python、Pycharm的安装</strong></h2><p>从Python官网下载windows版本的Python，要下载python2，不要下载python3。鉴于大家可能上了官网都不知道下载哪个版本（我自己一开始就是）。安装文件下载好之后，就像一般的软件一样，一直点击next就能安装。 Pycharm是一个ide，说简单点就是一个用来编写Python程序的软件，也是个神器，可以让我们更加方便的编写Python程序。我们后面安装pandas就需要用到它。Pycharm有收费版本也有免费版本，我们用免费版本就已经绰绰有余了。可以去官网下载，因为是国外的网站，下载速度可能很慢，我已经将安装文件上传到百度云，下载地址在附件中。 下载好之后一路点击next就能安装好。</p>
+<h2 id="2-使用Pycharm创建、运行Python程序"><a href="#2-使用Pycharm创建、运行Python程序" class="headerlink" title="2.使用Pycharm创建、运行Python程序"></a>2.使用Pycharm创建、运行Python程序</h2><p>安装好Python和Pycharm之后，我们打开pycharm（桌面上应该有快捷方式）， 点击创建create new project，这里需要在红框中填写一个路径地址。<br>这里解释一下这个路径，每当我们新建一个Python项目，一般是创建个新的空文件夹，把和这个项目相关的程序、数据等内容都放在这个文件夹中，方便管理。<br>红色框中的路径就是指向这个文件夹。<br>我这里这个文件夹叫demo，填写好之后点击create，<br>顺序点击File，New，Python File，填写文件名，这就创建了一个Python程序文件，<br>输入一行简单的代码 <code>print &#39;Hello World!&#39;</code>，顺序点击 Run，Run ‘demo’，就可以运行程序，并且查看输出了。<br>以上就是一个简单的Python程序</p>
+<h2 id="3-安装pandas"><a href="#3-安装pandas" class="headerlink" title="3.安装pandas"></a><strong>3.安装pandas</strong></h2><p>pandas是Python下面的一个库，一般来说安装库都是非常麻烦的，因为需要在命令行下面操作的，利用<code>pip</code>, <code>easy_install</code>等工具，对于非计算机专业的人来说简直是噩梦。幸好有了Pycharm，它可以帮我们很方便的安装各类库。</p>
+<p>下面以安装pandas为例，介绍如何使用Pycharm安装package：</p>
+<ul>
+<li>顺序点击File，Settings</li>
+<li>然后点击Project，Project Interpreter，</li>
+<li>在搜索框中输入pandas，点击最下方的Install Package，根据网速快慢，等待不定的时间，就完成了安装</li>
+</ul>
+<p>安装过程中可能会提示：Microsoft Visual C++ 9.0 is required (Unable to find vcvarsall.bat). Get it from <span class="exturl" data-url="aHR0cDovL2Jicy5waW5nZ3Uub3JnL2xpbmt0by5waHA/dXJsPWh0dHAlM0ElMkYlMkZha2EubXMlMkZ2Y3B5dGhvbjI3" title="http://bbs.pinggu.org/linkto.php?url=http%3A%2F%2Faka.ms%2Fvcpython27">http://aka.ms/vcpython27<i class="fa fa-external-link"></i></span> 只要按照提示说的的去下载一个VC就可以了。</p>
+<p>这样就安装好了pandas。 然后在按照同样的流程安装好其他一些pandas依赖的package，分别是：<code>numpy</code>，<code>dateutil</code>，可能还有其他。 安装好之后试着运行下面这个程序，如果没有报错，就说明完全安装好pandas了。如果报错，一般是因为缺少依赖的库，按照上述方法继续安装就可以了。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/quant_python_pandas_soon/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/quant_python_pandas_soon/" class="post-title-link" itemprop="url">【量化小讲堂-Python、pandas技巧系列】如何快速上手使用Python进行金融数据分析</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-04-13 20:05:31" itemprop="dateCreated datePublished" datetime="2017-04-13T20:05:31+08:00">2017-04-13</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-22 12:57:00" itemprop="dateModified" datetime="2019-04-22T12:57:00+08:00">2019-04-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-量化/" itemprop="url" rel="index"><span itemprop="name">积累________量化</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">1.7k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">2 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本文主要以快速上手使用Pyhton进行系列分析为主题，介绍下我学习量化投资、Python的个人经验。</p>
+<h3 id="第一步：好奇心"><a href="#第一步：好奇心" class="headerlink" title="第一步：好奇心"></a>第一步：好奇心</h3><p>不要为了学习而去学习一门编程语言，或者任何工具。一定要心里首先有一个问题，抱着解决问题的心态，去了解并学习这个工具是如何解决问题的。驱动你去学习量化投资的，应该是你的好奇心。你认为你有一个炒股独家的窍门，你认为你发现了某个规律，你非常好奇的想用历史数据去验证你的想法。<br>比如我在大二的时候接触量化投资，就是因为我的好奇心。当时我看到一些入门的技术分析书上推荐KDJ这个技术指标，说KDJ低位金叉之后股票会涨，是个很好的买入信号，并且书上会配一些图，证明这个指标的有效性。我当时就很好奇，书上说的是不是真的？这几个配图是刻意挑选的还是有代表性的？是不是可以写个程序找出历史上所有的kdj金叉，看看之后涨的概率有多大?</p>
+<p>这就是引领我入门的最初的好奇心。当时我不会编程，一开始用excel来试着验证，发现KDJ从大概率上来讲是不行的。好奇心继续升级：我调整一下KDJ默认的参数，效果会不会好一点？再配合一下其他的指标，效果会不会好一点？再加上点财务数据，效果会不会好一点……</p>
+<p>慢慢的想测试的想法越来越多，excel渐渐的不够用，开始学习编程。我学习编程的目的性很强，就是解决我眼前的问题。对于解决我问题没有帮助的，我就先不学。一开始用的是SAS，自己找书看，论坛上发帖子问。后来觉得SAS太重，不灵活，慢慢的迁移到Python。</p>
+<p>我是计算机专业的，但是学校并不教量化投资，一切都是自己学。可想而知，若没有好奇心一直引导我去探索，这么长的一段时间我怎么可能坚持下来呢？ </p>
+<h3 id="第二步：为什么Python"><a href="#第二步：为什么Python" class="headerlink" title="第二步：为什么Python"></a>第二步：为什么Python</h3><p>我推荐刚入门的量化投资研究者使用Python。主要理由如下：</p>
+<ol>
+<li>适用性<br>Python配合各类第三方的package（例如下面要降到的pandas），是非常适合用来处理金融数据的</li>
+<li>简单<br>相比于c，c#等语言，Python容易太多了。让你可以更快，更方便的对自己的想法进行测试。life is short, use Python。</li>
+<li>全能<br>Matlab是另外一个金融分析领域的统治级语言，以上讲的两点适用性、简单性matlab都是具备的，在业界的使用范围应该是比Python要高的。<br>而Python相比于matlab的一大优势，那就是全能。matlab基本只能用于金融数据分析。但是Python除了拥有不亚于matlab的矩阵计算、科学计算能力之外，其他几乎任何事情都可以做。比如数据的清理、整理，比如从网页上抓取数据，比如进行文本信息的挖掘，比如做一个网站……现在学习一门语言，将来在任何地方都能用到。</li>
+</ol>
+<h3 id="第三步：如何入门Python"><a href="#第三步：如何入门Python" class="headerlink" title="第三步：如何入门Python"></a>第三步：如何入门Python</h3><p>如果你有其他语言的编写经验（比如上过一个学期的编程课），有一定的编程基础。以下三步可以让你入门Python：</p>
+<ol>
+<li>随便找一本Pyhton入门书。这些教程网上有很多很多，论坛里面也有很多，随便搜索一下就是。我稍微整理了下，放在附件中，回复可见。</li>
+<li>挑一本Python入门书，不要花超过半天的时间，快速翻阅这本书。这个步骤不求记住什么东西，只要大概的知道这本书讲了什么，什么知识在这本书的哪一章写了就行，以便将来查阅。</li>
+<li>结合自己的好奇心，给自己寻找一个问题，简单的复杂的都可以，找一点数据(地址)，直接开始实战。遇到问题，第一步是去翻书，第二步是去google(别去百度)，第三步是论坛发帖求助。若你没有什么思路或者问题，可以加群438143420，我可以给你提供思路。</li>
+</ol>
+<p>如果你没有任何编程的基础，那么想要入门Python，也是以上三个步骤。但是第2步，就不是仅仅花半天的时间浏览书了，而是要细细的看书。对着书上的例子，实际的操作下，大概花一个星期的时间的业余时间也就够了吧。</p>
+<h3 id="第四步：如何入门pandas"><a href="#第四步：如何入门pandas" class="headerlink" title="第四步：如何入门pandas"></a>第四步：如何入门pandas</h3><p>使用Python做金融数据分析，一定要用pandas。pandas是Python的一个第三方库，简直是金融数据分析的神器，第一次遇到它的时候让我泪流满面。了解pandas最好的途径就是他的官方文档：<span class="exturl" data-url="aHR0cDovL3BhbmRhcy5weWRhdGEub3JnL3BhbmRhcy1kb2NzL3N0YWJsZS8xMG1pbi5odG1s" title="http://pandas.pydata.org/pandas-docs/stable/10min.html">http://pandas.pydata.org/pandas-docs/stable/10min.html<i class="fa fa-external-link"></i></span> ，当然也可以看我之前写的系列文章。</p>
 
           
         
@@ -2636,7 +2600,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2678,7 +2642,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">100</span>
+                    <span class="site-state-item-count">184</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2711,7 +2675,17 @@
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -2808,7 +2782,45 @@
                     
                       
                     
-                    <span class="site-state-item-count">40</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">59</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -2933,7 +2945,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">319k</span>
+    <span title="站点总字数">525k</span>
   
 
   
@@ -2944,7 +2956,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">4:50</span>
+    <span title="站点阅读时长">7:58</span>
   
 </div>
 

@@ -363,6 +363,823 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/mac_expect_gacmd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/mac_expect_gacmd/" class="post-title-link" itemprop="url">Mac中使用expect和ga-cmd解决谷歌验证码登陆跳转机</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-15 21:21:16" itemprop="dateCreated datePublished" datetime="2018-12-15T21:21:16+08:00">2018-12-15</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-22 11:28:19" itemprop="dateModified" datetime="2019-04-22T11:28:19+08:00">2019-04-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-mac/" itemprop="url" rel="index"><span itemprop="name">积累________mac</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">1.1k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">## 安装expect</span><br><span class="line">brew install expect</span><br><span class="line"></span><br><span class="line">## 安装gacmd</span><br><span class="line">$ git clone https://github.com/arcanericky/ga-cmd.git</span><br><span class="line">$ git submodule init</span><br><span class="line">$ git submodule update</span><br><span class="line"></span><br><span class="line">$ cd ga-cmd/src</span><br><span class="line"></span><br><span class="line">## 获取跳板机</span><br><span class="line">$ vim .google_authenticator</span><br><span class="line">$ ./build.sh &lt;16 character seed&gt;</span><br><span class="line"></span><br><span class="line">## 检测一下</span><br><span class="line"></span><br><span class="line">$ ga-cmd/src/bin/ga-cmd</span><br><span class="line">123456</span><br><span class="line"></span><br><span class="line">## 编写 expect 脚本</span><br><span class="line">#!/usr/bin/expect</span><br><span class="line">set host [lindex $argv 0]</span><br><span class="line">set VERIFICATION [lindex $argv 1]</span><br><span class="line">set TERMSERV 192.2.1.2</span><br><span class="line">set USER yaozihao</span><br><span class="line">set PASSWORD 123456</span><br><span class="line">set UATUN yaozihao</span><br><span class="line">#set UATPWD 内服务器密码</span><br><span class="line"></span><br><span class="line"># 登录跳板机</span><br><span class="line">spawn ssh -l $USER $TERMSERV</span><br><span class="line">expect &#123;</span><br><span class="line"></span><br><span class="line">“*erificati*” &#123;send “$VERIFICATION\r”;exp_continue;&#125;</span><br><span class="line"># “yes/no” &#123;send “yes\r”;exp_continue;&#125;</span><br><span class="line">“*assword:*” &#123; send “$PASSWORD\r”;&#125;</span><br><span class="line">&#125;</span><br><span class="line"># 登录内网</span><br><span class="line">expect “$USER@*” &#123;send “ssh -l $UATUN $host\r”&#125;</span><br><span class="line">#expect &#123;</span><br><span class="line"># “yes/no” &#123;send “yes\r”;exp_continue;&#125;</span><br><span class="line"># “*password:*” &#123; send “$UATPWD\r” &#125;</span><br><span class="line"># &#125;</span><br><span class="line">interact</span><br><span class="line"></span><br><span class="line">## 编写自动登陆脚本</span><br><span class="line">vim ~/test_expect.sh</span><br><span class="line"></span><br><span class="line">#!/bin/bash</span><br><span class="line">verification=$(/wwwroot/lib/ga-cmd/src/bin/ga-cmd)</span><br><span class="line">echo $verification</span><br><span class="line">/Users/yaozihao/expect.ecp 10.66.1.1 $verification</span><br><span class="line">exit 0</span><br><span class="line"></span><br><span class="line">## 执行测试一下</span><br><span class="line">~/test_expect.sh</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/linux_vps_fpt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/linux_vps_fpt/" class="post-title-link" itemprop="url">阿里云虚拟机ftp流程</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-09-24 17:03:56" itemprop="dateCreated datePublished" datetime="2018-09-24T17:03:56+08:00">2018-09-24</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-22 11:32:44" itemprop="dateModified" datetime="2019-04-22T11:32:44+08:00">2019-04-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-linux/" itemprop="url" rel="index"><span itemprop="name">积累________linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">99</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>1.压缩注意使用tar zip格式 tar -czvf wp-admin-09-24-cvf.tar.gz wp-admin </li>
+<li>2.记得压缩为小一点文件，不然总是断开 </li>
+<li>3.在控制台进行解压缩</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/virtuabox_disk/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/virtuabox_disk/" class="post-title-link" itemprop="url">使用VirtualBox自带管理工具命令为虚拟磁盘扩展空间</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-01-11 23:07:33" itemprop="dateCreated datePublished" datetime="2018-01-11T23:07:33+08:00">2018-01-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-22 11:35:12" itemprop="dateModified" datetime="2019-04-22T11:35:12+08:00">2019-04-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-linux/" itemprop="url" rel="index"><span itemprop="name">积累________linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">1.5k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>VirtualBox虚拟磁盘空间不够了，默认10G。想扩大，图形界面下没有找到可操作菜单。Google了一下用 <code>Vbox</code>自带的命令工具<code>VBoxManage</code>即可解决。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\Oracle\VirtualBox&gt;VBoxManage modifyhd e:\vbox\Ubuntu12.04\Ubuntu1204-201302-disk1.vmdk --resize 30000</span><br><span class="line">0%...</span><br><span class="line">Progress state: VBOX_E_NOT_SUPPORTED</span><br><span class="line">VBoxManage.exe: error: Resize hard disk operation for this format is not implemented yet!</span><br></pre></td></tr></table></figure></p>
+<p>原来虚拟机用的是<code>vmdk</code>格式，这个命令只能支持<code>vdi</code>格式。怎么办</p>
+<p>发现可以利用<code>VBoxManager</code>来转化虚拟硬盘存储文件格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\Oracle\VirtualBox&gt;VBoxManage clonehd e:\vbox\Ubuntu12.04\Ubuntu1204-201302-disk1.vmdk  e:\vbox\Ubuntu12.04\Ubuntu1204-201310-disk1.vdi --format VDI</span><br><span class="line">0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%</span><br><span class="line">Clone hard disk created in format &apos;VDI&apos;. UUID: 455b7aa4-d776-4254-8353-d9b5b3fa1</span><br><span class="line">09b</span><br></pre></td></tr></table></figure></p>
+<p>最后用<code>VBoxManager</code>对转好的vdi文件进行扩容设置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\Oracle\VirtualBox&gt;VBoxManage modifyhd e:\vbox\Ubuntu12.04\Ubunt</span><br><span class="line">u1204-201310-disk1.vdi --resize 30000</span><br><span class="line">0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%</span><br></pre></td></tr></table></figure></p>
+<p>大功告成，要将新的虚拟硬盘(vdi)挂载到虚拟机上了。</p>
+<p>打开虚拟机设置，找到存储，点击虚拟硬盘所在的控制器，点“添加虚拟硬盘”-&gt;选”使用现有的虚拟盘”-&gt;选中扩容后的vdi文件，确定后就看见控制器下多了一个硬盘图标，查看容量29.30G。<br>删除原来的vmdk虚拟盘。确定保存配置。大功告成！！</p>
+<p>别忙，还有一部。<br>启动虚拟机后，还要使用<code>GParted – Gnome Partition Editor</code>这个工具，将新扩展的分区进行初始化，否则系统还是不会认出新扩展的空间的。<br>Ubuntu中可用 <code>sudo apt-get install gparted</code>来安装。工具是图形化界面的。好用。设置好后要点菜单“编辑”-&gt;“应用全部操作”，系统才开始执行扩展磁盘的初始化。</p>
+<p>Gnome Partition Editor 官网地址：<span class="exturl" data-url="aHR0cDovL2dwYXJ0ZWQuc291cmNlZm9yZ2UubmV0Lw==" title="http://gparted.sourceforge.net/">http://gparted.sourceforge.net/<i class="fa fa-external-link"></i></span></p>
+<p>多嘴一句</p>
+<p>将原来的vid虚拟硬盘数据复制到新的vid硬盘，示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">旧vdi —&gt; 新vdi</span><br><span class="line"></span><br><span class="line">C:\Program Files\Oracle\VirtualBox\VBoxManage.exe  clonevdi  E:\vbox\server2003\win2003.vdi E:\vbox\server2003\server2003.vdi&quot; --existing</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/linux_ubuntu_thrift/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/linux_ubuntu_thrift/" class="post-title-link" itemprop="url">Ubuntu下折腾thrift</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-01-11 16:15:18" itemprop="dateCreated datePublished" datetime="2018-01-11T16:15:18+08:00">2018-01-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-22 11:35:22" itemprop="dateModified" datetime="2019-04-22T11:35:22+08:00">2019-04-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-linux/" itemprop="url" rel="index"><span itemprop="name">积累________linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">180</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>系统安装官方文档：<span class="exturl" data-url="aHR0cDovL3RocmlmdC5hcGFjaGUub3JnL2RvY3M=" title="http://thrift.apache.org/docs">http://thrift.apache.org/docs<i class="fa fa-external-link"></i></span></p>
+<p>下载安装包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git clone https://git-wip-us.apache.org/repos/asf/thrift.git</span><br><span class="line">cd thrift</span><br><span class="line">./bootstrap.sh</span><br><span class="line">./configure --with-lua=no</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yaozihao.com/erc20_transfer_demo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -508,6 +1325,429 @@
         
           
             <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> web3 <span class="keyword">import</span> Web3, HTTPProvider</span><br><span class="line"><span class="keyword">from</span> web3.contract <span class="keyword">import</span> ConciseContract</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line">web3 = Web3(HTTPProvider(<span class="string">'http://localhost:8545'</span>))</span><br><span class="line">print(web3.eth.blockNumber)</span><br><span class="line"></span><br><span class="line">tx=<span class="string">'0xb1ea3885a25efa295837c287560fe4c137c1bcd3718720330eb68d7f96a5479e'</span></span><br><span class="line">web3.eth.getTransaction(tx)</span><br><span class="line">web3.eth.getTransactionReceipt(tx)</span><br><span class="line"></span><br><span class="line">exit(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">web3.eth.defaultAccount = <span class="string">'0x00B113795f1aA12EE361adC6D281392802d0e025'</span></span><br><span class="line">EIP20_ABI_str = <span class="string">'[&#123;"constant":true,"inputs":[],"name":"mintingFinished","outputs":[&#123;"name":"","type":"bool"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":true,"inputs":[],"name":"name","outputs":[&#123;"name":"","type":"string"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":false,"inputs":[&#123;"name":"_spender","type":"address"&#125;,&#123;"name":"_value","type":"uint256"&#125;],"name":"approve","outputs":[],"payable":false,"type":"function"&#125;,&#123;"constant":true,"inputs":[],"name":"totalSupply","outputs":[&#123;"name":"","type":"uint256"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":false,"inputs":[&#123;"name":"_from","type":"address"&#125;,&#123;"name":"_to","type":"address"&#125;,&#123;"name":"_value","type":"uint256"&#125;],"name":"transferFrom","outputs":[],"payable":false,"type":"function"&#125;,&#123;"constant":true,"inputs":[],"name":"decimals","outputs":[&#123;"name":"","type":"uint256"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":false,"inputs":[],"name":"unpause","outputs":[&#123;"name":"","type":"bool"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":false,"inputs":[&#123;"name":"_to","type":"address"&#125;,&#123;"name":"_amount","type":"uint256"&#125;],"name":"mint","outputs":[&#123;"name":"","type":"bool"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":true,"inputs":[],"name":"paused","outputs":[&#123;"name":"","type":"bool"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":true,"inputs":[&#123;"name":"_owner","type":"address"&#125;],"name":"balanceOf","outputs":[&#123;"name":"balance","type":"uint256"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":false,"inputs":[],"name":"finishMinting","outputs":[&#123;"name":"","type":"bool"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":false,"inputs":[],"name":"pause","outputs":[&#123;"name":"","type":"bool"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":true,"inputs":[],"name":"owner","outputs":[&#123;"name":"","type":"address"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":true,"inputs":[],"name":"symbol","outputs":[&#123;"name":"","type":"string"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":false,"inputs":[&#123;"name":"_to","type":"address"&#125;,&#123;"name":"_value","type":"uint256"&#125;],"name":"transfer","outputs":[],"payable":false,"type":"function"&#125;,&#123;"constant":false,"inputs":[&#123;"name":"_to","type":"address"&#125;,&#123;"name":"_amount","type":"uint256"&#125;,&#123;"name":"_releaseTime","type":"uint256"&#125;],"name":"mintTimelocked","outputs":[&#123;"name":"","type":"address"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":true,"inputs":[&#123;"name":"_owner","type":"address"&#125;,&#123;"name":"_spender","type":"address"&#125;],"name":"allowance","outputs":[&#123;"name":"remaining","type":"uint256"&#125;],"payable":false,"type":"function"&#125;,&#123;"constant":false,"inputs":[&#123;"name":"newOwner","type":"address"&#125;],"name":"transferOwnership","outputs":[],"payable":false,"type":"function"&#125;,&#123;"anonymous":false,"inputs":[&#123;"indexed":true,"name":"to","type":"address"&#125;,&#123;"indexed":false,"name":"value","type":"uint256"&#125;],"name":"Mint","type":"event"&#125;,&#123;"anonymous":false,"inputs":[],"name":"MintFinished","type":"event"&#125;,&#123;"anonymous":false,"inputs":[],"name":"Pause","type":"event"&#125;,&#123;"anonymous":false,"inputs":[],"name":"Unpause","type":"event"&#125;,&#123;"anonymous":false,"inputs":[&#123;"indexed":true,"name":"owner","type":"address"&#125;,&#123;"indexed":true,"name":"spender","type":"address"&#125;,&#123;"indexed":false,"name":"value","type":"uint256"&#125;],"name":"Approval","type":"event"&#125;,&#123;"anonymous":false,"inputs":[&#123;"indexed":true,"name":"from","type":"address"&#125;,&#123;"indexed":true,"name":"to","type":"address"&#125;,&#123;"indexed":false,"name":"value","type":"uint256"&#125;],"name":"Transfer","type":"event"&#125;]'</span></span><br><span class="line">EIP20_ABI = json.loads(EIP20_ABI_str)</span><br><span class="line"></span><br><span class="line">token_contract_address = <span class="string">'0x86fa049857e0209aa7d9e616f7eb3b3b78ecfdb0'</span></span><br><span class="line"></span><br><span class="line">token = web3.eth.contract(</span><br><span class="line">token_contract_address,</span><br><span class="line">abi=EIP20_ABI,</span><br><span class="line">ContractFactoryClass=ConciseContract,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">totalSupply = token.totalSupply()</span><br><span class="line">balance = token.balanceOf(<span class="string">'0x00B113795f1aA12EE361adC6D281392802d0e025'</span>)</span><br><span class="line">tx = token.transfer(</span><br><span class="line"><span class="string">'0x00845daA689b1374ecAf4CfEcfBfc86D41ec7735'</span>,</span><br><span class="line">web3.toWei(<span class="number">2</span>,<span class="string">"ether"</span>),</span><br><span class="line">transact=&#123;<span class="string">'from'</span>:<span class="string">'0x00B113795f1aA12EE361adC6D281392802d0e025'</span>&#125;)</span><br><span class="line"></span><br><span class="line">tx = <span class="string">'0xb3b82923d8d9b5d28fbab7f7281704f033362ac9f293e6638227efb44ff85499'</span></span><br><span class="line">web3.eth.getTransaction(tx)</span><br><span class="line">web3.eth.getTransactionReceipt(tx)</span><br><span class="line"></span><br><span class="line">web3.eth.getTransactionCount(web3.eth.coinbase)</span><br><span class="line">web3.eth.getTransactionCount(<span class="string">'0x00B113795f1aA12EE361adC6D281392802d0e025'</span>)</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/js_date_range_picker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/js_date_range_picker/" class="post-title-link" itemprop="url">DateRangePicker 中文化以及老版本的一些初始化问题，不能选择秒的问题</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-12-01 23:54:14" itemprop="dateCreated datePublished" datetime="2017-12-01T23:54:14+08:00">2017-12-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-22 14:50:22" itemprop="dateModified" datetime="2019-04-22T14:50:22+08:00">2019-04-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-js/" itemprop="url" rel="index"><span itemprop="name">积累________js</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">3.9k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">4 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">$(&apos;#headlineAddForm #rangeTime&apos;).daterangepicker(&#123;  </span><br><span class="line">        showDropdowns : true,  </span><br><span class="line">        timePicker : true, //是否显示小时和分钟  </span><br><span class="line">        timePicker24Hour: true,  </span><br><span class="line">        timePickerIncrement : 1, //时间的增量，单位为分钟  </span><br><span class="line">        timePickerSeconds : true,  </span><br><span class="line">        linkedCalendars : false,  </span><br><span class="line">        locale : &#123;  </span><br><span class="line">            format: &quot;YYYY-MM-DD HH:mm:ss&quot;,  //控件中from和to 显示的日期格式  </span><br><span class="line">            separator : &quot; - &quot;,  </span><br><span class="line">            applyLabel : &quot;确定&quot;,  </span><br><span class="line">            cancelLabel : &quot;取消&quot;,  </span><br><span class="line">            fromLabel : &quot;开始&quot;,  </span><br><span class="line">            toLabel: &quot;结束&quot;,  </span><br><span class="line">            customRangeLabel : &quot;自定义&quot;,  </span><br><span class="line">            weekLabel : &quot;W&quot;,  </span><br><span class="line">            daysOfWeek : [&quot;日&quot;, &quot;一&quot;, &quot;二&quot;, &quot;三&quot;, &quot;四&quot;, &quot;五&quot;, &quot;六&quot;],  </span><br><span class="line">            monthNames : [&quot;一月&quot;, &quot;二月&quot;, &quot;三月&quot;, &quot;四月&quot;, &quot;五月&quot;, &quot;六月&quot;, &quot;七月&quot;, &quot;八月&quot;, &quot;九月&quot;, &quot;十月&quot;, &quot;十一月&quot;, &quot;十二月 &quot;],  </span><br><span class="line">            firstDay : 1  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;, function(start, end, label) &#123;  </span><br><span class="line">        $(&quot;#headlineAddForm #startTime&quot;).val(start.unix());  </span><br><span class="line">        $(&quot;#headlineAddForm #endTime&quot;).val(end.unix());  </span><br><span class="line">    &#125;).on(&apos;hide.daterangepicker&apos;, function() &#123;  </span><br><span class="line">        $(&apos;#headlineAddForm&apos;).data(&apos;bootstrapValidator&apos;).updateStatus(&apos;rangeTime&apos;, &apos;NOT_VALIDATED&apos;,null).validateField(&apos;rangeTime&apos;);  </span><br><span class="line">    &#125;).on(&apos;cancel.daterangepicker&apos;, function() &#123;  </span><br><span class="line">        $(&apos;#headlineAddForm #rangeTime&apos;).val(&quot;&quot;);  </span><br><span class="line">        $(&apos;#headlineAddForm&apos;).data(&apos;bootstrapValidator&apos;).updateStatus(&apos;rangeTime&apos;, &apos;NOT_VALIDATED&apos;,null).validateField(&apos;rangeTime&apos;);  </span><br><span class="line">    &#125;).on(&apos;apply.daterangepicker&apos;, function() &#123;  </span><br><span class="line">        if($.trim($(&quot;#headlineAddForm #startTime&quot;).val()).length == 0) &#123;  </span><br><span class="line">            $(&apos;#headlineAddForm #rangeTime&apos;).val(&quot;&quot;);  </span><br><span class="line">            $(&apos;#headlineAddForm&apos;).data(&apos;bootstrapValidator&apos;).updateStatus(&apos;rangeTime&apos;, &apos;NOT_VALIDATED&apos;,null).validateField(&apos;rangeTime&apos;);  </span><br><span class="line">        &#125;  </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">$(&apos;#headlineModifyForm #rangeTime&apos;).daterangepicker(&#123;  </span><br><span class="line">       showDropdowns : true,  </span><br><span class="line">       timePicker : true, //是否显示小时和分钟  </span><br><span class="line">       timePicker24Hour: true,  </span><br><span class="line">       timePickerIncrement : 1, //时间的增量，单位为分钟  </span><br><span class="line">       timePickerSeconds : true,  </span><br><span class="line">       linkedCalendars : false,  </span><br><span class="line">       locale : &#123;  </span><br><span class="line">           format: &quot;YYYY-MM-DD HH:mm:ss&quot;,  //控件中from和to 显示的日期格式  </span><br><span class="line">           separator : &quot; - &quot;,  </span><br><span class="line">           applyLabel : &quot;确定&quot;,  </span><br><span class="line">           cancelLabel : &quot;取消&quot;,  </span><br><span class="line">           fromLabel : &quot;开始&quot;,  </span><br><span class="line">           toLabel: &quot;结束&quot;,  </span><br><span class="line">           customRangeLabel : &quot;自定义&quot;,  </span><br><span class="line">           weekLabel : &quot;W&quot;,  </span><br><span class="line">           daysOfWeek : [&quot;日&quot;, &quot;一&quot;, &quot;二&quot;, &quot;三&quot;, &quot;四&quot;, &quot;五&quot;, &quot;六&quot;],  </span><br><span class="line">           monthNames : [&quot;一月&quot;, &quot;二月&quot;, &quot;三月&quot;, &quot;四月&quot;, &quot;五月&quot;, &quot;六月&quot;, &quot;七月&quot;, &quot;八月&quot;, &quot;九月&quot;, &quot;十月&quot;, &quot;十一月&quot;, &quot;十二月 &quot;],  </span><br><span class="line">           firstDay : 1  </span><br><span class="line">       &#125;  </span><br><span class="line">   &#125;, function(start, end, label) &#123;  </span><br><span class="line">       $(&quot;#headlineModifyForm #startTime&quot;).val(start.unix());  </span><br><span class="line">       $(&quot;#headlineModifyForm #endTime&quot;).val(end.unix());  </span><br><span class="line">   &#125;).on(&apos;hide.daterangepicker&apos;, function() &#123;  </span><br><span class="line">       $(&apos;#headlineModifyForm&apos;).data(&apos;bootstrapValidator&apos;).updateStatus(&apos;rangeTime&apos;, &apos;NOT_VALIDATED&apos;,null).validateField(&apos;rangeTime&apos;);  </span><br><span class="line">   &#125;);</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/mac_virtualenv/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/mac_virtualenv/" class="post-title-link" itemprop="url">详解Mac配置虚拟环境virtualenv和virtualenvwrapper</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-11-30 14:54:31" itemprop="dateCreated datePublished" datetime="2017-11-30T14:54:31+08:00">2017-11-30</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-22 11:23:28" itemprop="dateModified" datetime="2019-04-22T11:23:28+08:00">2019-04-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-mac/" itemprop="url" rel="index"><span itemprop="name">积累________mac</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">1k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>virtualenv用于创建独立的Python环境，多个Python相互独立，互不影响，它能够：</p>
+<ol>
+<li>在没有权限的情况下安装新套件</li>
+<li>不同应用可以使用不同的套件版本</li>
+<li>套件升级不影响其他应用。</li>
+</ol>
+<h2 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h2><p>1、shell下运行： <figure class="highlight plain"><figcaption><span>install python-virtualenv ``` </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2、使用方法 ``` virtualenv \[虚拟环境名称-也是目录名称\]``` </span><br><span class="line">3、启动环境 ``` cd ENV source ./bin/activate``` ENV为虚拟环境名称，接下来所有模块都只会安装到该目录中去。 默认情况下，虚拟环境会依赖系统环境中的site packages，如果不想依赖这些package，那么可以加上参数 --no-site-packages建立虚拟环境： </span><br><span class="line">``` virtualenv --no-site-packages \[虚拟环境名称\]``` </span><br><span class="line">4、退出 ``` deactivate``` 如果没有启动虚拟环境，系统也安装了pip工具，那么套件将被安装在系统环境中，为了避免发生此事，可以在~/.bashrc文件中加上： ``` export PIP\_REQUIRE\_VIRTUALENV=true ``` 或者让在执行pip的时候让系统自动开启虚拟环境： ``` export PIP\_RESPECT\_VIRTUALENV=true</span><br></pre></td></tr></table></figure></p>
+<h2 id="Virtualenvwrapper"><a href="#Virtualenvwrapper" class="headerlink" title="Virtualenvwrapper"></a>Virtualenvwrapper</h2><p>Virtaulenvwrapper是virtualenv的扩展包，用于更方便管理虚拟环境，它可以做：</p>
+<ol>
+<li>将所有虚拟环境整合在一个目录下</li>
+<li>管理（新增，删除，复制）虚拟环境</li>
+<li>快速切换虚拟环境</li>
+<li>…</li>
+</ol>
+<h3 id="安装方法-1"><a href="#安装方法-1" class="headerlink" title="安装方法"></a>安装方法</h3><p>1、运行 <figure class="highlight plain"><figcaption><span>install virtualenvwrapper ``` </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2、创建目录用来存放虚拟环境 ``` mkdir ~/.virtualenvs</span><br></pre></td></tr></table></figure></p>
+<p>3、在.bashrc中添加 <code>export WORKON_HOME=~/.virtualenvs source /usr/local/bin/virtualenvwrapper.sh</code><br>4、运行： <code>source ~/.bashrc</code> 此时virtualenvwrapper就可以使用了。</p>
+<h3 id="命令列表"><a href="#命令列表" class="headerlink" title="命令列表"></a>命令列表</h3><p>workon:列出虚拟环境列表</p>
+<p>lsvirtualenv:同上</p>
+<p>mkvirtualenv :新建虚拟环境</p>
+<p>workon [虚拟环境名称]:切换虚拟环境</p>
+<p>rmvirtualenv :删除虚拟环境</p>
+<p>deactivate: 离开虚拟环境</p>
+
           
         
       
@@ -1185,1339 +2425,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/automatic_investment_eos/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/automatic_investment_eos/" class="post-title-link" itemprop="url">定投eos脚本，看懂的自然懂</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-11-08 14:51:07" itemprop="dateCreated datePublished" datetime="2017-11-08T14:51:07+08:00">2017-11-08</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-18 15:50:41" itemprop="dateModified" datetime="2019-04-18T15:50:41+08:00">2019-04-18</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-区块链/" itemprop="url" rel="index"><span itemprop="name">积累________区块链</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">1.9k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">2 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> decimal</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime,timezone,timedelta</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            resp = requests.get(url=<span class="string">'http://eos.io/eos-sale-statistic.php'</span>,timeout=<span class="number">10</span>)</span><br><span class="line">            result = json.loads(resp.text)</span><br><span class="line"></span><br><span class="line">            period = <span class="number">13</span></span><br><span class="line">            today_sale = result[period]</span><br><span class="line">            today_ico_eth = round(today_sale[<span class="string">'dailyToday'</span>],<span class="number">2</span>)</span><br><span class="line">            today_ico_end_utc_str = today_sale[<span class="string">'ends'</span>]</span><br><span class="line">            today_ico_end_utc = datetime.strptime(today_ico_end_utc_str,<span class="string">"%Y-%m-%dT%H:%M:S.000Z"</span>)</span><br><span class="line">            tz_utc_8 = timezone(timedelta(hours=<span class="number">8</span>))</span><br><span class="line">            today_ico_end_bj = today_ico_end_utc.replace(tzinfo=tz_utc_8)</span><br><span class="line">            <span class="keyword">print</span> (today_ico_end_bj)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># t = parser.parse(today_ico_end)</span></span><br><span class="line">            <span class="comment"># print(t)</span></span><br><span class="line"></span><br><span class="line">            resq = requests.get(url=<span class="string">'https://yunbi.com//api/v2/tickers/ethcny,json'</span>,timeout=<span class="number">10</span>)</span><br><span class="line">            result=json.loads(resq.text)</span><br><span class="line">            eth_price = float(result[<span class="string">'ticker'</span>][<span class="string">'last'</span>])</span><br><span class="line"></span><br><span class="line">            all_num = <span class="number">2000000.0</span></span><br><span class="line">            eos_sale_price = round(eth_price * today_ico_eth / all_num,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">            eos_per_eth = round(all_num/today_ico_eth,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">            resq = requests.get(url=<span class="string">'https://yunbi.com//api/v2/tickers/eoscny,json'</span>, timeout=<span class="number">10</span>)</span><br><span class="line">            result = json.loads(resq.text)</span><br><span class="line"></span><br><span class="line">            eos_price = round(float(result[<span class="string">'ticker'</span>][<span class="string">'last'</span>]),<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">            now = datetime.now()</span><br><span class="line">            <span class="keyword">print</span> (now)</span><br><span class="line">            <span class="comment"># print("投入ETH:%s ETH兑EOS:%s EOS价格:%s EOS 云币价格:%s" % (today_ico_eth，eos_per_eth,eos_sale_price,eos_price))</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">print</span> (<span class="string">"hedgeL today_ico_eth,eos_per_eth,eos_sale_proce,eos_yunbi_price:"</span>,today_ico_eth,eos_per_eth,eos_sale_price,eos_price)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># print 'main running'</span></span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> identifier:</span><br><span class="line">            <span class="keyword">print</span> (identifier)</span><br><span class="line"></span><br><span class="line">            time.sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/shadowsock_three_command/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/shadowsock_three_command/" class="post-title-link" itemprop="url">三条命令搭建shadowsock服务器</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-11-06 18:39:30" itemprop="dateCreated datePublished" datetime="2017-11-06T18:39:30+08:00">2017-11-06</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-19 19:04:28" itemprop="dateModified" datetime="2019-04-19T19:04:28+08:00">2019-04-19</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-tool/" itemprop="url" rel="index"><span itemprop="name">积累________tool</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">1.2k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="shadowSocks客户端"><a href="#shadowSocks客户端" class="headerlink" title="shadowSocks客户端"></a>shadowSocks客户端</h2><p>vps 环境 ubuntu 14.10</p>
-<p>安装docker<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install docker.io</span><br></pre></td></tr></table></figure></p>
-<p>下载shadow sock 镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull oddrationale/docker-shadowsocks</span><br></pre></td></tr></table></figure></p>
-<p>运行镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 7777:1984 -v /etc/hosts:/etc/hosts oddrationale/docker-shadowsocks -s 0.0.0.0 -p 1984 -k superzhan -m aes-256-cfb</span><br></pre></td></tr></table></figure></p>
-<p>7777 是shadow sock 连接端口。<br>superzhan 是shadow sock 的连接密码<br>aes-256-cfb 连接协议</p>
-<h2 id="shadowSocks服务器端"><a href="#shadowSocks服务器端" class="headerlink" title="shadowSocks服务器端"></a>shadowSocks服务器端</h2><p>ShadowSocks有服务器端和客户端，有技术能力的，可以自行搭建服务器端，一般可通过购买海外VPS之后进行搭建，没有技术能力的，可以购买商业ShadowSocks帐号。</p>
-<p>有网友做了个服务器端一键安装ShadowSocks的脚本，使用root用户登录，运行以下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget –no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-libev.sh</span><br><span class="line"></span><br><span class="line">chmod +x shadowsocks-libev.sh</span><br><span class="line"></span><br><span class="line">./shadowsocks-libev.sh 2&gt;&amp;1 | tee shadowsocks-libev.log</span><br></pre></td></tr></table></figure></p>
-<p>安装完成后，得到的服务器端口：8989，客户端端口：1080，密码为自己设定的密码。</p>
-<p>卸载方法：使用 root 用户登录，运行以下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./shadowsocks-libev.sh uninstall</span><br></pre></td></tr></table></figure></p>
-<p>安装完成后即已后台启动 shadowsocks ，运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep ss-server | grep -v ps | grep -v grep</span><br></pre></td></tr></table></figure></p>
-<p>可以查看进程是否存在。此脚本安装完成后，会将 shadowsocks-libev 加入开机自启动。</p>
-<p>使用命令：<br>启动：<code>/etc/init.d/shadowsocks start</code></p>
-<p>停止：<code>/etc/init.d/shadowsocks stop</code></p>
-<p>重启：<code>/etc/init.d/shadowsocks restart</code></p>
-<p>查看状态：<code>/etc/init.d/shadowsocks status</code></p>
-<p>修改端口和加密方式：编辑修改配置文件 <code>/etc/shadowsocks-libev/config.json</code></p>
-<p>每隔1小时重启服务：<code>crontab -u root -e</code> 输入 <code>0 */1 * * * /etc/init.d/shadowsocks restart</code></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/python_pandas_use/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/python_pandas_use/" class="post-title-link" itemprop="url">Pandas常用函数</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-11-01 22:25:40" itemprop="dateCreated datePublished" datetime="2017-11-01T22:25:40+08:00">2017-11-01</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-22 10:22:47" itemprop="dateModified" datetime="2019-04-22T10:22:47+08:00">2019-04-22</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">7.5k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">7 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">import pandas as pd</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line">---------------numpy-----------------------</span><br><span class="line">arr = np.array([1,2,3], dtype=np.float64)</span><br><span class="line">np.zeros((3,6)) np.empty((2,3,2)) np.arange(15)</span><br><span class="line">arr.dtype arr.ndim arr.shape</span><br><span class="line">arr.astype(np.int32) #np.float64 np.string_ np.unicode_</span><br><span class="line">arr * arr arr - arr 1/arr</span><br><span class="line">arr= np.arange(32).reshape((8,4))</span><br><span class="line">arr[1:3, : ] #正常切片</span><br><span class="line">arr[[1,2,3]] #花式索引</span><br><span class="line">arr.T arr.transpose((...)) arr.swapaxes(...) #转置</span><br><span class="line">arr.dot #矩阵内积</span><br><span class="line">np.sqrt(arr) np.exp(arr) randn(8)＃正态分布值 np.maximum(x,y)</span><br><span class="line">np.where(cond, xarr, yarr) ＃当cond为真，取xarr,否则取yarr</span><br><span class="line">arr.mean() arr.mean(axis=1) #算术平均数</span><br><span class="line">arr.sum() arr.std() arr.var() #和、标准差、方差</span><br><span class="line">arr.min() arr.max() #最小值、最大值</span><br><span class="line">arr.argmin() arr.argmax() #最小索引、最大索引</span><br><span class="line">arr.cumsum() arr.cumprod() #所有元素的累计和、累计积</span><br><span class="line">arr.all() arr.any() # 检查数组中是否全为真、部分为真</span><br><span class="line">arr.sort() arr.sort(1) #排序、1轴向上排序</span><br><span class="line">arr.unique() #去重</span><br><span class="line">np.in1d(arr1, arr2) #arr1的值是否在arr2中</span><br><span class="line">np.load() np.loadtxt() np.save() np.savez() ＃读取、保存文件</span><br><span class="line">np.concatenate([arr, arr], axis=1) ＃连接两个arr，按行的方向</span><br><span class="line"></span><br><span class="line">---------------pandas-----------------------</span><br><span class="line">ser = Series() ser = Series([...], index=[...]) #一维数组, 字典可以直接转化为series</span><br><span class="line">ser.values ser.index ser.reindex([...], fill_value=0) #数组的值、数组的索引、重新定义索引</span><br><span class="line">ser.isnull() pd.isnull(ser) pd.notnull(ser) #检测缺失数据</span><br><span class="line">ser.name= ser.index.name= #ser本身的名字、ser索引的名字</span><br><span class="line">ser.drop(&apos;x&apos;) #丢弃索引x对应的值</span><br><span class="line">ser +ser #算术运算</span><br><span class="line">ser.sort_index() ser.order() ＃按索引排序、按值排序</span><br><span class="line">df = DataFrame(data, columns=[...], index=[...]) #表结构的数据结构，既有行索引又有列索引</span><br><span class="line">df.ix[&apos;x&apos;] #索引为x的值 对于series，直接使用ser[&apos;x&apos;]</span><br><span class="line">del df[&apos;ly&apos;] #用del删除第ly列</span><br><span class="line">df.T #转置</span><br><span class="line">df.index.name df.columns.name df.values</span><br><span class="line">df.drop([...])</span><br><span class="line">df + df df1.add(df2, fill_vaule=0) #算术运算</span><br><span class="line">df -ser #df与ser的算术运算</span><br><span class="line">f=lambda x: x.max()-x.min() df.apply(f)</span><br><span class="line">df.sort_index(axis=1, ascending=False) #按行索引排序</span><br><span class="line">df.sort_index(by=[&apos;a&apos;,&apos;b&apos;]) #按a、b列索引排序</span><br><span class="line">ser.rank() df.rank(axis=1) #排序，增设一个排名值</span><br><span class="line">df.sum() df.sum(axis=1) #按列、按行求和</span><br><span class="line">df.mean(axis=1, skipna=False) #求各行的平均值，考虑na的存在</span><br><span class="line">df.idxmax() #返回最大值的索引</span><br><span class="line">df.cumsum() #累计求和</span><br><span class="line">df.describe() ser.describe() #返回count mean std min max等值</span><br><span class="line">ser.unique() #去重</span><br><span class="line">ser.value_counts() df.value_counts() ＃返回一个series，其索引为唯一值，值为频率</span><br><span class="line">ser.isin([&apos;x&apos;, &apos;y&apos;]) #判断ser的值是否为x,y，得到布尔值</span><br><span class="line">ser.dropna() ser.isnull() ser.notnull() ser.fillna(0) #处理缺失数据，df相同</span><br><span class="line">df.unstack() #行列索引和值互换 df.unstack().stack()</span><br><span class="line">df.swaplevel(&apos;key1&apos;,&apos;key2&apos;) #接受两个级别编号或名称，并互换</span><br><span class="line">df.sortlevel(1) #根据级别1进行排序，df的行、列索引可以有两级</span><br><span class="line">df.set_index([&apos;c&apos;,&apos;d&apos;], drop=False) #将c、d两列转换为行,因drop为false，在列中仍保留c,d</span><br><span class="line">read_csv read_table read_fwf #读取文件分隔符为逗号、分隔符为制表符(&apos;\t&apos;)、无分隔符（固定列宽）</span><br><span class="line">pd.read_csv(&apos;...&apos;, nrows=5) #读取文件前5行</span><br><span class="line">pd.read_csv(&apos;...&apos;, chunksize=1000) #按块读取，避免过大的文件占用内存</span><br><span class="line">pd.load() #pd也有load方法，用来读取二进制文件</span><br><span class="line">pd.ExcelFile(&apos;...xls&apos;).parse(&apos;Sheet1&apos;) # 读取excel文件中的sheet1</span><br><span class="line">df.to_csv(&apos;...csv&apos;, sep=&apos;|&apos;, index=False, header=False) #将数据写入csv文件，以｜为分隔符，默认以，为分隔符, 禁用列、行的标签</span><br><span class="line">pd.merge(df1, df2, on=&apos;key&apos;, suffixes=(&apos;_left&apos;, &apos;_right&apos;)) #合并两个数据集,类似数据库的inner join, 以二者共有的key列作为键,suffixes将两个key分别命名为key_left、key_right</span><br><span class="line">pd.merge(df1, df2, left_on=&apos;lkey&apos;, right_on=&apos;rkey&apos;) #合并，类似数据库的inner join, 但二者没有同样的列名，分别指出，作为合并的参照</span><br><span class="line">pd.merge(df1, df2, how=&apos;outer&apos;) #合并，但是是outer join；how=&apos;left&apos;是笛卡尔积，how=&apos;inner&apos;是...;还可以对多个键进行合并</span><br><span class="line">df1.join(df2, on=&apos;key&apos;, how=&apos;outer&apos;) #也是合并</span><br><span class="line">pd.concat([ser1, ser2, ser3], axis=1) #连接三个序列，按行的方向</span><br><span class="line">ser1.combine_first(ser2) df1.combine_first(df2) #把2合并到1上，并对齐</span><br><span class="line">df.stack() df.unstack() #列旋转为行、行旋转为列</span><br><span class="line">df.pivot()</span><br><span class="line">df.duplicated() df.drop_duplicates() #判断是否为重复数据、删除重复数据</span><br><span class="line">df[&apos;&apos;].map(lambda x: abs(x)) #将函数映射到df的指定列</span><br><span class="line">ser.replace(-999, np.nan) #将－999全部替换为nan</span><br><span class="line">df.rename(index=&#123;&#125;, columns=&#123;&#125;, inplace=True) #修改索引，inplace为真表示就地修改数据集</span><br><span class="line">pd.cut(ser, bins) #根据面元bin判断ser的各个数据属于哪一个区段，有labels、levels属性</span><br><span class="line">df[(np.abs(df)&gt;3).any(1)] #输出含有“超过3或－3的值”的行</span><br><span class="line">permutation take #用来进行随机重排序</span><br><span class="line">pd.get_dummies(df[&apos;key&apos;], prefix=&apos;key&apos;) #给df的所有列索引加前缀key</span><br><span class="line">df[...].str.contains() df[...].str.findall(pattern, flags=re.IGNORECASE) df[...].str.match(pattern, flags=...) df[...].str.get() #矢量化的字符串函数</span><br><span class="line"></span><br><span class="line">----绘图</span><br><span class="line">ser.plot() df.plot() #pandas的绘图工具，有参数label, ax, style, alpha, kind, logy, use_index, rot, xticks, xlim, grid等，详见page257</span><br><span class="line">kind=&apos;kde&apos; #密度图</span><br><span class="line">kind=&apos;bar&apos; kind=&apos;barh&apos; #垂直柱状图、水平柱状图，stacked=True为堆积图</span><br><span class="line">ser.hist(bins=50) #直方图</span><br><span class="line">plt.scatter(x,y) #绘制x,y组成的散点图</span><br><span class="line">pd.scatter_matrix(df, diagonal=&apos;kde&apos;, color=&apos;k&apos;, alpha=&apos;0.3&apos;) #将df各列分别组合绘制散点图</span><br><span class="line"></span><br><span class="line">----聚合分组</span><br><span class="line">groupby() 默认在axis=0轴上分组，也可以在1组上分组；可以用for进行分组迭代</span><br><span class="line">df.groupby(df[&apos;key1&apos;]) #根据key1对df进行分组</span><br><span class="line">df[&apos;key2&apos;].groupby(df[&apos;key1&apos;]) #根据key1对key2列进行分组</span><br><span class="line">df[&apos;key3&apos;].groupby(df[&apos;key1&apos;], df[&apos;key2&apos;]) #先根据key1、再根据key2对key3列进行分组</span><br><span class="line">df[&apos;key2&apos;].groupby(df[&apos;key1&apos;]).size() #size()返回一个含有分组大小的series</span><br><span class="line">df.groupby(df[&apos;key1&apos;])[&apos;data1&apos;] 等价于 df[&apos;data1&apos;].groupby(df[&apos;key1&apos;])</span><br><span class="line">df.groupby(df[&apos;key1&apos;])[[&apos;data1&apos;]] 等价于 df[[&apos;data1&apos;]].groupby(df[&apos;key1&apos;])</span><br><span class="line">df.groupby(mapping, axis=1) ser(mapping) #定义mapping字典，根据字典的分组来进行分组</span><br><span class="line">df.groupby(len) #通过函数来进行分组，如根据len函数</span><br><span class="line">df.groupby(level=&apos;...&apos;, axis=1) #根据索引级别来分组</span><br><span class="line">df.groupby([], as_index=False) #禁用索引，返回无索引形式的数据</span><br><span class="line">df.groupby(...).agg([&apos;mean&apos;, &apos;std&apos;]) #一次使用多个聚合函数时，用agg方法</span><br><span class="line">df.groupby(...).transform(np.mean) #transform()可以将其内的函数用于各个分组</span><br><span class="line">df.groupby().apply() #apply方法会将待处理的对象拆分成多个片段，然后对各片段调用传入的函数，最后尝试将各片段组合到一起</span><br><span class="line"></span><br><span class="line">----透视交叉</span><br><span class="line">df.pivot_table([&apos;&apos;,&apos;&apos;], rows=[&apos;&apos;,&apos;&apos;], cols=&apos;&apos;, margins=True) #margins为真时会加一列all</span><br><span class="line">pd.crosstab(df.col1, df.col2, margins=True) #margins作用同上</span><br><span class="line"></span><br><span class="line">---------------matplotlib---------------</span><br><span class="line">fig=plt.figure() ＃图像所在的基对象</span><br><span class="line">ax=fig.add_subplot(2,2,1) #2*2的图像，当前选中第1个</span><br><span class="line">fig, axes = plt.subplots(nrows, nclos, sharex, sharey) #创建图像，指定行、列、共享x轴刻度、共享y轴刻度</span><br><span class="line">plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=None, hspace=None)</span><br><span class="line">#调整subplot之间的距离，wspace、hspace用来控制宽度、高度百分比</span><br><span class="line">ax.plot(x, y, linestyle=&apos;--&apos;, color=&apos;g&apos;) #依据x,y坐标画图，设置线型、颜色</span><br><span class="line">ax.set_xticks([...]) ax.set_xticklabels([...]) #设置x轴刻度</span><br><span class="line">ax.set_xlabel(&apos;...&apos;) #设置x轴名称</span><br><span class="line">ax.set_title(&apos;....&apos;) ＃设置图名</span><br><span class="line">ax.legend(loc=&apos;best&apos;) #设置图例， loc指定将图例放在合适的位置</span><br><span class="line">ax.text(x,y, &apos;hello&apos;, family=&apos;monospace&apos;, fontsize=10) #将注释hello放在x,y处，字体大小为10</span><br><span class="line">ax.add_patch() #在图中添加块</span><br><span class="line">plt.savefig(&apos;...png&apos;, dpi=400, bbox_inches=&apos;tight&apos;) #保存图片，dpi为分辨率，bbox＝tight表示将裁减空白部分</span><br><span class="line"></span><br><span class="line">------------------------------------------</span><br><span class="line">from mpl_toolkits.basemap import Basemap</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">#可以用来绘制地图</span><br><span class="line"></span><br><span class="line">-----------------时间序列--------------------------</span><br><span class="line">pd.to_datetime(datestrs) #将字符串型日期解析为日期格式</span><br><span class="line">pd.date_range(&apos;1/1/2000&apos;, periods=1000) #生成时间序列</span><br><span class="line">ts.resample(&apos;D&apos;, how=&apos;mean&apos;) #采样，将时间序列转换成以每天为固定频率的, 并计算均值；how=&apos;ohlc&apos;是股票四个指数；</span><br><span class="line">＃重采样会聚合，即将短频率（日）变成长频率（月），对应的值叠加；</span><br><span class="line">＃升采样会插值，即将长频率变为短频率，中间产生新值</span><br><span class="line">ts.shift(2, freq=&apos;D&apos;) ts.shift(-2, freq=&apos;D&apos;) #后移、前移2天</span><br><span class="line">now+Day() now+MonthEnd()</span><br><span class="line">import pytz pytz.timezone(&apos;US/Eastern&apos;) #时区操作，需要安装pytz</span><br><span class="line">pd.Period(&apos;2010&apos;, freq=&apos;A-DEC&apos;) ＃period表示时间区间，叫做时期</span><br><span class="line">pd.PeriodIndex #时期索引</span><br><span class="line">ts.to_period(&apos;M&apos;) #时间转换为时期</span><br><span class="line">pd.rolling_mean(...) pd.rolling_std(...) #移动窗口函数－平均值、标准差</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/python_pandas_data/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/python_pandas_data/" class="post-title-link" itemprop="url">Pandas数据清洗，排序，索引设置，数据选取</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-11-01 22:20:23" itemprop="dateCreated datePublished" datetime="2017-11-01T22:20:23+08:00">2017-11-01</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-22 10:22:47" itemprop="dateModified" datetime="2019-04-22T10:22:47+08:00">2019-04-22</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">5.3k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">5 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>此教程适合有pandas基础的童鞋来看，很多知识点会一笔带过，不做详细解释</p>
-</blockquote>
-<h3 id="Pandas数据格式Series"><a href="#Pandas数据格式Series" class="headerlink" title="Pandas数据格式Series"></a>Pandas数据格式Series</h3><h3 id="DataFrame和Series的关系"><a href="#DataFrame和Series的关系" class="headerlink" title="DataFrame和Series的关系"></a>DataFrame和Series的关系</h3><p>每个column就是一个Series基础属性<code>shape,index,columns,values，dtypes，describe(),head(),tail()</code></p>
-<h4 id="统计属性Series"><a href="#统计属性Series" class="headerlink" title="统计属性Series"></a>统计属性Series</h4><p><code>count(),value_counts()</code>，前者是统计总数，后者统计各自value的总数<br><code>df.isnull()</code> df的空值为True<br><code>df.notnull()</code> df的非空值为True</p>
-<h4 id="修改列名"><a href="#修改列名" class="headerlink" title="修改列名"></a>修改列名</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.rename(columns = &#123;&apos;key&apos;:&apos;key2&apos;&#125;,inplace=True)</span><br></pre></td></tr></table></figure>
-<h4 id="更改数据格式"><a href="#更改数据格式" class="headerlink" title="更改数据格式"></a>更改数据格式</h4><p><code>astype()</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">isin                 #计算一个“Series各值是否包含传入的值序列中”的布尔数组</span><br><span class="line">unique               #返回唯一值的数组</span><br><span class="line">value_counts         #返回一个Series，其索引为唯一值，值为频率，按计数降序排列</span><br></pre></td></tr></table></figure></p>
-<h3 id="数据清洗"><a href="#数据清洗" class="headerlink" title="数据清洗"></a>数据清洗</h3><h4 id="丢弃值drop"><a href="#丢弃值drop" class="headerlink" title="丢弃值drop()"></a>丢弃值<code>drop()</code></h4><p><code>df.drop(labels, axis=1)# 按列（axis=1），丢弃指定label的列,默认按行。。。1</code></p>
-<h4 id="丢弃缺失值dropna"><a href="#丢弃缺失值dropna" class="headerlink" title="丢弃缺失值dropna()"></a>丢弃缺失值<code>dropna()</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 默认axi=0（行）；1（列），how=‘any’</span><br><span class="line">df.dropna()#每行只要有空值，就将这行删除</span><br><span class="line">df.dropna(axis=1)#每列只要有空值，整列丢弃</span><br><span class="line">df.dropna(how=&apos;all&apos;)# 一行中全部为NaN的，才丢弃该行</span><br><span class="line">df.dropna(thresh=3)# 每行至少3个非空值才保留</span><br></pre></td></tr></table></figure>
-<h4 id="缺失值填充fillna"><a href="#缺失值填充fillna" class="headerlink" title="缺失值填充fillna()"></a>缺失值填充<code>fillna()</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">df.fillna(0)</span><br><span class="line">df.fillna(&#123;1:0,2:0.5&#125;) #对第一列nan值赋0，第二列赋值0.5</span><br><span class="line">df.fillna(method=&apos;ffill&apos;) #在列方向上以前一个值作为值赋给NaN</span><br></pre></td></tr></table></figure>
-<h4 id="值替换replace"><a href="#值替换replace" class="headerlink" title="值替换replace()"></a>值替换<code>replace()</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 将df的A列中 -999 全部替换成空值</span><br><span class="line">df[&apos;A&apos;].replace(-999, np.nan)</span><br><span class="line">#-999和1000 均替换成空值</span><br><span class="line">obj.replace([-999,1000],  np.nan)</span><br><span class="line"># -999替换成空值，1000替换成0</span><br><span class="line">obj.replace([-999,1000],  [np.nan, 0])</span><br><span class="line"># 同上，写法不同，更清晰</span><br><span class="line">obj.replace(&#123;-999:np.nan, 1000:0&#125;)</span><br></pre></td></tr></table></figure>
-<h4 id="重复值处理duplicated-，unique-，drop-duplictad"><a href="#重复值处理duplicated-，unique-，drop-duplictad" class="headerlink" title="重复值处理duplicated()，unique()，drop_duplictad()"></a>重复值处理duplicated()，unique()，drop_duplictad()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">df.duplicated()#两行每列完全一样才算重复，后面重复的为True，第一个和不重复的为false，返回true</span><br><span class="line">               #和false组成的Series类型</span><br><span class="line">df.duplicated(&apos;key&apos;)#两行key这一列一样就算重复</span><br><span class="line"></span><br><span class="line">df[&apos;A&apos;].unique()# 返回唯一值的数组（类型为array）</span><br><span class="line"></span><br><span class="line">df.drop_duplicates([&apos;k1&apos;])# 保留k1列中的唯一值的行，默认保留第一行</span><br><span class="line">df.drop_duplicates([&apos;k1&apos;,&apos;k2&apos;], take_last=True)# 保留 k1和k2 组合的唯一值的行，take_last=True 保留最后一行</span><br></pre></td></tr></table></figure>
-<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><h4 id="索引排序"><a href="#索引排序" class="headerlink" title="索引排序"></a>索引排序</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 默认axis=0，按行索引对行进行排序；ascending=True，升序排序</span><br><span class="line">df.sort_index()</span><br><span class="line"># 按列名对列进行排序，ascending=False 降序</span><br><span class="line">df.sort_index(axis=1, ascending=False)</span><br></pre></td></tr></table></figure>
-<h4 id="值排序"><a href="#值排序" class="headerlink" title="值排序"></a>值排序</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 按值对Series进行排序，使用order()，默认空值会置于尾部</span><br><span class="line">s = pd.Series([4, 6, np.nan, 2, np.nan])</span><br><span class="line">s.order()</span><br><span class="line"></span><br><span class="line">df.sort_values(by=[&apos;a&apos;,&apos;b&apos;])#按列进行排序</span><br></pre></td></tr></table></figure>
-<h3 id="排名"><a href="#排名" class="headerlink" title="排名"></a>排名</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a=Series([7,-5,7,4,2,0,4])</span><br><span class="line">a.rank()#默认method=&apos;average&apos;，升序排名（ascending=True），按行（axis=0）</span><br><span class="line">#average 值相等时，取排名的平均值</span><br><span class="line">#min 值相等时，取排名最小值</span><br><span class="line">#max 值相等时，取排名最大值</span><br><span class="line">#first值相等时，按原始数据出现顺序排名</span><br></pre></td></tr></table></figure>
-<h3 id="索引设置"><a href="#索引设置" class="headerlink" title="索引设置"></a>索引设置</h3><h4 id="设置索引"><a href="#设置索引" class="headerlink" title="设置索引"></a>设置索引</h4><p><code>reindex()</code><br>更新<code>index</code>或者<code>columns</code>，默认：更新index，返回一个新的DataFrame<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 返回一个新的DataFrame，更新index，原来的index会被替代消失</span><br><span class="line"># 如果dataframe中某个索引值不存在，会自动补上NaN</span><br><span class="line">df2 = df1.reindex([&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;,&apos;e&apos;])</span><br><span class="line"></span><br><span class="line"># fill_valuse为原先不存在的索引补上默认值，不在是NaN</span><br><span class="line">df2 = df1.reindex([&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;,&apos;e&apos;],  fill_value=0)</span><br><span class="line"></span><br><span class="line"># inplace=Ture，在DataFrame上修改数据，而不是返回一个新的DataFrame</span><br><span class="line">df1.reindex([&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;,&apos;e&apos;],  inplace=Ture)</span><br><span class="line"></span><br><span class="line"># reindex不仅可以修改 索引(行)，也可以修改列</span><br><span class="line">states = [&quot;Texas&quot;,&quot;Utah&quot;,&quot;California&quot;]</span><br><span class="line">df2 = df1.reindex( columns=states )</span><br><span class="line">set_index()</span><br></pre></td></tr></table></figure></p>
-<p>将DataFrame中的列columns设置成索引index</p>
-<h4 id="打造层次化索引的方法"><a href="#打造层次化索引的方法" class="headerlink" title="打造层次化索引的方法"></a>打造层次化索引的方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 将columns中的其中两列：race和sex的值设置索引，race为一级，sex为二级</span><br><span class="line"># inplace=True 在原数据集上修改的</span><br><span class="line">adult.set_index([&apos;race&apos;,&apos;sex&apos;], inplace = True) </span><br><span class="line"></span><br><span class="line"># 默认情况下，设置成索引的列会从DataFrame中移除</span><br><span class="line"># drop=False将其保留下来</span><br><span class="line">adult.set_index([&apos;race&apos;,&apos;sex&apos;], inplace = True) </span><br><span class="line">reset_index()</span><br></pre></td></tr></table></figure>
-<p>将使用<code>set_index()</code>打造的层次化逆向操作<br>既是取消层次化索引，将索引变回列，并补上最常规的数字索引<br><code>df.reset_index()</code></p>
-<h3 id="数据选取"><a href="#数据选取" class="headerlink" title="数据选取"></a>数据选取</h3><p>[]<br>只能对行进 行（row/index） 切片，前闭后开d<code>f[0:3]，df[:4]，df[4:]</code></p>
-<h3 id="where-布尔查找"><a href="#where-布尔查找" class="headerlink" title="where 布尔查找"></a>where 布尔查找</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[df[&quot;A&quot;]&gt;7]</span><br></pre></td></tr></table></figure>
-<p>isin<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 返回布尔值</span><br><span class="line">s.isin([1,2,3])</span><br><span class="line">df[&apos;A&apos;].isin([1,2,3])</span><br><span class="line">df.loc[df[&apos;A&apos;].isin([5.8,5.1])]选取列A中值为5.8，5.1的所有行组成dataframe</span><br></pre></td></tr></table></figure></p>
-<h3 id="query"><a href="#query" class="headerlink" title="query"></a>query</h3><p>多个where整合切片，&amp;：于，|：或</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.query(&quot; A&gt;5.0 &amp; (B&gt;3.5 | C&lt;1.0) &quot;)</span><br></pre></td></tr></table></figure>
-<h3 id="loc-：根据名称Label切片"><a href="#loc-：根据名称Label切片" class="headerlink" title="loc ：根据名称Label切片"></a>loc ：根据名称Label切片</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># df.loc[A,B] A是行范围，B是列范围</span><br><span class="line">df.loc[1:4,[&apos;petal_length&apos;,&apos;petal_width&apos;]]</span><br><span class="line"></span><br><span class="line"># 需求1：创建一个新的变量 test</span><br><span class="line"># 如果sepal_length &gt; 3 test = 1 否则 test = 0</span><br><span class="line">df.loc[df[&apos;sepal_length&apos;] &gt; 6, &apos;test&apos;] = 1</span><br><span class="line">df.loc[df[&apos;sepal_length&apos;] &lt;=6, &apos;test&apos;] = 0</span><br><span class="line"></span><br><span class="line"># 需求2：创建一个新变量test2 </span><br><span class="line"># 1.petal_length&gt;2 and petal_width&gt;0.3 = 1 </span><br><span class="line"># 2.sepeal_length&gt;6 and sepal_width&gt;3 = 2 3.其他 = 0</span><br><span class="line">df[&apos;test2&apos;] = 0</span><br><span class="line">df.loc[(df[&apos;petal_length&apos;]&gt;2)&amp;(df[&apos;petal_width&apos;]&gt;0.3), &apos;test2&apos;] = 1</span><br><span class="line">df.loc[(df[&apos;sepal_length&apos;]&gt;6)&amp;(df[&apos;sepal_width&apos;]&gt;3), &apos;test2&apos;] = 2</span><br><span class="line">iloc：切位置</span><br><span class="line">df.iloc[1:4,:]</span><br></pre></td></tr></table></figure>
-<h3 id="ix：混切"><a href="#ix：混切" class="headerlink" title="ix：混切"></a>ix：混切</h3><p>名称和位置混切，但效率低，少用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df1.ix[0:3,[&apos;sepal_length&apos;,&apos;petal_width&apos;]]</span><br></pre></td></tr></table></figure></p>
-<h3 id="map与lambda"><a href="#map与lambda" class="headerlink" title="map与lambda"></a>map与lambda</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">alist = [1,2,3,4]</span><br><span class="line">map(lambda s : s+1, alist)#map就是将自定义函数应用于Series每个元素</span><br><span class="line"></span><br><span class="line">df[&apos;sepal_length&apos;].map(lambda s:s*2+1)[0:3]</span><br></pre></td></tr></table></figure>
-<h3 id="apply和applymap"><a href="#apply和applymap" class="headerlink" title="apply和applymap"></a>apply和applymap</h3><p><code>apply</code>和<code>applymap</code>是对<code>dataframe</code>的操作，前者操作一行或者一列，后者操作每个元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">These are techniques to apply function to element, column or dataframe.</span><br><span class="line"></span><br><span class="line">Map: It iterates over each element of a series. </span><br><span class="line">df[‘column1’].map(lambda x: 10+x), this will add 10 to each element of column1.</span><br><span class="line">df[‘column2’].map(lambda x: ‘AV’+x), this will concatenate “AV“ at the beginning of each element of column2 (column format is string).</span><br><span class="line"></span><br><span class="line">Apply: As the name suggests, applies a function along any axis of the DataFrame.</span><br><span class="line">df[[‘column1’,’column2’]].apply(sum), it will returns the sum of all the values of column1 and column2.</span><br><span class="line">df0[[&apos;data1&apos;]].apply(lambda s:s+1)</span><br><span class="line"></span><br><span class="line">ApplyMap: 对dataframe的每一个元素施加一个函数</span><br><span class="line">func = lambda x: x+2</span><br><span class="line">df.applymap(func), dataframe每个元素加2 (所有列必须数字类型)</span><br><span class="line">contains</span><br><span class="line"># 使用DataFrame模糊筛选数据(类似SQL中的LIKE)</span><br><span class="line"># 使用正则表达式进行模糊匹配,*匹配0或无限次,?匹配0或1次</span><br><span class="line">df_obj[df_obj[&apos;套餐&apos;].str.contains(r&apos;.*?语音CDMA.*&apos;)] </span><br><span class="line"></span><br><span class="line"># 下面两句效果一致</span><br><span class="line">df[df[&apos;商品名称&apos;].str.contains(&quot;四件套&quot;)]</span><br><span class="line">df[df[&apos;商品名称&apos;].str.contains(r&quot;.*四件套.*&quot;)]</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/python_frame/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/python_frame/" class="post-title-link" itemprop="url">最常用Python开源框架有哪些？</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-08-18 16:59:21" itemprop="dateCreated datePublished" datetime="2017-08-18T16:59:21+08:00">2017-08-18</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-19 20:38:22" itemprop="dateModified" datetime="2019-04-19T20:38:22+08:00">2019-04-19</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">873</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>Python开源框架</strong>有很多，像Django、Flask、webpy等等，但哪些是最常用到的呢？</p>
-<h2 id="一、Python名气最大的框架：Django"><a href="#一、Python名气最大的框架：Django" class="headerlink" title="一、Python名气最大的框架：Django"></a>一、Python名气最大的框架：Django</h2><p>在学习到python基础和python进阶时，一般不会使用到框架。但初学Python时，你一定听到过Django，这两者就好像是一对好朋友。 </p>
-<p>Django它是个开放源代码的Web应用框架，由Python写成的Django应该是最出名的Python框架之一。</p>
-<p>GAE还有Erlang都和python密切相关。</p>
-<p>Django是给人的感觉是高大尚，它十分出色的是其全自动化的管理后台：只需要使用起ORM做简单的对象定义，就能自动生成数据库结构，以及全功能的管理后台。  </p>
-<h2 id="二、用Python编写的小巧轻量级的Web应用框架：Flask"><a href="#二、用Python编写的小巧轻量级的Web应用框架：Flask" class="headerlink" title="二、用Python编写的小巧轻量级的Web应用框架：Flask"></a>二、用Python编写的小巧轻量级的Web应用框架：Flask</h2><p>Flask也是一个Web应用框架，不同于Django它是轻量级Web应用框架。<br>基于Werkzeug WSGI工具箱和Jinja2 模板引擎。<br>Flask也被称为“microframework”，因为它使用简单的核心，用extension增加其他功能。<br>Flask没有默认使用的数据库、窗体验证工具。但是Flask是可以扩增的，你可以使用可以用<code>Flask-extension</code>增加前边没有的一些功能。  </p>
-<h2 id="三、实时Web服务的理想框架：Tornado异步非阻塞IO的Python-Web框架"><a href="#三、实时Web服务的理想框架：Tornado异步非阻塞IO的Python-Web框架" class="headerlink" title="三、实时Web服务的理想框架：Tornado异步非阻塞IO的Python Web框架"></a>三、实时Web服务的理想框架：Tornado异步非阻塞IO的Python Web框架</h2><p>Tornado它的全称是Torado Web Server，仅仅从它的名字上我们就可以知道它可以用作Web服务器，但同时它也是一个Python Web的开发框架。<br>Tornado 和现在的主流 Web 服务器框架和大多数Python框架有着明显的区别：它是非阻塞式服务器，而且速度相当快。也是比较常被使用的Python开源框架之一。<br>还有许多Python开源框架在被不同需求的人们使用，Python Web网站开发框架之TurboGears、Web2py全栈式Web框架、 Falcon高性能Python框架、 Buildbot持续集成测试框架、和Scrapy爬虫框架等等，在这里就不意义例举了。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/bitcoin_signature/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/bitcoin_signature/" class="post-title-link" itemprop="url">比特币多重签名机制使用篇</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-08-05 01:30:22" itemprop="dateCreated datePublished" datetime="2017-08-05T01:30:22+08:00">2017-08-05</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-18 18:20:22" itemprop="dateModified" datetime="2019-04-18T18:20:22+08:00">2019-04-18</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-区块链/" itemprop="url" rel="index"><span itemprop="name">积累________区块链</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">2.5k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">2 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a><strong>概述</strong></h2><p><span class="exturl" data-url="aHR0cDovL3d3dy53YW5iaXp1LmNvbS8=" title="http://www.wanbizu.com/">比特币<i class="fa fa-external-link"></i></span>的多重签名机制可以实现多方共同管理资产，也可以用于第三方交易担保。 多重签名最多支持三方共同管理一个地址的资产。按照比特币wiki上的表述方式，称之为：M of N模式。</p>
-<p>1 &lt;= N &lt;= 3<br>1 &lt;= M &lt;= N<br>N: 持有私钥的管理者数量<br>M: 解锁地址需要的私钥数量</p>
-<p>一般有 1 of 1, 1 of 2, 1 of 3, 2 of 3, 3 of 3几种模式。</p>
-<p>通常情况下，多应用于N = 3 的情形。</p>
-<ul>
-<li>1 of 3: 三个管理者中，任何一方都可以单独的处理该地址的资产。</li>
-<li>2 of 3: 三个管理者中，必须有两方共同签署才能处理该地址的资产。</li>
-<li>3 of 3: 三个管理者必须都签署才能处理该地址的资产。</li>
-</ul>
-<p>本文就以 2 of 3的情形来介绍一下使用多重签名的方法。</p>
-<h2 id="制作多重签名地址"><a href="#制作多重签名地址" class="headerlink" title="制作多重签名地址"></a><strong>制作多重签名地址</strong></h2><p>首先，制作多重签名地址用到比特币钱包的API. 熟悉命令行的读者可以直接在“命令提示符”窗口里运行<code>bitcoind</code>调用相应的命令。可能大部分读者对“命令提示符”并不熟悉，所以本文用“比特币核心”钱包的调试窗口来演示。 要制作多重签名地址，首先需要参与管理的三方提供各自的公钥。</p>
-<p>管理者1：</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003332314-1.png" alt></p>
-<p>管理者2：</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003335K8-2.png" alt></p>
-<p>管理者3：</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/00033334P-3.png" alt></p>
-<p>那么，这些公钥是如何获取的呢? 首先，打开“比特币核心”钱包。点击“帮助”-&gt;”调试窗口”,在弹出的“Debug window”窗口点击“控制台”。进入图1控制台的界面：</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/00033334A-4.jpg" alt></p>
-<p>在该界面下面的输入框里，输入：</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003331153-5.png" alt></p>
-<p>钱包会为我们生成一个新的地址。</p>
-<p>获取新地址</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003336213-7.jpg" alt></p>
-<p>这便是上面管理者1的地址。但制作多重签名，只有地址还不够，还需要对应的公钥。公钥可以通过地址来查询出来。使用命令</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/00033325K-9.png" alt></p>
-<p>得到如图三(图3获取公钥)的公钥界面：</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003333344-10.jpg" alt></p>
-<p>其中，“pubkey”后面的数据便是该地址的公钥。</p>
-<p>取得三个管理者的公钥之后，就可以用 createmultisig命令来生成多重签名地址。首先，看一下该命令的基本格式：</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/00033340B-13.png" alt></p>
-<p>我们要创建的是2 of 3的模式，所以命令里n=2。输入命令如下：</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003333W9-15.png" alt></p>
-<p>得到如图4(生成多重签名地址)的地址界面：</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003331601-16.jpg" alt></p>
-<p>上图中的3M8voDot82tBrQE7QWGy9WUWxp7gDU7owx，就是我们生成的多重签名地址。然后将这个地址增加到钱包里，只有这样，当收到比特币时，钱包才会有显示。用命令</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003332008-17.png" alt></p>
-<p>如果忘记了输入这条命令，钱包便无法显示这个地址上的金额。而且，在这条命令运行前汇款到地址上的币也不会显示出来。遇到这样的情况，需要重新从头开始同步区块链。 我们可以向该地址中汇两笔钱，用于测试。如图5(收款成功)</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003336461-18.jpg" alt></p>
-<h2 id="从多重签名地址付款"><a href="#从多重签名地址付款" class="headerlink" title="从多重签名地址付款"></a><strong>从多重签名地址付款</strong></h2><p>接下来，我们要演示从多重签名地址付款。我们设置的是2 of 3的模式，就是说，三个管理者中，持有任意两人的私钥便可付款。我们假设现在持有的是管理者1和管理者3的私钥。 管理者1</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003332C5-19.png" alt></p>
-<p>管理者3</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003336232-20.png" alt></p>
-<p>获取私钥的方法也很简单，只要使用如下命令即可：</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003333596-21.png" alt></p>
-<p>第一步：获取地址上的交易信息 使用listunspent,结果如图(图6地址上的交易信息)：</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/000333C54-22.jpg" alt></p>
-<p>我们一共向这个地址进行了两次汇款，因为要手动构建交易单，所以，就只能针对具体的每一笔交易进行设置。如果那笔交易上的钱比要花费的多，就要自己设置找零操作。我们用第一笔交易做示例。从0.01个比特币里，付款0.005到一个新地址 1KfqXpdhdtSqhACSeMvNoFSeXFGV5j8PkT,找零地址为：18eHb5P7N4ZAKURetN6pjF1jTGdD3HThrj 首先，我们需要记录第一笔交易的如下几个参数： 第二步：构建交易单：</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/00033324F-23.png" alt></p>
-<p>输出如下(图7构建交易单)：</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/000333G27-24.png" alt></p>
-<p>第三步：用第一个私钥对交易单签名</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/000333E52-25.jpg" alt></p>
-<p>命令的第一个参数，就是createrawtransaction的输出。第二个关于txid的参数，与上面的相同。最后一个参数，是私钥，我们用的是管理者1的私钥。</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003335G0-26.png" alt></p>
-<p>输出如图：</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003335P2-27.jpg" alt></p>
-<p>可以注意到complete字段是false，因为我们只用了一个私钥签名。然后，将输出的hex字段取出，用第二个私钥再次签名。 第四步：用第二个私钥签名：输入命令：</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003334313-28.png" alt></p>
-<p>输出如图(图8第二次签名)：</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003333a3-29.jpg" alt></p>
-<p>可以看到，第二次签名后，complete字段是true，说明签名成功。我们可以使用该地址的币了。 第五步：发送交易单 将上一步的输出hex部分，用sendrawtransaction命令发送到网络上：</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003335116-30.png" alt></p>
-<p>输入命令：</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/00033314T-31.jpg" alt></p>
-<p>查询交易ID cd2494071876f91e1f9505f5c5421088c7df2e6f939c17f742d3638bc7df789a即可看到这笔钱的花费情况。</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/000333IA-32.jpg" alt></p>
-<h2 id="使用脚本"><a href="#使用脚本" class="headerlink" title="使用脚本"></a><strong>使用脚本</strong></h2><p>如果您读到了这里，首先感谢您的耐心。上面的命令确实让人抓狂。再加上windows下各种符号的兼容问题，笔者测试时几乎吐血了。幸运的是在开源社区，已经有了很多方便的脚本工具。这里，笔者修改了一个开源代码，可以方便大家进行多重签名地址的创建和消费。代码地址在：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2pvaG5zb25kaWFvL2JsYWNrYm9hcmQxMDE=" title="https://github.com/johnsondiao/blackboard101">https://github.com/johnsondiao/blackboard101<i class="fa fa-external-link"></i></span>  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2pvaG5zb25kaWFvL3B5dGhvbi1iaXRjb2lucnBj" title="https://github.com/johnsondiao/python-bitcoinrpc">https://github.com/johnsondiao/python-bitcoinrpc<i class="fa fa-external-link"></i></span> 脚本是用python写的。首先需要安装python2.7.6。安装方法这里不再赘述。python-bitcoinrpc是一个bitcoin的库文件，需要对其中的setup.py文件运行</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003333595-33.png" alt></p>
-<p>命令将库安装到python里。 然后，在比特币钱包的路径(wallet.dat所在的目录)里添加bitcoin.conf文件。 文件内容如下：</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003333229-34.png" alt></p>
-<p><code>wbn\_multisigs\_pt1\_create-address.py</code>脚本用来生成多重签名地址。<br><code>wbn\_multisigs\_pt2\_spend-funds.py</code>脚本用来发送多重签名地址的币。<br>具体的使用方法，就不再说明了，可以用python的IDLE来运行调试。构建多重签名地址的运行截图如下：</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003335016-35.jpg" alt></p>
-<p>花费多重签名地址的程序运行如下：</p>
-<p><img src="http://www.wanbizu.com/uploads/allimg/140819/0003332J3-37.jpg" alt></p>
-<p>原地址 ：<span class="exturl" data-url="aHR0cDovL3d3dy53YW5iaXp1LmNvbS9iYWlrZS8yMDE0MDgxOTE3MTAuaHRtbA==" title="http://www.wanbizu.com/baike/201408191710.html">http://www.wanbizu.com/baike/201408191710.html<i class="fa fa-external-link"></i></span></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2559,7 +2471,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">100</span>
+                    <span class="site-state-item-count">184</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2592,7 +2504,17 @@
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -2689,7 +2611,45 @@
                     
                       
                     
-                    <span class="site-state-item-count">40</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">59</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -2814,7 +2774,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">319k</span>
+    <span title="站点总字数">525k</span>
   
 
   
@@ -2825,7 +2785,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">4:50</span>
+    <span title="站点阅读时长">7:58</span>
   
 </div>
 

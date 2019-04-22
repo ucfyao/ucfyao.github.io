@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN,en,default">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+      
+    
+    
+      
+    
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: true,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="经过一个晚上的时间，终于DIY出我梦寐以求的效果。  先放上最终DIY效果图：  下面，我将分步骤讲解我是怎么一步一步完成DIY过程 首先下载 iTerm 2打开iTerm 2输入下面指令安装oh-my-zshcurl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh 接下来安装Powerli">
+<meta name="keywords" content="mac,tool,item">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iTerm 2 &amp;&amp; Oh My Zsh【DIY教程——亲身体验过程】">
+<meta property="og:url" content="https://yaozihao.com/mac_item2_zsh/index.html">
+<meta property="og:site_name" content="zihao&#39;blog">
+<meta property="og:description" content="经过一个晚上的时间，终于DIY出我梦寐以求的效果。  先放上最终DIY效果图：  下面，我将分步骤讲解我是怎么一步一步完成DIY过程 首先下载 iTerm 2打开iTerm 2输入下面指令安装oh-my-zshcurl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh 接下来安装Powerli">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/ucfyao/image/img/img/20190422112851.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ucfyao/image/img/img/20190422112932.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ucfyao/image/img/img/20190422113043.png">
+<meta property="og:updated_time" content="2019-04-22T03:32:24.032Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iTerm 2 &amp;&amp; Oh My Zsh【DIY教程——亲身体验过程】">
+<meta name="twitter:description" content="经过一个晚上的时间，终于DIY出我梦寐以求的效果。  先放上最终DIY效果图：  下面，我将分步骤讲解我是怎么一步一步完成DIY过程 首先下载 iTerm 2打开iTerm 2输入下面指令安装oh-my-zshcurl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh 接下来安装Powerli">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ucfyao/image/img/img/20190422112851.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="zihao'blog" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="https://yaozihao.com/mac_item2_zsh/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>iTerm 2 && Oh My Zsh【DIY教程——亲身体验过程】 | zihao'blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zihao'blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">Make small but daily progress</h1>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL3VjZnlhbw==" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></span>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/mac_item2_zsh/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">iTerm 2 && Oh My Zsh【DIY教程——亲身体验过程】
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-02-18 22:17:44" itemprop="dateCreated datePublished" datetime="2016-02-18T22:17:44+08:00">2016-02-18</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-22 11:32:24" itemprop="dateModified" datetime="2019-04-22T11:32:24+08:00">2019-04-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-mac/" itemprop="url" rel="index"><span itemprop="name">积累________mac</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">1.8k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">2 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>经过一个晚上的时间，终于DIY出我梦寐以求的效果。 </p>
+<p><strong>先放上最终DIY效果图：</strong></p>
+<p><img src="https://raw.githubusercontent.com/ucfyao/image/img/img/20190422112851.png" alt="DIY效果图"></p>
+<p>下面，我将分步骤讲解我是怎么一步一步完成DIY过程</p>
+<h3 id="首先下载-iTerm-2"><a href="#首先下载-iTerm-2" class="headerlink" title="首先下载 iTerm 2"></a>首先下载 <span class="exturl" data-url="aHR0cDovL3d3dy5pdGVybTIuY29tLw==" title="http://www.iterm2.com/">iTerm 2<i class="fa fa-external-link"></i></span></h3><h3 id="打开iTerm-2"><a href="#打开iTerm-2" class="headerlink" title="打开iTerm 2"></a>打开iTerm 2</h3><h3 id="输入下面指令安装oh-my-zsh"><a href="#输入下面指令安装oh-my-zsh" class="headerlink" title="输入下面指令安装oh-my-zsh"></a>输入下面指令安装<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JvYmJ5cnVzc2VsbC9vaC1teS16c2g=" title="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh<i class="fa fa-external-link"></i></span></h3><p><code>curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh</code></p>
+<h3 id="接下来安装Powerline"><a href="#接下来安装Powerline" class="headerlink" title="接下来安装Powerline"></a>接下来安装<span class="exturl" data-url="aHR0cDovL3Bvd2VybGluZS5yZWFkdGhlZG9jcy5vcmcvZW4vbGF0ZXN0L2luc3RhbGxhdGlvbi5odG1s" title="http://powerline.readthedocs.org/en/latest/installation.html">Powerline<i class="fa fa-external-link"></i></span></h3><p>在官网有教程，我们只需要执行官网第一条安装指令就行 如果你的终端能够正常执行pip指令，那么直接执行下面的指令可以完成安装 <code>pip install powerline-status</code> 如果没有，则先执行安装pip指令 <code>sudo easy_install pip</code></p>
+<h3 id="下载、安装库字体库"><a href="#下载、安装库字体库" class="headerlink" title="下载、安装库字体库"></a>下载、安装库<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3Bvd2VybGluZS9mb250cw==" title="https://github.com/powerline/fonts">字体库<i class="fa fa-external-link"></i></span></h3><p>1）将工程下载下来后cd到<code>install.sh</code>文件所在目录<br>2）执行指令安装字体库 执行<code>./install.sh</code>指令安装所有Powerline字体 安装完成后提示所有字体均已下载到<code>/Users/superdanny/Library/Fonts</code>路径下 </p>
+<p><code>All Powerline fonts installed to /Users/superdanny/Library/Fonts</code></p>
+<h3 id="设置iTerm-2的Regular-Font-和-Non-ASCII-Font"><a href="#设置iTerm-2的Regular-Font-和-Non-ASCII-Font" class="headerlink" title="设置iTerm 2的Regular Font 和 Non-ASCII Font"></a>设置iTerm 2的Regular Font 和 Non-ASCII Font</h3><p>安装完字体库之后，把iTerm 2的设置里的<code>Profile</code>中的<code>Text</code> 选项卡中里的<code>Regular Font</code>和<code>Non-ASCII Font</code>的字体都设置成 Powerline的字体，我这里设置的字体是<code>12pt Meslo LG S DZ Regular for Powerline</code></p>
+<p><img src="https://raw.githubusercontent.com/ucfyao/image/img/img/20190422112932.png" alt></p>
+<h3 id="配色方案"><a href="#配色方案" class="headerlink" title="配色方案"></a>配色方案</h3><p>1）安装<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FsdGVyY2F0aW9uL3NvbGFyaXplZA==" title="https://github.com/altercation/solarized">配色方案<i class="fa fa-external-link"></i></span> 进入刚刚下载的工程的<code>solarized/iterm2-colors-solarized</code> 下双击 <code>Solarized Dark.itermcolors</code> 和 <code>Solarized Light.itermcolors</code> 两个文件就可以把配置文件导入到 iTerm2 里<br>2）配置配色方案 通过load presets选择刚刚安装的配色主题即可</p>
+<p><img src="https://raw.githubusercontent.com/ucfyao/image/img/img/20190422113043.png" alt></p>
+<h3 id="使用agnoster主题"><a href="#使用agnoster主题" class="headerlink" title="使用agnoster主题"></a>使用agnoster主题</h3><p>1）下载<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZjYW1ibG9yL29oLW15LXpzaC1hZ25vc3Rlci1mY2FtYmxvcg==" title="https://github.com/fcamblor/oh-my-zsh-agnoster-fcamblor">agnoster<i class="fa fa-external-link"></i></span>主题 到下载的工程里面运行install文件,主题将安装到<code>~/.oh-my-zsh/themes</code>目录下<br>2）设置该主题 进入<code>~/.zshrc</code>打开<code>.zshrc</code>文件，然后将<code>ZSH_THEME</code>后面的字段改为<code>agnoster</code>。<code>ZSH_THEME=&quot;agnoster&quot;</code>（agnoster即为要设置的主题）</p>
+<h3 id="增加指令高亮效果——zsh-syntax-highlighting"><a href="#增加指令高亮效果——zsh-syntax-highlighting" class="headerlink" title="增加指令高亮效果——zsh-syntax-highlighting"></a>增加指令高亮效果——<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3pzaC11c2Vycy96c2gtc3ludGF4LWhpZ2hsaWdodGluZw==" title="https://github.com/zsh-users/zsh-syntax-highlighting">zsh-syntax-highlighting<i class="fa fa-external-link"></i></span></h3><p>指令高亮效果作用是当用户输入正确命令时指令会绿色高亮，错误时命令红色高亮 </p>
+<p>1）cd到<code>.zshrc</code>所在目录<br>2）执行指令将工程克隆到当前目录 <code>git clone git://github.com/zsh-users/zsh-syntax-highlighting.git</code><br>3）打开<code>.zshrc</code>文件，在最后添加下面内容 <code>source XXX/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh</code> 保存文件。 注意：<code>xxx</code>代表<code>.zshrc</code>所在目录<br>4）<code>cd ~/.oh-my-zsh/custom/plugins</code> 5）再次打开<code>.zshrc</code>文件，在最后面添加下面内容 <code>plugins=(zsh-syntax-highlighting)</code> 保存文件。</p>
+<h3 id="问题解答区"><a href="#问题解答区" class="headerlink" title="问题解答区"></a>问题解答区</h3><p>1.启动iTerm 2 默认使用dash改用zsh解决方法： <code>chsh -s /bin/zsh</code><br>2.执行指令<code>pip install powerline-status</code>出错解决方法： 需要下载苹果官方的<span class="exturl" data-url="aHR0cHM6Ly9kZXZlbG9wZXIuYXBwbGUuY29tL2Rvd25sb2Fkcy9pbmRleC5hY3Rpb24/bmFtZT1mb3IlMjBYY29kZSUyMA==" title="https://developer.apple.com/downloads/index.action?name=for%20Xcode%20">Command line<i class="fa fa-external-link"></i></span>。必須官方工具下载最新版 Command Line<br>3.?+Q关闭iTerm 2 时每次弹窗提示问题： iTerm 2 中，进入<code>Preference</code>-<code>General</code>-<code>Closing栏目</code>，将<code>Confirm &quot;Quit iTerm2(?Q)&quot; command</code>选项勾选去掉就行<br>4.找不到.zshrc文件问题： 我这里将我的.zshrc文件分享出来。供大家下载<span class="exturl" data-url="aHR0cDovL3Bhbi5iYWlkdS5jb20vcy8xc2sxTHFDdA==" title="http://pan.baidu.com/s/1sk1LqCt">网盘<i class="fa fa-external-link"></i></span></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="Jack Yao 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/bitcoinpay.png" alt="Jack Yao 比特币">
+        <p>比特币</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mac/" rel="tag"># mac</a>
+          
+            <a href="/tags/tool/" rel="tag"># tool</a>
+          
+            <a href="/tags/item/" rel="tag"># item</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/mac_zsh_agnoster/" rel="next" title="Mac zsh agnoster 主题设置问题">
+                <i class="fa fa-chevron-left"></i> Mac zsh agnoster 主题设置问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/solr_query/" rel="prev" title="Solr的一些查询参数">
+                Solr的一些查询参数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jack Yao</p>
+              <div class="site-description motion-element" itemprop="description">由渐入深，记录程序人生。全栈工程师与你共勉。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">184</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">59</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3VjZnlhbw==" title="GitHub &rarr; https://github.com/ucfyao"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOnlhb3ppaGFvQHlhb3ppaGFvLmNu" title="E-Mail &rarr; mailto:yaozihao@yaozihao.cn"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly93d3cuamlhbnNodS5jb20vdS8zYWI3MGExOTliNzA=" title="简书 &rarr; https://www.jianshu.com/u/3ab70a199b70"><i class="fa fa-fw fa-heartbeat"></i>简书</span>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <span class="exturl" data-url="aHR0cHM6Ly93d3cuYmFpZHUuY29tLw==" title="https://www.baidu.com/">baidu</span>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <span class="exturl" data-url="aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8=" title="https://www.google.com/">google</span>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#首先下载-iTerm-2"><span class="nav-number">1.</span> <span class="nav-text">首先下载 iTerm 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打开iTerm-2"><span class="nav-number">2.</span> <span class="nav-text">打开iTerm 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输入下面指令安装oh-my-zsh"><span class="nav-number">3.</span> <span class="nav-text">输入下面指令安装oh-my-zsh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接下来安装Powerline"><span class="nav-number">4.</span> <span class="nav-text">接下来安装Powerline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载、安装库字体库"><span class="nav-number">5.</span> <span class="nav-text">下载、安装库字体库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置iTerm-2的Regular-Font-和-Non-ASCII-Font"><span class="nav-number">6.</span> <span class="nav-text">设置iTerm 2的Regular Font 和 Non-ASCII Font</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配色方案"><span class="nav-number">7.</span> <span class="nav-text">配色方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用agnoster主题"><span class="nav-number">8.</span> <span class="nav-text">使用agnoster主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增加指令高亮效果——zsh-syntax-highlighting"><span class="nav-number">9.</span> <span class="nav-text">增加指令高亮效果——zsh-syntax-highlighting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题解答区"><span class="nav-number">10.</span> <span class="nav-text">问题解答区</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2014 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jack Yao</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">525k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">7:58</span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+    
+
+    
+      <div>
+        <div class="addthis_inline_share_toolbox">
+  <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cb68f059ff1e21f" async="async"></script>
+</div>
+
+      </div>
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js"></script>
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+  <script src="/js/exturl.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
