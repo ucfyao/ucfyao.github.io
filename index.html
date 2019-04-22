@@ -1617,6 +1617,434 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/python_pandas_use/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/python_pandas_use/" class="post-title-link" itemprop="url">Pandas常用函数</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-11-01 22:25:40" itemprop="dateCreated datePublished" datetime="2017-11-01T22:25:40+08:00">2017-11-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-22 10:22:47" itemprop="dateModified" datetime="2019-04-22T10:22:47+08:00">2019-04-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">7.5k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">7 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">import pandas as pd</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line">---------------numpy-----------------------</span><br><span class="line">arr = np.array([1,2,3], dtype=np.float64)</span><br><span class="line">np.zeros((3,6)) np.empty((2,3,2)) np.arange(15)</span><br><span class="line">arr.dtype arr.ndim arr.shape</span><br><span class="line">arr.astype(np.int32) #np.float64 np.string_ np.unicode_</span><br><span class="line">arr * arr arr - arr 1/arr</span><br><span class="line">arr= np.arange(32).reshape((8,4))</span><br><span class="line">arr[1:3, : ] #正常切片</span><br><span class="line">arr[[1,2,3]] #花式索引</span><br><span class="line">arr.T arr.transpose((...)) arr.swapaxes(...) #转置</span><br><span class="line">arr.dot #矩阵内积</span><br><span class="line">np.sqrt(arr) np.exp(arr) randn(8)＃正态分布值 np.maximum(x,y)</span><br><span class="line">np.where(cond, xarr, yarr) ＃当cond为真，取xarr,否则取yarr</span><br><span class="line">arr.mean() arr.mean(axis=1) #算术平均数</span><br><span class="line">arr.sum() arr.std() arr.var() #和、标准差、方差</span><br><span class="line">arr.min() arr.max() #最小值、最大值</span><br><span class="line">arr.argmin() arr.argmax() #最小索引、最大索引</span><br><span class="line">arr.cumsum() arr.cumprod() #所有元素的累计和、累计积</span><br><span class="line">arr.all() arr.any() # 检查数组中是否全为真、部分为真</span><br><span class="line">arr.sort() arr.sort(1) #排序、1轴向上排序</span><br><span class="line">arr.unique() #去重</span><br><span class="line">np.in1d(arr1, arr2) #arr1的值是否在arr2中</span><br><span class="line">np.load() np.loadtxt() np.save() np.savez() ＃读取、保存文件</span><br><span class="line">np.concatenate([arr, arr], axis=1) ＃连接两个arr，按行的方向</span><br><span class="line"></span><br><span class="line">---------------pandas-----------------------</span><br><span class="line">ser = Series() ser = Series([...], index=[...]) #一维数组, 字典可以直接转化为series</span><br><span class="line">ser.values ser.index ser.reindex([...], fill_value=0) #数组的值、数组的索引、重新定义索引</span><br><span class="line">ser.isnull() pd.isnull(ser) pd.notnull(ser) #检测缺失数据</span><br><span class="line">ser.name= ser.index.name= #ser本身的名字、ser索引的名字</span><br><span class="line">ser.drop(&apos;x&apos;) #丢弃索引x对应的值</span><br><span class="line">ser +ser #算术运算</span><br><span class="line">ser.sort_index() ser.order() ＃按索引排序、按值排序</span><br><span class="line">df = DataFrame(data, columns=[...], index=[...]) #表结构的数据结构，既有行索引又有列索引</span><br><span class="line">df.ix[&apos;x&apos;] #索引为x的值 对于series，直接使用ser[&apos;x&apos;]</span><br><span class="line">del df[&apos;ly&apos;] #用del删除第ly列</span><br><span class="line">df.T #转置</span><br><span class="line">df.index.name df.columns.name df.values</span><br><span class="line">df.drop([...])</span><br><span class="line">df + df df1.add(df2, fill_vaule=0) #算术运算</span><br><span class="line">df -ser #df与ser的算术运算</span><br><span class="line">f=lambda x: x.max()-x.min() df.apply(f)</span><br><span class="line">df.sort_index(axis=1, ascending=False) #按行索引排序</span><br><span class="line">df.sort_index(by=[&apos;a&apos;,&apos;b&apos;]) #按a、b列索引排序</span><br><span class="line">ser.rank() df.rank(axis=1) #排序，增设一个排名值</span><br><span class="line">df.sum() df.sum(axis=1) #按列、按行求和</span><br><span class="line">df.mean(axis=1, skipna=False) #求各行的平均值，考虑na的存在</span><br><span class="line">df.idxmax() #返回最大值的索引</span><br><span class="line">df.cumsum() #累计求和</span><br><span class="line">df.describe() ser.describe() #返回count mean std min max等值</span><br><span class="line">ser.unique() #去重</span><br><span class="line">ser.value_counts() df.value_counts() ＃返回一个series，其索引为唯一值，值为频率</span><br><span class="line">ser.isin([&apos;x&apos;, &apos;y&apos;]) #判断ser的值是否为x,y，得到布尔值</span><br><span class="line">ser.dropna() ser.isnull() ser.notnull() ser.fillna(0) #处理缺失数据，df相同</span><br><span class="line">df.unstack() #行列索引和值互换 df.unstack().stack()</span><br><span class="line">df.swaplevel(&apos;key1&apos;,&apos;key2&apos;) #接受两个级别编号或名称，并互换</span><br><span class="line">df.sortlevel(1) #根据级别1进行排序，df的行、列索引可以有两级</span><br><span class="line">df.set_index([&apos;c&apos;,&apos;d&apos;], drop=False) #将c、d两列转换为行,因drop为false，在列中仍保留c,d</span><br><span class="line">read_csv read_table read_fwf #读取文件分隔符为逗号、分隔符为制表符(&apos;\t&apos;)、无分隔符（固定列宽）</span><br><span class="line">pd.read_csv(&apos;...&apos;, nrows=5) #读取文件前5行</span><br><span class="line">pd.read_csv(&apos;...&apos;, chunksize=1000) #按块读取，避免过大的文件占用内存</span><br><span class="line">pd.load() #pd也有load方法，用来读取二进制文件</span><br><span class="line">pd.ExcelFile(&apos;...xls&apos;).parse(&apos;Sheet1&apos;) # 读取excel文件中的sheet1</span><br><span class="line">df.to_csv(&apos;...csv&apos;, sep=&apos;|&apos;, index=False, header=False) #将数据写入csv文件，以｜为分隔符，默认以，为分隔符, 禁用列、行的标签</span><br><span class="line">pd.merge(df1, df2, on=&apos;key&apos;, suffixes=(&apos;_left&apos;, &apos;_right&apos;)) #合并两个数据集,类似数据库的inner join, 以二者共有的key列作为键,suffixes将两个key分别命名为key_left、key_right</span><br><span class="line">pd.merge(df1, df2, left_on=&apos;lkey&apos;, right_on=&apos;rkey&apos;) #合并，类似数据库的inner join, 但二者没有同样的列名，分别指出，作为合并的参照</span><br><span class="line">pd.merge(df1, df2, how=&apos;outer&apos;) #合并，但是是outer join；how=&apos;left&apos;是笛卡尔积，how=&apos;inner&apos;是...;还可以对多个键进行合并</span><br><span class="line">df1.join(df2, on=&apos;key&apos;, how=&apos;outer&apos;) #也是合并</span><br><span class="line">pd.concat([ser1, ser2, ser3], axis=1) #连接三个序列，按行的方向</span><br><span class="line">ser1.combine_first(ser2) df1.combine_first(df2) #把2合并到1上，并对齐</span><br><span class="line">df.stack() df.unstack() #列旋转为行、行旋转为列</span><br><span class="line">df.pivot()</span><br><span class="line">df.duplicated() df.drop_duplicates() #判断是否为重复数据、删除重复数据</span><br><span class="line">df[&apos;&apos;].map(lambda x: abs(x)) #将函数映射到df的指定列</span><br><span class="line">ser.replace(-999, np.nan) #将－999全部替换为nan</span><br><span class="line">df.rename(index=&#123;&#125;, columns=&#123;&#125;, inplace=True) #修改索引，inplace为真表示就地修改数据集</span><br><span class="line">pd.cut(ser, bins) #根据面元bin判断ser的各个数据属于哪一个区段，有labels、levels属性</span><br><span class="line">df[(np.abs(df)&gt;3).any(1)] #输出含有“超过3或－3的值”的行</span><br><span class="line">permutation take #用来进行随机重排序</span><br><span class="line">pd.get_dummies(df[&apos;key&apos;], prefix=&apos;key&apos;) #给df的所有列索引加前缀key</span><br><span class="line">df[...].str.contains() df[...].str.findall(pattern, flags=re.IGNORECASE) df[...].str.match(pattern, flags=...) df[...].str.get() #矢量化的字符串函数</span><br><span class="line"></span><br><span class="line">----绘图</span><br><span class="line">ser.plot() df.plot() #pandas的绘图工具，有参数label, ax, style, alpha, kind, logy, use_index, rot, xticks, xlim, grid等，详见page257</span><br><span class="line">kind=&apos;kde&apos; #密度图</span><br><span class="line">kind=&apos;bar&apos; kind=&apos;barh&apos; #垂直柱状图、水平柱状图，stacked=True为堆积图</span><br><span class="line">ser.hist(bins=50) #直方图</span><br><span class="line">plt.scatter(x,y) #绘制x,y组成的散点图</span><br><span class="line">pd.scatter_matrix(df, diagonal=&apos;kde&apos;, color=&apos;k&apos;, alpha=&apos;0.3&apos;) #将df各列分别组合绘制散点图</span><br><span class="line"></span><br><span class="line">----聚合分组</span><br><span class="line">groupby() 默认在axis=0轴上分组，也可以在1组上分组；可以用for进行分组迭代</span><br><span class="line">df.groupby(df[&apos;key1&apos;]) #根据key1对df进行分组</span><br><span class="line">df[&apos;key2&apos;].groupby(df[&apos;key1&apos;]) #根据key1对key2列进行分组</span><br><span class="line">df[&apos;key3&apos;].groupby(df[&apos;key1&apos;], df[&apos;key2&apos;]) #先根据key1、再根据key2对key3列进行分组</span><br><span class="line">df[&apos;key2&apos;].groupby(df[&apos;key1&apos;]).size() #size()返回一个含有分组大小的series</span><br><span class="line">df.groupby(df[&apos;key1&apos;])[&apos;data1&apos;] 等价于 df[&apos;data1&apos;].groupby(df[&apos;key1&apos;])</span><br><span class="line">df.groupby(df[&apos;key1&apos;])[[&apos;data1&apos;]] 等价于 df[[&apos;data1&apos;]].groupby(df[&apos;key1&apos;])</span><br><span class="line">df.groupby(mapping, axis=1) ser(mapping) #定义mapping字典，根据字典的分组来进行分组</span><br><span class="line">df.groupby(len) #通过函数来进行分组，如根据len函数</span><br><span class="line">df.groupby(level=&apos;...&apos;, axis=1) #根据索引级别来分组</span><br><span class="line">df.groupby([], as_index=False) #禁用索引，返回无索引形式的数据</span><br><span class="line">df.groupby(...).agg([&apos;mean&apos;, &apos;std&apos;]) #一次使用多个聚合函数时，用agg方法</span><br><span class="line">df.groupby(...).transform(np.mean) #transform()可以将其内的函数用于各个分组</span><br><span class="line">df.groupby().apply() #apply方法会将待处理的对象拆分成多个片段，然后对各片段调用传入的函数，最后尝试将各片段组合到一起</span><br><span class="line"></span><br><span class="line">----透视交叉</span><br><span class="line">df.pivot_table([&apos;&apos;,&apos;&apos;], rows=[&apos;&apos;,&apos;&apos;], cols=&apos;&apos;, margins=True) #margins为真时会加一列all</span><br><span class="line">pd.crosstab(df.col1, df.col2, margins=True) #margins作用同上</span><br><span class="line"></span><br><span class="line">---------------matplotlib---------------</span><br><span class="line">fig=plt.figure() ＃图像所在的基对象</span><br><span class="line">ax=fig.add_subplot(2,2,1) #2*2的图像，当前选中第1个</span><br><span class="line">fig, axes = plt.subplots(nrows, nclos, sharex, sharey) #创建图像，指定行、列、共享x轴刻度、共享y轴刻度</span><br><span class="line">plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=None, hspace=None)</span><br><span class="line">#调整subplot之间的距离，wspace、hspace用来控制宽度、高度百分比</span><br><span class="line">ax.plot(x, y, linestyle=&apos;--&apos;, color=&apos;g&apos;) #依据x,y坐标画图，设置线型、颜色</span><br><span class="line">ax.set_xticks([...]) ax.set_xticklabels([...]) #设置x轴刻度</span><br><span class="line">ax.set_xlabel(&apos;...&apos;) #设置x轴名称</span><br><span class="line">ax.set_title(&apos;....&apos;) ＃设置图名</span><br><span class="line">ax.legend(loc=&apos;best&apos;) #设置图例， loc指定将图例放在合适的位置</span><br><span class="line">ax.text(x,y, &apos;hello&apos;, family=&apos;monospace&apos;, fontsize=10) #将注释hello放在x,y处，字体大小为10</span><br><span class="line">ax.add_patch() #在图中添加块</span><br><span class="line">plt.savefig(&apos;...png&apos;, dpi=400, bbox_inches=&apos;tight&apos;) #保存图片，dpi为分辨率，bbox＝tight表示将裁减空白部分</span><br><span class="line"></span><br><span class="line">------------------------------------------</span><br><span class="line">from mpl_toolkits.basemap import Basemap</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">#可以用来绘制地图</span><br><span class="line"></span><br><span class="line">-----------------时间序列--------------------------</span><br><span class="line">pd.to_datetime(datestrs) #将字符串型日期解析为日期格式</span><br><span class="line">pd.date_range(&apos;1/1/2000&apos;, periods=1000) #生成时间序列</span><br><span class="line">ts.resample(&apos;D&apos;, how=&apos;mean&apos;) #采样，将时间序列转换成以每天为固定频率的, 并计算均值；how=&apos;ohlc&apos;是股票四个指数；</span><br><span class="line">＃重采样会聚合，即将短频率（日）变成长频率（月），对应的值叠加；</span><br><span class="line">＃升采样会插值，即将长频率变为短频率，中间产生新值</span><br><span class="line">ts.shift(2, freq=&apos;D&apos;) ts.shift(-2, freq=&apos;D&apos;) #后移、前移2天</span><br><span class="line">now+Day() now+MonthEnd()</span><br><span class="line">import pytz pytz.timezone(&apos;US/Eastern&apos;) #时区操作，需要安装pytz</span><br><span class="line">pd.Period(&apos;2010&apos;, freq=&apos;A-DEC&apos;) ＃period表示时间区间，叫做时期</span><br><span class="line">pd.PeriodIndex #时期索引</span><br><span class="line">ts.to_period(&apos;M&apos;) #时间转换为时期</span><br><span class="line">pd.rolling_mean(...) pd.rolling_std(...) #移动窗口函数－平均值、标准差</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/python_pandas_data/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/python_pandas_data/" class="post-title-link" itemprop="url">Pandas数据清洗，排序，索引设置，数据选取</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-11-01 22:20:23" itemprop="dateCreated datePublished" datetime="2017-11-01T22:20:23+08:00">2017-11-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-22 10:22:47" itemprop="dateModified" datetime="2019-04-22T10:22:47+08:00">2019-04-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">5.3k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">5 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>此教程适合有pandas基础的童鞋来看，很多知识点会一笔带过，不做详细解释</p>
+</blockquote>
+<h3 id="Pandas数据格式Series"><a href="#Pandas数据格式Series" class="headerlink" title="Pandas数据格式Series"></a>Pandas数据格式Series</h3><h3 id="DataFrame和Series的关系"><a href="#DataFrame和Series的关系" class="headerlink" title="DataFrame和Series的关系"></a>DataFrame和Series的关系</h3><p>每个column就是一个Series基础属性<code>shape,index,columns,values，dtypes，describe(),head(),tail()</code></p>
+<h4 id="统计属性Series"><a href="#统计属性Series" class="headerlink" title="统计属性Series"></a>统计属性Series</h4><p><code>count(),value_counts()</code>，前者是统计总数，后者统计各自value的总数<br><code>df.isnull()</code> df的空值为True<br><code>df.notnull()</code> df的非空值为True</p>
+<h4 id="修改列名"><a href="#修改列名" class="headerlink" title="修改列名"></a>修改列名</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.rename(columns = &#123;&apos;key&apos;:&apos;key2&apos;&#125;,inplace=True)</span><br></pre></td></tr></table></figure>
+<h4 id="更改数据格式"><a href="#更改数据格式" class="headerlink" title="更改数据格式"></a>更改数据格式</h4><p><code>astype()</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">isin                 #计算一个“Series各值是否包含传入的值序列中”的布尔数组</span><br><span class="line">unique               #返回唯一值的数组</span><br><span class="line">value_counts         #返回一个Series，其索引为唯一值，值为频率，按计数降序排列</span><br></pre></td></tr></table></figure></p>
+<h3 id="数据清洗"><a href="#数据清洗" class="headerlink" title="数据清洗"></a>数据清洗</h3><h4 id="丢弃值drop"><a href="#丢弃值drop" class="headerlink" title="丢弃值drop()"></a>丢弃值<code>drop()</code></h4><p><code>df.drop(labels, axis=1)# 按列（axis=1），丢弃指定label的列,默认按行。。。1</code></p>
+<h4 id="丢弃缺失值dropna"><a href="#丢弃缺失值dropna" class="headerlink" title="丢弃缺失值dropna()"></a>丢弃缺失值<code>dropna()</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 默认axi=0（行）；1（列），how=‘any’</span><br><span class="line">df.dropna()#每行只要有空值，就将这行删除</span><br><span class="line">df.dropna(axis=1)#每列只要有空值，整列丢弃</span><br><span class="line">df.dropna(how=&apos;all&apos;)# 一行中全部为NaN的，才丢弃该行</span><br><span class="line">df.dropna(thresh=3)# 每行至少3个非空值才保留</span><br></pre></td></tr></table></figure>
+<h4 id="缺失值填充fillna"><a href="#缺失值填充fillna" class="headerlink" title="缺失值填充fillna()"></a>缺失值填充<code>fillna()</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">df.fillna(0)</span><br><span class="line">df.fillna(&#123;1:0,2:0.5&#125;) #对第一列nan值赋0，第二列赋值0.5</span><br><span class="line">df.fillna(method=&apos;ffill&apos;) #在列方向上以前一个值作为值赋给NaN</span><br></pre></td></tr></table></figure>
+<h4 id="值替换replace"><a href="#值替换replace" class="headerlink" title="值替换replace()"></a>值替换<code>replace()</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 将df的A列中 -999 全部替换成空值</span><br><span class="line">df[&apos;A&apos;].replace(-999, np.nan)</span><br><span class="line">#-999和1000 均替换成空值</span><br><span class="line">obj.replace([-999,1000],  np.nan)</span><br><span class="line"># -999替换成空值，1000替换成0</span><br><span class="line">obj.replace([-999,1000],  [np.nan, 0])</span><br><span class="line"># 同上，写法不同，更清晰</span><br><span class="line">obj.replace(&#123;-999:np.nan, 1000:0&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="重复值处理duplicated-，unique-，drop-duplictad"><a href="#重复值处理duplicated-，unique-，drop-duplictad" class="headerlink" title="重复值处理duplicated()，unique()，drop_duplictad()"></a>重复值处理duplicated()，unique()，drop_duplictad()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">df.duplicated()#两行每列完全一样才算重复，后面重复的为True，第一个和不重复的为false，返回true</span><br><span class="line">               #和false组成的Series类型</span><br><span class="line">df.duplicated(&apos;key&apos;)#两行key这一列一样就算重复</span><br><span class="line"></span><br><span class="line">df[&apos;A&apos;].unique()# 返回唯一值的数组（类型为array）</span><br><span class="line"></span><br><span class="line">df.drop_duplicates([&apos;k1&apos;])# 保留k1列中的唯一值的行，默认保留第一行</span><br><span class="line">df.drop_duplicates([&apos;k1&apos;,&apos;k2&apos;], take_last=True)# 保留 k1和k2 组合的唯一值的行，take_last=True 保留最后一行</span><br></pre></td></tr></table></figure>
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><h4 id="索引排序"><a href="#索引排序" class="headerlink" title="索引排序"></a>索引排序</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 默认axis=0，按行索引对行进行排序；ascending=True，升序排序</span><br><span class="line">df.sort_index()</span><br><span class="line"># 按列名对列进行排序，ascending=False 降序</span><br><span class="line">df.sort_index(axis=1, ascending=False)</span><br></pre></td></tr></table></figure>
+<h4 id="值排序"><a href="#值排序" class="headerlink" title="值排序"></a>值排序</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 按值对Series进行排序，使用order()，默认空值会置于尾部</span><br><span class="line">s = pd.Series([4, 6, np.nan, 2, np.nan])</span><br><span class="line">s.order()</span><br><span class="line"></span><br><span class="line">df.sort_values(by=[&apos;a&apos;,&apos;b&apos;])#按列进行排序</span><br></pre></td></tr></table></figure>
+<h3 id="排名"><a href="#排名" class="headerlink" title="排名"></a>排名</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a=Series([7,-5,7,4,2,0,4])</span><br><span class="line">a.rank()#默认method=&apos;average&apos;，升序排名（ascending=True），按行（axis=0）</span><br><span class="line">#average 值相等时，取排名的平均值</span><br><span class="line">#min 值相等时，取排名最小值</span><br><span class="line">#max 值相等时，取排名最大值</span><br><span class="line">#first值相等时，按原始数据出现顺序排名</span><br></pre></td></tr></table></figure>
+<h3 id="索引设置"><a href="#索引设置" class="headerlink" title="索引设置"></a>索引设置</h3><h4 id="设置索引"><a href="#设置索引" class="headerlink" title="设置索引"></a>设置索引</h4><p><code>reindex()</code><br>更新<code>index</code>或者<code>columns</code>，默认：更新index，返回一个新的DataFrame<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 返回一个新的DataFrame，更新index，原来的index会被替代消失</span><br><span class="line"># 如果dataframe中某个索引值不存在，会自动补上NaN</span><br><span class="line">df2 = df1.reindex([&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;,&apos;e&apos;])</span><br><span class="line"></span><br><span class="line"># fill_valuse为原先不存在的索引补上默认值，不在是NaN</span><br><span class="line">df2 = df1.reindex([&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;,&apos;e&apos;],  fill_value=0)</span><br><span class="line"></span><br><span class="line"># inplace=Ture，在DataFrame上修改数据，而不是返回一个新的DataFrame</span><br><span class="line">df1.reindex([&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;,&apos;e&apos;],  inplace=Ture)</span><br><span class="line"></span><br><span class="line"># reindex不仅可以修改 索引(行)，也可以修改列</span><br><span class="line">states = [&quot;Texas&quot;,&quot;Utah&quot;,&quot;California&quot;]</span><br><span class="line">df2 = df1.reindex( columns=states )</span><br><span class="line">set_index()</span><br></pre></td></tr></table></figure></p>
+<p>将DataFrame中的列columns设置成索引index</p>
+<h4 id="打造层次化索引的方法"><a href="#打造层次化索引的方法" class="headerlink" title="打造层次化索引的方法"></a>打造层次化索引的方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 将columns中的其中两列：race和sex的值设置索引，race为一级，sex为二级</span><br><span class="line"># inplace=True 在原数据集上修改的</span><br><span class="line">adult.set_index([&apos;race&apos;,&apos;sex&apos;], inplace = True) </span><br><span class="line"></span><br><span class="line"># 默认情况下，设置成索引的列会从DataFrame中移除</span><br><span class="line"># drop=False将其保留下来</span><br><span class="line">adult.set_index([&apos;race&apos;,&apos;sex&apos;], inplace = True) </span><br><span class="line">reset_index()</span><br></pre></td></tr></table></figure>
+<p>将使用<code>set_index()</code>打造的层次化逆向操作<br>既是取消层次化索引，将索引变回列，并补上最常规的数字索引<br><code>df.reset_index()</code></p>
+<h3 id="数据选取"><a href="#数据选取" class="headerlink" title="数据选取"></a>数据选取</h3><p>[]<br>只能对行进 行（row/index） 切片，前闭后开d<code>f[0:3]，df[:4]，df[4:]</code></p>
+<h3 id="where-布尔查找"><a href="#where-布尔查找" class="headerlink" title="where 布尔查找"></a>where 布尔查找</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[df[&quot;A&quot;]&gt;7]</span><br></pre></td></tr></table></figure>
+<p>isin<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 返回布尔值</span><br><span class="line">s.isin([1,2,3])</span><br><span class="line">df[&apos;A&apos;].isin([1,2,3])</span><br><span class="line">df.loc[df[&apos;A&apos;].isin([5.8,5.1])]选取列A中值为5.8，5.1的所有行组成dataframe</span><br></pre></td></tr></table></figure></p>
+<h3 id="query"><a href="#query" class="headerlink" title="query"></a>query</h3><p>多个where整合切片，&amp;：于，|：或</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.query(&quot; A&gt;5.0 &amp; (B&gt;3.5 | C&lt;1.0) &quot;)</span><br></pre></td></tr></table></figure>
+<h3 id="loc-：根据名称Label切片"><a href="#loc-：根据名称Label切片" class="headerlink" title="loc ：根据名称Label切片"></a>loc ：根据名称Label切片</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># df.loc[A,B] A是行范围，B是列范围</span><br><span class="line">df.loc[1:4,[&apos;petal_length&apos;,&apos;petal_width&apos;]]</span><br><span class="line"></span><br><span class="line"># 需求1：创建一个新的变量 test</span><br><span class="line"># 如果sepal_length &gt; 3 test = 1 否则 test = 0</span><br><span class="line">df.loc[df[&apos;sepal_length&apos;] &gt; 6, &apos;test&apos;] = 1</span><br><span class="line">df.loc[df[&apos;sepal_length&apos;] &lt;=6, &apos;test&apos;] = 0</span><br><span class="line"></span><br><span class="line"># 需求2：创建一个新变量test2 </span><br><span class="line"># 1.petal_length&gt;2 and petal_width&gt;0.3 = 1 </span><br><span class="line"># 2.sepeal_length&gt;6 and sepal_width&gt;3 = 2 3.其他 = 0</span><br><span class="line">df[&apos;test2&apos;] = 0</span><br><span class="line">df.loc[(df[&apos;petal_length&apos;]&gt;2)&amp;(df[&apos;petal_width&apos;]&gt;0.3), &apos;test2&apos;] = 1</span><br><span class="line">df.loc[(df[&apos;sepal_length&apos;]&gt;6)&amp;(df[&apos;sepal_width&apos;]&gt;3), &apos;test2&apos;] = 2</span><br><span class="line">iloc：切位置</span><br><span class="line">df.iloc[1:4,:]</span><br></pre></td></tr></table></figure>
+<h3 id="ix：混切"><a href="#ix：混切" class="headerlink" title="ix：混切"></a>ix：混切</h3><p>名称和位置混切，但效率低，少用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df1.ix[0:3,[&apos;sepal_length&apos;,&apos;petal_width&apos;]]</span><br></pre></td></tr></table></figure></p>
+<h3 id="map与lambda"><a href="#map与lambda" class="headerlink" title="map与lambda"></a>map与lambda</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">alist = [1,2,3,4]</span><br><span class="line">map(lambda s : s+1, alist)#map就是将自定义函数应用于Series每个元素</span><br><span class="line"></span><br><span class="line">df[&apos;sepal_length&apos;].map(lambda s:s*2+1)[0:3]</span><br></pre></td></tr></table></figure>
+<h3 id="apply和applymap"><a href="#apply和applymap" class="headerlink" title="apply和applymap"></a>apply和applymap</h3><p><code>apply</code>和<code>applymap</code>是对<code>dataframe</code>的操作，前者操作一行或者一列，后者操作每个元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">These are techniques to apply function to element, column or dataframe.</span><br><span class="line"></span><br><span class="line">Map: It iterates over each element of a series. </span><br><span class="line">df[‘column1’].map(lambda x: 10+x), this will add 10 to each element of column1.</span><br><span class="line">df[‘column2’].map(lambda x: ‘AV’+x), this will concatenate “AV“ at the beginning of each element of column2 (column format is string).</span><br><span class="line"></span><br><span class="line">Apply: As the name suggests, applies a function along any axis of the DataFrame.</span><br><span class="line">df[[‘column1’,’column2’]].apply(sum), it will returns the sum of all the values of column1 and column2.</span><br><span class="line">df0[[&apos;data1&apos;]].apply(lambda s:s+1)</span><br><span class="line"></span><br><span class="line">ApplyMap: 对dataframe的每一个元素施加一个函数</span><br><span class="line">func = lambda x: x+2</span><br><span class="line">df.applymap(func), dataframe每个元素加2 (所有列必须数字类型)</span><br><span class="line">contains</span><br><span class="line"># 使用DataFrame模糊筛选数据(类似SQL中的LIKE)</span><br><span class="line"># 使用正则表达式进行模糊匹配,*匹配0或无限次,?匹配0或1次</span><br><span class="line">df_obj[df_obj[&apos;套餐&apos;].str.contains(r&apos;.*?语音CDMA.*&apos;)] </span><br><span class="line"></span><br><span class="line"># 下面两句效果一致</span><br><span class="line">df[df[&apos;商品名称&apos;].str.contains(&quot;四件套&quot;)]</span><br><span class="line">df[df[&apos;商品名称&apos;].str.contains(r&quot;.*四件套.*&quot;)]</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yaozihao.com/python_frame/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2085,450 +2513,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/ethereum_private_web3_pm2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/ethereum_private_web3_pm2/" class="post-title-link" itemprop="url">Ethereum私有链和web3.js使用及pm2管理</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-08-02 22:12:39" itemprop="dateCreated datePublished" datetime="2017-08-02T22:12:39+08:00">2017-08-02</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-18 11:21:55" itemprop="dateModified" datetime="2019-04-18T11:21:55+08:00">2019-04-18</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-区块链/" itemprop="url" rel="index"><span itemprop="name">积累________区块链</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">4.1k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">4 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="安装以太坊客户端-Geth"><a href="#安装以太坊客户端-Geth" class="headerlink" title="安装以太坊客户端(Geth)"></a>安装以太坊客户端(Geth)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install software-properties-common</span><br><span class="line">sudo add-apt-repository -y ppa:ethereum/ethereum</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install ethereum</span><br></pre></td></tr></table></figure>
-<h3 id="安装进程管理工具"><a href="#安装进程管理工具" class="headerlink" title="安装进程管理工具"></a>安装进程管理工具</h3><p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1VuaXRlY2gvcG0y" title="https://github.com/Unitech/pm2">pm2<i class="fa fa-external-link"></i></span> 需要 node 环境<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//nvm install node</span><br><span class="line">curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash</span><br><span class="line">export NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node</span><br><span class="line">source ~/git/nvm/nvm.sh</span><br><span class="line">nvm install 7</span><br><span class="line"></span><br><span class="line">//npm install -g pm2</span><br><span class="line">source ~/.bashrc</span><br><span class="line">export npm_config_registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure></p>
-<h3 id="启动-geth-配置文件"><a href="#启动-geth-配置文件" class="headerlink" title="启动 geth 配置文件"></a>启动 geth 配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">~/geth.json</span><br><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;name&quot;              : &quot;geth&quot;,</span><br><span class="line">    &quot;cwd&quot;               : &quot;/usr/bin/&quot;,</span><br><span class="line">    &quot;script&quot;            : &quot;geth&quot;,</span><br><span class="line">    &quot;args&quot;              : &quot;--rpcapi eth,web3 --rpc --dev --datadir /home/username/geth_private_data&quot;,</span><br><span class="line">    &quot;log_date_format&quot;   : &quot;YYYY-MM-DD HH:mm Z&quot;,</span><br><span class="line">    &quot;out_file&quot;        : &quot;/home/username/geth_private_data/log/geth_out.log&quot;,</span><br><span class="line">    &quot;error_file&quot;    : &quot;/home/username/geth_private_data/log/geth_err.log&quot;,</span><br><span class="line">    &quot;log_file&quot;        : &quot;/home/username/geth_private_data/log/geth_log.log&quot;,</span><br><span class="line">    &quot;merge_logs&quot;        : false,</span><br><span class="line">    &quot;watch&quot;             : false,</span><br><span class="line">    &quot;max_restarts&quot;      : 10,</span><br><span class="line">    &quot;exec_interpreter&quot;  : &quot;none&quot;,</span><br><span class="line">    &quot;exec_mode&quot;         : &quot;fork_mode&quot;</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<p>执行 <code>pm2 start geth.json</code> 即可启动 geth 另外如果不想使用 pm2 ,直接启动私有链请查看下面这种方式：</p>
-<h4 id="1-新建一个-shell-脚本文件"><a href="#1-新建一个-shell-脚本文件" class="headerlink" title="1.  新建一个 shell 脚本文件"></a>1.  新建一个 shell 脚本文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~/geth_private.sh</span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">geth=<span class="variable">$&#123;GETH:-geth&#125;</span></span><br><span class="line"><span class="variable">$geth</span> --datadir data --networkid 31415926 --rpc --rpcapi <span class="string">"admin,debug,eth,miner,net,personal,shh,txpool,web3"</span> rpcaddr <span class="string">"0.0.0.0"</span> --rpccorsdomain <span class="string">"*"</span> --nodiscover console</span><br></pre></td></tr></table></figure>
-<h4 id="2-更改文件属性问可执行"><a href="#2-更改文件属性问可执行" class="headerlink" title="2.  更改文件属性问可执行"></a>2.  更改文件属性问可执行</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x geth_private.sh</span><br></pre></td></tr></table></figure>
-<h4 id="3-三种方式执行-shell-启动脚本"><a href="#3-三种方式执行-shell-启动脚本" class="headerlink" title="3.  三种方式执行 shell 启动脚本"></a>3.  三种方式执行 shell 启动脚本</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">nohup ./geth_private.sh 0&lt;&amp;- &amp;&gt;/dev/null &amp; // 守护进程启动私有链节点</span><br><span class="line">nohup ./geth_private.sh 0&lt;&amp;- &amp;&gt; /tmp/geth.log  &amp; // 守护进程启动私有链节点且把日志打印到 /tmp/geth.log 文件</span><br><span class="line">./geth_private.sh //启动私有链节点并进入交互控制台</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">第二种打印日志的方式非常有用。其一是如果 geth 启动不成功，可以在日志中看到具体错误体制。其二是在测试链中部署智能合约(切记要确保 geth 中有一个账户处于解锁状态且有一定量的 ether,一般这个账户是 coinbase)被确认时会输出合约地址到日志文件中。在私有测试链中，进入 js 交互控制台，输入 **miner.start(1)** 挖矿，控制台输出类似 `Mined block (#72 / 517dcfd1). Wait 5 blocks for confirmation` 则表示合约部署成功。</span><br><span class="line"></span><br><span class="line">### Ethereum JavaScript API</span><br><span class="line"></span><br><span class="line">Ethereum 实现了**javascript runtime environment** [JavaScript Console](https://github.com/ethereum/go-ethereum/wiki/JavaScript-Console)。 Ethereum&apos;s Javascript console exposes the full [web3 JavaScript Dapp API](https://github.com/ethereum/wiki/wiki/JavaScript-API) and the [admin API](https://github.com/ethereum/go-ethereum/wiki/JavaScript-Console#javascript-console-api). 当你安装好 geth 并启动服务之后，通过**Non-interactive use: JSRE script mode** 命令(例如 [Managing accounts](https://github.com/ethereum/go-ethereum/wiki/Managing-your-accounts#examples)) 或者 **Interactive use: the JSRE REPL Console** 进入控制台操作 geth </span><br><span class="line">```bash</span><br><span class="line">$ geth attach ipc:/some/custom/path</span><br><span class="line">$ geth attach http://191.168.1.1:8545</span><br><span class="line">$ geth attach ws://191.168.1.1:8546</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">如果你想单独在 node 服务中写代码操作 geth ，添加 web3.js 即可。 [web3.js](https://github.com/ethereum/web3.js) 实现了使用 node 操作 geth 。使用的前提要求启动 geth 启动时 rpcapi 包含了 `web3`,在上面的配置文件中 `&quot;args&quot; : &quot;--rpcapi eth,web3 --rpc --dev --datadir /home/username/geth_private_data&quot;`已经设置好了。 同时可以看看参考连接详细了解：</span><br><span class="line"></span><br><span class="line">*   [Management APIs](https://github.com/ethereum/go-ethereum/wiki/Management-APIs)</span><br><span class="line">*   [Web3 JavaScript Ðapp API](https://github.com/ethereum/wiki/wiki/JavaScript-API) 编译智能合约用到</span><br><span class="line"></span><br><span class="line">安装:</span><br><span class="line">``` </span><br><span class="line">//install web3.js</span><br><span class="line">npm install web3</span><br><span class="line">//install solidity for smart contract develope</span><br><span class="line">sudo add-apt-repository ppa:ethereum/ethereum</span><br><span class="line">sudo add-apt-repository ppa:ethereum/ethereum-dev</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install solc</span><br></pre></td></tr></table></figure>
-<p>web.js 是一个 node 库，实现了<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2V0aGVyZXVtL3dpa2kvd2lraS9KYXZhU2NyaXB0LUFQSSN3ZWIzanMtYXBpLXJlZmVyZW5jZQ==" title="https://github.com/ethereum/wiki/wiki/JavaScript-API#web3js-api-reference">Web3.js API Reference<i class="fa fa-external-link"></i></span> 另外有一点需要注意的是：当你都写好并且编译好智能合约之后，接下来的新建和部署智能合约到区块链上需要确保有一个解锁的账号（EOA）及账户有一定的资金</p>
-<blockquote>
-<p>Create and deploy a contract Before you begin this section, make sure you have both an unlocked account as well as some funds. <span class="exturl" data-url="aHR0cDovL2V0aGRvY3Mub3JnL2VuL2xhdGVzdC9jb250cmFjdHMtYW5kLXRyYW5zYWN0aW9ucy9jb250cmFjdHMuaHRtbCNjcmVhdGUtYW5kLWRlcGxveS1hLWNvbnRyYWN0" title="http://ethdocs.org/en/latest/contracts-and-transactions/contracts.html#create-and-deploy-a-contract">Create and deploy a contract<i class="fa fa-external-link"></i></span></p>
-</blockquote>
-<p>推荐阅读：</p>
-<ul>
-<li><span class="exturl" data-url="aHR0cDovL2V0aGVyZXVtLnN0YWNrZXhjaGFuZ2UuY29tL3F1ZXN0aW9ucy8xMjUvaG93LWRvLWktc2V0LXVwLWEtcHJpdmF0ZS1ldGhlcmV1bS1uZXR3b3Jr" title="http://ethereum.stackexchange.com/questions/125/how-do-i-set-up-a-private-ethereum-network">How do I set up a private ethereum network?<i class="fa fa-external-link"></i></span></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/eth_mist/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/eth_mist/" class="post-title-link" itemprop="url">以太坊mist使用记录</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-07-10 20:42:30" itemprop="dateCreated datePublished" datetime="2017-07-10T20:42:30+08:00">2017-07-10</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-18 14:40:26" itemprop="dateModified" datetime="2019-04-18T14:40:26+08:00">2019-04-18</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-区块链/" itemprop="url" rel="index"><span itemprop="name">积累________区块链</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">1.4k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="创建私有链的geth命令"><a href="#创建私有链的geth命令" class="headerlink" title="创建私有链的geth命令"></a>创建私有链的geth命令</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">geth --datadir <span class="string">"./"</span> init genesis.json</span><br><span class="line">geth --datadir <span class="string">"./"</span> --nodiscover console 2&gt;&gt;geth.log</span><br></pre></td></tr></table></figure>
-<p>在命令行模式下, 新建账号，并且启动挖矿</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; personal.newAccount(<span class="string">"123"</span>)</span><br><span class="line"><span class="string">"0x48ad44beba68a981e103d28b2bd5777ef21ba0e3"</span></span><br><span class="line">&gt; miner.start()</span><br><span class="line"><span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<p>如果链条已经被关闭的话，或者启动不了，或者挖矿无法产生比特币的话，可以重置以太坊私链。</p>
-<h4 id="重置以太坊私有链"><a href="#重置以太坊私有链" class="headerlink" title="重置以太坊私有链"></a>重置以太坊私有链</h4><ul>
-<li>1.删除根目录下的隐藏文件夹<code>.ethash</code>, 在mac系统中该文件夹在 <code>~/</code>下</li>
-<li>2.删除以太坊私有链所在文件夹下的geth/keystore两个文件夹</li>
-</ul>
-<p>打开私有链所在文件夹，注意应该有一个文件，叫geth.ipc, 记录下文件夹地址</p>
-<h3 id="Mist-工具"><a href="#Mist-工具" class="headerlink" title="Mist 工具"></a>Mist 工具</h3><p>Mist github地址：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2V0aGVyZXVtL21pc3Q=" title="https://github.com/ethereum/mist">https://github.com/ethereum/mist<i class="fa fa-external-link"></i></span></p>
-<blockquote>
-<p>The Mist browser is the tool of choice to browse and use Ðapps.</p>
-</blockquote>
-<p>Mist 是以太坊官方提供的浏览器，通过Mist我们可以很方便的连接上我们的私有网络，从而更好的开发、调试、测试我们的智能合约。</p>
-<h4 id="Step-1-安装依赖项"><a href="#Step-1-安装依赖项" class="headerlink" title="Step 1 安装依赖项"></a>Step 1 安装依赖项</h4><p>安装步骤，请参见github地址：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2V0aGVyZXVtL21pc3Q=" title="https://github.com/ethereum/mist">https://github.com/ethereum/mist<i class="fa fa-external-link"></i></span></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl https://install.meteor.com/ | sh</span><br><span class="line">npm install -g electron@1.3.13</span><br><span class="line">npm install -g gulp</span><br></pre></td></tr></table></figure>
-<h4 id="Step-2-安装Mist本体"><a href="#Step-2-安装Mist本体" class="headerlink" title="Step 2 安装Mist本体"></a>Step 2 安装Mist本体</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/ethereum/mist.git </span><br><span class="line"><span class="built_in">cd</span> mist</span><br><span class="line">git submodule update --init $ yarn</span><br></pre></td></tr></table></figure>
-<h4 id="Step-3-运行Mist-interface-也就是mist的后台程序"><a href="#Step-3-运行Mist-interface-也就是mist的后台程序" class="headerlink" title="Step 3 运行Mist/interface 也就是mist的后台程序"></a>Step 3 运行Mist/interface 也就是mist的后台程序</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> mist/interface &amp;&amp; meteor --no-release-check</span><br></pre></td></tr></table></figure>
-<p>这个阶段费时可能稍长，会启动mongodb, proxy等。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[[[[[ /wwwroot/html/mist/interface ]]]]]</span><br><span class="line"></span><br><span class="line">=&gt; Started proxy.</span><br><span class="line">=&gt; Started MongoDB.</span><br><span class="line">=&gt; Started your app.</span><br><span class="line"></span><br><span class="line">=&gt; App running at: http://localhost:3000/</span><br></pre></td></tr></table></figure>
-<h4 id="Step-4-新开一个窗口，用geth-ipc启动Mist"><a href="#Step-4-新开一个窗口，用geth-ipc启动Mist" class="headerlink" title="Step 4 新开一个窗口，用geth.ipc启动Mist"></a>Step 4 新开一个窗口，用geth.ipc启动Mist</h4><p>新开一个窗口，回到mist文件夹下面，输入下方的命令 </p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">electron . --rpc /Users/linchen/steveproject2/tmpPrivate/geth.ipc</span><br></pre></td></tr></table></figure>
-<p>注意这里的地址<code>/Users/linchen/steveproject2/tmpPrivate/geth.ipc</code> 就是前面我们新建的以太坊私有连下的geth.ipc文件。</p>
-<p><strong>注:</strong><br><em>一定要先开启 <code>meteor --no-release-check</code> 然后在开启 <code>electron . --rpc http://loclahost:8545</code></em></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2570,7 +2559,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-count">100</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2586,16 +2575,6 @@
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -2710,45 +2689,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-count">40</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -2873,7 +2814,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">208k</span>
+    <span title="站点总字数">319k</span>
   
 
   
@@ -2884,7 +2825,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">3:09</span>
+    <span title="站点阅读时长">4:50</span>
   
 </div>
 

@@ -363,6 +363,445 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/ethereum_private_web3_pm2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/ethereum_private_web3_pm2/" class="post-title-link" itemprop="url">Ethereum私有链和web3.js使用及pm2管理</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-08-02 22:12:39" itemprop="dateCreated datePublished" datetime="2017-08-02T22:12:39+08:00">2017-08-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-18 11:21:55" itemprop="dateModified" datetime="2019-04-18T11:21:55+08:00">2019-04-18</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-区块链/" itemprop="url" rel="index"><span itemprop="name">积累________区块链</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">4.1k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">4 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="安装以太坊客户端-Geth"><a href="#安装以太坊客户端-Geth" class="headerlink" title="安装以太坊客户端(Geth)"></a>安装以太坊客户端(Geth)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install software-properties-common</span><br><span class="line">sudo add-apt-repository -y ppa:ethereum/ethereum</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install ethereum</span><br></pre></td></tr></table></figure>
+<h3 id="安装进程管理工具"><a href="#安装进程管理工具" class="headerlink" title="安装进程管理工具"></a>安装进程管理工具</h3><p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1VuaXRlY2gvcG0y" title="https://github.com/Unitech/pm2">pm2<i class="fa fa-external-link"></i></span> 需要 node 环境<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//nvm install node</span><br><span class="line">curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash</span><br><span class="line">export NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node</span><br><span class="line">source ~/git/nvm/nvm.sh</span><br><span class="line">nvm install 7</span><br><span class="line"></span><br><span class="line">//npm install -g pm2</span><br><span class="line">source ~/.bashrc</span><br><span class="line">export npm_config_registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure></p>
+<h3 id="启动-geth-配置文件"><a href="#启动-geth-配置文件" class="headerlink" title="启动 geth 配置文件"></a>启动 geth 配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">~/geth.json</span><br><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;name&quot;              : &quot;geth&quot;,</span><br><span class="line">    &quot;cwd&quot;               : &quot;/usr/bin/&quot;,</span><br><span class="line">    &quot;script&quot;            : &quot;geth&quot;,</span><br><span class="line">    &quot;args&quot;              : &quot;--rpcapi eth,web3 --rpc --dev --datadir /home/username/geth_private_data&quot;,</span><br><span class="line">    &quot;log_date_format&quot;   : &quot;YYYY-MM-DD HH:mm Z&quot;,</span><br><span class="line">    &quot;out_file&quot;        : &quot;/home/username/geth_private_data/log/geth_out.log&quot;,</span><br><span class="line">    &quot;error_file&quot;    : &quot;/home/username/geth_private_data/log/geth_err.log&quot;,</span><br><span class="line">    &quot;log_file&quot;        : &quot;/home/username/geth_private_data/log/geth_log.log&quot;,</span><br><span class="line">    &quot;merge_logs&quot;        : false,</span><br><span class="line">    &quot;watch&quot;             : false,</span><br><span class="line">    &quot;max_restarts&quot;      : 10,</span><br><span class="line">    &quot;exec_interpreter&quot;  : &quot;none&quot;,</span><br><span class="line">    &quot;exec_mode&quot;         : &quot;fork_mode&quot;</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>执行 <code>pm2 start geth.json</code> 即可启动 geth 另外如果不想使用 pm2 ,直接启动私有链请查看下面这种方式：</p>
+<h4 id="1-新建一个-shell-脚本文件"><a href="#1-新建一个-shell-脚本文件" class="headerlink" title="1.  新建一个 shell 脚本文件"></a>1.  新建一个 shell 脚本文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~/geth_private.sh</span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">geth=<span class="variable">$&#123;GETH:-geth&#125;</span></span><br><span class="line"><span class="variable">$geth</span> --datadir data --networkid 31415926 --rpc --rpcapi <span class="string">"admin,debug,eth,miner,net,personal,shh,txpool,web3"</span> rpcaddr <span class="string">"0.0.0.0"</span> --rpccorsdomain <span class="string">"*"</span> --nodiscover console</span><br></pre></td></tr></table></figure>
+<h4 id="2-更改文件属性问可执行"><a href="#2-更改文件属性问可执行" class="headerlink" title="2.  更改文件属性问可执行"></a>2.  更改文件属性问可执行</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x geth_private.sh</span><br></pre></td></tr></table></figure>
+<h4 id="3-三种方式执行-shell-启动脚本"><a href="#3-三种方式执行-shell-启动脚本" class="headerlink" title="3.  三种方式执行 shell 启动脚本"></a>3.  三种方式执行 shell 启动脚本</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">nohup ./geth_private.sh 0&lt;&amp;- &amp;&gt;/dev/null &amp; // 守护进程启动私有链节点</span><br><span class="line">nohup ./geth_private.sh 0&lt;&amp;- &amp;&gt; /tmp/geth.log  &amp; // 守护进程启动私有链节点且把日志打印到 /tmp/geth.log 文件</span><br><span class="line">./geth_private.sh //启动私有链节点并进入交互控制台</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">第二种打印日志的方式非常有用。其一是如果 geth 启动不成功，可以在日志中看到具体错误体制。其二是在测试链中部署智能合约(切记要确保 geth 中有一个账户处于解锁状态且有一定量的 ether,一般这个账户是 coinbase)被确认时会输出合约地址到日志文件中。在私有测试链中，进入 js 交互控制台，输入 **miner.start(1)** 挖矿，控制台输出类似 `Mined block (#72 / 517dcfd1). Wait 5 blocks for confirmation` 则表示合约部署成功。</span><br><span class="line"></span><br><span class="line">### Ethereum JavaScript API</span><br><span class="line"></span><br><span class="line">Ethereum 实现了**javascript runtime environment** [JavaScript Console](https://github.com/ethereum/go-ethereum/wiki/JavaScript-Console)。 Ethereum&apos;s Javascript console exposes the full [web3 JavaScript Dapp API](https://github.com/ethereum/wiki/wiki/JavaScript-API) and the [admin API](https://github.com/ethereum/go-ethereum/wiki/JavaScript-Console#javascript-console-api). 当你安装好 geth 并启动服务之后，通过**Non-interactive use: JSRE script mode** 命令(例如 [Managing accounts](https://github.com/ethereum/go-ethereum/wiki/Managing-your-accounts#examples)) 或者 **Interactive use: the JSRE REPL Console** 进入控制台操作 geth </span><br><span class="line">```bash</span><br><span class="line">$ geth attach ipc:/some/custom/path</span><br><span class="line">$ geth attach http://191.168.1.1:8545</span><br><span class="line">$ geth attach ws://191.168.1.1:8546</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">如果你想单独在 node 服务中写代码操作 geth ，添加 web3.js 即可。 [web3.js](https://github.com/ethereum/web3.js) 实现了使用 node 操作 geth 。使用的前提要求启动 geth 启动时 rpcapi 包含了 `web3`,在上面的配置文件中 `&quot;args&quot; : &quot;--rpcapi eth,web3 --rpc --dev --datadir /home/username/geth_private_data&quot;`已经设置好了。 同时可以看看参考连接详细了解：</span><br><span class="line"></span><br><span class="line">*   [Management APIs](https://github.com/ethereum/go-ethereum/wiki/Management-APIs)</span><br><span class="line">*   [Web3 JavaScript Ðapp API](https://github.com/ethereum/wiki/wiki/JavaScript-API) 编译智能合约用到</span><br><span class="line"></span><br><span class="line">安装:</span><br><span class="line">``` </span><br><span class="line">//install web3.js</span><br><span class="line">npm install web3</span><br><span class="line">//install solidity for smart contract develope</span><br><span class="line">sudo add-apt-repository ppa:ethereum/ethereum</span><br><span class="line">sudo add-apt-repository ppa:ethereum/ethereum-dev</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install solc</span><br></pre></td></tr></table></figure>
+<p>web.js 是一个 node 库，实现了<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2V0aGVyZXVtL3dpa2kvd2lraS9KYXZhU2NyaXB0LUFQSSN3ZWIzanMtYXBpLXJlZmVyZW5jZQ==" title="https://github.com/ethereum/wiki/wiki/JavaScript-API#web3js-api-reference">Web3.js API Reference<i class="fa fa-external-link"></i></span> 另外有一点需要注意的是：当你都写好并且编译好智能合约之后，接下来的新建和部署智能合约到区块链上需要确保有一个解锁的账号（EOA）及账户有一定的资金</p>
+<blockquote>
+<p>Create and deploy a contract Before you begin this section, make sure you have both an unlocked account as well as some funds. <span class="exturl" data-url="aHR0cDovL2V0aGRvY3Mub3JnL2VuL2xhdGVzdC9jb250cmFjdHMtYW5kLXRyYW5zYWN0aW9ucy9jb250cmFjdHMuaHRtbCNjcmVhdGUtYW5kLWRlcGxveS1hLWNvbnRyYWN0" title="http://ethdocs.org/en/latest/contracts-and-transactions/contracts.html#create-and-deploy-a-contract">Create and deploy a contract<i class="fa fa-external-link"></i></span></p>
+</blockquote>
+<p>推荐阅读：</p>
+<ul>
+<li><span class="exturl" data-url="aHR0cDovL2V0aGVyZXVtLnN0YWNrZXhjaGFuZ2UuY29tL3F1ZXN0aW9ucy8xMjUvaG93LWRvLWktc2V0LXVwLWEtcHJpdmF0ZS1ldGhlcmV1bS1uZXR3b3Jr" title="http://ethereum.stackexchange.com/questions/125/how-do-i-set-up-a-private-ethereum-network">How do I set up a private ethereum network?<i class="fa fa-external-link"></i></span></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/eth_mist/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/eth_mist/" class="post-title-link" itemprop="url">以太坊mist使用记录</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-07-10 20:42:30" itemprop="dateCreated datePublished" datetime="2017-07-10T20:42:30+08:00">2017-07-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-18 14:40:26" itemprop="dateModified" datetime="2019-04-18T14:40:26+08:00">2019-04-18</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-区块链/" itemprop="url" rel="index"><span itemprop="name">积累________区块链</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">1.4k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="创建私有链的geth命令"><a href="#创建私有链的geth命令" class="headerlink" title="创建私有链的geth命令"></a>创建私有链的geth命令</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">geth --datadir <span class="string">"./"</span> init genesis.json</span><br><span class="line">geth --datadir <span class="string">"./"</span> --nodiscover console 2&gt;&gt;geth.log</span><br></pre></td></tr></table></figure>
+<p>在命令行模式下, 新建账号，并且启动挖矿</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; personal.newAccount(<span class="string">"123"</span>)</span><br><span class="line"><span class="string">"0x48ad44beba68a981e103d28b2bd5777ef21ba0e3"</span></span><br><span class="line">&gt; miner.start()</span><br><span class="line"><span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>如果链条已经被关闭的话，或者启动不了，或者挖矿无法产生比特币的话，可以重置以太坊私链。</p>
+<h4 id="重置以太坊私有链"><a href="#重置以太坊私有链" class="headerlink" title="重置以太坊私有链"></a>重置以太坊私有链</h4><ul>
+<li>1.删除根目录下的隐藏文件夹<code>.ethash</code>, 在mac系统中该文件夹在 <code>~/</code>下</li>
+<li>2.删除以太坊私有链所在文件夹下的geth/keystore两个文件夹</li>
+</ul>
+<p>打开私有链所在文件夹，注意应该有一个文件，叫geth.ipc, 记录下文件夹地址</p>
+<h3 id="Mist-工具"><a href="#Mist-工具" class="headerlink" title="Mist 工具"></a>Mist 工具</h3><p>Mist github地址：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2V0aGVyZXVtL21pc3Q=" title="https://github.com/ethereum/mist">https://github.com/ethereum/mist<i class="fa fa-external-link"></i></span></p>
+<blockquote>
+<p>The Mist browser is the tool of choice to browse and use Ðapps.</p>
+</blockquote>
+<p>Mist 是以太坊官方提供的浏览器，通过Mist我们可以很方便的连接上我们的私有网络，从而更好的开发、调试、测试我们的智能合约。</p>
+<h4 id="Step-1-安装依赖项"><a href="#Step-1-安装依赖项" class="headerlink" title="Step 1 安装依赖项"></a>Step 1 安装依赖项</h4><p>安装步骤，请参见github地址：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2V0aGVyZXVtL21pc3Q=" title="https://github.com/ethereum/mist">https://github.com/ethereum/mist<i class="fa fa-external-link"></i></span></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl https://install.meteor.com/ | sh</span><br><span class="line">npm install -g electron@1.3.13</span><br><span class="line">npm install -g gulp</span><br></pre></td></tr></table></figure>
+<h4 id="Step-2-安装Mist本体"><a href="#Step-2-安装Mist本体" class="headerlink" title="Step 2 安装Mist本体"></a>Step 2 安装Mist本体</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/ethereum/mist.git </span><br><span class="line"><span class="built_in">cd</span> mist</span><br><span class="line">git submodule update --init $ yarn</span><br></pre></td></tr></table></figure>
+<h4 id="Step-3-运行Mist-interface-也就是mist的后台程序"><a href="#Step-3-运行Mist-interface-也就是mist的后台程序" class="headerlink" title="Step 3 运行Mist/interface 也就是mist的后台程序"></a>Step 3 运行Mist/interface 也就是mist的后台程序</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> mist/interface &amp;&amp; meteor --no-release-check</span><br></pre></td></tr></table></figure>
+<p>这个阶段费时可能稍长，会启动mongodb, proxy等。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[[[[[ /wwwroot/html/mist/interface ]]]]]</span><br><span class="line"></span><br><span class="line">=&gt; Started proxy.</span><br><span class="line">=&gt; Started MongoDB.</span><br><span class="line">=&gt; Started your app.</span><br><span class="line"></span><br><span class="line">=&gt; App running at: http://localhost:3000/</span><br></pre></td></tr></table></figure>
+<h4 id="Step-4-新开一个窗口，用geth-ipc启动Mist"><a href="#Step-4-新开一个窗口，用geth-ipc启动Mist" class="headerlink" title="Step 4 新开一个窗口，用geth.ipc启动Mist"></a>Step 4 新开一个窗口，用geth.ipc启动Mist</h4><p>新开一个窗口，回到mist文件夹下面，输入下方的命令 </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">electron . --rpc /Users/linchen/steveproject2/tmpPrivate/geth.ipc</span><br></pre></td></tr></table></figure>
+<p>注意这里的地址<code>/Users/linchen/steveproject2/tmpPrivate/geth.ipc</code> 就是前面我们新建的以太坊私有连下的geth.ipc文件。</p>
+<p><strong>注:</strong><br><em>一定要先开启 <code>meteor --no-release-check</code> 然后在开启 <code>electron . --rpc http://loclahost:8545</code></em></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yaozihao.com/geth_order/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -425,7 +864,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-18 13:19:10" itemprop="dateModified" datetime="2019-04-18T13:19:10+08:00">2019-04-18</time>
+                <time title="修改时间：2019-04-19 16:22:09" itemprop="dateModified" datetime="2019-04-19T16:22:09+08:00">2019-04-19</time>
               
             
           </span>
@@ -2095,7 +2534,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/postgresql_mac/">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/python_httplib_err/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -2115,7 +2554,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/postgresql_mac/" class="post-title-link" itemprop="url">PostgreSQL mac 环境下初识篇</a>
+                <a href="/python_httplib_err/" class="post-title-link" itemprop="url">httplib源码分析及IncompleteRead异常解决方案</a>
               
             
           </h2>
@@ -2140,7 +2579,7 @@
                 
               
 
-              <time title="创建时间：2017-06-08 20:50:29" itemprop="dateCreated datePublished" datetime="2017-06-08T20:50:29+08:00">2017-06-08</time>
+              <time title="创建时间：2017-06-15 15:44:08" itemprop="dateCreated datePublished" datetime="2017-06-15T15:44:08+08:00">2017-06-15</time>
             
 
             
@@ -2157,7 +2596,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-18 19:30:08" itemprop="dateModified" datetime="2019-04-18T19:30:08+08:00">2019-04-18</time>
+                <time title="修改时间：2019-04-22 10:22:47" itemprop="dateModified" datetime="2019-04-22T10:22:47+08:00">2019-04-22</time>
               
             
           </span>
@@ -2174,7 +2613,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-db/" itemprop="url" rel="index"><span itemprop="name">积累________db</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
 
                 
                 
@@ -2203,542 +2642,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">3.1k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">3 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在mac环境下，可以使用 brew 来安装， 也可以直接下载app安装。</p>
-<h2 id="初始化数据库"><a href="#初始化数据库" class="headerlink" title="初始化数据库"></a>初始化数据库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">initdb /usr/local/var/postgres</span><br></pre></td></tr></table></figure>
-<h2 id="启动或停止数据库"><a href="#启动或停止数据库" class="headerlink" title="启动或停止数据库"></a>启动或停止数据库</h2><h3 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start</span><br></pre></td></tr></table></figure>
-<h3 id="停止服务"><a href="#停止服务" class="headerlink" title="停止服务"></a>停止服务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pg_ctl -D /usr/local/var/postgres stop -s -m fast</span><br></pre></td></tr></table></figure>
-<p>如果先嫌麻烦，可以加入开机自动启动</p>
-<p>ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents</p>
-<h2 id="操作数据库"><a href="#操作数据库" class="headerlink" title="操作数据库"></a>操作数据库</h2><p>pgAdmin 是一个可视化数据库服务器管理工具。</p>
-<p>SQL Shell (psql ) 控制台数据库管理入口。</p>
-<p>在安装的过程中，会自动为系统生成一个账号PostgreSQL，密码随机，这里你要重设一个密码。</p>
-<h3 id="重设密码"><a href="#重设密码" class="headerlink" title="重设密码"></a>重设密码</h3><p>控制台下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo passwd -d postgres</span><br><span class="line">password  -d 为删除指定用户密码</span><br></pre></td></tr></table></figure></p>
-<p>然后设置新密码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres passwd</span><br></pre></td></tr></table></figure></p>
-<p>然后你就可以用 postgres 用户在服务器上通过 pgAdmin 或者 psql 来操作数据库了 。</p>
-<h3 id="psql-的简单操作"><a href="#psql-的简单操作" class="headerlink" title="psql 的简单操作"></a>psql 的简单操作</h3><p>点击 SQL Shell (psql) 启动控制台应用 。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Server [localhost]:    //第一步 ，默认本地 ，直接回车即可 ，远程数据库 ，请输入远程服务器IP</span><br><span class="line">Database [postgres]:   //第二步 ，执行数据库 ， postgresql 安装时已经默认安装 postgres 数据库 ，直接回车进入此库</span><br><span class="line">Port [5432]:           //第三步 ，默认绑定 5432 端口 ，如果你有修改请这里指定 ，否则默认连接此端口(注意防火墙放行端口)</span><br><span class="line">Username [postgres]:   //第四步 ，默认使用 postgres 用户登录数据库 ，没有指定用户的话 ，直接回车</span><br><span class="line">psql (9.4.1)</span><br><span class="line">Type &quot;help&quot; for help 。</span><br><span class="line">postgres=#     //看到这一步 ，已经成功进入 postgres 数据库 。</span><br></pre></td></tr></table></figure></p>
-<p>或者你可以用下面一条命令来登录PostgreSQL<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">psql -U postgres -d postgres -h 127.0.0.1 -p 5432</span><br><span class="line">//参数说明: -U 指定用户    -d 指定数据库   -h 数据库服务器ip    -p 端口</span><br></pre></td></tr></table></figure></p>
-<p>如果你的系统登录用户名和PostgreSQL数据库操作用户名相同的话，可以省略 -U 参数 。</p>
-<p>如果你的Mac 命令控制台不支持psql，那么需要你手动添加到全局变量里:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">locate psql | grep /bin</span><br><span class="line">/Library/PostgreSQL/9.4/bin/psql</span><br></pre></td></tr></table></figure></p>
-<p>编辑.bash_profile文件或.bashrc文件，添加命令别名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias psql=/Library/PostgreSQL/9.4/bin/psql</span><br></pre></td></tr></table></figure></p>
-<p>然后让 .bash_profile 生效即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source .bash_profile</span><br></pre></td></tr></table></figure></p>
-<h3 id="psql-控制台简单的操作命令"><a href="#psql-控制台简单的操作命令" class="headerlink" title="psql 控制台简单的操作命令"></a>psql 控制台简单的操作命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">\h select。</span><br><span class="line">\? 查看psql命令列表。</span><br><span class="line">\l 列出所有数据库。</span><br><span class="line">\c [database_name]：连接其他数据库。</span><br><span class="line">\d 列出当前数据库的所有表格。</span><br><span class="line">\d [table_name]：列出某一张表格的结构。</span><br><span class="line">\du 列出所有用户。</span><br><span class="line">\e 打开文本编辑器。</span><br><span class="line">\conninfo 列出当前数据库和连接的信息。</span><br><span class="line">\q  退出</span><br><span class="line">\password  设置命令</span><br></pre></td></tr></table></figure>
-<h3 id="操作sql"><a href="#操作sql" class="headerlink" title="操作sql"></a>操作sql</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"># 创建新表 </span><br><span class="line">CREATE TABLE user_tbl(name VARCHAR(20), signup_date DATE);</span><br><span class="line"># 插入数据 </span><br><span class="line">INSERT INTO user_tbl(name, signup_date) VALUES(&apos;张三&apos;, &apos;2013-12-22&apos;);</span><br><span class="line"># 选择记录 </span><br><span class="line">SELECT * FROM user_tbl;</span><br><span class="line"># 更新数据 </span><br><span class="line">UPDATE user_tbl set name = &apos;李四&apos; WHERE name = &apos;张三&apos;;</span><br><span class="line"># 删除记录 </span><br><span class="line">DELETE FROM user_tbl WHERE name = &apos;李四&apos; ;</span><br><span class="line"># 添加栏位 </span><br><span class="line">ALTER TABLE user_tbl ADD email VARCHAR(40);</span><br><span class="line"># 更新结构 </span><br><span class="line">ALTER TABLE user_tbl ALTER COLUMN signup_date SET NOT NULL;</span><br><span class="line"># 更名栏位 </span><br><span class="line">ALTER TABLE user_tbl RENAME COLUMN signup_date TO signup;</span><br><span class="line"># 删除栏位 </span><br><span class="line">ALTER TABLE user_tbl DROP COLUMN email;</span><br><span class="line"># 表格更名 </span><br><span class="line">ALTER TABLE user_tbl RENAME TO backup_tbl;</span><br><span class="line"># 删除表格 </span><br><span class="line">DROP TABLE IF EXISTS backup_tbl;</span><br><span class="line"></span><br><span class="line"># 创建一个 PostgreSQL 用户</span><br><span class="line"></span><br><span class="line">createuser username -P</span><br><span class="line">#Enter password for new role:</span><br><span class="line">#Enter it again:</span><br><span class="line">上面的 username 是用户名，回车输入 2 次用户密码后即用户创建完成。更多用户创建信息可以 “createuser –help” 查看。</span><br><span class="line"></span><br><span class="line"># 创建数据库</span><br><span class="line"></span><br><span class="line">createdb dbname -O username -E UTF8 -e</span><br><span class="line">上面创建了一个名为 dbname 的数据库，并指定 username 为改数据库的拥有者（owner），数据库的编码（encoding）是 UTF8，参数 “-e” 是指把数据库执行操作的命令显示出来。</span><br><span class="line"></span><br><span class="line">更多数据库创建信息可以 “createdb –help” 查看。</span><br></pre></td></tr></table></figure>
-<h3 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h3><p>psql -U username -d dbname -h 127.0.0.1</p>
-<h3 id="数据的导出"><a href="#数据的导出" class="headerlink" title="数据的导出"></a>数据的导出</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ pg_dump -U postgres(用户名) (-t 表名) 数据库名(缺省时同用户名) &gt; 路径/文件名.sql</span><br><span class="line"> [html] view plain copy</span><br><span class="line">$ pg_dump -U postgres -t system_calls wangye &gt; ./test.sql</span><br><span class="line">$ ls</span><br><span class="line">$ 9.1 test.sql</span><br></pre></td></tr></table></figure>
-<h3 id="数据的导入"><a href="#数据的导入" class="headerlink" title="数据的导入"></a>数据的导入</h3><p>导入数据时首先创建数据库再用psql导入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ createdb newdatabase</span><br><span class="line">$ psql -d newdatabase -U postgres -f mydatabase.sql // sql 文件在当前路径下</span><br><span class="line">$ psql -d databaename(数据库名) -U username(用户名) -f &lt; 路径/文件名.sql // sql 文件不在当前路径下</span><br></pre></td></tr></table></figure></p>
-<h3 id="赋予用户超级权限"><a href="#赋予用户超级权限" class="headerlink" title="赋予用户超级权限"></a>赋予用户超级权限</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres psql</span><br><span class="line">CREATE USER root WITH SUPERUSER;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/php_algorithm/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/php_algorithm/" class="post-title-link" itemprop="url">PHP实现常用排序算法（含示意动图）</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-06-02 11:20:59" itemprop="dateCreated datePublished" datetime="2017-06-02T11:20:59+08:00">2017-06-02</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-19 17:26:27" itemprop="dateModified" datetime="2019-04-19T17:26:27+08:00">2019-04-19</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-php/" itemprop="url" rel="index"><span itemprop="name">积累________php</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">9.1k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">8 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
-<li><a href="#1">1 快速排序</a></li>
-<li><a href="#2">2 冒泡排序</a></li>
-<li><a href="#3">3 插入排序</a></li>
-<li><a href="#4">4 选择排序</a></li>
-<li><a href="#5">5 归并排序</a></li>
-<li><a href="#6">6 堆排序</a></li>
-<li><a href="#7"> 7 希尔排序</a></li>
-<li><a href="#8">8 基数排序</a></li>
-<li><a href="#i">总结</a></li>
-</ul>
-<p>作为phper，一般接触算法的编程不多。 但基本的排序算法还是应该掌握。 毕竟算法作为程序的核心，算法的好坏决定了程序的质量。 本文将依次介绍一些常用的排序算法，以及PHP实现。</p>
-<h2 id="1-快速排序"><a href="#1-快速排序" class="headerlink" title="1 快速排序"></a>1 快速排序</h2><p><strong>快速排序</strong>是由<strong><em>东尼·霍尔</em></strong>发展的一种排序算法。 在平均状况下，排序<code>n</code>个项目要<code>Ο(n log n)</code>次比较。 在最坏状况下则需要<code>Ο(n2)</code>次比较，但这种状况并不常见。 事实上，快速排序通常明显比其他<code>Ο(n log n)</code>算法更快，因为它的内部循环可以在大部分的架构上，很有效率地被实现出来。<br><img src="https://raw.githubusercontent.com/ucfyao/image/master/img/20190419142106.png?token=ACYTD73CIETKE3SZ7SXQPJS4XFURA" alt></p>
-<p>快速排序采用分治法实现排序，具体步骤：</p>
-<ol>
-<li>从数列中挑出一个数作为<strong>基准元素</strong>。通常选择第一个或最后一个元素。</li>
-<li>扫描数列，<strong>以基准元素为比较对象，把数列分成两个区</strong>。规则是：小的移动到基准元素前面，大的移到后面，相等的前后都可以。分区完成之后，基准元素就处于数列的中间位置。</li>
-<li>然后再用同样的方法，<strong>递归地排序划分的两部分</strong>。</li>
-</ol>
-<p>递归的结束条件是数列的大小是<code>0</code>或<code>1</code>，也就是永远都已经被排序好了。<br>PHP代码实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">function quickSort($arr) &#123;</span><br><span class="line">    // 先设定结束条件，判断是否需要继续进行</span><br><span class="line">    if(count($arr) &lt;= 1) &#123;</span><br><span class="line">        return $arr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 选择第一个元素作为基准元素</span><br><span class="line">    $base_value = $arr[0];</span><br><span class="line"></span><br><span class="line">    // 初始化小于基准元素的左数组</span><br><span class="line">    $left_array = array();</span><br><span class="line"></span><br><span class="line">    // 初始化大于基准元素的右数组</span><br><span class="line">    $right_array = array();</span><br><span class="line"></span><br><span class="line">    // 遍历除基准元素外的所有元素，按照大小关系放入左右数组内</span><br><span class="line">    array_shift($arr);</span><br><span class="line">    foreach ($arr as $value) &#123;</span><br><span class="line">        if ($value &lt; $base_value) &#123;</span><br><span class="line">            $left_array[] = $value;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            $right_array[] = $value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 再分别对左右数组进行相同的排序</span><br><span class="line">    $left_array = quickSort($left_array);</span><br><span class="line">    $right_array = quickSort($right_array);</span><br><span class="line"></span><br><span class="line">    // 合并基准元素和左右数组</span><br><span class="line">    return array_merge($left_array, array($base_value), $right_array);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="2-冒泡排序"><a href="#2-冒泡排序" class="headerlink" title="2 冒泡排序"></a>2 冒泡排序</h2><p>冒泡排序是一种简单的排序算法。 算法重复地走访过要排序的数列，一次<strong>比较两个元素</strong>，如果他们的顺序错误就把他们交换过来。 走访数列的工作重复地进行，直到没有再需要交换，也就是说该数列已经排序完成。 因为排序过程让<strong>较大的数往下沉，较小的往上冒</strong>，故而叫冒泡法。<br><img src="https://raw.githubusercontent.com/ucfyao/image/master/img/20190419142134.png?token=ACYTD73YBGWX6V7NKYRKGO24XFUSY" alt></p>
-<p>算法步骤：</p>
-<ol>
-<li>从第一个元素开始，比较相邻的元素，如果第一个比第二个大，就交换他们两个。</li>
-<li>从开始第一对到结尾的最后一对，对每一对相邻元素作同样的工作。比较结束后，最后的元素应该会是最大的数。</li>
-<li>对所有的元素重复以上的步骤，除了最后一个。</li>
-<li>重复上面的步骤，每次比较的对数会越来越少，直到没有任何一对数字需要比较。</li>
-</ol>
-<p>PHP代码实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function bubbleSort($arr)</span><br><span class="line">&#123;</span><br><span class="line">    $len = count($arr);</span><br><span class="line">    </span><br><span class="line">    for($i = 1; $i &lt; $len; $i++) &#123;</span><br><span class="line">        for($k = 0; $k &lt; $len - $i; $k++) &#123;</span><br><span class="line">            if($arr[$k] &gt; $arr[$k + 1]) &#123;</span><br><span class="line">                $tmp = $arr[$k + 1];</span><br><span class="line">                $arr[$k + 1] = $arr[$k];</span><br><span class="line">                $arr[$k] = $tmp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return $arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="3-插入排序"><a href="#3-插入排序" class="headerlink" title="3 插入排序"></a>3 插入排序</h2><p>插入排序是一种简单直观的排序算法。 插入排序的工作原理是：<strong>将需要排序的数，与前面已经排好序的数据从后往前进行比较，使其插入到相应的位置。</strong> 插入排序在实现上，通常采用in-place排序，即只需用到<code>O(1)</code>的额外空间的排序。 因而，在从后向前扫描过程中，需要反复把已排序元素逐步向后挪位，为最新元素提供插入空间。 <img src="https://raw.githubusercontent.com/ucfyao/image/master/img/20190419142212.png?token=ACYTD76XDNXPLTUKXSZVU5C4XFUVG" alt></p>
-<p>算法步骤：</p>
-<ol>
-<li>从第一个元素开始，该元素可以认为已经被排序；</li>
-<li>取出下一个元素，在已经排序的元素序列中从后向前扫描；</li>
-<li>如果以排序的元素大于新元素，将该元素移到下一位置；</li>
-<li>重复步骤3，直到找到已排序的元素小于或者等于新元素的位置；</li>
-<li>将新元素插入到该位置中；</li>
-<li>重复步骤2。</li>
-</ol>
-<p>PHP代码实现： </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">function insertSort($arr)</span><br><span class="line">&#123;</span><br><span class="line">    $len = count($arr);</span><br><span class="line"></span><br><span class="line">    for ($i = 1; $i &lt; $len; $i++) &#123;</span><br><span class="line">        $tmp = $arr[$i];</span><br><span class="line">        for ($j = $i - 1; $j &gt;= 0; $j--) &#123;</span><br><span class="line">            if ($tmp &lt; $arr[$j]) &#123;</span><br><span class="line">                $arr[$j + 1] = $arr[$j];</span><br><span class="line">                $arr[$j] = $tmp;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return $arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="4-选择排序"><a href="#4-选择排序" class="headerlink" title="4 选择排序"></a>4 选择排序</h2><p>选择排序是一种简单直观的排序算法。<br><img src="https://raw.githubusercontent.com/ucfyao/image/master/img/20190419142255.png?token=ACYTD75MPUMGYHPSSMGPGOS4XFUX4" alt><br>算法步骤：</p>
-<ol>
-<li>首先，在序列中找到最小元素，存放到排序序列的起始位置；</li>
-<li>接着，从剩余未排序元素中继续寻找最小元素，放到已排序序列的末尾。</li>
-<li>重复第二步，直到所有元素均排序完毕。</li>
-</ol>
-<p>PHP代码实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">function selectSort($arr)</span><br><span class="line">&#123;</span><br><span class="line">    $len = count($arr);</span><br><span class="line"></span><br><span class="line">    for ($i = 0; $i &lt; $len; $i++) &#123;</span><br><span class="line">        $p = $i;</span><br><span class="line"></span><br><span class="line">        for ($j = $i + 1; $j &lt; $len; $j++) &#123;</span><br><span class="line">            if ($arr[$p] &gt; $arr[$j]) &#123;</span><br><span class="line">                $p = $j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        $tmp = $arr[$p];</span><br><span class="line">        $arr[$p] = $arr[$i];</span><br><span class="line">        $arr[$i] = $tmp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return $arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="5-归并排序"><a href="#5-归并排序" class="headerlink" title="5 归并排序"></a>5 归并排序</h2><p><strong>归并排序</strong>是建立在归并操作上的一种有效的排序算法。 归并排序将待排序的序列分成若干组，保证每组都有序，然后再进行合并排序，最终使整个序列有序。 该算法是采用分治法的一个非常典型的应用。 算法步骤：</p>
-<ol>
-<li>申请空间，使其大小为两个已经排序序列之和，该空间用来存放合并后的序列；</li>
-<li>设定两个指针，最初位置分别为两个已经排序序列的起始位置</li>
-<li>比较两个指针所指向的元素，选择相对小的元素放入到合并空间，并移动指针到下一位置</li>
-<li>重复步骤3直到某一指针达到序列尾</li>
-<li>将另一序列剩下的所有元素直接复制到合并序列尾</li>
-</ol>
-<p>排序效果： <img src="https://raw.githubusercontent.com/ucfyao/image/master/img/20190419142321.png?token=ACYTD7ZNABQPXNKOBOSKGP24XFUZQ" alt></p>
-<p>PHP实现代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 归并排序</span><br><span class="line"> *</span><br><span class="line"> * @param array $lists</span><br><span class="line"> * @return array</span><br><span class="line"> */</span><br><span class="line">function merge_sort(array $lists)</span><br><span class="line">&#123;</span><br><span class="line">    $n = count($lists);</span><br><span class="line">    if ($n &lt;= 1) &#123;</span><br><span class="line">        return $lists;</span><br><span class="line">    &#125;</span><br><span class="line">    $left = merge_sort(array_slice($lists, 0, floor($n / 2)));</span><br><span class="line">    $right = merge_sort(array_slice($lists, floor($n / 2)));</span><br><span class="line">    $lists = merge($left, $right);</span><br><span class="line">    return $lists;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function merge(array $left, array $right)</span><br><span class="line">&#123;</span><br><span class="line">    $lists = [];</span><br><span class="line">    $i = $j = 0;</span><br><span class="line">    while ($i &lt; count($left) &amp;&amp; $j &lt; count($right)) &#123;</span><br><span class="line">        if ($left[$i] &lt; $right[$j]) &#123;</span><br><span class="line">            $lists[] = $left[$i];</span><br><span class="line">            $i++;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            $lists[] = $right[$j];</span><br><span class="line">            $j++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    $lists = array_merge($lists, array_slice($left, $i));</span><br><span class="line">    $lists = array_merge($lists, array_slice($right, $j));</span><br><span class="line">    return $lists;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="6-堆排序"><a href="#6-堆排序" class="headerlink" title="6 堆排序"></a>6 堆排序</h2><p>堆排序是指利用堆这种数据结构所设计的一种排序算法。 堆积是一个近似完全二叉树的结构，并同时满足堆积的性质：即子结点的键值或索引总是小于（或者大于）它的父节点。 堆排序的平均时间复杂度为<code>Ο(nlogn)</code> 。 算法步骤：</p>
-<ol>
-<li>创建一个堆<code>H[0..n-1]</code>；</li>
-<li>把堆首（最大值）和堆尾互换；</li>
-<li>把堆的尺寸缩小<code>1</code>，并调用<code>shift_down(0)</code>，目的是把新的数组顶端数据调整到相应位置；</li>
-<li>重复步骤<code>2</code>，直到堆的尺寸为<code>1</code>。<br><img src="https://raw.githubusercontent.com/ucfyao/image/master/img/20190419142348.png?token=ACYTD7ZUA4N7SYQPBEYW7724XFU3E" alt></li>
-</ol>
-<p>PHP实现代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 堆排序</span><br><span class="line"> *</span><br><span class="line"> * @param array $lists</span><br><span class="line"> * @return array</span><br><span class="line"> */</span><br><span class="line">function heap_sort(array $lists)</span><br><span class="line">&#123;</span><br><span class="line">    $n = count($lists);</span><br><span class="line">    build_heap($lists);</span><br><span class="line">    while (--$n) &#123;</span><br><span class="line">        $val = $lists[0];</span><br><span class="line">        $lists[0] = $lists[$n];</span><br><span class="line">        $lists[$n] = $val;</span><br><span class="line">        heap_adjust($lists, 0, $n);</span><br><span class="line">        //echo &quot;sort: &quot; . $n . &quot;\t&quot; . implode(&apos;, &apos;, $lists) . PHP_EOL;</span><br><span class="line">    &#125;</span><br><span class="line">    return $lists;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function build_heap(array &amp;$lists)</span><br><span class="line">&#123;</span><br><span class="line">    $n = count($lists) - 1;</span><br><span class="line">    for ($i = floor(($n - 1) / 2); $i &gt;= 0; $i--) &#123;</span><br><span class="line">        heap_adjust($lists, $i, $n + 1);</span><br><span class="line">        //echo &quot;build: &quot; . $i . &quot;\t&quot; . implode(&apos;, &apos;, $lists) . PHP_EOL;</span><br><span class="line">    &#125;</span><br><span class="line">    //echo &quot;build ok: &quot; . implode(&apos;, &apos;, $lists) . PHP_EOL;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function heap_adjust(array &amp;$lists, $i, $num)</span><br><span class="line">&#123;</span><br><span class="line">    if ($i &gt; $num / 2) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    $key = $i;</span><br><span class="line">    $leftChild = $i * 2 + 1;</span><br><span class="line">    $rightChild = $i * 2 + 2;</span><br><span class="line"></span><br><span class="line">    if ($leftChild &lt; $num &amp;&amp; $lists[$leftChild] &gt; $lists[$key]) &#123;</span><br><span class="line">        $key = $leftChild;</span><br><span class="line">    &#125;</span><br><span class="line">    if ($rightChild &lt; $num &amp;&amp; $lists[$rightChild] &gt; $lists[$key]) &#123;</span><br><span class="line">        $key = $rightChild;</span><br><span class="line">    &#125;</span><br><span class="line">    if ($key != $i) &#123;</span><br><span class="line">        $val = $lists[$i];</span><br><span class="line">        $lists[$i] = $lists[$key];</span><br><span class="line">        $lists[$key] = $val;</span><br><span class="line">        heap_adjust($lists, $key, $num);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="7-希尔排序"><a href="#7-希尔排序" class="headerlink" title=" 7 希尔排序"></a> 7 希尔排序</h2><p>希尔排序，也称<strong>递减增量</strong>排序算法，是插入排序的一种更高效的改进版本。 但希尔排序是非稳定排序算法。 希尔排序是基于插入排序的以下两点性质而提出改进方法的：</p>
-<ul>
-<li>插入排序在对几乎已经排好序的数据操作时， 效率高， 即可以达到线性排序的效率</li>
-<li>但插入排序一般来说是低效的， 因为插入排序每次只能将数据移动一位<br><img src="https://raw.githubusercontent.com/ucfyao/image/master/img/20190419142421.png?token=ACYTD7YGBRZ245KATEDZRQC4XFU5G" alt></li>
-</ul>
-<p>算法步骤：</p>
-<ol>
-<li>先将整个待排序的记录序列分割成为若干子序列，分别进行直接插入排序</li>
-<li>待整个序列中的记录“基本有序”时，再对全体记录进行依次直接插入排序。</li>
-</ol>
-<p>PHP实现代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 希尔排序 标准</span><br><span class="line"> *</span><br><span class="line"> * @param array $lists</span><br><span class="line"> * @return array</span><br><span class="line"> */</span><br><span class="line">function shell_sort(array $lists)</span><br><span class="line">&#123;</span><br><span class="line">    $n = count($lists);</span><br><span class="line">    $step = 2;</span><br><span class="line">    $gap = intval($n / $step);</span><br><span class="line">    while ($gap &gt; 0) &#123;</span><br><span class="line">        for ($gi = 0; $gi &lt; $gap; $gi++) &#123;</span><br><span class="line">            for ($i = $gi; $i &lt; $n; $i += $gap) &#123;</span><br><span class="line">                $key = $lists[$i];</span><br><span class="line">                for ($j = $i - $gap; $j &gt;= 0 &amp;&amp; $lists[$j] &gt; $key; $j -= $gap) &#123;</span><br><span class="line">                    $lists[$j + $gap] = $lists[$j];</span><br><span class="line">                    $lists[$j] = $key;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        $gap = intval($gap / $step);</span><br><span class="line">    &#125;</span><br><span class="line">    return $lists;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="8-基数排序"><a href="#8-基数排序" class="headerlink" title="8 基数排序"></a>8 基数排序</h2><p>基数排序是一种非比较型整数排序算法，其原理是将整数按位数切割成不同的数字，然后按每个位数分别比较。 由于整数也可以表达字符串（比如名字或日期）和特定格式的浮点数，所以基数排序也不是只能使用于整数。 </p>
-<p><img src="https://raw.githubusercontent.com/ucfyao/image/master/img/20190419142637.png?token=ACYTD7YGIYDKNWMCVNPWYLS4XFVFY" alt></p>
-<p>说基数排序之前，我们简单介绍桶排序：<br>说基数排序之前，我们简单介绍桶排序：</p>
-<p>桶排序是将阵列分到有限数量的桶子里。</p>
-<p>每个桶子再个别排序，有可能再使用别的排序算法，或是以递回方式继续使用桶排序进行排序。</p>
-<p>桶排序是鸽巢排序的一种归纳结果。</p>
-<p>当要被排序的阵列内的数值是均匀分配的时候，桶排序使用线性时间O(n)。</p>
-<p>但桶排序并不是 比较排序，他不受到 O(n log n) 下限的影响。</p>
-<p>简单来说，就是把数据分组，放在一个个的桶中，然后对每个桶里面的在进行排序。</p>
-<p>例如，要对大小为[1..1000]范围内的n个整数A[1..n]排序</p>
-<p>首先，可以把桶设为大小为10的范围，具体而言，设集合B[1]存储[1..10]的整数，集合B[2]存储   (10..20]的整数，……集合B[i]存储(   (i-1)<em>10,   i</em>10]的整数，i   =   1,2,..100。总共有  100个桶。</p>
-<p>然后，对A[1..n]从头到尾扫描一遍，把每个A[i]放入对应的桶B[j]中。  再对这100个桶中每个桶里的数字排序，这时可用冒泡，选择，乃至快排，一般来说任  何排序法都可以。</p>
-<p>最后，依次输出每个桶里面的数字，且每个桶中的数字从小到大输出，这  样就得到所有数字排好序的一个序列了。</p>
-<p>假设有n个数字，有m个桶，如果数字是平均分布的，则每个桶里面平均有n/m个数字。</p>
-<p>如果对每个桶中的数字采用快速排序，那么整个算法的复杂度是</p>
-<p>O(n   +   m   <em>   n/m</em>log(n/m))   =   O(n   +   nlogn   –   nlogm)</p>
-<p>从上式看出，当m接近n的时候，桶排序复杂度接近O(n)</p>
-<p>当然，以上复杂度的计算是基于输入的n个数字是平均分布这个假设的。这个假设是很强的  ，实际应用中效果并没有这么好。如果所有的数字都落在同一个桶中，那就退化成一般的排序了。<br>前面说的几大排序算法 ，大部分时间复杂度都是O（n2），也有部分排序算法时间复杂度是O(nlogn)。而桶式排序却能实现O（n）的时间复杂度。但桶排序的缺点是：</p>
-<p>1）首先是空间复杂度比较高，需要的额外开销大。排序有两个数组的空间开销，一个存放待排序数组，一个就是所谓的桶，比如待排序值是从0到m-1，那就需要m个桶，这个桶数组就要至少m个空间。</p>
-<p>2）其次待排序的元素都要在一定的范围内等等。</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line"> /**</span><br><span class="line"> * 基数排序</span><br><span class="line"> *</span><br><span class="line"> * @param array $lists</span><br><span class="line"> * @return array</span><br><span class="line"> */</span><br><span class="line">function radix_sort(array $lists)</span><br><span class="line">&#123;</span><br><span class="line">    $radix = 10;</span><br><span class="line">    $max = max($lists);</span><br><span class="line">    $k = ceil(log($max, $radix));</span><br><span class="line">    if ($max == pow($radix, $k)) &#123;</span><br><span class="line">        $k++;</span><br><span class="line">    &#125;</span><br><span class="line">    for ($i = 1; $i &lt;= $k; $i++) &#123;</span><br><span class="line">        $newLists = array_fill(0, $radix, []);</span><br><span class="line">        for ($j = 0; $j &lt; count($lists); $j++) &#123;</span><br><span class="line">            $key = $lists[$j] / pow($radix, $i - 1) % $radix;</span><br><span class="line">            $newLists[$key][] = $lists[$j];</span><br><span class="line">        &#125;</span><br><span class="line">        $lists = [];</span><br><span class="line">        for ($j = 0; $j &lt; $radix; $j++) &#123;</span><br><span class="line">            $lists = array_merge($lists, $newLists[$j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return $lists;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>各种排序的稳定性，时间复杂度、空间复杂度、稳定性总结如下图：</p>
-<p><img src="https://raw.githubusercontent.com/ucfyao/image/master/img/20190419142754.png?token=ACYTD77XEXVLLCVGBRWACE24XFVKW" alt></p>
-<p>关于时间复杂度：</p>
-<p>(1)平方阶(O(n2))排序<br>各类简单排序:直接插入、直接选择和冒泡排序；</p>
-<p>(2)线性对数阶(O(nlog2n))排序<br>　　快速排序、堆排序和归并排序；<br>(3)O(n1+§))排序,§是介于0和1之间的常数。</p>
-<p>希尔排序</p>
-<p>(4)线性阶(O(n))排序</p>
-<p>基数排序，此外还有桶、箱排序。</p>
-<p>关于稳定性：</p>
-<p>稳定的排序算法：冒泡排序、插入排序、归并排序和基数排序</p>
-<p>不是稳定的排序算法：选择排序、快速排序、希尔排序、堆排序</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/graduate_18_info/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/graduate_18_info/" class="post-title-link" itemprop="url">18考研信息收集分享</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-05-31 11:40:22" itemprop="dateCreated datePublished" datetime="2017-05-31T11:40:22+08:00">2017-05-31</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-19 16:43:50" itemprop="dateModified" datetime="2019-04-19T16:43:50+08:00">2019-04-19</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/" itemprop="url" rel="index"><span itemprop="name">日常________经验分享</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">1.2k</span>
+                <span title="本文字数">776</span>
               
 
               
@@ -2774,33 +2678,13 @@
       
         
           
-            <p>推荐APP工具：百度网盘（你所能找到的好多资料都需要百度网盘来中转），扇贝单词，扇贝新闻，帮学堂，粉笔考研，考研万题库，口袋题库考研，完美规划，考研帮，有道词典</p>
-<h2 id="政治："><a href="#政治：" class="headerlink" title="政治："></a>政治：</h2><p>肖四，肖八，肖的命题人形式与政策（只看选择题），蒋中挺4套卷（选择题），米鹏的几套卷（选择题），任汝芬的几套卷（选择题），你能找到的其他老师的卷子（选择题）</p>
-<p>考研政治包括五个部分：马原30%，毛中特30%，近现代史15%，思修15%，还有时政10%。</p>
-<p>马原：阮晔。毛中特：徐涛。思修：肖秀荣1000题。近现代史：秀荣老师或者任汝芬老师。</p>
-<p>形式与政策：徐涛最后的20天20题（传说中的小黄书）最后那几页会有每年的政治实事预测考点，把那个看一遍一般这部分没问题。</p>
-<p>选择题，一直选择题做下去就行了，对答案，在做，三遍之后你就会有不同的感觉</p>
-<p>大题，直接背诵肖四，肖八的大题。</p>
-<h2 id="英语（二）："><a href="#英语（二）：" class="headerlink" title="英语（二）："></a>英语（二）：</h2><p>张剑黄皮书真题。恋恋有词加上红宝书。</p>
-<p>作文：王江涛作文。阅读：李旭。翻译：唐静。新题型与完形填空：王晟。</p>
-<p>看扇贝新闻，背200个单词。真正的用笔写英语的作文练习。</p>
-<p>考研阅读素材来源主要有 经济学人、商ye周刊、自然杂志、华尔jie邮报、纽yue时报等,考研阅读文章多采用经济、教育、文化等公共话题的篇章。</p>
-<p>扇贝单词，选一个考研的单词书，每天设定二百个，拼写模式，背完差不多一个小时（它里面内置了艾宾浩斯遗忘曲线，就当是一个好的方法吧），然后就看扇贝新闻（每天四篇，不求全部翻译出来，就是每天四篇坚持看，相信我，坚持200天，就知道效果有多明显了</p>
-<p>何凯文的长难句分析小本子。</p>
-<h2 id="数学（二）："><a href="#数学（二）：" class="headerlink" title="数学（二）："></a>数学（二）：</h2><p>资料： 线代 同济第六版， 同济高数（第六版，找最新版的就行了），张宇十八讲，李永乐复习全书，李永乐660题，李永乐老师的线代辅导讲义，李永乐的历年真题（数二）</p>
-<p>李永乐线代视频，张宇高数视频，汤家凤视频</p>
-<p>如果是考数一就在多找王式安的概率论视频（前一年的视频，网上找，或者很便宜能买到）</p>
-<p>线代：</p>
-<p>先看李永乐视频，李永乐线代基础32讲</p>
-<p>视频完了之后就做660题配套的送的一本小书，按照章节分类的，看完一章线代就做一章。</p>
-<p>高数（二）：</p>
-<p>如果有时间，先把汤老师的基础班和强化班看完，再看张宇视频。我直接刷的张宇。</p>
-<p>练全书的题，真题练习。</p>
-<h2 id="专业课："><a href="#专业课：" class="headerlink" title="专业课："></a>专业课：</h2><p>资料：真题，去年考取的学长学姐</p>
-<p>可以到目标院校的校区一趟，去学校里面的书店，相信我会有收获的。</p>
-<p>或者可以直接去学院的所在地，如果你够聪明（脸皮够厚），肯定能找到愿意帮你的人。</p>
-<h2 id="比较好的公众号："><a href="#比较好的公众号：" class="headerlink" title="比较好的公众号："></a>比较好的公众号：</h2><p>考研就业十点杂谈、考研教研室、考研研学姐、考研过来人</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>最全最整齐的2018政治名师老师课程汇总：张鑫、肖秀荣、蒋中挺等等 最全最整齐的2018英语名师老师课程汇总：刘晓燕、何凯文、商志、朱伟、陈正康、老蒋（蒋军虎）链接 最全最整齐的2018数学名师老师课程汇总：汤家凤、张宇、李永乐、王式安、张伟等</p>
+            <p>由于触发了自定义规则，导致返回content-length大于实际页面内容，报IncompleteRead异常。</p>
+<p>解决方法如下：</p>
+<p>1.修改_safe_read方法，将抛出异常换为返回数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">s = []  </span><br><span class="line">       while amt &gt; 0:  </span><br><span class="line">           chunk = self.fp.read(min(amt, MAXAMOUNT))  </span><br><span class="line">           if not chunk:  </span><br><span class="line">               #raise IncompleteRead(s)  </span><br><span class="line">               return &apos;&apos;.join(s)  </span><br><span class="line">           s.append(chunk)  </span><br><span class="line">           amt -= len(chunk)  </span><br><span class="line">       return &apos;&apos;.join(s)</span><br></pre></td></tr></table></figure>
+<p>2.使用装饰器打patch<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def patch_http_response_read(func):  </span><br><span class="line">    def inner(*args):  </span><br><span class="line">        try:  </span><br><span class="line">            return func(*args)  </span><br><span class="line">        except IncompleteRead, e:  </span><br><span class="line">            return &apos;&apos;.join(e.partial)  </span><br><span class="line">    return inner  </span><br><span class="line">HTTPResponse.read = patch_http_response_read(HTTPResponse.read)</span><br></pre></td></tr></table></figure></p>
+<p>将上面代码放到httplib的最后就可以了，注意IncompletedRead的<code>partial</code>参数是list变量，因为<code>_safe_read</code>中的<code>s</code>是<code>[]</code>。</p>
+<p>个人推荐第二种方法。</p>
 
           
         
@@ -2846,7 +2730,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2888,7 +2772,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-count">100</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2904,16 +2788,6 @@
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -3028,45 +2902,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-count">40</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -3191,7 +3027,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">208k</span>
+    <span title="站点总字数">319k</span>
   
 
   
@@ -3202,7 +3038,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">3:09</span>
+    <span title="站点阅读时长">4:50</span>
   
 </div>
 

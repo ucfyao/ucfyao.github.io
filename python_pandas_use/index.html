@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN,en,default">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+      
+    
+    
+      
+    
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: true,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta name="keywords" content="python,pandas">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pandas常用函数">
+<meta property="og:url" content="https://yaozihao.com/python_pandas_use/index.html">
+<meta property="og:site_name" content="zihao&#39;blog">
+<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-22T02:22:47.433Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Pandas常用函数">
+<meta name="twitter:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="zihao'blog" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="https://yaozihao.com/python_pandas_use/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Pandas常用函数 | zihao'blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zihao'blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">Make small but daily progress</h1>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL3VjZnlhbw==" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></span>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/python_pandas_use/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Pandas常用函数
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-11-01 22:25:40" itemprop="dateCreated datePublished" datetime="2017-11-01T22:25:40+08:00">2017-11-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-22 10:22:47" itemprop="dateModified" datetime="2019-04-22T10:22:47+08:00">2019-04-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">7.5k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">7 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">import pandas as pd</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line">---------------numpy-----------------------</span><br><span class="line">arr = np.array([1,2,3], dtype=np.float64)</span><br><span class="line">np.zeros((3,6)) np.empty((2,3,2)) np.arange(15)</span><br><span class="line">arr.dtype arr.ndim arr.shape</span><br><span class="line">arr.astype(np.int32) #np.float64 np.string_ np.unicode_</span><br><span class="line">arr * arr arr - arr 1/arr</span><br><span class="line">arr= np.arange(32).reshape((8,4))</span><br><span class="line">arr[1:3, : ] #正常切片</span><br><span class="line">arr[[1,2,3]] #花式索引</span><br><span class="line">arr.T arr.transpose((...)) arr.swapaxes(...) #转置</span><br><span class="line">arr.dot #矩阵内积</span><br><span class="line">np.sqrt(arr) np.exp(arr) randn(8)＃正态分布值 np.maximum(x,y)</span><br><span class="line">np.where(cond, xarr, yarr) ＃当cond为真，取xarr,否则取yarr</span><br><span class="line">arr.mean() arr.mean(axis=1) #算术平均数</span><br><span class="line">arr.sum() arr.std() arr.var() #和、标准差、方差</span><br><span class="line">arr.min() arr.max() #最小值、最大值</span><br><span class="line">arr.argmin() arr.argmax() #最小索引、最大索引</span><br><span class="line">arr.cumsum() arr.cumprod() #所有元素的累计和、累计积</span><br><span class="line">arr.all() arr.any() # 检查数组中是否全为真、部分为真</span><br><span class="line">arr.sort() arr.sort(1) #排序、1轴向上排序</span><br><span class="line">arr.unique() #去重</span><br><span class="line">np.in1d(arr1, arr2) #arr1的值是否在arr2中</span><br><span class="line">np.load() np.loadtxt() np.save() np.savez() ＃读取、保存文件</span><br><span class="line">np.concatenate([arr, arr], axis=1) ＃连接两个arr，按行的方向</span><br><span class="line"></span><br><span class="line">---------------pandas-----------------------</span><br><span class="line">ser = Series() ser = Series([...], index=[...]) #一维数组, 字典可以直接转化为series</span><br><span class="line">ser.values ser.index ser.reindex([...], fill_value=0) #数组的值、数组的索引、重新定义索引</span><br><span class="line">ser.isnull() pd.isnull(ser) pd.notnull(ser) #检测缺失数据</span><br><span class="line">ser.name= ser.index.name= #ser本身的名字、ser索引的名字</span><br><span class="line">ser.drop(&apos;x&apos;) #丢弃索引x对应的值</span><br><span class="line">ser +ser #算术运算</span><br><span class="line">ser.sort_index() ser.order() ＃按索引排序、按值排序</span><br><span class="line">df = DataFrame(data, columns=[...], index=[...]) #表结构的数据结构，既有行索引又有列索引</span><br><span class="line">df.ix[&apos;x&apos;] #索引为x的值 对于series，直接使用ser[&apos;x&apos;]</span><br><span class="line">del df[&apos;ly&apos;] #用del删除第ly列</span><br><span class="line">df.T #转置</span><br><span class="line">df.index.name df.columns.name df.values</span><br><span class="line">df.drop([...])</span><br><span class="line">df + df df1.add(df2, fill_vaule=0) #算术运算</span><br><span class="line">df -ser #df与ser的算术运算</span><br><span class="line">f=lambda x: x.max()-x.min() df.apply(f)</span><br><span class="line">df.sort_index(axis=1, ascending=False) #按行索引排序</span><br><span class="line">df.sort_index(by=[&apos;a&apos;,&apos;b&apos;]) #按a、b列索引排序</span><br><span class="line">ser.rank() df.rank(axis=1) #排序，增设一个排名值</span><br><span class="line">df.sum() df.sum(axis=1) #按列、按行求和</span><br><span class="line">df.mean(axis=1, skipna=False) #求各行的平均值，考虑na的存在</span><br><span class="line">df.idxmax() #返回最大值的索引</span><br><span class="line">df.cumsum() #累计求和</span><br><span class="line">df.describe() ser.describe() #返回count mean std min max等值</span><br><span class="line">ser.unique() #去重</span><br><span class="line">ser.value_counts() df.value_counts() ＃返回一个series，其索引为唯一值，值为频率</span><br><span class="line">ser.isin([&apos;x&apos;, &apos;y&apos;]) #判断ser的值是否为x,y，得到布尔值</span><br><span class="line">ser.dropna() ser.isnull() ser.notnull() ser.fillna(0) #处理缺失数据，df相同</span><br><span class="line">df.unstack() #行列索引和值互换 df.unstack().stack()</span><br><span class="line">df.swaplevel(&apos;key1&apos;,&apos;key2&apos;) #接受两个级别编号或名称，并互换</span><br><span class="line">df.sortlevel(1) #根据级别1进行排序，df的行、列索引可以有两级</span><br><span class="line">df.set_index([&apos;c&apos;,&apos;d&apos;], drop=False) #将c、d两列转换为行,因drop为false，在列中仍保留c,d</span><br><span class="line">read_csv read_table read_fwf #读取文件分隔符为逗号、分隔符为制表符(&apos;\t&apos;)、无分隔符（固定列宽）</span><br><span class="line">pd.read_csv(&apos;...&apos;, nrows=5) #读取文件前5行</span><br><span class="line">pd.read_csv(&apos;...&apos;, chunksize=1000) #按块读取，避免过大的文件占用内存</span><br><span class="line">pd.load() #pd也有load方法，用来读取二进制文件</span><br><span class="line">pd.ExcelFile(&apos;...xls&apos;).parse(&apos;Sheet1&apos;) # 读取excel文件中的sheet1</span><br><span class="line">df.to_csv(&apos;...csv&apos;, sep=&apos;|&apos;, index=False, header=False) #将数据写入csv文件，以｜为分隔符，默认以，为分隔符, 禁用列、行的标签</span><br><span class="line">pd.merge(df1, df2, on=&apos;key&apos;, suffixes=(&apos;_left&apos;, &apos;_right&apos;)) #合并两个数据集,类似数据库的inner join, 以二者共有的key列作为键,suffixes将两个key分别命名为key_left、key_right</span><br><span class="line">pd.merge(df1, df2, left_on=&apos;lkey&apos;, right_on=&apos;rkey&apos;) #合并，类似数据库的inner join, 但二者没有同样的列名，分别指出，作为合并的参照</span><br><span class="line">pd.merge(df1, df2, how=&apos;outer&apos;) #合并，但是是outer join；how=&apos;left&apos;是笛卡尔积，how=&apos;inner&apos;是...;还可以对多个键进行合并</span><br><span class="line">df1.join(df2, on=&apos;key&apos;, how=&apos;outer&apos;) #也是合并</span><br><span class="line">pd.concat([ser1, ser2, ser3], axis=1) #连接三个序列，按行的方向</span><br><span class="line">ser1.combine_first(ser2) df1.combine_first(df2) #把2合并到1上，并对齐</span><br><span class="line">df.stack() df.unstack() #列旋转为行、行旋转为列</span><br><span class="line">df.pivot()</span><br><span class="line">df.duplicated() df.drop_duplicates() #判断是否为重复数据、删除重复数据</span><br><span class="line">df[&apos;&apos;].map(lambda x: abs(x)) #将函数映射到df的指定列</span><br><span class="line">ser.replace(-999, np.nan) #将－999全部替换为nan</span><br><span class="line">df.rename(index=&#123;&#125;, columns=&#123;&#125;, inplace=True) #修改索引，inplace为真表示就地修改数据集</span><br><span class="line">pd.cut(ser, bins) #根据面元bin判断ser的各个数据属于哪一个区段，有labels、levels属性</span><br><span class="line">df[(np.abs(df)&gt;3).any(1)] #输出含有“超过3或－3的值”的行</span><br><span class="line">permutation take #用来进行随机重排序</span><br><span class="line">pd.get_dummies(df[&apos;key&apos;], prefix=&apos;key&apos;) #给df的所有列索引加前缀key</span><br><span class="line">df[...].str.contains() df[...].str.findall(pattern, flags=re.IGNORECASE) df[...].str.match(pattern, flags=...) df[...].str.get() #矢量化的字符串函数</span><br><span class="line"></span><br><span class="line">----绘图</span><br><span class="line">ser.plot() df.plot() #pandas的绘图工具，有参数label, ax, style, alpha, kind, logy, use_index, rot, xticks, xlim, grid等，详见page257</span><br><span class="line">kind=&apos;kde&apos; #密度图</span><br><span class="line">kind=&apos;bar&apos; kind=&apos;barh&apos; #垂直柱状图、水平柱状图，stacked=True为堆积图</span><br><span class="line">ser.hist(bins=50) #直方图</span><br><span class="line">plt.scatter(x,y) #绘制x,y组成的散点图</span><br><span class="line">pd.scatter_matrix(df, diagonal=&apos;kde&apos;, color=&apos;k&apos;, alpha=&apos;0.3&apos;) #将df各列分别组合绘制散点图</span><br><span class="line"></span><br><span class="line">----聚合分组</span><br><span class="line">groupby() 默认在axis=0轴上分组，也可以在1组上分组；可以用for进行分组迭代</span><br><span class="line">df.groupby(df[&apos;key1&apos;]) #根据key1对df进行分组</span><br><span class="line">df[&apos;key2&apos;].groupby(df[&apos;key1&apos;]) #根据key1对key2列进行分组</span><br><span class="line">df[&apos;key3&apos;].groupby(df[&apos;key1&apos;], df[&apos;key2&apos;]) #先根据key1、再根据key2对key3列进行分组</span><br><span class="line">df[&apos;key2&apos;].groupby(df[&apos;key1&apos;]).size() #size()返回一个含有分组大小的series</span><br><span class="line">df.groupby(df[&apos;key1&apos;])[&apos;data1&apos;] 等价于 df[&apos;data1&apos;].groupby(df[&apos;key1&apos;])</span><br><span class="line">df.groupby(df[&apos;key1&apos;])[[&apos;data1&apos;]] 等价于 df[[&apos;data1&apos;]].groupby(df[&apos;key1&apos;])</span><br><span class="line">df.groupby(mapping, axis=1) ser(mapping) #定义mapping字典，根据字典的分组来进行分组</span><br><span class="line">df.groupby(len) #通过函数来进行分组，如根据len函数</span><br><span class="line">df.groupby(level=&apos;...&apos;, axis=1) #根据索引级别来分组</span><br><span class="line">df.groupby([], as_index=False) #禁用索引，返回无索引形式的数据</span><br><span class="line">df.groupby(...).agg([&apos;mean&apos;, &apos;std&apos;]) #一次使用多个聚合函数时，用agg方法</span><br><span class="line">df.groupby(...).transform(np.mean) #transform()可以将其内的函数用于各个分组</span><br><span class="line">df.groupby().apply() #apply方法会将待处理的对象拆分成多个片段，然后对各片段调用传入的函数，最后尝试将各片段组合到一起</span><br><span class="line"></span><br><span class="line">----透视交叉</span><br><span class="line">df.pivot_table([&apos;&apos;,&apos;&apos;], rows=[&apos;&apos;,&apos;&apos;], cols=&apos;&apos;, margins=True) #margins为真时会加一列all</span><br><span class="line">pd.crosstab(df.col1, df.col2, margins=True) #margins作用同上</span><br><span class="line"></span><br><span class="line">---------------matplotlib---------------</span><br><span class="line">fig=plt.figure() ＃图像所在的基对象</span><br><span class="line">ax=fig.add_subplot(2,2,1) #2*2的图像，当前选中第1个</span><br><span class="line">fig, axes = plt.subplots(nrows, nclos, sharex, sharey) #创建图像，指定行、列、共享x轴刻度、共享y轴刻度</span><br><span class="line">plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=None, hspace=None)</span><br><span class="line">#调整subplot之间的距离，wspace、hspace用来控制宽度、高度百分比</span><br><span class="line">ax.plot(x, y, linestyle=&apos;--&apos;, color=&apos;g&apos;) #依据x,y坐标画图，设置线型、颜色</span><br><span class="line">ax.set_xticks([...]) ax.set_xticklabels([...]) #设置x轴刻度</span><br><span class="line">ax.set_xlabel(&apos;...&apos;) #设置x轴名称</span><br><span class="line">ax.set_title(&apos;....&apos;) ＃设置图名</span><br><span class="line">ax.legend(loc=&apos;best&apos;) #设置图例， loc指定将图例放在合适的位置</span><br><span class="line">ax.text(x,y, &apos;hello&apos;, family=&apos;monospace&apos;, fontsize=10) #将注释hello放在x,y处，字体大小为10</span><br><span class="line">ax.add_patch() #在图中添加块</span><br><span class="line">plt.savefig(&apos;...png&apos;, dpi=400, bbox_inches=&apos;tight&apos;) #保存图片，dpi为分辨率，bbox＝tight表示将裁减空白部分</span><br><span class="line"></span><br><span class="line">------------------------------------------</span><br><span class="line">from mpl_toolkits.basemap import Basemap</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">#可以用来绘制地图</span><br><span class="line"></span><br><span class="line">-----------------时间序列--------------------------</span><br><span class="line">pd.to_datetime(datestrs) #将字符串型日期解析为日期格式</span><br><span class="line">pd.date_range(&apos;1/1/2000&apos;, periods=1000) #生成时间序列</span><br><span class="line">ts.resample(&apos;D&apos;, how=&apos;mean&apos;) #采样，将时间序列转换成以每天为固定频率的, 并计算均值；how=&apos;ohlc&apos;是股票四个指数；</span><br><span class="line">＃重采样会聚合，即将短频率（日）变成长频率（月），对应的值叠加；</span><br><span class="line">＃升采样会插值，即将长频率变为短频率，中间产生新值</span><br><span class="line">ts.shift(2, freq=&apos;D&apos;) ts.shift(-2, freq=&apos;D&apos;) #后移、前移2天</span><br><span class="line">now+Day() now+MonthEnd()</span><br><span class="line">import pytz pytz.timezone(&apos;US/Eastern&apos;) #时区操作，需要安装pytz</span><br><span class="line">pd.Period(&apos;2010&apos;, freq=&apos;A-DEC&apos;) ＃period表示时间区间，叫做时期</span><br><span class="line">pd.PeriodIndex #时期索引</span><br><span class="line">ts.to_period(&apos;M&apos;) #时间转换为时期</span><br><span class="line">pd.rolling_mean(...) pd.rolling_std(...) #移动窗口函数－平均值、标准差</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="Jack Yao 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/bitcoinpay.png" alt="Jack Yao 比特币">
+        <p>比特币</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/pandas/" rel="tag"># pandas</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/python_pandas_data/" rel="next" title="Pandas数据清洗，排序，索引设置，数据选取">
+                <i class="fa fa-chevron-left"></i> Pandas数据清洗，排序，索引设置，数据选取
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/shadowsock_three_command/" rel="prev" title="三条命令搭建shadowsock服务器">
+                三条命令搭建shadowsock服务器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jack Yao</p>
+              <div class="site-description motion-element" itemprop="description">由渐入深，记录程序人生。全栈工程师与你共勉。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">100</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3VjZnlhbw==" title="GitHub &rarr; https://github.com/ucfyao"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOnlhb3ppaGFvQHlhb3ppaGFvLmNu" title="E-Mail &rarr; mailto:yaozihao@yaozihao.cn"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly93d3cuamlhbnNodS5jb20vdS8zYWI3MGExOTliNzA=" title="简书 &rarr; https://www.jianshu.com/u/3ab70a199b70"><i class="fa fa-fw fa-heartbeat"></i>简书</span>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <span class="exturl" data-url="aHR0cHM6Ly93d3cuYmFpZHUuY29tLw==" title="https://www.baidu.com/">baidu</span>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <span class="exturl" data-url="aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8=" title="https://www.google.com/">google</span>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2014 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jack Yao</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">319k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">4:50</span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+    
+
+    
+      <div>
+        <div class="addthis_inline_share_toolbox">
+  <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cb68f059ff1e21f" async="async"></script>
+</div>
+
+      </div>
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js"></script>
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+  <script src="/js/exturl.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

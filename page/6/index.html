@@ -363,7 +363,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/mongodb_cluster_question/">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/dns/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -383,7 +383,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/mongodb_cluster_question/" class="post-title-link" itemprop="url">Mongodb衍伸的互联网思考</a>
+                <a href="/dns/" class="post-title-link" itemprop="url">DNS原理入门</a>
               
             
           </h2>
@@ -408,7 +408,7 @@
                 
               
 
-              <time title="创建时间：2015-10-09 17:17:44" itemprop="dateCreated datePublished" datetime="2015-10-09T17:17:44+08:00">2015-10-09</time>
+              <time title="创建时间：2017-04-13 19:38:36" itemprop="dateCreated datePublished" datetime="2017-04-13T19:38:36+08:00">2017-04-13</time>
             
 
             
@@ -425,7 +425,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-18 18:32:45" itemprop="dateModified" datetime="2019-04-18T18:32:45+08:00">2019-04-18</time>
+                <time title="修改时间：2019-04-19 17:49:32" itemprop="dateModified" datetime="2019-04-19T17:49:32+08:00">2019-04-19</time>
               
             
           </span>
@@ -442,7 +442,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-db/" itemprop="url" rel="index"><span itemprop="name">积累________db</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-原理/" itemprop="url" rel="index"><span itemprop="name">积累________原理</span></a></span>
 
                 
                 
@@ -471,7 +471,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">751</span>
+                <span title="本文字数">5.8k</span>
               
 
               
@@ -485,7 +485,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">5 分钟</span>
               
             </div>
           
@@ -507,17 +507,335 @@
       
         
           
-            <blockquote>
-<p>引子：如何使用三台服务器搭建高可用mongodb集群。</p>
+            <p>DNS 是互联网核心协议之一。不管是上网浏览，还是编程开发，都需要了解一点它的知识。</p>
+<p>本文详细介绍DNS的原理，以及如何运用工具软件观察它的运作。我的目标是，读完此文后，你就能完全理解DNS。<br><img src="https://raw.githubusercontent.com/ucfyao/image/img/img/20190419173802.png" alt></p>
+<h2 id="DNS-是什么？"><a href="#DNS-是什么？" class="headerlink" title="DNS 是什么？"></a>DNS 是什么？</h2><p>DNS （Domain Name System 的缩写）的作用非常简单，就是根据域名查出IP地址。你可以把它想象成一本巨大的电话本。 举例来说，如果你要访问域名<code>math.stackexchange.com</code>，首先要通过DNS查出它的IP地址是<code>151.101.129.69</code>。</p>
+<h2 id="查询过程"><a href="#查询过程" class="headerlink" title="查询过程"></a>查询过程</h2><p>虽然只需要返回一个IP地址，但是DNS的查询过程非常复杂，分成多个步骤。 工具软件<code>dig</code>可以显示整个查询过程。</p>
+<figure class="highlight plain"><figcaption><span>dig math.stackexchange.com```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">上面的命令会输出六段信息。</span><br><span class="line">![](https://raw.githubusercontent.com/ucfyao/image/img/img/20190419173855.png)</span><br><span class="line"></span><br><span class="line">* 第一段是查询参数和统计。</span><br><span class="line">* 第二段是查询内容。上面结果表示，查询域名`math.stackexchange.com`的`A`记录，`A`是address的缩写。 </span><br><span class="line">* 第三段是DNS服务器的答复。 上面结果显示，`math.stackexchange.com`有四个`A`记录，即四个IP地址。`600`是TTL值（Time to live 的缩写），表示缓存时间，即600秒之内不用重新查询。 </span><br><span class="line">* 第四段显示`stackexchange.com`的NS记录（Name Server的缩写），即哪些服务器负责管理`stackexchange.com`的DNS记录。上面结果显示`stackexchange.com`共有四条NS记录，即四个域名服务器，向其中任一台查询就能知道`math.stackexchange.com`的IP地址是什么。</span><br><span class="line">* 第五段是上面四个域名服务器的IP地址，这是随着前一段一起返回的。 </span><br><span class="line">* 第六段是DNS服务器的一些传输信息。上面结果显示，本机的DNS服务器是`192.168.1.253`，查询端口是53（DNS服务器的默认端口），以及回应长度是305字节。 如果不想看到这么多内容，可以使用`+short`参数。</span><br><span class="line"></span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">$ dig +short math.stackexchange.com</span><br><span class="line"></span><br><span class="line">151.101.129.69</span><br><span class="line">151.101.65.69</span><br><span class="line">151.101.193.69</span><br><span class="line">151.101.1.69</span><br></pre></td></tr></table></figure>
+<p>上面命令只返回<code>math.stackexchange.com</code>对应的4个IP地址（即<code>A</code>记录）。</p>
+<h2 id="DNS服务器"><a href="#DNS服务器" class="headerlink" title="DNS服务器"></a>DNS服务器</h2><p>下面我们根据前面这个例子，一步步还原，本机到底怎么得到域名<code>math.stackexchange.com</code>的IP地址。</p>
+<p>首先，本机一定要知道DNS服务器的IP地址，否则上不了网。通过DNS服务器，才能知道某个域名的IP地址到底是什么。<br><img src="https://raw.githubusercontent.com/ucfyao/image/img/img/20190419173946.png" alt></p>
+<p>DNS服务器的IP地址，有可能是动态的，每次上网时由网关分配，这叫做DHCP机制；也有可能是事先指定的固定地址。Linux系统里面，DNS服务器的IP地址保存在<code>/etc/resolv.conf</code>文件。 上例的DNS服务器是<code>192.168.1.253</code>，这是一个内网地址。有一些公网的DNS服务器，也可以使用，其中最有名的就是Google的<span class="exturl" data-url="aHR0cHM6Ly9kZXZlbG9wZXJzLmdvb2dsZS5jb20vc3BlZWQvcHVibGljLWRucy8=" title="https://developers.google.com/speed/public-dns/"><code>8.8.8.8</code><i class="fa fa-external-link"></i></span>和Level 3的<span class="exturl" data-url="aHR0cHM6Ly93d3cudHVtbXkuY29tL2FydGljbGVzL2ZhbW91cy1kbnMtc2VydmVyLw==" title="https://www.tummy.com/articles/famous-dns-server/"><code>4.2.2.2</code><i class="fa fa-external-link"></i></span>。 本机只向自己的DNS服务器查询，<code>dig</code>命令有一个<code>@</code>参数，显示向其他DNS服务器查询的结果。</p>
+<p><code>$ dig @4.2.2.2 math.stackexchange.com</code></p>
+<p>上面命令指定向DNS服务器<code>4.2.2.2</code>查询。</p>
+<h2 id="域名的层级"><a href="#域名的层级" class="headerlink" title="域名的层级"></a>域名的层级</h2><p>DNS服务器怎么会知道每个域名的IP地址呢？答案是分级查询。 请仔细看前面的例子，每个域名的尾部都多了一个点。<br><img src="https://raw.githubusercontent.com/ucfyao/image/img/img/20190419174057.png" alt></p>
+<p>比如，域名<code>math.stackexchange.com</code>显示为<code>math.stackexchange.com.</code>。<br>这不是疏忽，而是所有域名的尾部，实际上都有一个根域名。 </p>
+<p>举例来说，<code>www.example.com</code>真正的域名是<code>www.example.com.root</code>，简写为<code>www.example.com.</code>。因为，根域名<code>.root</code>对于所有域名都是一样的，所以平时是省略的。<br>根域名的下一级，叫做”顶级域名”（top-level domain，缩写为TLD），比如<code>.com</code>、<code>.net</code>；再下一级叫做”次级域名”（second-level domain，缩写为SLD），比如<code>www.example.com</code>里面的<code>.example</code>，这一级域名是用户可以注册的；再下一级是主机名（host），比如<code>www.example.com</code>里面的<code>www</code>，又称为”三级域名”，这是用户在自己的域里面为服务器分配的名称，是用户可以任意分配的。 总结一下，域名的层级结构如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">主机名.次级域名.顶级域名.根域名 # 即 host.sld.tld.root</span><br></pre></td></tr></table></figure>
+<h2 id="根域名服务器"><a href="#根域名服务器" class="headerlink" title="根域名服务器"></a>根域名服务器</h2><p>DNS服务器根据域名的层级，进行分级查询。 需要明确的是，每一级域名都有自己的NS记录，NS记录指向该级域名的域名服务器。这些服务器知道下一级域名的各种记录。 所谓”分级查询”，就是从根域名开始，依次查询每一级域名的NS记录，直到查到最终的IP地址，过程大致如下。</p>
+<ol>
+<li>从”根域名服务器”查到”顶级域名服务器”的NS记录和A记录（IP地址）</li>
+<li>从”顶级域名服务器”查到”次级域名服务器”的NS记录和A记录（IP地址）</li>
+<li>从”次级域名服务器”查出”主机名”的IP地址</li>
+</ol>
+<p>仔细看上面的过程，你可能发现了，没有提到DNS服务器怎么知道”根域名服务器”的IP地址。回答是”根域名服务器”的NS记录和IP地址一般是不会变化的，所以内置在DNS服务器里面。<br>下面是内置的根域名服务器IP地址的一个例子<br><img src="https://raw.githubusercontent.com/ucfyao/image/img/img/20190419174122.png" alt></p>
+<p>上面列表中，列出了根域名（<code>.root</code>）的三条NS记录<code>A.ROOT-SERVERS.NET</code>、<code>B.ROOT-SERVERS.NET</code>和<code>C.ROOT-SERVERS.NET</code>，以及它们的IP地址（即<code>A</code>记录）<code>198.41.0.4</code>、<code>192.228.79.201</code>、<code>192.33.4.12</code>。 </p>
+<p>另外，可以看到所有记录的TTL值是3600000秒，相当于1000小时。也就是说，每1000小时才查询一次根域名服务器的列表。 </p>
+<p>目前，世界上一共有十三组根域名服务器，从<code>A.ROOT-SERVERS.NET</code>一直到<code>M.ROOT-SERVERS.NET</code>。</p>
+<h2 id="分级查询的实例"><a href="#分级查询的实例" class="headerlink" title="分级查询的实例"></a>分级查询的实例</h2><p><code>dig</code>命令的<code>+trace</code>参数可以显示DNS的整个分级查询过程。</p>
+<p><code>$ dig +trace math.stackexchange.com</code></p>
+<p>上面命令的第一段列出根域名<code>.</code>的所有NS记录，即所有根域名服务器。<br><img src="https://raw.githubusercontent.com/ucfyao/image/img/img/20190419174137.png" alt></p>
+<p>根据内置的根域名服务器IP地址，DNS服务器向所有这些IP地址发出查询请求，询问<code>math.stackexchange.com</code>的顶级域名服务器<code>com.</code>的NS记录。最先回复的根域名服务器将被缓存，以后只向这台服务器发请求。<br>接着是第二段。<br><img src="https://raw.githubusercontent.com/ucfyao/image/img/img/20190419174151.png" alt></p>
+<p>上面结果显示<code>.com</code>域名的13条NS记录，同时返回的还有每一条记录对应的IP地址。<br>然后，DNS服务器向这些顶级域名服务器发出查询请求，询问<code>math.stackexchange.com</code>的次级域名<code>stackexchange.com</code>的NS记录。<br><img src="https://raw.githubusercontent.com/ucfyao/image/img/img/20190419174202.png" alt></p>
+<p>上面结果显示<code>stackexchange.com</code>有四条NS记录，同时返回的还有每一条NS记录对应的IP地址。<br>然后，DNS服务器向上面这四台NS服务器查询<code>math.stackexchange.com</code>的主机名。</p>
+<p><img src="https://raw.githubusercontent.com/ucfyao/image/img/img/20190419174240.png" alt></p>
+<p>上面结果显示，<code>math.stackexchange.com</code>有4条<code>A</code>记录，即这四个IP地址都可以访问到网站。并且还显示，最先返回结果的NS服务器是<code>ns-463.awsdns-57.com</code>，IP地址为<code>205.251.193.207</code>。</p>
+<h2 id="NS-记录的查询"><a href="#NS-记录的查询" class="headerlink" title="NS 记录的查询"></a>NS 记录的查询</h2><p><code>dig</code>命令可以单独查看每一级域名的NS记录。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ dig ns com </span><br><span class="line">$ dig ns stackexchange.com</span><br></pre></td></tr></table></figure>
+<p><code>+short</code>参数可以显示简化的结果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ dig +short ns com </span><br><span class="line">$ dig +short ns stackexchange.com</span><br></pre></td></tr></table></figure>
+<h2 id="DNS的记录类型"><a href="#DNS的记录类型" class="headerlink" title="DNS的记录类型"></a>DNS的记录类型</h2><p>域名与IP之间的对应关系，称为”记录”（record）。根据使用场景，”记录”可以分成不同的类型（type），前面已经看到了有<code>A</code>记录和<code>NS</code>记录。 常见的DNS记录类型如下。</p>
+<p>（1）<code>A</code>：地址记录（Address），返回域名指向的IP地址。<br>（2）<code>NS</code>：域名服务器记录（Name Server），返回保存下一级域名信息的服务器地址。该记录只能设置为域名，不能设置为IP地址。<br>（3）<code>MX</code>：邮件记录（Mail eXchange），返回接收电子邮件的服务器地址。<br>（4）<code>CNAME</code>：规范名称记录（Canonical Name），返回另一个域名，即当前查询的域名是另一个域名的跳转，详见下文。<br>（5）<code>PTR</code>：逆向查询记录（Pointer Record），只用于从IP地址查询域名，详见下文。</p>
+<p>一般来说，为了服务的安全可靠，至少应该有两条<code>NS</code>记录，而<code>A</code>记录和<code>MX</code>记录也可以有多条，这样就提供了服务的冗余性，防止出现单点失败。 <code>CNAME</code>记录主要用于域名的内部跳转，为服务器配置提供灵活性，用户感知不到。举例来说，<code>facebook.github.io</code>这个域名就是一个<code>CNAME</code>记录。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ dig facebook.github.io</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line">facebook.github.io. 3370    IN  CNAME   github.map.fastly.net.</span><br><span class="line">github.map.fastly.net.  600 IN  A   103.245.222.133</span><br></pre></td></tr></table></figure>
+<p>上面结果显示，<code>facebook.github.io</code>的CNAME记录指向<code>github.map.fastly.net</code>。也就是说，用户查询<code>facebook.github.io</code>的时候，实际上返回的是<code>github.map.fastly.net</code>的IP地址。这样的好处是，变更服务器IP地址的时候，只要修改<code>github.map.fastly.net</code>这个域名就可以了，用户的<code>facebook.github.io</code>域名不用修改。 </p>
+<p>由于<code>CNAME</code>记录就是一个替换，所以域名一旦设置<code>CNAME</code>记录以后，就不能再设置其他记录了（比如<code>A</code>记录和<code>MX</code>记录），这是为了防止产生冲突。举例来说，<code>foo.com</code>指向<code>bar.com</code>，而两个域名各有自己的<code>MX</code>记录，如果两者不一致，就会产生问题。由于顶级域名通常要设置<code>MX</code>记录，所以一般不允许用户对顶级域名设置<code>CNAME</code>记录。 <code>PTR</code>记录用于从IP地址反查域名。<code>dig</code>命令的<code>-x</code>参数用于查询<code>PTR</code>记录。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ dig -x 192.30.252.153</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line">153.252.30.192.in-addr.arpa. 3600 IN    PTR pages.github.com.</span><br></pre></td></tr></table></figure>
+<p>上面结果显示，<code>192.30.252.153</code>这台服务器的域名是<code>pages.github.com</code>。 逆向查询的一个应用，是可以防止垃圾邮件，即验证发送邮件的IP地址，是否真的有它所声称的域名。 <code>dig</code>命令可以查看指定的记录类型。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">$ dig a github.com</span><br><span class="line">$ dig ns github.com</span><br><span class="line">$ dig mx github.com</span><br></pre></td></tr></table></figure></p>
+<h2 id="其他DNS工具"><a href="#其他DNS工具" class="headerlink" title="其他DNS工具"></a>其他DNS工具</h2><p>除了<code>dig</code>，还有一些其他小工具也可以使用。<br><strong>（1）host 命令</strong><br><code>host</code>命令可以看作<code>dig</code>命令的简化版本，返回当前请求域名的各种记录。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">$ host github.com</span><br><span class="line"></span><br><span class="line">github.com has address 192.30.252.121</span><br><span class="line">github.com mail is handled by 5 ALT2.ASPMX.L.GOOGLE.COM.</span><br><span class="line">github.com mail is handled by 10 ALT4.ASPMX.L.GOOGLE.COM.</span><br><span class="line">github.com mail is handled by 10 ALT3.ASPMX.L.GOOGLE.COM.</span><br><span class="line">github.com mail is handled by 5 ALT1.ASPMX.L.GOOGLE.COM.</span><br><span class="line">github.com mail is handled by 1 ASPMX.L.GOOGLE.COM.</span><br><span class="line"></span><br><span class="line">$ host facebook.github.com</span><br><span class="line"></span><br><span class="line">facebook.github.com is an alias for github.map.fastly.net.</span><br><span class="line">github.map.fastly.net has address 103.245.222.133</span><br></pre></td></tr></table></figure>
+<p><code>host</code>命令也可以用于逆向查询，即从IP地址查询域名，等同于<code>dig -x</code> 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ host 192.30.252.153</span><br><span class="line"></span><br><span class="line">153.252.30.192.in-addr.arpa domain name pointer pages.github.com.</span><br></pre></td></tr></table></figure>
+<p><strong>（2）nslookup 命令</strong><br><code>nslookup</code>命令用于互动式地查询域名记录。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">$ nslookup</span><br><span class="line"></span><br><span class="line">&gt; facebook.github.io</span><br><span class="line">Server:     192.168.1.253</span><br><span class="line">Address:    192.168.1.253#53</span><br><span class="line"></span><br><span class="line">Non-authoritative answer:</span><br><span class="line">facebook.github.io  canonical name = github.map.fastly.net.</span><br><span class="line">Name:   github.map.fastly.net</span><br><span class="line">Address: 103.245.222.133</span><br></pre></td></tr></table></figure></p>
+<p><strong>（3）whois 命令</strong><br><code>whois</code>命令用来查看域名的注册情况。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ whois github.com</span><br></pre></td></tr></table></figure>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cucGV0ZWtlZW4ubmV0L2Rucy10aGUtZ29vZC1wYXJ0cw==" title="https://www.petekeen.net/dns-the-good-parts">DNS: The Good Parts<i class="fa fa-external-link"></i></span>, by Pete Keen</li>
+<li><span class="exturl" data-url="aHR0cDovL3d3dy5pbnRlZ3JhbGlzdC5jby51ay9wb3N0cy9kbnNiYXNpY3MuaHRtbA==" title="http://www.integralist.co.uk/posts/dnsbasics.html">DNS 101<i class="fa fa-external-link"></i></span>, by Mark McDonnell</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/network_process/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/network_process/" class="post-title-link" itemprop="url">网络请求全流程</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-04-13 19:12:44" itemprop="dateCreated datePublished" datetime="2017-04-13T19:12:44+08:00">2017-04-13</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-19 18:21:30" itemprop="dateModified" datetime="2019-04-19T18:21:30+08:00">2019-04-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-原理/" itemprop="url" rel="index"><span itemprop="name">积累________原理</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">5.1k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">5 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在我看来，不管是前端开发还是后端开发的工程师都应该了解这个过程，了解这个过程可以让你整体把握整个软件的运行流程，同时可以让你更好地理解一些前后端优化、SEO，甚至一些网络安全的问题。要想讲清楚“网络请求的整个过程”的话，其中涉及到的网络基础、HTTP协议、浏览器的工作原理等都应该是必备的知识储备，接下来的文章中，我也会在讲清楚整个请求过程的同时穿插补充这些相关知识，已经对这些知识有了解和深入研究的同学可以权当复习了。</p>
+<h1 id="DNS解析"><a href="#DNS解析" class="headerlink" title="DNS解析"></a>DNS解析</h1><p>当我们在客户端（浏览器）的地址栏输入一个网址并敲回车的时候，首先会执行的一步操作的就是DNS解析（也叫域名解析）。那什么是DNS解析呢？又为什么要进行DNS解析呢？带着这两个问题，我们来看看DNS解析。</p>
+<h2 id="DNS（域名系统）"><a href="#DNS（域名系统）" class="headerlink" title="DNS（域名系统）"></a>DNS（域名系统）</h2><p><strong>1.DNS是什么？</strong></p>
+<blockquote>
+<p>DNS：Domain Name System（域名系统），互联网上作为域名和IP地址<strong>相互映射</strong>的一个分布式<strong>数据库</strong>。注意，我加粗了两个词“相互映射”和“数据库”，稍后再解释为什么要加粗它俩。</p>
 </blockquote>
-<p>从技术角度出发，基本上聊完这个话题就可以清晰地知道对mongodb的掌握程度。</p>
-<p>mongodb副本集故障转移功能得益于它的选举机制，采用了bully算法。一般分布式集群都会有一个所谓的主节点。比如常用的mysql经常会申明一个主节点，其他的都为从节点。这样一个问题就是当主节点挂掉，我们就需要手工操作，上架一个新的主节点或者从从节点恢复数据等手段，并不太灵活。</p>
-<p>而mongodb采用的架构模式为不指定主节点，一旦主节点挂掉了，其他从节点自动接替变为主节点。一个副本集包含三个节点，主节点、从节点、仲裁节点。之间会有心跳检测（可以理解为不断地ping—-ping），当主节点down掉，会提升secondary为新的primary，仲裁节点升为新的副节点。oplogSize和更换服务器时间为容灾关键点。</p>
-<p>一个简单充分实现的集群方式为下图所示。主写副读仲裁心跳。根据各负责的相关工作内容分担压力可最优放置在不同服务器。</p>
-<p>但是此引题优解方式：<br>因为当三台服务器撑不住，主节点挂掉，从节点一旦升为主节点，同时接受读写的压力和同步数据到新从节点，那么肯定也是支撑不住服务的，所以分析最终结果要最少四台服务器参与到集群中容灾。O(∩_∩)O。</p>
-<p>数据库的发展经历了人工管理阶段，文件系统阶段，数据库系统阶段。从第三范式到反第三范式。无不体现了互联的一种发展趋势。而当关系数据库越来越庞大的时候，又出现了各种nosql数据库，比如基于内存的memcache，redis。内存缓存模式。</p>
-<p>其实仍然是‘分而治之’的思想（map reduce）。</p>
-<p>根据业界的理论来讲，写代码重要的是理解思想，深入底层原理和设计模式以及算法，酱紫更有利于写出优质别人能看懂的代码。</p>
+<p><strong>2.为什么要DNS解析？</strong> 看了DNS的概念，有些同学可能觉着更加迷惑了，不要着急，咱们从DNS解析的过程方面来更好地了解它。要讲DNS的解析过程，首先咱们得先来了解一下计算机之间是怎样进行通信的。</p>
+<h2 id="两台电脑之间通信"><a href="#两台电脑之间通信" class="headerlink" title="两台电脑之间通信"></a>两台电脑之间通信</h2><p>有两台电脑A和B，A电脑想向B电脑发送一条信息，那该怎么办呢？ 其实很简单，就像邮递员（假设为电脑A）要给某栋大楼内的某个房间的客户（假设为电脑B）送邮件一样，邮递员要想把邮件送到客户手上，那他必须知道客户的大楼名称（或者说地址）以及客户在这栋大楼内的房间号。在互联网的世界中也是一样，电脑A想向电脑B发送一条信息，电脑A就得知道电脑B的<strong>MAC地址</strong>和<strong>IP地址</strong>。 <strong>补充1：MAC地址</strong></p>
+<blockquote>
+<p>以太网规定，连入网络的所有设备，都必须具有“网卡”接口。数据包必须是从一块网卡，传送到另一块网卡。网卡的地址，就是数据包的发送地址和接收地址，这叫做MAC地址。</p>
+</blockquote>
+<p>就是说要想上网就得有块叫做“网卡”的东西，电脑的网卡很好理解，大家经常接触；而像路由器，交换机，手机，平板等联网的设备都有“网卡”这个东西。而两台设备（也可以理解为电脑）之间的通信就相当于两块网卡之间的通信，而这个网卡就是MAC地址，MAC地址就相当于“送邮件”例子中的客户房间号（啰嗦了一下，怕新手看不懂）。</p>
+<blockquote>
+<p>而每块网卡出厂的时候，都有一个全世界独一无二的MAC地址，长度是48个二进制位，通常用12个十六进制数表示。 前6个十六进制数是厂商编号，后6个是该厂商的网卡流水号。有了MAC地址，就可以定位网卡和数据包的路径了。</p>
+</blockquote>
+<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/1.png" alt></p>
+<p>MAC地址图片</p>
+<p>至于IP地址就不用再补充了吧，既然学计算机了，肯定知道IP地址。IP地址就相当于“送邮件”例子中的大楼名称（或者说地址）。 <strong>总结：A电脑想向B电脑发送一条信息，首先A电脑要知道B电脑的MAC地址和IP地址，这其中IP地址一般是已知的，而MAC地址是未知的。这时候就需要通过ARP协议来确定B电脑的MAC地址，这其实也包括两种情况（不做详细介绍，更多了解请看阮一峰的<span class="exturl" data-url="aHR0cDovL3d3dy5ydWFueWlmZW5nLmNvbS9ibG9nLzIwMTIvMDUvaW50ZXJuZXRfcHJvdG9jb2xfc3VpdGVfcGFydF9pLmh0bWw=" title="http://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html">互联网协议入门（一）<i class="fa fa-external-link"></i></span>）。只要拿到了电脑B的IP地址和MAC地址，两台电脑就可以通信了。</strong></p>
+<h2 id="域名出现"><a href="#域名出现" class="headerlink" title="域名出现"></a>域名出现</h2><p>上面讲到一台电脑要想和另一台通信就需要知道另一台电脑的IP地址和MAC地址，MAC地址未知但可以通过ARP协议去获取，而IP地址是事先知道的，所以就可以通信了。但是，大家都知道IP地址这个东西是个由32位二进制组成的网络地址（IPv4），即使习惯上把它表示为四段十进制的形式（如202.201.112.232），也是不好记忆的，所以神通广大的人类就发明了<strong>域名</strong>来代替IP地址，其实就是给IP地址起了一个别名，这样就解决了IP地址不好记忆的问题了。</p>
+<blockquote>
+<p>任何一个域名都对应一个或者多个ip地址，但是大部分都是一个域名对应一个ip地址。</p>
+</blockquote>
+<h2 id="DNS小结"><a href="#DNS小结" class="headerlink" title="DNS小结"></a>DNS小结</h2><p>现在咱们再来看最初的问题:</p>
+<blockquote>
+<p>DNS：Domain Name System（域名系统），互联网上作为域名和IP地址<strong>相互映射</strong>的一个分布式<strong>数据库</strong>。</p>
+</blockquote>
+<p>现在应该明白了吧，域名系统就是储存IP地址和域名映射的一个数据库。而DNS解析，就是通过这个数据库去查找到可以使两台联网设备进行通信的IP地址的一个过程。当然这个过程是非常的繁琐的，想继续深入研究的同学可以查看阮一峰的<a href="https://yaozihao.com/dns/">DNS 原理入门</a>，现在你可以回答最初前面提到的那个问题了。 DNS是什么？ 又为什么需要DNS解析？</p>
+<h1 id="HTTP请求"><a href="#HTTP请求" class="headerlink" title="HTTP请求"></a>HTTP请求</h1><p>当两台联网设备通过IP地址和MAC地址完成了“链接”之后，接下来就是通信了，而通信就需要传输数据（哪怕只是一个没有数据的请求）。要想传输数据，就需要建立一个传输数据的链接（注意，我前面的链接加了引号，是因为那个时候两台电脑并为真正意义是的链接，只是找到对方了）。而这就牵扯到了另一个面试官常问的问题<strong>TCP的三次握手</strong>和<strong>TCP的四次挥手</strong>。 <strong>补充2：端口</strong> 首先来说，UDP和TCP都是传输层的协议，不同点就是传输的方式不同（简单的说，后面会详细说明他们的不同点）。 咱们在前面多次提到过通过IP地址和MAC地址可以建立两台电脑的“链接”，那么链接以后，应该怎样就行数据的传输呢？传输的数据是哪一个程序需要的呢（例如：同一台主机上有许多程序都需要用到网络，比如，你一边浏览网页，一边与朋友在线聊天。当一个数据包从互联网上发来的时候，你怎么知道，它是表示网页的内容，还是表示在线聊天的内容？）？于是人们发明了一个叫做“端口”的参数来区别不同程序之间的通信。</p>
+<blockquote>
+<p>“端口”是0到65535之间的一个整数，正好16个二进制位。0到1023的端口被系统占用，用户只能选用大于1023的端口。不管是浏览网页还是在线聊天，应用程序会随机选用一个端口，然后与服务器的相应端口联系。</p>
+</blockquote>
+<p>这样就可以进行数据的传输了。</p>
+<h2 id="UDP协议"><a href="#UDP协议" class="headerlink" title="UDP协议"></a>UDP协议</h2><p>UDP协议简单来说就是在数据包中插入一段数据用来标记端口信息，然后将数据发送出去，至于发送出去的数据包有没有被目标设备接收到，它就不管了。以这种方式发送数据包的有点就是<strong>简单</strong>，<strong>容易实现</strong>，但是缺点就是<strong>可靠性差</strong>，因为通过UDP协议发送出去的数据包无法确定发送的数据包是否到达目标设备。</p>
+<h2 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h2><p>而TCP协议就是为了解决UDP协议的缺点而诞生的，它虽然实现上比UDP协议复杂，但是可靠性好，可以保证数据被发送到目标设备上。</p>
+<h3 id="TCP三次握手"><a href="#TCP三次握手" class="headerlink" title="TCP三次握手"></a>TCP三次握手</h3><p>TCP协议是如何保证可靠性的呢？就是通过三次与目标设备的通信来确定数据包发送成功。以浏览器和服务器的通信来打比方：</p>
+<blockquote>
+<p>浏览器：你好服务器，我是 <strong>浏览器A</strong>。 服务器：你好 <em>浏览器A</em>，我是 <strong>服务器B</strong>。 浏览器：<em>服务器B</em> 你好。</p>
+</blockquote>
+<p><strong>官方描述</strong></p>
+<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/2.png" alt></p>
+<p>TCP三次握手</p>
+<blockquote>
+<ol>
+<li>第一次握手：建立连接时，客户端发送syn包（syn=j）到服务器，并进入SYN_SENT状态，等待服务器确认；SYN：同步序列编号（Synchronize Sequence Numbers）。</li>
+<li>第二次握手：服务器收到syn包，必须确认客户的SYN（ack=j+1），同时自己也发送一个SYN包（syn=k），即SYN+ACK包，此时服务器进入SYN_RECV状态；</li>
+<li>第三次握手：客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=k+1），此包发送完毕，客户端和服务器进入ESTABLISHED（TCP连接成功）状态，完成三次握手。</li>
+</ol>
+</blockquote>
+<p>完成三次握手，客户端与服务器开始传送数据。这样就保证了，每次传送数据都会准确到达目标设备了。</p>
+<h3 id="TCP四次挥手"><a href="#TCP四次挥手" class="headerlink" title="TCP四次挥手"></a>TCP四次挥手</h3><p>当数据包发送完毕需要断开连接的时候，就需要TCP的四次挥手来保证链接的合理断开。再次以浏览器和服务器的通信打比方：</p>
+<blockquote>
+<p>主动结束方：你好，我的数据发送完毕了，我要进入准备断开的状态了。（此时它虽然不再发送数据了，但是可以接受数据） 另一方：我知道了，我还没有发送完毕的，你等着吧。 另一方：我也发送完毕了，可以断开链接了。（此时它也进入准备断开的状态） 主动结束方：好的，那断开吧。</p>
+</blockquote>
+<p><strong>官方描述</strong></p>
+<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/3333422-b751ca9b4892959e.jpg" alt></p>
+<p>TCP四次挥手</p>
+<blockquote>
+<p>1.客户端A发送一个FIN，用来关闭客户A到服务器B的数据传送。 2.服务器B收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号。 3.服务器B关闭与客户端A的连接，发送一个FIN给客户端A。 4.客户端A发回ACK报文确认，并将确认序号设置为收到序号加1。</p>
+</blockquote>
+<h3 id="TCP为什么建立链接是三次，关闭链接是四次呢？"><a href="#TCP为什么建立链接是三次，关闭链接是四次呢？" class="headerlink" title="TCP为什么建立链接是三次，关闭链接是四次呢？"></a>TCP为什么建立链接是三次，关闭链接是四次呢？</h3><p>这是前端面试中在设计HTTP协议问题时，经常会被问的一个问题。其实也不难理解，因为服务端的listen状态下的socket当收到SYN报文的建连请求后，它可以把ACK和SYN（ACK起应答作用，而SYN起同步作用）放在一个报文里来发送。但关闭连接时，当收到对方的FIN报文通知时，它仅仅表示对方没有数据发送给你了；但未必你所有的数据都全部发送给对方了，所以你可以未必会马上会关闭SOCKET,也即你可能还需要发送一些数据给对方之后，再发送FIN报文给对方来表示你同意现在可以关闭连接了，所以它这里的ACK报文和FIN报文多数情况下都是分开发送的。 通过TCP协议使得两台设备成功链接，并成功发送了数据，接下来，就需要服务器端来处理数据了。</p>
+<h1 id="服务器处理数据并返回响应"><a href="#服务器处理数据并返回响应" class="headerlink" title="服务器处理数据并返回响应"></a>服务器处理数据并返回响应</h1><p>当服务器成功的接受到了浏览器发送的数据之后，接下来就是根据浏览器发送过来的数据就行后台程序的处理。这个过程就是在运行后端代码，当程序运行完成以后就产生了返回数据包，然后服务器端在通过TCP协议将数据包发送回浏览器。 这个过程和前面相比是不是很简单，其实不然，这个过程也相当复杂，只不过不是本文的重点就不详细介绍了，贴上一张Struts2的处理流程图，自己体会一下服务器端的某一个小阶段吧。</p>
+<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/4.png" alt></p>
+<p>Struts2流程图</p>
+<h1 id="浏览器解析数据并呈现"><a href="#浏览器解析数据并呈现" class="headerlink" title="浏览器解析数据并呈现"></a>浏览器解析数据并呈现</h1><p>当服务器返回数据包以后，接下来的工作就交给浏览器自己去处理这些数据，最后展示在页面上。这个过程涉及到了浏览器的运行原理的相关只是，本人也不是很懂，所以只是大概记录一下。</p>
+<h2 id="浏览器的组成"><a href="#浏览器的组成" class="headerlink" title="浏览器的组成"></a>浏览器的组成</h2><p><strong>1. 用户界面：</strong>包括地址栏、后退/前进按钮、书签目录等，也就是你所看到的除了用来显示你所请求页面的主窗口之外的其他部分。 <strong>2. 浏览器引擎：</strong>用来查询及操作渲染引擎的接口。 <strong>3. 渲染引擎：</strong>用来显示请求的内容，例如，如果请求内容为html，它负责解析html及css，并将解析后的结果显示出来。 <strong>4. 网络：</strong>用来完成网络调用，例如http请求，它具有平台无关的接口，可以在不同平台上工作。 <strong>5. UI后端：</strong>用来绘制类似组合选择框及对话框等基本组件，具有不特定于某个平台的通用接口，底层使用操作系统的用户接口。 <strong>6. JS解释器：</strong>用来解释执行JS代码。 <strong>7. 数据存储：</strong>属于持久层，浏览器需要在硬盘中保存类似cookie的各种数据，HTML5定义了web database技术，这是一种轻量级完整的客户端存储技术</p>
+<h2 id="渲染的流程"><a href="#渲染的流程" class="headerlink" title="渲染的流程"></a>渲染的流程</h2><p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/5.png" alt></p>
+<p>渲染主流程</p>
+<p>可以简单的描述为以下四部分： 1.解析HTML以构建DOM树 2.构建render树 3.布局render树 4.绘制render树 但实际上渲染的过程是这样的： 1.在浏览器进行渲染的时候，渲染引擎首先会解析HTML代码，然后将标签转化为<strong>DOM树</strong>上的一个个对应节点（我们可以在chorme的Elements面板中查看到）。 2.接着，渲染引擎解析外部CSS文件及style标签中的样式信息。这些样式信息以及HTML中的可见性指令将被用来构建另一棵树—<strong>render树</strong>。Render树由一些包含有颜色和大小等属性的矩形组成，它们将被按照正确的顺序显示到屏幕上。 3.Render树构建好了之后，将会执行布局过程，它将确定每个节点在屏幕上的确切坐标。 4.然后就是绘制，即遍历render树，并使用UI后端层绘制每个节点。 值得注意的是，这个过程是逐步完成的，为了更好的用户体验，渲染引擎将会尽可能早的将内容呈现到屏幕上，并不会等到所有的html都解析完成之后再去构建和布局render树。它是解析完一部分内容就显示一部分内容，同时，可能还在通过网络下载其余内容。 <strong>补充WEBKIT渲染引擎和GECKO渲染引擎</strong></p>
+<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/6.png" alt></p>
+<p>WEBKIT渲染引擎流程图</p>
+<p><img src="http://www.yaozihao.cn/wp-content/uploads/2017/04/7.png" alt></p>
+<p>GECKO渲染引擎流程图</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>到这里基本上整个网络请求的过程就结束了，你在浏览器地址框输入了域名并回车，然后通过<strong>DNS解析</strong>找到相应的IP地址；然后通过<strong>HTTP协议建立了链接</strong>，找到了目标服务器的位置；接着就是<strong>TCP三次握手</strong>建立可靠链接，发送数据，<strong>服务器处理数据</strong>，<strong>TCP四次挥手</strong>断开链接；最后浏览器根据返回的数据<strong>解析渲染呈现页面</strong>。</p>
 
           
         
@@ -574,7 +892,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/object_oriented_programming_five/">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/python_dict/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -594,7 +912,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/object_oriented_programming_five/" class="post-title-link" itemprop="url">面向对象的基础五</a>
+                <a href="/python_dict/" class="post-title-link" itemprop="url">Python中的字典详细介绍</a>
               
             
           </h2>
@@ -619,7 +937,7 @@
                 
               
 
-              <time title="创建时间：2015-09-06 23:53:55" itemprop="dateCreated datePublished" datetime="2015-09-06T23:53:55+08:00">2015-09-06</time>
+              <time title="创建时间：2017-03-30 15:33:29" itemprop="dateCreated datePublished" datetime="2017-03-30T15:33:29+08:00">2017-03-30</time>
             
 
             
@@ -636,7 +954,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-19 16:50:20" itemprop="dateModified" datetime="2019-04-19T16:50:20+08:00">2019-04-19</time>
+                <time title="修改时间：2019-04-22 10:22:47" itemprop="dateModified" datetime="2019-04-22T10:22:47+08:00">2019-04-22</time>
               
             
           </span>
@@ -653,7 +971,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-原理/" itemprop="url" rel="index"><span itemprop="name">积累________原理</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
 
                 
                 
@@ -682,430 +1000,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">742</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="接口的定义和规范"><a href="#接口的定义和规范" class="headerlink" title="接口的定义和规范"></a>接口的定义和规范</h2><p>接口是把隐式公共方法和属性组合起来，以封装特定的功能的一个集合。一旦类实现了接口，类就可以支持接口所指定的所有属性和成员。声明接口在语法上与声明抽象类完全相同，但不允许提供接口中任何成员的执行方式。</p>
-<p>所以接口不能实例化，不能有构造方法和字段；抽象方法只能是public的，不能设置为private活着protected类型；即使是abstract何final修饰符也不能修饰接口中的抽象方法。而接口中保留了静态抽象方法。</p>
-<p>实现接口必须实现接口中的所有的方法和属性。</p>
-<p>一个类可以支持多个接口，多个类也可以支持相同的接口。</p>
-<p>说白了，接口是抽象方法和静态常量定义的集合。接口是一种特殊的抽象类，这种抽象类中只包含抽象方法和静态常量。</p>
-<h2 id="关于抽象类和接口的区别"><a href="#关于抽象类和接口的区别" class="headerlink" title="关于抽象类和接口的区别"></a>关于抽象类和接口的区别</h2><p>抽象类可以给出一些成员的实现，接口却不包含成员的实现，抽象类的抽象成员可被子类部分实现，接口的成员需要实现类完全实现，一个类只能继承一个抽象类，但可以实现多个接口等。</p>
-<p>第一：类是对对象的抽象；抽象类是对类的抽象；接口是对行为的抽象。</p>
-<p>也就是说接口是对类的局部行为进行的抽象，而抽象类是对类整体的抽象。</p>
-<p>第二：如果行为跨越不同类的对象，可使用接口；对于一些相似的类对象，用继承抽象类。实现接口和继承抽象类并不冲突。</p>
-<p>第三：从设计角度讲，抽象类是从子类中发现公共的东西，泛化出父类，然后子类继承父类，而接口根本不知子类的存在，方法如何实现还不确定，预先定义。</p>
-<h2 id="关于接口继承S"><a href="#关于接口继承S" class="headerlink" title="关于接口继承S"></a>关于接口继承S</h2><p>php5中类是单继承，但是接口很特殊，一个接口可以继承自多个接口，一个接口继承其它接口时候，直接继承接口的静态常量属性和抽象方法。</p>
-<p>接口和接口之间继承要使用extends关键字。</p>
-<p>类实现接口必须实现其抽象方法，使用实现关键字implements。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/object_oriented_programming_four/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/object_oriented_programming_four/" class="post-title-link" itemprop="url">面向对象的基础四</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2015-09-06 20:50:02" itemprop="dateCreated datePublished" datetime="2015-09-06T20:50:02+08:00">2015-09-06</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-19 16:47:38" itemprop="dateModified" datetime="2019-04-19T16:47:38+08:00">2019-04-19</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-原理/" itemprop="url" rel="index"><span itemprop="name">积累________原理</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">1.2k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>c#允许把类和方法声明为abstract，即抽象类和抽象方法。</p>
-<p>第一：抽象类不能被实例化。</p>
-<p>第二：抽象方法是必须被子类重写的方法。抽象方法只有方法的声明，而没有方法的实现内容。</p>
-<p>第三：如果类中包含抽象方法，那么就必须定义为抽象类，不论是否还包含其他一般方法。</p>
-<p>抽象类拥有尽可能多的共同代码，拥有尽可能少的数据。</p>
-<p>抽象类通常代表一个抽象概念，它提供了一个继承的出发点，当设计一个新的抽象类时，一定使用来继承的。所以，在一个以继承关系形成的等级结构里面，树叶节点应当是具体类，而树枝节点均应当是抽象类。</p>
-<p>抽象类继承抽象类，目的是对抽象类的扩展，不能重写其中的抽象方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">//定义一个抽象类</span><br><span class="line"></span><br><span class="line">abstract class User&#123;</span><br><span class="line"></span><br><span class="line">    public function __toString()&#123;</span><br><span class="line"></span><br><span class="line">        return get_class($this);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//实例化这个类会出错</span><br><span class="line"></span><br><span class="line">//echo new user();</span><br><span class="line"></span><br><span class="line">class NormalUser extends User&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$a = new NormalUser();</span><br><span class="line"></span><br><span class="line">echo ‘这是类’;</span><br><span class="line"></span><br><span class="line">echo $a;</span><br><span class="line"></span><br><span class="line">echo ‘的实例’;</span><br></pre></td></tr></table></figure></p>
-<p>单独设置一个抽象类是没有意义的，只有有了抽象方法，抽象类才有类血肉。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">abstract class User&#123;</span><br><span class="line"></span><br><span class="line">  protected ?$sal = 0;</span><br><span class="line"></span><br><span class="line">  //这里定义抽象方法。抽象方法没有方法体，而且方法结束使用;号。</span><br><span class="line"></span><br><span class="line">  abstract function getSal();</span><br><span class="line"></span><br><span class="line">  abstract function setSal($sal);</span><br><span class="line"></span><br><span class="line">  //这里定义它的__tostring方法</span><br><span class="line"></span><br><span class="line">  public function __toString()&#123;</span><br><span class="line"></span><br><span class="line">    return get_class($this);</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//此时类继承这个抽象类必须要重写这个两个抽象方法。哪怕是&#123;&#125;空的方法体</span><br><span class="line"></span><br><span class="line">//注意：1.不能缺少参数。2.不能多余的参数。3.参数类型不能错误。</span><br><span class="line"></span><br><span class="line">class NormalUser extends ?User&#123;</span><br><span class="line"></span><br><span class="line">  function getSal()&#123;&#125;</span><br><span class="line"></span><br><span class="line">  function setSal($sal)&#123;&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>抽象方法没有<code>{}</code>，而采用<code>;</code>结束。参数的数量和类型必须一致</p>
-<p>PHP5.0和5.1的类中允许静态抽象方法。在5.2以上，只有接口可以拥有静态抽象方法。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/object_oriented_programming_three/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/object_oriented_programming_three/" class="post-title-link" itemprop="url">面向对象的基础三</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2015-09-03 12:49:04" itemprop="dateCreated datePublished" datetime="2015-09-03T12:49:04+08:00">2015-09-03</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-19 17:03:01" itemprop="dateModified" datetime="2019-04-19T17:03:01+08:00">2019-04-19</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-原理/" itemprop="url" rel="index"><span itemprop="name">积累________原理</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">2.9k</span>
+                <span title="本文字数">3.1k</span>
               
 
               
@@ -1141,31 +1036,66 @@
       
         
           
-            <h2 id="面向对象之封装"><a href="#面向对象之封装" class="headerlink" title="面向对象之封装"></a>面向对象之封装</h2><p>每个对象都包含它能进行操作所需要的所有信息，这个特性称为封装，因此对象不必依赖其他对象来完成自己的操作。这样方法和属性包装在类中，通过类的实例来实现。</p>
-<p>封装的好处：</p>
+            <p>这篇文章主要介绍了python中的字典详细介绍,字典是Python中最强大的数据类型之一,本文讲解了什么是字典、创建字典和给字典赋值 、字典的基本操作、映射类型操作符、映射相关的函数、字典的方法等内容,需要的朋友可以参考下</p>
+<h2 id="什么是字典？"><a href="#什么是字典？" class="headerlink" title="什么是字典？"></a>什么是字典？</h2><p>字典是Python语言中唯一的映射类型。</p>
+<p>映射类型对象里哈希值（键，key）和指向的对象（值，value）是一对多的的关系，通常被认为是可变的哈希表。</p>
+<p>字典对象是可变的，它是一个容器类型，能存储任意个数的Python对象，其中也可包括其他容器类型。</p>
+<p>字典类型与序列类型的区别：</p>
+<ul>
+<li>存取和访问数据的方式不同。</li>
+<li>序列类型只用数字类型的键（从序列的开始按数值顺序索引）；</li>
+<li>映射类型可以用其他对象类型作键（如：数字、字符串、元祖，一般用字符串作键），和序列类型的键不同，映射类型的键直接或间接地和存储数据值相关联。</li>
+<li>映射类型中的数据是无序排列的。这和序列类型是不一样的，序列类型是以数值序排列的。</li>
+<li>映射类型用键直接“映射”到值。</li>
+</ul>
+<p>字典是Python中最强大的数据类型之一。</p>
+<h2 id="如何创建字典和给字典赋值"><a href="#如何创建字典和给字典赋值" class="headerlink" title="如何创建字典和给字典赋值"></a>如何创建字典和给字典赋值</h2><p>简单地说字典就是用大括号包裹的键值对的集合。（键值对也被称作项）<br>一般形式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">adict = &#123;&#125;</span><br><span class="line">adict = &#123;key1：value2， key2：value2， …&#125;</span><br></pre></td></tr></table></figure></p>
+<p>或用<code>dict()</code>函数，如，<code>adict = dict()</code> 或 <code>adict = dict（（[‘x’,1],[‘y’,2]））</code>这样写对吗？<code>adict = dict（[‘x’,1],[‘y’,2]）</code>。关键字参数创建字典，如：<code>adict= dict(name=’allen’,age=’40′)</code><br>或用<code>fromkeys()</code>方法，如，<code>adict = {}.fromkeys((‘x’,’y’), -1)</code> 这样创建的字典的value是一样的，若不给值，默认为None。</p>
+<p>特点：</p>
 <ol>
-<li><p>良好的封装能够减少耦合（耦合的意思就是两个单元之间紧密配合与相互影响）。</p>
-</li>
-<li><p>类内部的实现可以自由地修改。</p>
-</li>
-<li><p>类具有清晰的对外接口。</p>
-</li>
+<li>键与值用冒号“：”分开；</li>
+<li>项与项用逗号“，”分开；</li>
+<li>字典中的键必须是唯一的，而值可以不唯一。</li>
 </ol>
-<p>解释封装的意思就是将单独的单元或者称之为模块写成一个方法，便于调用。此方法只负责单一的功能。</p>
-<h2 id="面向对象之继承"><a href="#面向对象之继承" class="headerlink" title="面向对象之继承"></a>面向对象之继承</h2><p>继承理解起来也很容易，工作方式就是定义子类和父类，或叫做基类和派生类，其种子类继承父类的所有特性，子类不但继承了父类的特性，还可以定义新的特性，还可以以自己的方式实现父类的功能（方法重写）。如果需要调用父类的构造函数，则可以使用：parent::父类函数 或 父类名::父类函数。默认情况下会自动调用父类的构造方法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">class Fruit &#123;</span><br><span class="line"></span><br><span class="line">  public function __construct($name)&#123;</span><br><span class="line"></span><br><span class="line">    echo ‘水果’.$name.’创建了’;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Apple extends Fruit &#123;</span><br><span class="line"></span><br><span class="line">  public function __construct($name)&#123;</span><br><span class="line"></span><br><span class="line">  parent::__construct($name);</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$apple = new Apple(“苹果”);</span><br><span class="line"></span><br><span class="line">// 输出 水果苹果创建了</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<p>继承是有缺点的，就是父类变化，子类不得不变，继承会破坏包装，父类实现细节暴漏给子类，这样就增加了两大类之间的耦合性（藕断丝连，尽管两个类分开，但如果关系密切，一方的改变就会影响另一方，就是耦合性高的表现）。</p>
-<h2 id="面向对象之多态"><a href="#面向对象之多态" class="headerlink" title="面向对象之多态"></a>面向对象之多态</h2><p>多态去理解的话就是不同的对象可以执行相同的动作，但要通过他们自己的实现代码来执行。多态的原理只有对象继承最末端的方法实现会被调用。</p>
-<p>多态这个概念，在Java中指的是变量可以指向的对象的类型，可是变量声明类型的子类。对象一旦创建，它的类型是不变的，多态的是变量。</p>
-<p>在PHP5中，变量的类型是不确定的，一个变量可以指向任何类型的数值、字符串、对象、资源等。我们无法说PHP5中多态的是变量。</p>
-<p>我们只能说在PHP5中，多态应用在方法参数的类型提示位置。</p>
-<p>一个类的任何子类对象都可以满足以当前类型作为类型提示的类型要求。所有实现这个接口的类，都可以满足以接口类型作为类型提示的方法参数要求。简单的说，一个类拥有其父类、和已实现接口的身份。</p>
-<h3 id="通过实现接口实现多态"><a href="#通过实现接口实现多态" class="headerlink" title="通过实现接口实现多态"></a>通过实现接口实现多态</h3><p>下面的例子中，UserAdmin类的静态方法，要求一个User类型的参数。</p>
-<p>在后面的使用中，传递了一个实现了User接口的类NormalUser的实例。代码成功运行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;?</span><br><span class="line"></span><br><span class="line">interface User&#123; // User接口</span><br><span class="line"></span><br><span class="line">  public function  getName();</span><br><span class="line"></span><br><span class="line">  public function setName($_name);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class NormalUser implements User &#123; // 实现接口的类.</span><br><span class="line">  private $name;</span><br><span class="line">  public function getName()&#123;</span><br><span class="line">    return $this-&gt;name;</span><br><span class="line">  &#125;</span><br><span class="line">  public function setName($_name)&#123;</span><br><span class="line">    $this-&gt;name = $_name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">class UserAdmin&#123; //操作.</span><br><span class="line">  public static function  ChangeUserName(User $_user,$_userName)&#123;</span><br><span class="line">    $_user-&gt;setName($_userName);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">$normalUser = new NormalUser();</span><br><span class="line">UserAdmin::ChangeUserName($normalUser,&quot;Tom&quot;);//这里传入的是 NormalUser的实例.</span><br><span class="line">echo $normalUser-&gt;getName();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure></p>
-<p>程序运行结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tom</span><br></pre></td></tr></table></figure></p>
-<h3 id="通过继承关系实现多态"><a href="#通过继承关系实现多态" class="headerlink" title="通过继承关系实现多态"></a>通过继承关系实现多态</h3><p>下面是类和子类的关系。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;?</span><br><span class="line"></span><br><span class="line">classUser&#123; // User接口</span><br><span class="line"></span><br><span class="line">     public function getName()&#123;&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">classNormalUser extendsUser &#123; // 继承自User类</span><br><span class="line"></span><br><span class="line">private  $name;</span><br><span class="line"></span><br><span class="line">  public function getName()&#123;</span><br><span class="line">      return  $this-&gt;name;</span><br><span class="line">    &#125;</span><br><span class="line">   public function setName($_name)&#123;</span><br><span class="line">      $this-&gt;name = $_name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class UserAdmin&#123; //操作.</span><br><span class="line">     public static function  ChangeUserName(User $_user,$_userName)&#123;</span><br><span class="line">       $_user-&gt;setName($_userName);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">$normalUser= newNormalUser();</span><br><span class="line">UserAdmin::ChangeUserName($normalUser,&quot;Tom&quot;);//这里传入的是 NormalUser的实例.</span><br><span class="line">echo$normalUser-&gt;getName();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure></p>
-<p>程序运行结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Tom</span><br></pre></td></tr></table></figure></p>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>1、当一个父类知道所有的子类都有一个方法，但是父类不能确定该方法如何写，可以让子类去覆盖它的方法,方法覆盖(重写)，必须要求子类的方法名和参数个数完全一致<br>2、如果子类要去调用父类的某个方法(protected/public)，可以使用 <code>父类名::方法名</code> 或者 <code>parent::方法名</code><br>3、在实现方法重写的时候，访问修饰符可以不一样，但是子类方法的访问权限必须大于等于父类方法的访问权限（即不能缩小父类方法的访问权限）<br>如父类<code>public function cry(){}</code> 子类 <code>protected function cry(){}</code> 则会报错<br>但是子类的访问权限可以放大，如：<br>父类<code>private function cry(){}</code> 子类 <code>protected function cry(){}</code> 可以正确执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adict = &#123;‘name&apos;:&apos;allen&apos;, ‘name&apos;:&apos;lucy&apos;, ‘age&apos;:&apos;40′&#125; 与 bdict = &#123;‘name&apos;:&apos;allen&apos;, ‘name2′:&apos;allen&apos;, ‘age&apos;:&apos;40′&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：如果字典中的值为数字，最好使用字符串数字形式，如：<code>’age’:’040′</code> 而不用 <code>‘age’:040</code></p>
+<h2 id="字典的基本操作"><a href="#字典的基本操作" class="headerlink" title="字典的基本操作"></a>字典的基本操作</h2><h3 id="如何访问字典中的值？"><a href="#如何访问字典中的值？" class="headerlink" title="如何访问字典中的值？"></a>如何访问字典中的值？</h3><p>adict[key] 形式返回键key对应的值value，如果key不在字典中会引发一个KeyError。</p>
+<h3 id="如何检查key是否在字典中？"><a href="#如何检查key是否在字典中？" class="headerlink" title="如何检查key是否在字典中？"></a>如何检查key是否在字典中？</h3><p>a、has_key()方法 形如：adict.haskey(‘name’) 有–&gt;True，无–&gt;False<br>b、in 、not in   形如：’name’ in adict      有–&gt;True，无–&gt;False</p>
+<h3 id="如何更新字典？"><a href="#如何更新字典？" class="headerlink" title="如何更新字典？"></a>如何更新字典？</h3><h4 id="添加一个数据项（新元素）或键值对"><a href="#添加一个数据项（新元素）或键值对" class="headerlink" title="添加一个数据项（新元素）或键值对"></a>添加一个数据项（新元素）或键值对</h4><p><code>adict[new_key] = value</code> 形式添加一个项</p>
+<h4 id="更新一个数据项（元素）或键值对"><a href="#更新一个数据项（元素）或键值对" class="headerlink" title="更新一个数据项（元素）或键值对"></a>更新一个数据项（元素）或键值对</h4><p><code>adict[old_key] = new_value</code></p>
+<h4 id="删除一个数据项（元素）或键值对"><a href="#删除一个数据项（元素）或键值对" class="headerlink" title="删除一个数据项（元素）或键值对"></a>删除一个数据项（元素）或键值对</h4><p><code>del adict[key]</code> 删除键key的项 / del adict 删除整个字典<br><code>adict.pop(key)</code> 删除键key的项并返回key对应的 value值</p>
+<h2 id="映射类型操作符"><a href="#映射类型操作符" class="headerlink" title="映射类型操作符"></a>映射类型操作符</h2><p>标准类型操作符<code>（+，-，*，&lt;,&gt;,&lt;=,&gt;=,==,!=,and,or, not)</code></p>
+<h3 id="a、字典不支持拼接和重复操作符（-，-）"><a href="#a、字典不支持拼接和重复操作符（-，-）" class="headerlink" title="a、字典不支持拼接和重复操作符（+，*）"></a>a、字典不支持拼接和重复操作符<code>（+，*）</code></h3><h3 id="b、字典的比较操作"><a href="#b、字典的比较操作" class="headerlink" title="b、字典的比较操作"></a>b、字典的比较操作</h3><p>先比较字典的长度也就是字典的元素个数<br>键比较<br>值比较<br>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adict = &#123;&#125;</span><br><span class="line">bdict = &#123;‘name&apos;:&apos;allen&apos;, ‘age&apos;:&apos;40′&#125;</span><br><span class="line">cmp(adict, bdict)  &lt; –&gt;-1 or &gt; –&gt;1 or ==  –&gt;0</span><br></pre></td></tr></table></figure>
+<h2 id="映射相关的函数"><a href="#映射相关的函数" class="headerlink" title="映射相关的函数"></a>映射相关的函数</h2><ul>
+<li>1、<code>len()</code> 返回字典的长度</li>
+<li>2、<code>hash()</code> 返回对象的哈希值，可以用来判断一个对象能否用来作为字典的键</li>
+<li>3、<code>dict()</code> 工厂函数，用来创建字典</li>
+</ul>
+<h2 id="字典的方法"><a href="#字典的方法" class="headerlink" title="字典的方法"></a>字典的方法</h2><ul>
+<li>1、adict.keys() 返回一个包含字典所有KEY的列表；</li>
+<li>2、adict.values() 返回一个包含字典所有value的列表；</li>
+<li>3、adict.items() 返回一个包含所有（键，值）元祖的列表；</li>
+<li>4、adict.clear() 删除字典中的所有项或元素；</li>
+<li>5、adict.copy() 返回一个字典浅拷贝的副本；</li>
+<li>6、adict.fromkeys(seq, val=None) 创建并返回一个新字典，以seq中的元素做该字典的键，val做该字典中所有键对应的初始值（默认为None）；</li>
+<li>7、adict.get(key, default = None) 返回字典中key对应的值，若key不存在字典中，则返回default的值（default默认为None）；</li>
+<li>8、adict.has_key(key) 如果key在字典中，返回True，否则返回False。 现在用 in 、 not in；</li>
+<li>9、adict.iteritems()、adict.iterkeys()、adict.itervalues() 与它们对应的非迭代方法一样，不同的是它们返回一个迭代子，而不是一个列表；</li>
+<li>10、adict.pop(key[,default]) 和get方法相似。如果字典中存在key，删除并返回key对应的vuale；如果key不存在，且没有给出default的值，则引发keyerror异常；</li>
+<li>11、adict.setdefault(key, default=None) 和set()方法相似，但如果字典中不存在Key键，由 adict[key] = default 为它赋值；</li>
+<li>12、adict.update(bdict) 将字典bdict的键值对添加到字典adict中。</li>
+</ul>
+<h2 id="字典的遍历"><a href="#字典的遍历" class="headerlink" title="字典的遍历"></a>字典的遍历</h2><h3 id="1、遍历字典的key（键）"><a href="#1、遍历字典的key（键）" class="headerlink" title="1、遍历字典的key（键）"></a>1、遍历字典的key（键）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for key in adict.keys():</span><br><span class="line">    print key</span><br></pre></td></tr></table></figure>
+<h3 id="2、遍历字典的value（值）"><a href="#2、遍历字典的value（值）" class="headerlink" title="2、遍历字典的value（值）"></a>2、遍历字典的value（值）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for value in adict.values():</span><br><span class="line">    print value</span><br></pre></td></tr></table></figure>
+<h3 id="3、遍历字典的项（元素）"><a href="#3、遍历字典的项（元素）" class="headerlink" title="3、遍历字典的项（元素）"></a>3、遍历字典的项（元素）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for item in adict.items():</span><br><span class="line">    print item</span><br></pre></td></tr></table></figure>
+<h3 id="4、遍历字典的key-value"><a href="#4、遍历字典的key-value" class="headerlink" title="4、遍历字典的key-value"></a>4、遍历字典的key-value</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for item，value in adict.items(): </span><br><span class="line">    print &apos;key=%s, value=%s&apos; %(item, value)</span><br></pre></td></tr></table></figure>
+<p>或<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for item，value in adict.iteritems(): </span><br><span class="line">    print &apos;key=%s, value=%s&apos; %(item, value)</span><br></pre></td></tr></table></figure></p>
+<p>注意：<code>for item,value in adict.items(): print ‘key=%s’, ‘value=%s’, %(item, value)</code> 这种写法是错误的</p>
+<h2 id="使用字典的注意事项"><a href="#使用字典的注意事项" class="headerlink" title="使用字典的注意事项"></a>使用字典的注意事项</h2><ul>
+<li>1、不能允许一键对应多个值；</li>
+<li>2、键必须是可哈希的。</li>
+</ul>
 
           
         
@@ -1222,7 +1152,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/object_oriented_programming_two/">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/python_range/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1242,7 +1172,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/object_oriented_programming_two/" class="post-title-link" itemprop="url">面向对象的基础二</a>
+                <a href="/python_range/" class="post-title-link" itemprop="url">详细记录python的range()函数用法</a>
               
             
           </h2>
@@ -1267,7 +1197,7 @@
                 
               
 
-              <time title="创建时间：2015-09-03 12:03:20" itemprop="dateCreated datePublished" datetime="2015-09-03T12:03:20+08:00">2015-09-03</time>
+              <time title="创建时间：2017-03-30 15:22:56" itemprop="dateCreated datePublished" datetime="2017-03-30T15:22:56+08:00">2017-03-30</time>
             
 
             
@@ -1284,7 +1214,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-19 16:55:43" itemprop="dateModified" datetime="2019-04-19T16:55:43+08:00">2019-04-19</time>
+                <time title="修改时间：2019-04-19 20:30:08" itemprop="dateModified" datetime="2019-04-19T20:30:08+08:00">2019-04-19</time>
               
             
           </span>
@@ -1301,7 +1231,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-原理/" itemprop="url" rel="index"><span itemprop="name">积累________原理</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
 
                 
                 
@@ -1330,7 +1260,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">487</span>
+                <span title="本文字数">1.8k</span>
               
 
               
@@ -1344,7 +1274,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">2 分钟</span>
               
             </div>
           
@@ -1366,11 +1296,21 @@
       
         
           
-            <p>方法重载：方法重载提供了创建同名的多个方法的能力，但这些方法需使用不同的参数类型。所有的方法都可以重载。</p>
-<p>大白话解释就是。在子类中写一个与父类中相同的方法名，那么调用的时候，调用的就是在子类中重新写的方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Cat&#123;</span><br><span class="line"></span><br><span class="line">  private  $name = “”;</span><br><span class="line"></span><br><span class="line">  public function Cat($name)&#123;</span><br><span class="line"></span><br><span class="line">    $this-&gt;name = $name;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>方法重载可不再改变原方法基础上新增功能。</p>
-<p>PHP中有三种访问修饰符，分别是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public（公共的、默认）</span><br><span class="line">protected（受保护的）</span><br><span class="line">private（私有的）</span><br><span class="line"></span><br><span class="line">public（公共的、默认）在PHP5中如果类没有指定成员的访问修饰符，默认就是public的访问权限。</span><br><span class="line">protected（受保护的）被声明为protected的成员，只允许该类的子类进行访问。</span><br><span class="line">private（私有的 ） 被定义为private的成员，对于类内部所有成员都可见，没有访问限制。对类外部不允许访问。</span><br></pre></td></tr></table></figure></p>
-<p>访问受保护属性,报致命错误。</p>
+            <p>使用python的人都知道<code>range()</code>函数很方便，今天再用到他的时候发现了很多以前看到过但是忘记的细节。这里记录一下<code>range()</code>,复习下list的slide，最后分析一个好玩儿的冒泡程序。</p>
+<p>这里记录一下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; range(1,5) #代表从1到5(不包含5)</span><br><span class="line">[1, 2, 3, 4]</span><br><span class="line">&gt;&gt;&gt; range(1,5,2) #代表从1到5，间隔2(不包含5)</span><br><span class="line">[1, 3]</span><br><span class="line">&gt;&gt;&gt; range(5) #代表从0到5(不包含5)</span><br><span class="line">[0, 1, 2, 3, 4]</span><br></pre></td></tr></table></figure></p>
+<p>再看看list的操作:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">array = [1, 2, 5, 3, 6, 8, 4]</span><br><span class="line">#其实这里的顺序标识是</span><br><span class="line">[1, 2, 5, 3, 6, 8, 4]</span><br><span class="line">(0，1，2，3，4，5，6)</span><br><span class="line">(-7,-6,-5,-4,-3,-2,-1)</span><br><span class="line">&gt;&gt;&gt; array[0:] #列出0以后的</span><br><span class="line">[1, 2, 5, 3, 6, 8, 4]</span><br><span class="line">&gt;&gt;&gt; array[1:] #列出1以后的</span><br><span class="line">[2, 5, 3, 6, 8, 4]</span><br><span class="line">&gt;&gt;&gt; array[:-1] #列出-1之前的</span><br><span class="line">[1, 2, 5, 3, 6, 8]</span><br><span class="line">&gt;&gt;&gt; array[3:-3] #列出3到-3之间的</span><br><span class="line">[3]</span><br></pre></td></tr></table></figure></p>
+<p>那么两个[::]会是什么那？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; array[::2]</span><br><span class="line">[1, 5, 6, 4]</span><br><span class="line">&gt;&gt;&gt; array[2::]</span><br><span class="line">[5, 3, 6, 8, 4]</span><br><span class="line">&gt;&gt;&gt; array[::3]</span><br><span class="line">[1, 3, 4]</span><br><span class="line">&gt;&gt;&gt; array[::4]</span><br><span class="line">[1, 6]</span><br></pre></td></tr></table></figure></p>
+<p>如果想让他们颠倒形成reverse函数的效果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; array[::-1]</span><br><span class="line">[4, 8, 6, 3, 5, 2, 1]</span><br><span class="line">&gt;&gt;&gt; array[::-2]</span><br><span class="line">[4, 6, 5, 1]</span><br></pre></td></tr></table></figure></p>
+<p>感觉自己懂了吧，那么来个冒泡吧：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">array = [1, 2, 5, 3, 6, 8, 4]</span><br><span class="line">for i in range(len(array) - 1, 0, -1):</span><br><span class="line">print i</span><br><span class="line">for j in range(0, i):</span><br><span class="line">print j</span><br><span class="line">if array[j] &gt; array[j + 1]:</span><br><span class="line">array[j], array[j + 1] = array[j + 1], array[j]</span><br><span class="line">print array</span><br></pre></td></tr></table></figure></p>
+<p>一行一行的来看：</p>
+<p>line 1：<code>array = [1, 2, 5, 3, 6, 8, 4]</code> ：一个乱序的list没什么好解释的</p>
+<p>line 2：<code>for i in range(len(array) - 1, 0, -1)</code>：这就是上边给的例子的第二条，我们替换下就成为range(6,1,-1)，意思是从6到1间隔-1,也就是倒叙的range(2,7,1),随后把这些值循环赋给i，那么i的值将会是[6, 5, 4, 3, 2]</p>
+<p>line 3：<code>for j in range(0, i)</code>:这是一个循环赋值给j，j的值将会是[0, 1, 2, 3, 4, 5][0, 1, 2, 3, 4][0, 1, 2, 3][0, 1, 2][0, 1]</p>
+<p>line 4：<code>if array[j] &gt; array[j + 1]</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; array = [1, 2, 5, 3, 6, 8, 4]</span><br><span class="line">&gt;&gt;&gt; array[0]</span><br><span class="line">1</span><br><span class="line">&gt;&gt;&gt; array[1]</span><br><span class="line">2</span><br><span class="line">&gt;&gt;&gt; array[2]</span><br><span class="line">5</span><br><span class="line">&gt;&gt;&gt; array[3]</span><br><span class="line">3</span><br><span class="line">&gt;&gt;&gt; array[4]</span><br><span class="line">6</span><br><span class="line">&gt;&gt;&gt; array[5]</span><br><span class="line">8</span><br><span class="line">&gt;&gt;&gt; array[6]</span><br><span class="line">4</span><br></pre></td></tr></table></figure></p>
+<p>其实·就是使用这个把这个没有顺序的<code>array = [1, 2, 5, 3, 6, 8, 4]</code>排序</p>
+<p>line 5：<code>array[j], array[j + 1] = array[j + 1], array[j]</code> 替换赋值</p>
+<p>line 6：打印出来</p>
+<p>其实要想省事儿，<code>sort()</code>函数一句就能搞定…….</p>
 
           
         
@@ -1427,7 +1367,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/object_oriented_programming_one/">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/python_list_duplicate_merge/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1447,7 +1387,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/object_oriented_programming_one/" class="post-title-link" itemprop="url">面向对象的基础一</a>
+                <a href="/python_list_duplicate_merge/" class="post-title-link" itemprop="url">Python两个list比较去除重复元素，然后合并</a>
               
             
           </h2>
@@ -1472,7 +1412,7 @@
                 
               
 
-              <time title="创建时间：2015-09-01 00:01:17" itemprop="dateCreated datePublished" datetime="2015-09-01T00:01:17+08:00">2015-09-01</time>
+              <time title="创建时间：2017-03-30 14:04:17" itemprop="dateCreated datePublished" datetime="2017-03-30T14:04:17+08:00">2017-03-30</time>
             
 
             
@@ -1489,7 +1429,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-19 16:54:23" itemprop="dateModified" datetime="2019-04-19T16:54:23+08:00">2019-04-19</time>
+                <time title="修改时间：2019-04-22 10:22:47" itemprop="dateModified" datetime="2019-04-22T10:22:47+08:00">2019-04-22</time>
               
             
           </span>
@@ -1506,7 +1446,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-原理/" itemprop="url" rel="index"><span itemprop="name">积累________原理</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
 
                 
                 
@@ -1535,7 +1475,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">901</span>
+                <span title="本文字数">311</span>
               
 
               
@@ -1571,20 +1511,9 @@
       
         
           
-            <p>如果希望一步步将面向对象的思想，设计模式熟练掌握。</p>
-<p>以下基础知识可能需要常常遍历，直到滚瓜烂熟。</p>
-<p>对象是一个自包含的实体，用一组可识别的特性和行为来表示。将一组事物的共性抽离出来。</p>
-<p>类就是具有相同的属性和功能的对象的抽象的集合。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class  Cat&#123;</span><br><span class="line"></span><br><span class="line">  public function Shout()&#123;</span><br><span class="line"></span><br><span class="line">    return “喵”;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>一个猫的类。有一个方法返回叫声。</p>
-<p><code>class</code> 是表示定义类的关键字，<code>Cat</code> 就是类的名称，<code>Shout</code>就是类的方法。</p>
-<p>注意点（通常的规范，具体请遵从公司规定）：</p>
-<p>第一，类名首字母大写，多个单词则各个首字母大写。</p>
-<p>第二，对外公开的方法需要用<code>public</code>修饰符。</p>
-<p>怎么用这个类呢？很简单，实例化一下就可以了。</p>
-<p>实例，就是一个真实的对象，而实例化就是创建对象的过程，使用new关键字来创建。说白了，你就当一个new出来的是个新的存在的class就完事了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$cat = new Cat();</span><br><span class="line"></span><br><span class="line">return $cat-&gt;Shout();</span><br></pre></td></tr></table></figure></p>
-<p>着重提出构造方法，其他的魔术方法都差不多的意思，自行脑补。</p>
-<p>构造方法，又叫构造函数，其实就是对类进行初始化。如果实在php5版本以后使用魔术方法__construct(),4以前的版本构造方法与类同名。无返回值，在new的时候调用。也就是说在new一个类的时候默认就会执行这个类中的构造方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Cat&#123;</span><br><span class="line"></span><br><span class="line">  private $name=”;</span><br><span class="line"></span><br><span class="line">  public function __construct($name)&#123;</span><br><span class="line"></span><br><span class="line">    $this-&gt;name=$name;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public function Shout()&#123;</span><br><span class="line"></span><br><span class="line">    return “我的名字是”+$name+”喵”;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在实例化的时候，传入一个名字，构造函数自动执行，将名字赋值给了私有变量。然后我们调用叫的方法，返回私有变量$name，你会发现返回的是赋值过后的$name。</p>
+            <p>方法一<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a = [1,3,5,7]</span><br><span class="line">&gt;&gt;&gt; b = [1,3,4,6,8]</span><br><span class="line">&gt;&gt;&gt; c = list(set(a+b))</span><br><span class="line">&gt;&gt;&gt; a</span><br><span class="line">[1, 3, 5, 7]</span><br><span class="line">&gt;&gt;&gt; b</span><br><span class="line">[1, 3, 4, 6, 8]</span><br><span class="line">&gt;&gt;&gt; c</span><br><span class="line">[1, 3, 4, 5, 6, 7, 8]</span><br></pre></td></tr></table></figure></p>
+<p>方法二<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = [1,3,5,7]</span><br><span class="line">b = [1,3,4,6,8]</span><br><span class="line">c = list(set(a) | set(b))</span><br></pre></td></tr></table></figure></p>
+<p>方法三<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = [1,3,5,7]</span><br><span class="line">b = [1,3,4,6,8]</span><br><span class="line">c=list(set(a).union(set(b)))</span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -1641,7 +1570,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/plan_15_08_31/">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/python_if_else/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1661,7 +1590,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/plan_15_08_31/" class="post-title-link" itemprop="url">短期计划08-31</a>
+                <a href="/python_if_else/" class="post-title-link" itemprop="url">奇怪的Python三元符</a>
               
             
           </h2>
@@ -1686,7 +1615,7 @@
                 
               
 
-              <time title="创建时间：2015-08-31 22:31:49" itemprop="dateCreated datePublished" datetime="2015-08-31T22:31:49+08:00">2015-08-31</time>
+              <time title="创建时间：2017-03-30 10:43:37" itemprop="dateCreated datePublished" datetime="2017-03-30T10:43:37+08:00">2017-03-30</time>
             
 
             
@@ -1703,7 +1632,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-19 16:40:23" itemprop="dateModified" datetime="2019-04-19T16:40:23+08:00">2019-04-19</time>
+                <time title="修改时间：2019-04-22 10:22:47" itemprop="dateModified" datetime="2019-04-22T10:22:47+08:00">2019-04-22</time>
               
             
           </span>
@@ -1720,7 +1649,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/" itemprop="url" rel="index"><span itemprop="name">日常________经验分享</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
 
                 
                 
@@ -1749,7 +1678,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">147</span>
+                <span title="本文字数">619</span>
               
 
               
@@ -1785,9 +1714,13 @@
       
         
           
-            <p>于08-31日起，再次拜读《大话设计模式》以加深印象。</p>
-<p>并整理出相关资料以供新手使用，容易学习。当然因为专业方向会使用php将此思想按照个人的理解重新编写。但是语言应该不会造成思想的理解。</p>
-<p>如果您对设计模式已有一定了解，推荐参阅《Head First》,Gof所著《设计模式》，《重构》等经典</p>
+            <p>一些语言（如PHP）的三元表达式形如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">判定条件 ? 为真时的结果 : 为假时的结果  </span><br><span class="line"></span><br><span class="line">if(1==1) ? true : false</span><br></pre></td></tr></table></figure></p>
+<p>Python的三元表达式有如下几种书写方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    a = &apos;&apos;</span><br><span class="line">    b = &apos;True&apos;</span><br><span class="line">    c = &apos;False&apos;</span><br><span class="line">    #方法一：为真时的结果 if 判定条件 else 为假时的结果</span><br><span class="line">    d = b if a else c</span><br><span class="line">    print(&apos;方法一输出结果：&apos; + d)</span><br><span class="line">    #方法二：判定条件 and 为真时的结果 or 为假时的结果</span><br><span class="line">    d = a and b or c</span><br><span class="line">    print(&apos;方法二输出结果：&apos; + d)</span><br><span class="line">    #以上两种方法方法等同于if ... else ...</span><br><span class="line">    if a:</span><br><span class="line">        d = b</span><br><span class="line">    else:</span><br><span class="line">        d = c</span><br><span class="line">    print(&apos;if语句的输出结果：&apos; + d)</span><br></pre></td></tr></table></figure></p>
+<p>输出结果：</p>
+<p>方法一输出结果：<code>False</code><br>方法二输出结果：<code>False</code><br>if语句的输出结果：<code>False</code></p>
+<p>说明：<br>判断条件：a为空串，所以判断条件为假</p>
+<p>当判断条件为真时的结果：d = b</p>
+<p>当判断条件为假时的结果：d = c</p>
 
           
         
@@ -1844,7 +1777,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/habitual_opening_summary/">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/python_memory_profiler/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jack Yao">
@@ -1864,7 +1797,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/habitual_opening_summary/" class="post-title-link" itemprop="url">习惯性开篇总结</a>
+                <a href="/python_memory_profiler/" class="post-title-link" itemprop="url">Python代码的内存分析器：Memory_profiler</a>
               
             
           </h2>
@@ -1889,7 +1822,7 @@
                 
               
 
-              <time title="创建时间：2015-08-26 19:23:34" itemprop="dateCreated datePublished" datetime="2015-08-26T19:23:34+08:00">2015-08-26</time>
+              <time title="创建时间：2017-03-29 17:48:36" itemprop="dateCreated datePublished" datetime="2017-03-29T17:48:36+08:00">2017-03-29</time>
             
 
             
@@ -1906,7 +1839,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-19 16:41:41" itemprop="dateModified" datetime="2019-04-19T16:41:41+08:00">2019-04-19</time>
+                <time title="修改时间：2019-04-22 10:22:47" itemprop="dateModified" datetime="2019-04-22T10:22:47+08:00">2019-04-22</time>
               
             
           </span>
@@ -1923,7 +1856,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常-经验分享/" itemprop="url" rel="index"><span itemprop="name">日常________经验分享</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
 
                 
                 
@@ -1952,7 +1885,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">528</span>
+                <span title="本文字数">632</span>
               
 
               
@@ -1988,15 +1921,627 @@
       
         
           
-            <p>终于抽出一点时间将博客站重新上线。</p>
-<p>为了节省时间采用了wordpress框架。对于程序，现在认为有可用即可用，存在即是合理，而不再执着于要用很多时间去自己写一个框架。</p>
-<p>高可用，敏捷快速是为建站灵魂。拿来主义，是为了释放时间精力做更加擅长的事情。</p>
-<p>在此分享自走上程序之路的一些思维方式，期望新加入程序大军的猿们可以有一个模糊的方向，更快的突破限制，走得更远更快。</p>
-<p>常认为能从零到有，从小白到建站技术都略懂一些能在短短时间如此大的跨步，得益于老大的指点：“代码就是工具，是让你来使用的，不要执着于什么语法，什么语言，仅仅是工具而已。但是它可以帮助你完成梦想。”。</p>
-<p>写代码和日常生活可能是一样的，师父领进门修行在个人，没有什么捷径，唯有勤学苦练。所以在纠结于要不要去培训班的同学，请先明确自己到底想付出什么，又想要得到什么。</p>
-<p>刚刚出学校时，没有任何经验，没有高校背景，找工作确实很难。这时候反省自己有没有努力，有没有决心从零开始在某个行业做下去。考虑好自己所想的，做自己喜欢的，坚持下去。</p>
-<p>关于培训的问题。。培训班可能对于一点基础没有的同学也是一个路。但是强烈建议一定要摒弃在培训过程中什么都依赖别人去教的习惯，学会自主解决问题，师父领进门，修行靠个人，切记。</p>
+            <p>Memory_profiler是一个Python模块，可以监视一个进程的内存消耗，甚至可以一行一行的分析Python程序的内存消耗。它纯粹是由Python实现，用户可选psutil模块（强烈推荐）作为依赖。</p>
+<p>示例<br>用<code>@profile</code>修饰你需要监视的函数，这里<code>my_func</code>函数分配列表a和b，然后删除b<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@profile</span><br><span class="line">def my_func():</span><br><span class="line">a = [1] * (10 ** 6)</span><br><span class="line">b = [2] * (2 * 10 ** 7)</span><br><span class="line">del b</span><br><span class="line">return a</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">my_func()</span><br></pre></td></tr></table></figure></p>
+<p>运行脚本时需传入<code>-m memory_profiler</code>参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python -m memory_profiler example.py</span><br></pre></td></tr></table></figure></p>
+<p>以上命令输出如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Line # Mem usage Increment Line Contents</span><br><span class="line">==============================================</span><br><span class="line">3 @profile</span><br><span class="line">4 5.97 MB 0.00 MB def my_func():</span><br><span class="line">5 13.61 MB 7.64 MB a = [1] * (10 ** 6)</span><br><span class="line">6 166.20 MB 152.59 MB b = [2] * (2 * 10 ** 7)</span><br><span class="line">7 13.61 MB -152.59 MB del b</span><br><span class="line">8 13.61 MB 0.00 MB return a</span><br></pre></td></tr></table></figure></p>
 
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/python_pdb/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/python_pdb/" class="post-title-link" itemprop="url">Python的pdb调试技巧</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-03-29 17:45:26" itemprop="dateCreated datePublished" datetime="2017-03-29T17:45:26+08:00">2017-03-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-22 10:22:47" itemprop="dateModified" datetime="2019-04-22T10:22:47+08:00">2019-04-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">2k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">2 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>python中有个pdb模块，使python代码也可以像gdb那样进行调试，一般情况下pdb模块可以在代码内直接使用，也可以通过命令行参数的形式添加该模块进行调试(python -m pdb file.py)。在代码中直接使用pdb模块调试时，<code>import pdb</code>模块后，然后在需要调试的代码出添加<code>pdb.set_trace()</code>命令即可，运行程序后，在运行到次代码处会自动停止，进入调试模式。</p>
+<p>一般常用的调试命令有如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">q 退出debug</span><br><span class="line">h 打印可用的调试命令</span><br><span class="line">b 设置断点，b 5 在第五行设置断点</span><br><span class="line">h command 打印command的命令含义</span><br><span class="line">disable codenum  使某一行断点失效</span><br><span class="line">enable codenum   使某一行的断点有效</span><br><span class="line">condition codenum xxx  针对断点设置条件</span><br><span class="line">c 继续执行程序，直到下一个断点</span><br><span class="line">n 执行下一行代码，如果当前语句有函数调用，则不会进入函数体中</span><br><span class="line">s 执行下一行代码，但是s会进入函数</span><br><span class="line">w 打印当前执行点的位置</span><br><span class="line">j codenum  让程序跳转到指定的行</span><br><span class="line">l 列出附近的源码</span><br><span class="line">p 打印一个参数的值</span><br><span class="line">a 打印当前函数及参数的值</span><br><span class="line">回车  重复执行上一行</span><br></pre></td></tr></table></figure></p>
+<p>测试代码如下sum.py：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#/usr/bin/python</span><br><span class="line"></span><br><span class="line">def add_t( ):</span><br><span class="line">    i=1</span><br><span class="line">    sum=0</span><br><span class="line">    for i in range(1,5):</span><br><span class="line">        sum=sum+i</span><br><span class="line">        print sum</span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    add_t()</span><br></pre></td></tr></table></figure></p>
+<p>调试过程如下：<code>python -m pdb sum.py</code></p>
+<p>n调试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&gt; /opt/sum.py(3)&lt;module&gt;()</span><br><span class="line">-&gt; def add_t( ):</span><br><span class="line"> (Pdb) n</span><br><span class="line">&gt; /opt/sum.py(9)&lt;module&gt;()</span><br><span class="line">-&gt; if __name__ == &apos;__main__&apos;:</span><br><span class="line">(Pdb) n</span><br><span class="line">&gt; /opt/sum.py(10)&lt;module&gt;()</span><br><span class="line">-&gt; add_t()</span><br><span class="line">(Pdb) n</span><br><span class="line">1</span><br><span class="line">3</span><br><span class="line">6</span><br><span class="line">10</span><br><span class="line">--Return--</span><br><span class="line">&gt; /opt/sum.py(10)&lt;module&gt;()-&gt;None</span><br><span class="line">-&gt; add_t()</span><br><span class="line">(Pdb) q</span><br></pre></td></tr></table></figure></p>
+<p>n表示执行下一行代码，但是不陷入函数内部，可以看第3、6、9行，在执行add_t函数时并未陷入函数内部。</p>
+<p>s调试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">1 &gt; /opt/sum.py(3)&lt;module&gt;()</span><br><span class="line">2 -&gt; def add_t( ):</span><br><span class="line">(Pdb) s</span><br><span class="line">&gt; /opt/sum.py(9)&lt;module&gt;()</span><br><span class="line">-&gt; if __name__ == &apos;__main__&apos;:</span><br><span class="line">(Pdb) s</span><br><span class="line">&gt; /opt/sum.py(10)&lt;module&gt;()</span><br><span class="line">-&gt; add_t()</span><br><span class="line">(Pdb) s</span><br><span class="line">--Call--</span><br><span class="line">&gt; /opt/sum.py(3)add_t()</span><br><span class="line">-&gt; def add_t( ):</span><br><span class="line">(Pdb) s</span><br><span class="line">&gt; /opt/sum.py(4)add_t()</span><br><span class="line">-&gt; i=1</span><br><span class="line">(Pdb) s</span><br><span class="line">&gt; /opt/sum.py(5)add_t()</span><br><span class="line">-&gt; sum=0</span><br><span class="line">(Pdb) s</span><br><span class="line">&gt; /opt/sum.py(6)add_t()</span><br><span class="line">-&gt; for i in range(1,5):</span><br><span class="line">(Pdb) s</span><br><span class="line">&gt; /opt/sum.py(7)add_t()</span><br><span class="line">-&gt; sum=sum+i</span><br><span class="line">(Pdb) s</span><br><span class="line">&gt; /opt/sum.py(8)add_t()</span><br><span class="line">-&gt; print sum</span><br><span class="line">(Pdb) p i</span><br><span class="line">1</span><br><span class="line">(Pdb) p sum</span><br><span class="line">1</span><br><span class="line">(Pdb) s</span><br><span class="line">1</span><br><span class="line">&gt; /opt/sum.py(6)add_t()</span><br><span class="line">-&gt; for i in range(1,5):</span><br><span class="line">(Pdb) s</span><br><span class="line">&gt; /opt/sum.py(7)add_t()</span><br><span class="line">-&gt; sum=sum+i</span><br><span class="line">(Pdb) s</span><br><span class="line">&gt; /opt/sum.py(8)add_t()</span><br><span class="line">-&gt; print sum</span><br><span class="line">(Pdb) p i</span><br><span class="line">2</span><br><span class="line">(Pdb) p sum</span><br><span class="line">3</span><br><span class="line">(Pdb)</span><br></pre></td></tr></table></figure></p>
+<p>s调试和n调试一样，只不过s在遇到函数时会进入函数进行调试，9、12、13表示进入<code>add_t</code>函数内部进行调试，后面使用p命令打印相关函数内参数的值，后面输入r即可退出函数内部的调试。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/python_change_type/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/python_change_type/" class="post-title-link" itemprop="url">Python类型转换函数</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-03-29 15:51:19" itemprop="dateCreated datePublished" datetime="2017-03-29T15:51:19+08:00">2017-03-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-19 20:31:21" itemprop="dateModified" datetime="2019-04-19T20:31:21+08:00">2019-04-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">363</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">int(x [,base ]) 将x转换为一个整数</span><br><span class="line">long(x [,base ]) 将x转换为一个长整数</span><br><span class="line">float 将x转换到一个浮点数</span><br><span class="line">complex(real [,imag ]) 创建一个复数</span><br><span class="line">str(x ) 将对象 x 转换为字符串</span><br><span class="line">repr(x ) 将对象 x 转换为表达式字符串</span><br><span class="line">eval(str ) 用来计算在字符串中的有效Python表达式,并返回一个对象</span><br><span class="line">tuple(s ) 将序列 s 转换为一个元组</span><br><span class="line">list(s ) 将序列 s 转换为一个列表</span><br><span class="line">chr(x ) 将一个整数转换为一个字符</span><br><span class="line">unichr(x ) 将一个整数转换为Unicode字符</span><br><span class="line">ord(x ) 将一个字符转换为它的整数值</span><br><span class="line">hex(x ) 将一个整数转换为一个十六进制字符串</span><br><span class="line">oct(x ) 将一个整数转换为一个八进制字符串</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/mac_pip/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/mac_pip/" class="post-title-link" itemprop="url">Mac安装pip</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-03-29 11:43:36" itemprop="dateCreated datePublished" datetime="2017-03-29T11:43:36+08:00">2017-03-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-19 20:57:28" itemprop="dateModified" datetime="2019-04-19T20:57:28+08:00">2019-04-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">674</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Mac已经自带<span class="exturl" data-url="aHR0cDovL2xpYi5jc2RuLm5ldC9iYXNlL3B5dGhvbg==" title="http://lib.csdn.net/base/python">Python<i class="fa fa-external-link"></i></span>,我的Mac系统是yosemite, 自带python版本是2.7.10. 但是ipython要自己安装，网上有很多方法，但没有一个简单并能很快解决问题的。<br>本人将今天自己安装ipython的步骤简单记录如下：<br>本人是通过pip安装ipython，pip是python的包管理工具 </p>
+<p><strong>一、安装 pip</strong></p>
+<p>mac默认是不带pip的，所以第一步要先安装pip。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo easy_install pip</span><br><span class="line">… …</span><br><span class="line">…此处省略N行…</span><br><span class="line">… …</span><br><span class="line">Installed /Library/Python/2.7/site-packages/pip-7.1.2-py2.7.egg</span><br><span class="line">Processing dependencies for pip Finished processing dependencies for</span><br><span class="line">pip</span><br></pre></td></tr></table></figure></p>
+<p>成功安装会显示上面的信息</p>
+<p><strong>二、 使用pip安装ipython</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install ipython </span><br><span class="line">… … … </span><br><span class="line">… 省略N行… </span><br><span class="line">…… …</span><br></pre></td></tr></table></figure>
+<p>安装成功将会显示成功安装的信息。<br>这时命令行 输入ipython,就会进入ipthon shell 模式，比python的默认shell 编写代码要方便的多，比如tab 键可以自动补全等。。。<br>关于ipython的使用可以自行搜索</p>
+<p>如果不带sudo,可能会出现 下面的错误提示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IOError: \[Errno 13\] Permission denied**: ‘/Library/Python/2.7/site-packages/decorator.py’</span><br></pre></td></tr></table></figure>
           
         
       
@@ -2041,7 +2586,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2083,7 +2628,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-count">100</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2099,16 +2644,6 @@
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -2223,45 +2758,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-count">40</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -2386,7 +2883,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">208k</span>
+    <span title="站点总字数">319k</span>
   
 
   
@@ -2397,7 +2894,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">3:09</span>
+    <span title="站点阅读时长">4:50</span>
   
 </div>
 
