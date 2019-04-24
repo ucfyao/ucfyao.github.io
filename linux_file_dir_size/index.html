@@ -19,7 +19,7 @@
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<meta name="theme-color" content="#FF5733">
 
 
 
@@ -81,9 +81,9 @@
     root: '/',
     scheme: 'Mist',
     version: '7.1.0',
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    sidebar: {"position":"left","display":"hide","offset":12,"onmobile":false,"dimmer":false},
     back2top: true,
-    back2top_sidebar: true,
+    back2top_sidebar: false,
     fancybox: false,
     fastclick: false,
     lazyload: false,
@@ -105,18 +105,18 @@
 
 
 
-  <meta name="description" content="当磁盘大小超过标准时会有报警提示，这时如果掌握df和du命令是非常明智的选择。 df可以查看一级文件夹大小、使用比例、档案系统及其挂入点，但对文件却无能为力。du可以查看文件及文件夹的大小。 两者配合使用，非常有效。比如用df查看哪个一级目录过大，然后用df查看文件夹或文件的大小，如此便可迅速确定症结。 下面分别简要介绍 df命令可以显示目前所有文件系统的可用空间及使用情形，请看下列这个例子： 1">
+  <meta name="description" content="当磁盘大小超过标准时会有报警提示，这时如果掌握df和du命令是非常明智的选择。 df可以查看一级文件夹大小、使用比例、档案系统及其挂入点，但对文件却无能为力。du可以查看文件及文件夹的大小。 两者配合使用，非常有效。比如用df查看哪个一级目录过大，然后用df查看文件夹或文件的大小，如此便可迅速确定症结。 下面分别简要介绍 df命令可以显示目前所有文件系统的可用空间及使用情形，请看下列这个例子： $">
 <meta name="keywords" content="linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux下查看文件和文件夹大小">
 <meta property="og:url" content="https://yaozihao.com/linux_file_dir_size/index.html">
 <meta property="og:site_name" content="zihao&#39;blog">
-<meta property="og:description" content="当磁盘大小超过标准时会有报警提示，这时如果掌握df和du命令是非常明智的选择。 df可以查看一级文件夹大小、使用比例、档案系统及其挂入点，但对文件却无能为力。du可以查看文件及文件夹的大小。 两者配合使用，非常有效。比如用df查看哪个一级目录过大，然后用df查看文件夹或文件的大小，如此便可迅速确定症结。 下面分别简要介绍 df命令可以显示目前所有文件系统的可用空间及使用情形，请看下列这个例子： 1">
+<meta property="og:description" content="当磁盘大小超过标准时会有报警提示，这时如果掌握df和du命令是非常明智的选择。 df可以查看一级文件夹大小、使用比例、档案系统及其挂入点，但对文件却无能为力。du可以查看文件及文件夹的大小。 两者配合使用，非常有效。比如用df查看哪个一级目录过大，然后用df查看文件夹或文件的大小，如此便可迅速确定症结。 下面分别简要介绍 df命令可以显示目前所有文件系统的可用空间及使用情形，请看下列这个例子： $">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-22T03:54:34.179Z">
+<meta property="og:updated_time" content="2019-04-24T09:59:52.337Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux下查看文件和文件夹大小">
-<meta name="twitter:description" content="当磁盘大小超过标准时会有报警提示，这时如果掌握df和du命令是非常明智的选择。 df可以查看一级文件夹大小、使用比例、档案系统及其挂入点，但对文件却无能为力。du可以查看文件及文件夹的大小。 两者配合使用，非常有效。比如用df查看哪个一级目录过大，然后用df查看文件夹或文件的大小，如此便可迅速确定症结。 下面分别简要介绍 df命令可以显示目前所有文件系统的可用空间及使用情形，请看下列这个例子： 1">
+<meta name="twitter:description" content="当磁盘大小超过标准时会有报警提示，这时如果掌握df和du命令是非常明智的选择。 df可以查看一级文件夹大小、使用比例、档案系统及其挂入点，但对文件却无能为力。du可以查看文件及文件夹的大小。 两者配合使用，非常有效。比如用df查看哪个一级目录过大，然后用df查看文件夹或文件的大小，如此便可迅速确定症结。 下面分别简要介绍 df命令可以显示目前所有文件系统的可用空间及使用情形，请看下列这个例子： $">
 
 
 
@@ -246,6 +246,8 @@
     
 
     
+      
+    
 
     <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
 
@@ -263,8 +265,10 @@
     
 
     
+      
+    
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">16</span></a>
 
   </li>
         
@@ -280,8 +284,10 @@
     
 
     
+      
+    
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">59</span></a>
 
   </li>
         
@@ -297,8 +303,10 @@
     
 
     
+      
+    
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">187</span></a>
 
   </li>
         
@@ -313,6 +321,8 @@
       
     
 
+    
+      
     
 
     <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
@@ -463,7 +473,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-22 11:54:34" itemprop="dateModified" datetime="2019-04-22T11:54:34+08:00">2019-04-22</time>
+                <time title="修改时间：2019-04-24 17:59:52" itemprop="dateModified" datetime="2019-04-24T17:59:52+08:00">2019-04-24</time>
               
             
           </span>
@@ -480,7 +490,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-linux/" itemprop="url" rel="index"><span itemprop="name">积累________linux</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
 
                 
                 
@@ -529,7 +539,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.8k</span>
+                <span title="本文字数">1.7k</span>
               
 
               
@@ -568,14 +578,14 @@
 <p>两者配合使用，非常有效。比如用df查看哪个一级目录过大，然后用df查看文件夹或文件的大小，如此便可迅速确定症结。</p>
 <p>下面分别简要介绍</p>
 <p>df命令可以显示目前所有文件系统的可用空间及使用情形，请看下列这个例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ df -h</span><br><span class="line">Filesystem            Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/sda1             3.9G  300M  3.4G   8% /</span><br><span class="line">/dev/sda7             100G  188M   95G   1% /data0</span><br><span class="line">/dev/sdb1             133G   80G   47G  64% /data1</span><br><span class="line">/dev/sda6             7.8G  218M  7.2G   3% /var</span><br><span class="line">/dev/sda5             7.8G  166M  7.2G   3% /tmp</span><br><span class="line">/dev/sda3             9.7G  2.5G  6.8G  27% /usr</span><br><span class="line">tmpfs                 2.0G     0  2.0G   0% /dev/shm</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ df -h</span><br><span class="line">Filesystem            Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/sda1             3.9G  300M  3.4G   8% /</span><br><span class="line">/dev/sda7             100G  188M   95G   1% /data0</span><br><span class="line">/dev/sdb1             133G   80G   47G  64% /data1</span><br><span class="line">/dev/sda6             7.8G  218M  7.2G   3% /var</span><br><span class="line">/dev/sda5             7.8G  166M  7.2G   3% /tmp</span><br><span class="line">/dev/sda3             9.7G  2.5G  6.8G  27% /usr</span><br><span class="line">tmpfs                 2.0G     0  2.0G   0% /dev/shm</span><br></pre></td></tr></table></figure>
 <p>参数 <code>-h</code> 表示使用<code>「Human-readable」</code>的输出，也就是在档案系统大小使用 <code>GB</code>、<code>MB</code> 等易读的格式。</p>
 <p>上面的命令输出的第一个字段（Filesystem）及最后一个字段（Mounted on）分别是档案系统及其挂入点。我们可以看到 <code>/dev/sda1</code> 这个分割区被挂在根目录下。</p>
 <p>接下来的四个字段 <code>Size</code>、<code>Used</code>、<code>Avail</code>、及 <code>Use%</code> 分别是该分割区的容量、已使用的大小、剩下的大小、及使用的百分比。 FreeBSD下，当硬盘容量已满时，您可能会看到已使用的百分比超过 100%，因为 FreeBSD 会留一些空间给 <code>root</code>，让 <code>root</code> 在档案系统满时，还是可以写东西到该档案系统中，以进行管理。</p>
 <p>du：查询文件或文件夹的磁盘使用空间</p>
 <p>如果当前目录下文件和文件夹很多，使用不带参数<code>du</code>的命令，可以循环列出所有文件和文件夹所使用的空间。这对查看究竟是那个地方过大是不利的，所以得指定深入目录的层数，参数：<code>–max-depth=</code>，这是个极为有用的参数！如下，注意使用“*”，可以得到文件的使用空间大小.</p>
 <p>提醒：一向命令比linux复杂的FreeBSD，它的du命令指定深入目录的层数却是比linux简化，为 -d。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">$ du -h –max-depth=1 work/testing</span><br><span class="line">27M     work/testing/logs</span><br><span class="line">35M     work/testing</span><br><span class="line"></span><br><span class="line">$ du -h –max-depth=1 work/testing/*</span><br><span class="line">8.0K    work/testing/func.php</span><br><span class="line">27M     work/testing/logs</span><br><span class="line">8.1M    work/testing/nohup.out</span><br><span class="line">8.0K    work/testing/testing_c.php</span><br><span class="line">12K     work/testing/testing_func_reg.php</span><br><span class="line">8.0K    work/testing/testing_get.php</span><br><span class="line">8.0K    work/testing/testing_g.php</span><br><span class="line">8.0K    work/testing/var.php</span><br><span class="line"></span><br><span class="line">$ du -h –max-depth=1 work/testing/logs/</span><br><span class="line">27M     work/testing/logs/</span><br><span class="line"></span><br><span class="line">$ du -h –max-depth=1 work/testing/logs/*</span><br><span class="line">24K     work/testing/logs/errdate.log_show.log</span><br><span class="line">8.0K    work/testing/logs/pertime_show.log</span><br><span class="line">27M     work/testing/logs/show.log</span><br><span class="line"></span><br><span class="line">$ du -shc *</span><br><span class="line"></span><br><span class="line">60M bitcoin</span><br><span class="line">60M total</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ du -h –max-depth=1 work/testing</span><br><span class="line">27M     work/testing/logs</span><br><span class="line">35M     work/testing</span><br><span class="line"></span><br><span class="line">$ du -h –max-depth=1 work/testing/*</span><br><span class="line">8.0K    work/testing/func.php</span><br><span class="line">27M     work/testing/logs</span><br><span class="line">8.1M    work/testing/nohup.out</span><br><span class="line">8.0K    work/testing/testing_c.php</span><br><span class="line">12K     work/testing/testing_func_reg.php</span><br><span class="line">8.0K    work/testing/testing_get.php</span><br><span class="line">8.0K    work/testing/testing_g.php</span><br><span class="line">8.0K    work/testing/var.php</span><br><span class="line"></span><br><span class="line">$ du -h –max-depth=1 work/testing/logs/</span><br><span class="line">27M     work/testing/logs/</span><br><span class="line"></span><br><span class="line">$ du -h –max-depth=1 work/testing/logs/*</span><br><span class="line">24K     work/testing/logs/errdate.log_show.log</span><br><span class="line">8.0K    work/testing/logs/pertime_show.log</span><br><span class="line">27M     work/testing/logs/show.log</span><br><span class="line"></span><br><span class="line">$ du -shc *</span><br><span class="line"></span><br><span class="line">60M bitcoin</span><br><span class="line">60M total</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -625,6 +635,30 @@
       </div>
     
 
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Jack Yao</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="/linux_file_dir_size" title="Linux下查看文件和文件夹大小">linux_file_dir_size</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
     
 
     <footer class="post-footer">
@@ -720,7 +754,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">184</span>
+                    <span class="site-state-item-count">187</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -763,7 +797,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -957,10 +997,20 @@
           
 
           
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+             </div>
+          
 
           
           
-            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
               <div class="links-of-blogroll-title">
                 <i class="fa  fa-fw fa-link"></i>
                 Links
@@ -990,13 +1040,6 @@
       
 
       
-        <div class="back-to-top">
-          <i class="fa fa-arrow-up"></i>
-          
-            <span id="scrollpercent"><span>0</span>%</span>
-          
-        </div>
-      
 
     </div>
   </aside>
@@ -1023,7 +1066,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">525k</span>
+    <span title="站点总字数">527k</span>
   
 
   
@@ -1034,7 +1077,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">7:58</span>
+    <span title="站点阅读时长">7:59</span>
   
 </div>
 
@@ -1085,18 +1128,16 @@
     </footer>
 
     
-
-    
-
-    
-
-    
-      <div>
-        <div class="addthis_inline_share_toolbox">
-  <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cb68f059ff1e21f" async="async"></script>
-</div>
-
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
       </div>
+    
+
+    
+
+    
+
     
   </div>
 
@@ -1120,6 +1161,14 @@
 
 
 
+
+  
+    
+    
+      
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="66" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
 
 
 
@@ -1557,16 +1606,6 @@
   
 
   
-  <script>
-    (function(){
-      var bp = document.createElement('script');
-      var curProtocol = window.location.protocol.split(':')[0];
-      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(bp, s);
-    })();
-  </script>
-
 
   
 

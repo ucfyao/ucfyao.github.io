@@ -19,7 +19,7 @@
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<meta name="theme-color" content="#FF5733">
 
 
 
@@ -81,9 +81,9 @@
     root: '/',
     scheme: 'Mist',
     version: '7.1.0',
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    sidebar: {"position":"left","display":"hide","offset":12,"onmobile":false,"dimmer":false},
     back2top: true,
-    back2top_sidebar: true,
+    back2top_sidebar: false,
     fancybox: false,
     fastclick: false,
     lazyload: false,
@@ -113,7 +113,7 @@
 <meta property="og:site_name" content="zihao&#39;blog">
 <meta property="og:description" content="引言Pandas是一个开源的Python数据分析库。Pandas把结构化数据分为了三类：  Series，1维序列，可视作为没有column名的、只有一个column的DataFrame； DataFrame，同Spark SQL中的DataFrame一样，其概念来自于R语言，为多column并schema化的2维结构化数据，可视作为Series的容器（container）； Panel，为3维的">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-22T02:22:47.435Z">
+<meta property="og:updated_time" content="2019-04-24T10:00:56.284Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Pandas：让你像写SQL一样做数据分析">
 <meta name="twitter:description" content="引言Pandas是一个开源的Python数据分析库。Pandas把结构化数据分为了三类：  Series，1维序列，可视作为没有column名的、只有一个column的DataFrame； DataFrame，同Spark SQL中的DataFrame一样，其概念来自于R语言，为多column并schema化的2维结构化数据，可视作为Series的容器（container）； Panel，为3维的">
@@ -246,6 +246,8 @@
     
 
     
+      
+    
 
     <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
 
@@ -263,8 +265,10 @@
     
 
     
+      
+    
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">16</span></a>
 
   </li>
         
@@ -280,8 +284,10 @@
     
 
     
+      
+    
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">59</span></a>
 
   </li>
         
@@ -297,8 +303,10 @@
     
 
     
+      
+    
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">187</span></a>
 
   </li>
         
@@ -313,6 +321,8 @@
       
     
 
+    
+      
     
 
     <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
@@ -463,7 +473,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-22 10:22:47" itemprop="dateModified" datetime="2019-04-22T10:22:47+08:00">2019-04-22</time>
+                <time title="修改时间：2019-04-24 18:00:56" itemprop="dateModified" datetime="2019-04-24T18:00:56+08:00">2019-04-24</time>
               
             
           </span>
@@ -480,7 +490,21 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/Back/" itemprop="url" rel="index"><span itemprop="name">Back</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/Back/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span>
 
                 
                 
@@ -529,7 +553,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">6.9k</span>
+                <span title="本文字数">6.8k</span>
               
 
               
@@ -569,52 +593,52 @@
 <li>DataFrame，同Spark SQL中的DataFrame一样，其概念来自于R语言，为多column并schema化的2维结构化数据，可视作为Series的容器（container）；</li>
 <li>Panel，为3维的结构化数据，可视作为DataFrame的容器；</li>
 </ol>
-<p>DataFrame较为常见，因此本文主要讨论内容将为DataFrame。DataFrame的生成可通过读取纯文本、Json等数据来生成，亦可以通过Python对象来生成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line">import numpy as np</span><br><span class="line">df = pd.DataFrame(&#123;&apos;total_bill&apos;: [16.99, 10.34, 23.68, 23.68, 24.59],</span><br><span class="line"> &apos;tip&apos;: [1.01, 1.66, 3.50, 3.31, 3.61],</span><br><span class="line"> &apos;sex&apos;: [&apos;Female&apos;, &apos;Male&apos;, &apos;Male&apos;, &apos;Male&apos;, &apos;Female&apos;]&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>对于DataFrame，我们可以看到其固有属性：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># data type of columns</span><br><span class="line">print df.dtypes</span><br><span class="line"># indexes</span><br><span class="line">print df.index</span><br><span class="line"># return pandas.Index</span><br><span class="line">print df.columns</span><br><span class="line"># each row, return array[array]</span><br><span class="line">print df.values</span><br></pre></td></tr></table></figure></p>
+<p>DataFrame较为常见，因此本文主要讨论内容将为DataFrame。DataFrame的生成可通过读取纯文本、Json等数据来生成，亦可以通过Python对象来生成：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line">import numpy as np</span><br><span class="line">df = pd.DataFrame(&#123;&apos;total_bill&apos;: [16.99, 10.34, 23.68, 23.68, 24.59],</span><br><span class="line"> &apos;tip&apos;: [1.01, 1.66, 3.50, 3.31, 3.61],</span><br><span class="line"> &apos;sex&apos;: [&apos;Female&apos;, &apos;Male&apos;, &apos;Male&apos;, &apos;Male&apos;, &apos;Female&apos;]&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>对于DataFrame，我们可以看到其固有属性：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># data type of columns</span><br><span class="line">print df.dtypes</span><br><span class="line"># indexes</span><br><span class="line">print df.index</span><br><span class="line"># return pandas.Index</span><br><span class="line">print df.columns</span><br><span class="line"># each row, return array[array]</span><br><span class="line">print df.values</span><br></pre></td></tr></table></figure></p>
 <p>.index，为行索引 .columns，为列名称（label） .dtype，为列数据类型</p>
 <h2 id="SQL操作"><a href="#SQL操作" class="headerlink" title="SQL操作"></a>SQL操作</h2><p>官方Doc给出了部分SQL的Pandas实现。在此基础上，本文给出了一些扩充说明。以下内容基于Python 2.7 + Pandas 0.18.1的版本。</p>
 <h3 id="select"><a href="#select" class="headerlink" title="select"></a>select</h3><p>SQL中的select是根据列的名称来选取；Pandas则更为灵活，不但可根据列名称选取，还可以根据列所在的position选取。相关函数如下：</p>
 <ul>
 <li>loc，基于列label，可选取特定行（根据行index）；</li>
 <li><p>iloc，基于行/列的position；</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print df.loc[1:3, [&apos;total_bill&apos;, &apos;tip&apos;]]</span><br><span class="line">print df.loc[1:3, &apos;tip&apos;: &apos;total_bill&apos;]</span><br><span class="line">print df.iloc[1:3, [1, 2]]</span><br><span class="line">print df.iloc[1:3, 1: 3]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">print df.loc[1:3, [&apos;total_bill&apos;, &apos;tip&apos;]]</span><br><span class="line">print df.loc[1:3, &apos;tip&apos;: &apos;total_bill&apos;]</span><br><span class="line">print df.iloc[1:3, [1, 2]]</span><br><span class="line">print df.iloc[1:3, 1: 3]</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>at，根据指定行index及列label，快速定位DataFrame的元素；</p>
 </li>
 <li><p>iat，与at类似，不同的是根据position来定位的；</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print df.at[3, &apos;tip&apos;]</span><br><span class="line">print df.iat[3, 1]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">print df.at[3, &apos;tip&apos;]</span><br><span class="line">print df.iat[3, 1]</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>ix，为loc与iloc的混合体，既支持label也支持position；</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print df.ix[1:3, [1, 2]]</span><br><span class="line">print df.ix[1:3, [&apos;total_bill&apos;, &apos;tip&apos;]]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">print df.ix[1:3, [1, 2]]</span><br><span class="line">print df.ix[1:3, [&apos;total_bill&apos;, &apos;tip&apos;]]</span><br></pre></td></tr></table></figure>
 <p>此外，有更为简洁的行/列选取方式： </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print df[1: 3]</span><br><span class="line">print df[[&apos;total_bill&apos;, &apos;tip&apos;]]</span><br><span class="line"># print df[1:2, [&apos;total_bill&apos;, &apos;tip&apos;]] # TypeError: unhashable type</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">print df[1: 3]</span><br><span class="line">print df[[&apos;total_bill&apos;, &apos;tip&apos;]]</span><br><span class="line"># print df[1:2, [&apos;total_bill&apos;, &apos;tip&apos;]] # TypeError: unhashable type</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="where"><a href="#where" class="headerlink" title="where"></a>where</h3><p>Pandas实现where filter，较为常用的办法为<code>df[df[colunm] boolean expr]</code>，比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print df[df[&apos;sex&apos;] == &apos;Female&apos;]</span><br><span class="line">print df[df[&apos;total_bill&apos;] &gt; 20]</span><br><span class="line"></span><br><span class="line"># or</span><br><span class="line">print df.query(&apos;total_bill &gt; 20&apos;)</span><br></pre></td></tr></table></figure></p>
-<p>在where子句中常常会搭配and, or, in, not关键词，Pandas中也有对应的实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># and</span><br><span class="line">print df[(df[&apos;sex&apos;] == &apos;Female&apos;) &amp; (df[&apos;total_bill&apos;] &gt; 20)]</span><br><span class="line"># or</span><br><span class="line">print df[(df[&apos;sex&apos;] == &apos;Female&apos;) | (df[&apos;total_bill&apos;] &gt; 20)]</span><br><span class="line"># in</span><br><span class="line">print df[df[&apos;total_bill&apos;].isin([21.01, 23.68, 24.59])]</span><br><span class="line"># not</span><br><span class="line">print df[-(df[&apos;sex&apos;] == &apos;Male&apos;)]</span><br><span class="line">print df[-df[&apos;total_bill&apos;].isin([21.01, 23.68, 24.59])]</span><br><span class="line"># string function</span><br><span class="line">print df = df[(-df[&apos;app&apos;].isin(sys_app)) &amp; (-df.app.str.contains(&apos;^微信\d+$&apos;))]</span><br></pre></td></tr></table></figure></p>
+<h3 id="where"><a href="#where" class="headerlink" title="where"></a>where</h3><p>Pandas实现where filter，较为常用的办法为<code>df[df[colunm] boolean expr]</code>，比如：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">print df[df[&apos;sex&apos;] == &apos;Female&apos;]</span><br><span class="line">print df[df[&apos;total_bill&apos;] &gt; 20]</span><br><span class="line"></span><br><span class="line"># or</span><br><span class="line">print df.query(&apos;total_bill &gt; 20&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>在where子句中常常会搭配and, or, in, not关键词，Pandas中也有对应的实现：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># and</span><br><span class="line">print df[(df[&apos;sex&apos;] == &apos;Female&apos;) &amp; (df[&apos;total_bill&apos;] &gt; 20)]</span><br><span class="line"># or</span><br><span class="line">print df[(df[&apos;sex&apos;] == &apos;Female&apos;) | (df[&apos;total_bill&apos;] &gt; 20)]</span><br><span class="line"># in</span><br><span class="line">print df[df[&apos;total_bill&apos;].isin([21.01, 23.68, 24.59])]</span><br><span class="line"># not</span><br><span class="line">print df[-(df[&apos;sex&apos;] == &apos;Male&apos;)]</span><br><span class="line">print df[-df[&apos;total_bill&apos;].isin([21.01, 23.68, 24.59])]</span><br><span class="line"># string function</span><br><span class="line">print df = df[(-df[&apos;app&apos;].isin(sys_app)) &amp; (-df.app.str.contains(&apos;^微信\d+$&apos;))]</span><br></pre></td></tr></table></figure></p>
 <p>对where条件筛选后只有一行的dataframe取其中某一列的值，其两种实现方式如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">total = df.loc[df[&apos;tip&apos;] == 1.66, &apos;total_bill&apos;].values[0]</span><br><span class="line">total = df.get_value(df.loc[df[&apos;tip&apos;] == 1.66].index.values[0], &apos;total_bill&apos;)</span><br></pre></td></tr></table></figure>
-<h3 id="distinct"><a href="#distinct" class="headerlink" title="distinct"></a>distinct</h3><p>drop_duplicates根据某列对dataframe进行去重：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.drop\_duplicates(subset=\[&apos;sex&apos;\], keep=&apos;first&apos;, inplace=True)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">total = df.loc[df[&apos;tip&apos;] == 1.66, &apos;total_bill&apos;].values[0]</span><br><span class="line">total = df.get_value(df.loc[df[&apos;tip&apos;] == 1.66].index.values[0], &apos;total_bill&apos;)</span><br></pre></td></tr></table></figure>
+<h3 id="distinct"><a href="#distinct" class="headerlink" title="distinct"></a>distinct</h3><p>drop_duplicates根据某列对dataframe进行去重：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df.drop\_duplicates(subset=\[&apos;sex&apos;\], keep=&apos;first&apos;, inplace=True)</span><br></pre></td></tr></table></figure></p>
 <p>包含参数：</p>
 <ul>
 <li>subset，为选定的列做distinct，默认为所有列；</li>
 <li>keep，值选项{‘first’, ‘last’, False}，保留重复元素中的第一个、最后一个，或全部删除；</li>
 <li>inplace ，默认为False，返回一个新的dataframe；若为True，则返回去重后的原dataframe</li>
 </ul>
-<h3 id="group"><a href="#group" class="headerlink" title="group"></a>group</h3><p>group一般会配合合计函数（Aggregate functions）使用，比如：count、avg等。Pandas对合计函数的支持有限，有count和size函数实现SQL的count：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print df.groupby(&apos;sex&apos;).size()</span><br><span class="line">print df.groupby(&apos;sex&apos;).count()</span><br><span class="line">print df.groupby(&apos;sex&apos;)[&apos;tip&apos;].count()</span><br></pre></td></tr></table></figure></p>
-<p>对于多合计函数，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select sex, max(tip), sum(total_bill) as total</span><br><span class="line">from tips_tb</span><br><span class="line">group by sex;</span><br></pre></td></tr></table></figure></p>
-<p>实现在agg()中指定dict：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print df.groupby(&apos;sex&apos;).agg(&#123;&apos;tip&apos;: np.max, &apos;total_bill&apos;: np.sum&#125;)</span><br><span class="line"></span><br><span class="line"># count(distinct **)</span><br><span class="line">print df.groupby(&apos;tip&apos;).agg(&#123;&apos;sex&apos;: pd.Series.nunique&#125;)</span><br></pre></td></tr></table></figure></p>
-<h3 id="as"><a href="#as" class="headerlink" title="as"></a>as</h3><p>SQL中使用as修改列的别名，Pandas也支持这种修改：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># first implementation</span><br><span class="line">df.columns = [&apos;total&apos;, &apos;pit&apos;, &apos;xes&apos;]</span><br><span class="line"># second implementation</span><br><span class="line">df.rename(columns=&#123;&apos;total_bill&apos;: &apos;total&apos;, &apos;tip&apos;: &apos;pit&apos;, &apos;sex&apos;: &apos;xes&apos;&#125;, inplace=True)</span><br></pre></td></tr></table></figure></p>
+<h3 id="group"><a href="#group" class="headerlink" title="group"></a>group</h3><p>group一般会配合合计函数（Aggregate functions）使用，比如：count、avg等。Pandas对合计函数的支持有限，有count和size函数实现SQL的count：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">print df.groupby(&apos;sex&apos;).size()</span><br><span class="line">print df.groupby(&apos;sex&apos;).count()</span><br><span class="line">print df.groupby(&apos;sex&apos;)[&apos;tip&apos;].count()</span><br></pre></td></tr></table></figure></p>
+<p>对于多合计函数，<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select sex, max(tip), sum(total_bill) as total</span><br><span class="line">from tips_tb</span><br><span class="line">group by sex;</span><br></pre></td></tr></table></figure></p>
+<p>实现在agg()中指定dict：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">print df.groupby(&apos;sex&apos;).agg(&#123;&apos;tip&apos;: np.max, &apos;total_bill&apos;: np.sum&#125;)</span><br><span class="line"></span><br><span class="line"># count(distinct **)</span><br><span class="line">print df.groupby(&apos;tip&apos;).agg(&#123;&apos;sex&apos;: pd.Series.nunique&#125;)</span><br></pre></td></tr></table></figure></p>
+<h3 id="as"><a href="#as" class="headerlink" title="as"></a>as</h3><p>SQL中使用as修改列的别名，Pandas也支持这种修改：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># first implementation</span><br><span class="line">df.columns = [&apos;total&apos;, &apos;pit&apos;, &apos;xes&apos;]</span><br><span class="line"># second implementation</span><br><span class="line">df.rename(columns=&#123;&apos;total_bill&apos;: &apos;total&apos;, &apos;tip&apos;: &apos;pit&apos;, &apos;sex&apos;: &apos;xes&apos;&#125;, inplace=True)</span><br></pre></td></tr></table></figure></p>
 <p>其中，第一种方法的修改是有问题的，因为其是按照列position逐一替换的。因此，我推荐第二种方法。</p>
-<h3 id="join"><a href="#join" class="headerlink" title="join"></a>join</h3><p>Pandas中join的实现也有两种：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 1.</span><br><span class="line">df.join(df2, how=&apos;left&apos;...)</span><br><span class="line"></span><br><span class="line"># 2.</span><br><span class="line">pd.merge(df1, df2, how=&apos;left&apos;, left_on=&apos;app&apos;, right_on=&apos;app&apos;)</span><br></pre></td></tr></table></figure></p>
+<h3 id="join"><a href="#join" class="headerlink" title="join"></a>join</h3><p>Pandas中join的实现也有两种：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 1.</span><br><span class="line">df.join(df2, how=&apos;left&apos;...)</span><br><span class="line"></span><br><span class="line"># 2.</span><br><span class="line">pd.merge(df1, df2, how=&apos;left&apos;, left_on=&apos;app&apos;, right_on=&apos;app&apos;)</span><br></pre></td></tr></table></figure></p>
 <p>第一种方法是按DataFrame的index进行join的，而第二种方法才是按on指定的列做join。Pandas满足left、right、inner、full outer四种join方式。</p>
-<h3 id="order"><a href="#order" class="headerlink" title="order"></a>order</h3><p>Pandas中支持多列order，并可以调整不同列的升序/降序，有更高的排序自由度：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print df.sort_values([&apos;total_bill&apos;, &apos;tip&apos;], ascending=[False, True])</span><br></pre></td></tr></table></figure></p>
-<h3 id="top"><a href="#top" class="headerlink" title="top"></a>top</h3><p>对于全局的top：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">print df.nlargest(3, columns=[&apos;total_bill&apos;])</span><br><span class="line">对于分组top，MySQL的实现（采用自join的方式）：</span><br><span class="line"></span><br><span class="line">select a.sex, a.tip</span><br><span class="line">from tips_tb a</span><br><span class="line">where (</span><br><span class="line">    select count(*)</span><br><span class="line">    from tips_tb b</span><br><span class="line">    where b.sex = a.sex and b.tip &gt; a.tip</span><br><span class="line">) &lt; 2</span><br><span class="line">order by a.sex, a.tip desc;</span><br></pre></td></tr></table></figure></p>
-<p>Pandas的等价实现，思路与上类似：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 1.</span><br><span class="line">df.assign(rn=df.sort_values([&apos;total_bill&apos;], ascending=False)</span><br><span class="line">.groupby(&apos;sex&apos;)</span><br><span class="line">.cumcount()+1)\</span><br><span class="line">.query(&apos;rn &lt; 3&apos;)\</span><br><span class="line">.sort_values([&apos;sex&apos;, &apos;rn&apos;])</span><br><span class="line"></span><br><span class="line"># 2.</span><br><span class="line">df.assign(rn=df.groupby(&apos;sex&apos;)[&apos;total_bill&apos;]</span><br><span class="line">.rank(method=&apos;first&apos;, ascending=False)) \</span><br><span class="line">.query(&apos;rn &lt; 3&apos;) \</span><br><span class="line">.sort_values([&apos;sex&apos;, &apos;rn&apos;])</span><br></pre></td></tr></table></figure></p>
-<h3 id="replace"><a href="#replace" class="headerlink" title="replace"></a>replace</h3><p>replace函数提供对dataframe全局修改，亦可通过where条件进行过滤修改（搭配loc）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># overall replace</span><br><span class="line">df.replace(to_replace=&apos;Female&apos;, value=&apos;Sansa&apos;, inplace=True)</span><br><span class="line"></span><br><span class="line"># dict replace</span><br><span class="line">df.replace(&#123;&apos;sex&apos;: &#123;&apos;Female&apos;: &apos;Sansa&apos;, &apos;Male&apos;: &apos;Leone&apos;&#125;&#125;, inplace=True)</span><br><span class="line"></span><br><span class="line"># replace on where condition</span><br><span class="line">df.loc[df.sex == &apos;Male&apos;, &apos;sex&apos;] = &apos;Leone&apos;</span><br></pre></td></tr></table></figure></p>
-<h3 id="自定义"><a href="#自定义" class="headerlink" title="自定义"></a>自定义</h3><p>除了上述SQL操作外，Pandas提供对每列/每一元素做自定义操作，为此而设计以下三个函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">map(func)，为Series的函数，DataFrame不能直接调用，需取列后再调用；</span><br><span class="line">apply(func)，对DataFrame中的某一行/列进行func操作；</span><br><span class="line">applymap(func)，为element-wise函数，对每一个元素做func操作</span><br><span class="line">print df[&apos;tip&apos;].map(lambda x: x - 1)</span><br><span class="line">print df[[&apos;total_bill&apos;, &apos;tip&apos;]].apply(sum)</span><br><span class="line">print df.applymap(lambda x: x.upper() if type(x) is str else x)</span><br></pre></td></tr></table></figure></p>
-<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><h3 id="环比增长"><a href="#环比增长" class="headerlink" title="环比增长"></a>环比增长</h3><p>现有两个月APP的UV数据，要得到月UV环比增长；该操作等价于两个Dataframe left join后按指定列做减操作：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">def chain(current, last):</span><br><span class="line">    df1 = pd.read_csv(current, names=[&apos;app&apos;, &apos;tag&apos;, &apos;uv&apos;], sep=&apos;\t&apos;)</span><br><span class="line">    df2 = pd.read_csv(last, names=[&apos;app&apos;, &apos;tag&apos;, &apos;uv&apos;], sep=&apos;\t&apos;)</span><br><span class="line">    df3 = pd.merge(df1, df2, how=&apos;left&apos;, on=&apos;app&apos;)</span><br><span class="line">    df3[&apos;uv_y&apos;] = df3[&apos;uv_y&apos;].map(lambda x: 0.0 if pd.isnull(x) else x)</span><br><span class="line">    df3[&apos;growth&apos;] = df3[&apos;uv_x&apos;] - df3[&apos;uv_y&apos;]</span><br><span class="line">    return df3[[&apos;app&apos;, &apos;growth&apos;, &apos;uv_x&apos;, &apos;uv_y&apos;]].sort_values(by=&apos;growth&apos;, ascending=False)</span><br></pre></td></tr></table></figure></p>
-<h3 id="差集"><a href="#差集" class="headerlink" title="差集"></a>差集</h3><p>对于给定的列，一个Dataframe过滤另一个Dataframe该列的值；相当于集合的差集操作：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">def difference(left, right, on):</span><br><span class="line">  &quot;&quot;&quot;</span><br><span class="line">  difference of two dataframes</span><br><span class="line">  :param left: left dataframe</span><br><span class="line">  :param right: right dataframe</span><br><span class="line">  :param on: join key</span><br><span class="line">  :return: difference dataframe</span><br><span class="line">  &quot;&quot;&quot;</span><br><span class="line">  df = pd.merge(left, right, how=&apos;left&apos;, on=on)</span><br><span class="line">  left_columns = left.columns</span><br><span class="line">  col_y = df.columns[left_columns.size]</span><br><span class="line">  df = df[df[col_y].isnull()]</span><br><span class="line">  df = df.ix[:, 0:left_columns.size]</span><br><span class="line">  df.columns = left_columns</span><br><span class="line">  return df</span><br></pre></td></tr></table></figure></p>
+<h3 id="order"><a href="#order" class="headerlink" title="order"></a>order</h3><p>Pandas中支持多列order，并可以调整不同列的升序/降序，有更高的排序自由度：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">print df.sort_values([&apos;total_bill&apos;, &apos;tip&apos;], ascending=[False, True])</span><br></pre></td></tr></table></figure></p>
+<h3 id="top"><a href="#top" class="headerlink" title="top"></a>top</h3><p>对于全局的top：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">print df.nlargest(3, columns=[&apos;total_bill&apos;])</span><br><span class="line">对于分组top，MySQL的实现（采用自join的方式）：</span><br><span class="line"></span><br><span class="line">select a.sex, a.tip</span><br><span class="line">from tips_tb a</span><br><span class="line">where (</span><br><span class="line">    select count(*)</span><br><span class="line">    from tips_tb b</span><br><span class="line">    where b.sex = a.sex and b.tip &gt; a.tip</span><br><span class="line">) &lt; 2</span><br><span class="line">order by a.sex, a.tip desc;</span><br></pre></td></tr></table></figure></p>
+<p>Pandas的等价实现，思路与上类似：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 1.</span><br><span class="line">df.assign(rn=df.sort_values([&apos;total_bill&apos;], ascending=False)</span><br><span class="line">.groupby(&apos;sex&apos;)</span><br><span class="line">.cumcount()+1)\</span><br><span class="line">.query(&apos;rn &lt; 3&apos;)\</span><br><span class="line">.sort_values([&apos;sex&apos;, &apos;rn&apos;])</span><br><span class="line"></span><br><span class="line"># 2.</span><br><span class="line">df.assign(rn=df.groupby(&apos;sex&apos;)[&apos;total_bill&apos;]</span><br><span class="line">.rank(method=&apos;first&apos;, ascending=False)) \</span><br><span class="line">.query(&apos;rn &lt; 3&apos;) \</span><br><span class="line">.sort_values([&apos;sex&apos;, &apos;rn&apos;])</span><br></pre></td></tr></table></figure></p>
+<h3 id="replace"><a href="#replace" class="headerlink" title="replace"></a>replace</h3><p>replace函数提供对dataframe全局修改，亦可通过where条件进行过滤修改（搭配loc）：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># overall replace</span><br><span class="line">df.replace(to_replace=&apos;Female&apos;, value=&apos;Sansa&apos;, inplace=True)</span><br><span class="line"></span><br><span class="line"># dict replace</span><br><span class="line">df.replace(&#123;&apos;sex&apos;: &#123;&apos;Female&apos;: &apos;Sansa&apos;, &apos;Male&apos;: &apos;Leone&apos;&#125;&#125;, inplace=True)</span><br><span class="line"></span><br><span class="line"># replace on where condition</span><br><span class="line">df.loc[df.sex == &apos;Male&apos;, &apos;sex&apos;] = &apos;Leone&apos;</span><br></pre></td></tr></table></figure></p>
+<h3 id="自定义"><a href="#自定义" class="headerlink" title="自定义"></a>自定义</h3><p>除了上述SQL操作外，Pandas提供对每列/每一元素做自定义操作，为此而设计以下三个函数：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">map(func)，为Series的函数，DataFrame不能直接调用，需取列后再调用；</span><br><span class="line">apply(func)，对DataFrame中的某一行/列进行func操作；</span><br><span class="line">applymap(func)，为element-wise函数，对每一个元素做func操作</span><br><span class="line">print df[&apos;tip&apos;].map(lambda x: x - 1)</span><br><span class="line">print df[[&apos;total_bill&apos;, &apos;tip&apos;]].apply(sum)</span><br><span class="line">print df.applymap(lambda x: x.upper() if type(x) is str else x)</span><br></pre></td></tr></table></figure></p>
+<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><h3 id="环比增长"><a href="#环比增长" class="headerlink" title="环比增长"></a>环比增长</h3><p>现有两个月APP的UV数据，要得到月UV环比增长；该操作等价于两个Dataframe left join后按指定列做减操作：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def chain(current, last):</span><br><span class="line">    df1 = pd.read_csv(current, names=[&apos;app&apos;, &apos;tag&apos;, &apos;uv&apos;], sep=&apos;\t&apos;)</span><br><span class="line">    df2 = pd.read_csv(last, names=[&apos;app&apos;, &apos;tag&apos;, &apos;uv&apos;], sep=&apos;\t&apos;)</span><br><span class="line">    df3 = pd.merge(df1, df2, how=&apos;left&apos;, on=&apos;app&apos;)</span><br><span class="line">    df3[&apos;uv_y&apos;] = df3[&apos;uv_y&apos;].map(lambda x: 0.0 if pd.isnull(x) else x)</span><br><span class="line">    df3[&apos;growth&apos;] = df3[&apos;uv_x&apos;] - df3[&apos;uv_y&apos;]</span><br><span class="line">    return df3[[&apos;app&apos;, &apos;growth&apos;, &apos;uv_x&apos;, &apos;uv_y&apos;]].sort_values(by=&apos;growth&apos;, ascending=False)</span><br></pre></td></tr></table></figure></p>
+<h3 id="差集"><a href="#差集" class="headerlink" title="差集"></a>差集</h3><p>对于给定的列，一个Dataframe过滤另一个Dataframe该列的值；相当于集合的差集操作：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def difference(left, right, on):</span><br><span class="line">  &quot;&quot;&quot;</span><br><span class="line">  difference of two dataframes</span><br><span class="line">  :param left: left dataframe</span><br><span class="line">  :param right: right dataframe</span><br><span class="line">  :param on: join key</span><br><span class="line">  :return: difference dataframe</span><br><span class="line">  &quot;&quot;&quot;</span><br><span class="line">  df = pd.merge(left, right, how=&apos;left&apos;, on=on)</span><br><span class="line">  left_columns = left.columns</span><br><span class="line">  col_y = df.columns[left_columns.size]</span><br><span class="line">  df = df[df[col_y].isnull()]</span><br><span class="line">  df = df.ix[:, 0:left_columns.size]</span><br><span class="line">  df.columns = left_columns</span><br><span class="line">  return df</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -665,6 +689,30 @@
       </div>
     
 
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Jack Yao</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="/python_pandas" title="Pandas：让你像写SQL一样做数据分析">python_pandas</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
     
 
     <footer class="post-footer">
@@ -771,7 +819,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">184</span>
+                    <span class="site-state-item-count">187</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -814,7 +862,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1008,10 +1062,20 @@
           
 
           
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+             </div>
+          
 
           
           
-            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
               <div class="links-of-blogroll-title">
                 <i class="fa  fa-fw fa-link"></i>
                 Links
@@ -1049,7 +1113,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL操作"><span class="nav-number">2.</span> <span class="nav-text">SQL操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#select"><span class="nav-number">2.1.</span> <span class="nav-text">select</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#where"><span class="nav-number">2.2.</span> <span class="nav-text">where</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#distinct"><span class="nav-number">2.3.</span> <span class="nav-text">distinct</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#group"><span class="nav-number">2.4.</span> <span class="nav-text">group</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#as"><span class="nav-number">2.5.</span> <span class="nav-text">as</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#join"><span class="nav-number">2.6.</span> <span class="nav-text">join</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#order"><span class="nav-number">2.7.</span> <span class="nav-text">order</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#top"><span class="nav-number">2.8.</span> <span class="nav-text">top</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#replace"><span class="nav-number">2.9.</span> <span class="nav-text">replace</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义"><span class="nav-number">2.10.</span> <span class="nav-text">自定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实战"><span class="nav-number">3.</span> <span class="nav-text">实战</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#环比增长"><span class="nav-number">3.1.</span> <span class="nav-text">环比增长</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#差集"><span class="nav-number">3.2.</span> <span class="nav-text">差集</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL操作"><span class="nav-text">SQL操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#select"><span class="nav-text">select</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#where"><span class="nav-text">where</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#distinct"><span class="nav-text">distinct</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#group"><span class="nav-text">group</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#as"><span class="nav-text">as</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#join"><span class="nav-text">join</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#order"><span class="nav-text">order</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#top"><span class="nav-text">top</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#replace"><span class="nav-text">replace</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义"><span class="nav-text">自定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实战"><span class="nav-text">实战</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#环比增长"><span class="nav-text">环比增长</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#差集"><span class="nav-text">差集</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1057,13 +1121,6 @@
       <!--/noindex-->
       
 
-      
-        <div class="back-to-top">
-          <i class="fa fa-arrow-up"></i>
-          
-            <span id="scrollpercent"><span>0</span>%</span>
-          
-        </div>
       
 
     </div>
@@ -1091,7 +1148,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">525k</span>
+    <span title="站点总字数">527k</span>
   
 
   
@@ -1102,7 +1159,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">7:58</span>
+    <span title="站点阅读时长">7:59</span>
   
 </div>
 
@@ -1153,18 +1210,16 @@
     </footer>
 
     
-
-    
-
-    
-
-    
-      <div>
-        <div class="addthis_inline_share_toolbox">
-  <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cb68f059ff1e21f" async="async"></script>
-</div>
-
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
       </div>
+    
+
+    
+
+    
+
     
   </div>
 
@@ -1188,6 +1243,14 @@
 
 
 
+
+  
+    
+    
+      
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="66" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
 
 
 
@@ -1625,16 +1688,6 @@
   
 
   
-  <script>
-    (function(){
-      var bp = document.createElement('script');
-      var curProtocol = window.location.protocol.split(':')[0];
-      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(bp, s);
-    })();
-  </script>
-
 
   
 

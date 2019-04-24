@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN,en,default">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FF5733">
+
+
+
+
+  
+  
+    
+      
+    
+    
+      
+    
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="本文将介绍在本地部署EOS的多节点私链的方案。 1.创建三个数据文件夹用来存储相关的数据，每个文件夹下包括创世文件genesis.json和配置文件config.ini。mkdir -p eostest1 eostest2 eostest3 三个节点的genesis.json都相同，内容为：vim eostest1/genesis.json&amp;#123;  &amp;quot;initial_timesta">
+<meta name="keywords" content="区块链,eos">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EOS本地部署多节点私链">
+<meta property="og:url" content="https://yaozihao.com/eos_multi_node/index.html">
+<meta property="og:site_name" content="zihao&#39;blog">
+<meta property="og:description" content="本文将介绍在本地部署EOS的多节点私链的方案。 1.创建三个数据文件夹用来存储相关的数据，每个文件夹下包括创世文件genesis.json和配置文件config.ini。mkdir -p eostest1 eostest2 eostest3 三个节点的genesis.json都相同，内容为：vim eostest1/genesis.json&amp;#123;  &amp;quot;initial_timesta">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-24T06:16:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="EOS本地部署多节点私链">
+<meta name="twitter:description" content="本文将介绍在本地部署EOS的多节点私链的方案。 1.创建三个数据文件夹用来存储相关的数据，每个文件夹下包括创世文件genesis.json和配置文件config.ini。mkdir -p eostest1 eostest2 eostest3 三个节点的genesis.json都相同，内容为：vim eostest1/genesis.json&amp;#123;  &amp;quot;initial_timesta">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="zihao'blog" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="https://yaozihao.com/eos_multi_node/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>EOS本地部署多节点私链 | zihao'blog</title>
+  
+
+
+
+
+  <script async src="//www.googletagmanager.com/gtag/js?id=UA-138731725-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-138731725-1');
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zihao'blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">Make small but daily progress</h1>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">16</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">59</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">187</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL3VjZnlhbw==" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></span>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/eos_multi_node/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">EOS本地部署多节点私链
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-24 14:16:29" itemprop="dateCreated datePublished" datetime="2019-04-24T14:16:29+08:00">2019-04-24</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/BlockChain/" itemprop="url" rel="index"><span itemprop="name">BlockChain</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/eos_multi_node/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/eos_multi_node/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">12k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">11 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文将介绍在本地部署EOS的多节点私链的方案。</p>
+<h2 id="1-创建三个数据文件夹"><a href="#1-创建三个数据文件夹" class="headerlink" title="1.创建三个数据文件夹"></a>1.创建三个数据文件夹</h2><p>用来存储相关的数据，每个文件夹下包括创世文件<code>genesis.json</code>和配置文件<code>config.ini</code>。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mkdir -p eostest1 eostest2 eostest3</span><br></pre></td></tr></table></figure></p>
+<p>三个节点的genesis.json都相同，内容为：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vim eostest1/genesis.json</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;initial_timestamp&quot;: &quot;2018-03-01T12:00:00.000&quot;,</span><br><span class="line">  &quot;initial_key&quot;: &quot;EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV&quot;,</span><br><span class="line">  &quot;initial_configuration&quot;: &#123;</span><br><span class="line">    &quot;base_per_transaction_net_usage&quot;: 100,</span><br><span class="line">    &quot;base_per_transaction_cpu_usage&quot;: 500,</span><br><span class="line">    &quot;base_per_action_cpu_usage&quot;: 1000,</span><br><span class="line">    &quot;base_setcode_cpu_usage&quot;: 2097152,</span><br><span class="line">    &quot;per_signature_cpu_usage&quot;: 100000,</span><br><span class="line">    &quot;per_lock_net_usage&quot;: 32,</span><br><span class="line">    &quot;context_free_discount_cpu_usage_num&quot;: 20,</span><br><span class="line">    &quot;context_free_discount_cpu_usage_den&quot;: 100,</span><br><span class="line">    &quot;max_transaction_cpu_usage&quot;: 10485760,</span><br><span class="line">    &quot;max_transaction_net_usage&quot;: 104857,</span><br><span class="line">    &quot;max_block_cpu_usage&quot;: 104857600,</span><br><span class="line">    &quot;target_block_cpu_usage_pct&quot;: 1000,</span><br><span class="line">    &quot;max_block_net_usage&quot;: 1048576,</span><br><span class="line">    &quot;target_block_net_usage_pct&quot;: 1000,</span><br><span class="line">    &quot;max_transaction_lifetime&quot;: 3600,</span><br><span class="line">    &quot;max_transaction_exec_time&quot;: 0,</span><br><span class="line">    &quot;max_authority_depth&quot;: 6,</span><br><span class="line">    &quot;max_inline_depth&quot;: 4,</span><br><span class="line">    &quot;max_inline_action_size&quot;: 4096,</span><br><span class="line">    &quot;max_generated_transaction_count&quot;: 16</span><br><span class="line">  &#125;,</span><br><span class="line">  </span><br><span class="line">  &quot;initial_chain_id&quot;: &quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-启动节点-1"><a href="#2-启动节点-1" class="headerlink" title="2.启动节点(1)"></a>2.启动节点(1)</h2><p>节点1的config.ini文件内容为：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">blocks-dir = &quot;blocks&quot;</span><br><span class="line">bnet-endpoint = 0.0.0.0:4321</span><br><span class="line">http-server-address = 0.0.0.0:8888</span><br><span class="line">p2p-listen-endpoint = 0.0.0.0:9876</span><br><span class="line">p2p-server-address = localhost:9876</span><br><span class="line">allowed-connection = any</span><br><span class="line">signature-provider = EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV=KEY:5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3</span><br><span class="line">producer-name = eosio</span><br><span class="line">plugin = eosio::producer_plugin</span><br><span class="line">plugin = eosio::chain_api_plugin</span><br><span class="line">plugin = eosio::history_api_plugin</span><br><span class="line">plugin = eosio::http_plugin</span><br><span class="line">enable-stale-production = true</span><br></pre></td></tr></table></figure></p>
+<p>配置选项如下：</p>
+<ul>
+<li>http-server-address = 0.0.0.0:8888，这里设置四个0代表本地可以通过localhost或者127.0.0.1调用http接口，同时外部可以通过本机固定ip访问。</li>
+<li>p2p-listen-endpoint = 0.0.0.0:9876，p2p网络本机监听端口，监听外部接入的p2p节点，这里的四个0的ip配置意义同上。</li>
+<li>bnet-endpoint = 0.0.0.0:4321，bnet是使用一个非常简单的算法来同步两条区块链。主要工作是两条链上的确权，共识，广播，同步区块，保持默认配置即可。</li>
+<li>p2p-peer-address = ip:port，对端p2p节点地址，可以设置多个。</li>
+<li>producer-name = eosio，配置出块的账户采用eosio</li>
+<li>enable-stale-production = true，意思是可以不经过确权直接出块，单节点时要配置为true，多节点出块由于需要各方确权共识，要配置为false。</li>
+<li>signature-provider = EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV=KEY:5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3 ，密钥对，公钥加私钥，对应eosio账户，这对秘钥是写死的，不可改变。</li>
+</ul>
+<p>然后启动节点(1)并让它出块：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd eostest1</span><br><span class="line">nodeos --data-dir ./ --config-dir ./</span><br><span class="line"></span><br><span class="line">info  2019-01-10T07:03:41.501 thread-0  producer_plugin.cpp:1494      produce_block        ] Produced block 000019a5cf1b561c... #6565 @ 2019-01-10T07:03:41.500 signed by eosio [trxs: 0, lib: 6541, confirmed: 0]</span><br><span class="line">info  2019-01-10T07:03:42.006 thread-0  producer_plugin.cpp:341       on_incoming_block    ] Received block d7cee8be773b4185... #6566 @ 2019-01-10T07:03:42.000 signed by eosio [trxs: 0, lib: 6553, conf: 12, latency: 6 ms]</span><br><span class="line">info  2019-01-10T07:03:42.502 thread-0  producer_plugin.cpp:341       on_incoming_block    ] Received block 25b680065172a2af... #6567 @ 2019-01-10T07:03:42.500 signed by eosio [trxs: 0, lib: 6553, conf: 0, latency: 2 ms]</span><br><span class="line">info  2019-01-10T07:03:43.003 thread-0  producer_plugin.cpp:341       on_incoming_block    ] Received block 1e5a1ab3b45cb800... #6568 @ 2019-01-10T07:03:43.000 signed by eosio [trxs: 0, lib: 6553, conf: 0, latency: 3 ms]</span><br><span class="line">info  2019-01-10T07:03:43.507 thread-0  producer_plugin.cpp:341       on_incoming_block    ] Received block 3d71245b32785815... #6569 @ 2019-01-10T07:03:43.500 signed by eosio [trxs: 0, lib: 6553, conf: 0, latency: 7 ms]</span><br><span class="line">info  2019-01-10T07:03:44.005 thread-0  producer_plugin.cpp:341       on_incoming_block    ] Received block 31df4883ad685708... #6570 @ 2019-01-10T07:03:44.000 signed by eosio [trxs: 0, lib: 6553, conf: 0, latency: 5 ms]</span><br></pre></td></tr></table></figure></p>
+<h2 id="3-创建账户用来启动节点-2-和-3"><a href="#3-创建账户用来启动节点-2-和-3" class="headerlink" title="3.创建账户用来启动节点(2)和(3)"></a>3.创建账户用来启动节点(2)和(3)</h2><p>创建默认钱包default<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">👍 cleos wallet create  --to-console</span><br><span class="line">Error 3120001: Wallet already exists</span><br><span class="line">Try to use different wallet name.</span><br></pre></td></tr></table></figure></p>
+<p>如果创建过，进行解锁：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cleos wallet unlock</span><br><span class="line">password: Unlocked: default</span><br></pre></td></tr></table></figure></p>
+<p>将创建节点1的私钥密钥导入钱包<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cleos wallet import --private-key 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3</span><br><span class="line">imported private key for: EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV</span><br></pre></td></tr></table></figure></p>
+<p>然后发布eosio.bios合约：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cleos set contract eosio build/contracts/eosio.bios/</span><br><span class="line">Reading WASM from /wwwroot/block_chain/eos/build/contracts/eosio.bios/eosio.bios.wasm...</span><br><span class="line">Publishing contract...</span><br><span class="line">executed transaction: 9eca4b74c8608974da726a1d96f972537e9bf7359d41442b6a083c2410a65847  4352 bytes  12020 us</span><br><span class="line">#         eosio &lt;= eosio::setcode               &#123;&quot;account&quot;:&quot;eosio&quot;,&quot;vmtype&quot;:0,&quot;vmversion&quot;:0,&quot;code&quot;:&quot;0061736d0100000001621260037f7e7f0060057f7e7e7e7e...</span><br><span class="line">#         eosio &lt;= eosio::setabi                &#123;&quot;account&quot;:&quot;eosio&quot;,&quot;abi&quot;:&quot;0e656f73696f3a3a6162692f312e30050c6163636f756e745f6e616d65046e616d650f7065...</span><br><span class="line">warning: transaction executed locally, but may not be confirmed by the network yet         ]</span><br></pre></td></tr></table></figure></p>
+<p>然后再创建inita、initb两个账户：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cleos create account eosio inita EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV</span><br><span class="line">executed transaction: c9d76cd299a701c516c46406cd9054b07b8dacfb5dd1cd682c5c8f248577f2ad  200 bytes  4800 us</span><br><span class="line">#         eosio &lt;= eosio::newaccount            &#123;&quot;creator&quot;:&quot;eosio&quot;,&quot;name&quot;:&quot;inita&quot;,&quot;owner&quot;:&#123;&quot;threshold&quot;:1,&quot;keys&quot;:[&#123;&quot;key&quot;:&quot;EOS6MRyAjQq8ud7hVNYcfnVPJqc...</span><br><span class="line">warning: transaction executed locally, but may not be confirmed by the network yet         ]</span><br><span class="line"></span><br><span class="line">$ cleos create account eosio initb EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV</span><br><span class="line">executed transaction: e5492b4d415345bff1bc66adf636b6854231aa78977c447c86b6953101d6f42d  200 bytes  194 us</span><br><span class="line">#         eosio &lt;= eosio::newaccount            &#123;&quot;creator&quot;:&quot;eosio&quot;,&quot;name&quot;:&quot;initb&quot;,&quot;owner&quot;:&#123;&quot;threshold&quot;:1,&quot;keys&quot;:[&#123;&quot;key&quot;:&quot;EOS6MRyAjQq8ud7hVNYcfnVPJqc...</span><br><span class="line">warning: transaction executed locally, but may not be confirmed by the network yet         ]</span><br></pre></td></tr></table></figure></p>
+<h2 id="4-启动节点-2"><a href="#4-启动节点-2" class="headerlink" title="4.启动节点(2)"></a>4.启动节点(2)</h2><p>节点2的config.ini文件：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">blocks-dir = &quot;blocks&quot;</span><br><span class="line">bnet-endpoint = 0.0.0.0:4321</span><br><span class="line">http-server-address = 0.0.0.0:8889</span><br><span class="line">p2p-listen-endpoint = 0.0.0.0:9877</span><br><span class="line">p2p-server-address = localhost:9877</span><br><span class="line">allowed-connection = any</span><br><span class="line">p2p-peer-address = localhost:9876</span><br><span class="line">signature-provider = EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV=KEY:5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3</span><br><span class="line">producer-name = inita</span><br><span class="line">plugin = eosio::producer_plugin</span><br><span class="line">plugin = eosio::chain_api_plugin</span><br><span class="line">plugin = eosio::history_api_plugin</span><br><span class="line">plugin = eosio::http_plugin</span><br></pre></td></tr></table></figure></p>
+<p>注意修改以下几项代表了该节点的信息：</p>
+<ul>
+<li>p2p-peer-address = localhost:9876  节点(1)的p2p服务地址，通过该配置项使节点(2)链接上节点(1) </li>
+<li>producer-name = inita，节点2的出块账户设置为inita</li>
+<li>enable-stale-production = false  不允许节点2在不经确认直接出块的功能</li>
+<li>http-server-address = 0.0.0.0:8889 该节点的server 端口</li>
+<li>p2p-listen-endpoint = 0.0.0.0:9877 p2p网络本机监听端口，监听外部接入的p2p节点</li>
+<li>p2p-server-address =  0.0.0.0:9877 p2p网络服务节点端口</li>
+</ul>
+<p>启动节点2：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd eostest2</span><br><span class="line">nodeos --data-dir ./ --config-dir ./</span><br></pre></td></tr></table></figure></p>
+<p>可以看到节点2连上了节点1并进行了同步，此时节点2还不能出块。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">info  2019-01-10T07:20:22.004 thread-0  producer_plugin.cpp:341       on_incoming_block    ] Received block c8ae236b27e648d3... #8533 @ 2019-01-10T07:20:22.000 signed by inita [trxs: 0, lib: 8464, conf: 0, latency: 4 ms]</span><br><span class="line">info  2019-01-10T07:20:22.505 thread-0  producer_plugin.cpp:341       on_incoming_block    ] Received block 76331985072c44a1... #8534 @ 2019-01-10T07:20:22.500 signed by inita [trxs: 0, lib: 8464, conf: 0, latency: 5 ms]</span><br><span class="line">info  2019-01-10T07:20:23.003 thread-0  producer_plugin.cpp:341       on_incoming_block    ] Received block 4efe78f29187c469... #8535 @ 2019-01-10T07:20:23.000 signed by inita [trxs: 0, lib: 8464, conf: 0, latency: 3 ms]</span><br></pre></td></tr></table></figure>
+<p>配置节点(2)可以出块，在节点(1)上执行命令：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cleos push action eosio setprods &apos;&#123;&quot;schedule&quot;:[&#123;&quot;producer_name&quot;:&quot;inita&quot;,&quot;block_signing_key&quot;:&quot;EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV&quot;&#125;]&#125;&apos; -p eosio</span><br><span class="line"></span><br><span class="line">info  2019-01-10T07:20:52.005 thread-0  producer_plugin.cpp:1494      produce_block        ] Produced block 000021919d63255e... #8593 @ 2019-01-10T07:20:52.000 signed by inita [trxs: 0, lib: 8572, confirmed: 0]</span><br><span class="line">info  2019-01-10T07:20:52.502 thread-0  producer_plugin.cpp:1494      produce_block        ] Produced block 00002192f489e43e... #8594 @ 2019-01-10T07:20:52.500 signed by inita [trxs: 0, lib: 8572, confirmed: 0]</span><br><span class="line">info  2019-01-10T07:20:53.003 thread-0  producer_plugin.cpp:1494      produce_block        ] Produced block 000021934874223f... #8595 @ 2019-01-10T07:20:53.000 signed by inita [trxs: 0, lib: 8572, confirmed: 0]</span><br></pre></td></tr></table></figure></p>
+<p>而节点1由出块者变成了同步者：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">info  2019-01-10T07:26:55.004 thread-0  producer_plugin.cpp:341       on_incoming_block    ] Received block c6c6536853f2ee5c... #9319 @ 2019-01-10T07:26:55.000 signed by initb [trxs: 0, lib: 9304, conf: 0, latency: 4 ms]</span><br><span class="line">info  2019-01-10T07:26:55.506 thread-0  producer_plugin.cpp:341       on_incoming_block    ] Received block 8676c0cdc18d2d55... #9320 @ 2019-01-10T07:26:55.500 signed by initb [trxs: 0, lib: 9304, conf: 0, latency: 6 ms]</span><br><span class="line">info  2019-01-10T07:26:56.005 thread-0  producer_plugin.cpp:341       on_incoming_block    ] Received block 2c795666435af362... #9321 @ 2019-01-10T07:26:56.000 signed by initb [trxs: 0, lib: 9304, conf: 0, latency: 5 ms]</span><br></pre></td></tr></table></figure></p>
+<h2 id="5-启动节点-3"><a href="#5-启动节点-3" class="headerlink" title="5.启动节点(3)"></a>5.启动节点(3)</h2><p>节点3的config.ini文件：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">blocks-dir = &quot;blocks&quot;</span><br><span class="line">bnet-endpoint = 0.0.0.0:4321</span><br><span class="line">http-server-address = 0.0.0.0:8890</span><br><span class="line">p2p-listen-endpoint = 0.0.0.0:9878</span><br><span class="line">p2p-server-address = localhost:9878</span><br><span class="line">allowed-connection = any</span><br><span class="line">p2p-peer-address = localhost:9877</span><br><span class="line">signature-provider = EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV=KEY:5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3</span><br><span class="line">producer-name = initb</span><br><span class="line">plugin = eosio::producer_plugin</span><br><span class="line">plugin = eosio::chain_api_plugin</span><br><span class="line">plugin = eosio::history_api_plugin</span><br><span class="line">plugin = eosio::http_plugin</span><br></pre></td></tr></table></figure></p>
+<p>节点(3)的出块账户设置为initb，另外要注意的是节点(3)的p2p连接节点不能设置为节点(1)，因为此时节点(1)已经不是生产者了。节点(3)的连接节点应该设置为节点(2)的地址<code>p2p-peer-address = localhost:9877</code>。</p>
+<p>启动节点3：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cd eostest3</span><br><span class="line">$ nodeos --data-dir ./ --config-dir ./</span><br><span class="line"></span><br><span class="line">info  2019-01-10T07:30:49.003 thread-0  producer_plugin.cpp:341       on_incoming_block    ] Received block e745e7582cef727e... #9787 @ 2019-01-10T07:30:49.000 signed by inita [trxs: 0, lib: 9772, conf: 0, latency: 3 ms]</span><br><span class="line">info  2019-01-10T07:30:49.502 thread-0  producer_plugin.cpp:341       on_incoming_block    ] Received block 9fae21e7f5376742... #9788 @ 2019-01-10T07:30:49.500 signed by inita [trxs: 0, lib: 9772, conf: 0, latency: 2 ms]</span><br><span class="line">info  2019-01-10T07:30:50.007 thread-0  producer_plugin.cpp:341       on_incoming_block    ] Received block 0e4320dbc2ac5f73... #9789 @ 2019-01-10T07:30:50.000 signed by inita [trxs: 0, lib: 9772, conf: 0, latency: 7 ms]</span><br></pre></td></tr></table></figure></p>
+<p>为了让节点3成为出块者，需要执行命令：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cleos push action eosio setprods &apos;&#123;&quot;schedule&quot;:[&#123;&quot;producer_name&quot;:&quot;inita&quot;,&quot;block_signing_key&quot;:&quot;EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV&quot;&#125;,&#123;&quot;producer_name&quot;:&quot;initb&quot;,&quot;block_signing_key&quot;:&quot;EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV&quot;&#125;]&#125;&apos; -p eosio</span><br><span class="line"></span><br><span class="line">info  2019-01-10T07:34:42.501 thread-0  producer_plugin.cpp:1494      produce_block        ] Produced block 0000280e93eaf396... #10254 @ 2019-01-10T07:34:42.500 signed by initb [trxs: 0, lib: 10240, confirmed: 0]</span><br><span class="line">info  2019-01-10T07:34:43.003 thread-0  producer_plugin.cpp:1494      produce_block        ] Produced block 0000280f2c03ef11... #10255 @ 2019-01-10T07:34:43.000 signed by initb [trxs: 0, lib: 10240, confirmed: 0]</span><br><span class="line">info  2019-01-10T07:34:43.504 thread-0  producer_plugin.cpp:1494      produce_block        ] Produced block 0000281013ed3c65... #10256 @ 2019-01-10T07:34:43.500 signed by initb [trxs: 0, lib: 10240, confirmed: 0]</span><br></pre></td></tr></table></figure></p>
+<p>可以看到此时节点1和节点2交替出块了，每个节点在轮到它出块时连续生产了12个块。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="Jack Yao 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/bitcoinpay.png" alt="Jack Yao 比特币">
+        <p>比特币</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Jack Yao</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="/eos_multi_node" title="EOS本地部署多节点私链">eos_multi_node</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/区块链/" rel="tag"># 区块链</a>
+          
+            <a href="/tags/eos/" rel="tag"># eos</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/eth_resources/" rel="next" title="以太坊相关资源">
+                <i class="fa fa-chevron-left"></i> 以太坊相关资源
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/btc_eos_learn_contract_in_ten_minutes/" rel="prev" title="EOS合约基础教程:十分钟学会EOS智能合约开发">
+                EOS合约基础教程:十分钟学会EOS智能合约开发 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jack Yao</p>
+              <div class="site-description motion-element" itemprop="description">由渐入深，记录程序人生。全栈工程师与你共勉。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">187</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">59</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3VjZnlhbw==" title="GitHub &rarr; https://github.com/ucfyao"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOnlhb3ppaGFvQHlhb3ppaGFvLmNu" title="E-Mail &rarr; mailto:yaozihao@yaozihao.cn"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly93d3cuamlhbnNodS5jb20vdS8zYWI3MGExOTliNzA=" title="简书 &rarr; https://www.jianshu.com/u/3ab70a199b70"><i class="fa fa-fw fa-heartbeat"></i>简书</span>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+             </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <span class="exturl" data-url="aHR0cHM6Ly93d3cuYmFpZHUuY29tLw==" title="https://www.baidu.com/">baidu</span>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <span class="exturl" data-url="aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8=" title="https://www.google.com/">google</span>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-创建三个数据文件夹"><span class="nav-text">1.创建三个数据文件夹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-启动节点-1"><span class="nav-text">2.启动节点(1)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-创建账户用来启动节点-2-和-3"><span class="nav-text">3.创建账户用来启动节点(2)和(3)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-启动节点-2"><span class="nav-text">4.启动节点(2)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-启动节点-3"><span class="nav-text">5.启动节点(3)</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2014 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jack Yao</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">527k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">7:59</span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+      
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="66" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js"></script>
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+  <script src="/js/exturl.js?v=7.1.0"></script>
+
+
+  
+
+  
+  
+
+  
+
+<script src="//cdn.jsdelivr.net/npm/leancloud-storage@3/dist/av-min.js"></script>
+
+
+
+  
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/valine/1.3.4/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: '5HH1Ct2I3JPMel7GKmPcGECC-gzGzoHsz',
+    appKey: 'ySQSP3Suwlfg3kYmoYy3spXl',
+    placeholder: 'Just go go',
+    avatar: 'identicon',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

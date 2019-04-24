@@ -19,7 +19,7 @@
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<meta name="theme-color" content="#FF5733">
 
 
 
@@ -81,9 +81,9 @@
     root: '/',
     scheme: 'Mist',
     version: '7.1.0',
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    sidebar: {"position":"left","display":"hide","offset":12,"onmobile":false,"dimmer":false},
     back2top: true,
-    back2top_sidebar: true,
+    back2top_sidebar: false,
     fancybox: false,
     fastclick: false,
     lazyload: false,
@@ -105,18 +105,18 @@
 
 
 
-  <meta name="description" content="libevent是一个基于事件驱动的高性能网络库。支持多种 I/O 多路复用技术， epoll、 poll、 dev/poll、 select 和 kqueue 等；支持 I/O，定时器和信号等事件；注册事件优先级。 PHP libevent扩展安装libevent扩展依赖于原始的libevent库，必须先把libevent库安装。 (1)安装libevent库123456wget http://">
+  <meta name="description" content="libevent是一个基于事件驱动的高性能网络库。支持多种 I/O 多路复用技术， epoll、 poll、 dev/poll、 select 和 kqueue 等；支持 I/O，定时器和信号等事件；注册事件优先级。 PHP libevent扩展安装libevent扩展依赖于原始的libevent库，必须先把libevent库安装。 (1)安装libevent库wget http://cloud.">
 <meta name="keywords" content="php,多线程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Php多线程系列之libevent">
 <meta property="og:url" content="https://yaozihao.com/php_thread_libeven/index.html">
 <meta property="og:site_name" content="zihao&#39;blog">
-<meta property="og:description" content="libevent是一个基于事件驱动的高性能网络库。支持多种 I/O 多路复用技术， epoll、 poll、 dev/poll、 select 和 kqueue 等；支持 I/O，定时器和信号等事件；注册事件优先级。 PHP libevent扩展安装libevent扩展依赖于原始的libevent库，必须先把libevent库安装。 (1)安装libevent库123456wget http://">
+<meta property="og:description" content="libevent是一个基于事件驱动的高性能网络库。支持多种 I/O 多路复用技术， epoll、 poll、 dev/poll、 select 和 kqueue 等；支持 I/O，定时器和信号等事件；注册事件优先级。 PHP libevent扩展安装libevent扩展依赖于原始的libevent库，必须先把libevent库安装。 (1)安装libevent库wget http://cloud.">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-22T02:29:01.925Z">
+<meta property="og:updated_time" content="2019-04-24T10:00:56.283Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Php多线程系列之libevent">
-<meta name="twitter:description" content="libevent是一个基于事件驱动的高性能网络库。支持多种 I/O 多路复用技术， epoll、 poll、 dev/poll、 select 和 kqueue 等；支持 I/O，定时器和信号等事件；注册事件优先级。 PHP libevent扩展安装libevent扩展依赖于原始的libevent库，必须先把libevent库安装。 (1)安装libevent库123456wget http://">
+<meta name="twitter:description" content="libevent是一个基于事件驱动的高性能网络库。支持多种 I/O 多路复用技术， epoll、 poll、 dev/poll、 select 和 kqueue 等；支持 I/O，定时器和信号等事件；注册事件优先级。 PHP libevent扩展安装libevent扩展依赖于原始的libevent库，必须先把libevent库安装。 (1)安装libevent库wget http://cloud.">
 
 
 
@@ -246,6 +246,8 @@
     
 
     
+      
+    
 
     <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
 
@@ -263,8 +265,10 @@
     
 
     
+      
+    
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">16</span></a>
 
   </li>
         
@@ -280,8 +284,10 @@
     
 
     
+      
+    
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">59</span></a>
 
   </li>
         
@@ -297,8 +303,10 @@
     
 
     
+      
+    
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">187</span></a>
 
   </li>
         
@@ -313,6 +321,8 @@
       
     
 
+    
+      
     
 
     <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
@@ -463,7 +473,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-22 10:29:01" itemprop="dateModified" datetime="2019-04-22T10:29:01+08:00">2019-04-22</time>
+                <time title="修改时间：2019-04-24 18:00:56" itemprop="dateModified" datetime="2019-04-24T18:00:56+08:00">2019-04-24</time>
               
             
           </span>
@@ -480,7 +490,21 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-php/" itemprop="url" rel="index"><span itemprop="name">积累________php</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/Back/" itemprop="url" rel="index"><span itemprop="name">Back</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/Back/php/" itemprop="url" rel="index"><span itemprop="name">php</span></a></span>
 
                 
                 
@@ -529,7 +553,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">3.7k</span>
+                <span title="本文字数">3.5k</span>
               
 
               
@@ -565,13 +589,13 @@
       
         <p><code>libevent</code>是一个基于事件驱动的高性能网络库。支持多种 <code>I/O</code> 多路复用技术， <code>epoll</code>、 <code>poll</code>、 <code>dev/poll</code>、 <code>select</code> 和 <code>kqueue</code> 等；支持 <code>I/O</code>，定时器和信号等事件；注册事件优先级。</p>
 <h2 id="PHP-libevent扩展安装"><a href="#PHP-libevent扩展安装" class="headerlink" title="PHP libevent扩展安装"></a>PHP libevent扩展安装</h2><p>libevent扩展依赖于原始的<code>libevent</code>库，必须先把libevent库安装。</p>
-<h3 id="1-安装libevent库"><a href="#1-安装libevent库" class="headerlink" title="(1)安装libevent库"></a>(1)安装libevent库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget http://cloud.github.com/downloads/libevent/libevent/libevent-2.0.20-stable.tar.gz</span><br><span class="line">tar zxvf libevent–2.0.20–stable.tar.gz</span><br><span class="line">cd libevent–2.0.20–stable/</span><br><span class="line">./configure —prefix=/usr/local/libevent–2.0.20/</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-<h3 id="2-安装libevent扩展"><a href="#2-安装libevent扩展" class="headerlink" title="(2)安装libevent扩展"></a>(2)安装<span class="exturl" data-url="aHR0cDovL3BlY2wucGhwLm5ldC9wYWNrYWdlL2xpYmV2ZW50" title="http://pecl.php.net/package/libevent">libevent扩展<i class="fa fa-external-link"></i></span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget http://pecl.php.net/get/libevent-0.1.0.tgz</span><br><span class="line">tar –zxvf libevent–0.1.0.tgz</span><br><span class="line">cd libevent–0.1.0</span><br><span class="line">./configure —with–php–config=/usr/local/php54/bin/php–config —with–libevent=/usr/local/libevent–2.0.20/</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line">#php.ini添加extension=libevent.so</span><br></pre></td></tr></table></figure>
+<h3 id="1-安装libevent库"><a href="#1-安装libevent库" class="headerlink" title="(1)安装libevent库"></a>(1)安装libevent库</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget http://cloud.github.com/downloads/libevent/libevent/libevent-2.0.20-stable.tar.gz</span><br><span class="line">tar zxvf libevent–2.0.20–stable.tar.gz</span><br><span class="line">cd libevent–2.0.20–stable/</span><br><span class="line">./configure —prefix=/usr/local/libevent–2.0.20/</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<h3 id="2-安装libevent扩展"><a href="#2-安装libevent扩展" class="headerlink" title="(2)安装libevent扩展"></a>(2)安装<span class="exturl" data-url="aHR0cDovL3BlY2wucGhwLm5ldC9wYWNrYWdlL2xpYmV2ZW50" title="http://pecl.php.net/package/libevent">libevent扩展<i class="fa fa-external-link"></i></span></h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget http://pecl.php.net/get/libevent-0.1.0.tgz</span><br><span class="line">tar –zxvf libevent–0.1.0.tgz</span><br><span class="line">cd libevent–0.1.0</span><br><span class="line">./configure —with–php–config=/usr/local/php54/bin/php–config —with–libevent=/usr/local/libevent–2.0.20/</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line">#php.ini添加extension=libevent.so</span><br></pre></td></tr></table></figure>
 <h2 id="PHP-Libevent扩展介绍："><a href="#PHP-Libevent扩展介绍：" class="headerlink" title="PHP Libevent扩展介绍："></a>PHP Libevent扩展介绍：</h2><h3 id="1-常量"><a href="#1-常量" class="headerlink" title="(1)常量"></a>(1)常量</h3><p>libevent1.png</p>
-<h3 id="2-函数"><a href="#2-函数" class="headerlink" title="(2)函数"></a>(2)函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">event_base_free() 释放资源，这不能销毁绑定事件</span><br><span class="line">event_base_loop() 处理事件，根据指定的base来处理事件循环</span><br><span class="line">event_base_loopbreak() 立即取消事件循环，行为各break语句相同</span><br><span class="line">event_base_loopexit() 在指定的时间后退出循环</span><br><span class="line">event_base_new() 创建并且初始事件</span><br><span class="line">event_base_priority_init() 设定事件的优先级</span><br><span class="line">event_base_set() 关联事件到事件base</span><br><span class="line">event_buffer_base_set() 关联缓存的事件到event_base</span><br><span class="line">event_buffer_disable() 禁用一个缓存的事件</span><br><span class="line">event_buffer_enable() 启用一个指定的缓存的事件</span><br><span class="line">event_buffer_fd_set() 改变一个缓存的文件系统描述</span><br><span class="line">event_buffer_free() 释放缓存事件</span><br><span class="line">event_buffer_new() 建立一个新的缓存事件</span><br><span class="line">event_buffer_priority_set() 缓存事件的优先级设定</span><br><span class="line">event_buffer_read() 读取缓存事件中的数据</span><br><span class="line">event_buffer_set_callback() 给缓存的事件设置或重置回调hansh函数</span><br><span class="line">event_buffer_timeout_set() 给一个缓存的事件设定超时的读写时间</span><br><span class="line">event_buffer_watermark_set 设置读写事件的水印标记</span><br><span class="line">event_buffer_write() 向缓存事件中写入数据</span><br><span class="line">event_add() 向指定的设置中添加一个执行事件</span><br><span class="line">event_del() 从设置的事件中移除事件</span><br><span class="line">event_free() 清空事件句柄</span><br><span class="line">event_new() 创建一个新的事件</span><br><span class="line">event_set() 准备想要在event_add中添加事件</span><br><span class="line">PHP Libevent扩展使用：</span><br></pre></td></tr></table></figure>
-<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><h3 id="例1-5s后触发callback"><a href="#例1-5s后触发callback" class="headerlink" title="例1:5s后触发callback"></a>例1:5s后触发callback</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$base = event_base_new();</span><br><span class="line">$event = event_new();</span><br><span class="line"></span><br><span class="line">event_set($event, 0, EV_TIMEOUT, function() &#123;</span><br><span class="line">  echo “function called”;</span><br><span class="line">&#125;);</span><br><span class="line">event_base_set($event, $base);</span><br><span class="line"></span><br><span class="line">event_add($event, 5000000);</span><br><span class="line">event_base_loop($base);</span><br></pre></td></tr></table></figure>
-<h3 id="例2：打印输入流"><a href="#例2：打印输入流" class="headerlink" title="例2：打印输入流"></a>例2：打印输入流</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">function print_line($fd, $events, $arg)</span><br><span class="line">&#123;</span><br><span class="line">  static $max_requests = 0;</span><br><span class="line">  $max_requests++;</span><br><span class="line">  if ($max_requests == 10) &#123;</span><br><span class="line">    // exit loop after 10 writes</span><br><span class="line">    event_base_loopexit($arg[1]);</span><br><span class="line">  &#125;</span><br><span class="line">  echo fgets($fd);</span><br><span class="line"></span><br><span class="line">?</span><br><span class="line">// create base and event</span><br><span class="line">$base = event_base_new();</span><br><span class="line">$event = event_new();</span><br><span class="line"></span><br><span class="line">$fd = STDIN;</span><br><span class="line">// set event flags</span><br><span class="line">event_set($event, $fd, EV_READ | EV_PERSIST, ‘print_line’, array($event, $base));</span><br><span class="line">// set event base</span><br><span class="line">event_base_set($event, $base);</span><br><span class="line">// enable event</span><br><span class="line">event_add($event);</span><br><span class="line">// start event loop</span><br><span class="line">event_base_loop($base);</span><br></pre></td></tr></table></figure>
-<h3 id="例3：实现简单web-server"><a href="#例3：实现简单web-server" class="headerlink" title="例3：实现简单web server"></a>例3：实现简单web server</h3><p>在cli执行后，打开浏览器2000端口试试看。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">$socket = stream_socket_server (‘tcp://0.0.0.0:2000’, $errno, $errstr);</span><br><span class="line">stream_set_blocking($socket, 0);</span><br><span class="line"></span><br><span class="line">$base = event_base_new();</span><br><span class="line">$event = event_new();</span><br><span class="line">event_set($event, $socket, EV_READ | EV_PERSIST, ‘ev_accept’, $base);</span><br><span class="line">event_base_set($event, $base);</span><br><span class="line">event_add($event);</span><br><span class="line">event_base_loop($base);</span><br><span class="line"></span><br><span class="line">function ev_accept($socket, $flag, $base)</span><br><span class="line">&#123;</span><br><span class="line">  $connection = stream_socket_accept($socket);</span><br><span class="line">  stream_set_blocking($connection, 0);</span><br><span class="line">  </span><br><span class="line">  $buffer = event_buffer_new($connection, ‘ev_read’, NULL, ‘ev_error’, $connection);</span><br><span class="line">  event_buffer_base_set($buffer, $base);</span><br><span class="line">  event_buffer_timeout_set($buffer, 30, 30);</span><br><span class="line">  event_buffer_watermark_set($buffer, EV_READ, 0, 0xffffff);</span><br><span class="line">  event_buffer_priority_set($buffer, 10);</span><br><span class="line">  event_buffer_enable($buffer, EV_READ | EV_PERSIST);</span><br><span class="line">  </span><br><span class="line">  $GLOBALS[‘_’] = $buffer; //这个buffer一定要赋给个全局的变量 貌似是传值过程中的bug 或者5.3.8的闭包还是有问题？</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function ev_error($buffer, $error, $connection)</span><br><span class="line">&#123;</span><br><span class="line">  event_buffer_disable($buffer, EV_READ | EV_WRITE);</span><br><span class="line">  event_buffer_free($buffer);</span><br><span class="line">  fclose($connection);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function ev_read($buffer, $connection)</span><br><span class="line">&#123;</span><br><span class="line">  while ($read = event_buffer_read($buffer, 256)) &#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  fwrite($connection , date(‘Y-m-d H:i:s’));</span><br><span class="line">  ev_error($buffer , ” , $connection);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-函数"><a href="#2-函数" class="headerlink" title="(2)函数"></a>(2)函数</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">event_base_free() 释放资源，这不能销毁绑定事件</span><br><span class="line">event_base_loop() 处理事件，根据指定的base来处理事件循环</span><br><span class="line">event_base_loopbreak() 立即取消事件循环，行为各break语句相同</span><br><span class="line">event_base_loopexit() 在指定的时间后退出循环</span><br><span class="line">event_base_new() 创建并且初始事件</span><br><span class="line">event_base_priority_init() 设定事件的优先级</span><br><span class="line">event_base_set() 关联事件到事件base</span><br><span class="line">event_buffer_base_set() 关联缓存的事件到event_base</span><br><span class="line">event_buffer_disable() 禁用一个缓存的事件</span><br><span class="line">event_buffer_enable() 启用一个指定的缓存的事件</span><br><span class="line">event_buffer_fd_set() 改变一个缓存的文件系统描述</span><br><span class="line">event_buffer_free() 释放缓存事件</span><br><span class="line">event_buffer_new() 建立一个新的缓存事件</span><br><span class="line">event_buffer_priority_set() 缓存事件的优先级设定</span><br><span class="line">event_buffer_read() 读取缓存事件中的数据</span><br><span class="line">event_buffer_set_callback() 给缓存的事件设置或重置回调hansh函数</span><br><span class="line">event_buffer_timeout_set() 给一个缓存的事件设定超时的读写时间</span><br><span class="line">event_buffer_watermark_set 设置读写事件的水印标记</span><br><span class="line">event_buffer_write() 向缓存事件中写入数据</span><br><span class="line">event_add() 向指定的设置中添加一个执行事件</span><br><span class="line">event_del() 从设置的事件中移除事件</span><br><span class="line">event_free() 清空事件句柄</span><br><span class="line">event_new() 创建一个新的事件</span><br><span class="line">event_set() 准备想要在event_add中添加事件</span><br><span class="line">PHP Libevent扩展使用：</span><br></pre></td></tr></table></figure>
+<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><h3 id="例1-5s后触发callback"><a href="#例1-5s后触发callback" class="headerlink" title="例1:5s后触发callback"></a>例1:5s后触发callback</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$base = event_base_new();</span><br><span class="line">$event = event_new();</span><br><span class="line"></span><br><span class="line">event_set($event, 0, EV_TIMEOUT, function() &#123;</span><br><span class="line">  echo “function called”;</span><br><span class="line">&#125;);</span><br><span class="line">event_base_set($event, $base);</span><br><span class="line"></span><br><span class="line">event_add($event, 5000000);</span><br><span class="line">event_base_loop($base);</span><br></pre></td></tr></table></figure>
+<h3 id="例2：打印输入流"><a href="#例2：打印输入流" class="headerlink" title="例2：打印输入流"></a>例2：打印输入流</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function print_line($fd, $events, $arg)</span><br><span class="line">&#123;</span><br><span class="line">  static $max_requests = 0;</span><br><span class="line">  $max_requests++;</span><br><span class="line">  if ($max_requests == 10) &#123;</span><br><span class="line">    // exit loop after 10 writes</span><br><span class="line">    event_base_loopexit($arg[1]);</span><br><span class="line">  &#125;</span><br><span class="line">  echo fgets($fd);</span><br><span class="line"></span><br><span class="line">?</span><br><span class="line">// create base and event</span><br><span class="line">$base = event_base_new();</span><br><span class="line">$event = event_new();</span><br><span class="line"></span><br><span class="line">$fd = STDIN;</span><br><span class="line">// set event flags</span><br><span class="line">event_set($event, $fd, EV_READ | EV_PERSIST, ‘print_line’, array($event, $base));</span><br><span class="line">// set event base</span><br><span class="line">event_base_set($event, $base);</span><br><span class="line">// enable event</span><br><span class="line">event_add($event);</span><br><span class="line">// start event loop</span><br><span class="line">event_base_loop($base);</span><br></pre></td></tr></table></figure>
+<h3 id="例3：实现简单web-server"><a href="#例3：实现简单web-server" class="headerlink" title="例3：实现简单web server"></a>例3：实现简单web server</h3><p>在cli执行后，打开浏览器2000端口试试看。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$socket = stream_socket_server (‘tcp://0.0.0.0:2000’, $errno, $errstr);</span><br><span class="line">stream_set_blocking($socket, 0);</span><br><span class="line"></span><br><span class="line">$base = event_base_new();</span><br><span class="line">$event = event_new();</span><br><span class="line">event_set($event, $socket, EV_READ | EV_PERSIST, ‘ev_accept’, $base);</span><br><span class="line">event_base_set($event, $base);</span><br><span class="line">event_add($event);</span><br><span class="line">event_base_loop($base);</span><br><span class="line"></span><br><span class="line">function ev_accept($socket, $flag, $base)</span><br><span class="line">&#123;</span><br><span class="line">  $connection = stream_socket_accept($socket);</span><br><span class="line">  stream_set_blocking($connection, 0);</span><br><span class="line">  </span><br><span class="line">  $buffer = event_buffer_new($connection, ‘ev_read’, NULL, ‘ev_error’, $connection);</span><br><span class="line">  event_buffer_base_set($buffer, $base);</span><br><span class="line">  event_buffer_timeout_set($buffer, 30, 30);</span><br><span class="line">  event_buffer_watermark_set($buffer, EV_READ, 0, 0xffffff);</span><br><span class="line">  event_buffer_priority_set($buffer, 10);</span><br><span class="line">  event_buffer_enable($buffer, EV_READ | EV_PERSIST);</span><br><span class="line">  </span><br><span class="line">  $GLOBALS[‘_’] = $buffer; //这个buffer一定要赋给个全局的变量 貌似是传值过程中的bug 或者5.3.8的闭包还是有问题？</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function ev_error($buffer, $error, $connection)</span><br><span class="line">&#123;</span><br><span class="line">  event_buffer_disable($buffer, EV_READ | EV_WRITE);</span><br><span class="line">  event_buffer_free($buffer);</span><br><span class="line">  fclose($connection);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function ev_read($buffer, $connection)</span><br><span class="line">&#123;</span><br><span class="line">  while ($read = event_buffer_read($buffer, 256)) &#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  fwrite($connection , date(‘Y-m-d H:i:s’));</span><br><span class="line">  ev_error($buffer , ” , $connection);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -622,6 +646,30 @@
       </div>
     
 
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Jack Yao</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="/php_thread_libeven" title="Php多线程系列之libevent">php_thread_libeven</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
     
 
     <footer class="post-footer">
@@ -728,7 +776,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">184</span>
+                    <span class="site-state-item-count">187</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -771,7 +819,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -965,10 +1019,20 @@
           
 
           
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+             </div>
+          
 
           
           
-            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
               <div class="links-of-blogroll-title">
                 <i class="fa  fa-fw fa-link"></i>
                 Links
@@ -1006,7 +1070,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP-libevent扩展安装"><span class="nav-number">1.</span> <span class="nav-text">PHP libevent扩展安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-安装libevent库"><span class="nav-number">1.1.</span> <span class="nav-text">(1)安装libevent库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-安装libevent扩展"><span class="nav-number">1.2.</span> <span class="nav-text">(2)安装libevent扩展</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP-Libevent扩展介绍："><span class="nav-number">2.</span> <span class="nav-text">PHP Libevent扩展介绍：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-常量"><span class="nav-number">2.1.</span> <span class="nav-text">(1)常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-函数"><span class="nav-number">2.2.</span> <span class="nav-text">(2)函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#案例"><span class="nav-number">3.</span> <span class="nav-text">案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#例1-5s后触发callback"><span class="nav-number">3.1.</span> <span class="nav-text">例1:5s后触发callback</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例2：打印输入流"><span class="nav-number">3.2.</span> <span class="nav-text">例2：打印输入流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例3：实现简单web-server"><span class="nav-number">3.3.</span> <span class="nav-text">例3：实现简单web server</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP-libevent扩展安装"><span class="nav-text">PHP libevent扩展安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-安装libevent库"><span class="nav-text">(1)安装libevent库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-安装libevent扩展"><span class="nav-text">(2)安装libevent扩展</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP-Libevent扩展介绍："><span class="nav-text">PHP Libevent扩展介绍：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-常量"><span class="nav-text">(1)常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-函数"><span class="nav-text">(2)函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#案例"><span class="nav-text">案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#例1-5s后触发callback"><span class="nav-text">例1:5s后触发callback</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例2：打印输入流"><span class="nav-text">例2：打印输入流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例3：实现简单web-server"><span class="nav-text">例3：实现简单web server</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1014,13 +1078,6 @@
       <!--/noindex-->
       
 
-      
-        <div class="back-to-top">
-          <i class="fa fa-arrow-up"></i>
-          
-            <span id="scrollpercent"><span>0</span>%</span>
-          
-        </div>
       
 
     </div>
@@ -1048,7 +1105,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">525k</span>
+    <span title="站点总字数">527k</span>
   
 
   
@@ -1059,7 +1116,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">7:58</span>
+    <span title="站点阅读时长">7:59</span>
   
 </div>
 
@@ -1110,18 +1167,16 @@
     </footer>
 
     
-
-    
-
-    
-
-    
-      <div>
-        <div class="addthis_inline_share_toolbox">
-  <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cb68f059ff1e21f" async="async"></script>
-</div>
-
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
       </div>
+    
+
+    
+
+    
+
     
   </div>
 
@@ -1145,6 +1200,14 @@
 
 
 
+
+  
+    
+    
+      
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="66" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
 
 
 
@@ -1582,16 +1645,6 @@
   
 
   
-  <script>
-    (function(){
-      var bp = document.createElement('script');
-      var curProtocol = window.location.protocol.split(':')[0];
-      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(bp, s);
-    })();
-  </script>
-
 
   
 

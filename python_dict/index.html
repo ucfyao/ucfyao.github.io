@@ -19,7 +19,7 @@
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<meta name="theme-color" content="#FF5733">
 
 
 
@@ -81,9 +81,9 @@
     root: '/',
     scheme: 'Mist',
     version: '7.1.0',
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    sidebar: {"position":"left","display":"hide","offset":12,"onmobile":false,"dimmer":false},
     back2top: true,
-    back2top_sidebar: true,
+    back2top_sidebar: false,
     fancybox: false,
     fastclick: false,
     lazyload: false,
@@ -113,7 +113,7 @@
 <meta property="og:site_name" content="zihao&#39;blog">
 <meta property="og:description" content="这篇文章主要介绍了python中的字典详细介绍,字典是Python中最强大的数据类型之一,本文讲解了什么是字典、创建字典和给字典赋值 、字典的基本操作、映射类型操作符、映射相关的函数、字典的方法等内容,需要的朋友可以参考下 什么是字典？字典是Python语言中唯一的映射类型。 映射类型对象里哈希值（键，key）和指向的对象（值，value）是一对多的的关系，通常被认为是可变的哈希表。 字典对象是可">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-22T02:22:47.440Z">
+<meta property="og:updated_time" content="2019-04-24T10:00:56.285Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python中的字典详细介绍">
 <meta name="twitter:description" content="这篇文章主要介绍了python中的字典详细介绍,字典是Python中最强大的数据类型之一,本文讲解了什么是字典、创建字典和给字典赋值 、字典的基本操作、映射类型操作符、映射相关的函数、字典的方法等内容,需要的朋友可以参考下 什么是字典？字典是Python语言中唯一的映射类型。 映射类型对象里哈希值（键，key）和指向的对象（值，value）是一对多的的关系，通常被认为是可变的哈希表。 字典对象是可">
@@ -246,6 +246,8 @@
     
 
     
+      
+    
 
     <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
 
@@ -263,8 +265,10 @@
     
 
     
+      
+    
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">16</span></a>
 
   </li>
         
@@ -280,8 +284,10 @@
     
 
     
+      
+    
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">59</span></a>
 
   </li>
         
@@ -297,8 +303,10 @@
     
 
     
+      
+    
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">187</span></a>
 
   </li>
         
@@ -313,6 +321,8 @@
       
     
 
+    
+      
     
 
     <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
@@ -463,7 +473,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-22 10:22:47" itemprop="dateModified" datetime="2019-04-22T10:22:47+08:00">2019-04-22</time>
+                <time title="修改时间：2019-04-24 18:00:56" itemprop="dateModified" datetime="2019-04-24T18:00:56+08:00">2019-04-24</time>
               
             
           </span>
@@ -480,7 +490,21 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/Back/" itemprop="url" rel="index"><span itemprop="name">Back</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/Back/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span>
 
                 
                 
@@ -576,7 +600,7 @@
 <li>映射类型用键直接“映射”到值。</li>
 </ul>
 <p>字典是Python中最强大的数据类型之一。</p>
-<h2 id="如何创建字典和给字典赋值"><a href="#如何创建字典和给字典赋值" class="headerlink" title="如何创建字典和给字典赋值"></a>如何创建字典和给字典赋值</h2><p>简单地说字典就是用大括号包裹的键值对的集合。（键值对也被称作项）<br>一般形式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">adict = &#123;&#125;</span><br><span class="line">adict = &#123;key1：value2， key2：value2， …&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="如何创建字典和给字典赋值"><a href="#如何创建字典和给字典赋值" class="headerlink" title="如何创建字典和给字典赋值"></a>如何创建字典和给字典赋值</h2><p>简单地说字典就是用大括号包裹的键值对的集合。（键值对也被称作项）<br>一般形式：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adict = &#123;&#125;</span><br><span class="line">adict = &#123;key1：value2， key2：value2， …&#125;</span><br></pre></td></tr></table></figure></p>
 <p>或用<code>dict()</code>函数，如，<code>adict = dict()</code> 或 <code>adict = dict（（[‘x’,1],[‘y’,2]））</code>这样写对吗？<code>adict = dict（[‘x’,1],[‘y’,2]）</code>。关键字参数创建字典，如：<code>adict= dict(name=’allen’,age=’40′)</code><br>或用<code>fromkeys()</code>方法，如，<code>adict = {}.fromkeys((‘x’,’y’), -1)</code> 这样创建的字典的value是一样的，若不给值，默认为None。</p>
 <p>特点：</p>
 <ol>
@@ -584,7 +608,7 @@
 <li>项与项用逗号“，”分开；</li>
 <li>字典中的键必须是唯一的，而值可以不唯一。</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adict = &#123;‘name&apos;:&apos;allen&apos;, ‘name&apos;:&apos;lucy&apos;, ‘age&apos;:&apos;40′&#125; 与 bdict = &#123;‘name&apos;:&apos;allen&apos;, ‘name2′:&apos;allen&apos;, ‘age&apos;:&apos;40′&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adict = &#123;‘name&apos;:&apos;allen&apos;, ‘name&apos;:&apos;lucy&apos;, ‘age&apos;:&apos;40′&#125; 与 bdict = &#123;‘name&apos;:&apos;allen&apos;, ‘name2′:&apos;allen&apos;, ‘age&apos;:&apos;40′&#125;</span><br></pre></td></tr></table></figure>
 <p>注意：如果字典中的值为数字，最好使用字符串数字形式，如：<code>’age’:’040′</code> 而不用 <code>‘age’:040</code></p>
 <h2 id="字典的基本操作"><a href="#字典的基本操作" class="headerlink" title="字典的基本操作"></a>字典的基本操作</h2><h3 id="如何访问字典中的值？"><a href="#如何访问字典中的值？" class="headerlink" title="如何访问字典中的值？"></a>如何访问字典中的值？</h3><p>adict[key] 形式返回键key对应的值value，如果key不在字典中会引发一个KeyError。</p>
 <h3 id="如何检查key是否在字典中？"><a href="#如何检查key是否在字典中？" class="headerlink" title="如何检查key是否在字典中？"></a>如何检查key是否在字典中？</h3><p>a、has_key()方法 形如：adict.haskey(‘name’) 有–&gt;True，无–&gt;False<br>b、in 、not in   形如：’name’ in adict      有–&gt;True，无–&gt;False</p>
@@ -593,7 +617,7 @@
 <h4 id="删除一个数据项（元素）或键值对"><a href="#删除一个数据项（元素）或键值对" class="headerlink" title="删除一个数据项（元素）或键值对"></a>删除一个数据项（元素）或键值对</h4><p><code>del adict[key]</code> 删除键key的项 / del adict 删除整个字典<br><code>adict.pop(key)</code> 删除键key的项并返回key对应的 value值</p>
 <h2 id="映射类型操作符"><a href="#映射类型操作符" class="headerlink" title="映射类型操作符"></a>映射类型操作符</h2><p>标准类型操作符<code>（+，-，*，&lt;,&gt;,&lt;=,&gt;=,==,!=,and,or, not)</code></p>
 <h3 id="a、字典不支持拼接和重复操作符（-，-）"><a href="#a、字典不支持拼接和重复操作符（-，-）" class="headerlink" title="a、字典不支持拼接和重复操作符（+，*）"></a>a、字典不支持拼接和重复操作符<code>（+，*）</code></h3><h3 id="b、字典的比较操作"><a href="#b、字典的比较操作" class="headerlink" title="b、字典的比较操作"></a>b、字典的比较操作</h3><p>先比较字典的长度也就是字典的元素个数<br>键比较<br>值比较<br>例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adict = &#123;&#125;</span><br><span class="line">bdict = &#123;‘name&apos;:&apos;allen&apos;, ‘age&apos;:&apos;40′&#125;</span><br><span class="line">cmp(adict, bdict)  &lt; –&gt;-1 or &gt; –&gt;1 or ==  –&gt;0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adict = &#123;&#125;</span><br><span class="line">bdict = &#123;‘name&apos;:&apos;allen&apos;, ‘age&apos;:&apos;40′&#125;</span><br><span class="line">cmp(adict, bdict)  &lt; –&gt;-1 or &gt; –&gt;1 or ==  –&gt;0</span><br></pre></td></tr></table></figure>
 <h2 id="映射相关的函数"><a href="#映射相关的函数" class="headerlink" title="映射相关的函数"></a>映射相关的函数</h2><ul>
 <li>1、<code>len()</code> 返回字典的长度</li>
 <li>2、<code>hash()</code> 返回对象的哈希值，可以用来判断一个对象能否用来作为字典的键</li>
@@ -613,11 +637,11 @@
 <li>11、adict.setdefault(key, default=None) 和set()方法相似，但如果字典中不存在Key键，由 adict[key] = default 为它赋值；</li>
 <li>12、adict.update(bdict) 将字典bdict的键值对添加到字典adict中。</li>
 </ul>
-<h2 id="字典的遍历"><a href="#字典的遍历" class="headerlink" title="字典的遍历"></a>字典的遍历</h2><h3 id="1、遍历字典的key（键）"><a href="#1、遍历字典的key（键）" class="headerlink" title="1、遍历字典的key（键）"></a>1、遍历字典的key（键）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for key in adict.keys():</span><br><span class="line">    print key</span><br></pre></td></tr></table></figure>
-<h3 id="2、遍历字典的value（值）"><a href="#2、遍历字典的value（值）" class="headerlink" title="2、遍历字典的value（值）"></a>2、遍历字典的value（值）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for value in adict.values():</span><br><span class="line">    print value</span><br></pre></td></tr></table></figure>
-<h3 id="3、遍历字典的项（元素）"><a href="#3、遍历字典的项（元素）" class="headerlink" title="3、遍历字典的项（元素）"></a>3、遍历字典的项（元素）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for item in adict.items():</span><br><span class="line">    print item</span><br></pre></td></tr></table></figure>
-<h3 id="4、遍历字典的key-value"><a href="#4、遍历字典的key-value" class="headerlink" title="4、遍历字典的key-value"></a>4、遍历字典的key-value</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for item，value in adict.items(): </span><br><span class="line">    print &apos;key=%s, value=%s&apos; %(item, value)</span><br></pre></td></tr></table></figure>
-<p>或<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for item，value in adict.iteritems(): </span><br><span class="line">    print &apos;key=%s, value=%s&apos; %(item, value)</span><br></pre></td></tr></table></figure></p>
+<h2 id="字典的遍历"><a href="#字典的遍历" class="headerlink" title="字典的遍历"></a>字典的遍历</h2><h3 id="1、遍历字典的key（键）"><a href="#1、遍历字典的key（键）" class="headerlink" title="1、遍历字典的key（键）"></a>1、遍历字典的key（键）</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for key in adict.keys():</span><br><span class="line">    print key</span><br></pre></td></tr></table></figure>
+<h3 id="2、遍历字典的value（值）"><a href="#2、遍历字典的value（值）" class="headerlink" title="2、遍历字典的value（值）"></a>2、遍历字典的value（值）</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for value in adict.values():</span><br><span class="line">    print value</span><br></pre></td></tr></table></figure>
+<h3 id="3、遍历字典的项（元素）"><a href="#3、遍历字典的项（元素）" class="headerlink" title="3、遍历字典的项（元素）"></a>3、遍历字典的项（元素）</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for item in adict.items():</span><br><span class="line">    print item</span><br></pre></td></tr></table></figure>
+<h3 id="4、遍历字典的key-value"><a href="#4、遍历字典的key-value" class="headerlink" title="4、遍历字典的key-value"></a>4、遍历字典的key-value</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for item，value in adict.items(): </span><br><span class="line">    print &apos;key=%s, value=%s&apos; %(item, value)</span><br></pre></td></tr></table></figure>
+<p>或<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for item，value in adict.iteritems(): </span><br><span class="line">    print &apos;key=%s, value=%s&apos; %(item, value)</span><br></pre></td></tr></table></figure></p>
 <p>注意：<code>for item,value in adict.items(): print ‘key=%s’, ‘value=%s’, %(item, value)</code> 这种写法是错误的</p>
 <h2 id="使用字典的注意事项"><a href="#使用字典的注意事项" class="headerlink" title="使用字典的注意事项"></a>使用字典的注意事项</h2><ul>
 <li>1、不能允许一键对应多个值；</li>
@@ -673,6 +697,30 @@
       </div>
     
 
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Jack Yao</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="/python_dict" title="Python中的字典详细介绍">python_dict</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
     
 
     <footer class="post-footer">
@@ -777,7 +825,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">184</span>
+                    <span class="site-state-item-count">187</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -820,7 +868,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1014,10 +1068,20 @@
           
 
           
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+             </div>
+          
 
           
           
-            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
               <div class="links-of-blogroll-title">
                 <i class="fa  fa-fw fa-link"></i>
                 Links
@@ -1055,7 +1119,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是字典？"><span class="nav-number">1.</span> <span class="nav-text">什么是字典？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何创建字典和给字典赋值"><span class="nav-number">2.</span> <span class="nav-text">如何创建字典和给字典赋值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字典的基本操作"><span class="nav-number">3.</span> <span class="nav-text">字典的基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何访问字典中的值？"><span class="nav-number">3.1.</span> <span class="nav-text">如何访问字典中的值？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何检查key是否在字典中？"><span class="nav-number">3.2.</span> <span class="nav-text">如何检查key是否在字典中？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何更新字典？"><span class="nav-number">3.3.</span> <span class="nav-text">如何更新字典？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加一个数据项（新元素）或键值对"><span class="nav-number">3.3.1.</span> <span class="nav-text">添加一个数据项（新元素）或键值对</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新一个数据项（元素）或键值对"><span class="nav-number">3.3.2.</span> <span class="nav-text">更新一个数据项（元素）或键值对</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除一个数据项（元素）或键值对"><span class="nav-number">3.3.3.</span> <span class="nav-text">删除一个数据项（元素）或键值对</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#映射类型操作符"><span class="nav-number">4.</span> <span class="nav-text">映射类型操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a、字典不支持拼接和重复操作符（-，-）"><span class="nav-number">4.1.</span> <span class="nav-text">a、字典不支持拼接和重复操作符（+，*）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b、字典的比较操作"><span class="nav-number">4.2.</span> <span class="nav-text">b、字典的比较操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#映射相关的函数"><span class="nav-number">5.</span> <span class="nav-text">映射相关的函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字典的方法"><span class="nav-number">6.</span> <span class="nav-text">字典的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字典的遍历"><span class="nav-number">7.</span> <span class="nav-text">字典的遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、遍历字典的key（键）"><span class="nav-number">7.1.</span> <span class="nav-text">1、遍历字典的key（键）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、遍历字典的value（值）"><span class="nav-number">7.2.</span> <span class="nav-text">2、遍历字典的value（值）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、遍历字典的项（元素）"><span class="nav-number">7.3.</span> <span class="nav-text">3、遍历字典的项（元素）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、遍历字典的key-value"><span class="nav-number">7.4.</span> <span class="nav-text">4、遍历字典的key-value</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用字典的注意事项"><span class="nav-number">8.</span> <span class="nav-text">使用字典的注意事项</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是字典？"><span class="nav-text">什么是字典？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何创建字典和给字典赋值"><span class="nav-text">如何创建字典和给字典赋值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字典的基本操作"><span class="nav-text">字典的基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何访问字典中的值？"><span class="nav-text">如何访问字典中的值？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何检查key是否在字典中？"><span class="nav-text">如何检查key是否在字典中？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何更新字典？"><span class="nav-text">如何更新字典？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加一个数据项（新元素）或键值对"><span class="nav-text">添加一个数据项（新元素）或键值对</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新一个数据项（元素）或键值对"><span class="nav-text">更新一个数据项（元素）或键值对</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除一个数据项（元素）或键值对"><span class="nav-text">删除一个数据项（元素）或键值对</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#映射类型操作符"><span class="nav-text">映射类型操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a、字典不支持拼接和重复操作符（-，-）"><span class="nav-text">a、字典不支持拼接和重复操作符（+，*）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b、字典的比较操作"><span class="nav-text">b、字典的比较操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#映射相关的函数"><span class="nav-text">映射相关的函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字典的方法"><span class="nav-text">字典的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字典的遍历"><span class="nav-text">字典的遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、遍历字典的key（键）"><span class="nav-text">1、遍历字典的key（键）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、遍历字典的value（值）"><span class="nav-text">2、遍历字典的value（值）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、遍历字典的项（元素）"><span class="nav-text">3、遍历字典的项（元素）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、遍历字典的key-value"><span class="nav-text">4、遍历字典的key-value</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用字典的注意事项"><span class="nav-text">使用字典的注意事项</span></a></li></ol></div>
             
 
           </div>
@@ -1063,13 +1127,6 @@
       <!--/noindex-->
       
 
-      
-        <div class="back-to-top">
-          <i class="fa fa-arrow-up"></i>
-          
-            <span id="scrollpercent"><span>0</span>%</span>
-          
-        </div>
       
 
     </div>
@@ -1097,7 +1154,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">525k</span>
+    <span title="站点总字数">527k</span>
   
 
   
@@ -1108,7 +1165,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">7:58</span>
+    <span title="站点阅读时长">7:59</span>
   
 </div>
 
@@ -1159,18 +1216,16 @@
     </footer>
 
     
-
-    
-
-    
-
-    
-      <div>
-        <div class="addthis_inline_share_toolbox">
-  <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cb68f059ff1e21f" async="async"></script>
-</div>
-
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
       </div>
+    
+
+    
+
+    
+
     
   </div>
 
@@ -1194,6 +1249,14 @@
 
 
 
+
+  
+    
+    
+      
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="66" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
 
 
 
@@ -1631,16 +1694,6 @@
   
 
   
-  <script>
-    (function(){
-      var bp = document.createElement('script');
-      var curProtocol = window.location.protocol.split(':')[0];
-      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(bp, s);
-    })();
-  </script>
-
 
   
 

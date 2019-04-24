@@ -19,7 +19,7 @@
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<meta name="theme-color" content="#FF5733">
 
 
 
@@ -81,9 +81,9 @@
     root: '/',
     scheme: 'Mist',
     version: '7.1.0',
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    sidebar: {"position":"left","display":"hide","offset":12,"onmobile":false,"dimmer":false},
     back2top: true,
-    back2top_sidebar: true,
+    back2top_sidebar: false,
     fancybox: false,
     fastclick: false,
     lazyload: false,
@@ -113,7 +113,7 @@
 <meta property="og:site_name" content="zihao&#39;blog">
 <meta property="og:description" content="此教程适合有pandas基础的童鞋来看，很多知识点会一笔带过，不做详细解释  Pandas数据格式SeriesDataFrame和Series的关系每个column就是一个Series基础属性shape,index,columns,values，dtypes，describe(),head(),tail() 统计属性Seriescount(),value_counts()，前者是统计总数，后者统">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-22T02:22:47.434Z">
+<meta property="og:updated_time" content="2019-04-24T10:00:56.284Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Pandas数据清洗，排序，索引设置，数据选取">
 <meta name="twitter:description" content="此教程适合有pandas基础的童鞋来看，很多知识点会一笔带过，不做详细解释  Pandas数据格式SeriesDataFrame和Series的关系每个column就是一个Series基础属性shape,index,columns,values，dtypes，describe(),head(),tail() 统计属性Seriescount(),value_counts()，前者是统计总数，后者统">
@@ -246,6 +246,8 @@
     
 
     
+      
+    
 
     <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
 
@@ -263,8 +265,10 @@
     
 
     
+      
+    
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">16</span></a>
 
   </li>
         
@@ -280,8 +284,10 @@
     
 
     
+      
+    
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">59</span></a>
 
   </li>
         
@@ -297,8 +303,10 @@
     
 
     
+      
+    
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">187</span></a>
 
   </li>
         
@@ -313,6 +321,8 @@
       
     
 
+    
+      
     
 
     <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
@@ -463,7 +473,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-22 10:22:47" itemprop="dateModified" datetime="2019-04-22T10:22:47+08:00">2019-04-22</time>
+                <time title="修改时间：2019-04-24 18:00:56" itemprop="dateModified" datetime="2019-04-24T18:00:56+08:00">2019-04-24</time>
               
             
           </span>
@@ -480,7 +490,21 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/积累-python/" itemprop="url" rel="index"><span itemprop="name">积累________python</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/Back/" itemprop="url" rel="index"><span itemprop="name">Back</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/Back/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span>
 
                 
                 
@@ -529,7 +553,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">5.3k</span>
+                <span title="本文字数">5.2k</span>
               
 
               
@@ -568,29 +592,29 @@
 </blockquote>
 <h3 id="Pandas数据格式Series"><a href="#Pandas数据格式Series" class="headerlink" title="Pandas数据格式Series"></a>Pandas数据格式Series</h3><h3 id="DataFrame和Series的关系"><a href="#DataFrame和Series的关系" class="headerlink" title="DataFrame和Series的关系"></a>DataFrame和Series的关系</h3><p>每个column就是一个Series基础属性<code>shape,index,columns,values，dtypes，describe(),head(),tail()</code></p>
 <h4 id="统计属性Series"><a href="#统计属性Series" class="headerlink" title="统计属性Series"></a>统计属性Series</h4><p><code>count(),value_counts()</code>，前者是统计总数，后者统计各自value的总数<br><code>df.isnull()</code> df的空值为True<br><code>df.notnull()</code> df的非空值为True</p>
-<h4 id="修改列名"><a href="#修改列名" class="headerlink" title="修改列名"></a>修改列名</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.rename(columns = &#123;&apos;key&apos;:&apos;key2&apos;&#125;,inplace=True)</span><br></pre></td></tr></table></figure>
-<h4 id="更改数据格式"><a href="#更改数据格式" class="headerlink" title="更改数据格式"></a>更改数据格式</h4><p><code>astype()</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">isin                 #计算一个“Series各值是否包含传入的值序列中”的布尔数组</span><br><span class="line">unique               #返回唯一值的数组</span><br><span class="line">value_counts         #返回一个Series，其索引为唯一值，值为频率，按计数降序排列</span><br></pre></td></tr></table></figure></p>
+<h4 id="修改列名"><a href="#修改列名" class="headerlink" title="修改列名"></a>修改列名</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df.rename(columns = &#123;&apos;key&apos;:&apos;key2&apos;&#125;,inplace=True)</span><br></pre></td></tr></table></figure>
+<h4 id="更改数据格式"><a href="#更改数据格式" class="headerlink" title="更改数据格式"></a>更改数据格式</h4><p><code>astype()</code><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">isin                 #计算一个“Series各值是否包含传入的值序列中”的布尔数组</span><br><span class="line">unique               #返回唯一值的数组</span><br><span class="line">value_counts         #返回一个Series，其索引为唯一值，值为频率，按计数降序排列</span><br></pre></td></tr></table></figure></p>
 <h3 id="数据清洗"><a href="#数据清洗" class="headerlink" title="数据清洗"></a>数据清洗</h3><h4 id="丢弃值drop"><a href="#丢弃值drop" class="headerlink" title="丢弃值drop()"></a>丢弃值<code>drop()</code></h4><p><code>df.drop(labels, axis=1)# 按列（axis=1），丢弃指定label的列,默认按行。。。1</code></p>
-<h4 id="丢弃缺失值dropna"><a href="#丢弃缺失值dropna" class="headerlink" title="丢弃缺失值dropna()"></a>丢弃缺失值<code>dropna()</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 默认axi=0（行）；1（列），how=‘any’</span><br><span class="line">df.dropna()#每行只要有空值，就将这行删除</span><br><span class="line">df.dropna(axis=1)#每列只要有空值，整列丢弃</span><br><span class="line">df.dropna(how=&apos;all&apos;)# 一行中全部为NaN的，才丢弃该行</span><br><span class="line">df.dropna(thresh=3)# 每行至少3个非空值才保留</span><br></pre></td></tr></table></figure>
-<h4 id="缺失值填充fillna"><a href="#缺失值填充fillna" class="headerlink" title="缺失值填充fillna()"></a>缺失值填充<code>fillna()</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">df.fillna(0)</span><br><span class="line">df.fillna(&#123;1:0,2:0.5&#125;) #对第一列nan值赋0，第二列赋值0.5</span><br><span class="line">df.fillna(method=&apos;ffill&apos;) #在列方向上以前一个值作为值赋给NaN</span><br></pre></td></tr></table></figure>
-<h4 id="值替换replace"><a href="#值替换replace" class="headerlink" title="值替换replace()"></a>值替换<code>replace()</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 将df的A列中 -999 全部替换成空值</span><br><span class="line">df[&apos;A&apos;].replace(-999, np.nan)</span><br><span class="line">#-999和1000 均替换成空值</span><br><span class="line">obj.replace([-999,1000],  np.nan)</span><br><span class="line"># -999替换成空值，1000替换成0</span><br><span class="line">obj.replace([-999,1000],  [np.nan, 0])</span><br><span class="line"># 同上，写法不同，更清晰</span><br><span class="line">obj.replace(&#123;-999:np.nan, 1000:0&#125;)</span><br></pre></td></tr></table></figure>
-<h4 id="重复值处理duplicated-，unique-，drop-duplictad"><a href="#重复值处理duplicated-，unique-，drop-duplictad" class="headerlink" title="重复值处理duplicated()，unique()，drop_duplictad()"></a>重复值处理duplicated()，unique()，drop_duplictad()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">df.duplicated()#两行每列完全一样才算重复，后面重复的为True，第一个和不重复的为false，返回true</span><br><span class="line">               #和false组成的Series类型</span><br><span class="line">df.duplicated(&apos;key&apos;)#两行key这一列一样就算重复</span><br><span class="line"></span><br><span class="line">df[&apos;A&apos;].unique()# 返回唯一值的数组（类型为array）</span><br><span class="line"></span><br><span class="line">df.drop_duplicates([&apos;k1&apos;])# 保留k1列中的唯一值的行，默认保留第一行</span><br><span class="line">df.drop_duplicates([&apos;k1&apos;,&apos;k2&apos;], take_last=True)# 保留 k1和k2 组合的唯一值的行，take_last=True 保留最后一行</span><br></pre></td></tr></table></figure>
-<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><h4 id="索引排序"><a href="#索引排序" class="headerlink" title="索引排序"></a>索引排序</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 默认axis=0，按行索引对行进行排序；ascending=True，升序排序</span><br><span class="line">df.sort_index()</span><br><span class="line"># 按列名对列进行排序，ascending=False 降序</span><br><span class="line">df.sort_index(axis=1, ascending=False)</span><br></pre></td></tr></table></figure>
-<h4 id="值排序"><a href="#值排序" class="headerlink" title="值排序"></a>值排序</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 按值对Series进行排序，使用order()，默认空值会置于尾部</span><br><span class="line">s = pd.Series([4, 6, np.nan, 2, np.nan])</span><br><span class="line">s.order()</span><br><span class="line"></span><br><span class="line">df.sort_values(by=[&apos;a&apos;,&apos;b&apos;])#按列进行排序</span><br></pre></td></tr></table></figure>
-<h3 id="排名"><a href="#排名" class="headerlink" title="排名"></a>排名</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a=Series([7,-5,7,4,2,0,4])</span><br><span class="line">a.rank()#默认method=&apos;average&apos;，升序排名（ascending=True），按行（axis=0）</span><br><span class="line">#average 值相等时，取排名的平均值</span><br><span class="line">#min 值相等时，取排名最小值</span><br><span class="line">#max 值相等时，取排名最大值</span><br><span class="line">#first值相等时，按原始数据出现顺序排名</span><br></pre></td></tr></table></figure>
-<h3 id="索引设置"><a href="#索引设置" class="headerlink" title="索引设置"></a>索引设置</h3><h4 id="设置索引"><a href="#设置索引" class="headerlink" title="设置索引"></a>设置索引</h4><p><code>reindex()</code><br>更新<code>index</code>或者<code>columns</code>，默认：更新index，返回一个新的DataFrame<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 返回一个新的DataFrame，更新index，原来的index会被替代消失</span><br><span class="line"># 如果dataframe中某个索引值不存在，会自动补上NaN</span><br><span class="line">df2 = df1.reindex([&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;,&apos;e&apos;])</span><br><span class="line"></span><br><span class="line"># fill_valuse为原先不存在的索引补上默认值，不在是NaN</span><br><span class="line">df2 = df1.reindex([&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;,&apos;e&apos;],  fill_value=0)</span><br><span class="line"></span><br><span class="line"># inplace=Ture，在DataFrame上修改数据，而不是返回一个新的DataFrame</span><br><span class="line">df1.reindex([&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;,&apos;e&apos;],  inplace=Ture)</span><br><span class="line"></span><br><span class="line"># reindex不仅可以修改 索引(行)，也可以修改列</span><br><span class="line">states = [&quot;Texas&quot;,&quot;Utah&quot;,&quot;California&quot;]</span><br><span class="line">df2 = df1.reindex( columns=states )</span><br><span class="line">set_index()</span><br></pre></td></tr></table></figure></p>
+<h4 id="丢弃缺失值dropna"><a href="#丢弃缺失值dropna" class="headerlink" title="丢弃缺失值dropna()"></a>丢弃缺失值<code>dropna()</code></h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 默认axi=0（行）；1（列），how=‘any’</span><br><span class="line">df.dropna()#每行只要有空值，就将这行删除</span><br><span class="line">df.dropna(axis=1)#每列只要有空值，整列丢弃</span><br><span class="line">df.dropna(how=&apos;all&apos;)# 一行中全部为NaN的，才丢弃该行</span><br><span class="line">df.dropna(thresh=3)# 每行至少3个非空值才保留</span><br></pre></td></tr></table></figure>
+<h4 id="缺失值填充fillna"><a href="#缺失值填充fillna" class="headerlink" title="缺失值填充fillna()"></a>缺失值填充<code>fillna()</code></h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df.fillna(0)</span><br><span class="line">df.fillna(&#123;1:0,2:0.5&#125;) #对第一列nan值赋0，第二列赋值0.5</span><br><span class="line">df.fillna(method=&apos;ffill&apos;) #在列方向上以前一个值作为值赋给NaN</span><br></pre></td></tr></table></figure>
+<h4 id="值替换replace"><a href="#值替换replace" class="headerlink" title="值替换replace()"></a>值替换<code>replace()</code></h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 将df的A列中 -999 全部替换成空值</span><br><span class="line">df[&apos;A&apos;].replace(-999, np.nan)</span><br><span class="line">#-999和1000 均替换成空值</span><br><span class="line">obj.replace([-999,1000],  np.nan)</span><br><span class="line"># -999替换成空值，1000替换成0</span><br><span class="line">obj.replace([-999,1000],  [np.nan, 0])</span><br><span class="line"># 同上，写法不同，更清晰</span><br><span class="line">obj.replace(&#123;-999:np.nan, 1000:0&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="重复值处理duplicated-，unique-，drop-duplictad"><a href="#重复值处理duplicated-，unique-，drop-duplictad" class="headerlink" title="重复值处理duplicated()，unique()，drop_duplictad()"></a>重复值处理duplicated()，unique()，drop_duplictad()</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df.duplicated()#两行每列完全一样才算重复，后面重复的为True，第一个和不重复的为false，返回true</span><br><span class="line">               #和false组成的Series类型</span><br><span class="line">df.duplicated(&apos;key&apos;)#两行key这一列一样就算重复</span><br><span class="line"></span><br><span class="line">df[&apos;A&apos;].unique()# 返回唯一值的数组（类型为array）</span><br><span class="line"></span><br><span class="line">df.drop_duplicates([&apos;k1&apos;])# 保留k1列中的唯一值的行，默认保留第一行</span><br><span class="line">df.drop_duplicates([&apos;k1&apos;,&apos;k2&apos;], take_last=True)# 保留 k1和k2 组合的唯一值的行，take_last=True 保留最后一行</span><br></pre></td></tr></table></figure>
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><h4 id="索引排序"><a href="#索引排序" class="headerlink" title="索引排序"></a>索引排序</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 默认axis=0，按行索引对行进行排序；ascending=True，升序排序</span><br><span class="line">df.sort_index()</span><br><span class="line"># 按列名对列进行排序，ascending=False 降序</span><br><span class="line">df.sort_index(axis=1, ascending=False)</span><br></pre></td></tr></table></figure>
+<h4 id="值排序"><a href="#值排序" class="headerlink" title="值排序"></a>值排序</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 按值对Series进行排序，使用order()，默认空值会置于尾部</span><br><span class="line">s = pd.Series([4, 6, np.nan, 2, np.nan])</span><br><span class="line">s.order()</span><br><span class="line"></span><br><span class="line">df.sort_values(by=[&apos;a&apos;,&apos;b&apos;])#按列进行排序</span><br></pre></td></tr></table></figure>
+<h3 id="排名"><a href="#排名" class="headerlink" title="排名"></a>排名</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a=Series([7,-5,7,4,2,0,4])</span><br><span class="line">a.rank()#默认method=&apos;average&apos;，升序排名（ascending=True），按行（axis=0）</span><br><span class="line">#average 值相等时，取排名的平均值</span><br><span class="line">#min 值相等时，取排名最小值</span><br><span class="line">#max 值相等时，取排名最大值</span><br><span class="line">#first值相等时，按原始数据出现顺序排名</span><br></pre></td></tr></table></figure>
+<h3 id="索引设置"><a href="#索引设置" class="headerlink" title="索引设置"></a>索引设置</h3><h4 id="设置索引"><a href="#设置索引" class="headerlink" title="设置索引"></a>设置索引</h4><p><code>reindex()</code><br>更新<code>index</code>或者<code>columns</code>，默认：更新index，返回一个新的DataFrame<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 返回一个新的DataFrame，更新index，原来的index会被替代消失</span><br><span class="line"># 如果dataframe中某个索引值不存在，会自动补上NaN</span><br><span class="line">df2 = df1.reindex([&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;,&apos;e&apos;])</span><br><span class="line"></span><br><span class="line"># fill_valuse为原先不存在的索引补上默认值，不在是NaN</span><br><span class="line">df2 = df1.reindex([&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;,&apos;e&apos;],  fill_value=0)</span><br><span class="line"></span><br><span class="line"># inplace=Ture，在DataFrame上修改数据，而不是返回一个新的DataFrame</span><br><span class="line">df1.reindex([&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;,&apos;e&apos;],  inplace=Ture)</span><br><span class="line"></span><br><span class="line"># reindex不仅可以修改 索引(行)，也可以修改列</span><br><span class="line">states = [&quot;Texas&quot;,&quot;Utah&quot;,&quot;California&quot;]</span><br><span class="line">df2 = df1.reindex( columns=states )</span><br><span class="line">set_index()</span><br></pre></td></tr></table></figure></p>
 <p>将DataFrame中的列columns设置成索引index</p>
-<h4 id="打造层次化索引的方法"><a href="#打造层次化索引的方法" class="headerlink" title="打造层次化索引的方法"></a>打造层次化索引的方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 将columns中的其中两列：race和sex的值设置索引，race为一级，sex为二级</span><br><span class="line"># inplace=True 在原数据集上修改的</span><br><span class="line">adult.set_index([&apos;race&apos;,&apos;sex&apos;], inplace = True) </span><br><span class="line"></span><br><span class="line"># 默认情况下，设置成索引的列会从DataFrame中移除</span><br><span class="line"># drop=False将其保留下来</span><br><span class="line">adult.set_index([&apos;race&apos;,&apos;sex&apos;], inplace = True) </span><br><span class="line">reset_index()</span><br></pre></td></tr></table></figure>
+<h4 id="打造层次化索引的方法"><a href="#打造层次化索引的方法" class="headerlink" title="打造层次化索引的方法"></a>打造层次化索引的方法</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 将columns中的其中两列：race和sex的值设置索引，race为一级，sex为二级</span><br><span class="line"># inplace=True 在原数据集上修改的</span><br><span class="line">adult.set_index([&apos;race&apos;,&apos;sex&apos;], inplace = True) </span><br><span class="line"></span><br><span class="line"># 默认情况下，设置成索引的列会从DataFrame中移除</span><br><span class="line"># drop=False将其保留下来</span><br><span class="line">adult.set_index([&apos;race&apos;,&apos;sex&apos;], inplace = True) </span><br><span class="line">reset_index()</span><br></pre></td></tr></table></figure>
 <p>将使用<code>set_index()</code>打造的层次化逆向操作<br>既是取消层次化索引，将索引变回列，并补上最常规的数字索引<br><code>df.reset_index()</code></p>
 <h3 id="数据选取"><a href="#数据选取" class="headerlink" title="数据选取"></a>数据选取</h3><p>[]<br>只能对行进 行（row/index） 切片，前闭后开d<code>f[0:3]，df[:4]，df[4:]</code></p>
-<h3 id="where-布尔查找"><a href="#where-布尔查找" class="headerlink" title="where 布尔查找"></a>where 布尔查找</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[df[&quot;A&quot;]&gt;7]</span><br></pre></td></tr></table></figure>
-<p>isin<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 返回布尔值</span><br><span class="line">s.isin([1,2,3])</span><br><span class="line">df[&apos;A&apos;].isin([1,2,3])</span><br><span class="line">df.loc[df[&apos;A&apos;].isin([5.8,5.1])]选取列A中值为5.8，5.1的所有行组成dataframe</span><br></pre></td></tr></table></figure></p>
+<h3 id="where-布尔查找"><a href="#where-布尔查找" class="headerlink" title="where 布尔查找"></a>where 布尔查找</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df[df[&quot;A&quot;]&gt;7]</span><br></pre></td></tr></table></figure>
+<p>isin<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 返回布尔值</span><br><span class="line">s.isin([1,2,3])</span><br><span class="line">df[&apos;A&apos;].isin([1,2,3])</span><br><span class="line">df.loc[df[&apos;A&apos;].isin([5.8,5.1])]选取列A中值为5.8，5.1的所有行组成dataframe</span><br></pre></td></tr></table></figure></p>
 <h3 id="query"><a href="#query" class="headerlink" title="query"></a>query</h3><p>多个where整合切片，&amp;：于，|：或</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.query(&quot; A&gt;5.0 &amp; (B&gt;3.5 | C&lt;1.0) &quot;)</span><br></pre></td></tr></table></figure>
-<h3 id="loc-：根据名称Label切片"><a href="#loc-：根据名称Label切片" class="headerlink" title="loc ：根据名称Label切片"></a>loc ：根据名称Label切片</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># df.loc[A,B] A是行范围，B是列范围</span><br><span class="line">df.loc[1:4,[&apos;petal_length&apos;,&apos;petal_width&apos;]]</span><br><span class="line"></span><br><span class="line"># 需求1：创建一个新的变量 test</span><br><span class="line"># 如果sepal_length &gt; 3 test = 1 否则 test = 0</span><br><span class="line">df.loc[df[&apos;sepal_length&apos;] &gt; 6, &apos;test&apos;] = 1</span><br><span class="line">df.loc[df[&apos;sepal_length&apos;] &lt;=6, &apos;test&apos;] = 0</span><br><span class="line"></span><br><span class="line"># 需求2：创建一个新变量test2 </span><br><span class="line"># 1.petal_length&gt;2 and petal_width&gt;0.3 = 1 </span><br><span class="line"># 2.sepeal_length&gt;6 and sepal_width&gt;3 = 2 3.其他 = 0</span><br><span class="line">df[&apos;test2&apos;] = 0</span><br><span class="line">df.loc[(df[&apos;petal_length&apos;]&gt;2)&amp;(df[&apos;petal_width&apos;]&gt;0.3), &apos;test2&apos;] = 1</span><br><span class="line">df.loc[(df[&apos;sepal_length&apos;]&gt;6)&amp;(df[&apos;sepal_width&apos;]&gt;3), &apos;test2&apos;] = 2</span><br><span class="line">iloc：切位置</span><br><span class="line">df.iloc[1:4,:]</span><br></pre></td></tr></table></figure>
-<h3 id="ix：混切"><a href="#ix：混切" class="headerlink" title="ix：混切"></a>ix：混切</h3><p>名称和位置混切，但效率低，少用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df1.ix[0:3,[&apos;sepal_length&apos;,&apos;petal_width&apos;]]</span><br></pre></td></tr></table></figure></p>
-<h3 id="map与lambda"><a href="#map与lambda" class="headerlink" title="map与lambda"></a>map与lambda</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">alist = [1,2,3,4]</span><br><span class="line">map(lambda s : s+1, alist)#map就是将自定义函数应用于Series每个元素</span><br><span class="line"></span><br><span class="line">df[&apos;sepal_length&apos;].map(lambda s:s*2+1)[0:3]</span><br></pre></td></tr></table></figure>
-<h3 id="apply和applymap"><a href="#apply和applymap" class="headerlink" title="apply和applymap"></a>apply和applymap</h3><p><code>apply</code>和<code>applymap</code>是对<code>dataframe</code>的操作，前者操作一行或者一列，后者操作每个元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">These are techniques to apply function to element, column or dataframe.</span><br><span class="line"></span><br><span class="line">Map: It iterates over each element of a series. </span><br><span class="line">df[‘column1’].map(lambda x: 10+x), this will add 10 to each element of column1.</span><br><span class="line">df[‘column2’].map(lambda x: ‘AV’+x), this will concatenate “AV“ at the beginning of each element of column2 (column format is string).</span><br><span class="line"></span><br><span class="line">Apply: As the name suggests, applies a function along any axis of the DataFrame.</span><br><span class="line">df[[‘column1’,’column2’]].apply(sum), it will returns the sum of all the values of column1 and column2.</span><br><span class="line">df0[[&apos;data1&apos;]].apply(lambda s:s+1)</span><br><span class="line"></span><br><span class="line">ApplyMap: 对dataframe的每一个元素施加一个函数</span><br><span class="line">func = lambda x: x+2</span><br><span class="line">df.applymap(func), dataframe每个元素加2 (所有列必须数字类型)</span><br><span class="line">contains</span><br><span class="line"># 使用DataFrame模糊筛选数据(类似SQL中的LIKE)</span><br><span class="line"># 使用正则表达式进行模糊匹配,*匹配0或无限次,?匹配0或1次</span><br><span class="line">df_obj[df_obj[&apos;套餐&apos;].str.contains(r&apos;.*?语音CDMA.*&apos;)] </span><br><span class="line"></span><br><span class="line"># 下面两句效果一致</span><br><span class="line">df[df[&apos;商品名称&apos;].str.contains(&quot;四件套&quot;)]</span><br><span class="line">df[df[&apos;商品名称&apos;].str.contains(r&quot;.*四件套.*&quot;)]</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df.query(&quot; A&gt;5.0 &amp; (B&gt;3.5 | C&lt;1.0) &quot;)</span><br></pre></td></tr></table></figure>
+<h3 id="loc-：根据名称Label切片"><a href="#loc-：根据名称Label切片" class="headerlink" title="loc ：根据名称Label切片"></a>loc ：根据名称Label切片</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># df.loc[A,B] A是行范围，B是列范围</span><br><span class="line">df.loc[1:4,[&apos;petal_length&apos;,&apos;petal_width&apos;]]</span><br><span class="line"></span><br><span class="line"># 需求1：创建一个新的变量 test</span><br><span class="line"># 如果sepal_length &gt; 3 test = 1 否则 test = 0</span><br><span class="line">df.loc[df[&apos;sepal_length&apos;] &gt; 6, &apos;test&apos;] = 1</span><br><span class="line">df.loc[df[&apos;sepal_length&apos;] &lt;=6, &apos;test&apos;] = 0</span><br><span class="line"></span><br><span class="line"># 需求2：创建一个新变量test2 </span><br><span class="line"># 1.petal_length&gt;2 and petal_width&gt;0.3 = 1 </span><br><span class="line"># 2.sepeal_length&gt;6 and sepal_width&gt;3 = 2 3.其他 = 0</span><br><span class="line">df[&apos;test2&apos;] = 0</span><br><span class="line">df.loc[(df[&apos;petal_length&apos;]&gt;2)&amp;(df[&apos;petal_width&apos;]&gt;0.3), &apos;test2&apos;] = 1</span><br><span class="line">df.loc[(df[&apos;sepal_length&apos;]&gt;6)&amp;(df[&apos;sepal_width&apos;]&gt;3), &apos;test2&apos;] = 2</span><br><span class="line">iloc：切位置</span><br><span class="line">df.iloc[1:4,:]</span><br></pre></td></tr></table></figure>
+<h3 id="ix：混切"><a href="#ix：混切" class="headerlink" title="ix：混切"></a>ix：混切</h3><p>名称和位置混切，但效率低，少用<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df1.ix[0:3,[&apos;sepal_length&apos;,&apos;petal_width&apos;]]</span><br></pre></td></tr></table></figure></p>
+<h3 id="map与lambda"><a href="#map与lambda" class="headerlink" title="map与lambda"></a>map与lambda</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">alist = [1,2,3,4]</span><br><span class="line">map(lambda s : s+1, alist)#map就是将自定义函数应用于Series每个元素</span><br><span class="line"></span><br><span class="line">df[&apos;sepal_length&apos;].map(lambda s:s*2+1)[0:3]</span><br></pre></td></tr></table></figure>
+<h3 id="apply和applymap"><a href="#apply和applymap" class="headerlink" title="apply和applymap"></a>apply和applymap</h3><p><code>apply</code>和<code>applymap</code>是对<code>dataframe</code>的操作，前者操作一行或者一列，后者操作每个元素<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">These are techniques to apply function to element, column or dataframe.</span><br><span class="line"></span><br><span class="line">Map: It iterates over each element of a series. </span><br><span class="line">df[‘column1’].map(lambda x: 10+x), this will add 10 to each element of column1.</span><br><span class="line">df[‘column2’].map(lambda x: ‘AV’+x), this will concatenate “AV“ at the beginning of each element of column2 (column format is string).</span><br><span class="line"></span><br><span class="line">Apply: As the name suggests, applies a function along any axis of the DataFrame.</span><br><span class="line">df[[‘column1’,’column2’]].apply(sum), it will returns the sum of all the values of column1 and column2.</span><br><span class="line">df0[[&apos;data1&apos;]].apply(lambda s:s+1)</span><br><span class="line"></span><br><span class="line">ApplyMap: 对dataframe的每一个元素施加一个函数</span><br><span class="line">func = lambda x: x+2</span><br><span class="line">df.applymap(func), dataframe每个元素加2 (所有列必须数字类型)</span><br><span class="line">contains</span><br><span class="line"># 使用DataFrame模糊筛选数据(类似SQL中的LIKE)</span><br><span class="line"># 使用正则表达式进行模糊匹配,*匹配0或无限次,?匹配0或1次</span><br><span class="line">df_obj[df_obj[&apos;套餐&apos;].str.contains(r&apos;.*?语音CDMA.*&apos;)] </span><br><span class="line"></span><br><span class="line"># 下面两句效果一致</span><br><span class="line">df[df[&apos;商品名称&apos;].str.contains(&quot;四件套&quot;)]</span><br><span class="line">df[df[&apos;商品名称&apos;].str.contains(r&quot;.*四件套.*&quot;)]</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -641,6 +665,30 @@
       </div>
     
 
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Jack Yao</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="/python_pandas_data" title="Pandas数据清洗，排序，索引设置，数据选取">python_pandas_data</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
     
 
     <footer class="post-footer">
@@ -747,7 +795,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">184</span>
+                    <span class="site-state-item-count">187</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -790,7 +838,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -984,10 +1038,20 @@
           
 
           
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+             </div>
+          
 
           
           
-            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
               <div class="links-of-blogroll-title">
                 <i class="fa  fa-fw fa-link"></i>
                 Links
@@ -1025,7 +1089,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pandas数据格式Series"><span class="nav-number">1.</span> <span class="nav-text">Pandas数据格式Series</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DataFrame和Series的关系"><span class="nav-number">2.</span> <span class="nav-text">DataFrame和Series的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#统计属性Series"><span class="nav-number">2.1.</span> <span class="nav-text">统计属性Series</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改列名"><span class="nav-number">2.2.</span> <span class="nav-text">修改列名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更改数据格式"><span class="nav-number">2.3.</span> <span class="nav-text">更改数据格式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据清洗"><span class="nav-number">3.</span> <span class="nav-text">数据清洗</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#丢弃值drop"><span class="nav-number">3.1.</span> <span class="nav-text">丢弃值drop()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#丢弃缺失值dropna"><span class="nav-number">3.2.</span> <span class="nav-text">丢弃缺失值dropna()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺失值填充fillna"><span class="nav-number">3.3.</span> <span class="nav-text">缺失值填充fillna()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#值替换replace"><span class="nav-number">3.4.</span> <span class="nav-text">值替换replace()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重复值处理duplicated-，unique-，drop-duplictad"><span class="nav-number">3.5.</span> <span class="nav-text">重复值处理duplicated()，unique()，drop_duplictad()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排序"><span class="nav-number">4.</span> <span class="nav-text">排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#索引排序"><span class="nav-number">4.1.</span> <span class="nav-text">索引排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#值排序"><span class="nav-number">4.2.</span> <span class="nav-text">值排序</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排名"><span class="nav-number">5.</span> <span class="nav-text">排名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引设置"><span class="nav-number">6.</span> <span class="nav-text">索引设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设置索引"><span class="nav-number">6.1.</span> <span class="nav-text">设置索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#打造层次化索引的方法"><span class="nav-number">6.2.</span> <span class="nav-text">打造层次化索引的方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据选取"><span class="nav-number">7.</span> <span class="nav-text">数据选取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#where-布尔查找"><span class="nav-number">8.</span> <span class="nav-text">where 布尔查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#query"><span class="nav-number">9.</span> <span class="nav-text">query</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#loc-：根据名称Label切片"><span class="nav-number">10.</span> <span class="nav-text">loc ：根据名称Label切片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ix：混切"><span class="nav-number">11.</span> <span class="nav-text">ix：混切</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#map与lambda"><span class="nav-number">12.</span> <span class="nav-text">map与lambda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#apply和applymap"><span class="nav-number">13.</span> <span class="nav-text">apply和applymap</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pandas数据格式Series"><span class="nav-text">Pandas数据格式Series</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DataFrame和Series的关系"><span class="nav-text">DataFrame和Series的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#统计属性Series"><span class="nav-text">统计属性Series</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改列名"><span class="nav-text">修改列名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更改数据格式"><span class="nav-text">更改数据格式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据清洗"><span class="nav-text">数据清洗</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#丢弃值drop"><span class="nav-text">丢弃值drop()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#丢弃缺失值dropna"><span class="nav-text">丢弃缺失值dropna()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺失值填充fillna"><span class="nav-text">缺失值填充fillna()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#值替换replace"><span class="nav-text">值替换replace()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重复值处理duplicated-，unique-，drop-duplictad"><span class="nav-text">重复值处理duplicated()，unique()，drop_duplictad()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排序"><span class="nav-text">排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#索引排序"><span class="nav-text">索引排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#值排序"><span class="nav-text">值排序</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排名"><span class="nav-text">排名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引设置"><span class="nav-text">索引设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设置索引"><span class="nav-text">设置索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#打造层次化索引的方法"><span class="nav-text">打造层次化索引的方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据选取"><span class="nav-text">数据选取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#where-布尔查找"><span class="nav-text">where 布尔查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#query"><span class="nav-text">query</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#loc-：根据名称Label切片"><span class="nav-text">loc ：根据名称Label切片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ix：混切"><span class="nav-text">ix：混切</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#map与lambda"><span class="nav-text">map与lambda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#apply和applymap"><span class="nav-text">apply和applymap</span></a></li></ol></div>
             
 
           </div>
@@ -1033,13 +1097,6 @@
       <!--/noindex-->
       
 
-      
-        <div class="back-to-top">
-          <i class="fa fa-arrow-up"></i>
-          
-            <span id="scrollpercent"><span>0</span>%</span>
-          
-        </div>
       
 
     </div>
@@ -1067,7 +1124,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">525k</span>
+    <span title="站点总字数">527k</span>
   
 
   
@@ -1078,7 +1135,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">7:58</span>
+    <span title="站点阅读时长">7:59</span>
   
 </div>
 
@@ -1129,18 +1186,16 @@
     </footer>
 
     
-
-    
-
-    
-
-    
-      <div>
-        <div class="addthis_inline_share_toolbox">
-  <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cb68f059ff1e21f" async="async"></script>
-</div>
-
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
       </div>
+    
+
+    
+
+    
+
     
   </div>
 
@@ -1164,6 +1219,14 @@
 
 
 
+
+  
+    
+    
+      
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="66" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
 
 
 
@@ -1601,16 +1664,6 @@
   
 
   
-  <script>
-    (function(){
-      var bp = document.createElement('script');
-      var curProtocol = window.location.protocol.split(':')[0];
-      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(bp, s);
-    })();
-  </script>
-
 
   
 
