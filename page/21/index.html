@@ -268,7 +268,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">16</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">17</span></a>
 
   </li>
         
@@ -287,7 +287,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">59</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">61</span></a>
 
   </li>
         
@@ -306,7 +306,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">216</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">222</span></a>
 
   </li>
         
@@ -397,6 +397,1394 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/redis_order/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/redis_order/" class="post-title-link" itemprop="url">Redis常用命令</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2015-12-23 10:14:08" itemprop="dateCreated datePublished" datetime="2015-12-23T10:14:08+08:00">2015-12-23</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-24 18:00:58" itemprop="dateModified" datetime="2019-04-24T18:00:58+08:00">2019-04-24</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/Db/" itemprop="url" rel="index"><span itemprop="name">Db</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/redis_order/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/redis_order/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">6.3k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">6 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              Key
+Key命令速查：
+DEL删除给定的一个或多个 key，不存在的 key 会被忽略，返回值：被删除 key 的数量
+DUMP序列化给定 key，返回被序列化的值，使用 RESTORE 命令可以将这个值反序列化为 Redis 键
+EXISTS检查给定key是否存在
+EXPIRE为给定key设置有
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/redis_order/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/php_debug_backtrace/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/php_debug_backtrace/" class="post-title-link" itemprop="url">Php调试函数debug_backtrace</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2015-11-30 17:38:39" itemprop="dateCreated datePublished" datetime="2015-11-30T17:38:39+08:00">2015-11-30</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-24 18:10:11" itemprop="dateModified" datetime="2019-04-24T18:10:11+08:00">2019-04-24</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/Back/" itemprop="url" rel="index"><span itemprop="name">Back</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/Back/Php/" itemprop="url" rel="index"><span itemprop="name">Php</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/php_debug_backtrace/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/php_debug_backtrace/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">1.1k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              debug_print_backtrace();会在页面直接输出。可以开启缓冲期
+ob_start();开启缓冲区ob_flush();缓冲器清除ob_get_contents();获取缓冲区内容ob_end_clean();缓冲器清除这个函数不会输出内部缓冲区的内容而是把它删除！function 
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/php_debug_backtrace/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/git_gitignore/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/git_gitignore/" class="post-title-link" itemprop="url">Git上传时忽略不想上传的文件</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2015-11-23 17:36:10" itemprop="dateCreated datePublished" datetime="2015-11-23T17:36:10+08:00">2015-11-23</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-24 18:00:09" itemprop="dateModified" datetime="2019-04-24T18:00:09+08:00">2019-04-24</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tool/" itemprop="url" rel="index"><span itemprop="name">Tool</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/git_gitignore/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/git_gitignore/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">509</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              在进行协作开发代码管理的过程中，常常会遇到某些临时文件、配置文件、或者生成文件等，这些文件由于不同的开发端会不一样，如果使用git add . 将所有文件纳入git库中，那么会出现频繁的改动和push，这样会引起开发上的不便。
+Git可以很方便的帮助我们解决这个问题，那就是建立项目文件过滤规则。
+g
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/git_gitignore/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/linux_vibox_centos_network/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/linux_vibox_centos_network/" class="post-title-link" itemprop="url">虚拟机安装Centos7后配置网络</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2015-11-13 10:46:45" itemprop="dateCreated datePublished" datetime="2015-11-13T10:46:45+08:00">2015-11-13</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-24 17:59:52" itemprop="dateModified" datetime="2019-04-24T17:59:52+08:00">2019-04-24</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/linux_vibox_centos_network/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/linux_vibox_centos_network/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">123</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              
+1：添加网卡2 桥接网卡
+
+2：复制网络配置文件
+
+3：使用ip addr 看一下本机分配的ip
+
+4：根据本机信息修改配置文件
+
+5： 习惯使用ifconfig的话 使用 yum -y install net-tools 安装一个网络包
+
+
+
+              
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/linux_vibox_centos_network/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/git_install/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/git_install/" class="post-title-link" itemprop="url">Git安装</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2015-10-28 09:30:06" itemprop="dateCreated datePublished" datetime="2015-10-28T09:30:06+08:00">2015-10-28</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-24 18:00:09" itemprop="dateModified" datetime="2019-04-24T18:00:09+08:00">2019-04-24</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tool/" itemprop="url" rel="index"><span itemprop="name">Tool</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/git_install/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/git_install/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">1.9k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">2 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              安装GitUbuntu12.04下可以使用apt-get方式安装，也可以下载源代码安装，我们这里使用apt-get安装。
+但由于直接使用sudo apt-get install git安装的版本较老，因此我们参考中给出的PPA源。sudo add-apt-repository ppa:git-cor
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/git_install/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/git_order/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/git_order/" class="post-title-link" itemprop="url">Git常用命令</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2015-10-28 09:27:02" itemprop="dateCreated datePublished" datetime="2015-10-28T09:27:02+08:00">2015-10-28</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-24 18:00:09" itemprop="dateModified" datetime="2019-04-24T18:00:09+08:00">2019-04-24</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tool/" itemprop="url" rel="index"><span itemprop="name">Tool</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/git_order/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/git_order/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">7k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">6 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              创建新仓库git init
+检出仓库有冲突的话合并这些 冲突（conflicts）。改完之后，你需要执行如下命令以将它们标记为合并成功：git add &lt;filename&gt;
+在合并改动之前，也可以使用如下命令查看：git diff &lt;source_branch&gt; &lt;ta
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/git_order/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -1311,1429 +2699,11 @@ Linux中经常会遇到用vim编辑好了文件，保存的时候提示当前文
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/php_dev_windows/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/php_dev_windows/" class="post-title-link" itemprop="url">windows下开发php5.5的扩展</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2015-10-13 17:24:46" itemprop="dateCreated datePublished" datetime="2015-10-13T17:24:46+08:00">2015-10-13</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-24 18:10:11" itemprop="dateModified" datetime="2019-04-24T18:10:11+08:00">2019-04-24</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/Back/" itemprop="url" rel="index"><span itemprop="name">Back</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/Back/Php/" itemprop="url" rel="index"><span itemprop="name">Php</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/php_dev_windows/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/php_dev_windows/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">3.5k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">3 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              windows环境(我个人的)windows 8.1 企业版(mac os Boot Camp安装的)Visual Studio 2012 版本msysgit  (http://msysgit.github.io/ 下载)php-sdk-binary-tools-20110915.zip （http
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/php_dev_windows/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/php_xdebug/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/php_xdebug/" class="post-title-link" itemprop="url">Php安装配置xdebug</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2015-10-13 11:08:08" itemprop="dateCreated datePublished" datetime="2015-10-13T11:08:08+08:00">2015-10-13</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-24 18:10:11" itemprop="dateModified" datetime="2019-04-24T18:10:11+08:00">2019-04-24</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/Back/" itemprop="url" rel="index"><span itemprop="name">Back</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/Back/Php/" itemprop="url" rel="index"><span itemprop="name">Php</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/php_xdebug/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/php_xdebug/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">3.4k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">3 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              php下搭配使用xdebug是十分好的组合，用于php的调试工作，下面分别介绍之：
-WINDOWS下的安装下载站点 http://www.xdebug.org/要确定使用一个跟你的PHP配合的版本才行，比如xdebug中的5。2系列版本是跟5.2的php搭配的，5.3系列的跟5.3的PHP搭配的。目
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/php_xdebug/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/js_card_luhm/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/js_card_luhm/" class="post-title-link" itemprop="url">Js银行卡号Luhm校验</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2015-10-10 14:43:34" itemprop="dateCreated datePublished" datetime="2015-10-10T14:43:34+08:00">2015-10-10</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-24 18:09:57" itemprop="dateModified" datetime="2019-04-24T18:09:57+08:00">2019-04-24</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/Front/" itemprop="url" rel="index"><span itemprop="name">Front</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/Front/Js/" itemprop="url" rel="index"><span itemprop="name">Js</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/js_card_luhm/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/js_card_luhm/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">2.8k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">3 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              银行卡号校验
-//Description: 银行卡号Luhm校验//Luhm校验规则：16位银行卡号（19位通用）:// 1.将未带校验位的 15（或18）位卡号从右依次编号 1 到 15（18），位于奇数位号上的数字乘以 2。// 2.将奇位乘积的个十位全部相加，再加上所有偶数位上的数字。// 3
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/js_card_luhm/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/mongodb_cluster_question/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/mongodb_cluster_question/" class="post-title-link" itemprop="url">Mongodb衍伸的互联网思考</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2015-10-09 17:17:44" itemprop="dateCreated datePublished" datetime="2015-10-09T17:17:44+08:00">2015-10-09</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-24 18:00:58" itemprop="dateModified" datetime="2019-04-24T18:00:58+08:00">2019-04-24</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/Db/" itemprop="url" rel="index"><span itemprop="name">Db</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/mongodb_cluster_question/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/mongodb_cluster_question/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">751</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              
-引子：如何使用三台服务器搭建高可用mongodb集群。
-
-从技术角度出发，基本上聊完这个话题就可以清晰地知道对mongodb的掌握程度。
-mongodb副本集故障转移功能得益于它的选举机制，采用了bully算法。一般分布式集群都会有一个所谓的主节点。比如常用的mysql经常会申明一个主节点，其他的
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/mongodb_cluster_question/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/object_oriented_programming_five/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/object_oriented_programming_five/" class="post-title-link" itemprop="url">面向对象的基础五</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2015-09-06 23:53:55" itemprop="dateCreated datePublished" datetime="2015-09-06T23:53:55+08:00">2015-09-06</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-24 18:01:06" itemprop="dateModified" datetime="2019-04-24T18:01:06+08:00">2019-04-24</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/Theory/" itemprop="url" rel="index"><span itemprop="name">Theory</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/object_oriented_programming_five/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/object_oriented_programming_five/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">742</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              接口的定义和规范接口是把隐式公共方法和属性组合起来，以封装特定的功能的一个集合。一旦类实现了接口，类就可以支持接口所指定的所有属性和成员。声明接口在语法上与声明抽象类完全相同，但不允许提供接口中任何成员的执行方式。
-所以接口不能实例化，不能有构造方法和字段；抽象方法只能是public的，不能设置为p
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/object_oriented_programming_five/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/object_oriented_programming_four/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jack Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zihao'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/object_oriented_programming_four/" class="post-title-link" itemprop="url">面向对象的基础四</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2015-09-06 20:50:02" itemprop="dateCreated datePublished" datetime="2015-09-06T20:50:02+08:00">2015-09-06</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-24 18:01:06" itemprop="dateModified" datetime="2019-04-24T18:01:06+08:00">2019-04-24</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/Theory/" itemprop="url" rel="index"><span itemprop="name">Theory</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/object_oriented_programming_four/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/object_oriented_programming_four/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">1.1k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              c#允许把类和方法声明为abstract，即抽象类和抽象方法。
-第一：抽象类不能被实例化。
-第二：抽象方法是必须被子类重写的方法。抽象方法只有方法的声明，而没有方法的实现内容。
-第三：如果类中包含抽象方法，那么就必须定义为抽象类，不论是否还包含其他一般方法。
-抽象类拥有尽可能多的共同代码，拥有尽可能
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/object_oriented_programming_four/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/20/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/page/22/">22</a><a class="extend next" rel="next" href="/page/22/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/20/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/page/22/">22</a><a class="page-number" href="/page/23/">23</a><a class="extend next" rel="next" href="/page/22/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2775,7 +2745,7 @@ mongodb副本集故障转移功能得益于它的选举机制，采用了bully�
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">216</span>
+                    <span class="site-state-item-count">222</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2824,7 +2794,9 @@ mongodb副本集故障转移功能得益于它的选举机制，采用了bully�
                     
                       
                     
-                    <span class="site-state-item-count">16</span>
+                      
+                    
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -2959,7 +2931,11 @@ mongodb副本集故障转移功能得益于它的选举机制，采用了bully�
                     
                       
                     
-                    <span class="site-state-item-count">59</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">61</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -3077,7 +3053,7 @@ mongodb副本集故障转移功能得益于它的选举机制，采用了bully�
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">684k</span>
+    <span title="站点总字数">715k</span>
   
 
   
@@ -3088,7 +3064,7 @@ mongodb副本集故障转移功能得益于它的选举机制，采用了bully�
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">10:22</span>
+    <span title="站点阅读时长">10:50</span>
   
 </div>
 
