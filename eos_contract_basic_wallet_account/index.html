@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN,en,default">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FF5733">
+
+
+
+
+  
+  
+    
+      
+    
+    
+      
+    
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="可以将钱包想象为支付宝。 一.钱包1. 创建钱包使用 EOS 的第一步就是创建一个钱包，我们可以使用 cleos wallet create 命令来创建钱包。例如，下面的命令创建了一个 default 钱包cleos wallet create --to-console 命令执行结果如下Creating wallet: defaultSave password to use in the futu">
+<meta name="keywords" content="区块链,eos">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EOS合约基础教程-创建钱包私钥及账户">
+<meta property="og:url" content="https://yaozihao.com/eos_contract_basic_wallet_account/index.html">
+<meta property="og:site_name" content="zihao&#39;blog">
+<meta property="og:description" content="可以将钱包想象为支付宝。 一.钱包1. 创建钱包使用 EOS 的第一步就是创建一个钱包，我们可以使用 cleos wallet create 命令来创建钱包。例如，下面的命令创建了一个 default 钱包cleos wallet create --to-console 命令执行结果如下Creating wallet: defaultSave password to use in the futu">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-25T11:29:33.388Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="EOS合约基础教程-创建钱包私钥及账户">
+<meta name="twitter:description" content="可以将钱包想象为支付宝。 一.钱包1. 创建钱包使用 EOS 的第一步就是创建一个钱包，我们可以使用 cleos wallet create 命令来创建钱包。例如，下面的命令创建了一个 default 钱包cleos wallet create --to-console 命令执行结果如下Creating wallet: defaultSave password to use in the futu">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="zihao'blog" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="https://yaozihao.com/eos_contract_basic_wallet_account/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>EOS合约基础教程-创建钱包私钥及账户 | zihao'blog</title>
+  
+
+
+
+
+  <script async src="//www.googletagmanager.com/gtag/js?id=UA-138731725-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-138731725-1');
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zihao'blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">Make small but daily progress</h1>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">16</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">59</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">216</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL3VjZnlhbw==" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></span>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/eos_contract_basic_wallet_account/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">EOS合约基础教程-创建钱包私钥及账户
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-01-21 22:01:43" itemprop="dateCreated datePublished" datetime="2019-01-21T22:01:43+08:00">2019-01-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-25 19:29:33" itemprop="dateModified" datetime="2019-04-25T19:29:33+08:00">2019-04-25</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/BlockChain/" itemprop="url" rel="index"><span itemprop="name">BlockChain</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/eos_contract_basic_wallet_account/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/eos_contract_basic_wallet_account/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">6.4k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">6 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>可以将钱包想象为支付宝。</p>
+<h1 id="一-钱包"><a href="#一-钱包" class="headerlink" title="一.钱包"></a>一.钱包</h1><h2 id="1-创建钱包"><a href="#1-创建钱包" class="headerlink" title="1. 创建钱包"></a>1. 创建钱包</h2><p>使用 EOS 的第一步就是创建一个钱包，我们可以使用 <code>cleos wallet create</code> 命令来创建钱包。例如，下面的命令创建了一个 <code>default</code> 钱包<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cleos wallet create --to-console</span><br></pre></td></tr></table></figure></p>
+<p>命令执行结果如下<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Creating wallet: default</span><br><span class="line">Save password to use in the future to unlock this wallet.</span><br><span class="line">Without password imported keys will not be retrievable.</span><br><span class="line">&quot;PW5JQG1aKezEipheSq4yC3MrC6H5S127tbNGZCzXmhbxVWgXgEutz&quot;</span><br></pre></td></tr></table></figure></p>
+<p>上面的提示语句告诉我们，刚刚我们创建了一个钱包 <code>default</code> ，密码是<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">PW5JQG1aKezEipheSq4yC3MrC6H5S127tbNGZCzXmhbxVWgXgEutz</span><br></pre></td></tr></table></figure></p>
+<p><code>--to-console</code> 的意思是把创建的钱包的所有信息输出到命令行(控制台)，包括钱包的密码</p>
+<p>如果是生产环境，我们建议你使用 <code>--to-file</code> 代替 <code>--to-console</code>，这样钱包的密码就不会保留在钱包的历史记录中。</p>
+<blockquote>
+<p>注意：命令行的执行历史可以通过 <code>history</code> 命令查看</p>
+</blockquote>
+<p>对于开发来说，<code>--to-console</code> 是比较简单快捷，而且方便接下来复制，因为下面的章节有很多地方需要用到这个密码。</p>
+<h3 id="关于钱包-wallet"><a href="#关于钱包-wallet" class="headerlink" title="关于钱包 ( wallet )"></a>关于钱包 ( wallet )</h3><p>对于加密货币中的钱包，常见的误解就是钱包是用来存储令牌 ( token ) 的。</p>
+<p>而实际上呢，钱包并不存储令牌。</p>
+<p>钱包的作用是将私钥存储在加密文件中并 <strong>签署</strong> 交易。</p>
+<p>用户通常通过接口构建事务 （ transaction ） 对象，将该对象发送到要签名的钱包，然后钱包返回具有签名的该事务对象，然后该签名被广播到网络。 如果网络确认交易有效，则将其包含在区块链的块中。</p>
+<h2 id="2-打开钱包"><a href="#2-打开钱包" class="headerlink" title="2. 打开钱包"></a>2. 打开钱包</h2><p>默认情况下，启动 <span class="exturl" data-url="aHR0cHM6Ly93d3cudHdsZS5jbi9jL3l1ZmVpL2Vvc2lvL2Vvc2lvLWJhc2ljLXN0YXJ0LW5vZGVvcy5odG1s" title="https://www.twle.cn/c/yufei/eosio/eosio-basic-start-nodeos.html">keosd<i class="fa fa-external-link"></i></span> 时钱包默认是关闭的。要打开钱包，可以使用下面的命令<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cleos wallet open</span><br></pre></td></tr></table></figure></p>
+<p>运行结果如下<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Opened: default</span><br></pre></td></tr></table></figure></p>
+<h3 id="列出钱包"><a href="#列出钱包" class="headerlink" title="列出钱包"></a>列出钱包</h3><p>钱包打开之后，我们才能查看有哪些钱包。我们可以使用下面的命令查看当前打开的所有钱包<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cleos wallet list</span><br></pre></td></tr></table></figure></p>
+<p>返回信息如下<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Wallets:</span><br><span class="line">[</span><br><span class="line">  &quot;default&quot;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<h3 id="解锁钱包"><a href="#解锁钱包" class="headerlink" title="解锁钱包"></a>解锁钱包</h3><p>我们已经使用 <code>cleos wallet open</code> 命令打开了钱包，但钱包还是锁着的。如果要打开锁，那么就要使用刚刚创建钱包时提供的密码。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cleos wallet unlock</span><br></pre></td></tr></table></figure></p>
+<p>运行上面的命令，会被提示需要输入密码，输入刚刚创建钱包时的密码，比如我的是 <code>PW5JQG1aKezEipheSq4yC3MrC6H5S127tbNGZCzXmhbxVWgXgEutz</code>，完成后回车，显式结果如下<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">password: </span><br><span class="line">Unlocked: default</span><br></pre></td></tr></table></figure></p>
+<p>这时候，我们再使用 <code>cleos wallet list</code> 命令列出钱包，就会发现 <code>default</code> 后面有一个星号 ( <code>*</code> )<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Wallets:</span><br><span class="line">[</span><br><span class="line">  &quot;default *&quot;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>星号 <code>*</code> 的意思是钱包的状态是已解锁的。</p>
+<h1 id="二-私钥和公钥"><a href="#二-私钥和公钥" class="headerlink" title="二.私钥和公钥"></a>二.私钥和公钥</h1><p>数字货币中的密钥分为公钥和私钥两部分。一个账号可以对应多个密钥，一个密钥也可以对应多个账号。</p>
+<p>EOS <code>cleos</code> 提供了 <code>cleos wallet create_key</code> 命令用来创建密钥。</p>
+<p>运行该命令，显式结果如下<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Created new private key with a public key of: &quot;EOS6osBZxznyq9oSvCPQEiV35SfCS25E3kEzwp9GwTU5rAdbJ3kUE&quot;</span><br></pre></td></tr></table></figure></p>
+<p>如果命令的运行结果为<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Error 3120003: Locked wallet</span><br><span class="line">Ensure that your wallet is unlocked before using it!</span><br></pre></td></tr></table></figure></p>
+<p>则首先需要使用解锁的命令解锁钱包<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cleos wallet unlock</span><br></pre></td></tr></table></figure></p>
+<p>系统会把私钥直接放入钱包，所以只显示了公钥。</p>
+<h2 id="导入开发密钥"><a href="#导入开发密钥" class="headerlink" title="导入开发密钥"></a>导入开发密钥</h2><p>每个新的 EOSIO 链都有一个名为 <code>eosio</code> 的默认 <code>系统</code> 用户。所有其它用户都从该用户派生，也就是该用户是所有其它用户的祖先用户。</p>
+<p><code>eosio</code> 系统用户的一个重要作用就是用于加载系统合约来设置链，这些合约规定了 EOSIO 链的治理和共识。</p>
+<p><code>eosio</code> 系统用户的另一个重要作用就是创建其它用户。</p>
+<p>每个新的 EOSIO 链都带有一个开发密钥，而且不管是哪个新链，这个密钥都是相同的。</p>
+<p>不过，在生产环境上，一旦设置 EOSIO 链完毕，<code>eosio</code> 用户就会被没收，也就是用户再也没法使用 <code>eosio</code> 用户了。</p>
+<p>在开发环境上，我们可以通过给 eosio 用户导入这个开发密钥来签名事务( transactions )。</p>
+<p>导入密钥到钱包的命令如下<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cleos wallet import</span><br></pre></td></tr></table></figure></p>
+<p>然后复制粘贴下面的密钥，按下回车以完成导入<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>千万要注意，不要在生产环境上使用该开发密钥。因为该密钥是公开的，人人都知道，可能会给你带来意想不到的损失</p>
+</blockquote>
+<h1 id="三-账户"><a href="#三-账户" class="headerlink" title="三.账户"></a>三.账户</h1><p>EOS 中，帐户(账户)是存储在区块链上的授权集合，用于标识发送者 / 接受者。<br>对于EOS的权限和许可，分得非常细。一个授权，既可以由一个人拥有，也可以由一组个人拥有，具体取决于如何配置权限。</p>
+<p>「Permission」我没有翻译成权限，我这里觉得它更像一种叫做「许可」，它是一个操作允许的权限，可以建立很多permission。比如允许你转账，允许你发微博或者允许你做其他事。它是通过permission来控制你的操作，可能不同的用户有不同的permission。</p>
+<p>Threshold是某个许可需要的阈值。比如你要做一件事儿，它可能有个阈值，这个阈值是一个量化，你必须要达到这个阈值才可以进行相应的操作。</p>
+<p>Weight表示权重。账号必须对应某个许可拥有的权重，就是你的权重要大于你的阈值，然后这件事儿你就可以做。</p>
+<p>在permission许可里面有两种许可：</p>
+<ul>
+<li>-owner许可；</li>
+<li>-active许可。</li>
+</ul>
+<p>这两个叫native（原生）的permission，另外还有public的permission。<br>下面通过两个例子来解释他们之间的关系与区别：<br>|permission|    account    |weight    |threshold|<br>| ——–   | —–:   | :—-: | :—-: |<br>|owner    | | | 1|<br>||EOS5EzTZZQQxdrDaJAPD9pDzGJZ5bj34HaAb8yuvjFHGWzqV25Dch    |1||<br>|active    |||1|<br>||EOS61chK8GbH4ukWcbom8HgK95AeUfP8MBPn7XRq8FeMBYYTgwmcX    |1|    |</p>
+<p>第一个例子， owner许可的阈值是1，它里面有一个账号，这个账号是用它的公钥来代表的，然后这个账号的权重是1，这样你的权重是大于等于阈值的，所以可以用owner的账号和权限。 </p>
+<p>active许可里面有一个账号，它的权重也是等于这个阈值，所以可以用active的账号和权限。</p>
+<p>这两个账号，一个是有owner权限，一个是有active权限，因为它们的权重和阈值是大于等于这个值的，对应的账号与权限都是可以使用的。</p>
+<table>
+<thead>
+<tr>
+<th>permission</th>
+<th style="text-align:right">account</th>
+<th style="text-align:center">weight</th>
+<th style="text-align:center">threshold</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>owner</td>
+<td style="text-align:right"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align:right">@bob</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align:right">@stracy</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>active</td>
+<td style="text-align:right"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align:right">@bob</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align:right">@stracy</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>publish</td>
+<td style="text-align:right"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align:right">@bob</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align:right">@stracy</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<p>第二个例子，除了owner的permission之外，你还可以有一个publish permission。它们之间有什么区别呢？</p>
+<p>当你创建任何一个账号，这个账号都有owner的许可和active的许可。其他的许可就是你可以自己定义，来让不同的用户，拥有不同的许可组合，这样就可以很灵活的去管理不同的账号。</p>
+<p>所以这一点，EOS考虑的比较比较细致一点，但是以太坊或者比特币没有做到这么细致，以太坊或者比特币拥有一个账号就可以做任何事情。</p>
+<p>这里面再细一点来讲，这里面的owner的阈值是R，bob账号的权重只有1，stracy账号的权重也只有1，如果它俩单独的去获得owner许可相关的操作，它们是获得不了的。但是，如果bob和stracy加起来大于等于2，就是这两个账号联合起来大于等于2的，这两个账号就可以做这个操作的，其实这有点像投票。</p>
+<p>我觉得这个权限或许可的限制，和我们传统的操作系统是不太一样的。我们传统的操作系统好像没有这种联合签名可以达到两个权重来执行owner的相关操作。</p>
+<p>active这也是一样的，如果bob账号是1，stracy账号是1，如果active需要的阈值是1的话， bob账号和stracy账号是单独都可以做active许可相关的操作，就是转移资金。</p>
+<p>另外，publish就是一个定制化许可。我们每个用户也可以定义自己某些允许的一些操作。publish这里面的阈值是2，bob账号是2，stracy账号是2，这两个账号也可以单独做publish许可相关的操作。而publish的权限可能是比如发布一些消息、发布一些微博的操作。</p>
+<h2 id="列出当前钱包下的所有密钥对"><a href="#列出当前钱包下的所有密钥对" class="headerlink" title="列出当前钱包下的所有密钥对"></a>列出当前钱包下的所有密钥对</h2><p>我们可以使用 <code>cleos wallet private_keys</code> 列出当前钱包下的所有密钥对<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cleos wallet private_keys</span><br><span class="line"></span><br><span class="line">password: [[</span><br><span class="line">    &quot;EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV&quot;,</span><br><span class="line">    &quot;5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3&quot;</span><br><span class="line">  ],[</span><br><span class="line">    &quot;EOS6osBZxznyq9oSvCPQEiV35SfCS25E3kEzwp9GwTU5rAdbJ3kUE&quot;,</span><br><span class="line">    &quot;5JPW9xZHiQ1tGWbMn7mnaWndscJ6p2tsWjjLtLLguyoeeaqbDAj&quot;</span><br><span class="line">  ]</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意： 你的钱包下的密钥可能和我不一样，不过没关系</p>
+</blockquote>
+<p>在我上面的钱包中，总共有三个密钥对，所有以 EOS 开头的都是公钥，而第二个则都是私钥。</p>
+<blockquote>
+<p>注意，私钥很重要，千万不要轻易告诉别人</p>
+</blockquote>
+<h2 id="创建账户"><a href="#创建账户" class="headerlink" title="创建账户"></a>创建账户</h2><p>在前面的章节中，我们已经创建了一个钱包和一个密钥对。接下来我们创建的账户会用到上一章节中创建的密钥对。</p>
+<p>然后我们就可以使用 <code>cleos wallet create account</code> 来创建账号了，该命令语法如下<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cleos create account [OPTIONS] creator name OwnerKey [ActiveKey]</span><br><span class="line">                               ──┬─── ──┬──  ───┬───   ──┬──  </span><br><span class="line">                                 │      │       │        └ active 权限公钥，可选</span><br><span class="line">                                 │      │       └─ owner 权限公钥 </span><br><span class="line">                                 │      └ 要创建的账号，只能是 [0-5a-z.]&#123;1,12&#125;</span><br><span class="line">                                 └──创建者，必须是已经存在的账号</span><br></pre></td></tr></table></figure></p>
+<p>下面的命令使用 eosio 作为创建者，使用 <code>EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV</code> 作为公钥，创建 <code>a</code>账户<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cleos create account eosio a EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV</span><br></pre></td></tr></table></figure></p>
+<p>该命令执行后，会输出创建账号的事务<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">executed transaction: ab4152fa1d85a1b01339f3e7b8bdc2b4a162b5ab28ee952880426020d8a4ff73  200 bytes  3954 us</span><br><span class="line">#         eosio &lt;= eosio::newaccount            &#123;&quot;creator&quot;:&quot;eosio&quot;,&quot;name&quot;:&quot;a&quot;,&quot;owner&quot;:&#123;&quot;threshold&quot;:1,&quot;keys&quot;:[&#123;&quot;key&quot;:&quot;EOS6MRyAjQq8ud7hVNYcfnVPJqcVpsc...</span><br><span class="line">warning: transaction executed locally, but may not be confirmed by the network yet         ]</span><br></pre></td></tr></table></figure></p>
+<p>类似的，我们可以使用相同的密钥对创建多个其它账号</p>
+<blockquote>
+<p>注意： 开发环境可以使用一个密钥对创建多个账号，这样更方便，但是，生产环境，请不要这么做</p>
+</blockquote>
+<h2 id="创建-b-账户"><a href="#创建-b-账户" class="headerlink" title="创建 b 账户"></a>创建 <code>b</code> 账户</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cleos create account eosio b EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV</span><br></pre></td></tr></table></figure>
+<h2 id="创建-c-账户"><a href="#创建-c-账户" class="headerlink" title="创建 c 账户"></a>创建 <code>c</code> 账户</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cleos create account eosio c EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV</span><br></pre></td></tr></table></figure>
+<h2 id="ower-权限和-active-权限的区别？"><a href="#ower-权限和-active-权限的区别？" class="headerlink" title="ower 权限和 active 权限的区别？"></a>ower 权限和 active 权限的区别？</h2><p>EOSIO 具有独特的授权结构，为我们的帐户增加了安全性。<br>一般的交易使用 <code>active</code> 权限即可，该权限可以执行大部分的操作，除了更改账户本身。<br>而 <code>owner</code> 权限，可以修改账户，添加或者删除权限，更改密钥等等操作。<br>在日常生产环境中，我们应该保持 <code>ower</code> 权限和 <code>active</code> 权限使用不同的密钥对。这样可以最小化账户的风险。<br>这样，一旦我们的 <code>active</code> 权限泄露，我们可以使用 <code>ower</code> 权限来重置它</p>
+<h2 id="故障排除"><a href="#故障排除" class="headerlink" title="故障排除"></a>故障排除</h2><p>如果你在创建账号时触发了钱包已经锁定的错误。可以使用下面的命令来解锁<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cleos wallet unlock --password PW5Jz2M3EoVA1uhnSHAGTN6WpvrE7Eef62LU85LsbFxeQDSfQhgRq</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意： <code>PW5Jz2M3EoVA1uhnSHAGTN6WpvrE7Eef62LU85LsbFxeQDSfQhgRq</code> 要替换成你自己的钱包密钥</p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="Jack Yao 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/bitcoinpay.png" alt="Jack Yao 比特币">
+        <p>比特币</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>Jack Yao</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="/eos_contract_basic_wallet_account" title="EOS合约基础教程-创建钱包私钥及账户">eos_contract_basic_wallet_account</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/区块链/" rel="tag"># 区块链</a>
+          
+            <a href="/tags/eos/" rel="tag"># eos</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/eos_basic_desc/" rel="next" title="EOS智能合约基础教程--EOS简介">
+                <i class="fa fa-chevron-left"></i> EOS智能合约基础教程--EOS简介
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/eos_contract_basic_start_node/" rel="prev" title="EOS合约基础教程--启动节点">
+                EOS合约基础教程--启动节点 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jack Yao</p>
+              <div class="site-description motion-element" itemprop="description">由渐入深，记录程序人生。全栈工程师与你共勉。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">216</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">59</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3VjZnlhbw==" title="GitHub &rarr; https://github.com/ucfyao"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOnlhb3ppaGFvQHlhb3ppaGFvLmNu" title="E-Mail &rarr; mailto:yaozihao@yaozihao.cn"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly93d3cuamlhbnNodS5jb20vdS8zYWI3MGExOTliNzA=" title="简书 &rarr; https://www.jianshu.com/u/3ab70a199b70"><i class="fa fa-fw fa-heartbeat"></i>简书</span>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <span class="exturl" data-url="aHR0cHM6Ly93d3cuYmFpZHUuY29tLw==" title="https://www.baidu.com/">baidu</span>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <span class="exturl" data-url="aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8=" title="https://www.google.com/">google</span>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-钱包"><span class="nav-text">一.钱包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-创建钱包"><span class="nav-text">1. 创建钱包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于钱包-wallet"><span class="nav-text">关于钱包 ( wallet )</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-打开钱包"><span class="nav-text">2. 打开钱包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#列出钱包"><span class="nav-text">列出钱包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解锁钱包"><span class="nav-text">解锁钱包</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-私钥和公钥"><span class="nav-text">二.私钥和公钥</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#导入开发密钥"><span class="nav-text">导入开发密钥</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三-账户"><span class="nav-text">三.账户</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#列出当前钱包下的所有密钥对"><span class="nav-text">列出当前钱包下的所有密钥对</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建账户"><span class="nav-text">创建账户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建-b-账户"><span class="nav-text">创建 b 账户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建-c-账户"><span class="nav-text">创建 c 账户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ower-权限和-active-权限的区别？"><span class="nav-text">ower 权限和 active 权限的区别？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#故障排除"><span class="nav-text">故障排除</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2014 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jack Yao</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">684k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">10:22</span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+      
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="66" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js"></script>
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+  <script src="/js/exturl.js?v=7.1.0"></script>
+
+
+  
+
+  
+  
+
+  
+
+<script src="//cdn.jsdelivr.net/npm/leancloud-storage@3/dist/av-min.js"></script>
+
+
+
+  
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/valine/1.3.4/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: '5HH1Ct2I3JPMel7GKmPcGECC-gzGzoHsz',
+    appKey: 'ySQSP3Suwlfg3kYmoYy3spXl',
+    placeholder: 'Just go go',
+    avatar: 'identicon',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

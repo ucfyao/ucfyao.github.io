@@ -106,14 +106,14 @@
 
 
   <meta name="description" content="1 创建开发目录mkdir contractscd contracts 2 安装相关工具2.1 mac 下安装 brew/usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot; 2.2 使用 brew 安装 eos 工具brew tap e">
-<meta name="keywords" content="区块链">
+<meta name="keywords" content="区块链,eos">
 <meta property="og:type" content="article">
 <meta property="og:title" content="EOS合约基础教程:十分钟学会EOS智能合约开发">
 <meta property="og:url" content="https://yaozihao.com/btc_eos_learn_contract_in_ten_minutes/index.html">
 <meta property="og:site_name" content="zihao&#39;blog">
 <meta property="og:description" content="1 创建开发目录mkdir contractscd contracts 2 安装相关工具2.1 mac 下安装 brew/usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot; 2.2 使用 brew 安装 eos 工具brew tap e">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-24T06:54:50.000Z">
+<meta property="og:updated_time" content="2019-04-25T11:29:32.326Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="EOS合约基础教程:十分钟学会EOS智能合约开发">
 <meta name="twitter:description" content="1 创建开发目录mkdir contractscd contracts 2 安装相关工具2.1 mac 下安装 brew/usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot; 2.2 使用 brew 安装 eos 工具brew tap e">
@@ -306,7 +306,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">187</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">216</span></a>
 
   </li>
         
@@ -456,9 +456,25 @@
                 
               
 
-              <time title="创建时间：2019-04-24 14:54:50" itemprop="dateCreated datePublished" datetime="2019-04-24T14:54:50+08:00">2019-04-24</time>
+              <time title="创建时间：2019-01-28 23:45:50" itemprop="dateCreated datePublished" datetime="2019-01-28T23:45:50+08:00">2019-01-28</time>
             
 
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-25 19:29:32" itemprop="dateModified" datetime="2019-04-25T19:29:32+08:00">2019-04-25</time>
+              
             
           </span>
 
@@ -575,7 +591,7 @@
 <p>hello.cpp源代码<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &quot;hello.hpp&quot;</span><br><span class="line">using namespace eosio;</span><br><span class="line"></span><br><span class="line">ACTION hello::hi( name user ) &#123;</span><br><span class="line">   print_f( &quot;Hello % from hello&quot;, user );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">EOSIO_DISPATCH( hello, (hi) )</span><br></pre></td></tr></table></figure></p>
 <p>hello.hpp<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;eosiolib/eosio.hpp&gt;</span><br><span class="line"></span><br><span class="line">using namespace eosio;</span><br><span class="line"></span><br><span class="line">CONTRACT hello : public eosio::contract &#123;</span><br><span class="line">  public:</span><br><span class="line">      using contract::contract;</span><br><span class="line"></span><br><span class="line">      ACTION hi( name user );</span><br><span class="line"></span><br><span class="line">      // accessor for external contracts to easily send inline actions to your contract</span><br><span class="line">      using hi_action = action_wrapper&lt;&quot;hi&quot;_n, &amp;hello::hi&gt;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
 <h1 id="8-编译hello文件"><a href="#8-编译hello文件" class="headerlink" title="8 编译hello文件"></a>8 编译hello文件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">eosio-cpp -o hello.wasm hello.cpp --abigen</span><br></pre></td></tr></table></figure>
-<h2 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h2><p>在老版本中，生成ABI<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">eosio-cpp -g hello.abi hello.hpp</span><br></pre></td></tr></table></figure></p>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>在老版本中，生成ABI<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">eosio-cpp -g hello.abi hello.hpp</span><br></pre></td></tr></table></figure></p>
 <p>新的CDT工具<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">eosio-abigen hello.cpp --output=hello.abi -contract hello</span><br></pre></td></tr></table></figure></p>
 <h1 id="10-部署合约"><a href="#10-部署合约" class="headerlink" title="10 部署合约"></a>10 部署合约</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cleos set contract hello.code ../hello -p hello.code@active</span><br></pre></td></tr></table></figure>
 <p>部署成功<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Reading WASM from /wwwroot/block_chain/contracts/hello/hello.wasm...</span><br><span class="line">Publishing contract...</span><br><span class="line">executed transaction: 511b47b0ede6b4b0a00c5ca44b972c1e17c7d091b05ea0be1bfd4228d96fd645  1392 bytes  6870 us</span><br><span class="line">#         eosio &lt;= eosio::setcode               &#123;&quot;account&quot;:&quot;hello.code&quot;,&quot;vmtype&quot;:0,&quot;vmversion&quot;:0,&quot;code&quot;:&quot;0061736d0100000001300960017f006000017f60027...</span><br><span class="line">#         eosio &lt;= eosio::setabi                &#123;&quot;account&quot;:&quot;hello.code&quot;,&quot;abi&quot;:&quot;0e656f73696f3a3a6162692f312e310001026869000001000000000000806b0268690...</span><br><span class="line">warning: transaction executed locally, but may not be confirmed by the network yet         ]</span><br></pre></td></tr></table></figure></p>
@@ -644,14 +660,14 @@
 
 <ul class="post-copyright">
   <li class="post-copyright-author">
-    <strong>本文作者： </strong>Jack Yao</li>
+    <strong>本文作者：</strong>Jack Yao</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
     <a href="/btc_eos_learn_contract_in_ten_minutes" title="EOS合约基础教程:十分钟学会EOS智能合约开发">btc_eos_learn_contract_in_ten_minutes</a>
   </li>
   <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！</li>
+    <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！</li>
 </ul>
 
       </div>
@@ -662,6 +678,8 @@
         <div class="post-tags">
           
             <a href="/tags/区块链/" rel="tag"># 区块链</a>
+          
+            <a href="/tags/eos/" rel="tag"># eos</a>
           
         </div>
       
@@ -674,8 +692,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/eos_multi_node/" rel="next" title="EOS本地部署多节点私链">
-                <i class="fa fa-chevron-left"></i> EOS本地部署多节点私链
+              <a href="/eos_contract_basic_dev_config/" rel="next" title="EOS合约基础教程--开发环境配置">
+                <i class="fa fa-chevron-left"></i> EOS合约基础教程--开发环境配置
               </a>
             
           </div>
@@ -683,6 +701,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/eth_0x14_contract_safe/" rel="prev" title="0x14--智能合约安全">
+                0x14--智能合约安全 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -755,7 +777,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">187</span>
+                    <span class="site-state-item-count">216</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -998,16 +1020,6 @@
           
 
           
-             <div class="cc-license motion-element" itemprop="license">
-              
-              
-                
-              
-              
-              
-              <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
-             </div>
-          
 
           
           
@@ -1049,7 +1061,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-创建开发目录"><span class="nav-text">1 创建开发目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-安装相关工具"><span class="nav-text">2 安装相关工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-mac-下安装-brew"><span class="nav-text">2.1 mac 下安装 brew</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-使用-brew-安装-eos-工具"><span class="nav-text">2.2 使用 brew 安装 eos 工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-使用-brew-安装-eos-开发合约工具"><span class="nav-text">2.3 使用 brew 安装 eos 开发合约工具</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-节点"><span class="nav-text">3 节点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-添加节点配置文件"><span class="nav-text">3.1 添加节点配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-启动节点"><span class="nav-text">3.2 启动节点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-创建钱包"><span class="nav-text">4 创建钱包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-创建私钥"><span class="nav-text">5 创建私钥</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-创建账号"><span class="nav-text">6 创建账号</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-编写EOS智能合约"><span class="nav-text">7 编写EOS智能合约</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-编译hello文件"><span class="nav-text">8 编译hello文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#注意："><span class="nav-text">注意：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-部署合约"><span class="nav-text">10 部署合约</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#11-调用合约"><span class="nav-text">11 调用合约</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12-加入对输出hello的权限认证"><span class="nav-text">12 加入对输出hello的权限认证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-运行"><span class="nav-text">13 运行</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-创建开发目录"><span class="nav-text">1 创建开发目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-安装相关工具"><span class="nav-text">2 安装相关工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-mac-下安装-brew"><span class="nav-text">2.1 mac 下安装 brew</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-使用-brew-安装-eos-工具"><span class="nav-text">2.2 使用 brew 安装 eos 工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-使用-brew-安装-eos-开发合约工具"><span class="nav-text">2.3 使用 brew 安装 eos 开发合约工具</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-节点"><span class="nav-text">3 节点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-添加节点配置文件"><span class="nav-text">3.1 添加节点配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-启动节点"><span class="nav-text">3.2 启动节点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-创建钱包"><span class="nav-text">4 创建钱包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-创建私钥"><span class="nav-text">5 创建私钥</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-创建账号"><span class="nav-text">6 创建账号</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-编写EOS智能合约"><span class="nav-text">7 编写EOS智能合约</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-编译hello文件"><span class="nav-text">8 编译hello文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#注意"><span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-部署合约"><span class="nav-text">10 部署合约</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#11-调用合约"><span class="nav-text">11 调用合约</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12-加入对输出hello的权限认证"><span class="nav-text">12 加入对输出hello的权限认证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-运行"><span class="nav-text">13 运行</span></a></li></ol></div>
             
 
           </div>
@@ -1084,7 +1096,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">527k</span>
+    <span title="站点总字数">684k</span>
   
 
   
@@ -1095,7 +1107,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">7:59</span>
+    <span title="站点阅读时长">10:22</span>
   
 </div>
 

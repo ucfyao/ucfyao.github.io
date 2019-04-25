@@ -1,0 +1,1977 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN,en,default">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FF5733">
+
+
+
+
+  
+  
+    
+      
+    
+    
+      
+    
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="一个简单的例子pragma solidity ^0.4.21;contract SimpleAuction &amp;#123;    // Parameters of the auction. Times are either    // absolute unix timestamps (seconds since 1970-01-01)    // or time periods in second">
+<meta name="keywords" content="区块链,eth">
+<meta property="og:type" content="article">
+<meta property="og:title" content="0x03--智能合约之Solidity基础知识">
+<meta property="og:url" content="https://yaozihao.com/eth_0x03_contract_solidity/index.html">
+<meta property="og:site_name" content="zihao&#39;blog">
+<meta property="og:description" content="一个简单的例子pragma solidity ^0.4.21;contract SimpleAuction &amp;#123;    // Parameters of the auction. Times are either    // absolute unix timestamps (seconds since 1970-01-01)    // or time periods in second">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-25T11:29:33.387Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="0x03--智能合约之Solidity基础知识">
+<meta name="twitter:description" content="一个简单的例子pragma solidity ^0.4.21;contract SimpleAuction &amp;#123;    // Parameters of the auction. Times are either    // absolute unix timestamps (seconds since 1970-01-01)    // or time periods in second">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="zihao'blog" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="https://yaozihao.com/eth_0x03_contract_solidity/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>0x03--智能合约之Solidity基础知识 | zihao'blog</title>
+  
+
+
+
+
+  <script async src="//www.googletagmanager.com/gtag/js?id=UA-138731725-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-138731725-1');
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zihao'blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">Make small but daily progress</h1>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">16</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">59</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">216</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL3VjZnlhbw==" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></span>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/eth_0x03_contract_solidity/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">0x03--智能合约之Solidity基础知识
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-03-22 18:35:10" itemprop="dateCreated datePublished" datetime="2018-03-22T18:35:10+08:00">2018-03-22</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-25 19:29:33" itemprop="dateModified" datetime="2019-04-25T19:29:33+08:00">2019-04-25</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/BlockChain/" itemprop="url" rel="index"><span itemprop="name">BlockChain</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/eth_0x03_contract_solidity/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/eth_0x03_contract_solidity/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">16k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">14 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="一个简单的例子"><a href="#一个简单的例子" class="headerlink" title="一个简单的例子"></a>一个简单的例子</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pragma solidity ^0.4.21;</span><br><span class="line"></span><br><span class="line">contract SimpleAuction &#123;</span><br><span class="line">    // Parameters of the auction. Times are either</span><br><span class="line">    // absolute unix timestamps (seconds since 1970-01-01)</span><br><span class="line">    // or time periods in seconds.</span><br><span class="line">    address public beneficiary;</span><br><span class="line">    uint public auctionEnd;</span><br><span class="line"></span><br><span class="line">    // Current state of the auction.</span><br><span class="line">    address public highestBidder;</span><br><span class="line">    uint public highestBid;</span><br><span class="line"></span><br><span class="line">    // Allowed withdrawals of previous bids</span><br><span class="line">    mapping(address =&gt; uint) pendingReturns;</span><br><span class="line"></span><br><span class="line">    // Set to true at the end, disallows any change</span><br><span class="line">    bool ended;</span><br><span class="line"></span><br><span class="line">    // Events that will be fired on changes.</span><br><span class="line">    event HighestBidIncreased(address bidder, uint amount);</span><br><span class="line">    event AuctionEnded(address winner, uint amount);</span><br><span class="line"></span><br><span class="line">    // The following is a so-called natspec comment,</span><br><span class="line">    // recognizable by the three slashes.</span><br><span class="line">    // It will be shown when the user is asked to</span><br><span class="line">    // confirm a transaction.</span><br><span class="line"></span><br><span class="line">    /// Create a simple auction with `_biddingTime`</span><br><span class="line">    /// seconds bidding time on behalf of the</span><br><span class="line">    /// beneficiary address `_beneficiary`.</span><br><span class="line">    function SimpleAuction(</span><br><span class="line">        uint _biddingTime,</span><br><span class="line">        address _beneficiary</span><br><span class="line">    ) public &#123;</span><br><span class="line">        beneficiary = _beneficiary;</span><br><span class="line">        auctionEnd = now + _biddingTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /// Bid on the auction with the value sent</span><br><span class="line">    /// together with this transaction.</span><br><span class="line">    /// The value will only be refunded if the</span><br><span class="line">    /// auction is not won.</span><br><span class="line">    function bid() public payable &#123;</span><br><span class="line">        // No arguments are necessary, all</span><br><span class="line">        // information is already part of</span><br><span class="line">        // the transaction. The keyword payable</span><br><span class="line">        // is required for the function to</span><br><span class="line">        // be able to receive Ether.</span><br><span class="line"></span><br><span class="line">        // Revert the call if the bidding</span><br><span class="line">        // period is over.</span><br><span class="line">        require(now &lt;= auctionEnd);</span><br><span class="line"></span><br><span class="line">        // If the bid is not higher, send the</span><br><span class="line">        // money back.</span><br><span class="line">        require(msg.value &gt; highestBid);</span><br><span class="line"></span><br><span class="line">        if (highestBid != 0) &#123;</span><br><span class="line">            // Sending back the money by simply using</span><br><span class="line">            // highestBidder.send(highestBid) is a security risk</span><br><span class="line">            // because it could execute an untrusted contract.</span><br><span class="line">            // It is always safer to let the recipients</span><br><span class="line">            // withdraw their money themselves.</span><br><span class="line">            pendingReturns[highestBidder] += highestBid;</span><br><span class="line">        &#125;</span><br><span class="line">        highestBidder = msg.sender;</span><br><span class="line">        highestBid = msg.value;</span><br><span class="line">        emit HighestBidIncreased(msg.sender, msg.value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /// Withdraw a bid that was overbid.</span><br><span class="line">    function withdraw() public returns (bool) &#123;</span><br><span class="line">        uint amount = pendingReturns[msg.sender];</span><br><span class="line">        if (amount &gt; 0) &#123;</span><br><span class="line">            // It is important to set this to zero because the recipient</span><br><span class="line">            // can call this function again as part of the receiving call</span><br><span class="line">            // before `send` returns.</span><br><span class="line">            pendingReturns[msg.sender] = 0;</span><br><span class="line"></span><br><span class="line">            if (!msg.sender.send(amount)) &#123;</span><br><span class="line">                // No need to call throw here, just reset the amount owing</span><br><span class="line">                pendingReturns[msg.sender] = amount;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /// End the auction and send the highest bid</span><br><span class="line">    /// to the beneficiary.</span><br><span class="line">    function auctionEnd() public &#123;</span><br><span class="line">        // It is a good guideline to structure functions that interact</span><br><span class="line">        // with other contracts (i.e. they call functions or send Ether)</span><br><span class="line">        // into three phases:</span><br><span class="line">        // 1. checking conditions</span><br><span class="line">        // 2. performing actions (potentially changing conditions)</span><br><span class="line">        // 3. interacting with other contracts</span><br><span class="line">        // If these phases are mixed up, the other contract could call</span><br><span class="line">        // back into the current contract and modify the state or cause</span><br><span class="line">        // effects (ether payout) to be performed multiple times.</span><br><span class="line">        // If functions called internally include interaction with external</span><br><span class="line">        // contracts, they also have to be considered interaction with</span><br><span class="line">        // external contracts.</span><br><span class="line"></span><br><span class="line">        // 1. Conditions</span><br><span class="line">        require(now &gt;= auctionEnd); // auction did not yet end</span><br><span class="line">        require(!ended); // this function has already been called</span><br><span class="line"></span><br><span class="line">        // 2. Effects</span><br><span class="line">        ended = true;</span><br><span class="line">        emit AuctionEnded(highestBidder, highestBid);</span><br><span class="line"></span><br><span class="line">        // 3. Interaction</span><br><span class="line">        beneficiary.transfer(highestBid);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="文件布局"><a href="#文件布局" class="headerlink" title="文件布局"></a>文件布局</h1><h2 id="声明引用的版本号"><a href="#声明引用的版本号" class="headerlink" title="声明引用的版本号"></a>声明引用的版本号</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pragma solidity ^0.4.0;</span><br></pre></td></tr></table></figure>
+<h2 id="引入其他文件"><a href="#引入其他文件" class="headerlink" title="引入其他文件"></a>引入其他文件</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import &quot;filename&quot;;</span><br><span class="line">import * as symbolName from &quot;filename&quot;;</span><br><span class="line">import &#123;symbol1 as alias, symbol2&#125; from &quot;filename&quot;;</span><br><span class="line">import &quot;filename&quot; as symbolName;</span><br></pre></td></tr></table></figure>
+<h2 id="引入路径"><a href="#引入路径" class="headerlink" title="引入路径"></a>引入路径</h2><p>所有路径名都被视为绝对路径，默认从主目录下引入。要从当前文件的同一目录中导入文件x，使用import “./x”作为x<br>在编译中还可以使用映射源文件<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import &quot;github.com/ethereum/dapp-bin/library/iterable_mapping.sol&quot; as it_mapping;</span><br><span class="line"></span><br><span class="line">solc github.com/ethereum/dapp-bin/=/usr/local/dapp-bin/ source.sol</span><br><span class="line"></span><br><span class="line">solc module1:github.com/ethereum/dapp-bin/=/usr/local/dapp-bin/ \</span><br><span class="line">     module2:github.com/ethereum/dapp-bin/=/usr/local/dapp-bin_old/ \</span><br><span class="line">     source.sol</span><br></pre></td></tr></table></figure></p>
+<h2 id="Remix中的映射"><a href="#Remix中的映射" class="headerlink" title="Remix中的映射"></a>Remix中的映射</h2><p>允许直接使用网络地址<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import &quot;github.com/ethereum/dapp-bin/library/iterable_mapping.sol&quot; as it_mapping;.</span><br></pre></td></tr></table></figure></p>
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// This is a single-line comment.</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">This is a</span><br><span class="line">multi-line comment.</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+<p>参考格式：<span class="exturl" data-url="aHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvRG94eWdlbg==" title="https://en.wikipedia.org/wiki/Doxygen">Doxygen<i class="fa fa-external-link"></i></span></p>
+<h1 id="智能合约结构"><a href="#智能合约结构" class="headerlink" title="智能合约结构"></a>智能合约结构</h1><blockquote>
+<p>Solidity合同与面向对象语言中的类相似。每个合约都可以包含<span class="exturl" data-url="aHR0cHM6Ly9zb2xpZGl0eS5yZWFkdGhlZG9jcy5pby9lbi92MC40LjIxL3N0cnVjdHVyZS1vZi1hLWNvbnRyYWN0Lmh0bWwjc3RydWN0dXJlLXN0YXRlLXZhcmlhYmxlcw==" title="https://solidity.readthedocs.io/en/v0.4.21/structure-of-a-contract.html#structure-state-variables">状态变量<i class="fa fa-external-link"></i></span>，<span class="exturl" data-url="aHR0cHM6Ly9zb2xpZGl0eS5yZWFkdGhlZG9jcy5pby9lbi92MC40LjIxL3N0cnVjdHVyZS1vZi1hLWNvbnRyYWN0Lmh0bWwjc3RydWN0dXJlLWZ1bmN0aW9ucw==" title="https://solidity.readthedocs.io/en/v0.4.21/structure-of-a-contract.html#structure-functions">函数<i class="fa fa-external-link"></i></span>， <span class="exturl" data-url="aHR0cHM6Ly9zb2xpZGl0eS5yZWFkdGhlZG9jcy5pby9lbi92MC40LjIxL3N0cnVjdHVyZS1vZi1hLWNvbnRyYWN0Lmh0bWwjc3RydWN0dXJlLWZ1bmN0aW9uLW1vZGlmaWVycw==" title="https://solidity.readthedocs.io/en/v0.4.21/structure-of-a-contract.html#structure-function-modifiers">函数修饰符<i class="fa fa-external-link"></i></span>，<span class="exturl" data-url="aHR0cHM6Ly9zb2xpZGl0eS5yZWFkdGhlZG9jcy5pby9lbi92MC40LjIxL3N0cnVjdHVyZS1vZi1hLWNvbnRyYWN0Lmh0bWwjc3RydWN0dXJlLWV2ZW50cw==" title="https://solidity.readthedocs.io/en/v0.4.21/structure-of-a-contract.html#structure-events">事件<i class="fa fa-external-link"></i></span>，<span class="exturl" data-url="aHR0cHM6Ly9zb2xpZGl0eS5yZWFkdGhlZG9jcy5pby9lbi92MC40LjIxL3N0cnVjdHVyZS1vZi1hLWNvbnRyYWN0Lmh0bWwjc3RydWN0dXJlLXN0cnVjdC10eXBlcw==" title="https://solidity.readthedocs.io/en/v0.4.21/structure-of-a-contract.html#structure-struct-types">结构类型<i class="fa fa-external-link"></i></span>和<span class="exturl" data-url="aHR0cHM6Ly9zb2xpZGl0eS5yZWFkdGhlZG9jcy5pby9lbi92MC40LjIxL3N0cnVjdHVyZS1vZi1hLWNvbnRyYWN0Lmh0bWwjc3RydWN0dXJlLWVudW0tdHlwZXM=" title="https://solidity.readthedocs.io/en/v0.4.21/structure-of-a-contract.html#structure-enum-types">枚举类型的声明<i class="fa fa-external-link"></i></span>。此外，合同可以继承其他合同。</p>
+</blockquote>
+<h1 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h1><p>由于Solidity是一个静态类型的语言，所以编译时需明确指定变量的类型（包括本地或状态变量）Solidity编程语言提供了一些元类型(elementary types)可以组合成复杂类型。变量也支持在表达式运算，后面有一些关于运算符执行的先后顺序说明。</p>
+<p>类型本身包括后面讲到的值类型(Value Types),引用类型(Refrence Type)，一些复杂的内置数据结构等。</p>
+<h2 id="值类型-Value-Type"><a href="#值类型-Value-Type" class="headerlink" title="值类型(Value Type)"></a>值类型(Value Type)</h2><p>值类型又包含：</p>
+<ul>
+<li><p>布尔(Booleans)<br>bool : 返回值为 <code>true</code> or <code>false</code></p>
+</li>
+<li><p>整型(Integer)<br>int / uint : 有符号和无符号整型</p>
+</li>
+<li><p>地址(Address)<br>address：20个字节的值<br>  地址成员：</p>
+<ul>
+<li>balance 和 transfer</li>
+<li>send</li>
+<li>call，callcode和delegatecall</li>
+</ul>
+</li>
+<li><p>字节数组(byte arrays)<br>byte 为bytes1的alias，引用连接<br>成员：</p>
+<ul>
+<li>.length</li>
+</ul>
+<p>动态大小的字节数组：</p>
+<ul>
+<li>bytes ： 动态大小的字节数组</li>
+<li>string：动态大小的UTF-8编码字符串</li>
+</ul>
+</li>
+<li><p>有理数和整型(Rational and Integer Literals，String literals)<br>取值范围 0-9</p>
+</li>
+<li><p>字符串文字<br>字符串文字用双引号或单引号（”foo”或’bar’）编写，隐式转换</p>
+</li>
+<li><p>十六进制字面量(Hexadecimal Literals)<br>十六进制文字以前缀为关键字hex，并用双引号或单引号<code>（hex&quot;001122FF&quot;）</code>括起来。它们的内容必须是十六进制字符串，它们的值将是这些值的二进制表示。</p>
+</li>
+</ul>
+<ul>
+<li><p>枚举类型(Enums)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">enum ActionChoices &#123; GoLeft, GoRight, GoStraight, SitStill &#125;</span><br><span class="line">  ActionChoices choice;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函数(Function Types)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function (&lt;parameter types&gt;) &#123;internal|external&#125; [pure|constant|view|payable] [returns (&lt;return types&gt;)]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>存储类型</p>
+<ul>
+<li>memory：内存</li>
+<li>storage：存储</li>
+<li>calldata：存储函数参数的不可修改的非持久性区域</li>
+</ul>
+</li>
+<li><p>数组（array）<br>成员：</p>
+<ul>
+<li>.length<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">uint[] memory a = new uint[](7);</span><br><span class="line">bytes memory b = new bytes(len);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>结构（Structs）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// Defines a new type with two fields.</span><br><span class="line">struct Funder &#123;</span><br><span class="line">    address addr;</span><br><span class="line">    uint amount;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>映射（Mapping）</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mapping(_KeyType =&gt; _ValueType)_KeyType_ValueType</span><br></pre></td></tr></table></figure>
+<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">delete a</span><br></pre></td></tr></table></figure>
+<h2 id="基本类型之间的转换"><a href="#基本类型之间的转换" class="headerlink" title="基本类型之间的转换"></a>基本类型之间的转换</h2><h3 id="隐式转换"><a href="#隐式转换" class="headerlink" title="隐式转换"></a>隐式转换</h3><p>uint8可以转换为 uint16 and int128 to int256<br>但是 int8 不能转换为 uint256 ，因为uint256不能为-1</p>
+<h3 id="显式转换"><a href="#显式转换" class="headerlink" title="显式转换"></a>显式转换</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int8  y  =  - 3 ; </span><br><span class="line">uint  x  =  uint （y ）;</span><br></pre></td></tr></table></figure>
+<h3 id="自动会默认一个类型"><a href="#自动会默认一个类型" class="headerlink" title="自动会默认一个类型"></a>自动会默认一个类型</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">uint24  x  =  0x123 ; </span><br><span class="line">var  y  =  x ;</span><br></pre></td></tr></table></figure>
+<h1 id="单位和全局可用变量"><a href="#单位和全局可用变量" class="headerlink" title="单位和全局可用变量"></a>单位和全局可用变量</h1><h2 id="Ether-单位："><a href="#Ether-单位：" class="headerlink" title="Ether 单位："></a>Ether 单位：</h2><p>wei，finney，szabo或ether</p>
+<h2 id="时间单位"><a href="#时间单位" class="headerlink" title="时间单位"></a>时间单位</h2><p>seconds，minutes，hours，days，weeks和 years</p>
+<h2 id="特殊变量和函数"><a href="#特殊变量和函数" class="headerlink" title="特殊变量和函数"></a>特殊变量和函数</h2><h3 id="阻止和事务属性"><a href="#阻止和事务属性" class="headerlink" title="阻止和事务属性"></a>阻止和事务属性</h3><ul>
+<li>block.blockhash(uint blockNumber) returns (bytes32)：给定块的hash - 仅适用于256个最新块，不包括当前块</li>
+<li>block.coinbase（address）：当前块矿工的地址</li>
+<li>block.difficulty（uint）：当前难度</li>
+<li>block.gaslimit（uint）：当前块gaslimit</li>
+<li>block.number（uint）：当前块数</li>
+<li>block.timestamp（uint）：当前块时间戳，因为unix时期以来的秒数</li>
+<li>gasleft() returns (uint256)：剩余gas</li>
+<li>msg.data（bytes）：完成calldata</li>
+<li>msg.sender（address）：消息的发送者（当前发送地址）</li>
+<li>msg.sig（bytes4）：calldata的前四个字节（即函数标识符）</li>
+<li>msg.value（uint）：与消息一起发送的wei的数量</li>
+<li>now（uint）：当前块时间戳（别名为block.timestamp）</li>
+<li>tx.gasprice（uint）：交易的gas价格</li>
+<li>tx.origin（address）：交易的发送者</li>
+</ul>
+<h3 id="错误处理（Error-Handling）"><a href="#错误处理（Error-Handling）" class="headerlink" title="错误处理（Error Handling）"></a>错误处理（Error Handling）</h3><ul>
+<li>assert(bool condition):<br>如果条件不满足则抛出 - 用于内部错误。</li>
+<li>require(bool condition):<br>如果条件未满足则抛出 - 用于输入或外部组件中的错误。</li>
+<li>revert():<br>中止执行并恢复状态更改<h3 id="数学和加密函数"><a href="#数学和加密函数" class="headerlink" title="数学和加密函数"></a>数学和加密函数</h3></li>
+<li>addmod(uint x, uint y, uint k) returns (uint)<br>计算添加以任意精度执行的位置</li>
+<li>mulmod(uint x, uint y, uint k) returns (uint)：<br>计算以任意精度执行乘法的位置</li>
+<li><p>keccak256(…) returns (bytes32)<br>计算<span class="exturl" data-url="aHR0cHM6Ly9zb2xpZGl0eS5yZWFkdGhlZG9jcy5pby9lbi92MC40LjIxL2FiaS1zcGVjLmh0bWwjYWJpLXBhY2tlZC1tb2Rl" title="https://solidity.readthedocs.io/en/v0.4.21/abi-spec.html#abi-packed-mode">（紧密排列的）参数<i class="fa fa-external-link"></i></span>的Ethereum-SHA-3（Keccak-256）散列</p>
+</li>
+<li><p>sha256(…) returns (bytes32)<br>计算<span class="exturl" data-url="aHR0cHM6Ly9zb2xpZGl0eS5yZWFkdGhlZG9jcy5pby9lbi92MC40LjIxL2FiaS1zcGVjLmh0bWwjYWJpLXBhY2tlZC1tb2Rl" title="https://solidity.readthedocs.io/en/v0.4.21/abi-spec.html#abi-packed-mode">（紧密排列）参数<i class="fa fa-external-link"></i></span>的SHA-256哈希值</p>
+</li>
+<li>sha3(…) returns (bytes32)<br>别名 keccak256</li>
+<li>ripemd160(…) returns (bytes20)<br>计算<span class="exturl" data-url="aHR0cHM6Ly9zb2xpZGl0eS5yZWFkdGhlZG9jcy5pby9lbi92MC40LjIxL2FiaS1zcGVjLmh0bWwjYWJpLXBhY2tlZC1tb2Rl" title="https://solidity.readthedocs.io/en/v0.4.21/abi-spec.html#abi-packed-mode">（紧密排列）参数的<i class="fa fa-external-link"></i></span> RIPEMD-160哈希值</li>
+<li>ecrecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) returns (address)：<br>从椭圆曲线签名中恢复与公钥相关的地址，或在错误时返回零（<span class="exturl" data-url="aHR0cHM6Ly9ldGhlcmV1bS5zdGFja2V4Y2hhbmdlLmNvbS9xLzE3NzcvMjIy" title="https://ethereum.stackexchange.com/q/1777/222">示例用法<i class="fa fa-external-link"></i></span>）</li>
+</ul>
+<h3 id="地址相关"><a href="#地址相关" class="headerlink" title="地址相关"></a>地址相关</h3><ul>
+<li><address>.balance (uint256)<br>地址的余额，单位wei。 </address></li>
+<li><address>.transfer(uint256 amount)<br>发起转账。failure：throws ，损失2300gas。</address></li>
+<li><address>.send(uint256 amount) returns (bool)<br>发起转账。failure：return false ，损失2300gas。</address></li>
+<li><address>.call(…) returns (bool)<br>发起低级别转账。failure：return false ，损失全部gas，可以调整</address></li>
+<li><p><address>.callcode(…) returns (bool)<br>发起低级别转账。failure：return false ，损失全部gas，可以调整</address></p>
+</li>
+<li><p><address>.delegatecall(…) returns (bool)<br>发起低级别转账。failure：return false ，损失全部gas，可以调整</address></p>
+</li>
+</ul>
+<h3 id="合同相关"><a href="#合同相关" class="headerlink" title="合同相关"></a>合同相关</h3><ul>
+<li>this 当前合同</li>
+<li>selfdestruct(address recipient)<br>销毁当前合同，将资金发送到指定地址</li>
+<li>suicide(address recipient)<br>selfdestruct 别名</li>
+</ul>
+<h1 id="表达式和控制结构"><a href="#表达式和控制结构" class="headerlink" title="表达式和控制结构"></a>表达式和控制结构</h1><h2 id="输入参数和输出参数"><a href="#输入参数和输出参数" class="headerlink" title="输入参数和输出参数"></a>输入参数和输出参数</h2><h3 id="输入参数"><a href="#输入参数" class="headerlink" title="输入参数"></a>输入参数</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pragma solidity ^0.4.16;</span><br><span class="line"></span><br><span class="line">contract Simple &#123;</span><br><span class="line">    function taker(uint _a, uint _b) public pure &#123;</span><br><span class="line">        // do something with _a and _b.</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="输出参数"><a href="#输出参数" class="headerlink" title="输出参数"></a>输出参数</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">return v</span><br></pre></td></tr></table></figure>
+<h3 id="返回多个值"><a href="#返回多个值" class="headerlink" title="返回多个值"></a>返回多个值</h3><figure class="highlight plain"><figcaption><span>(v0, v1, ..., vn)```</span></figcaption><table><tr><td class="code"><pre><span class="line">## 控制结构</span><br><span class="line">* switch</span><br><span class="line">* goto.</span><br><span class="line">* if, else</span><br><span class="line">* while, do, for, break, continue,</span><br><span class="line">* return,</span><br><span class="line">* ? :</span><br><span class="line">## 函数调用</span><br></pre></td></tr></table></figure>
+<p>this.g(8);<br>c.g(2);<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">### 内部函数调用</span><br></pre></td></tr></table></figure></p>
+<p>pragma solidity ^0.4.16;</p>
+<p>contract C {<br>    function g(uint a) public pure returns (uint ret) { return f(); }<br>    function f() internal pure returns (uint ret) { return g(7) + f(); }<br>}<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">### 外部函数调用</span><br></pre></td></tr></table></figure></p>
+<p>pragma solidity ^0.4.0;</p>
+<p>contract InfoFeed {<br>    function info() public payable returns (uint ret) { return 42; }<br>}</p>
+<p>contract Consumer {<br>    InfoFeed feed;<br>    function setFeed(address addr) public { feed = InfoFeed(addr); }<br>    function callFeed() public { feed.info.value(10).gas(800)(); }<br>}<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">### 命名的呼叫和匿名功能参数</span><br></pre></td></tr></table></figure></p>
+<p>pragma solidity ^0.4.0;</p>
+<p>contract InfoFeed {<br>    function info() public payable returns (uint ret) { return 42; }<br>}</p>
+<p>contract Consumer {<br>    InfoFeed feed;<br>    function setFeed(address addr) public { feed = InfoFeed(addr); }<br>    function callFeed() public { feed.info.value(10).gas(800)(); }<br>}<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 省略函数参数名称</span><br></pre></td></tr></table></figure></p>
+<p>pragma solidity ^0.4.16;</p>
+<p>contract C {<br>    // omitted name for parameter<br>    function func(uint k, uint) public pure returns(uint) {<br>        return k;<br>    }<br>}<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">## 通过 new 创建合同</span><br></pre></td></tr></table></figure></p>
+<p>pragma solidity ^0.4.0;</p>
+<p>contract D {<br>    uint x;<br>    function D(uint a) public payable {<br>        x = a;<br>    }<br>}</p>
+<p>contract C {<br>    D d = new D(4); // will be executed as part of C’s constructor</p>
+<pre><code>function createD(uint arg) public {
+    D newD = new D(arg);
+}
+
+function createAndEndowD(uint arg, uint amount) public payable {
+    // Send ether along with the creation
+    D newD = (new D).value(amount)(arg);
+}
+</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 合同</span><br><span class="line">## 函数修饰符</span><br><span class="line">* external</span><br><span class="line">外部函数，可以从其他合同和交易中调用它们。不能在内部调用，也就是说`f()`不起作用，但是可以使用`this.f()`来调用。在接收大量数据的时候更高效。</span><br><span class="line">* public</span><br><span class="line">公共函数。默认值。</span><br><span class="line">可以在内部或者通过消息调用。</span><br><span class="line">* internal </span><br><span class="line">内部函数。只能在内部合约进行使用，不能使用this。</span><br><span class="line">* private</span><br><span class="line">私有函数。只能在当前合约内使用。</span><br><span class="line">&gt; 所有外部观察者都可以看到合约内的所有内容。private 只会阻止其他合约访问和修改信息，但在区块链之外，整个世界仍然可以看到代码。</span><br><span class="line"></span><br><span class="line">### Getter函数 </span><br><span class="line">编译器会自动为所有的public 函数或者变量生成 Getter函数。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 添加验证（ Modifier ）</span><br><span class="line">使用方式：</span><br></pre></td></tr></table></figure></p>
+<p>/**</p>
+<pre><code> * @dev Allows owner to remove an employee.
+ * @param employeeId The id of the employee.
+ */
+function removeEmployee(address employeeId)
+    public
+    onlyOwner
+    employee_exist(employeeId)
+{
+    _settlePayment(employeeId);
+    _totalSalary = _totalSalary.sub(employees[employeeId].salary);
+    delete employees[employeeId];
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">译自[官方文档](https://solidity.readthedocs.io)</span><br><span class="line"></span><br><span class="line">### 恒定状态变量</span><br><span class="line">状态变量可以声明为constant。</span><br><span class="line">## 函数</span><br><span class="line">### 声明 View </span><br><span class="line">函数可以声明view，在这种情况下，它们保证不修改状态。</span><br><span class="line"></span><br><span class="line">*   写入状态变量。</span><br><span class="line">*   [发射事件](https://solidity.readthedocs.io/en/v0.4.21/contracts.html#events)。</span><br><span class="line">*   [创建其他合同](https://solidity.readthedocs.io/en/v0.4.21/control-structures.html#creating-contracts)。*   使用`selfdestruct`。</span><br><span class="line">*   通过电话发送以太。</span><br><span class="line">*   调用任何未标记的功能`view`或`pure`。</span><br><span class="line">*   使用低级别呼叫。</span><br><span class="line">*   使用包含某些操作码的内联汇编</span><br><span class="line"></span><br><span class="line">### 声明pure</span><br><span class="line">函数可以声明为pure，在这种情况下，它们保证不读取或修改状态。</span><br><span class="line"></span><br><span class="line">以下内容被认为是从状态中读取的：</span><br><span class="line">* 从状态变量读取。</span><br><span class="line">* 访问this.balance或&lt;address&gt;.balance。</span><br><span class="line">* 访问任何成员block，tx，msg（与除外msg.sig和msg.data）。</span><br><span class="line">* 调用任何未标记的功能pure。</span><br><span class="line">* 使用包含某些操作码的内联汇编。</span><br><span class="line"></span><br><span class="line">### Fallback 函数</span><br><span class="line">合同可以有一个未命名的功能。这个函数不能有参数，也不能返回任何东西。如果没有其他函数与给定的函数标识符匹配（或者根本没有提供数据），它将在对合同的调用中执行。</span><br></pre></td></tr></table></figure>
+<p>pragma solidity ^0.4.0;</p>
+<p>contract Test {<br>    // This function is called for all messages sent to<br>    // this contract (there is no other function).<br>    // Sending Ether to this contract will cause an exception,<br>    // because the fallback function does not have the <code>payable</code><br>    // modifier.<br>    function() public { x = 1; }<br>    uint x;<br>}</p>
+<p>// This contract keeps all Ether sent to it with no way<br>// to get it back.<br>contract Sink {<br>    function() public payable { }<br>}</p>
+<p>contract Caller {<br>    function callTest(Test test) public {<br>        test.call(0xabcdef01); // hash does not exist<br>        // results in test.x becoming == 1.</p>
+<pre><code>    // The following will not compile, but even
+    // if someone sends ether to that contract,
+    // the transaction will fail and reject the
+    // Ether.
+    //test.send(2 ether);
+}
+</code></pre><p>}</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">### 函数重载</span><br><span class="line">允许有相同名称但是不同参数的方法共存</span><br></pre></td></tr></table></figure>
+<p>pragma solidity ^0.4.16;</p>
+<p>contract A {<br>    function f(uint _in) public pure returns (uint out) {<br>        out = 1;<br>    }</p>
+<pre><code>function f(uint _in, bytes32 _key) public pure returns (uint out) {
+    out = 2;
+}
+</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">### Events</span><br><span class="line">事件方便外部进行监听。</span><br></pre></td></tr></table></figure></p>
+<p>pragma solidity ^0.4.0;</p>
+<p>contract ClientReceipt {<br>    event Deposit(<br>        address indexed _from,<br>        bytes32 indexed _id,<br>        uint _value<br>    );</p>
+<pre><code>function deposit(bytes32 _id) public payable {
+    // Events are emitted using `emit`, followed by
+    // the name of the event and the arguments
+    // (if any) in parentheses. Any such invocation
+    // (even deeply nested) can be detected from
+    // the JavaScript API by filtering for `Deposit`.
+    emit Deposit(msg.sender, _id, msg.value);
+}
+</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">在web3中调用事件</span><br></pre></td></tr></table></figure></p>
+<p>var abi = /<em> abi as generated by the compiler </em>/;<br>var ClientReceipt = web3.eth.contract(abi);<br>var clientReceipt = ClientReceipt.at(“0x1234…ab67” /<em> address </em>/);</p>
+<p>var event = clientReceipt.Deposit();</p>
+<p>// watch for changes<br>event.watch(function(error, result){<br>    // result will contain various information<br>    // including the argumets given to the <code>Deposit</code><br>    // call.<br>    if (!error)<br>        console.log(result);<br>});</p>
+<p>// Or pass a callback to start watching immediately<br>var event = clientReceipt.Deposit(function(error, result) {<br>    if (!error)<br>        console.log(result);<br>});<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 日志记录</span><br><span class="line">log0, log1, log2, log3, log4...</span><br></pre></td></tr></table></figure></p>
+<p>pragma solidity ^0.4.10;</p>
+<p>contract C {<br>    function f() public payable {<br>        bytes32 _id = 0x420042;<br>        log3(<br>            bytes32(msg.value),<br>            bytes32(0x50cb9fe53daa9737b786ab3646f04d0150dc50ef4e75f59509d83667ad5adb20),<br>            bytes32(msg.sender),<br>            _id<br>        );<br>    }<br>}<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">### 继承（Inheritance ）</span><br><span class="line">详细的路径可以参考专门写继承的一个[C3 Linearization 线性化python](https://www.jianshu.com/p/890c1c425450)。</span><br><span class="line">如果想使用父类方法，需要声明 `super`。</span><br><span class="line"></span><br><span class="line">### 构造函数</span><br><span class="line">同名函数为构造函数，也就是在调用的时候默认会执行的函数。可以声明为public，internal。</span><br><span class="line"></span><br><span class="line">### 抽象合约</span><br><span class="line">仅仅声明，没有实体</span><br></pre></td></tr></table></figure></p>
+<p>pragma solidity ^0.4.0;</p>
+<p>contract Feline {<br>    function utterance() public returns (bytes32);<br>}<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">### 接口</span><br><span class="line">接口与抽象类似，但是还有更多的限制。</span><br><span class="line">* 无法继承其他合同或接口。</span><br><span class="line">* 无法定义构造函数。</span><br><span class="line">* 无法定义变量。</span><br><span class="line">* 无法定义结构。</span><br><span class="line">* 无法定义枚举。</span><br></pre></td></tr></table></figure></p>
+<p>pragma solidity ^0.4.11;</p>
+<p>interface Token {<br>    function transfer(address recipient, uint amount) public;<br>}<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 库</span><br><span class="line">部署在特定地址的公用函数</span><br><span class="line">### Using For </span><br><span class="line">我理解类似apply或者中间件的意思，所有的参数使用先经过这个use 函数的处理。</span><br></pre></td></tr></table></figure></p>
+<p>contract C {<br>    using Set for Set.Data; // this is the crucial change<br>    Set.Data knownValues;</p>
+<pre><code>function register(uint value) public {
+    // Here, all variables of type Set.Data have
+    // corresponding member functions.
+    // The following function call is identical to
+    // `Set.insert(knownValues, value)`
+    require(knownValues.insert(value));
+}
+</code></pre><p>}<br><code>`</code></p>
+<h1 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h1><table>
+<thead>
+<tr>
+<th>Precedence</th>
+<th>Description</th>
+<th>Operator</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>1</em></td>
+<td>Postfix increment and decrement</td>
+<td><code>++</code>, <code>--</code></td>
+</tr>
+<tr>
+<td></td>
+<td>New expression</td>
+<td><code>new &lt;typename&gt;</code></td>
+</tr>
+<tr>
+<td></td>
+<td>Array subscripting</td>
+<td><code>&lt;array&gt;[&lt;index&gt;]</code></td>
+</tr>
+<tr>
+<td></td>
+<td>Member access</td>
+<td><code>&lt;object&gt;.&lt;member&gt;</code></td>
+</tr>
+<tr>
+<td></td>
+<td>Function-like call</td>
+<td><code>&lt;func&gt;(&lt;args...&gt;)</code></td>
+</tr>
+<tr>
+<td></td>
+<td>Parentheses</td>
+<td><code>(&lt;statement&gt;)</code></td>
+</tr>
+<tr>
+<td><em>2</em></td>
+<td>Prefix increment and decrement</td>
+<td><code>++</code>, <code>--</code></td>
+</tr>
+<tr>
+<td></td>
+<td>Unary plus and minus</td>
+<td><code>+</code>, <code>-</code></td>
+</tr>
+<tr>
+<td></td>
+<td>Unary operations</td>
+<td><code>delete</code></td>
+</tr>
+<tr>
+<td></td>
+<td>Logical NOT</td>
+<td><code>!</code></td>
+</tr>
+<tr>
+<td></td>
+<td>Bitwise NOT</td>
+<td><code>~</code></td>
+</tr>
+<tr>
+<td><em>3</em></td>
+<td>Exponentiation</td>
+<td><code>**</code></td>
+</tr>
+<tr>
+<td><em>4</em></td>
+<td>Multiplication, division and modulo</td>
+<td><code>*</code>, <code>/</code>, <code>%</code></td>
+</tr>
+<tr>
+<td><em>5</em></td>
+<td>Addition and subtraction</td>
+<td><code>+</code>, <code>-</code></td>
+</tr>
+<tr>
+<td><em>6</em></td>
+<td>Bitwise shift operators</td>
+<td><code>&lt;&lt;</code>, <code>&gt;&gt;</code></td>
+</tr>
+<tr>
+<td><em>7</em></td>
+<td>Bitwise AND</td>
+<td><code>&amp;</code></td>
+</tr>
+<tr>
+<td><em>8</em></td>
+<td>Bitwise XOR</td>
+<td><code>^</code></td>
+</tr>
+<tr>
+<td><em>9</em></td>
+<td>Bitwise OR</td>
+<td>&#124;</td>
+</tr>
+<tr>
+<td><em>10</em></td>
+<td>Inequality operators</td>
+<td><code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code></td>
+</tr>
+<tr>
+<td><em>11</em></td>
+<td>Equality operators</td>
+<td><code>==</code>, <code>!=</code></td>
+</tr>
+<tr>
+<td><em>12</em></td>
+<td>Logical AND</td>
+<td><code>&amp;&amp;</code></td>
+</tr>
+<tr>
+<td><em>13</em></td>
+<td>Logical OR</td>
+<td>&#124;&#124;</td>
+</tr>
+<tr>
+<td><em>14</em></td>
+<td>Ternary operator</td>
+<td><code>&lt;conditional&gt; ? &lt;if-true&gt; : &lt;if-false&gt;</code></td>
+</tr>
+<tr>
+<td><em>15</em></td>
+<td>Assignment operators</td>
+<td><code>=</code>, &#124;=, <code>^=</code>, <code>&amp;=</code>, <code>&lt;&lt;=</code>, <code>&gt;&gt;=</code>, <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>%=</code></td>
+</tr>
+<tr>
+<td><em>16</em></td>
+<td>Comma operator</td>
+<td><code>,</code></td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="Jack Yao 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/bitcoinpay.png" alt="Jack Yao 比特币">
+        <p>比特币</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>Jack Yao</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="/eth_0x03_contract_solidity" title="0x03--智能合约之Solidity基础知识">eth_0x03_contract_solidity</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/区块链/" rel="tag"># 区块链</a>
+          
+            <a href="/tags/eth/" rel="tag"># eth</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/eth_0x02_debugging/" rel="next" title="0x02--智能合约开发之调试">
+                <i class="fa fa-chevron-left"></i> 0x02--智能合约开发之调试
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/eth_0x04_truffle/" rel="prev" title="0x04--智能合约之truffle">
+                0x04--智能合约之truffle <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jack Yao</p>
+              <div class="site-description motion-element" itemprop="description">由渐入深，记录程序人生。全栈工程师与你共勉。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">216</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">59</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3VjZnlhbw==" title="GitHub &rarr; https://github.com/ucfyao"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOnlhb3ppaGFvQHlhb3ppaGFvLmNu" title="E-Mail &rarr; mailto:yaozihao@yaozihao.cn"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly93d3cuamlhbnNodS5jb20vdS8zYWI3MGExOTliNzA=" title="简书 &rarr; https://www.jianshu.com/u/3ab70a199b70"><i class="fa fa-fw fa-heartbeat"></i>简书</span>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <span class="exturl" data-url="aHR0cHM6Ly93d3cuYmFpZHUuY29tLw==" title="https://www.baidu.com/">baidu</span>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <span class="exturl" data-url="aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8=" title="https://www.google.com/">google</span>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一个简单的例子"><span class="nav-text">一个简单的例子</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件布局"><span class="nav-text">文件布局</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#声明引用的版本号"><span class="nav-text">声明引用的版本号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入其他文件"><span class="nav-text">引入其他文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入路径"><span class="nav-text">引入路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Remix中的映射"><span class="nav-text">Remix中的映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注释"><span class="nav-text">注释</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#智能合约结构"><span class="nav-text">智能合约结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类型"><span class="nav-text">类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#值类型-Value-Type"><span class="nav-text">值类型(Value Type)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除"><span class="nav-text">删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本类型之间的转换"><span class="nav-text">基本类型之间的转换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#隐式转换"><span class="nav-text">隐式转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显式转换"><span class="nav-text">显式转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动会默认一个类型"><span class="nav-text">自动会默认一个类型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#单位和全局可用变量"><span class="nav-text">单位和全局可用变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Ether-单位："><span class="nav-text">Ether 单位：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间单位"><span class="nav-text">时间单位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊变量和函数"><span class="nav-text">特殊变量和函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#阻止和事务属性"><span class="nav-text">阻止和事务属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#错误处理（Error-Handling）"><span class="nav-text">错误处理（Error Handling）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数学和加密函数"><span class="nav-text">数学和加密函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#地址相关"><span class="nav-text">地址相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合同相关"><span class="nav-text">合同相关</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#表达式和控制结构"><span class="nav-text">表达式和控制结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#输入参数和输出参数"><span class="nav-text">输入参数和输出参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#输入参数"><span class="nav-text">输入参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输出参数"><span class="nav-text">输出参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回多个值"><span class="nav-text">返回多个值</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优先级"><span class="nav-text">优先级</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2014 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jack Yao</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">684k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">10:22</span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+      
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="66" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js"></script>
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+  <script src="/js/exturl.js?v=7.1.0"></script>
+
+
+  
+
+  
+  
+
+  
+
+<script src="//cdn.jsdelivr.net/npm/leancloud-storage@3/dist/av-min.js"></script>
+
+
+
+  
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/valine/1.3.4/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: '5HH1Ct2I3JPMel7GKmPcGECC-gzGzoHsz',
+    appKey: 'ySQSP3Suwlfg3kYmoYy3spXl',
+    placeholder: 'Just go go',
+    avatar: 'identicon',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
