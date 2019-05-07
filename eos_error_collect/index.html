@@ -1,0 +1,2610 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN,en,default">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FF5733">
+
+
+
+
+  
+  
+    
+      
+    
+    
+      
+    
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.6/jquery.fancybox.min.css">
+
+
+
+
+
+
+
+  
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="1.编译失败eosio-cpp -o hello.wasm hello.cpp --abigenhello.cpp:11:16: error: unknown type name &apos;account_name&apos;      void hi( account_name user ) &amp;#123;               ^hello.cpp:16:20: error: C++ requires a">
+<meta name="keywords" content="区块链,eos">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EOS合约基础教程--踩坑集合（持续更新）">
+<meta property="og:url" content="https://yaozihao.com/eos_error_collect/index.html">
+<meta property="og:site_name" content="zihao&#39;blog">
+<meta property="og:description" content="1.编译失败eosio-cpp -o hello.wasm hello.cpp --abigenhello.cpp:11:16: error: unknown type name &apos;account_name&apos;      void hi( account_name user ) &amp;#123;               ^hello.cpp:16:20: error: C++ requires a">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-07T12:43:35.664Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="EOS合约基础教程--踩坑集合（持续更新）">
+<meta name="twitter:description" content="1.编译失败eosio-cpp -o hello.wasm hello.cpp --abigenhello.cpp:11:16: error: unknown type name &apos;account_name&apos;      void hi( account_name user ) &amp;#123;               ^hello.cpp:16:20: error: C++ requires a">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="zihao'blog" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="https://yaozihao.com/eos_error_collect/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>EOS合约基础教程--踩坑集合（持续更新） | zihao'blog</title>
+  
+
+
+
+
+  <script async src="//www.googletagmanager.com/gtag/js?id=UA-138731725-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-138731725-1');
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zihao'blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">Make small but daily progress</h1>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">19</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">61</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">273</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL3VjZnlhbw==" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></span>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/eos_error_collect/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">EOS合约基础教程--踩坑集合（持续更新）
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-03-14 19:49:15" itemprop="dateCreated datePublished" datetime="2018-03-14T19:49:15+08:00">2018-03-14</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-07 20:43:35" itemprop="dateModified" datetime="2019-05-07T20:43:35+08:00">2019-05-07</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/BlockChain/" itemprop="url" rel="index"><span itemprop="name">BlockChain</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/eos_error_collect/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/eos_error_collect/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">11k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">10 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="1-编译失败"><a href="#1-编译失败" class="headerlink" title="1.编译失败"></a>1.编译失败</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">eosio-cpp -o hello.wasm hello.cpp --abigen</span><br><span class="line">hello.cpp:11:16: error: unknown <span class="built_in">type</span> name <span class="string">'account_name'</span></span><br><span class="line">      void hi( account_name user ) &#123;</span><br><span class="line">               ^</span><br><span class="line">hello.cpp:16:20: error: C++ requires a <span class="built_in">type</span> specifier <span class="keyword">for</span> all declarations</span><br><span class="line">EOSIO_ABI( hello, (hi) )</span><br><span class="line">                   ^</span><br><span class="line">hello.cpp:16:25: error: expected <span class="keyword">function</span> body after <span class="keyword">function</span> declarator</span><br><span class="line">EOSIO_ABI( hello, (hi) )</span><br><span class="line">                        ^</span><br><span class="line">3 errors generated.</span><br></pre></td></tr></table></figure>
+<p><code>account_name</code> 官方定义在 <code>eosiolib/types.hpp</code> 中，尝试在<code>build</code>目录下执行<code>sudo make install</code>命令。或者将eos的inclue加入环境变量b吧！<br><strong>请注意以下内容：</strong><br>官方语法更新！！！网络上找到的教程都是老版本！！！最新的应该是<code>name</code>！！！见官方链接 <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0VPU0lPL2Vvc2lvLmNkdC9ibG9iL21hc3Rlci9leGFtcGxlcy9oZWxsby9oZWxsby5jcHA=" title="https://github.com/EOSIO/eosio.cdt/blob/master/examples/hello/hello.cpp">helllo.cpp<i class="fa fa-external-link"></i></span></p>
+<h3 id="2-EOS-CPU资源用尽"><a href="#2-EOS-CPU资源用尽" class="headerlink" title="2.EOS CPU资源用尽"></a>2.EOS CPU资源用尽</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">Error 3080004: Transaction exceeded the current CPU usage <span class="built_in">limit</span> imposed on the transaction</span><br></pre></td></tr></table></figure>
+<p>抵押EOS换取cpu就是了</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">system delegatebw itleakstoken tokenitleaks <span class="string">"2.0000 EOS"</span> <span class="string">"2.000 EOS"</span> -p 121adsas</span><br></pre></td></tr></table></figure>
+<h3 id="3-错误码汇总："><a href="#3-错误码汇总：" class="headerlink" title="3.错误码汇总："></a>3.错误码汇总：</h3><table>
+<thead>
+<tr>
+<th>错误代码</th>
+<th>错误信息</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3000000</td>
+<td>blockchain exception</td>
+<td>区块链异常</td>
+</tr>
+<tr>
+<td>3010000</td>
+<td>chain type exception</td>
+<td>链类型异常</td>
+</tr>
+<tr>
+<td>3010001</td>
+<td>Invalid name</td>
+<td>无效的名称</td>
+</tr>
+<tr>
+<td>3010002</td>
+<td>Invalid public key</td>
+<td>无效的公钥</td>
+</tr>
+<tr>
+<td>3010003</td>
+<td>Invalid private key</td>
+<td>无效的私钥</td>
+</tr>
+<tr>
+<td>3010004</td>
+<td>Invalid authority</td>
+<td>无效的授权</td>
+</tr>
+<tr>
+<td>3010005</td>
+<td>Invalid action</td>
+<td>无效的动作</td>
+</tr>
+<tr>
+<td>3010006</td>
+<td>Invalid transaction</td>
+<td>无效的交易</td>
+</tr>
+<tr>
+<td>3010007</td>
+<td>Invalid ABI</td>
+<td>无效的ABI</td>
+</tr>
+<tr>
+<td>3010008</td>
+<td>Invalid block ID</td>
+<td>无效的区块ID</td>
+</tr>
+<tr>
+<td>3010009</td>
+<td>Invalid transaction ID</td>
+<td>无效的交易ID</td>
+</tr>
+<tr>
+<td>3010010</td>
+<td>Invalid packed transaction</td>
+<td>无效的打包交易</td>
+</tr>
+<tr>
+<td>3010011</td>
+<td>Invalid asset</td>
+<td>无效的资产</td>
+</tr>
+<tr>
+<td>3010012</td>
+<td>Invalid chain ID</td>
+<td>无效的链ID</td>
+</tr>
+<tr>
+<td>3010013</td>
+<td>Invalid fixed key</td>
+<td>无效的固定密钥</td>
+</tr>
+<tr>
+<td>3010014</td>
+<td>Invalid symbol</td>
+<td>无效的代币符号</td>
+</tr>
+<tr>
+<td>3015000</td>
+<td>ABI exception</td>
+<td>ABI异常</td>
+</tr>
+<tr>
+<td>3015001</td>
+<td>No ABI found</td>
+<td>没有找到ABI</td>
+</tr>
+<tr>
+<td>3015002</td>
+<td>Invalid Ricardian Clause</td>
+<td>无效的李嘉图语句</td>
+</tr>
+<tr>
+<td>3015003</td>
+<td>Invalid Ricardian Action</td>
+<td>无效的李嘉图动作</td>
+</tr>
+<tr>
+<td>3015004</td>
+<td>The type defined in the ABI is invalid</td>
+<td>ABI中定义的类型无效</td>
+</tr>
+<tr>
+<td>3015005</td>
+<td>Duplicate type definition in the ABI</td>
+<td>ABI中存在重复定义的类型</td>
+</tr>
+<tr>
+<td>3015006</td>
+<td>Duplicate struct definition in the ABI</td>
+<td>ABI中存在重复定义的结构</td>
+</tr>
+<tr>
+<td>3015007</td>
+<td>Duplicate action definition in the ABI</td>
+<td>ABI中存在重复定义的动作</td>
+</tr>
+<tr>
+<td>3015008</td>
+<td>Duplicate table definition in the ABI</td>
+<td>ABI中存在重复定义的数据表</td>
+</tr>
+<tr>
+<td>3015009</td>
+<td>Duplicate error message definition in the ABI</td>
+<td>ABI中存在重复定义的错误信息</td>
+</tr>
+<tr>
+<td>3015010</td>
+<td>ABI serialization time has exceeded the deadline</td>
+<td>ABI序列化时间超过截止值</td>
+</tr>
+<tr>
+<td>3015011</td>
+<td>ABI recursive definition has exceeded the max recursion depth</td>
+<td>ABI中的递归定义超过最大允许深度</td>
+</tr>
+<tr>
+<td>3015012</td>
+<td>Circular definition is detected in the ABI</td>
+<td>ABI中检测到循环定义</td>
+</tr>
+<tr>
+<td>3015013</td>
+<td>Unpack data exception</td>
+<td>解包数据发生异常</td>
+</tr>
+<tr>
+<td>3015014</td>
+<td>Pack data exception</td>
+<td>打包数据发生异常</td>
+</tr>
+<tr>
+<td>3015015</td>
+<td>Duplicate variant definition in the ABI</td>
+<td>ABI中存在重复定义的变量</td>
+</tr>
+<tr>
+<td>3015016</td>
+<td>ABI has an unsupported version</td>
+<td>不支持的ABI版本</td>
+</tr>
+<tr>
+<td>3020000</td>
+<td>Fork database exception</td>
+<td>分叉数据库异常</td>
+</tr>
+<tr>
+<td>3020001</td>
+<td>Block can not be found</td>
+<td>找不到区块</td>
+</tr>
+<tr>
+<td>3030000</td>
+<td>Block exception</td>
+<td>区块异常</td>
+</tr>
+<tr>
+<td>3030001</td>
+<td>Unlinkable block</td>
+<td>无法链接的区块</td>
+</tr>
+<tr>
+<td>3030002</td>
+<td>Transaction outputs in block do not match transaction outputs from applying block</td>
+<td>指定区块与待应用区块中的交易输出不匹配</td>
+</tr>
+<tr>
+<td>3030003</td>
+<td>Block does not guarantee concurrent execution without conflicts</td>
+<td>区块不能保证无冲突并发执行</td>
+</tr>
+<tr>
+<td>3030004</td>
+<td>Shard locks in block are incorrect or mal-formed</td>
+<td>区块的分片锁不正确或格式错误</td>
+</tr>
+<tr>
+<td>3030005</td>
+<td>Block exhausted allowed resources</td>
+<td>区块已耗尽许可的资源</td>
+</tr>
+<tr>
+<td>3030006</td>
+<td>Block is too old to push</td>
+<td>区块太陈旧，无法提交</td>
+</tr>
+<tr>
+<td>3030007</td>
+<td>Block is from the future</td>
+<td>区块时间过早</td>
+</tr>
+<tr>
+<td>3030008</td>
+<td>Block is not signed with expected key</td>
+<td>区块签名与密钥不一致</td>
+</tr>
+<tr>
+<td>3030009</td>
+<td>Block is not signed by expected producer</td>
+<td>区块签名与出块人不一致</td>
+</tr>
+<tr>
+<td>3040000</td>
+<td>Transaction exception</td>
+<td>交易异常</td>
+</tr>
+<tr>
+<td>3040001</td>
+<td>Error decompressing transaction</td>
+<td>解压交易失败</td>
+</tr>
+<tr>
+<td>3040002</td>
+<td>Transaction should have at least one normal action</td>
+<td>交易至少应当包含一个常规动作</td>
+</tr>
+<tr>
+<td>3040003</td>
+<td>Transaction should have at least one required authority</td>
+<td>交易至少应当包含一个授权</td>
+</tr>
+<tr>
+<td>3040004</td>
+<td>Context-free action should have no required authority</td>
+<td>上下文无关动作不应当包含授权</td>
+</tr>
+<tr>
+<td>3040005</td>
+<td>Expired Transaction</td>
+<td>超时的交易</td>
+</tr>
+<tr>
+<td>3040006</td>
+<td>Transaction Expiration Too Far</td>
+<td>交易超时过久</td>
+</tr>
+<tr>
+<td>3040007</td>
+<td>Invalid Reference Block</td>
+<td>无效的参考块</td>
+</tr>
+<tr>
+<td>3040008</td>
+<td>Duplicate transaction</td>
+<td>重复的交易</td>
+</tr>
+<tr>
+<td>3040009</td>
+<td>Duplicate deferred transaction</td>
+<td>重复的延迟交易</td>
+</tr>
+<tr>
+<td>3040010</td>
+<td>Context free action is not allowed inside generated transaction</td>
+<td>在生成的交易中不允许出现上下文无关动作</td>
+</tr>
+<tr>
+<td>3040011</td>
+<td>The transaction can not be found</td>
+<td>交易找不到</td>
+</tr>
+<tr>
+<td>3040012</td>
+<td>Pushing too many transactions at once</td>
+<td>同时提交过多的交易</td>
+</tr>
+<tr>
+<td>3040013</td>
+<td>Transaction is too big</td>
+<td>交易过大</td>
+</tr>
+<tr>
+<td>3040014</td>
+<td>Unknown transaction compression</td>
+<td>未知的交易压缩方式</td>
+</tr>
+<tr>
+<td>3050000</td>
+<td>Action validate exception</td>
+<td>动作验证异常</td>
+</tr>
+<tr>
+<td>3050001</td>
+<td>Account name already exists</td>
+<td>账号名已经存在</td>
+</tr>
+<tr>
+<td>3050002</td>
+<td>Invalid Action Arguments</td>
+<td>无效的动作参数</td>
+</tr>
+<tr>
+<td>3050003</td>
+<td>eosio_assert_message assertion failure</td>
+<td>消息条件验证失败</td>
+</tr>
+<tr>
+<td>3050004</td>
+<td>eosio_assert_code assertion failure</td>
+<td>代码条件验证失败</td>
+</tr>
+<tr>
+<td>3050005</td>
+<td>Action can not be found</td>
+<td>找不到动作</td>
+</tr>
+<tr>
+<td>3050006</td>
+<td>Mismatch between action data and its struct</td>
+<td>动作数据和结构定义不匹配</td>
+</tr>
+<tr>
+<td>3050007</td>
+<td>Attempt to use unaccessible API</td>
+<td>试图访问不许可的API</td>
+</tr>
+<tr>
+<td>3050008</td>
+<td>Abort Called</td>
+<td>中止被调用</td>
+</tr>
+<tr>
+<td>3050009</td>
+<td>Inline Action exceeds maximum size limit</td>
+<td>内联动作超过允许的最大尺寸</td>
+</tr>
+<tr>
+<td>3060000</td>
+<td>Database exception</td>
+<td>数据库异常</td>
+</tr>
+<tr>
+<td>3060001</td>
+<td>Permission Query Exception</td>
+<td>许可查询异常</td>
+</tr>
+<tr>
+<td>3060002</td>
+<td>Account Query Exception</td>
+<td>账号查询异常</td>
+</tr>
+<tr>
+<td>3060003</td>
+<td>Contract Table Query Exception</td>
+<td>合约数据表查询异常</td>
+</tr>
+<tr>
+<td>3060004</td>
+<td>Contract Query Exception</td>
+<td>合约查询异常</td>
+</tr>
+<tr>
+<td>3060100</td>
+<td>Guard Exception</td>
+<td>保护性异常</td>
+</tr>
+<tr>
+<td>3060101</td>
+<td>Database usage is at unsafe levels</td>
+<td>数据库利用处于不安全等级</td>
+</tr>
+<tr>
+<td>3060102</td>
+<td>Reversible block log usage is at unsafe levels</td>
+<td>可逆块日志利用处于不安全等级</td>
+</tr>
+<tr>
+<td>3070000</td>
+<td>WASM Exception</td>
+<td>WASM异常</td>
+</tr>
+<tr>
+<td>3070001</td>
+<td>Error in WASM page memory</td>
+<td>WASM内存页错误</td>
+</tr>
+<tr>
+<td>3070002</td>
+<td>Runtime Error Processing WASM</td>
+<td>处理WASM时发生运行时错误</td>
+</tr>
+<tr>
+<td>3070003</td>
+<td>Serialization Error Processing WASM</td>
+<td>处理WASM时发生序列化错误</td>
+</tr>
+<tr>
+<td>3070004</td>
+<td>memcpy with overlapping memory</td>
+<td>内存拷贝时发生地址重叠</td>
+</tr>
+<tr>
+<td>3070005</td>
+<td>binaryen exception</td>
+<td>binaryen异常</td>
+</tr>
+<tr>
+<td>3080000</td>
+<td>Resource exhausted exception</td>
+<td>资源耗尽异常</td>
+</tr>
+<tr>
+<td>3080001</td>
+<td>Account using more than allotted RAM usage</td>
+<td>账号使用的内存超限</td>
+</tr>
+<tr>
+<td>3080002</td>
+<td>Transaction exceeded the current network usage limit imposed on the transaction</td>
+<td>交易网络占用超限</td>
+</tr>
+<tr>
+<td>3080003</td>
+<td>Transaction network usage is too much for the remaining allowable usage of the current block</td>
+<td>交易网络占用过高</td>
+</tr>
+<tr>
+<td>3080004</td>
+<td>Transaction exceeded the current CPU usage limit imposed on the transaction</td>
+<td>交易CPU占用超限</td>
+</tr>
+<tr>
+<td>3080005</td>
+<td>Transaction CPU usage is too much for the remaining allowable usage of the current block</td>
+<td>交易CPU占用过高</td>
+</tr>
+<tr>
+<td>3080006</td>
+<td>Transaction took too long</td>
+<td>交易用时过长</td>
+</tr>
+<tr>
+<td>3080007</td>
+<td>Transaction exceeded the current greylisted account network usage limit</td>
+<td>交易超过当前灰名单账号的网络用量上限</td>
+</tr>
+<tr>
+<td>3080008</td>
+<td>Transaction exceeded the current greylisted account CPU usage limit</td>
+<td>交易超过当前灰名单账号的CPU用量上限</td>
+</tr>
+<tr>
+<td>3081001</td>
+<td>Transaction reached the deadline set due to leeway on account CPU limits</td>
+<td>由于账号CPU限制，交易已经达到截止区</td>
+</tr>
+<tr>
+<td>3090000</td>
+<td>Authorization exception</td>
+<td>授权异常</td>
+</tr>
+<tr>
+<td>3090001</td>
+<td>Duplicate signature included</td>
+<td>包含重复的签名</td>
+</tr>
+<tr>
+<td>3090002</td>
+<td>Irrelevant signature included</td>
+<td>包含不相关的签名</td>
+</tr>
+<tr>
+<td>3090003</td>
+<td>Provided keys, permissions, and delays do not satisfy declared authorizations</td>
+<td>提供的密钥、许可和延时不能满足声称的授权</td>
+</tr>
+<tr>
+<td>3090004</td>
+<td>Missing required authority</td>
+<td>授权丢失</td>
+</tr>
+<tr>
+<td>3090005</td>
+<td>Irrelevant authority included</td>
+<td>包含不相关的授权</td>
+</tr>
+<tr>
+<td>3090006</td>
+<td>Insufficient delay</td>
+<td>延时不足</td>
+</tr>
+<tr>
+<td>3090007</td>
+<td>Invalid Permission</td>
+<td>许可无效</td>
+</tr>
+<tr>
+<td>3090008</td>
+<td>The action is not allowed to be linked with minimum permission</td>
+<td>不允许该动作链接到最小许可</td>
+</tr>
+<tr>
+<td>3090009</td>
+<td>The parent permission is invalid</td>
+<td>父级许可无效</td>
+</tr>
+<tr>
+<td>3100000</td>
+<td>Miscellaneous exception</td>
+<td>其他异常</td>
+</tr>
+<tr>
+<td>3100001</td>
+<td>Internal state is no longer consistent</td>
+<td>内部状态不一致</td>
+</tr>
+<tr>
+<td>3100002</td>
+<td>Unknown block</td>
+<td>未知区块</td>
+</tr>
+<tr>
+<td>3100003</td>
+<td>Unknown transaction</td>
+<td>未知交易</td>
+</tr>
+<tr>
+<td>3100004</td>
+<td>Corrupted reversible block database was fixed</td>
+<td>被破坏的可逆区块数据库已修复</td>
+</tr>
+<tr>
+<td>3100005</td>
+<td>Extracted genesis state from blocks.log</td>
+<td>从区块日志中提取的创世状态</td>
+</tr>
+<tr>
+<td>3100006</td>
+<td>Subjective exception thrown during block production</td>
+<td>出块时抛出异常</td>
+</tr>
+<tr>
+<td>3100007</td>
+<td>Multiple voter info detected</td>
+<td>检测到多个投票人信息</td>
+</tr>
+<tr>
+<td>3100008</td>
+<td>Feature is currently unsupported</td>
+<td>当前不支持的特性</td>
+</tr>
+<tr>
+<td>3100009</td>
+<td>Node management operation successfully executed</td>
+<td>结果管理操作执行成功</td>
+</tr>
+<tr>
+<td>3110000</td>
+<td>Plugin exception</td>
+<td>插件异常</td>
+</tr>
+<tr>
+<td>3110001</td>
+<td>Missing Chain API Plugin</td>
+<td>Chain API插件丢失</td>
+</tr>
+<tr>
+<td>3110002</td>
+<td>Missing Wallet API Plugin</td>
+<td>Wallet API插件丢失</td>
+</tr>
+<tr>
+<td>3110003</td>
+<td>Missing History API Plugin</td>
+<td>History API插件丢失</td>
+</tr>
+<tr>
+<td>3110004</td>
+<td>Missing Net API Plugin</td>
+<td>Net API插件丢失</td>
+</tr>
+<tr>
+<td>3110005</td>
+<td>Missing Chain Plugin</td>
+<td>Chain插件丢失</td>
+</tr>
+<tr>
+<td>3110006</td>
+<td>Incorrect plugin configuration</td>
+<td>插件配置不正确</td>
+</tr>
+<tr>
+<td>3120000</td>
+<td>Wallet exception</td>
+<td>钱包异常</td>
+</tr>
+<tr>
+<td>3120001</td>
+<td>Wallet already exists</td>
+<td>钱包已经存在</td>
+</tr>
+<tr>
+<td>3120002</td>
+<td>Nonexistent wallet</td>
+<td>钱包不存在</td>
+</tr>
+<tr>
+<td>3120003</td>
+<td>Locked wallet</td>
+<td>已锁定的钱包</td>
+</tr>
+<tr>
+<td>3120004</td>
+<td>Missing public key</td>
+<td>公钥丢失</td>
+</tr>
+<tr>
+<td>3120005</td>
+<td>Invalid wallet password</td>
+<td>无效的钱包密码</td>
+</tr>
+<tr>
+<td>3120006</td>
+<td>No available wallet</td>
+<td>没有有效的钱包</td>
+</tr>
+<tr>
+<td>3120007</td>
+<td>Already unlocked</td>
+<td>已经解锁</td>
+</tr>
+<tr>
+<td>3120008</td>
+<td>Key already exists</td>
+<td>密钥已经存在</td>
+</tr>
+<tr>
+<td>3120009</td>
+<td>Nonexistent key</td>
+<td>不存在的密钥</td>
+</tr>
+<tr>
+<td>3120010</td>
+<td>Unsupported key type</td>
+<td>不支持的密钥类型</td>
+</tr>
+<tr>
+<td>3120011</td>
+<td>Wallet lock timeout is invalid</td>
+<td>钱包锁定超时无效</td>
+</tr>
+<tr>
+<td>3120012</td>
+<td>Secure Enclave Exception</td>
+<td>安全专区异常</td>
+</tr>
+<tr>
+<td>3130000</td>
+<td>Actor or contract whitelist/blacklist exception</td>
+<td>执行人或合约白名单/黑名单异常</td>
+</tr>
+<tr>
+<td>3130001</td>
+<td>Authorizing actor of transaction is not on the whitelist</td>
+<td>交易的授权执行人不在白名单中</td>
+</tr>
+<tr>
+<td>3130002</td>
+<td>Authorizing actor of transaction is on the blacklist</td>
+<td>交易的授权执行人在黑名单中</td>
+</tr>
+<tr>
+<td>3130003</td>
+<td>Contract to execute is not on the whitelist</td>
+<td>要执行的合约不在白名单中</td>
+</tr>
+<tr>
+<td>3130004</td>
+<td>Contract to execute is on the blacklist</td>
+<td>要执行的合约在黑名单中</td>
+</tr>
+<tr>
+<td>3130005</td>
+<td>Action to execute is on the blacklist</td>
+<td>要执行的动作在黑名单中</td>
+</tr>
+<tr>
+<td>3130006</td>
+<td>Public key in authority is on the blacklist</td>
+<td>授权中的公钥在黑名单中</td>
+</tr>
+<tr>
+<td>3140000</td>
+<td>Exceptions that are allowed to bubble out of emit calls in controller</td>
+<td>控制器异常</td>
+</tr>
+<tr>
+<td>3140001</td>
+<td>Block does not match checkpoint</td>
+<td>区块与检查点不匹配</td>
+</tr>
+<tr>
+<td>3160000</td>
+<td>Contract exception</td>
+<td>合约异常</td>
+</tr>
+<tr>
+<td>3160001</td>
+<td>The payer of the table data is invalid</td>
+<td>表数据支付账号无效</td>
+</tr>
+<tr>
+<td>3160002</td>
+<td>Table access violation</td>
+<td>数据表访问违规</td>
+</tr>
+<tr>
+<td>3160003</td>
+<td>Invalid table iterator</td>
+<td>无效的数据表迭代器</td>
+</tr>
+<tr>
+<td>3160004</td>
+<td>Table can not be found inside the cache</td>
+<td>缓存中找不到指定的数据表</td>
+</tr>
+<tr>
+<td>3160005</td>
+<td>The table operation is not allowed</td>
+<td>不允许数据表操作</td>
+</tr>
+<tr>
+<td>3160006</td>
+<td>Invalid contract vm type</td>
+<td>无效的合约虚拟机类型</td>
+</tr>
+<tr>
+<td>3160007</td>
+<td>Invalid contract vm version</td>
+<td>无效的合约虚拟机版本</td>
+</tr>
+<tr>
+<td>3160008</td>
+<td>Contract is already running this version of code</td>
+<td>合约已经在运行这个版本的代码</td>
+</tr>
+<tr>
+<td>3160009</td>
+<td>No wast file found</td>
+<td>，没有找到wast文件</td>
+</tr>
+<tr>
+<td>3160010</td>
+<td>No abi file found</td>
+<td>没有找到abi文件</td>
+</tr>
+<tr>
+<td>3170000</td>
+<td>Producer exception</td>
+<td>出块人异常</td>
+</tr>
+<tr>
+<td>3170001</td>
+<td>Producer private key is not available</td>
+<td>出块人私钥无效</td>
+</tr>
+<tr>
+<td>3170002</td>
+<td>Pending block state is missing</td>
+<td>待定区块状态丢失</td>
+</tr>
+<tr>
+<td>3170003</td>
+<td>Producer is double confirming known range</td>
+<td>出块人双重确认</td>
+</tr>
+<tr>
+<td>3170004</td>
+<td>Producer schedule exception</td>
+<td>出块人调度计划异常</td>
+</tr>
+<tr>
+<td>3170006</td>
+<td>The producer is not part of current schedule</td>
+<td>出块人不属于当前安排计划</td>
+</tr>
+<tr>
+<td>3170007</td>
+<td>The configured snapshot directory does not exist</td>
+<td>配置的快照目录不存在</td>
+</tr>
+<tr>
+<td>3170008</td>
+<td>The requested snapshot already exists</td>
+<td>请求的快照已经存在</td>
+</tr>
+<tr>
+<td>3180000</td>
+<td>Reversible Blocks exception</td>
+<td>可逆区块异常</td>
+</tr>
+<tr>
+<td>3180001</td>
+<td>Invalid reversible blocks directory</td>
+<td>无效的可逆区块目录</td>
+</tr>
+<tr>
+<td>3180002</td>
+<td>Backup directory for reversible blocks already existg</td>
+<td>可逆块的备份目录已存在</td>
+</tr>
+<tr>
+<td>3180003</td>
+<td>Gap in the reversible blocks database</td>
+<td>不连续的可逆区块数据库</td>
+</tr>
+<tr>
+<td>3190000</td>
+<td>Block log exception</td>
+<td>区块日志异常</td>
+</tr>
+<tr>
+<td>3190001</td>
+<td>unsupported version of block log</td>
+<td>不支持的区块日志版本</td>
+</tr>
+<tr>
+<td>3190002</td>
+<td>fail to append block to the block log</td>
+<td>向区块日志添加区块时失败</td>
+</tr>
+<tr>
+<td>3190003</td>
+<td>block log can not be found</td>
+<td>找不到区块日志</td>
+</tr>
+<tr>
+<td>3190004</td>
+<td>block log backup dir already exists</td>
+<td>区块日志备份目录已存在</td>
+</tr>
+<tr>
+<td>3200000</td>
+<td>http exception</td>
+<td>http异常</td>
+</tr>
+<tr>
+<td>3200001</td>
+<td>invalid http client root certificate</td>
+<td>无效的http客户端证书</td>
+</tr>
+<tr>
+<td>3200002</td>
+<td>invalid http response</td>
+<td>无效的http请求</td>
+</tr>
+<tr>
+<td>3200003</td>
+<td>service resolved to multiple ports</td>
+<td>服务对应多个端口</td>
+</tr>
+<tr>
+<td>3200004</td>
+<td>fail to resolve host</td>
+<td>解析主机名失败</td>
+</tr>
+<tr>
+<td>3200005</td>
+<td>http request fail</td>
+<td>http请求失败</td>
+</tr>
+<tr>
+<td>3200006</td>
+<td>invalid http request</td>
+<td>无效的http请求</td>
+</tr>
+<tr>
+<td>3210000</td>
+<td>Resource limit exception</td>
+<td>资源限制异常</td>
+</tr>
+<tr>
+<td>3220000</td>
+<td>Mongo DB exception</td>
+<td>MongoDB异常</td>
+</tr>
+<tr>
+<td>3220001</td>
+<td>Fail to insert new data to Mongo DB</td>
+<td>MongoDB插入数据失败</td>
+</tr>
+<tr>
+<td>3220002</td>
+<td>Fail to update existing data in Mongo DB</td>
+<td>MongoDB更新数据失败</td>
+</tr>
+<tr>
+<td>3230000</td>
+<td>Contract API exception</td>
+<td>合约API异常</td>
+</tr>
+<tr>
+<td>3230001</td>
+<td>Crypto API Exception</td>
+<td>密码学API异常</td>
+</tr>
+<tr>
+<td>3230002</td>
+<td>Database API Exception</td>
+<td>数据库API异常</td>
+</tr>
+<tr>
+<td>3230003</td>
+<td>Arithmetic Exception</td>
+<td>算术异常</td>
+</tr>
+<tr>
+<td>3240000</td>
+<td>Snapshot exception</td>
+<td>快照异常</td>
+</tr>
+<tr>
+<td>3240001</td>
+<td>Snapshot Validation Exception</td>
+<td>快照验证异常</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="Jack Yao 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/bitcoinpay.png" alt="Jack Yao 比特币">
+        <p>比特币</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>Jack Yao</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="/eos_error_collect" title="EOS合约基础教程--踩坑集合（持续更新）">eos_error_collect</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/区块链/" rel="tag"># 区块链</a>
+          
+            <a href="/tags/eos/" rel="tag"># eos</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/why_10profits_other_and_you_cut_an_half/" rel="next" title="为什么拿住10倍利润的都是别人？而你最终腰斩！">
+                <i class="fa fa-chevron-left"></i> 为什么拿住10倍利润的都是别人？而你最终腰斩！
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/eth_0x01_dev_tool/" rel="prev" title="0x01--智能合约开发之工具">
+                0x01--智能合约开发之工具 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jack Yao</p>
+              <div class="site-description motion-element" itemprop="description">由渐入深，记录程序人生。全栈工程师与你共勉。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">273</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">61</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3VjZnlhbw==" title="GitHub &rarr; https://github.com/ucfyao"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOnlhb3ppaGFvQHlhb3ppaGFvLmNu" title="E-Mail &rarr; mailto:yaozihao@yaozihao.cn"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly93d3cuamlhbnNodS5jb20vdS8zYWI3MGExOTliNzA=" title="简书 &rarr; https://www.jianshu.com/u/3ab70a199b70"><i class="fa fa-fw fa-heartbeat"></i>简书</span>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <span class="exturl" data-url="aHR0cHM6Ly93d3cuYmFpZHUuY29tLw==" title="https://www.baidu.com/">baidu</span>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <span class="exturl" data-url="aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8=" title="https://www.google.com/">google</span>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-编译失败"><span class="nav-text">1.编译失败</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-EOS-CPU资源用尽"><span class="nav-text">2.EOS CPU资源用尽</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-错误码汇总："><span class="nav-text">3.错误码汇总：</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2014 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jack Yao</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">847k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">12:50</span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+    
+    
+      
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="66" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js"></script>
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.6/jquery.fancybox.min.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+  <script src="/js/exturl.js?v=7.1.0"></script>
+
+
+  
+
+  
+  
+
+  
+
+<script src="//cdn.jsdelivr.net/npm/leancloud-storage@3/dist/av-min.js"></script>
+
+
+
+  
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/valine/1.3.4/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: '5HH1Ct2I3JPMel7GKmPcGECC-gzGzoHsz',
+    appKey: 'ySQSP3Suwlfg3kYmoYy3spXl',
+    placeholder: 'Just go go',
+    avatar: 'identicon',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
