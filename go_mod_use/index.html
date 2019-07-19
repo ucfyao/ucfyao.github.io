@@ -1,0 +1,1774 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN,en,default">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FF5733">
+
+
+
+
+  
+  
+    
+      
+    
+    
+      
+    
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.6/jquery.fancybox.min.css">
+
+
+
+
+
+
+
+  
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="go modules 是 golang 1.11 新加的特性。  模块是相关Go包的集合。modules是源代码交换和版本控制的单元。 go命令直接支持使用modules，包括记录和解析对其他模块的依赖性。modules替换旧的基于GOPATH的方法来指定在给定构建中使用哪些源文件。  如何使用 Modules ？1.把 golang 升级到 1.11（现在1.12 已经发布了，建议使用1.12）">
+<meta name="keywords" content="go">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go mod 使用">
+<meta property="og:url" content="https://yaozihao.com/go_mod_use/index.html">
+<meta property="og:site_name" content="zihao&#39;blog">
+<meta property="og:description" content="go modules 是 golang 1.11 新加的特性。  模块是相关Go包的集合。modules是源代码交换和版本控制的单元。 go命令直接支持使用modules，包括记录和解析对其他模块的依赖性。modules替换旧的基于GOPATH的方法来指定在给定构建中使用哪些源文件。  如何使用 Modules ？1.把 golang 升级到 1.11（现在1.12 已经发布了，建议使用1.12）">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-19T03:05:26.345Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Go mod 使用">
+<meta name="twitter:description" content="go modules 是 golang 1.11 新加的特性。  模块是相关Go包的集合。modules是源代码交换和版本控制的单元。 go命令直接支持使用modules，包括记录和解析对其他模块的依赖性。modules替换旧的基于GOPATH的方法来指定在给定构建中使用哪些源文件。  如何使用 Modules ？1.把 golang 升级到 1.11（现在1.12 已经发布了，建议使用1.12）">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="zihao'blog" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="https://yaozihao.com/go_mod_use/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Go mod 使用 | zihao'blog</title>
+  
+
+
+
+
+  <script async src="//www.googletagmanager.com/gtag/js?id=UA-138731725-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-138731725-1');
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zihao'blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">Make small but daily progress</h1>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">19</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">61</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">278</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL3VjZnlhbw==" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></span>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/go_mod_use/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jack Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zihao'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Go mod 使用
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-18 21:23:51" itemprop="dateCreated datePublished" datetime="2019-07-18T21:23:51+08:00">2019-07-18</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-07-19 11:05:26" itemprop="dateModified" datetime="2019-07-19T11:05:26+08:00">2019-07-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/Back/" itemprop="url" rel="index"><span itemprop="name">Back</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Web/Back/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/go_mod_use/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/go_mod_use/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">6.7k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">6 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>go modules 是 golang 1.11 新加的特性。</p>
+<blockquote>
+<p>模块是相关Go包的集合。modules是源代码交换和版本控制的单元。 go命令直接支持使用modules，包括记录和解析对其他模块的依赖性。modules替换旧的基于GOPATH的方法来指定在给定构建中使用哪些源文件。</p>
+</blockquote>
+<h2 id="如何使用-Modules-？"><a href="#如何使用-Modules-？" class="headerlink" title="如何使用 Modules ？"></a>如何使用 Modules ？</h2><p>1.把 golang 升级到 1.11（现在1.12 已经发布了，建议使用1.12）<br>2.设置 GO111MODULE</p>
+<p><code>GO111MODULE</code> 有三个值：<code>off</code>, <code>on</code>和<code>auto</code>（默认值）。</p>
+<ul>
+<li><code>GO111MODULE=off</code>，go命令行将不会支持module功能，寻找依赖包的方式将会沿用旧版本那种通过vendor目录或者GOPATH模式来查找。</li>
+<li><code>GO111MODULE=on</code>，go命令行会使用modules，而一点也不会去GOPATH目录下查找。</li>
+<li><code>GO111MODULE=auto</code>，默认值，go命令行将会根据当前目录来决定是否启用module功能。这种情况下可以分为两种情形：<ul>
+<li>当前目录在GOPATH/src之外且该目录包含go.mod文件</li>
+<li>当前文件在包含go.mod文件的目录下面。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>当modules 功能启用时，依赖包的存放位置变更为$GOPATH/pkg，允许同一个package多个版本并存，且多个项目可以共享缓存的 module。</p>
+</blockquote>
+<h2 id="go-mod"><a href="#go-mod" class="headerlink" title="go mod"></a>go mod</h2><p>golang 提供了 go mod命令来管理包。</p>
+<p>go mod 有以下命令：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>download</td>
+<td>download modules to local cache(下载依赖包)</td>
+</tr>
+<tr>
+<td>edit</td>
+<td>edit go.mod from tools or scripts（编辑go.mod)</td>
+</tr>
+<tr>
+<td>graph</td>
+<td>print module requirement graph (打印模块依赖图)</td>
+</tr>
+<tr>
+<td>init</td>
+<td>initialize new module in current directory（在当前目录初始化mod）</td>
+</tr>
+<tr>
+<td>tidy</td>
+<td>add missing and remove unused modules(拉取缺少的模块，移除不用的模块)</td>
+</tr>
+<tr>
+<td>vendor</td>
+<td>make vendored copy of dependencies(将依赖复制到vendor下)</td>
+</tr>
+<tr>
+<td>verify</td>
+<td>verify dependencies have expected content (验证依赖是否正确）</td>
+</tr>
+<tr>
+<td>why</td>
+<td>explain why packages or modules are needed(解释为什么需要依赖)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="如何在项目中使用"><a href="#如何在项目中使用" class="headerlink" title="如何在项目中使用"></a>如何在项目中使用</h2><h3 id="示例一：创建一个新项目"><a href="#示例一：创建一个新项目" class="headerlink" title="示例一：创建一个新项目"></a>示例一：创建一个新项目</h3><p>在GOPATH 目录之外新建一个目录，并使用<code>go mod init</code>初始化生成go.mod 文件</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">(python3.7)  👍 /wwwroot/html mkdir hello</span><br><span class="line">(python3.7)  👍 /wwwroot/html <span class="built_in">cd</span> hello</span><br><span class="line">(python3.7)  👍 /wwwroot/html/hello go mod init hello</span><br><span class="line">go: creating new go.mod: module hello</span><br><span class="line">(python3.7)  👍 /wwwroot/html/hello cat go.mod</span><br><span class="line">module hello</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>go.mod文件一旦创建后，它的内容将会被<code>go toolchain</code>全面掌控。<code>go toolchain</code>会在各类命令执行时，比如<code>go get</code>、<code>go build</code>、<code>go mod</code>等修改和维护go.mod文件。</p>
+</blockquote>
+<p>go.mod 提供了<code>module</code>, <code>require</code>、<code>replace</code>和<code>exclude</code> 四个命令</p>
+<ul>
+<li>module 语句指定包的名字（路径）</li>
+<li>require 语句指定的依赖项模块</li>
+<li>replace 语句可以替换依赖项模块</li>
+<li>exclude 语句可以忽略依赖项模块</li>
+</ul>
+<h4 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h4><p>新建一个 <code>server.go</code> 文件，写入以下代码：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"net/http"</span></span><br><span class="line">    <span class="string">"github.com/labstack/echo"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    e := echo.New()</span><br><span class="line">    e.GET(<span class="string">"/"</span>, <span class="function"><span class="keyword">func</span><span class="params">(c echo.Context)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">        <span class="keyword">return</span> c.String(http.StatusOK, <span class="string">"Hello, World!"</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    e.Logger.Fatal(e.Start(<span class="string">":1323"</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行 <code>go run server.go</code> 运行代码会发现 go mod 会自动查找依赖自动下载：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ go run server.go</span><br><span class="line">go: finding github.com/labstack/<span class="built_in">echo</span> v3.3.10+incompatible</span><br><span class="line">go: downloading github.com/labstack/<span class="built_in">echo</span> v3.3.10+incompatible</span><br><span class="line">go: finding github.com/labstack/gommon/color latest</span><br><span class="line">go: finding github.com/labstack/gommon/<span class="built_in">log</span> latest</span><br><span class="line">go: finding golang.org/x/crypto/acme/autocert latest</span><br><span class="line">go: finding github.com/labstack/gommon v0.2.9</span><br><span class="line">go: finding golang.org/x/crypto/acme latest</span><br><span class="line"></span><br><span class="line"><span class="comment"># 此处省略很多行</span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">   ____    __</span><br><span class="line">  / __/___/ /  ___</span><br><span class="line"> / _// __/ _ \/ _ \</span><br><span class="line">/___/\__/_//_/\___/ v3.3.10-dev</span><br><span class="line">High performance, minimalist Go web framework</span><br><span class="line">https://echo.labstack.com</span><br><span class="line">____________________________________O/_______</span><br><span class="line">                                    O\</span><br><span class="line">⇨ http server started on [::]:1323</span><br></pre></td></tr></table></figure>
+<p>现在查看go.mod 内容：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ cat go.mod</span><br><span class="line"></span><br><span class="line">module hello</span><br><span class="line"></span><br><span class="line">require (</span><br><span class="line">	github.com/labstack/<span class="built_in">echo</span> v3.3.10+incompatible // indirect</span><br><span class="line">	github.com/labstack/gommon v0.2.9 // indirect</span><br><span class="line">	golang.org/x/crypto v0.0.0-20190701094942-4def268fd1a4 // indirect</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p><code>go module</code> 安装 <code>package</code> 的原則是先拉最新的 <code>release tag</code>，若无tag则拉最新的commit，详见 Modules官方介绍。 <code>go</code> 会自动生成一个 go.sum 文件来记录 dependency tree：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ cat go.sum</span><br><span class="line">github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=</span><br><span class="line">github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=</span><br><span class="line">github.com/labstack/<span class="built_in">echo</span> v3.3.10+incompatible h1:pGRcYk231ExFAyoAjAfD85kQzRJCRI8bbnE7CX5OEgg=</span><br><span class="line">github.com/labstack/<span class="built_in">echo</span> v3.3.10+incompatible/go.mod h1:0INS7j/VjnFxD4E2wkz67b8cVwCLbBmJyDaka6Cmk1s=</span><br><span class="line">github.com/labstack/gommon v0.2.9 h1:heVeuAYtevIQVYkGj6A41dtfT91LrvFG220lavpWhrU=</span><br><span class="line">github.com/labstack/gommon v0.2.9/go.mod h1:E8ZTmW9vw5az5/ZyHWCp0Lw4OH2ecsaBP1C/NKavGG4=</span><br><span class="line">... 省略很多行</span><br></pre></td></tr></table></figure>
+<ol>
+<li>再次执行脚本 <code>go run server.go</code> 发现跳过了检查并安装依赖的步骤。</li>
+<li>可以使用命令 <code>go list -m -u all</code> 来检查可以升级的package，使用<code>go get -u need-upgrade-package</code> 升级后会将新的依赖版本更新到go.mod</li>
+<li>也可以使用 <code>go get -u</code> 升级所有依赖</li>
+</ol>
+<h4 id="go-get-升级"><a href="#go-get-升级" class="headerlink" title="go get 升级"></a>go get 升级</h4><p>运行 <code>go get -u</code> 将会升级到最新的次要版本或者修订版本(x.y.z, z是修订版本号， y是次要版本号)<br>运行 <code>go get -u=patch</code> 将会升级到最新的修订版本<br>运行 <code>go get package@version</code> 将会升级到指定的版本号version<br>运行go get如果有版本的更改，那么go.mod文件也会更改</p>
+<h3 id="示例二：改造现有项目-helloword"><a href="#示例二：改造现有项目-helloword" class="headerlink" title="示例二：改造现有项目(helloword)"></a>示例二：改造现有项目(helloword)</h3><p>项目目录为：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ tree</span><br><span class="line">.</span><br><span class="line">├── api</span><br><span class="line">│   └── apis.go</span><br><span class="line">└── server.go</span><br><span class="line"></span><br><span class="line">1 directory, 2 files</span><br></pre></td></tr></table></figure>
+<p>server.go 源码为：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    api <span class="string">"./api"</span>  <span class="comment">// 这里使用的是相对路径</span></span><br><span class="line">    <span class="string">"github.com/labstack/echo"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    e := echo.New()</span><br><span class="line">    e.GET(<span class="string">"/"</span>, api.HelloWorld)</span><br><span class="line">    e.Logger.Fatal(e.Start(<span class="string">":1323"</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>api/apis.go 源码为：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> api</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"net/http"</span></span><br><span class="line"></span><br><span class="line">    <span class="string">"github.com/labstack/echo"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">HelloWorld</span><span class="params">(c echo.Context)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> c.JSON(http.StatusOK, <span class="string">"hello world"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 <code>go mod init ***</code> 初始化go.mod</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ go mod init helloworld</span><br><span class="line">go: creating new go.mod: module helloworld</span><br></pre></td></tr></table></figure>
+<p>运行 <code>go run server.go</code></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">go: finding github.com/labstack/gommon/color latest</span><br><span class="line">go: finding github.com/labstack/gommon/<span class="built_in">log</span> latest</span><br><span class="line">go: finding golang.org/x/crypto/acme/autocert latest</span><br><span class="line">go: finding golang.org/x/crypto/acme latest</span><br><span class="line">go: finding golang.org/x/crypto latest</span><br><span class="line">build <span class="built_in">command</span>-line-arguments: cannot find module <span class="keyword">for</span> path _/home/gs/helloworld/api</span><br></pre></td></tr></table></figure>
+<p>首先还是会查找并下载安装依赖，然后运行脚本 server.go，这里会抛出一个错误：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">build <span class="built_in">command</span>-line-arguments: cannot find module <span class="keyword">for</span> path _/home/gs/helloworld/api</span><br></pre></td></tr></table></figure>
+<p>但是go.mod 已经更新：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ cat go.mod</span><br><span class="line"></span><br><span class="line">module helloworld</span><br><span class="line"></span><br><span class="line">require (</span><br><span class="line">	github.com/labstack/<span class="built_in">echo</span> v3.3.10+incompatible // indirect</span><br><span class="line">	github.com/labstack/gommon v0.2.9 // indirect</span><br><span class="line">	golang.org/x/crypto v0.0.0-20190701094942-4def268fd1a4 // indirect</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>那为什么会抛出这个错误呢？<br>这是因为 <code>server.go</code> 中使用 <code>internal package</code> 的方法跟以前已经不同了，由于 go.mod会扫描同工作目录下所有 package 并且变更引入方法，必须将 helloworld当成路径的前缀，也就是需要写成 <code>import helloworld/api</code>，以往 <code>GOPATH/dep</code> 模式允许的 <code>import ./api</code> ，已经失效详情可以查看这个 <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dvbGFuZy9nby9pc3N1ZXMvMjY2NDU=" title="https://github.com/golang/go/issues/26645">issue<i class="fa fa-external-link"></i></span>。</p>
+<p>所以<code>server.go</code> 需要改写成：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    api <span class="string">"helloworld/api"</span>  <span class="comment">// 这是更新后的引入方法</span></span><br><span class="line">    <span class="string">"github.com/labstack/echo"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    e := echo.New()</span><br><span class="line">    e.GET(<span class="string">"/"</span>, api.HelloWorld)</span><br><span class="line">    e.Logger.Fatal(e.Start(<span class="string">":1323"</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一个小坑：开始在golang1.11 下使用go mod 遇到过 <code>go build github.com/valyala/fasttemplate: module requires go 1.12</code> 这种错误，遇到类似这种需要升级到1.12 的问题，直接升级golang1.12 就好了。幸亏是在1.12 发布后才尝试的go mod 🤷‍♂️<br>到这里就和新创建一个项目没什么区别了</p>
+<h3 id="使用replace替换无法直接获取的package"><a href="#使用replace替换无法直接获取的package" class="headerlink" title="使用replace替换无法直接获取的package"></a>使用replace替换无法直接获取的package</h3><p>由于某些已知的原因，并不是所有的package都能成功下载，比如：<code>golang.org</code>下的包。</p>
+<p>modules 可以通过在 go.mod 文件中使用 replace 指令替换成github上对应的库，比如：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">replace (</span><br><span class="line">    golang.org/x/crypto v0<span class="number">.0</span><span class="number">.0</span><span class="number">-20190313024323</span>-a1f597ede03a =&gt; github.com/golang/crypto v0<span class="number">.0</span><span class="number">.0</span><span class="number">-20190313024323</span>-a1f597ede03a</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">replace golang.org/x/crypto v0<span class="number">.0</span><span class="number">.0</span><span class="number">-20190313024323</span>-a1f597ede03a =&gt; github.com/golang/crypto v0<span class="number">.0</span><span class="number">.0</span><span class="number">-20190313024323</span>-a1f597ede03a</span><br></pre></td></tr></table></figure>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p>[1] Modules官方介绍: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dvbGFuZy9nby8uLg==" title="https://github.com/golang/go/..">https://github.com/golang/go/..<i class="fa fa-external-link"></i></span>.<br>[2] issue: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dvbGFuZy9nby8uLg==" title="https://github.com/golang/go/..">https://github.com/golang/go/..<i class="fa fa-external-link"></i></span>.<br>[3] 这种错误: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dvbGFuZy9nby8uLg==" title="https://github.com/golang/go/..">https://github.com/golang/go/..<i class="fa fa-external-link"></i></span>.<br>[4] Modules官方介绍: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dvbGFuZy9nby8uLg==" title="https://github.com/golang/go/..">https://github.com/golang/go/..<i class="fa fa-external-link"></i></span>.<br>[5] Golang 1.11 新功能介紹 – Modules: <span class="exturl" data-url="aHR0cHM6Ly93d3cubGlnaHRibHVlLmFzaWEvZ28uLg==" title="https://www.lightblue.asia/go..">https://www.lightblue.asia/go..<i class="fa fa-external-link"></i></span>.<br>[6] What are Go modules and how do I use them?: <span class="exturl" data-url="aHR0cHM6Ly90YWxrcy5nb2RvYy5vcmcvZ2l0aHUuLg==" title="https://talks.godoc.org/githu..">https://talks.godoc.org/githu..<i class="fa fa-external-link"></i></span>.<br>[7] go mod doesn’t work for github.com/gomarkdown/markdown/html : <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dvbGFuZy9nby8uLg==" title="https://github.com/golang/go/..">https://github.com/golang/go/..<i class="fa fa-external-link"></i></span>.<br>[8] 再探go modules：使用与细节: <span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vYXBvY2UuLg==" title="https://www.cnblogs.com/apoce..">https://www.cnblogs.com/apoce..<i class="fa fa-external-link"></i></span>.<br>[9] 初窥Go module: <span class="exturl" data-url="aHR0cHM6Ly90b255YmFpLmNvbS8yMDE4LzA3LzEuLg==" title="https://tonybai.com/2018/07/1..">https://tonybai.com/2018/07/1..<i class="fa fa-external-link"></i></span>.</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="Jack Yao 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/bitcoinpay.png" alt="Jack Yao 比特币">
+        <p>比特币</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>Jack Yao</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="/go_mod_use" title="Go mod 使用">go_mod_use</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/go/" rel="tag"># go</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/english_toelf_reading/" rel="next" title="托福阅读">
+                <i class="fa fa-chevron-left"></i> 托福阅读
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jack Yao</p>
+              <div class="site-description motion-element" itemprop="description">由渐入深，记录程序人生。全栈工程师与你共勉。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">278</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">61</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3VjZnlhbw==" title="GitHub &rarr; https://github.com/ucfyao"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOnlhb3ppaGFvQHlhb3ppaGFvLmNu" title="E-Mail &rarr; mailto:yaozihao@yaozihao.cn"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly93d3cuamlhbnNodS5jb20vdS8zYWI3MGExOTliNzA=" title="简书 &rarr; https://www.jianshu.com/u/3ab70a199b70"><i class="fa fa-fw fa-heartbeat"></i>简书</span>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <span class="exturl" data-url="aHR0cHM6Ly93d3cuYmFpZHUuY29tLw==" title="https://www.baidu.com/">baidu</span>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <span class="exturl" data-url="aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8=" title="https://www.google.com/">google</span>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用-Modules-？"><span class="nav-text">如何使用 Modules ？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#go-mod"><span class="nav-text">go mod</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何在项目中使用"><span class="nav-text">如何在项目中使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#示例一：创建一个新项目"><span class="nav-text">示例一：创建一个新项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加依赖"><span class="nav-text">添加依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#go-get-升级"><span class="nav-text">go get 升级</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例二：改造现有项目-helloword"><span class="nav-text">示例二：改造现有项目(helloword)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用replace替换无法直接获取的package"><span class="nav-text">使用replace替换无法直接获取的package</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-text">参考链接</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2014 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jack Yao</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">860k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">13:02</span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+    
+    
+      
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="66" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js"></script>
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.6/jquery.fancybox.min.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+  <script src="/js/exturl.js?v=7.1.0"></script>
+
+
+  
+
+  
+  
+
+  
+
+<script src="//cdn.jsdelivr.net/npm/leancloud-storage@3/dist/av-min.js"></script>
+
+
+
+  
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/valine/1.3.4/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: '5HH1Ct2I3JPMel7GKmPcGECC-gzGzoHsz',
+    appKey: 'ySQSP3Suwlfg3kYmoYy3spXl',
+    placeholder: 'Just go go',
+    avatar: 'identicon',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
