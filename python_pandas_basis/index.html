@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FF5733">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#FF5733">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="安装pandas 是基于Numpy构建的含有更高级数据结构和工具的数据分析包 类似于Numpy的核心是ndarray，pandas也是围绕着Series和DataFrame两个核心数据结构展开的。Series 和 DataFrame 分别对应于一维的序列和二维的表结构。pandas 约定俗成的导入方法如下： 12from pandas import Series,DataFrameimport p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python数据分析包：pandas基础">
+<meta property="og:url" content="https://yaozihao.com/python_pandas_basis/index.html">
+<meta property="og:site_name" content="Zihao">
+<meta property="og:description" content="安装pandas 是基于Numpy构建的含有更高级数据结构和工具的数据分析包 类似于Numpy的核心是ndarray，pandas也是围绕着Series和DataFrame两个核心数据结构展开的。Series 和 DataFrame 分别对应于一维的序列和二维的表结构。pandas 约定俗成的导入方法如下： 12from pandas import Series,DataFrameimport p">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-04-20T14:43:34.000Z">
+<meta property="article:modified_time" content="2022-11-28T00:14:23.135Z">
+<meta property="article:author" content="Zihao Yao">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="pandas">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://yaozihao.com/python_pandas_basis/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script async src="/lib/fireworks.js"></script>
+  <title>Python数据分析包：pandas基础 | Zihao</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Zihao" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zihao</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Make small but daily progress</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">64</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">19</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">278</span></a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL3VjZnlhbw==" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/python_pandas_basis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zihao Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zihao">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python数据分析包：pandas基础
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-04-20 14:43:34" itemprop="dateCreated datePublished" datetime="2017-04-20T14:43:34Z">2017-04-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-28 00:14:23" itemprop="dateModified" datetime="2022-11-28T00:14:23Z">2022-11-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/Back/" itemprop="url" rel="index"><span itemprop="name">Back</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/Back/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>9.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><code>pandas</code> 是基于<code>Numpy</code>构建的含有更高级数据结构和工具的数据分析包</p>
+<p>类似于<code>Numpy</code>的核心是<code>ndarray</code>，<code>pandas</code>也是围绕着<code>Series</code>和<code>DataFrame</code>两个核心数据结构展开的。<code>Series</code> 和 <code>DataFrame</code> 分别对应于一维的序列和二维的表结构。<code>pandas</code> 约定俗成的导入方法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from pandas import Series,DataFrame</span><br><span class="line">import pandas as pd</span><br></pre></td></tr></table></figure>
+
+<h2 id="Series"><a href="#Series" class="headerlink" title="Series"></a>Series</h2><p>Series 可以看做一个定长的有序字典。基本任意的一维数据都可以用来构造 Series 对象：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s = Series([1,2,3.0,&#x27;abc&#x27;])</span><br><span class="line">&gt;&gt;&gt; s</span><br><span class="line">0      1</span><br><span class="line">1      2</span><br><span class="line">2      3</span><br><span class="line">3    abc</span><br><span class="line">dtype: object</span><br></pre></td></tr></table></figure>
+<p>虽然 <code>dtype:object</code> 可以包含多种基本数据类型，但总感觉会影响性能的样子，最好还是保持单纯的 <code>dtype</code>。</p>
+<p><code>Series</code> 对象包含两个主要的属性：<code>index</code> 和 <code>values</code>，分别为上例中左右两列。因为传给构造器的是一个列表，所以 <code>index</code> 的值是从 0 起递增的整数，如果传入的是一个类字典的键值对结构，就会生成 <code>index-value</code> 对应的 <code>Series</code>；或者在初始化的时候以关键字参数显式指定一个 <code>index</code> 对象：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s = Series(data=[1,3,5,7],index = [&#x27;a&#x27;,&#x27;b&#x27;,&#x27;x&#x27;,&#x27;y&#x27;])</span><br><span class="line">&gt;&gt;&gt; s</span><br><span class="line">a    1</span><br><span class="line">b    3</span><br><span class="line">x    5</span><br><span class="line">y    7</span><br><span class="line">dtype: int64</span><br><span class="line">&gt;&gt;&gt; s.index</span><br><span class="line">Index([&#x27;a&#x27;, &#x27;b&#x27;, &#x27;x&#x27;, &#x27;y&#x27;], dtype=&#x27;object&#x27;)</span><br><span class="line">&gt;&gt;&gt; s.values</span><br><span class="line">array([1, 3, 5, 7], dtype=int64)</span><br></pre></td></tr></table></figure>
+
+<p><code>Series</code> 对象的元素会严格依照给出的 index 构建，这意味着：如果 data 参数是有键值对的，那么只有 index 中含有的键会被使用；以及如果 data 中缺少响应的键，即使给出 NaN 值，这个键也会被添加。</p>
+<p>注意<code>Series</code>的<code>index</code>和 <code>values</code> 的元素之间虽然存在对应关系，但这与字典的映射不同。<code>index</code> 和 <code>values</code> 实际仍为互相独立的 <code>ndarray</code> 数组，因此 <code>Series</code> 对象的性能完全 ok。</p>
+<p><code>Series</code> 这种使用键值对的数据结构最大的好处在于，<code>Series</code> 间进行算术运算时，<code>index</code> 会自动对齐。</p>
+<p>另外，<code>Series</code> 对象和它的 index 都含有一个 name 属性：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s.name = &#x27;a_series&#x27;</span><br><span class="line">&gt;&gt;&gt; s.index.name = &#x27;the_index&#x27;</span><br><span class="line">&gt;&gt;&gt; s</span><br><span class="line">the_index</span><br><span class="line">a            1</span><br><span class="line">b            3</span><br><span class="line">x            5</span><br><span class="line">y            7</span><br><span class="line">Name: a_series, dtype: int64</span><br></pre></td></tr></table></figure>
+
+<h2 id="DataFrame"><a href="#DataFrame" class="headerlink" title="DataFrame"></a>DataFrame</h2><p><code>DataFrame</code> 是一个表格型的数据结构，它含有一组有序的列（类似于 index），每列可以是不同的值类型（不像 <code>ndarray</code> 只能有一个 dtype）。基本上可以把 <code>DataFrame</code> 看成是共享同一个 <code>index</code> 的 <code>Series</code> 的集合。</p>
+<p><code>DataFrame</code> 的构造方法与 <code>Series</code> 类似，只不过可以同时接受多条一维数据源，每一条都会成为单独的一列：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; data = &#123;&#x27;state&#x27;:[&#x27;Ohino&#x27;,&#x27;Ohino&#x27;,&#x27;Ohino&#x27;,&#x27;Nevada&#x27;,&#x27;Nevada&#x27;],</span><br><span class="line">        &#x27;year&#x27;:[2000,2001,2002,2001,2002],</span><br><span class="line">        &#x27;pop&#x27;:[1.5,1.7,3.6,2.4,2.9]&#125;</span><br><span class="line">&gt;&gt;&gt; df = DataFrame(data)</span><br><span class="line">&gt;&gt;&gt; df</span><br><span class="line">   pop   state  year</span><br><span class="line">0  1.5   Ohino  2000</span><br><span class="line">1  1.7   Ohino  2001</span><br><span class="line">2  3.6   Ohino  2002</span><br><span class="line">3  2.4  Nevada  2001</span><br><span class="line">4  2.9  Nevada  2002</span><br><span class="line"></span><br><span class="line">[5 rows x 3 columns]</span><br></pre></td></tr></table></figure>
+<p>虽然参数 <code>data</code> 看起来是个字典，但字典的键并非充当 <code>DataFrame</code> 的 <code>index</code> 的角色，而是 <code>Series</code> 的 “name” 属性。这里生成的 <code>index</code> 仍是 “01234”。</p>
+<p>较完整的 <code>DataFrame</code> 构造器参数为：<code>DataFrame(data=None,index=None,coloumns=None)</code>，<code>columns</code> 即 “name”：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; df = DataFrame(data,index=[&#x27;one&#x27;,&#x27;two&#x27;,&#x27;three&#x27;,&#x27;four&#x27;,&#x27;five&#x27;],</span><br><span class="line">               columns=[&#x27;year&#x27;,&#x27;state&#x27;,&#x27;pop&#x27;,&#x27;debt&#x27;])</span><br><span class="line">&gt;&gt;&gt; df</span><br><span class="line">       year   state  pop debt</span><br><span class="line">one    2000   Ohino  1.5  NaN</span><br><span class="line">two    2001   Ohino  1.7  NaN</span><br><span class="line">three  2002   Ohino  3.6  NaN</span><br><span class="line">four   2001  Nevada  2.4  NaN</span><br><span class="line">five   2002  Nevada  2.9  NaN</span><br><span class="line"></span><br><span class="line">[5 rows x 4 columns]</span><br></pre></td></tr></table></figure>
+<p>同样缺失值由 <code>NaN</code> 补上。看一下 <code>index、columns</code> 和 索引的类型：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; df.index</span><br><span class="line">Index([&#x27;one&#x27;, &#x27;two&#x27;, &#x27;three&#x27;, &#x27;four&#x27;, &#x27;five&#x27;], dtype=&#x27;object&#x27;)</span><br><span class="line">&gt;&gt;&gt; df.columns</span><br><span class="line">Index([&#x27;year&#x27;, &#x27;state&#x27;, &#x27;pop&#x27;, &#x27;debt&#x27;], dtype=&#x27;object&#x27;)</span><br><span class="line">&gt;&gt;&gt; type(df[&#x27;debt&#x27;])</span><br><span class="line">&lt;class &#x27;pandas.core.series.Series&#x27;&gt;</span><br></pre></td></tr></table></figure>
+<p><code>DataFrame</code> 面向行和面向列的操作基本是平衡的，任意抽出一列都是 <code>Series</code>。</p>
+<h2 id="对象属性"><a href="#对象属性" class="headerlink" title="对象属性"></a>对象属性</h2><h3 id="重新索引"><a href="#重新索引" class="headerlink" title="重新索引"></a>重新索引</h3><p><code>Series</code> 对象的重新索引通过其 <code>.reindex(index=None,**kwargs)</code> 方法实现。<code>**kwargs</code> 中常用的参数有俩：<code>method=None,fill_value=np.NaN</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">ser = Series([4.5,7.2,-5.3,3.6],index=[&#x27;d&#x27;,&#x27;b&#x27;,&#x27;a&#x27;,&#x27;c&#x27;])</span><br><span class="line">&gt;&gt;&gt; a = [&#x27;a&#x27;,&#x27;b&#x27;,&#x27;c&#x27;,&#x27;d&#x27;,&#x27;e&#x27;]</span><br><span class="line">&gt;&gt;&gt; ser.reindex(a)</span><br><span class="line">a   -5.3</span><br><span class="line">b    7.2</span><br><span class="line">c    3.6</span><br><span class="line">d    4.5</span><br><span class="line">e    NaN</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; ser.reindex(a,fill_value=0)</span><br><span class="line">a   -5.3</span><br><span class="line">b    7.2</span><br><span class="line">c    3.6</span><br><span class="line">d    4.5</span><br><span class="line">e    0.0</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; ser.reindex(a,method=&#x27;ffill&#x27;)</span><br><span class="line">a   -5.3</span><br><span class="line">b    7.2</span><br><span class="line">c    3.6</span><br><span class="line">d    4.5</span><br><span class="line">e    4.5</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; ser.reindex(a,fill_value=0,method=&#x27;ffill&#x27;)</span><br><span class="line">a   -5.3</span><br><span class="line">b    7.2</span><br><span class="line">c    3.6</span><br><span class="line">d    4.5</span><br><span class="line">e    4.5</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
+<p><code>.reindex()</code> 方法会返回一个新对象，其 <code>index</code> 严格遵循给出的参数，<code>method:&#123;&#39;backfill&#39;, &#39;bfill&#39;, &#39;pad&#39;, &#39;ffill&#39;, None&#125;</code> 参数用于指定插值（填充）方式，当没有给出时，自动用 <code>fill_value</code> 填充，默认为 <code>NaN（ffill = pad，bfill = back fill</code>，分别指插值时向前还是向后取值）</p>
+<p><code>DataFrame</code> 对象的重新索引方法为：<code>.reindex(index=None,columns=None,**kwargs)</code>。仅比 <code>Series</code> 多了一个可选的 <code>columns</code> 参数，用于给列索引。用法与上例类似，只不过插值方法 method 参数只能应用于行，即轴 0。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; state = [&#x27;Texas&#x27;,&#x27;Utha&#x27;,&#x27;California&#x27;]</span><br><span class="line">&gt;&gt;&gt; df.reindex(columns=state,method=&#x27;ffill&#x27;)</span><br><span class="line">    Texas  Utha  California</span><br><span class="line">a      1   NaN           2</span><br><span class="line">c      4   NaN           5  </span><br><span class="line">d      7   NaN           8</span><br><span class="line"></span><br><span class="line">[3 rows x 3 columns]</span><br><span class="line">&gt;&gt;&gt; df.reindex(index=[&#x27;a&#x27;,&#x27;b&#x27;,&#x27;c&#x27;,&#x27;d&#x27;],columns=state,method=&#x27;ffill&#x27;)</span><br><span class="line">   Texas  Utha  California</span><br><span class="line">a      1   NaN           2</span><br><span class="line">b      1   NaN           2</span><br><span class="line">c      4   NaN           5</span><br><span class="line">d      7   NaN           8</span><br><span class="line"></span><br><span class="line">[4 rows x 3 columns]</span><br></pre></td></tr></table></figure>
+<p>不过 <code>fill_value</code> 依然对有效。聪明的小伙伴可能已经想到了，可不可以通过 <code>df.T.reindex(index,method=&#39;**&#39;).T</code>这样的方式来实现在列上的插值呢，答案是可行的。另外要注意，使用 <code>reindex(index,method=&#39;**&#39;)</code> 的时候，<code>index</code> 必须是单调的，否则就会引发一个 <code>ValueError: Must be monotonic for forward fill</code>，比如上例中的最后一次调用，如果使用 <code>index=[&#39;a&#39;,&#39;b&#39;,&#39;d&#39;,&#39;c&#39;]</code> 的话就不行。</p>
+<h3 id="删除指定轴上的项"><a href="#删除指定轴上的项" class="headerlink" title="删除指定轴上的项"></a>删除指定轴上的项</h3><p>即删除 <code>Serie</code>s 的元素或 <code>DataFrame</code> 的某一行（列）的意思，通过对象的 <code>.drop(labels, axis=0)</code> 方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; ser</span><br><span class="line">d    4.5</span><br><span class="line">b    7.2</span><br><span class="line">a   -5.3</span><br><span class="line">c    3.6</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; df</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">a     0      1           2</span><br><span class="line">c     3      4           5</span><br><span class="line">d     6      7           8</span><br><span class="line"></span><br><span class="line">[3 rows x 3 columns]</span><br><span class="line">&gt;&gt;&gt; ser.drop(&#x27;c&#x27;)</span><br><span class="line">d    4.5</span><br><span class="line">b    7.2</span><br><span class="line">a   -5.3</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; df.drop(&#x27;a&#x27;)</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">c     3      4           5</span><br><span class="line">d     6      7           8</span><br><span class="line"></span><br><span class="line">[2 rows x 3 columns]</span><br><span class="line">&gt;&gt;&gt; df.drop([&#x27;Ohio&#x27;,&#x27;Texas&#x27;],axis=1)</span><br><span class="line">   California</span><br><span class="line">a           2</span><br><span class="line">c           5</span><br><span class="line">d           8</span><br><span class="line"></span><br><span class="line">[3 rows x 1 columns]</span><br></pre></td></tr></table></figure>
+<p><code>.drop()</code> 返回的是一个新对象，元对象不会被改变。</p>
+<h3 id="索引和切片"><a href="#索引和切片" class="headerlink" title="索引和切片"></a>索引和切片</h3><p>就像 <code>Numpy</code>，<code>pandas</code> 也支持通过 <code>obj[::]</code> 的方式进行索引和切片，以及通过布尔型数组进行过滤。</p>
+<p>不过须要注意，因为 <code>pandas</code> 对象的 <code>index</code> 不限于整数，所以当使用非整数作为切片索引时，它是末端包含的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; foo</span><br><span class="line">a    4.5</span><br><span class="line">b    7.2</span><br><span class="line">c   -5.3</span><br><span class="line">d    3.6</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; bar</span><br><span class="line">0    4.5</span><br><span class="line">1    7.2</span><br><span class="line">2   -5.3</span><br><span class="line">3    3.6</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; foo[:2]</span><br><span class="line">a    4.5</span><br><span class="line">b    7.2</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; bar[:2]</span><br><span class="line">0    4.5</span><br><span class="line">1    7.2</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; foo[:&#x27;c&#x27;]</span><br><span class="line">a    4.5</span><br><span class="line">b    7.2</span><br><span class="line">c   -5.3</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
+<p>这里 <code>foo</code> 和 <code>bar</code> 只有 <code>index</code> 不同——bar 的 <code>index</code> 是整数序列。可见当使用整数索引切片时，结果与 <code>Python</code> 列表或 <code>Numpy</code> 的默认状况相同；换成 ‘c’ 这样的字符串索引时，结果就包含了这个边界元素。</p>
+<p>另外一个特别之处在于 <code>DataFrame</code> 对象的索引方式，因为他有两个轴向（双重索引）。</p>
+<p>可以这么理解：DataFrame 对象的标准切片语法为：<code>.ix[::,::]</code>。<code>ix</code> 对象可以接受两套切片，分别为行<code>（axis=0）</code>和列<code>（axis=1）</code>的方向：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; df</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">a     0      1           2</span><br><span class="line">c     3      4           5</span><br><span class="line">d     6      7           8</span><br><span class="line"></span><br><span class="line">[3 rows x 3 columns]</span><br><span class="line">&gt;&gt;&gt; df.ix[:2,:2]</span><br><span class="line">   Ohio  Texas</span><br><span class="line">a     0      1</span><br><span class="line">c     3      4</span><br><span class="line"></span><br><span class="line">[2 rows x 2 columns]</span><br><span class="line">&gt;&gt;&gt; df.ix[&#x27;a&#x27;,&#x27;Ohio&#x27;]</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+<p>而不使用 <code>ix</code> ，直接切的情况就特殊了：</p>
+<p>索引时，选取的是列<br>切片时，选取的是行<br>这看起来有点不合逻辑，但作者解释说 “这种语法设定来源于实践”，我们信他。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; df[&#x27;Ohio&#x27;]</span><br><span class="line">a    0</span><br><span class="line">c    3</span><br><span class="line">d    6</span><br><span class="line">Name: Ohio, dtype: int32</span><br><span class="line">&gt;&gt;&gt; df[:&#x27;c&#x27;]</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">a     0      1           2</span><br><span class="line">c     3      4           5</span><br><span class="line"></span><br><span class="line">[2 rows x 3 columns]</span><br><span class="line">&gt;&gt;&gt; df[:2]</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">a     0      1           2</span><br><span class="line">c     3      4           5</span><br><span class="line"></span><br><span class="line">[2 rows x 3 columns]</span><br></pre></td></tr></table></figure>
+<p>使用布尔型数组的情况，注意行与列的不同切法（列切法的 <code>:</code> 不能省）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; df[&#x27;Texas&#x27;]&gt;=4</span><br><span class="line">a    False</span><br><span class="line">c     True</span><br><span class="line">d     True</span><br><span class="line">Name: Texas, dtype: bool</span><br><span class="line">&gt;&gt;&gt; df[df[&#x27;Texas&#x27;]&gt;=4]</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">c     3      4           5</span><br><span class="line">d     6      7           8</span><br><span class="line"></span><br><span class="line">[2 rows x 3 columns]</span><br><span class="line">&gt;&gt;&gt; df.ix[:,df.ix[&#x27;c&#x27;]&gt;=4]</span><br><span class="line">   Texas  California</span><br><span class="line">a      1           2</span><br><span class="line">c      4           5</span><br><span class="line">d      7           8</span><br><span class="line"></span><br><span class="line">[3 rows x 2 columns]</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+<h3 id="算术运算和数据对齐"><a href="#算术运算和数据对齐" class="headerlink" title="算术运算和数据对齐"></a>算术运算和数据对齐</h3><p><code>pandas</code> 最重要的一个功能是，它可以对不同索引的对象进行算术运算。在将对象相加时，结果的索引取索引对的并集。自动的数据对齐在不重叠的索引处引入空值，默认为 <code>NaN</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; foo = Series(&#123;&#x27;a&#x27;:1,&#x27;b&#x27;:2&#125;)</span><br><span class="line">&gt;&gt;&gt; foo</span><br><span class="line">a    1</span><br><span class="line">b    2</span><br><span class="line">dtype: int64</span><br><span class="line">&gt;&gt;&gt; bar = Series(&#123;&#x27;b&#x27;:3,&#x27;d&#x27;:4&#125;)</span><br><span class="line">&gt;&gt;&gt; bar</span><br><span class="line">b    3</span><br><span class="line">d    4</span><br><span class="line">dtype: int64</span><br><span class="line">&gt;&gt;&gt; foo + bar</span><br><span class="line">a   NaN</span><br><span class="line">b     5</span><br><span class="line">d   NaN</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
+<p><code>DataFrame</code> 的对齐操作会同时发生在行和列上。</p>
+<p>当不希望在运算结果中出现 <code>NA</code> 值时，可以使用前面 <code>reindex</code> 中提到过 <code>fill_value</code> 参数，不过为了传递这个参数，就需要使用对象的方法，而不是操作符：<code>df1.add(df2,fill_value=0)</code>。其他算术方法还有：<code>sub(), div(), mul()</code>。</p>
+<p><code>Series</code> 和 <code>DataFrame</code> 之间的算术运算涉及广播，暂时先不讲。</p>
+<h3 id="函数应用和映射"><a href="#函数应用和映射" class="headerlink" title="函数应用和映射"></a>函数应用和映射</h3><p><code>Numpy</code> 的 <code>ufuncs</code>（元素级数组方法）也可用于操作 <code>pandas</code> 对象。</p>
+<p>当希望将函数应用到 <code>DataFrame</code> 对象的某一行或列时，可以使用 <code>.apply(func, axis=0, args=(), **kwds)</code> 方法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">f = lambda x:x.max()-x.min()</span><br><span class="line">&gt;&gt;&gt; df</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">a     0      1           2</span><br><span class="line">c     3      4           5</span><br><span class="line">d     6      7           8</span><br><span class="line"></span><br><span class="line">[3 rows x 3 columns]</span><br><span class="line">&gt;&gt;&gt; df.apply(f)</span><br><span class="line">Ohio          6</span><br><span class="line">Texas         6</span><br><span class="line">California    6</span><br><span class="line">dtype: int64</span><br><span class="line">&gt;&gt;&gt; df.apply(f,axis=1)</span><br><span class="line">a    2</span><br><span class="line">c    2</span><br><span class="line">d    2</span><br><span class="line">dtype: int64</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<h3 id="排序和排名"><a href="#排序和排名" class="headerlink" title="排序和排名"></a>排序和排名</h3><p><code>Series</code> 的 <code>sort_index(ascending=True)</code> 方法可以对 <code>index</code> 进行排序操作，<code>ascending</code> 参数用于控制升序或降序，默认为升序。</p>
+<p>若要按值对 <code>Series</code> 进行排序，当使用 <code>.order()</code> 方法，任何缺失值默认都会被放到 <code>Series</code> 的末尾。</p>
+<p>在 <code>DataFrame</code> 上，<code>.sort_index(axis=0, by=None, ascending=True)</code> 方法多了一个轴向的选择参数与一个 <code>by</code> 参数，<code>by</code> 参数的作用是针对某一（些）列进行排序（不能对行使用 by 参数）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; df.sort_index(by=&#x27;Ohio&#x27;)</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">a     0      1           2</span><br><span class="line">c     3      4           5</span><br><span class="line">d     6      7           8</span><br><span class="line"></span><br><span class="line">[3 rows x 3 columns]</span><br><span class="line">&gt;&gt;&gt; df.sort_index(by=[&#x27;California&#x27;,&#x27;Texas&#x27;])</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">a     0      1           2</span><br><span class="line">c     3      4           5</span><br><span class="line">d     6      7           8</span><br><span class="line"></span><br><span class="line">[3 rows x 3 columns]</span><br><span class="line">&gt;&gt;&gt; df.sort_index(axis=1)</span><br><span class="line">   California  Ohio  Texas</span><br><span class="line">a           2     0      1</span><br><span class="line">c           5     3      4</span><br><span class="line">d           8     6      7</span><br><span class="line"></span><br><span class="line">[3 rows x 3 columns]</span><br></pre></td></tr></table></figure>
+<p>排名<code>（Series.rank(method=&#39;average&#39;, ascending=True)）</code>的作用与排序的不同之处在于，他会把对象的 <code>values </code>替换成名次（从 1 到 n）。这时唯一的问题在于如何处理平级项，方法里的 <code>method</code> 参数就是起这个作用的，他有四个值可选：<code>average, min, max, first</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; ser=Series([3,2,0,3],index=list(&#x27;abcd&#x27;))</span><br><span class="line">&gt;&gt;&gt; ser</span><br><span class="line">a    3</span><br><span class="line">b    2</span><br><span class="line">c    0</span><br><span class="line">d    3</span><br><span class="line">dtype: int64</span><br><span class="line">&gt;&gt;&gt; ser.rank()</span><br><span class="line">a    3.5</span><br><span class="line">b    2.0</span><br><span class="line">c    1.0</span><br><span class="line">d    3.5</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; ser.rank(method=&#x27;min&#x27;)</span><br><span class="line">a    3</span><br><span class="line">b    2</span><br><span class="line">c    1</span><br><span class="line">d    3</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; ser.rank(method=&#x27;max&#x27;)</span><br><span class="line">a    4</span><br><span class="line">b    2</span><br><span class="line">c    1</span><br><span class="line">d    4</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; ser.rank(method=&#x27;first&#x27;)</span><br><span class="line">a    3</span><br><span class="line">b    2</span><br><span class="line">c    1</span><br><span class="line">d    4</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
+<p>注意在 <code>ser[0]=ser[3]</code> 这对平级项上，不同 <code>method</code> 参数表现出的不同名次。</p>
+<p><code>DataFrame</code> 的 <code>.rank(axis=0, method=&#39;average&#39;, ascending=True)</code> 方法多了个 <code>axis</code> 参数，可选择按行或列分别进行排名，暂时好像没有针对全部元素的排名方法。</p>
+<h3 id="统计方法"><a href="#统计方法" class="headerlink" title="统计方法"></a>统计方法</h3><p><code>pandas</code> 对象有一些统计方法。它们大部分都属于约简和汇总统计，用于从 <code>Series</code> 中提取单个值，或从 <code>DataFrame</code> 的行或列中提取一个 <code>Series</code>。</p>
+<p>比如 <code>DataFrame.mean(axis=0,skipna=True)</code>方法，当数据集中存在 <code>NA</code> 值时，这些值会被简单跳过，除非整个切片（行或列）全是 NA，如果不想这样，则可以通过 <code>skipna=False</code> 来禁用此功能：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; df</span><br><span class="line">    one  two</span><br><span class="line">a  1.40  NaN</span><br><span class="line">b  7.10 -4.5</span><br><span class="line">c   NaN  NaN</span><br><span class="line">d  0.75 -1.3</span><br><span class="line"></span><br><span class="line">[4 rows x 2 columns]</span><br><span class="line">&gt;&gt;&gt; df.mean()</span><br><span class="line">one    3.083333</span><br><span class="line">two   -2.900000</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; df.mean(axis=1)</span><br><span class="line">a    1.400</span><br><span class="line">b    1.300</span><br><span class="line">c      NaN</span><br><span class="line">d   -0.275</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; df.mean(axis=1,skipna=False)</span><br><span class="line">a      NaN</span><br><span class="line">b    1.300</span><br><span class="line">c      NaN</span><br><span class="line">d   -0.275</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
+<p>其他常用的统计方法有：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">count	非 NA 值的数量</span><br><span class="line">describe	针对 Series 或 DF 的列计算汇总统计</span><br><span class="line">min , max	最小值和最大值</span><br><span class="line">argmin , argmax	最小值和最大值的索引位置（整数）</span><br><span class="line">idxmin , idxmax	最小值和最大值的索引值</span><br><span class="line">quantile	样本分位数（0 到 1）</span><br><span class="line">sum	求和</span><br><span class="line">mean	均值</span><br><span class="line">median	中位数</span><br><span class="line">mad	根据均值计算平均绝对离差</span><br><span class="line">var	方差</span><br><span class="line">std	标准差</span><br><span class="line">skew	样本值的偏度（三阶矩）</span><br><span class="line">kurt	样本值的峰度（四阶矩）</span><br><span class="line">cumsum	样本值的累计和</span><br><span class="line">cummin , cummax	样本值的累计最大值和累计最小值</span><br><span class="line">cumprod	样本值的累计积</span><br><span class="line">diff	计算一阶差分（对时间序列很有用）</span><br><span class="line">pct_change	计算百分数变化</span><br></pre></td></tr></table></figure>
+
+<h3 id="处理缺失数据"><a href="#处理缺失数据" class="headerlink" title="处理缺失数据"></a>处理缺失数据</h3><p><code>pandas</code> 中 NA 的主要表现为 <code>np.nan</code>，另外 Python 内建的 <code>None</code> 也会被当做 <code>NA</code> 处理。</p>
+<p>处理 <code>NA</code> 的方法有四种：<code>dropna , fillna , isnull , notnull</code> 。</p>
+<h4 id="is-not-null"><a href="#is-not-null" class="headerlink" title="is(not)null"></a>is(not)null</h4><p>这一对方法对对象做元素级应用，然后返回一个布尔型数组，一般可用于布尔型索引。</p>
+<h4 id="dropna"><a href="#dropna" class="headerlink" title="dropna"></a>dropna</h4><p>对于一个 Series，dropna 返回一个仅含非空数据和索引值的 Series。</p>
+<p>问题在于对 DataFrame 的处理方式，因为一旦 <code>drop</code> 的话，至少要丢掉一行（列）。这里的解决方式与前面类似，还是通过一个额外的参数：<code>dropna(axis=0, how=&#39;any&#39;, thresh=None)</code> ，<code>how</code> 参数可选的值为 <code>any</code> 或者 <code>all</code>。<code>all</code> 仅在切片元素全为 <code>NA</code> 时才抛弃该行(列)。另外一个有趣的参数是 <code>thresh</code>，该参数的类型为整数，它的作用是，比如 <code>thresh=3</code>，会在一行中至少有 3 个非 <code>NA</code> 值时将其保留。</p>
+<h4 id="fillna"><a href="#fillna" class="headerlink" title="fillna"></a>fillna</h4><p><code>fillna(value=None, method=None, axis=0)</code> 中的 <code>value</code> 参数除了基本类型外，还可以使用字典，这样可以实现对不同的列填充不同的值。<code>method</code> 的用法与前面 <code>.reindex()</code> 方法相同，这里不再赘述。</p>
+<h3 id="inplace-参数"><a href="#inplace-参数" class="headerlink" title="inplace 参数"></a>inplace 参数</h3><p>前面有个点一直没讲，结果整篇示例写下来发现还挺重要的。就是 <code>Series</code> 和 <code>DataFrame</code> 对象的方法中，凡是会对数组作出修改并返回一个新数组的，往往都有一个 <code>replace=False</code> 的可选参数。如果手动设定为 <code>True</code>，那么原数组就可以被替换。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Zihao Yao 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Zihao Yao
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://yaozihao.com/python_pandas_basis/" title="Python数据分析包：pandas基础">https://yaozihao.com/python_pandas_basis/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/bidingtou">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+              <a href="/tags/pandas/" rel="tag"><i class="fa fa-tag"></i> pandas</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/python_float/" rel="prev" title="Python中的float除法和整除法">
+      <i class="fa fa-chevron-left"></i> Python中的float除法和整除法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/python_file_exits/" rel="next" title="Python判断文件和文件夹是否存在的方法">
+      Python判断文件和文件夹是否存在的方法 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Series"><span class="nav-text">Series</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DataFrame"><span class="nav-text">DataFrame</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7"><span class="nav-text">对象属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E6%96%B0%E7%B4%A2%E5%BC%95"><span class="nav-text">重新索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E6%8C%87%E5%AE%9A%E8%BD%B4%E4%B8%8A%E7%9A%84%E9%A1%B9"><span class="nav-text">删除指定轴上的项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E5%92%8C%E5%88%87%E7%89%87"><span class="nav-text">索引和切片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E5%92%8C%E6%95%B0%E6%8D%AE%E5%AF%B9%E9%BD%90"><span class="nav-text">算术运算和数据对齐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%BA%94%E7%94%A8%E5%92%8C%E6%98%A0%E5%B0%84"><span class="nav-text">函数应用和映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E5%92%8C%E6%8E%92%E5%90%8D"><span class="nav-text">排序和排名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E6%96%B9%E6%B3%95"><span class="nav-text">统计方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E7%BC%BA%E5%A4%B1%E6%95%B0%E6%8D%AE"><span class="nav-text">处理缺失数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#is-not-null"><span class="nav-text">is(not)null</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dropna"><span class="nav-text">dropna</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fillna"><span class="nav-text">fillna</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inplace-%E5%8F%82%E6%95%B0"><span class="nav-text">inplace 参数</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zihao Yao</p>
+  <div class="site-description" itemprop="description">由渐入深，记录程序人生。全栈工程师与你共勉。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">278</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3VjZnlhbw==" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ucfyao"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOnVjZnlhb0BnbWFpbC5jb20=" title="E-Mail → mailto:ucfyao@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9iaWRpbmd0b3U=" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;bidingtou"><i class="fab fa-twitter fa-fw"></i>Twitter</span>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly93d3cuYmFpZHUuY29tLw==" title="https:&#x2F;&#x2F;www.baidu.com&#x2F;">baidu</span>
+        </li>
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8=" title="https:&#x2F;&#x2F;www.google.com&#x2F;">google</span>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zihao Yao</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">796k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">12:04</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+  <script data-pjax>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://yaozihao.com/python_pandas_basis/',]
+      });
+      });
+  </script>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FF5733">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#FF5733">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="DevOps是一组过程、方法与系统的统称，用于促进开发（应用程序&#x2F;软件工程）、技术运营和质量保障（QA）部门之间的沟通、协作与整合。在DevOps的整个流程中，使用一些开源工具可以促进开发与运维之间的沟通，有利于项目的管理，甚至可以达到事半功倍的效果。 本文作者Richard Kraaijenhagen是Owlin创始人，全栈工程师，数据科学家。他收集了DevOps开发可能用到的所有工具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="直接Mark！开源的DevOps开发工具箱">
+<meta property="og:url" content="https://yaozihao.com/mark_devops/index.html">
+<meta property="og:site_name" content="Zihao">
+<meta property="og:description" content="DevOps是一组过程、方法与系统的统称，用于促进开发（应用程序&#x2F;软件工程）、技术运营和质量保障（QA）部门之间的沟通、协作与整合。在DevOps的整个流程中，使用一些开源工具可以促进开发与运维之间的沟通，有利于项目的管理，甚至可以达到事半功倍的效果。 本文作者Richard Kraaijenhagen是Owlin创始人，全栈工程师，数据科学家。他收集了DevOps开发可能用到的所有工具">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-06-27T11:08:56.000Z">
+<meta property="article:modified_time" content="2022-11-24T05:24:10.395Z">
+<meta property="article:author" content="Zihao Yao">
+<meta property="article:tag" content="PHP, JS, Python, Go, Bitcoin, BlockChain, Quantification, Full stack.">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://yaozihao.com/mark_devops/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script async src="/lib/fireworks.js"></script>
+  <title>直接Mark！开源的DevOps开发工具箱 | Zihao</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Zihao" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zihao</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Make small but daily progress</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">64</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">19</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">278</span></a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL3VjZnlhbw==" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/mark_devops/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zihao Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zihao">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          直接Mark！开源的DevOps开发工具箱
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-06-27 11:08:56" itemprop="dateCreated datePublished" datetime="2016-06-27T11:08:56Z">2016-06-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-24 05:24:10" itemprop="dateModified" datetime="2022-11-24T05:24:10Z">2022-11-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tool/" itemprop="url" rel="index"><span itemprop="name">Tool</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>DevOps是一组过程、方法与系统的统称，用于促进开发（应用程序&#x2F;软件工程）、技术运营和质量保障（QA）部门之间的沟通、协作与整合。在DevOps的整个流程中，使用一些开源工具可以促进开发与运维之间的沟通，有利于项目的管理，甚至可以达到事半功倍的效果。 本文作者Richard Kraaijenhagen是<span class="exturl" data-url="aHR0cDovL293bGluLmNvbS8=">Owlin<i class="fa fa-external-link-alt"></i></span>创始人，全栈工程师，数据科学家。他收集了DevOps开发可能用到的所有工具，并且把它们按照职责进行分类，本文摘取了部分工具分享给大家，这些工具也可以用于日常软件方面的开发，所以，大家直接Mark吧！</p>
+<p><strong>包&amp;产品管理工具</strong></p>
+<ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Nob2NvbGF0ZXkvY2hvY29sYXRleQ==">Chocolatey<i class="fa fa-external-link-alt"></i></span>：Chocolatey是Windows下一款开源的命令行包管理软件 ，简单说这就是Windows的apt-get；</li>
+<li><span class="exturl" data-url="aHR0cDovL3plZWYudG8vY2xpY2s/bHBpZD00ODczODcma2V5PWZfTzRaMl9ab1FYSUFWLURjMkdaelBlYWItbWZCMEdDQmJvJnRhcmdldF91cmw9aHR0cHM6Ly9naXRodWIuY29tL2pvcmRhbnNpc3NlbC9mcG0=">FPM<i class="fa fa-external-link-alt"></i></span>：全称是Effing package management，该死的软件包管理器，极大的缓解了多个平台构建软件包(deb,rpm,等)的痛苦；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3J1c3Nzcy9IZXJk">Herd<i class="fa fa-external-link-alt"></i></span>：是一个基于Twitter <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2xnL211cmRlcg==">Murder<i class="fa fa-external-link-alt"></i></span>的文件分布系统；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZncmVobS92YWdyYW50LWNhY2hpZXI=">Vagrant Cachier<i class="fa fa-external-link-alt"></i></span>：Vagrant的一个插件，用于缓存包方面的管理；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3dpeHRvb2xzZXQvd2l4NA==">WiX Toolset<i class="fa fa-external-link-alt"></i></span>：提供一组最强大的工具集来帮助你创建Windows安装包。该工具集从XML源代码构建你的Windows安装程序包，可以无缝集成到构建过程；</li>
+<li><span class="exturl" data-url="aHR0cDovL2JveHN0YXJ0ZXIub3JnLw==">Boxstarter<i class="fa fa-external-link-alt"></i></span>：利用Chocolatey包管理工具来自动化安装软件和创建可重复、脚本化的Windows环境；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9iaXRidWNrZXQub3JnL3Njb3JlYmlnL2VsaXRh">Elita<i class="fa fa-external-link-alt"></i></span>：Elita是一个利用git和salt进行持续部署（部署作为服务）和API-driven基础设施的引擎&#x2F;框架；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL21mb2VtbWVsL2ZpZw==">Fig<i class="fa fa-external-link-alt"></i></span>：主要用来跟Docker一起来实现的快速隔离的开发环境；</li>
+<li><span class="exturl" data-url="aHR0cDovL3d3dy5wdWxwcHJvamVjdC5vcmcv">Pulp<i class="fa fa-external-link-alt"></i></span>：Pulp是一个用来管理软件库以及相关内容的平台；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2plZGk0ZXZlci92ZWV3ZWU=">Veewee<i class="fa fa-external-link-alt"></i></span>：Veewee是一个开源工具，用来创建和配置轻量级、可再生、便捷式虚拟机环境。</li>
+</ul>
+<p><strong>日志&amp;监控</strong></p>
+<ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL21hcnRpbnJ1c2V2L2Ftb25vbmU=">AmonOne<i class="fa fa-external-link-alt"></i></span>：现代化的自托管服务器监控工具；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0RpZXRlcmJlL2FudGhyYWNpdGU=">Anthracite<i class="fa fa-external-link-alt"></i></span>：一个事件&#x2F;日志改变&#x2F;管理应用程序；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1N0YWNrU3Rvcm0vY29sbGVjdGQz">collectd3<i class="fa fa-external-link-alt"></i></span>：是一个可视化的collectd系统性能统计工具；</li>
+<li><span class="exturl" data-url="aHR0cDovL2NvbGxlY3RkLm9yZy8=">collectd<i class="fa fa-external-link-alt"></i></span>：是一个守护(daemon)进程，用来收集系统性能和提供各种存储方式来存储不同值的机制；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0JyaWdodGNvdmVPUy9EaWFtb25k">Diamond<i class="fa fa-external-link-alt"></i></span>：是一个基于Python的守护程序，主要用来收集系统指标，并且把它们发布到Graphite（或其它）工具中；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2VycmJpdC9lcnJiaXQ=">Errbit<i class="fa fa-external-link-alt"></i></span>：是一个用于收集和管理程序错误的开源工具；</li>
+<li><span class="exturl" data-url="aHR0cDovL3NlbnN1YXBwLm9yZy8=">Sensu<i class="fa fa-external-link-alt"></i></span>：一个开源的监控框架；</li>
+<li><span class="exturl" data-url="aHR0cDovL2xvZ3N0YXNoLm5ldC8=">Logstash<i class="fa fa-external-link-alt"></i></span>：是一个应用程序日志、事件的传输、处理、管理和搜索的平台。你可以用它来统一对应用程序日志进行收集管理，提供Web接口用于查询和统计；</li>
+<li><span class="exturl" data-url="aHR0cDovL2xvZ2lvLm9yZy8=">log.io<i class="fa fa-external-link-alt"></i></span>：一个实时的开源日志监控工具；</li>
+<li><span class="exturl" data-url="aHR0cDovL2Zub3JkbWV0cmljLmlvLw==">FnordMetric<i class="fa fa-external-link-alt"></i></span>：是一个基于redis&#x2F;ruby的实时事件跟踪应用，是个收集和可视化时间序列数据的框架，用户可以在几分钟内创建漂亮的实时分析仪表盘；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2V0c3kvbG9nc3Rlcg==">Logster<i class="fa fa-external-link-alt"></i></span>：是一个工具，读取日志文件然后创建Graphite 或 Ganglia可用的指标数据。比如你可能使用logster来图形化在你的Web Server日志中的HTTP响应发生数量；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2VsYXN0aWNzZWFyY2gva2liYW5hLw==">Kibana<i class="fa fa-external-link-alt"></i></span>：是一个为Logstash和ElasticSearch提供的日志分析的Web接口。可使用它对日志进行高效的搜索、可视化、分析等各种操作；</li>
+<li><span class="exturl" data-url="aHR0cDovL21tb25pdC5jb20vbW9uaXQv">Monit<i class="fa fa-external-link-alt"></i></span>：是一款功能非常丰富的进程、文件、目录和设备的监测软件，用于Unix平台。 它可以自动修复那些已经停止运作的程序，适合处理那些由于多种原因导致的软件错误；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2NvZGFoYWxlL21ldHJpY3Mv">Metrics<i class="fa fa-external-link-alt"></i></span>：这并不是Java库，而是基于Go的一个轻量级的检测器；</li>
+<li><span class="exturl" data-url="aHR0cDovL2dyYXBoaXRlLnJlYWR0aGVkb2NzLm9yZy9lbi9sYXRlc3Qv">Graphite<i class="fa fa-external-link-alt"></i></span>：是一个用于采集网站实时信息并进行统计的开源项目，可用于采集多种网站服务运行状态信息；</li>
+<li><span class="exturl" data-url="aHR0cDovL2dhbmdsaWEuaW5mby8=">Ganglia<i class="fa fa-external-link-alt"></i></span>：Ganglia是一个跨平台可扩展的、高性能计算系统下的分布式监控系统，如集群和网格；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuc2VydmVyZGVuc2l0eS5jb20v">Server Density<i class="fa fa-external-link-alt"></i></span>：一个跨平台的监控系统；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2JvdW5kYXJ5L2ZvbHNvbQ==">Folsom<i class="fa fa-external-link-alt"></i></span>：Folsom是一款受 <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2NvZGFoYWxlL21ldHJpY3Mv">Coda Hale’s metrics<i class="fa fa-external-link-alt"></i></span>启发的、基于Erlang的度量系统；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0NvbWNhc3QvY21i">CMB (Cloud Message Bus)<i class="fa fa-external-link-alt"></i></span>：是一个高可用、横向扩展的队列和通知服务，兼容AWS SQS和SNS；</li>
+<li><span class="exturl" data-url="aHR0cDovL25pY29sYXJnby5naXRodWIuaW8vZ2xhbmNlcy8=">Glances<i class="fa fa-external-link-alt"></i></span>：是一款用于Linux、BSD的开源命令行系统监视工具，它使用Python语言开发，能够监视CPU、负载、内存、磁盘I&#x2F;O、网络流量、文件系统、系统温度等信息。</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Z6YW5pbm90dG8vdXB0aW1l">Uptime<i class="fa fa-external-link-alt"></i></span>：使用Node.js、MongoDB和Twitter Bootstrap开发的远程监控系统；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuaWNpbmdhLm9yZy8=">Icinga<i class="fa fa-external-link-alt"></i></span>：Nagios的扩展版本；</li>
+<li><span class="exturl" data-url="aHR0cDovL3BhY2tldGJlYXQuY29tLw==">Packetbeat<i class="fa fa-external-link-alt"></i></span>：?是开源应用监控和包跟踪系统；</li>
+<li><span class="exturl" data-url="aHR0cDovL3R3aXR0ZXIuZ2l0aHViLmlvL3ppcGtpbi8=">Zipkin<i class="fa fa-external-link-alt"></i></span>：是Twitter的一个开源项目，允许开发者收集Twitter各个服务上的监控数据，并提供查询接口；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9kZWFkbWFuc3NuaXRjaC5jb20v">Dead Man???s Snitch<i class="fa fa-external-link-alt"></i></span>：是一款监控Heroku Scheduler、计划的监视工具；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2V0c3kvc3RhdHNkLw==">Statsd<i class="fa fa-external-link-alt"></i></span>：是一个Node.js的daemon程序，简单，轻巧。使用的UDP协议，可以和Graphite图片渲染应用结合；</li>
+<li><span class="exturl" data-url="aHR0cDovL3JpZW1hbm4uaW8v">Riemann<i class="fa fa-external-link-alt"></i></span>：一个网络监控系统；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NvZGFicmV3L3B1cHBldC1kYXNoYm9hcmQ=">Puppet Dashboard<i class="fa fa-external-link-alt"></i></span>：Puppet Dashboard是一个Web接口，为Puppet提供节点分类和报告功能，是一个开源的配置管理工具；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2pteHRyYW5zL2pteHRyYW5z">jmxtrans<i class="fa fa-external-link-alt"></i></span>：jmxtrans是一款非常强大的工具，使用它可以轻易生成基于json的配置文章，然后再以你想要的格式输出；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0N1ZS9zY2FsZXM=">Scales<i class="fa fa-external-link-alt"></i></span>：跟踪服务器状态和统计指标，使你全面掌握服务器状态，还可以发送指标到Graphite来图像呈现或者向文件写入崩溃信息；</li>
+<li><span class="exturl" data-url="aHR0cDovL3d3dy56YWJiaXguY29tLw==">Zabbix<i class="fa fa-external-link-alt"></i></span>：是一个基于Web界面的提供分布式系统监视以及网络监视功能的企业级的开源解决方案；</li>
+<li><span class="exturl" data-url="aHR0cDovL3d3dy5ncmF5bG9nMi5vcmcv">Graylog 2<i class="fa fa-external-link-alt"></i></span>：Graylog2是一个用来将系统日志syslog保存到MongoDB中的工具。</li>
+</ul>
+<p><strong>进程管理</strong></p>
+<ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3N1YnN0YWNrL2JvdW5jeQ==">Bouncy<i class="fa fa-external-link-alt"></i></span>：可以作为HTTP路由主机；</li>
+<li><span class="exturl" data-url="aHR0cDovL3N1cGVydmlzb3JkLm9yZy8=">Supervisor<i class="fa fa-external-link-alt"></i></span>：是一个客户端服务器系统，允许用户监控和控制类Unix操作系统上的进程数；</li>
+<li><span class="exturl" data-url="aHR0cDovL2dvZHJiLmNvbS8=">God<i class="fa fa-external-link-alt"></i></span>：由Ruby实现的进程监控框架。</li>
+</ul>
+<p><strong>服务发现</strong></p>
+<ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2hhc2hpY29ycC9jb25zdWw=">Consul<i class="fa fa-external-link-alt"></i></span>：简化了分布式环境中的服务的注册和发现流程，通过HTTP或者DNS接口发现。支持外部SaaS 提供者等；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2NvcmVvcy9ldGNk">etcd<i class="fa fa-external-link-alt"></i></span>：是一个高可用的Key&#x2F;Value存储系统，主要用于分享配置和服务发现；</li>
+<li><span class="exturl" data-url="aHR0cDovL3pvb2tlZXBlci5hcGFjaGUub3JnLw==">Apache ZooKeeper<i class="fa fa-external-link-alt"></i></span>：是Apache Hadoop的一个子项目，它主要是用来解决分布式应用中经常遇到的一些数据管理问题；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3pldHRpby93ZWF2ZQ==">Weave<i class="fa fa-external-link-alt"></i></span>：创建一个虚拟网络并连接到部署在多个主机上的Docker容器。</li>
+</ul>
+<p><strong>持续集成和交付</strong></p>
+<ul>
+<li><span class="exturl" data-url="aHR0cDovL2J1aWxkYm90Lm5ldC8=">Buildbot<i class="fa fa-external-link-alt"></i></span>：是一个系统的自动化编译&#x2F;测试周期最需要的软件，以验证代码的变化。通过自动重建和测试每次发生了变化的东西，在建设迅速查明之前，减少不必要的失败；</li>
+<li><span class="exturl" data-url="aHR0cDovL2NhYm90YXBwLmNvbS8=">Cabot<i class="fa fa-external-link-alt"></i></span>：是一个开源，自我托管的监控工具；</li>
+<li><span class="exturl" data-url="aHR0cDovL2plbmtpbnMtY2kub3JnLw==">Jenkins<i class="fa fa-external-link-alt"></i></span>：是基于Java开发的一种持续集成工具，用于监控持续重复的工作；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9odWJvdC5naXRodWIuY29tLw==">Hubot<i class="fa fa-external-link-alt"></i></span>：基于脚本具有很高的灵活性，任何人都可以编写自己的脚本来扩展基本功能；</li>
+<li><span class="exturl" data-url="aHR0cDovL2h1ZHNvbi1jaS5vcmcv">Hudson<i class="fa fa-external-link-alt"></i></span>：是一个可扩展的持续集成引擎，主要用于：持续、自动地构建&#x2F;测试软件项目、监控一些定时执行的任务；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3Rob3VnaHR3b3Jrcy9jcnVpc2Vjb250cm9sLnJi">CruiseControl.rb<i class="fa fa-external-link-alt"></i></span>：是一个持续集成服务器，它可以让团队里的每个人随时了解项目的健康状况和进度；</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FsY3kvT3BzQm90">OpsBot<i class="fa fa-external-link-alt"></i></span>：是一个开源的、可插入的改善通信的机器人。</li>
+</ul>
+<p>希望这些工具能够给开发者带来实实在在的帮助，想要查看更多工具，大家可以 <span class="exturl" data-url="aHR0cHM6Ly9kZXYtb3BzLXRvb2xzLnplZWYuY29tL3JpY2hhcmQua3JhYXllbmhhZ2VuI2Jsb2NrXzQxNjg1X3Byb2Nlc3MtbWFuYWdlbWVudA==">访问原文<i class="fa fa-external-link-alt"></i></span>，原文中的工具列表会持续更新。 最后，再跟大家分享一个 <span class="exturl" data-url="aHR0cDovL3d3dy5kZXZvcHNib29rbWFya3MuY29tLw==">DevOps BookMarks<i class="fa fa-external-link-alt"></i></span>，这里面涉及了DevOps方方面面的工具和内容，有兴趣的同学可以前去学习。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Zihao Yao 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Zihao Yao
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://yaozihao.com/mark_devops/" title="直接Mark！开源的DevOps开发工具箱">https://yaozihao.com/mark_devops/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/bidingtou">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/linux_mongodb/" rel="prev" title="Centos6.5安装配置Mongodb">
+      <i class="fa fa-chevron-left"></i> Centos6.5安装配置Mongodb
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/mysql_other_permission/" rel="next" title="mysql修改其他机器可以连接的权限">
+      mysql修改其他机器可以连接的权限 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zihao Yao</p>
+  <div class="site-description" itemprop="description">由渐入深，记录程序人生。全栈工程师与你共勉。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">278</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3VjZnlhbw==" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ucfyao"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOnVjZnlhb0BnbWFpbC5jb20=" title="E-Mail → mailto:ucfyao@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9iaWRpbmd0b3U=" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;bidingtou"><i class="fab fa-twitter fa-fw"></i>Twitter</span>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly93d3cuYmFpZHUuY29tLw==" title="https:&#x2F;&#x2F;www.baidu.com&#x2F;">baidu</span>
+        </li>
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8=" title="https:&#x2F;&#x2F;www.google.com&#x2F;">google</span>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zihao Yao</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">796k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">12:04</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+  <script data-pjax>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://yaozihao.com/mark_devops/',]
+      });
+      });
+  </script>
+
+    </div>
+</body>
+</html>

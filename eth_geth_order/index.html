@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FF5733">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#FF5733">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="本篇博客的内容可通过以下命令在客户端中进行查看： 1geth --help  也可以访问github上的wiki文档查看，地址为：wiki">
+<meta property="og:type" content="article">
+<meta property="og:title" content="以太坊客户端命令行选项汇总">
+<meta property="og:url" content="https://yaozihao.com/eth_geth_order/index.html">
+<meta property="og:site_name" content="Zihao">
+<meta property="og:description" content="本篇博客的内容可通过以下命令在客户端中进行查看： 1geth --help  也可以访问github上的wiki文档查看，地址为：wiki">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-07-01T14:29:12.000Z">
+<meta property="article:modified_time" content="2022-11-28T07:17:49.949Z">
+<meta property="article:author" content="Zihao Yao">
+<meta property="article:tag" content="eth">
+<meta property="article:tag" content="geth">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://yaozihao.com/eth_geth_order/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script async src="/lib/fireworks.js"></script>
+  <title>以太坊客户端命令行选项汇总 | Zihao</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Zihao" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zihao</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Make small but daily progress</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">64</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">19</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">278</span></a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL3VjZnlhbw==" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/eth_geth_order/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zihao Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zihao">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          以太坊客户端命令行选项汇总
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-07-01 14:29:12" itemprop="dateCreated datePublished" datetime="2017-07-01T14:29:12Z">2017-07-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-28 07:17:49" itemprop="dateModified" datetime="2022-11-28T07:17:49Z">2022-11-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/BlockChain/" itemprop="url" rel="index"><span itemprop="name">BlockChain</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本篇博客的内容可通过以下命令在客户端中进行查看：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">geth --<span class="built_in">help</span></span><br></pre></td></tr></table></figure>
+
+<p>也可以访问github上的wiki文档查看，地址为：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2V0aGVyZXVtL2dvLWV0aGVyZXVtL3dpa2kvQ29tbWFuZC1MaW5lLU9wdGlvbnM=">wiki<i class="fa fa-external-link-alt"></i></span></p>
+<span id="more"></span>
+
+<p>具体内容</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line">NAME:</span><br><span class="line">   geth - go-ethereum命令行接口</span><br><span class="line"></span><br><span class="line">USAGE:</span><br><span class="line">   geth [options] <span class="built_in">command</span> [<span class="built_in">command</span> options] [arguments...]</span><br><span class="line"></span><br><span class="line">VERSION:</span><br><span class="line">   1.4.11-stable</span><br><span class="line"></span><br><span class="line">COMMANDS:</span><br><span class="line">   import   引入一个区块链文件</span><br><span class="line">   <span class="built_in">export</span>   导出区块链到文件</span><br><span class="line">   upgradedb    更新区块链数据库</span><br><span class="line">   removedb 移除区块链和正式数据库</span><br><span class="line">   dump     dump a specific block from storage</span><br><span class="line">   monitor  Geth Monitor: node metrics monitoring and visualization</span><br><span class="line">   account  管理账户</span><br><span class="line">   wallet   ethereum presale wallet</span><br><span class="line">   console  Geth控制台: JavaScript交互环境</span><br><span class="line">   attach   Geth控制台: JavaScript交互环境(连接node)</span><br><span class="line">   js       在Geth JavaScript VM执行JavaScript文件</span><br><span class="line">   makedag  generate ethash dag (<span class="keyword">for</span> testing)</span><br><span class="line">   gpuinfo  gpuinfo</span><br><span class="line">   gpubench benchmark GPU</span><br><span class="line">   version  打印ethereum版本号</span><br><span class="line">   init     引导初始化一个创世块(JSON)</span><br><span class="line">   <span class="built_in">help</span>, h  显示命令列表或一个命令的帮助</span><br><span class="line"></span><br><span class="line">ETHEREUM OPTIONS:</span><br><span class="line">  --datadir <span class="string">&quot;/home/karalabe/.ethereum&quot;</span>  数据库和keystore的文件目录</span><br><span class="line">  --keystore        keystore的文件目录 (default = inside the datadir)</span><br><span class="line">  --networkid value         Network identifier (<span class="built_in">integer</span>, 0=Olympic, 1=Frontier, 2=Morden) (default: 1)</span><br><span class="line">  --olympic             Olympic network: pre-configured pre-release <span class="built_in">test</span> network</span><br><span class="line">  --testnet             Morden network: pre-configured <span class="built_in">test</span> network with modified starting nonces (replay protection)</span><br><span class="line">  --dev                 Developer mode: pre-configured private network with several debugging flags</span><br><span class="line">  --identity value          Custom node name</span><br><span class="line">  --fast                Enable fast syncing through state downloads</span><br><span class="line">  --lightkdf                Reduce key-derivation RAM &amp; CPU usage at some expense of KDF strength</span><br><span class="line">  --cache value             Megabytes of memory allocated to internal caching (min 16MB / database forced) (default: 128)</span><br><span class="line">  --blockchainversion value     Blockchain version (<span class="built_in">integer</span>) (default: 3)</span><br><span class="line"></span><br><span class="line">账户选项:</span><br><span class="line">  --unlock value    通过逗号分隔一个列表账户来进行解锁</span><br><span class="line">  --password value  Password file to use <span class="keyword">for</span> non-inteactive password input</span><br><span class="line"></span><br><span class="line">API AND CONSOLE OPTIONS:</span><br><span class="line">  --rpc             支持HTTP-RPC服务</span><br><span class="line">  --rpcaddr value   HTTP-RPC服务监听地址(默认: <span class="string">&quot;localhost&quot;</span>)</span><br><span class="line">  --rpcport value   HTTP-RPC服务监听端口(默认: 8545)</span><br><span class="line">  --rpcapi value    HTTP-RPC提供的API支持(默认: <span class="string">&quot;eth,net,web3&quot;</span>)</span><br><span class="line">  --ws          Enable the WS-RPC server</span><br><span class="line">  --wsaddr value    WS-RPC server listening interface (default: <span class="string">&quot;localhost&quot;</span>)</span><br><span class="line">  --wsport value    WS-RPC server listening port (default: 8546)</span><br><span class="line">  --wsapi value     API<span class="string">&#x27;s offered over the WS-RPC interface (default: &quot;eth,net,web3&quot;)</span></span><br><span class="line"><span class="string">  --wsorigins value Origins from which to accept websockets requests</span></span><br><span class="line"><span class="string">  --ipcdisable      Disable the IPC-RPC server</span></span><br><span class="line"><span class="string">  --ipcapi value    API&#x27;</span>s offered over the IPC-RPC interface (default: <span class="string">&quot;admin,debug,eth,miner,net,personal,shh,txpool,web3&quot;</span>)</span><br><span class="line">  --ipcpath <span class="string">&quot;geth.ipc&quot;</span>  Filename <span class="keyword">for</span> IPC socket/pipe within the datadir (explicit paths escape it)</span><br><span class="line">  --rpccorsdomain value Comma separated list of domains from <span class="built_in">which</span> to accept cross origin requests (browser enforced)</span><br><span class="line">  --jspath loadScript   JavaScript root path <span class="keyword">for</span> loadScript and document root <span class="keyword">for</span> `admin.httpGet` (default: <span class="string">&quot;.&quot;</span>)</span><br><span class="line">  --<span class="built_in">exec</span> value      Execute JavaScript statement (only <span class="keyword">in</span> combination with console/attach)</span><br><span class="line">  --preload value   Comma separated list of JavaScript files to preload into the console</span><br><span class="line"></span><br><span class="line">NETWORKING OPTIONS:</span><br><span class="line">  --bootnodes value Comma separated enode URLs <span class="keyword">for</span> P2P discovery bootstrap</span><br><span class="line">  --port value      Network listening port (default: 30303)</span><br><span class="line">  --maxpeers value  Maximum number of network peers (network disabled <span class="keyword">if</span> <span class="built_in">set</span> to 0) (default: 25)</span><br><span class="line">  --maxpendpeers value  Maximum number of pending connection attempts (defaults used <span class="keyword">if</span> <span class="built_in">set</span> to 0) (default: 0)</span><br><span class="line">  --nat value       NAT port mapping mechanism (any|none|upnp|pmp|extip:&lt;IP&gt;) (default: <span class="string">&quot;any&quot;</span>)</span><br><span class="line">  --nodiscover      Disables the peer discovery mechanism (manual peer addition)</span><br><span class="line">  --nodekey value   P2P node key file</span><br><span class="line">  --nodekeyhex value    P2P node key as hex (<span class="keyword">for</span> testing)</span><br><span class="line"></span><br><span class="line">MINER OPTIONS:</span><br><span class="line">  --mine            Enable mining</span><br><span class="line">  --minerthreads value      Number of CPU threads to use <span class="keyword">for</span> mining (default: 8)</span><br><span class="line">  --minergpus value     List of GPUs to use <span class="keyword">for</span> mining (e.g. <span class="string">&#x27;0,1&#x27;</span> will use the first two GPUs found)</span><br><span class="line">  --autodag         Enable automatic DAG pregeneration</span><br><span class="line">  --etherbase value     Public address <span class="keyword">for</span> block mining rewards (default = first account created) (default: <span class="string">&quot;0&quot;</span>)</span><br><span class="line">  --targetgaslimit value    Target gas <span class="built_in">limit</span> sets the artificial target gas floor <span class="keyword">for</span> the blocks to mine (default: <span class="string">&quot;4712388&quot;</span>)</span><br><span class="line">  --gasprice value      Minimal gas price to accept <span class="keyword">for</span> mining a transactions (default: <span class="string">&quot;20000000000&quot;</span>)</span><br><span class="line">  --extradata value     Block extra data <span class="built_in">set</span> by the miner (default = client version)</span><br><span class="line"></span><br><span class="line">GAS PRICE ORACLE OPTIONS:</span><br><span class="line">  --gpomin value    Minimum suggested gas price (default: <span class="string">&quot;20000000000&quot;</span>)</span><br><span class="line">  --gpomax value    Maximum suggested gas price (default: <span class="string">&quot;500000000000&quot;</span>)</span><br><span class="line">  --gpofull value   Full block threshold <span class="keyword">for</span> gas price calculation (%) (default: 80)</span><br><span class="line">  --gpobasedown value   Suggested gas price base step down ratio (1/1000) (default: 10)</span><br><span class="line">  --gpobaseup value Suggested gas price base step up ratio (1/1000) (default: 100)</span><br><span class="line">  --gpobasecf value Suggested gas price base correction <span class="built_in">factor</span> (%) (default: 110)</span><br><span class="line"></span><br><span class="line">VIRTUAL MACHINE OPTIONS:</span><br><span class="line">  --jitvm       Enable the JIT VM</span><br><span class="line">  --forcejit        Force the JIT VM to take precedence</span><br><span class="line">  --jitcache value  Amount of cached JIT VM programs (default: 64)</span><br><span class="line"></span><br><span class="line">LOGGING AND DEBUGGING OPTIONS:</span><br><span class="line">  --metrics         Enable metrics collection and reporting</span><br><span class="line">  --fakepow         Disables proof-of-work verification</span><br><span class="line">  --verbosity value     Logging verbosity: 0=silent, 1=error, 2=warn, 3=info, 4=core, 5=debug, 6=detail (default: 3)</span><br><span class="line">  --vmodule value       Per-module verbosity: comma-separated list of &lt;pattern&gt;=&lt;level&gt; (e.g. eth/*=6,p2p=5)</span><br><span class="line">  --backtrace value     Request a stack trace at a specific logging statement (e.g. <span class="string">&quot;block.go:271&quot;</span>) (default: :0)</span><br><span class="line">  --pprof           Enable the pprof HTTP server</span><br><span class="line">  --pprofport value     pprof HTTP server listening port (default: 6060)</span><br><span class="line">  --memprofilerate value    Turn on memory profiling with the given rate (default: 524288)</span><br><span class="line">  --blockprofilerate value  Turn on block profiling with the given rate (default: 0)</span><br><span class="line">  --cpuprofile value        Write CPU profile to the given file</span><br><span class="line">  --trace value         Write execution trace to the given file</span><br><span class="line"></span><br><span class="line">EXPERIMENTAL OPTIONS:</span><br><span class="line">  --shh     Enable Whisper</span><br><span class="line">  --natspec Enable NatSpec confirmation notice</span><br><span class="line"></span><br><span class="line">MISCELLANEOUS OPTIONS:</span><br><span class="line">  --solc value      Solidity compiler <span class="built_in">command</span> to be used (default: <span class="string">&quot;solc&quot;</span>)</span><br><span class="line">  --support-dao-fork    Updates the chain rules to support the DAO hard-fork</span><br><span class="line">  --oppose-dao-fork Updates the chain rules to oppose the DAO hard-fork</span><br><span class="line">  --<span class="built_in">help</span>, -h        显示帮助</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Zihao Yao 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Zihao Yao
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://yaozihao.com/eth_geth_order/" title="以太坊客户端命令行选项汇总">https://yaozihao.com/eth_geth_order/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/bidingtou">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/eth/" rel="tag"><i class="fa fa-tag"></i> eth</a>
+              <a href="/tags/geth/" rel="tag"><i class="fa fa-tag"></i> geth</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/ubuntu_eth_private/" rel="prev" title="Ubuntu下搭建一个以太坊私有区块链环境">
+      <i class="fa fa-chevron-left"></i> Ubuntu下搭建一个以太坊私有区块链环境
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/eth_contract/" rel="next" title="以太坊合约资料收集">
+      以太坊合约资料收集 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zihao Yao</p>
+  <div class="site-description" itemprop="description">由渐入深，记录程序人生。全栈工程师与你共勉。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">278</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3VjZnlhbw==" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ucfyao"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOnVjZnlhb0BnbWFpbC5jb20=" title="E-Mail → mailto:ucfyao@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9iaWRpbmd0b3U=" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;bidingtou"><i class="fab fa-twitter fa-fw"></i>Twitter</span>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly93d3cuYmFpZHUuY29tLw==" title="https:&#x2F;&#x2F;www.baidu.com&#x2F;">baidu</span>
+        </li>
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8=" title="https:&#x2F;&#x2F;www.google.com&#x2F;">google</span>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zihao Yao</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">796k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">12:04</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+  <script data-pjax>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://yaozihao.com/eth_geth_order/',]
+      });
+      });
+  </script>
+
+    </div>
+</body>
+</html>
