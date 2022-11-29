@@ -32,7 +32,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/ucfyao/image/img/img/20190422133136.png">
 <meta property="article:published_time" content="2017-04-14T10:26:05.000Z">
-<meta property="article:modified_time" content="2022-11-29T04:22:47.536Z">
+<meta property="article:modified_time" content="2022-11-29T11:49:30.905Z">
 <meta property="article:author" content="Zihao Yao">
 <meta property="article:tag" content="区块链">
 <meta property="article:tag" content="量化">
@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">279</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">278</span></a>
 
   </li>
         <li class="menu-item menu-item-about">
@@ -237,7 +237,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -291,7 +291,7 @@
 <li>将计算好的数据输出到csv文件中。<br>代码应该复制下来就能运行了，关于从哪里可以得到代码中使用的数据，后面会讲，下面贴上代码：</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: utf-8 -*-</span><br></pre></td></tr></table></figure>
-<p>@author: yaozihao<br>@contact: QQ:906961433 email:<span class="exturl" data-url="bWFpbHRvOiYjeDc5OyYjeDYxOyYjMTExOyYjeDdhOyYjeDY5OyYjMTA0OyYjeDYxOyYjeDZmOyYjNjQ7JiMxMjE7JiM5NzsmIzExMTsmIzEyMjsmI3g2OTsmI3g2ODsmIzk3OyYjeDZmOyYjNDY7JiN4NjM7JiMxMTA7">&#x79;&#x61;&#111;&#x7a;&#x69;&#104;&#x61;&#x6f;&#64;&#121;&#97;&#111;&#122;&#x69;&#x68;&#97;&#x6f;&#46;&#x63;&#110;<i class="fa fa-external-link-alt"></i></span></p>
+<p>@author: yaozihao<br>@contact: QQ:906961433 email:<span class="exturl" data-url="bWFpbHRvOiYjMTIxOyYjeDYxOyYjeDZmOyYjMTIyOyYjMTA1OyYjeDY4OyYjOTc7JiMxMTE7JiN4NDA7JiMxMjE7JiM5NzsmI3g2ZjsmIzEyMjsmIzEwNTsmIzEwNDsmI3g2MTsmIzExMTsmI3gyZTsmIzk5OyYjeDZlOw==">&#121;&#x61;&#x6f;&#122;&#105;&#x68;&#97;&#111;&#x40;&#121;&#97;&#x6f;&#122;&#105;&#104;&#x61;&#111;&#x2e;&#99;&#x6e;<i class="fa fa-external-link-alt"></i></span></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line"></span><br><span class="line"># ========== 从原始csv文件中导入股票数据，以浦发银行sh600000为例</span><br><span class="line"># 导入数据 - 注意：这里请填写数据文件在您电脑中的路径</span><br><span class="line">stock_data = pd.read_csv(&#x27;stock data/sh600000.csv&#x27;, parse_dates=[1])</span><br><span class="line"></span><br><span class="line"># 将数据按照交易日期从远到近排序</span><br><span class="line">stock_data.sort(&#x27;date&#x27;, inplace=True)</span><br><span class="line"></span><br><span class="line"># ========== 计算移动平均线</span><br><span class="line"># 分别计算5日、20日、60日的移动平均线</span><br><span class="line">ma_list = [5, 20, 60]</span><br><span class="line"></span><br><span class="line"># 计算简单算术移动平均线MA - 注意：stock_data[&#x27;close&#x27;]为股票每天的收盘价</span><br><span class="line">for ma in ma_list:</span><br><span class="line">    stock_data[&#x27;MA_&#x27; + str(ma)] = pd.rolling_mean(stock_data[&#x27;close&#x27;], ma)</span><br><span class="line"></span><br><span class="line"># 计算指数平滑移动平均线EMA</span><br><span class="line">for ma in ma_list:</span><br><span class="line">    stock_data[&#x27;EMA_&#x27; + str(ma)] = pd.ewma(stock_data[&#x27;close&#x27;], span=ma)</span><br><span class="line"></span><br><span class="line"># 将数据按照交易日期从近到远排序</span><br><span class="line">stock_data.sort(&#x27;date&#x27;, ascending=False, inplace=True)</span><br><span class="line"></span><br><span class="line"># ========== 将算好的数据输出到csv文件 - 注意：这里请填写输出文件在您电脑中的路径</span><br><span class="line">stock_data.to_csv(&#x27;sh600000_ma_ema.csv&#x27;, index=False)</span><br></pre></td></tr></table></figure>
 
 <p>代码输出的数据截图如下：<br><img data-src="https://raw.githubusercontent.com/ucfyao/image/img/img/20190422133136.png"></p>
@@ -457,7 +457,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">279</span>
+          <span class="site-state-item-count">278</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
