@@ -129,12 +129,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">19</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">278</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">279</span></a>
 
   </li>
         <li class="menu-item menu-item-about">
@@ -199,6 +199,122 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/linux_mongodb/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zihao Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zihao">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/linux_mongodb/" class="post-title-link" itemprop="url">Centos6.5安装配置Mongodb</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-06-16 10:15:56" itemprop="dateCreated datePublished" datetime="2016-06-16T10:15:56Z">2016-06-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>mongodb官网上下载最新版本的mongodb，按照官网上的说明进行安装：</p>
+<p>首先运行如下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -O http://downloads.mongodb.org/linux/mongodb-linux-x86_64-2.6.3.tgz</span><br></pre></td></tr></table></figure>
+<p>其次，运用tar 进行解压缩，按照如下命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf mongodb-linux-x86_64-2.6.3.tgz</span><br></pre></td></tr></table></figure>
+<p>第三，新建mongodb文件夹，把解压了的mongodb-linux-x86_64-2.6.3复制到mongodb下面。<br>按照如下命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p mongodb</span><br><span class="line">cp -R -n mongodb-linux-x86_64-2.6.3/ mongodb</span><br></pre></td></tr></table></figure>
+<p>第四，更改环境变量，在路径 &#x2F;etc&#x2F;下面，找到bashrc文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=&lt;mongodb-install-directory&gt;:$PATH</span><br></pre></td></tr></table></figure>
+<p>替换成你的mongodb路径就可以了</p>
+<p>第五，创建mongodb的dbdata的路径</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p  /usr/local/mongo/data  </span><br><span class="line">mongod --dbpath /usr/local/mongo/data</span><br></pre></td></tr></table></figure>
+<p>第六，进入mongo的文件夹，运行mongo命令，启动mongo就可以了。<br>上面的安装方法比较简单，但是有个问题，就是mongo启动必须同时制定data,也就是要运行<code>mongod –dbpath /usr/local/mongo/data</code>，比较繁琐，下面介绍一种一劳永逸的安装办法，把mongo的启动添加到服务当中。</p>
+<p>创建配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /usr/local/mongo/etc /usr/local/mongo/data /usr/local/mongo/log/ /usr/local/mongo/repair</span><br><span class="line">vim  /usr/local/mongo/etc/mongo.conf</span><br><span class="line">在mongo.conf中添加下面的内容</span><br><span class="line">dbpath = /usr/local/mongo/data</span><br><span class="line">logpath = /usr/local/mongo/mongodb.log</span><br><span class="line">repairpath = /usr/local/mongo/repair</span><br><span class="line">pidfilepath = /usr/local/mongo/mongodb.pid</span><br><span class="line">directoryperdb = true</span><br><span class="line">logappend = true</span><br><span class="line">noauth = true</span><br><span class="line">port = 27017</span><br><span class="line">maxConns = 1024</span><br><span class="line">fork = true</span><br><span class="line">rest = true</span><br><span class="line">quota = true</span><br><span class="line">quotaFiles = 1024</span><br><span class="line">nssize = 16</span><br></pre></td></tr></table></figure>
+<p>启动mongodb</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/local/mongo/bin/mongod /usr/bin/mongod</span><br><span class="line">mongod -f /usr/local/mongo/etc/mongo.conf</span><br></pre></td></tr></table></figure>
+<p>看看是不是启动起来了，但是使用这种方式管理mongodb服务器很不明智，我们完善一下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /usr/local/mongo/srv</span><br><span class="line">vim /usr/local/mongo/srv/mongodb-start</span><br></pre></td></tr></table></figure>
+<p>添加下面的内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">mongod -f /usr/local/mongo/etc/mongo.conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/local/mongo/srv/mongodb-stop</span><br></pre></td></tr></table></figure>
+<p>添加下面的内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">pid=`ps -o pid,command ax | grep mongod | awk &#x27;!/awk/ &amp;&amp; !/grep/ &#123;print $1&#125;&#x27;`;</span><br><span class="line">if [ &quot;$&#123;pid&#125;&quot; != &quot;&quot; ]; then</span><br><span class="line">    kill -2 $&#123;pid&#125;;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<p>添加执行权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x /usr/local/mongo/srv/mongodb-start</span><br><span class="line">chmod a+x /usr/local/mongo/srv/mongodb-stop</span><br><span class="line">vim /etc/rc.d/init.d/mongodb</span><br></pre></td></tr></table></figure>
+<p>添加下面的内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#! /bin/sh</span><br><span class="line">#</span><br><span class="line"># mongodb – this script starts and stops the mongodb daemon</span><br><span class="line">#</span><br><span class="line"># chkconfig: - 85 15</span><br><span class="line"># description: MongoDB is a non-relational database storage system.</span><br><span class="line"># processname: mongodb</span><br><span class="line"># config: /usr/local/mongo/etc/mongo.conf</span><br><span class="line"># pidfile: /usr/local/mongo/mongodb.pid</span><br><span class="line">PATH=/usr/local/mongo/bin:/sbin:/bin:/usr/sbin:/usr/bin</span><br><span class="line">NAME=mongodb</span><br><span class="line">test -x $DAEMON || exit 0</span><br><span class="line">set -e</span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">  start)</span><br><span class="line">        echo -n &quot;Starting MongoDB... &quot;</span><br><span class="line">        /usr/local/mongo/srv/mongodb-start</span><br><span class="line">        ;;</span><br><span class="line">  stop)</span><br><span class="line">        echo -n &quot;Stopping MongoDB... &quot;</span><br><span class="line">        /usr/local/mongo/srv/mongodb-stop</span><br><span class="line">        ;;</span><br><span class="line">      *)</span><br><span class="line">            N=/etc/init.d/$NAME</span><br><span class="line">            echo &quot;Usage: $N &#123;start|stop&#125;&quot; &gt;&amp;2</span><br><span class="line">            exit 1</span><br><span class="line">            ;;</span><br><span class="line">    esac</span><br><span class="line">    exit 0</span><br></pre></td></tr></table></figure>
+<p>添加服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x /etc/rc.d/init.d/mongodb</span><br><span class="line">chkconfig --add mongodb</span><br><span class="line">chkconfig --level 345 mongodb on</span><br><span class="line">/etc/rc.d/init.d/mongodb start</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
     <link itemprop="mainEntityOfPage" href="https://yaozihao.com/php_bubbling_op/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -230,7 +346,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -325,7 +441,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -449,7 +565,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -920,7 +1036,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1047,7 +1163,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1143,7 +1259,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1272,7 +1388,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1428,7 +1544,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1554,7 +1670,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1653,109 +1769,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/mac_item2_zsh/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zihao Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zihao">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/mac_item2_zsh/" class="post-title-link" itemprop="url">iTerm 2 && Oh My Zsh【DIY教程——亲身体验过程】</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-02-18 22:17:44" itemprop="dateCreated datePublished" datetime="2016-02-18T22:17:44Z">2016-02-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Mac/" itemprop="url" rel="index"><span itemprop="name">Mac</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.6k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>经过一个晚上的时间，终于DIY出我梦寐以求的效果。 </p>
-<p><strong>先放上最终DIY效果图：</strong></p>
-<p><img data-src="https://raw.githubusercontent.com/ucfyao/image/img/img/20190422112851.png" alt="DIY效果图"></p>
-<p>下面，我将分步骤讲解我是怎么一步一步完成DIY过程</p>
-<h3 id="首先下载-iTerm-2"><a href="#首先下载-iTerm-2" class="headerlink" title="首先下载 iTerm 2"></a>首先下载 <span class="exturl" data-url="aHR0cDovL3d3dy5pdGVybTIuY29tLw==">iTerm 2<i class="fa fa-external-link-alt"></i></span></h3><h3 id="打开iTerm-2"><a href="#打开iTerm-2" class="headerlink" title="打开iTerm 2"></a>打开iTerm 2</h3><h3 id="输入下面指令安装oh-my-zsh"><a href="#输入下面指令安装oh-my-zsh" class="headerlink" title="输入下面指令安装oh-my-zsh"></a>输入下面指令安装<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JvYmJ5cnVzc2VsbC9vaC1teS16c2g=">oh-my-zsh<i class="fa fa-external-link-alt"></i></span></h3><p><code>curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh</code></p>
-<h3 id="接下来安装Powerline"><a href="#接下来安装Powerline" class="headerlink" title="接下来安装Powerline"></a>接下来安装<span class="exturl" data-url="aHR0cDovL3Bvd2VybGluZS5yZWFkdGhlZG9jcy5vcmcvZW4vbGF0ZXN0L2luc3RhbGxhdGlvbi5odG1s">Powerline<i class="fa fa-external-link-alt"></i></span></h3><p>在官网有教程，我们只需要执行官网第一条安装指令就行 如果你的终端能够正常执行pip指令，那么直接执行下面的指令可以完成安装 <code>pip install powerline-status</code> 如果没有，则先执行安装pip指令 <code>sudo easy_install pip</code></p>
-<h3 id="下载、安装库字体库"><a href="#下载、安装库字体库" class="headerlink" title="下载、安装库字体库"></a>下载、安装库<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3Bvd2VybGluZS9mb250cw==">字体库<i class="fa fa-external-link-alt"></i></span></h3><p>1）将工程下载下来后cd到<code>install.sh</code>文件所在目录<br>2）执行指令安装字体库 执行<code>./install.sh</code>指令安装所有Powerline字体 安装完成后提示所有字体均已下载到<code>/Users/superdanny/Library/Fonts</code>路径下 </p>
-<p><code>All Powerline fonts installed to /Users/superdanny/Library/Fonts</code></p>
-<h3 id="设置iTerm-2的Regular-Font-和-Non-ASCII-Font"><a href="#设置iTerm-2的Regular-Font-和-Non-ASCII-Font" class="headerlink" title="设置iTerm 2的Regular Font 和 Non-ASCII Font"></a>设置iTerm 2的Regular Font 和 Non-ASCII Font</h3><p>安装完字体库之后，把iTerm 2的设置里的<code>Profile</code>中的<code>Text</code> 选项卡中里的<code>Regular Font</code>和<code>Non-ASCII Font</code>的字体都设置成 Powerline的字体，我这里设置的字体是<code>12pt Meslo LG S DZ Regular for Powerline</code></p>
-<p><img data-src="https://raw.githubusercontent.com/ucfyao/image/img/img/20190422112932.png"></p>
-<h3 id="配色方案"><a href="#配色方案" class="headerlink" title="配色方案"></a>配色方案</h3><p>1）安装<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FsdGVyY2F0aW9uL3NvbGFyaXplZA==">配色方案<i class="fa fa-external-link-alt"></i></span> 进入刚刚下载的工程的<code>solarized/iterm2-colors-solarized</code> 下双击 <code>Solarized Dark.itermcolors</code> 和 <code>Solarized Light.itermcolors</code> 两个文件就可以把配置文件导入到 iTerm2 里<br>2）配置配色方案 通过load presets选择刚刚安装的配色主题即可</p>
-<p><img data-src="https://raw.githubusercontent.com/ucfyao/image/img/img/20190422113043.png"></p>
-<h3 id="使用agnoster主题"><a href="#使用agnoster主题" class="headerlink" title="使用agnoster主题"></a>使用agnoster主题</h3><p>1）下载<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZjYW1ibG9yL29oLW15LXpzaC1hZ25vc3Rlci1mY2FtYmxvcg==">agnoster<i class="fa fa-external-link-alt"></i></span>主题 到下载的工程里面运行install文件,主题将安装到<code>~/.oh-my-zsh/themes</code>目录下<br>2）设置该主题 进入<code>~/.zshrc</code>打开<code>.zshrc</code>文件，然后将<code>ZSH_THEME</code>后面的字段改为<code>agnoster</code>。<code>ZSH_THEME=&quot;agnoster&quot;</code>（agnoster即为要设置的主题）</p>
-<h3 id="增加指令高亮效果——zsh-syntax-highlighting"><a href="#增加指令高亮效果——zsh-syntax-highlighting" class="headerlink" title="增加指令高亮效果——zsh-syntax-highlighting"></a>增加指令高亮效果——<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3pzaC11c2Vycy96c2gtc3ludGF4LWhpZ2hsaWdodGluZw==">zsh-syntax-highlighting<i class="fa fa-external-link-alt"></i></span></h3><p>指令高亮效果作用是当用户输入正确命令时指令会绿色高亮，错误时命令红色高亮 </p>
-<p>1）cd到<code>.zshrc</code>所在目录<br>2）执行指令将工程克隆到当前目录 <code>git clone git://github.com/zsh-users/zsh-syntax-highlighting.git</code><br>3）打开<code>.zshrc</code>文件，在最后添加下面内容 <code>source XXX/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh</code> 保存文件。 注意：<code>xxx</code>代表<code>.zshrc</code>所在目录<br>4）<code>cd ~/.oh-my-zsh/custom/plugins</code> 5）再次打开<code>.zshrc</code>文件，在最后面添加下面内容 <code>plugins=(zsh-syntax-highlighting)</code> 保存文件。</p>
-<h3 id="问题解答区"><a href="#问题解答区" class="headerlink" title="问题解答区"></a>问题解答区</h3><p>1.启动iTerm 2 默认使用dash改用zsh解决方法： <code>chsh -s /bin/zsh</code><br>2.执行指令<code>pip install powerline-status</code>出错解决方法： 需要下载苹果官方的<span class="exturl" data-url="aHR0cHM6Ly9kZXZlbG9wZXIuYXBwbGUuY29tL2Rvd25sb2Fkcy9pbmRleC5hY3Rpb24/bmFtZT1mb3IlMjBYY29kZSUyMA==">Command line<i class="fa fa-external-link-alt"></i></span>。必須官方工具下载最新版 Command Line<br>3.?+Q关闭iTerm 2 时每次弹窗提示问题： iTerm 2 中，进入<code>Preference</code>-<code>General</code>-<code>Closing栏目</code>，将<code>Confirm &quot;Quit iTerm2(?Q)&quot; command</code>选项勾选去掉就行<br>4.找不到.zshrc文件问题： 我这里将我的.zshrc文件分享出来。供大家下载<span class="exturl" data-url="aHR0cDovL3Bhbi5iYWlkdS5jb20vcy8xc2sxTHFDdA==">网盘<i class="fa fa-external-link-alt"></i></span></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1825,14 +1838,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">278</span>
+          <span class="site-state-item-count">279</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -1900,13 +1913,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">796k</span>
+    <span title="站点总字数">802k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:04</span>
+    <span title="站点阅读时长">12:09</span>
 </div>
 
         

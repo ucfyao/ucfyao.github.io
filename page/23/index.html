@@ -129,12 +129,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">19</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">278</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">279</span></a>
 
   </li>
         <li class="menu-item menu-item-about">
@@ -199,6 +199,117 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/php_composer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zihao Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zihao">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/php_composer/" class="post-title-link" itemprop="url">创建packagist composer库</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-09-28 19:15:27" itemprop="dateCreated datePublished" datetime="2016-09-28T19:15:27Z">2016-09-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/Back/" itemprop="url" rel="index"><span itemprop="name">Back</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/Back/php/" itemprop="url" rel="index"><span itemprop="name">php</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ol>
+<li><code>mkdir app &amp;&amp; cd app</code></li>
+<li><code>composer init</code></li>
+<li><code>vi composer.json</code>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;name&quot;: &quot;yourname/yourpro&quot;,</span><br><span class="line">    &quot;description&quot;: &quot;desc&quot;,</span><br><span class="line">    &quot;authors&quot;: [&#123;</span><br><span class="line">        &quot;name&quot;: &quot;yourname&quot;,</span><br><span class="line">        &quot;email&quot;: &quot;yourname@gmail.com&quot;</span><br><span class="line">    &#125;],</span><br><span class="line">    &quot;require&quot;: &#123;&#125;,</span><br><span class="line">    &quot;autoload&quot;: &#123;</span><br><span class="line">        &quot;classmap&quot;: [</span><br><span class="line">            &quot;lib/&quot;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>创建git库<code>yourname/yourpro</code></li>
+<li><code>git remote add origin git@github.com:yourname/yourpro</code> 设置公钥略过</li>
+<li><code>git add .&amp;&amp; git commit -am “init” &amp;&amp; git pull orgin master &amp;&amp; git push orgin master</code></li>
+<li>创建tag composer包版本来自于git分支和tag，分支代表dev版本(除master外)，tag代表stable版本</li>
+<li><code>git tag 1.0 &amp;&amp; git push origin –tags</code></li>
+<li>登录 <span class="exturl" data-url="aHR0cHM6Ly9wYWNrYWdpc3Qub3JnLw==">https://packagist.org/<i class="fa fa-external-link-alt"></i></span> 点击由上角的submit提交git仓库的地址</li>
+<li>添加 GitHub Service Hook domain 指向packagist的地址</li>
+<li>安装库 <code>composer require ‘yourname/yourpro:1.0.0</code><br>  如果报错,执行<code>composer update</code>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nothing：</span><br><span class="line"></span><br><span class="line">Potential causes:</span><br><span class="line">- A typo in the package name</span><br><span class="line">- The package is not available in a stable-enough version according to your minimum-stability setting</span><br><span class="line">  see &lt;https://groups.google.com/d/topic/composer-dev/_g3ASeIFlrc/discussion&gt; for more details.</span><br></pre></td></tr></table></figure>
+  如果<code>new \Class</code>;提示类找不到，执行<code>composer dumpautoload</code></li>
+<li>包创建成功，可以根据提示继续配置github自动同步功能，这样每次push后，packagist对应包的版本号也会更新。</li>
+<li>修改包并更新，修改后git push，然后到使用该包的项目中执行<code>composer –dev –prefer-source update  [包名]</code> ，加<code>–prefer-source</code>意思是从github上检出最新版本。</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
     <link itemprop="mainEntityOfPage" href="https://yaozihao.com/php_laravel_resource/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -230,7 +341,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -347,7 +458,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -455,7 +566,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -564,7 +675,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -669,7 +780,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -796,7 +907,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -886,7 +997,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -982,7 +1093,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1081,7 +1192,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1206,122 +1317,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/linux_mongodb/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zihao Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zihao">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/linux_mongodb/" class="post-title-link" itemprop="url">Centos6.5安装配置Mongodb</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-06-16 10:15:56" itemprop="dateCreated datePublished" datetime="2016-06-16T10:15:56Z">2016-06-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>mongodb官网上下载最新版本的mongodb，按照官网上的说明进行安装：</p>
-<p>首先运行如下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -O http://downloads.mongodb.org/linux/mongodb-linux-x86_64-2.6.3.tgz</span><br></pre></td></tr></table></figure>
-<p>其次，运用tar 进行解压缩，按照如下命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf mongodb-linux-x86_64-2.6.3.tgz</span><br></pre></td></tr></table></figure>
-<p>第三，新建mongodb文件夹，把解压了的mongodb-linux-x86_64-2.6.3复制到mongodb下面。<br>按照如下命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p mongodb</span><br><span class="line">cp -R -n mongodb-linux-x86_64-2.6.3/ mongodb</span><br></pre></td></tr></table></figure>
-<p>第四，更改环境变量，在路径 &#x2F;etc&#x2F;下面，找到bashrc文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=&lt;mongodb-install-directory&gt;:$PATH</span><br></pre></td></tr></table></figure>
-<p>替换成你的mongodb路径就可以了</p>
-<p>第五，创建mongodb的dbdata的路径</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p  /usr/local/mongo/data  </span><br><span class="line">mongod --dbpath /usr/local/mongo/data</span><br></pre></td></tr></table></figure>
-<p>第六，进入mongo的文件夹，运行mongo命令，启动mongo就可以了。<br>上面的安装方法比较简单，但是有个问题，就是mongo启动必须同时制定data,也就是要运行<code>mongod –dbpath /usr/local/mongo/data</code>，比较繁琐，下面介绍一种一劳永逸的安装办法，把mongo的启动添加到服务当中。</p>
-<p>创建配置文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /usr/local/mongo/etc /usr/local/mongo/data /usr/local/mongo/log/ /usr/local/mongo/repair</span><br><span class="line">vim  /usr/local/mongo/etc/mongo.conf</span><br><span class="line">在mongo.conf中添加下面的内容</span><br><span class="line">dbpath = /usr/local/mongo/data</span><br><span class="line">logpath = /usr/local/mongo/mongodb.log</span><br><span class="line">repairpath = /usr/local/mongo/repair</span><br><span class="line">pidfilepath = /usr/local/mongo/mongodb.pid</span><br><span class="line">directoryperdb = true</span><br><span class="line">logappend = true</span><br><span class="line">noauth = true</span><br><span class="line">port = 27017</span><br><span class="line">maxConns = 1024</span><br><span class="line">fork = true</span><br><span class="line">rest = true</span><br><span class="line">quota = true</span><br><span class="line">quotaFiles = 1024</span><br><span class="line">nssize = 16</span><br></pre></td></tr></table></figure>
-<p>启动mongodb</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/local/mongo/bin/mongod /usr/bin/mongod</span><br><span class="line">mongod -f /usr/local/mongo/etc/mongo.conf</span><br></pre></td></tr></table></figure>
-<p>看看是不是启动起来了，但是使用这种方式管理mongodb服务器很不明智，我们完善一下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /usr/local/mongo/srv</span><br><span class="line">vim /usr/local/mongo/srv/mongodb-start</span><br></pre></td></tr></table></figure>
-<p>添加下面的内容</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">mongod -f /usr/local/mongo/etc/mongo.conf</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/local/mongo/srv/mongodb-stop</span><br></pre></td></tr></table></figure>
-<p>添加下面的内容</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">pid=`ps -o pid,command ax | grep mongod | awk &#x27;!/awk/ &amp;&amp; !/grep/ &#123;print $1&#125;&#x27;`;</span><br><span class="line">if [ &quot;$&#123;pid&#125;&quot; != &quot;&quot; ]; then</span><br><span class="line">    kill -2 $&#123;pid&#125;;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
-<p>添加执行权限</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x /usr/local/mongo/srv/mongodb-start</span><br><span class="line">chmod a+x /usr/local/mongo/srv/mongodb-stop</span><br><span class="line">vim /etc/rc.d/init.d/mongodb</span><br></pre></td></tr></table></figure>
-<p>添加下面的内容</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#! /bin/sh</span><br><span class="line">#</span><br><span class="line"># mongodb – this script starts and stops the mongodb daemon</span><br><span class="line">#</span><br><span class="line"># chkconfig: - 85 15</span><br><span class="line"># description: MongoDB is a non-relational database storage system.</span><br><span class="line"># processname: mongodb</span><br><span class="line"># config: /usr/local/mongo/etc/mongo.conf</span><br><span class="line"># pidfile: /usr/local/mongo/mongodb.pid</span><br><span class="line">PATH=/usr/local/mongo/bin:/sbin:/bin:/usr/sbin:/usr/bin</span><br><span class="line">NAME=mongodb</span><br><span class="line">test -x $DAEMON || exit 0</span><br><span class="line">set -e</span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">  start)</span><br><span class="line">        echo -n &quot;Starting MongoDB... &quot;</span><br><span class="line">        /usr/local/mongo/srv/mongodb-start</span><br><span class="line">        ;;</span><br><span class="line">  stop)</span><br><span class="line">        echo -n &quot;Stopping MongoDB... &quot;</span><br><span class="line">        /usr/local/mongo/srv/mongodb-stop</span><br><span class="line">        ;;</span><br><span class="line">      *)</span><br><span class="line">            N=/etc/init.d/$NAME</span><br><span class="line">            echo &quot;Usage: $N &#123;start|stop&#125;&quot; &gt;&amp;2</span><br><span class="line">            exit 1</span><br><span class="line">            ;;</span><br><span class="line">    esac</span><br><span class="line">    exit 0</span><br></pre></td></tr></table></figure>
-<p>添加服务</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x /etc/rc.d/init.d/mongodb</span><br><span class="line">chkconfig --add mongodb</span><br><span class="line">chkconfig --level 345 mongodb on</span><br><span class="line">/etc/rc.d/init.d/mongodb start</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1391,14 +1386,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">278</span>
+          <span class="site-state-item-count">279</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -1466,13 +1461,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">796k</span>
+    <span title="站点总字数">802k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:04</span>
+    <span title="站点阅读时长">12:09</span>
 </div>
 
         

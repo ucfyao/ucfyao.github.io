@@ -129,12 +129,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">19</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">278</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">279</span></a>
 
   </li>
         <li class="menu-item menu-item-about">
@@ -199,6 +199,110 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/php_laravel_err_cache/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zihao Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zihao">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/php_laravel_err_cache/" class="post-title-link" itemprop="url">laravel5 Unable to prepare route [/] for serialization. Uses Closure.</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-10-27 21:23:08" itemprop="dateCreated datePublished" datetime="2017-10-27T21:23:08Z">2017-10-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/Back/" itemprop="url" rel="index"><span itemprop="name">Back</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/Back/php/" itemprop="url" rel="index"><span itemprop="name">php</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>562</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>laravel5的路由支持缓存。需要执行以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan route:cache</span><br></pre></td></tr></table></figure>
+<p>执行完毕后，报出以下错误：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Route cache cleared!</span><br><span class="line">[LogicException]</span><br><span class="line">Unable to prepare route [/] for serialization. Uses Closure.</span><br></pre></td></tr></table></figure>
+
+<p>这个异常的错误信息，提示的已经非常明确了：大概意思就是说在闭包里边，是不能够进行路由缓存的。那么现在就有两种办法：<br>① 想要继续使用闭包，那就只能放弃路由缓存(至少目前我没有其他办法，如果你有，记得告诉我)。<br>② 那就是在路由里边，也就是<code>route.php</code>中，不要使用闭包的方式，统统改为控制器。</p>
+<p>具体例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 之前，报错的路由</span><br><span class="line">Route::get(&#x27;/&#x27;, function()</span><br><span class="line">&#123;</span><br><span class="line">return veiw(&#x27;welcome&#x27;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 修改之后，能够路由缓存的方式</span><br><span class="line">Route::get(&#x27;/&#x27;, &#x27;HomeController@index&#x27;);</span><br></pre></td></tr></table></figure>
+<p>现在就搞定啦。再次执行 <code>php artisan route:cache</code> 可以看到成功的信息提示啦：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Route cache cleared!</span><br><span class="line">Routes cached successfully!</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
     <link itemprop="mainEntityOfPage" href="https://yaozihao.com/quant_ta_lib/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -230,7 +334,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -318,7 +422,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -420,7 +524,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -533,7 +637,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1025,7 +1129,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1129,7 +1233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1248,7 +1352,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1343,7 +1447,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1443,7 +1547,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1489,111 +1593,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/geth_order/" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/eth_contract/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zihao Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zihao">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/eth_contract/" class="post-title-link" itemprop="url">以太坊合约资料收集</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-07-02 22:59:01" itemprop="dateCreated datePublished" datetime="2017-07-02T22:59:01Z">2017-07-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/BlockChain/" itemprop="url" rel="index"><span itemprop="name">BlockChain</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>176</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li>jsapi文档 ：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2V0aGVyZXVtL3dpa2kvd2lraS9KYXZhU2NyaXB0LUFQSSNjb250cmFjdC1ldmVudHM=">wike-jsapi<i class="fa fa-external-link-alt"></i></span></li>
-<li>科普流程：<span class="exturl" data-url="aHR0cDovL3d3dy5qaWFuc2h1LmNvbS9wLzViNDU0OWM0ZmI2OA==">区块链之以太坊初体验——以太坊平台学习总结<i class="fa fa-external-link-alt"></i></span> </li>
-<li>初级流程：<span class="exturl" data-url="aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc3BvcnRzaGFyay9hcnRpY2xlL2RldGFpbHMvNTIyNDk2MDc=">csdn部署和运行第一个以太坊智能合约<i class="fa fa-external-link-alt"></i></span></li>
-<li>相当全面的知识：<span class="exturl" data-url="aHR0cDovL2dpMS5jbi90b3BpY3MvY2F0ZWdvcnkvZXRoZXJldW0vcGFnZS8y">以太坊博客<i class="fa fa-external-link-alt"></i></span></li>
-<li>官方封装好的jsonrpc接口：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2V0aGVyZXVtL3dlYjMuanM=">web3.js<i class="fa fa-external-link-alt"></i></span></li>
-<li>官方文档：<span class="exturl" data-url="aHR0cDovL2V0aGRvY3Mub3JnL2VuL2xhdGVzdC9ldGhlcmV1bS1jbGllbnRzL2Nob29zaW5nLWEtY2xpZW50Lmh0bWw=">ethdocs.org<i class="fa fa-external-link-alt"></i></span></li>
-<li>命令行api：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2V0aGVyZXVtL2dvLWV0aGVyZXVtL3dpa2kvTWFuYWdlbWVudC1BUElzI2FkbWluX25vZGVpbmZv">GethApi<i class="fa fa-external-link-alt"></i></span></li>
-<li>建立私有链：<span class="exturl" data-url="aHR0cDovL2Jsb2cuY3Nkbi5uZXQvRERGRlIvYXJ0aWNsZS9kZXRhaWxzLzczODQ4NzYy">在以太坊私有网络中建立节点集群,并发生交易<i class="fa fa-external-link-alt"></i></span></li>
-<li>智能合约文档：<span class="exturl" data-url="aHR0cHM6Ly93d3cuZXRoZXJldW0ub3JnL3Rva2VuI3RoZS1jb2lu">solidity<i class="fa fa-external-link-alt"></i></span></li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/eth_contract/" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1682,14 +1681,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">278</span>
+          <span class="site-state-item-count">279</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -1757,13 +1756,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">796k</span>
+    <span title="站点总字数">802k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:04</span>
+    <span title="站点阅读时长">12:09</span>
 </div>
 
         

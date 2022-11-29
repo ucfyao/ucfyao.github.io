@@ -129,12 +129,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">19</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">278</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">279</span></a>
 
   </li>
         <li class="menu-item menu-item-about">
@@ -199,6 +199,183 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/front_facing_questions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zihao Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zihao">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/front_facing_questions/" class="post-title-link" itemprop="url">前端面试题终结版</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-10-28 18:18:42" itemprop="dateCreated datePublished" datetime="2018-10-28T18:18:42Z">2018-10-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/Front/" itemprop="url" rel="index"><span itemprop="name">Front</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/Front/js/" itemprop="url" rel="index"><span itemprop="name">js</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1-渐进增强-progressive-enhancement-和优雅降级-graceful-degradation"><a href="#1-渐进增强-progressive-enhancement-和优雅降级-graceful-degradation" class="headerlink" title="1.渐进增强 (progressive enhancement) 和优雅降级 (graceful degradation)"></a>1.渐进增强 (progressive enhancement) 和优雅降级 (graceful degradation)</h3><p>持优雅降级观点者认为，应该针对最高级、最完善的浏览器来设计网站。然后，再为那些被认为过时或有功能缺失的浏览器提供候选方案，使之基本可用，但不至于完全失效。这样一来，新特性在老浏览器中会降级，且一般会有一个分界点，声明不支持哪些老浏览器。有时候会警告使用老浏览器的用户，建议更换，如“您的浏览器已经老掉牙了，建议使用现代浏览器！”。</p>
+<p>与优雅降级正好相反，持渐进增强观点者则认为，应该关注于内容本身。首先，保证最核心的功能，让任何低端的浏览器都能看到网站的内容。然后，再通过CSS或Javascript来进行效果、交互等改进，为更先进的浏览器提供渐进式增强，带来更好的用户体验。</p>
+<h3 id="2-JavaScript-数据类型"><a href="#2-JavaScript-数据类型" class="headerlink" title="2.JavaScript 数据类型"></a>2.JavaScript 数据类型</h3><p>栈：原始数据类型（字符换，数字，布尔，Null，Undefined）<br>堆：引用数据类型（数组）</p>
+<p>原始数据类型直接存储在栈(stack)中的简单数据段，占据空间小、大小固定，属于被频繁使用数据，所以放入栈中存储；<br>引用数据类型存储在堆(heap)中的对象,占据空间大、大小不固定,如果存储在栈中，将会影响程序运行的性能；引用数据类型在栈中存储了指针，该指针指向堆中该实体的起始地址。当解释器寻找引用值时，会首先检索其<br>在栈中的地址，取得地址后从堆中获得实体</p>
+<h3 id="3-盒子模型"><a href="#3-盒子模型" class="headerlink" title="3.盒子模型"></a>3.盒子模型</h3><p>content-》padding-》border-》margin</p>
+<h3 id="4-box-sizing"><a href="#4-box-sizing" class="headerlink" title="4.box-sizing"></a>4.box-sizing</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">box-sizing: content-box;</span><br><span class="line">box-sizing: border-box;</span><br></pre></td></tr></table></figure>
+<p>box-sizing属性可以指定盒子模型种类，<br>content-box指定盒子模型为W3C标准盒模型，元素的高宽设定&#x3D;content<br>border-box为IE6混杂模式盒模型。元素的高宽设定&#x3D;border+padding+content<br>inherit 继承父元素的box-sizing属性</p>
+<h3 id="5-promise"><a href="#5-promise" class="headerlink" title="5.promise"></a>5.promise</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// Promise里面传入一个函数类型的参数，这个函数类型的参数接收两个参数resolve reject</span><br><span class="line">var p = new Promise(function(resolve,reject)&#123;</span><br><span class="line">     // 异步操作</span><br><span class="line">     setTimeout(function()&#123;</span><br><span class="line">         console.log(&#x27;icessun&#x27;);  // 两秒之后打印出icessun</span><br><span class="line">         resolve(&#x27;icessun2&#x27;); // resolve是成功后的回调函数 里面的icessun2是传入的参数</span><br><span class="line">      &#125;,2000)</span><br><span class="line">  &#125;);</span><br><span class="line">// 那么p是一个实例对象，可以使用then方法（Promise原型上面的方法）</span><br><span class="line">p.then(function()&#123;</span><br><span class="line">    console.log(arguments);  // 会打印出一个类数组 [&#x27;icessun2&#x27;]</span><br><span class="line"> &#125;)</span><br><span class="line">p.then(function(data)&#123;</span><br><span class="line">    console.log(data);  // 会打印出icessun2 data接收了resolve里面的参数</span><br><span class="line"> &#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>方便链式回调，resolve 是成功回调，reject为失败回调。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">function getNumber()&#123;</span><br><span class="line">   var p=new Promise(function(resolve,reject)&#123;</span><br><span class="line">      setTimeout(function()&#123;</span><br><span class="line">          var num=Math.ceil(Math.random()*10); // 生成1-10 之间的随机数 Math.ceil(): 大于或等于给定数字的最小整数</span><br><span class="line">          if(num&lt;=5)&#123;</span><br><span class="line">            resolve(num);</span><br><span class="line">           &#125;else&#123;</span><br><span class="line">             reject(&#x27;数字太大了&#x27;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,2000);</span><br><span class="line">    &#125;);</span><br><span class="line">   return p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getNumber().then(function(data)&#123;</span><br><span class="line">                console.log(&#x27;resolved&#x27;);</span><br><span class="line">                console.log(data);</span><br><span class="line">            &#125;,function(reason,data)&#123;</span><br><span class="line">                console.log(&#x27;resolved&#x27;);</span><br><span class="line">                console.log(reason); // 数字太大</span><br><span class="line">                console.log(data); // undefined</span><br><span class="line">              &#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Promise</span><br><span class="line">       .all([runAsync1(),runAsync2(),runAsync3()])</span><br><span class="line">       .then(function(results)&#123;</span><br><span class="line">          console.log(results);</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+<p>Promise.all来执行前面的三个异步的函数，all()接收一个数组参数，里面的执行最终都返回Promise对象，只有等三个异步操作都执行完成后才会进入到then里面，all会把所有的异步操作的结果放在一个数组中传给then，就是上面的results.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Promise</span><br><span class="line">      .race([runAsync1(),runAsync2(),runAsync3()])</span><br><span class="line">       .then(function(results)&#123;</span><br><span class="line">         console.log(results);</span><br><span class="line">        &#125;);</span><br><span class="line">        </span><br></pre></td></tr></table></figure>
+
+<p>race也是Promise类上面的私有方法，对于前面的all方法来说是：谁的程序执行的慢，就等谁执行完才回调。但是对于race来说：谁的程序执行的快，就以它为标准调用回调函数，其用法基本上是一样的，把上面runAsync1函数的延迟改为1秒</p>
+<h3 id="6-原型与继承的过程"><a href="#6-原型与继承的过程" class="headerlink" title="6.原型与继承的过程"></a>6.原型与继承的过程</h3><p>Js所有的函数都有一个prototype属性，这个属性引用了一个对象，即原型对象，也简称原型。</p>
+<h3 id="7-闭包"><a href="#7-闭包" class="headerlink" title="7.闭包"></a>7.闭包</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">( function()&#123;</span><br><span class="line">    var i = 1;</span><br><span class="line">    console.log(i)</span><br><span class="line">&#125; )</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>1.函数嵌套函数 </li>
+<li>2.函数内部可以引用外部的参数和变量 </li>
+<li>3.参数和变量不会被垃圾回收机制回收</li>
+</ul>
+<h3 id="8-柯里化"><a href="#8-柯里化" class="headerlink" title="8.柯里化"></a>8.柯里化</h3><p>在计算机科学中，柯里化（Currying），又译为卡瑞化或加里化，是把接收多个参数的函数变换成接收一个单一参数（最初函数的第一个参数）的函数，并返回接受剩余的参数而且返回结果的新函数的技术。这个技术由克里斯托弗·斯特雷奇以逻辑学家哈斯凯尔·加里命名的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//函数定义</span><br><span class="line"></span><br><span class="line"> function add(x,y)&#123;</span><br><span class="line"></span><br><span class="line">   return x + y；</span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> //函数调用</span><br><span class="line"></span><br><span class="line"> add(3,5);//8</span><br></pre></td></tr></table></figure>
+<p> 采用柯里化将接受两个参数的函数变成接受单一参数的函数<br> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//函数表达式</span><br><span class="line"></span><br><span class="line"> var add = function(x)&#123;</span><br><span class="line"></span><br><span class="line">   return function(y)&#123;</span><br><span class="line"></span><br><span class="line">     return x + y;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"> &#125;;</span><br><span class="line"></span><br><span class="line"> //函数调用</span><br><span class="line"></span><br><span class="line"> add(3)(5);</span><br></pre></td></tr></table></figure></p>
+<h3 id="9-箭头函数的使用"><a href="#9-箭头函数的使用" class="headerlink" title="9.箭头函数的使用"></a>9.箭头函数的使用</h3><p>es6 箭头函数的使用，颠覆了js的编程习惯。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// es5</span><br><span class="line">var foo = function() &#123;</span><br><span class="line">    var a = 20；</span><br><span class="line">    var b = 30;</span><br><span class="line">    return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// es6</span><br><span class="line">const foo = () =&gt; &#123;</span><br><span class="line">   const a = 20;</span><br><span class="line">   const b = 30;</span><br><span class="line">   return a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="10-var-let-const"><a href="#10-var-let-const" class="headerlink" title="10.var let const"></a>10.var let const</h3><p>var 是全局<br>let 块级操作，值可变<br>const 值不会变</p>
+<h3 id="11-模板字符"><a href="#11-模板字符" class="headerlink" title="11.模板字符"></a>11.模板字符</h3><p>模板字符是为了解决使用+号拼接字符串的不便利出现的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// es6</span><br><span class="line">const a = 20;</span><br><span class="line">const b = 30;</span><br><span class="line">const string = `$&#123;a&#125;+$&#123;b&#125;=$&#123;a+b&#125;`;</span><br><span class="line"></span><br><span class="line">// es5</span><br><span class="line">var a = 20;</span><br><span class="line">var b = 30;</span><br><span class="line">var string = a + &quot;+&quot; + b + &quot;=&quot; + (a + b);</span><br></pre></td></tr></table></figure>
+
+<h3 id="12-展开运算符"><a href="#12-展开运算符" class="headerlink" title="12.展开运算符"></a>12.展开运算符</h3><p>在ES6中用…来表示展开运算符，它可以将数组方法或者对象进行展开。先来看一个例子它是如何使用的。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const arr1 = [1, 2, 3];</span><br><span class="line">const arr2 = [...arr1, 10, 20, 30];</span><br></pre></td></tr></table></figure>
+
+<h3 id="13-执行顺序"><a href="#13-执行顺序" class="headerlink" title="13.执行顺序"></a>13.执行顺序</h3><p>先执行脚本，然后 setTimeout 会延迟执行，那么执行到 console.log 的时候，i已经变成5了。</p>
+<h3 id="14-async-和-awit"><a href="#14-async-和-awit" class="headerlink" title="14.async 和 awit"></a>14.async 和 awit</h3><p><code>async</code>用来申明里面包裹的内容可以进行同步的方式执行，await则是进行执行顺序控制，每次执行一个await，程序都会暂停等待await返回值，然后再执行之后的await。<br><code>await</code>后面调用的函数需要返回一个promise，另外这个函数是一个普通的函数即可，而不是generator。<br><code>await</code>只能用在async函数之中，用在普通函数中会报错。<br><code>await</code>命令后面的 Promise 对象，运行结果可能是 rejected，所以最好把 await 命令放在 <code>try...catch</code> 代码块中。</p>
+<h3 id="15-函数声明"><a href="#15-函数声明" class="headerlink" title="15.函数声明"></a>15.函数声明</h3><p>函数声明：<code>function fnName () &#123;…&#125;;</code>使用function关键字声明一个函数，再指定一个函数名，叫函数声明。</p>
+<p>函数表达式：<code>var fnName = function () &#123;…&#125;;</code>使用function关键字声明一个函数，但未给函数命名，最后将匿名函数赋予一个变量，叫函数表达式，这是最常见的函数表达式语法形式。</p>
+<p>匿名函数：<code>function () &#123;&#125;;</code> 使用function关键字声明一个函数，但未给函数命名，所以叫匿名函数，匿名函数属于函数表达式，匿名函数有很多作用，赋予一个变量则创建函数，赋予一个事件则成为事件处理程序或创建闭包等等。</p>
+<p><code>( function()&#123;…&#125; )()</code>和<code>( function ()&#123;…&#125; () )</code>是两种javascript立即执行函数的常见写法</p>
+<h3 id="16-事件代理"><a href="#16-事件代理" class="headerlink" title="16.事件代理"></a>16.事件代理</h3><p>当我们需要对很多元素添加事件的时候，可以通过将事件添加到它们的父节点而将事件委托给父节点来触发处理函数</p>
+<h3 id="17-AMD-CMD-CommonJS"><a href="#17-AMD-CMD-CommonJS" class="headerlink" title="17.AMD CMD CommonJS"></a>17.AMD CMD CommonJS</h3><p>CommonJS 适用于服务端，比如node 执行环境。同步加载不同模块之所以采用同步，是因为模块文件都存放在服务器的各个硬盘上，实际的加载时间就是硬盘的文件读取时间。</p>
+<p>AMD ，Asynchronous Module Definition 异步模块定义。<code>require js</code>一次性加载全部的js文件到客户端。</p>
+<p>CMD，common module definition ，是<code>seajs</code>的规范，依赖就近，用的时候再require。</p>
+<h3 id="18-doctype-文档类型-的作用是什么"><a href="#18-doctype-文档类型-的作用是什么" class="headerlink" title="18.doctype(文档类型) 的作用是什么"></a>18.doctype(文档类型) 的作用是什么</h3><p>用来说明web设计中所用的html或xhtml的类型，指出浏览器或者其他阅读程序按照什么样的规则（W3C所发布的一个文档类型定义即DTD）集去解释文档中的标记.<br>在W3C标准出来之前，浏览器对页面的渲染没有同一的标准，产生了差异，quirks mod（混杂模式或者兼容模式），但在W3C标准出台之后，浏览器对页面的渲染有了同一的标准即（严格模式或标准模式）。但是为了保证以前就得页面仍然正常显示，有的浏览器就保存了这两种渲染模式（标准兼容模式）。那么究竟采用哪一种方式进行渲染，就要看DOCTYPE生命中的DTD。</p>
+<p><code>DOCTYPE</code>使浏览器按照DTD指定的渲染方式对页面进行渲染。<br><code>Web</code> 世界中存在许多不同的文档。只有了解文档的类型，浏览器才能正确地显示文档。<br><code>HTML</code> 也有多个不同的版本，只有完全明白页面中使用的确切 <code>HTML</code> 版本，浏览器才能完全正确地显示出 <code>HTML</code> 页面。这就是 <code>&lt;!DOCTYPE&gt;</code> 的用处。<br><code>&lt;!DOCTYPE&gt;</code> 不是 HTML 标签。它为浏览器提供一项信息（声明），即 HTML 是用什么版本编写的。<br>如果你的页面添加了<code>&lt;!DOCTYPE html&gt;</code>那么，那么就等同于开启了标准模式，那么浏览器就得老老实实的按照W3C的标准。</p>
+<h3 id="19-浏览器标准模式-standards-mode-、几乎标准模式（almost-standards-mode）和怪异模式-quirks-mode-之间的区别是什么？"><a href="#19-浏览器标准模式-standards-mode-、几乎标准模式（almost-standards-mode）和怪异模式-quirks-mode-之间的区别是什么？" class="headerlink" title="19.浏览器标准模式 (standards mode) 、几乎标准模式（almost standards mode）和怪异模式 (quirks mode) 之间的区别是什么？"></a>19.浏览器标准模式 (standards mode) 、几乎标准模式（almost standards mode）和怪异模式 (quirks mode) 之间的区别是什么？</h3><p>所谓的标准模式是指，浏览器按W3C标准解析执行代码；怪异模式则是使用浏览器自己的方式解析执行代码，因为不同浏览器解析执行的方式不一样，所以我们称之为怪异模式。浏览器解析时到底使用标准模式还是怪异模式，与你网页中的DTD声明直接相关，DTD声明定义了标准文档的类型（标准模式解析）文档类型，会使浏览器使用相应的方式加载网页并显示，忽略DTD声明,将使网页进入怪异模式(quirks mode)。<br>几乎标准模式（almost standards mode）是Firefox1+的设定的，类似于标准模式。</p>
+<h3 id="20-HTML-和-XHTML-有什么区别？"><a href="#20-HTML-和-XHTML-有什么区别？" class="headerlink" title="20.HTML 和 XHTML 有什么区别？"></a>20.HTML 和 XHTML 有什么区别？</h3><p>HTML是一种基本的WEB网页设计语言，XHTML是一个基于XML的置标语言，看起来与HTML有些相象，只有一些小的但重要的区别，XHTML就是一个扮演着类似HTML的角色的XML，所以，本质上说，XHTML是一个过渡技术，结合了XML(有几分)的强大功能及HTML(大多数)的简单特性。<br>HTML 和 XHTML 的区别简单来说，XHTML 可以认为是 XML 版本的 HTML，为符合 XML 要求，XHTML 语法上要求更严谨些。<br>以下是 XHTML 相对 HTML 的几大区别：<br>XHTML 要求正确嵌套<br>XHTML 所有元素必须关闭<br>XHTML 区分大小写<br>XHTML 属性值要用双引号<br>XHTML 用 id 属性代替 name 属性<br>XHTML 特殊字符的处理</p>
+<h3 id="21-如果页面使用-‘application-x2F-xhtml-xml’-会有什么问题吗"><a href="#21-如果页面使用-‘application-x2F-xhtml-xml’-会有什么问题吗" class="headerlink" title="21.如果页面使用 ‘application&#x2F;xhtml+xml’ 会有什么问题吗"></a>21.如果页面使用 ‘application&#x2F;xhtml+xml’ 会有什么问题吗</h3><p>比较严格,必须有head、body标签且每个元素必须是关闭的。 一些老的浏览器不支持,实际上,任何最新的浏览器都将支持application&#x2F;xhtml+xml媒体类型。</p>
+<h3 id="22-BFC规范的理解"><a href="#22-BFC规范的理解" class="headerlink" title="22.BFC规范的理解"></a>22.BFC规范的理解</h3><p>BFC，块级格式化上下文，一个创建了新的BFC的盒子是独立布局的，盒子里面的子元素的样式不会影响到外面的元素。在同一个BFC中的两个毗邻的块级盒在垂直方向（和布局方向有关系）的margin会发生折叠。</p>
+<h3 id="23-你有哪些性能优化的方法？"><a href="#23-你有哪些性能优化的方法？" class="headerlink" title="23.你有哪些性能优化的方法？"></a>23.你有哪些性能优化的方法？</h3><ul>
+<li>减少http请求次数：CSS Sprites，JS, CSS源码压缩，图片大小控制合适，网页Gzip，CDN托管，data缓存，图片服务器。</li>
+<li>前端模板js+数据，减少由于HTML标签导致的带宽浪费，前端用变量保存AJAX请求结果，每次操作本地变量不用请求，减少请求次数。</li>
+<li>空的src。</li>
+</ul>
+<h3 id="24-XSS原理及防范"><a href="#24-XSS原理及防范" class="headerlink" title="24.XSS原理及防范"></a>24.XSS原理及防范</h3><p>Xss(cross-site scripting)攻击指的是攻击者往Web页面里插入恶意html标签或者javascript代码。比如：攻击者在论坛中放一个看似安全的链接，骗取用户点击后，窃取cookie中的用户私密信息；或者攻击者在论坛中加一个恶意表单， 当用户提交表单的时候，却把信息传送到攻击者的服务器中，而不是用户原本以为的信任站点。</p>
+<h3 id="25-XSS防范方法"><a href="#25-XSS防范方法" class="headerlink" title="25.XSS防范方法"></a>25.XSS防范方法</h3><ul>
+<li>1.代码里对用户输入的地方和变量都需要仔细检查长度和对”&lt;”,”&gt;”,”;”,”’”等字符做过滤；其次任何内容写到页面之前都必须加以encode，避免不小心把html tag 弄出来。这一个层面做好，至少可以堵住超过一半的XSS 攻击。 </li>
+<li>2.避免直接在cookie 中泄露用户隐私，例如email、密码等等。 </li>
+<li>3.通过使cookie 和系统ip 绑定来降低cookie 泄露后的危险。这样攻击者得到的cookie 没有实际价值，不可能拿来重放。 </li>
+<li>4.尽量采用POST 而非GET 提交表单。</li>
+</ul>
+<h3 id="26-XSS与CSRF有什么区别吗？"><a href="#26-XSS与CSRF有什么区别吗？" class="headerlink" title="26.XSS与CSRF有什么区别吗？"></a>26.XSS与CSRF有什么区别吗？</h3><p>XSS是获取信息，不需要提前知道其他用户页面的代码和数据包。CSRF是代替用户完成指定的动作，需要知道其他用户页面的代码和数据包。</p>
+<p>要完成一次CSRF攻击，受害者必须依次完成两个步骤：</p>
+<ul>
+<li>1.登录受信任网站A，并在本地生成Cookie。</li>
+<li>2.在不登出A的情况下，访问危险网站B。</li>
+</ul>
+<p>　　<br>CSRF的防御</p>
+<ul>
+<li>1.服务端的CSRF方式方法很多样，但总的思想都是一致的，就是在客户端页面增加伪随机数。</li>
+<li>2.使用验证码。</li>
+</ul>
+<h3 id="27-JavaScript-的同源策略。"><a href="#27-JavaScript-的同源策略。" class="headerlink" title="27.JavaScript 的同源策略。"></a>27.JavaScript 的同源策略。</h3><p>协议，域名，端口相同，同源策略是一种安全协议。 指一段脚本只能读取来自同一来源的窗口和文档的属性。</p>
+<p>为什么要有同源限制？<br>我们举例说明：比如一个黑客程序，他利用Iframe把真正的银行登录页面嵌到他的页面上，当你使用真实的用户名，密码登录时，他的页面就可以通过Javascript读取到你的表单中input中的内容，这样用户名，密码就轻松到手了。</p>
+<h3 id="28-解释CSS-Sprites-以及你要如何使用"><a href="#28-解释CSS-Sprites-以及你要如何使用" class="headerlink" title="28.解释CSS Sprites, 以及你要如何使用?"></a>28.解释CSS Sprites, 以及你要如何使用?</h3><p>CSS Sprites其实就是把网页中一些背景图片整合到一张图片文件中，再利用CSS的“background-image”，“background- repeat”，“background-position”的组合进行背景定位，background-position可以用数字能精确的定位出背景图片的位置。</p>
+<h3 id="29-data-属性的作用"><a href="#29-data-属性的作用" class="headerlink" title="29.data-*属性的作用"></a>29.data-*属性的作用</h3><p>为前端开发者提供自定义的属性，这些属性集可以通过对象的dataset属性获取，不支持该属性的浏览器可以通过 getAttribute方法获取</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;div data-author=<span class="string">&quot;david&quot;</span> data-time=<span class="string">&quot;2011-06-20&quot;</span> data-comment-num=<span class="string">&quot;10&quot;</span>&gt;...&lt;/div&gt;</span><br><span class="line">div.<span class="property">dataset</span>.<span class="property">commentNum</span>; <span class="comment">// 可通过js获取 10</span></span><br></pre></td></tr></table></figure>
+
+<p>data-之后的以连字符分割的多个单词组成的属性，获取的时候使用驼峰风格。</p>
+<h3 id="30-二分查找"><a href="#30-二分查找" class="headerlink" title="30.二分查找"></a>30.二分查找</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// 递归算法</span><br><span class="line">function binary_search(arr,low, high, key) &#123;</span><br><span class="line">    if (low &gt; high)&#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">    var mid = parseInt((high + low) / 2);</span><br><span class="line">    if(arr[mid] == key)&#123;</span><br><span class="line">        return mid;</span><br><span class="line">    &#125;else if (arr[mid] &gt; key)&#123;</span><br><span class="line">        high = mid - 1;</span><br><span class="line">        return binary_search(arr, low, high, key);</span><br><span class="line">    &#125;else if (arr[mid] &lt; key)&#123;</span><br><span class="line">        low = mid + 1;</span><br><span class="line">        return binary_search(arr, low, high, key);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">var arr = [1,2,3,4,5,6,7,8,9,10,11,23,44,86];</span><br><span class="line">var result = binary_search(arr, 0, 13, 10);</span><br><span class="line">alert(result); // 9 返回目标元素的索引值  </span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
     <link itemprop="mainEntityOfPage" href="https://yaozihao.com/notes_for_overseas_study_application/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -230,7 +407,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -359,7 +536,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -502,7 +679,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -597,7 +774,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -739,7 +916,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -834,7 +1011,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -926,7 +1103,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1171,7 +1348,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1385,7 +1562,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+                <time title="修改时间：2022-11-29 04:22:47" itemprop="dateModified" datetime="2022-11-29T04:22:47Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1450,144 +1627,6 @@
 <li>Barron同样是托福考试的参考书《新托福考试全真模考与精解》</li>
 <li>ETS是出托福的机构，叫做Educational Testing Service 美国教育考试服务中心</li>
 <li>TPO是ETS给出的在线模拟题，在网上要交44.95刀做测试，全称是TOEFL Practice Online。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/nle_words/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zihao Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zihao">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/nle_words/" class="post-title-link" itemprop="url">阿牛学英语-单词篇</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-09-02 23:27:06" itemprop="dateCreated datePublished" datetime="2018-09-02T23:27:06Z">2018-09-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learn/" itemprop="url" rel="index"><span itemprop="name">Learn</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>单词毫无疑问是横在大家学习英语的一个拦路虎。通过自身整理和收集，筛选出一些好用的方法，便于查询。看完之后不用在到处去找方法了，按照以下来执行，相信你可以。</p>
-<h2 id="推荐："><a href="#推荐：" class="headerlink" title="推荐："></a>推荐：</h2><ul>
-<li>1.提升自信心，小步快跑逐渐建立信心。每次记之前告诉自己：“又要学习新的知识了，真开心”。</li>
-<li>2.背单词最好每天一次到两次或者多次。每次间隔6-10个小时。</li>
-<li>3.第二天背的时候复习昨天的单词。</li>
-<li>4.多记几遍，前两遍过单词不用追求所有的意思全记住。最好是先记一遍，优先将单词的第一个意思记住，然后在逐步扩展其他的意思。</li>
-<li>5.选一本书背即可，最好根据自己的水平从初级逐渐高级。高中词汇-&gt;四级-&gt;六级-&gt;雅思&#x2F;托福-&gt;GRE。</li>
-</ul>
-<h2 id="主要介绍一个背单词方法"><a href="#主要介绍一个背单词方法" class="headerlink" title="主要介绍一个背单词方法"></a>主要介绍一个背单词方法</h2><h3 id="背词法的理论根底"><a href="#背词法的理论根底" class="headerlink" title="背词法的理论根底"></a>背词法的理论根底</h3><ul>
-<li><p>一.以动机与自信心准绳<br>一句话，人的潜力是无量的，只需你以为你能够，你就能够。</p>
-</li>
-<li><p>二.以时间分配准绳<br>为了进步效率，每个单词花的时间不要太多，而要及时的，重复的温习(这是他文中最主要的思想，这点我也赞同，我看过很多大虾的文章也赞同)。</p>
-</li>
-<li><p>三.数量与质量的关系<br>每天背4-6个list以上的单词。大量记忆，记忆效果不会差。</p>
-</li>
-<li><p>四.以温习准绳<br>要依据遗忘曲线及时温习。</p>
-</li>
-<li><p>五.温习点<br>10分钟后，30分钟后，12个小时后，1天后，2天后，4天后，7天后，15天后温习一遍，在这8个温习点温习，听说契合遗忘曲线。</p>
-</li>
-</ul>
-<h3 id="第二章-背词法"><a href="#第二章-背词法" class="headerlink" title="第二章 背词法"></a>第二章 背词法</h3><p>孔子曰：“豫则立，不豫则废”，意义是凡事假如不做好方案，必将失败。老祖宗的话今天曾经成了工商管理界的金科玉律。能否胜利地运用笔者的背词法的关键，就在于能否做出缜密合理的方案，并且坚决地执行下去。</p>
-<p>初记单词时需求记忆的内容是：</p>
-<ul>
-<li><p><strong>单词的外观特征，到达可以辨认此单词即可。</strong><br>比方单词的长短、起始字母、特征(如中间有两个元ee) 等等。随着日后对单词不时地反复，我们对单词的记忆渐渐加深，到那时你自然就会在不经意间记住很多单词的拼写和发音。</p>
-</li>
-<li><p><strong>单词的中文释义。</strong><br>这种记忆应该尽量精确、但是不用一字不差，意义精确即可。</p>
-</li>
-<li><p><strong>单词的记忆法。</strong><br>这是红宝书中极端有价值的一个局部，能够大幅度地进步学习者的记忆效率。特别是词根、词缀记忆法和比拟记忆法，可以疾速扩展读者的单词量，起到让记忆者举一反三，触类旁通的作用。</p>
-</li>
-<li><p>至于例句，读者能够依据本人的实践状况决议看或是不看，假如对单词的用法的确不太了解，能够一看。</p>
-</li>
-</ul>
-<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><ul>
-<li>17天搞定GRE单词</li>
-<li>英语词汇的奥秘</li>
-<li>可以使用 <span class="exturl" data-url="aHR0cDovL3d3dy5leGFtNC51cy8=">http://www.exam4.us/<i class="fa fa-external-link-alt"></i></span> 生成计划表并打印出来。</li>
-</ul>
-<h2 id="17天搞定GRE单词"><a href="#17天搞定GRE单词" class="headerlink" title="17天搞定GRE单词"></a>17天搞定GRE单词</h2><h2 id="词根词缀记忆法"><a href="#词根词缀记忆法" class="headerlink" title="词根词缀记忆法"></a>词根词缀记忆法</h2><ul>
-<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL2F2MTgxOTU4MDYvP3A9MQ==">P1第一节课 前缀（1~24）<i class="fa fa-external-link-alt"></i></span></li>
-<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL2F2MTgxOTU4MDYvP3A9Mg==">P2第二节课 前缀（25~59）<i class="fa fa-external-link-alt"></i></span></li>
-<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL2F2MTgxOTU4MDYvP3A9Mw==">P3第三节课 前缀（60~66）<i class="fa fa-external-link-alt"></i></span></li>
-<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL2F2MTgxOTU4MDYvP3A9NA==">P4第四节课 词汇复习1<i class="fa fa-external-link-alt"></i></span></li>
-<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av18195806/?p=5" title="第五节课 前缀（67~83）+ 后缀（1~10）">P5第五节课 前缀（67<del>83）+ 后缀（1</del>10）</a></li>
-<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL2F2MTgxOTU4MDYvP3A9Ng==">P6第六节课 后缀（11~35）<i class="fa fa-external-link-alt"></i></span></li>
-<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av18195806/?p=7" title="第七节课 后缀（36~53）+ 词根（1~4）">P7第七节课 后缀（36<del>53）+ 词根（1</del>4）</a></li>
-<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL2F2MTgxOTU4MDYvP3A9OA==">P8第八节课 词根（5~14）<i class="fa fa-external-link-alt"></i></span></li>
-<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL2F2MTgxOTU4MDYvP3A9OQ==">P9第九节课 词汇复习2<i class="fa fa-external-link-alt"></i></span></li>
-<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL2F2MTgxOTU4MDYvP3A9MTA=">P10第十节课 词根(15~40)<i class="fa fa-external-link-alt"></i></span></li>
-<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL2F2MTgxOTU4MDYvP3A9MTE=">P11第十一节课 词根 (41~54)<i class="fa fa-external-link-alt"></i></span></li>
-<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL2F2MTgxOTU4MDYvP3A9MTI=">P12第十二节课 词根 (55~67)+ 字母变换规则1<i class="fa fa-external-link-alt"></i></span></li>
 </ul>
 
       
@@ -1673,14 +1712,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">278</span>
+          <span class="site-state-item-count">279</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -1748,13 +1787,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">796k</span>
+    <span title="站点总字数">802k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:04</span>
+    <span title="站点阅读时长">12:09</span>
 </div>
 
         
