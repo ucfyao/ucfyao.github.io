@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FF5733">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#FF5733">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="比特最近推出ETF的消息注了一波强心剂。 ETF是比特币期货合约ETF，并不意味着“会有一大波的韭菜进场”，但是，这依然是从传统金融到数字货币的具有里程碑意义的一步。 那么什么是ETF呢？交易型开放式指数基金，通常又被称为交易所交易基金（Exchange Traded Funds，简称“ETF”），是一种在交易所上市交易的、基金份额可变的一种开放式基金。 优点介绍分散投资并降低投资风险被动式投资组">
+<meta property="og:type" content="article">
+<meta property="og:title" content="科普ETF">
+<meta property="og:url" content="https://yaozihao.com/whats_etf/index.html">
+<meta property="og:site_name" content="Zihao">
+<meta property="og:description" content="比特最近推出ETF的消息注了一波强心剂。 ETF是比特币期货合约ETF，并不意味着“会有一大波的韭菜进场”，但是，这依然是从传统金融到数字货币的具有里程碑意义的一步。 那么什么是ETF呢？交易型开放式指数基金，通常又被称为交易所交易基金（Exchange Traded Funds，简称“ETF”），是一种在交易所上市交易的、基金份额可变的一种开放式基金。 优点介绍分散投资并降低投资风险被动式投资组">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-07-14T19:28:36.000Z">
+<meta property="article:modified_time" content="2022-11-29T00:07:10.096Z">
+<meta property="article:author" content="Zihao Yao">
+<meta property="article:tag" content="PHP, JS, Python, Go, Bitcoin, BlockChain, Quantification, Full stack.">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://yaozihao.com/whats_etf/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script async src="/lib/fireworks.js"></script>
+  <title>科普ETF | Zihao</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Zihao" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zihao</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Make small but daily progress</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">64</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">19</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">278</span></a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL3VjZnlhbw==" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/whats_etf/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zihao Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zihao">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          科普ETF
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-07-14 19:28:36" itemprop="dateCreated datePublished" datetime="2018-07-14T19:28:36Z">2018-07-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Financing/" itemprop="url" rel="index"><span itemprop="name">Financing</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>比特最近推出ETF的消息注了一波强心剂。</p>
+<p>ETF是比特币期货合约ETF，并不意味着“会有一大波的韭菜进场”，但是，这依然是从传统金融到数字货币的具有里程碑意义的一步。</p>
+<h2 id="那么什么是ETF呢？"><a href="#那么什么是ETF呢？" class="headerlink" title="那么什么是ETF呢？"></a>那么什么是ETF呢？</h2><p>交易型开放式指数基金，通常又被称为交易所交易基金（Exchange Traded Funds，简称“ETF”），是一种在交易所上市交易的、基金份额可变的一种开放式基金。</p>
+<h2 id="优点介绍"><a href="#优点介绍" class="headerlink" title="优点介绍"></a>优点介绍</h2><h3 id="分散投资并降低投资风险"><a href="#分散投资并降低投资风险" class="headerlink" title="分散投资并降低投资风险"></a>分散投资并降低投资风险</h3><p>被动式投资组合通常较一般的主动式投资组合包含较多的标的数量，标的数量的增加可减少单一标的波动对整体投资组合的影响，同时借由不同标的对市场风险的不同影响，得以降低投资组合的波动。﻿</p>
+<h3 id="兼具股票和指数基金的特色"><a href="#兼具股票和指数基金的特色" class="headerlink" title="兼具股票和指数基金的特色"></a>兼具股票和指数基金的特色</h3><p>（1）对普通投资者而言，ETF也可以像普通股票一样，在被拆分成更小交易单位后，在交易所二级市场进行买卖。﻿</p>
+<p>（2）赚了指数就赚钱，投资者再也不用研究股票，担心踩上地雷股了；（2010年之前我国证券市场不存在做空机制，因此存在着“指数跌了就要赔钱”的情况。2010年4月，股指期货开通，2011年12月5日起，有七只ETF基金纳入融资融券标的的范畴）﻿</p>
+<h3 id="结合了封闭式与开放式基金的优点"><a href="#结合了封闭式与开放式基金的优点" class="headerlink" title="结合了封闭式与开放式基金的优点"></a>结合了封闭式与开放式基金的优点</h3><p>ETF与我们所熟悉的封闭式基金一样，可以小的“基金单位”形式在交易所买卖。与开放式基金类似，ETF允许投资者连续申购和赎回，但是ETF在赎回的时候，投资者拿到的不是现金，而是一篮子股票，同时要求达到一定规模后，才允许申购和赎回。﻿</p>
+<p>ETF与封闭式基金相比，相同点是都在交易所挂牌交易，就像股票一样挂牌上市，一天中可随时交易，不同点是： ①ETF透明度更高。由于投资者可以连续申购&#x2F;赎回，要求基金管理人公布净值和投资组合的频率相应加快。②由于有连续申购&#x2F;赎回机制存在，ETF的净值与市价从理论上讲不会存在太大的折价&#x2F;溢价。﻿</p>
+<p>ETF基金与开放式基金相比，优点有两个：一是ETF在交易所上市，一天中可以随时交易，具有交易的便利性。一般开放式基金每天只能开放一次，投资者每天只有一次交易机会（即申购赎回）；二是ETF赎回时是交付一揽子股票，无需保留现金，方便管理人操作，可以提高基金投资的管理效率。开放式基金往往需要保留一定的现金应付赎回，当开放式基金的投资者赎回基金份额时，常常迫使基金管理人不停调整投资组合，由此产生的税收和一些投资机会的损失都由那些没有要求赎回的长期投资者承担。这个机制，可以保证当有ETF部分投资者要求赎回的时候，对ETF的长期投资者并无多大影响（因为赎回的是股票）。﻿</p>
+<h3 id="交易成本低廉"><a href="#交易成本低廉" class="headerlink" title="交易成本低廉"></a>交易成本低廉</h3><p>指数化投资往往具有低管理费及低交易成本的特性。相对于其他基金而言，指数投资不以跑赢指数为目的，经理人只会根据指数成分变化来调整投资组合，不需支付投资研究分析费用，因此可收取较低的管理费用；另一方面，指数投资倾向于长期持有购买的证券，而区别于主动式管理因积极买卖形成高周转率而必须支付较高的交易成本，指数投资不主动调整投资组合，周转率低，交易成本自然降低。﻿</p>
+<h3 id="投资者可以当天套利"><a href="#投资者可以当天套利" class="headerlink" title="投资者可以当天套利"></a>投资者可以当天套利</h3><p>例如，上证50在一个交易日内出现大幅波动，当日盘中涨幅一度超过5%，收市却平收甚至下跌。对于普通的开放式指数基金的投资者而言，当日盘中涨幅再大都没有意义，赎回价只能根据收盘价来计算，ETF的特点则可以帮助投资者抓住盘中上涨的机会。由于交易所每15秒钟显示一次IOPV（净值估值），这个IOPV即时反映了指数涨跌带来基金净值的变化，ETF二级市场价格随IOPV的变化而变化，因此，投资者可以盘中指数上涨时在二级市场及时抛出ETF，获取指数当日盘中上涨带来的收益。﻿</p>
+<h3 id="高透明性"><a href="#高透明性" class="headerlink" title="高透明性"></a>高透明性</h3><p>ETF采用被动式管理，完全复制指数的成分股作为基金投资组合及投资报酬率，基金持股相当透明，投资人较易明了投资组合特性并完全掌握投资组合状况，做出适当的预期。加上盘中每15秒更新指数值及估计基金净值供投资人参考，让投资人能随时掌握其价格变动，并随时以贴近基金净值的价格买卖。无论是封闭式基金还是开放式基金，都无法提供ETF交易的便利性与透明性。</p>
+<h3 id="增加市场避险工具"><a href="#增加市场避险工具" class="headerlink" title="增加市场避险工具"></a>增加市场避险工具</h3><p>由于ETF商品在概念上可以看作一档指数现货，配合ETF本身多空皆可操作的商品特性，若机构投资者手上有股票，但看坏股市表现的话，就可以利用融券方式卖出ETF来做反向操作，以减少手上现货损失的金额。对整体市场而言，ETF的诞生使得金融投资渠道更加多样化，也增加了市场的做空通道。例如，过去机构投资者在操作基金时，只能通过减少仓位来避险，期货推出后虽然增加做空通道，但投资者使用期货做长期避险工具时，还须面临每月结仓、交易成本和价差问题，使用ETF作为避险工具，不但能降低股票仓位风险，也无须在现货市场卖股票，从而为投资者提供了更多样化的选择。</p>
+<h2 id="对于我们的好处"><a href="#对于我们的好处" class="headerlink" title="对于我们的好处"></a>对于我们的好处</h2><p>进一步增加蓝筹股的流动性，市场更加活跃，理论上会迎来上涨空间。<br>一篮子股票会降低风险。<br>增加了一种对冲套利手段，有了更多投机可能性，投机客进入进一步增加市场活跃度。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Zihao Yao 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Zihao Yao
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://yaozihao.com/whats_etf/" title="科普ETF">https://yaozihao.com/whats_etf/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/bidingtou">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/operating_system_for_forex_trading/" rel="prev" title="操作系统之外汇交易">
+      <i class="fa fa-chevron-left"></i> 操作系统之外汇交易
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/share_from_39/" rel="next" title="分享三九投资">
+      分享三九投资 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%82%A3%E4%B9%88%E4%BB%80%E4%B9%88%E6%98%AFETF%E5%91%A2%EF%BC%9F"><span class="nav-text">那么什么是ETF呢？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E7%82%B9%E4%BB%8B%E7%BB%8D"><span class="nav-text">优点介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E6%95%A3%E6%8A%95%E8%B5%84%E5%B9%B6%E9%99%8D%E4%BD%8E%E6%8A%95%E8%B5%84%E9%A3%8E%E9%99%A9"><span class="nav-text">分散投资并降低投资风险</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%BC%E5%85%B7%E8%82%A1%E7%A5%A8%E5%92%8C%E6%8C%87%E6%95%B0%E5%9F%BA%E9%87%91%E7%9A%84%E7%89%B9%E8%89%B2"><span class="nav-text">兼具股票和指数基金的特色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E5%90%88%E4%BA%86%E5%B0%81%E9%97%AD%E5%BC%8F%E4%B8%8E%E5%BC%80%E6%94%BE%E5%BC%8F%E5%9F%BA%E9%87%91%E7%9A%84%E4%BC%98%E7%82%B9"><span class="nav-text">结合了封闭式与开放式基金的优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A4%E6%98%93%E6%88%90%E6%9C%AC%E4%BD%8E%E5%BB%89"><span class="nav-text">交易成本低廉</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%95%E8%B5%84%E8%80%85%E5%8F%AF%E4%BB%A5%E5%BD%93%E5%A4%A9%E5%A5%97%E5%88%A9"><span class="nav-text">投资者可以当天套利</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E9%80%8F%E6%98%8E%E6%80%A7"><span class="nav-text">高透明性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A2%9E%E5%8A%A0%E5%B8%82%E5%9C%BA%E9%81%BF%E9%99%A9%E5%B7%A5%E5%85%B7"><span class="nav-text">增加市场避险工具</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E4%BA%8E%E6%88%91%E4%BB%AC%E7%9A%84%E5%A5%BD%E5%A4%84"><span class="nav-text">对于我们的好处</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zihao Yao</p>
+  <div class="site-description" itemprop="description">由渐入深，记录程序人生。全栈工程师与你共勉。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">278</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3VjZnlhbw==" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ucfyao"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOnVjZnlhb0BnbWFpbC5jb20=" title="E-Mail → mailto:ucfyao@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9iaWRpbmd0b3U=" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;bidingtou"><i class="fab fa-twitter fa-fw"></i>Twitter</span>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly93d3cuYmFpZHUuY29tLw==" title="https:&#x2F;&#x2F;www.baidu.com&#x2F;">baidu</span>
+        </li>
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8=" title="https:&#x2F;&#x2F;www.google.com&#x2F;">google</span>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zihao Yao</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">796k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">12:04</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+  <script data-pjax>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://yaozihao.com/whats_etf/',]
+      });
+      });
+  </script>
+
+    </div>
+</body>
+</html>

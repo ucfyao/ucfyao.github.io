@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FF5733">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#FF5733">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="1.安装truffle1npm install -g truffle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="0x04--智能合约之truffle">
+<meta property="og:url" content="https://yaozihao.com/eth_0x04_truffle/index.html">
+<meta property="og:site_name" content="Zihao">
+<meta property="og:description" content="1.安装truffle1npm install -g truffle">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-03-28T18:36:30.000Z">
+<meta property="article:modified_time" content="2022-11-29T00:07:10.092Z">
+<meta property="article:author" content="Zihao Yao">
+<meta property="article:tag" content="区块链">
+<meta property="article:tag" content="eth">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://yaozihao.com/eth_0x04_truffle/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script async src="/lib/fireworks.js"></script>
+  <title>0x04--智能合约之truffle | Zihao</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Zihao" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zihao</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Make small but daily progress</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">64</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">19</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">278</span></a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL3VjZnlhbw==" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/eth_0x04_truffle/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zihao Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zihao">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          0x04--智能合约之truffle
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-28 18:36:30" itemprop="dateCreated datePublished" datetime="2018-03-28T18:36:30Z">2018-03-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-29 00:07:10" itemprop="dateModified" datetime="2022-11-29T00:07:10Z">2022-11-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/BlockChain/" itemprop="url" rel="index"><span itemprop="name">BlockChain</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>20k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>18 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="1-安装truffle"><a href="#1-安装truffle" class="headerlink" title="1.安装truffle"></a>1.安装truffle</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g truffle</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<h1 id="2-选用ETH"><a href="#2-选用ETH" class="headerlink" title="2.选用ETH"></a>2.选用ETH</h1><h2 id="（1）自带的"><a href="#（1）自带的" class="headerlink" title="（1）自带的"></a>（1）自带的</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">truffle develop</span><br></pre></td></tr></table></figure>
+
+<h2 id="（2）常用"><a href="#（2）常用" class="headerlink" title="（2）常用"></a>（2）常用</h2><ul>
+<li>Geth (go-ethereum): <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2V0aGVyZXVtL2dvLWV0aGVyZXVt">https://github.com/ethereum/go-ethereum<i class="fa fa-external-link-alt"></i></span></li>
+<li>WebThree (cpp-ethereum): <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2V0aGVyZXVtL2NwcC1ldGhlcmV1bQ==">https://github.com/ethereum/cpp-ethereum<i class="fa fa-external-link-alt"></i></span></li>
+<li>Parity: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3Bhcml0eXRlY2gvcGFyaXR5">https://github.com/paritytech/parity<i class="fa fa-external-link-alt"></i></span></li>
+<li>More: <span class="exturl" data-url="aHR0cHM6Ly93d3cuZXRoZXJldW0ub3JnL2NsaQ==">https://www.ethereum.org/cli<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+<h1 id="3-创建项目"><a href="#3-创建项目" class="headerlink" title="3.创建项目"></a>3.创建项目</h1><h2 id="（1）可以使用现成的库"><a href="#（1）可以使用现成的库" class="headerlink" title="（1）可以使用现成的库"></a>（1）可以使用现成的库</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir MetaCoin</span><br><span class="line">cd MetaCoin</span><br><span class="line">truffle unbox metacoin</span><br></pre></td></tr></table></figure>
+
+<p>可以用 &#96; truffle unbox <box-name> &#96;&#96; 去下载任何想使用的库。<br>可以在这找到你想用的库 <span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2JveGVz">Truffle Boxes<i class="fa fa-external-link-alt"></i></span>.</p>
+<h2 id="（2）diy一个库"><a href="#（2）diy一个库" class="headerlink" title="（2）diy一个库"></a>（2）diy一个库</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir myproject</span><br><span class="line">cd myproject</span><br><span class="line">truffle init</span><br></pre></td></tr></table></figure>
+
+<p>目录结构：</p>
+<ul>
+<li><code>contracts/</code>: Directory for <span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2NvbnRyYWN0cw==">Solidity contracts<i class="fa fa-external-link-alt"></i></span></li>
+<li><code>migrations/</code>: Directory for <span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL21pZ3JhdGlvbnMjbWlncmF0aW9uLWZpbGVz">scriptable deployment files<i class="fa fa-external-link-alt"></i></span></li>
+<li><code>test/</code>: Directory for test files for <span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL3Rlc3Rpbmc=">testing your application and contracts<i class="fa fa-external-link-alt"></i></span></li>
+<li><code>truffle.js</code>: Truffle configuration file</li>
+</ul>
+<h1 id="4-编译合同"><a href="#4-编译合同" class="headerlink" title="4.编译合同"></a>4.编译合同</h1><h2 id="（1）结构"><a href="#（1）结构" class="headerlink" title="（1）结构"></a>（1）结构</h2><p>所有的合同都位于您项目的<code>contracts/</code>目录中。由于合同是用<span class="exturl" data-url="aHR0cHM6Ly9zb2xpZGl0eS5yZWFkdGhlZG9jcy5pby9lbi9kZXZlbG9wLw==">Solidity<i class="fa fa-external-link-alt"></i></span>编写的，所有包含合同的文件的文件扩展名为<code>.sol</code>。Associated Solidity <span class="exturl" data-url="aHR0cDovL3NvbGlkaXR5LnJlYWR0aGVkb2NzLm9yZy9lbi9sYXRlc3QvY29udHJhY3RzLmh0bWwjbGlicmFyaWVz">库<i class="fa fa-external-link-alt"></i></span>也将有一个<code>.sol</code>扩展。</p>
+<p>通过初始化Truffle <span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL3Byb2plY3Q=">项目<i class="fa fa-external-link-alt"></i></span>（通过创建<code>truffle init</code>），您可以获得<code>Migrations.sol</code>帮助部署过程的单个文件。如果您使用的是<span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2JveGVz">box<i class="fa fa-external-link-alt"></i></span>，您将在这里获得多个文件。</p>
+<h2 id="（2）命令"><a href="#（2）命令" class="headerlink" title="（2）命令"></a>（2）命令</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">truffle compile</span><br></pre></td></tr></table></figure>
+<p>第一次运行时，所有合同都将被编译。后续运行时，只会编译自上次编译以来已更改的合同。如果您想覆盖此行为，请使用该<code>--all</code>选项运行上述命令。</p>
+<h2 id="（3）依赖"><a href="#（3）依赖" class="headerlink" title="（3）依赖"></a>（3）依赖</h2><h3 id="通过文件名导入依赖关系"><a href="#通过文件名导入依赖关系" class="headerlink" title="通过文件名导入依赖关系"></a>通过文件名导入依赖关系</h3><p>要从单独的文件导入合约，请将以下代码添加到您的Solidity源文件中::</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &quot;./AnotherContract.sol&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>这将使所有合同<code>AnotherContract.sol</code>可用。这里<code>AnotherContract.sol</code>是相对于当前正在编写的合同的路径。</p>
+<p>请注意，Solidity也允许其他导入语法。请参阅Solidity <span class="exturl" data-url="aHR0cDovL3NvbGlkaXR5LnJlYWR0aGVkb2NzLm9yZy9lbi9sYXRlc3QvbGF5b3V0LW9mLXNvdXJjZS1maWxlcy5odG1sI2ltcG9ydGluZy1vdGhlci1zb3VyY2UtZmlsZXM=">导入文档<i class="fa fa-external-link-alt"></i></span>以获取更多信息。</p>
+<h3 id="从外部包导入合同"><a href="#从外部包导入合同" class="headerlink" title=" 从外部包导入合同"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2NvbXBpbGUjaW1wb3J0aW5nLWNvbnRyYWN0cy1mcm9tLWFuLWV4dGVybmFsLXBhY2thZ2U="> <i class="fa fa-external-link-alt"></i></span>从外部包导入合同</h3><p>Truffle支持通过<span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL3BhY2thZ2VzLWV0aHBt">EthPM<i class="fa fa-external-link-alt"></i></span>和<span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL3BhY2thZ2VzLW5wbQ==">NPM<i class="fa fa-external-link-alt"></i></span>安装的依赖项。要从依赖项导入合约，请使用以下语法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &quot;somepackage/SomeContract.sol&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>这里<code>somepackage</code>表示通过EthPM或NPM安装的软件包，并<code>SomeContract.sol</code>表示该软件包提供的Solidity 源文件。</p>
+<p>请注意，在搜索从NPM安装的软件包之前，Truffle会首先从EthPM中搜索已安装的软件包，因此在极少数的命名冲突情况下，将使用通过EthPM安装的软件包。</p>
+<p>有关如何使用Truffle包装管理功能的更多信息，请参阅Truffle <span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL3BhY2thZ2VzLWV0aHBt">EthPM<i class="fa fa-external-link-alt"></i></span>和<span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL3BhY2thZ2VzLW5wbQ==">NPM<i class="fa fa-external-link-alt"></i></span>文档。</p>
+<h1 id="5-迁移"><a href="#5-迁移" class="headerlink" title="5.迁移"></a>5.迁移</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">truffle migrate</span><br></pre></td></tr></table></figure>
+
+<h1 id="6-测试"><a href="#6-测试" class="headerlink" title="6.测试"></a>6.测试</h1><p>全部</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">truffle test</span><br></pre></td></tr></table></figure>
+<p>单个</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">truffle test ./path/to/test/file.js</span><br></pre></td></tr></table></figure>
+<p>在SOLIDITY中编写测试,部署的地址</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DeployedAddresses.&lt;contract name&gt;();</span><br></pre></td></tr></table></figure>
+
+<p>这将返回一个地址，然后您可以使用该地址访问该合同。请参阅上面的示例测试了解使用情况</p>
+<p>为了使用已部署的合同，您必须将合同代码导入到测试套件中。<code>import &quot;../contracts/MetaCoin.sol&quot;;</code>在示例中注意。此导入与<code>./test</code>目录中存在的测试合同相关，并且它位于测试目录之外以便查找MetaCoin合约。然后它使用该合约将该地址转换为该<code>MetaCoin</code>类型。</p>
+<h2 id="测试合同名称"><a href="#测试合同名称" class="headerlink" title=" 测试合同名称"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL3NvbGlkaXR5LXRlc3RzI3Rlc3QtY29udHJhY3QtbmFtZXM="> <i class="fa fa-external-link-alt"></i></span>测试合同名称</h2><p>所有测试合同必须<code>Test</code>以大写字母开头<code>T</code>。这与测试助手和项目合同（即被测合同）区别开来，让测试运行人员知道哪些合同代表测试套件。</p>
+<h2 id="测试函数名称"><a href="#测试函数名称" class="headerlink" title=" 测试函数名称"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL3NvbGlkaXR5LXRlc3RzI3Rlc3QtZnVuY3Rpb24tbmFtZXM="> <i class="fa fa-external-link-alt"></i></span>测试函数名称</h2><p>与测试合同名称一样，所有测试函数都必须以<code>test</code>小写字母开头。每个测试函数都按单个事务执行，按测试文件中的外观顺序（如Javascript测试）执行。由<code>truffle/Assert.sol</code>测试运行程序评估以确定测试结果的触发事件提供的断言函数。断言函数返回一个表示断言结果的布尔值，您可以使用它来尽早从测试中返回以防止执行错误（例如，<span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2dhbmFjaGU=">Ganache<i class="fa fa-external-link-alt"></i></span>或Truffle Develop将会公开的错误）。</p>
+<h2 id="挂钩之前-x2F-之后"><a href="#挂钩之前-x2F-之后" class="headerlink" title=" 挂钩之前&#x2F;之后"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL3NvbGlkaXR5LXRlc3RzI2JlZm9yZS1hZnRlci1ob29rcw=="> <i class="fa fa-external-link-alt"></i></span>挂钩之前&#x2F;之后</h2><p>您提供了许多测试挂钩，如下例所示。这些钩子是<code>beforeAll</code>，和<code>beforeEach</code>，<code>afterAll</code>和<code>afterEach</code>你的Javascript测试中由Mocha提供的相同钩子。您可以使用这些钩子在每次测试之前和之后，或每个套件运行之前和之后执行设置和拆卸操作。像测试函数一样，每个钩子都作为单个事务执行。请注意，一些复杂的测试需要执行大量的设置，这可能会溢出单个事务的天然气限制; 您可以通过创建具有不同后缀的多个挂钩来解决此限制，如下例所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import &quot;truffle/Assert.sol&quot;;</span><br><span class="line"></span><br><span class="line">contract TestHooks &#123;</span><br><span class="line">  uint someValue;</span><br><span class="line"></span><br><span class="line">  function beforeEach() &#123;</span><br><span class="line">    someValue = 5;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function beforeEachAgain() &#123;</span><br><span class="line">    someValue += 1;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function testSomeValueIsSix() &#123;</span><br><span class="line">    uint expected = 6;</span><br><span class="line"></span><br><span class="line">    Assert.equal(someValue, expected, &quot;someValue should have been 6&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>该测试合同还显示您的测试功能和挂接功能都共享相同的合同状态。您可以在测试前设置合同数据，在测试过程中使用该数据，然后重新设置，以备下一个数据。请注意，就像您的Javascript测试一样，您的下一个测试函数将从之前运行的测试函数的状态继续。</p>
+<h2 id="高级功能"><a href="#高级功能" class="headerlink" title=" 高级功能"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL3NvbGlkaXR5LXRlc3RzI2FkdmFuY2VkLWZlYXR1cmVz"> <i class="fa fa-external-link-alt"></i></span>高级功能</h2><p>Solidity测试具有一些高级功能，可以让您测试Solidity中的特定用例。</p>
+<h2 id="测试例外"><a href="#测试例外" class="headerlink" title=" 测试例外"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL3NvbGlkaXR5LXRlc3RzI3Rlc3RpbmctZm9yLWV4Y2VwdGlvbnM="> <i class="fa fa-external-link-alt"></i></span>测试例外</h2><p>您可以轻松测试您的合同是否应该引发异常（例如，针对<code>require()</code>&#x2F; <code>assert()</code>&#x2F; <code>revert()</code>陈述; <code>throw</code>以前版本的Solidity）。</p>
+<p>这个主题首先由作者Simon de la Rouviere在<span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL3R1dG9yaWFscy90ZXN0aW5nLWZvci10aHJvd3MtaW4tc29saWRpdHktdGVzdHM=">他的教程“truffle<i class="fa fa-external-link-alt"></i></span><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL3R1dG9yaWFscy90ZXN0aW5nLWZvci10aHJvd3MtaW4tc29saWRpdHktdGVzdHM=">测试中的投掷测试”中<i class="fa fa-external-link-alt"></i></span>撰写。NB的教程中大量使用通过过时的关键字例外<code>throw</code>，取而代之的是<code>revert()</code>，<code>require()</code>和<code>assert()</code>在密实v0.4.13开始。</p>
+<h2 id="测试以太网交易"><a href="#测试以太网交易" class="headerlink" title=" 测试以太网交易"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL3NvbGlkaXR5LXRlc3RzI3Rlc3RpbmctZXRoZXItdHJhbnNhY3Rpb25z"> <i class="fa fa-external-link-alt"></i></span>测试以太网交易</h2><p>您还可以测试您的合同如何对接收Ether做出反应，并在Solidity中编写该交互的脚本。要做到这一点，你的Solidity测试应该有一个返回一个<code>uint</code>叫做的公共函数<code>initialBalance</code>。这可以直接写成函数或公共变量，如下所示。当您的测试合同被部署到网络中时，trullfe公司将从测试账户中将这一数量的Ether发送到您的测试合同。然后，您的测试合同可以使用该以太网来编写您的合同测试中的以太网交互。请注意，这<code>initialBalance</code>是可选的，不是必需的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import &quot;truffle/Assert.sol&quot;;</span><br><span class="line">import &quot;truffle/DeployedAddresses.sol&quot;;</span><br><span class="line">import &quot;../contracts/MyContract.sol&quot;;</span><br><span class="line"></span><br><span class="line">contract TestContract &#123;</span><br><span class="line">  // Truffle will send the TestContract one Ether after deploying the contract.</span><br><span class="line">  uint public initialBalance = 1 ether;</span><br><span class="line"></span><br><span class="line">  function testInitialBalanceUsingDeployedContract() &#123;</span><br><span class="line">    MyContract myContract = MyContract(DeployedAddresses.MyContract());</span><br><span class="line"></span><br><span class="line">    // perform an action which sends value to myContract, then assert.</span><br><span class="line">    myContract.send(...);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function () &#123;</span><br><span class="line">    // This will NOT be executed when Ether is sent. \o/</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>请注意，Truffle以<strong>不</strong>执行回退函数的方式将Ether发送到您的测试合同，因此您仍然可以在您的Solidity测试中使用回退函数进行高级测试用例。</p>
+<h1 id="7-控制台"><a href="#7-控制台" class="headerlink" title="7.控制台"></a>7.控制台</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">truffle console</span><br><span class="line">MyContract.at(&quot;0xabcd...&quot;).getValue.call();</span><br></pre></td></tr></table></figure>
+
+<h1 id="8-合约交互"><a href="#8-合约交互" class="headerlink" title="8.合约交互"></a>8.合约交互</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>如果您为了与您的合同进行交互而自己向以太坊网络写入原始请求，您很快就会意识到编写这些请求非常笨重和麻烦。同样，你可能会发现管理状态的每个请求都很<em>复杂</em>。幸运的是，trullfe为您处理这一复杂问题，轻松与您的合同进行互动。</p>
+<h2 id="读取和写入数据"><a href="#读取和写入数据" class="headerlink" title=" 读取和写入数据"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2NvbnRyYWN0cyNyZWFkaW5nLWFuZC13cml0aW5nLWRhdGE="> <i class="fa fa-external-link-alt"></i></span>读取和写入数据</h2><p>以太坊网络区分了将数据写入网络和从中读取数据的区别，这种区别在您编写应用程序的方式中起着重要作用。一般来说，写入数据称为<strong>事务，</strong>而读取数据称为<strong>调用</strong>。事务和调用的处理方式非常不同，并具有以下特征。</p>
+<h2 id="交易"><a href="#交易" class="headerlink" title=" 交易"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2NvbnRyYWN0cyN0cmFuc2FjdGlvbnM="> <i class="fa fa-external-link-alt"></i></span>交易</h2><p>事务从根本上改变了网络的状态。交易可以像发送以太网到其他账户一样简单，或像执行合同功能或向网络添加新合同一样复杂。事务的定义特征是它写入（或更改）数据。交易使Ether运行成为“ gas”，交易需要时间来处理。当您通过交易执行合约的功能时，您不能立即处理该交易，因此无法接收该函数的返回值。一般来说，意图通过事务执行的函数不会返回值; 他们将会返回一个事务ID。所以总之，交易：</p>
+<ul>
+<li>Cost gas (Ether)</li>
+<li>改变网络的状态</li>
+<li>不会立即处理</li>
+<li>不会公开一个返回值（只有一个事务ID）。</li>
+</ul>
+<h2 id="呼叫"><a href="#呼叫" class="headerlink" title=" 呼叫"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2NvbnRyYWN0cyNjYWxscw=="> <i class="fa fa-external-link-alt"></i></span>呼叫</h2><p>另一方面，呼叫则非常不同。通话可用于在网络上执行代码，但不会永久更改数据。通话可以自由运行，其特征是他们读取数据。当您通过呼叫执行合约功能时，您将立即收到返回值。总之，电话：</p>
+<ul>
+<li>是免费的（不花费gas）</li>
+<li>不要改变网络的状态</li>
+<li>立即处理</li>
+<li>将公开一个返回值（hooray！）</li>
+</ul>
+<p>在事务和调用之间进行选择与决定是要读取数据还是写入数据一样简单。</p>
+<h2 id="引入抽象"><a href="#引入抽象" class="headerlink" title=" 引入抽象"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2NvbnRyYWN0cyNpbnRyb2R1Y2luZy1hYnN0cmFjdGlvbnM="> <i class="fa fa-external-link-alt"></i></span>引入抽象</h2><p>合同抽象是与来自Javascript的以太坊合约进行交互的面包和黄油。简而言之，合同抽象是一种包装代码，可以让您轻松地与合同进行交互，从而让您忘记在引擎盖下执行的许多引擎和齿轮。trullfe通过<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RydWZmbGVzdWl0ZS90cnVmZmxlLWNvbnRyYWN0">truffle-contract<i class="fa fa-external-link-alt"></i></span><br>模块使用其自己的合同抽象，正是这种合同抽象如下所述。</p>
+<p>然而，为了了解合同抽象的有用性，我们首先需要一个合同来谈论。我们将通过Truffle Boxes使用可用的MetaCoin合同<code>truffle unbox metacoin</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.4.2;</span><br><span class="line"></span><br><span class="line">import &quot;./ConvertLib.sol&quot;;</span><br><span class="line"></span><br><span class="line">// This is just a simple example of a coin-like contract.</span><br><span class="line">// It is not standards compatible and cannot be expected to talk to other</span><br><span class="line">// coin/token contracts. If you want to create a standards-compliant</span><br><span class="line">// token, see: https://github.com/ConsenSys/Tokens. Cheers!</span><br><span class="line"></span><br><span class="line">contract MetaCoin &#123;</span><br><span class="line">    mapping (address =&gt; uint) balances;</span><br><span class="line"></span><br><span class="line">    event Transfer(address indexed _from, address indexed _to, uint256 _value);</span><br><span class="line"></span><br><span class="line">    function MetaCoin() &#123;</span><br><span class="line">        balances[tx.origin] = 10000;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function sendCoin(address receiver, uint amount) returns(bool sufficient) &#123;</span><br><span class="line">        if (balances[msg.sender] &lt; amount) return false;</span><br><span class="line">        balances[msg.sender] -= amount;</span><br><span class="line">        balances[receiver] += amount;</span><br><span class="line">        Transfer(msg.sender, receiver, amount);</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function getBalanceInEth(address addr) returns(uint)&#123;</span><br><span class="line">        return ConvertLib.convert(getBalance(addr),2);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function getBalance(address addr) returns(uint) &#123;</span><br><span class="line">        return balances[addr];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>本合同有三种方法除了构造函数（<code>sendCoin</code>，<code>getBalanceInEth</code>，和<code>getBalance</code>）。所有三种方法都可以作为交易或通话来执行。</p>
+<p>现在让我们来看一看<code>MetaCoin</code>Truffle提供给我们的Javascript对象，就像在<span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2NvbnNvbGU=">Truffle控制台中<i class="fa fa-external-link-alt"></i></span>提供的那样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// Print the deployed version of MetaCoin.</span><br><span class="line">// Note that getting the deployed version requires a promise, hence the .then.</span><br><span class="line">MetaCoin.deployed().then(function(instance) &#123;</span><br><span class="line">  console.log(instance);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// outputs:</span><br><span class="line">//</span><br><span class="line">// Contract</span><br><span class="line">// - address: &quot;0xa9f441a487754e6b27ba044a5a8eb2eec77f6b92&quot;</span><br><span class="line">// - allEvents: ()</span><br><span class="line">// - getBalance: ()</span><br><span class="line">// - getBalanceInEth: ()</span><br><span class="line">// - sendCoin: ()</span><br><span class="line">// ...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>请注意，抽象包含我们合约中存在的完全相同的函数。它还包含指向MetaCoin合约的已部署版本的地址。</p>
+<h2 id="执行合约功能"><a href="#执行合约功能" class="headerlink" title=" 执行合约功能"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2NvbnRyYWN0cyNleGVjdXRpbmctY29udHJhY3QtZnVuY3Rpb25z"> <i class="fa fa-external-link-alt"></i></span>执行合约功能</h2><p>使用抽象，您可以轻松地在以太坊网络上执行合约功能。</p>
+<h2 id="进行交易"><a href="#进行交易" class="headerlink" title=" 进行交易"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2NvbnRyYWN0cyNtYWtpbmctYS10cmFuc2FjdGlvbg=="> <i class="fa fa-external-link-alt"></i></span>进行交易</h2><p>MetaCoin合约上有三项我们可以执行的功能。如果你分析它们中的每一个，你会发现这<code>sendCoin</code>是唯一一个旨在改变网络的功能。目标<code>sendCoin</code>是从一个帐户“发送”一些元币到下一个，并且这些更改应该持续。</p>
+<p>在打电话时<code>sendCoin</code>，我们会将其作为交易执行。在下面的例子中，我们将从一个账户向另一个账户发送10个Meta硬币，以保持网络变化的方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var account_one = &quot;0x1234...&quot;; // an address</span><br><span class="line">var account_two = &quot;0xabcd...&quot;; // another address</span><br><span class="line"></span><br><span class="line">var meta;</span><br><span class="line">MetaCoin.deployed().then(function(instance) &#123;</span><br><span class="line">  meta = instance;</span><br><span class="line">  return meta.sendCoin(account_two, 10, &#123;from: account_one&#125;);</span><br><span class="line">&#125;).then(function(result) &#123;</span><br><span class="line">  // If this callback is called, the transaction was successfully processed.</span><br><span class="line">  alert(&quot;Transaction successful!&quot;)</span><br><span class="line">&#125;).catch(function(e) &#123;</span><br><span class="line">  // There was an error! Handle it.</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>上面的代码有一些有趣的地方：</p>
+<ul>
+<li>我们<code>sendCoin</code>直接调用了抽象的功能。这将导致默认交易（即写入数据）而不是通话。</li>
+<li>当事务成功时，直到事务处理完成后才会触发回调函数。这使生活变得轻松，意味着您不必亲自检查交易状态。</li>
+<li>我们通过一个对象作为第三个参数<code>sendCoin</code>。请注意，<code>sendCoin</code>我们的Solidity合同中的功能没有第三个参数。你在上面看到的是一个特殊的对象，它可以作为函数的最后一个参数传递，让你编辑有关事务的特定细节。在这里，我们设置<code>from</code>确保此交易来自的地址<code>account_one</code>。</li>
+</ul>
+<h2 id="拨打电话"><a href="#拨打电话" class="headerlink" title=" 拨打电话"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2NvbnRyYWN0cyNtYWtpbmctYS1jYWxs"> <i class="fa fa-external-link-alt"></i></span>拨打电话</h2><p>继续使用MetaCoin，请注意，该<code>getBalance</code>函数是从网络读取数据的理想选择。它不需要做任何改变，因为它只是返回传递给它的地址的MetaCoin余额。让我们试试看：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var account_one = &quot;0x1234...&quot;; // an address</span><br><span class="line"></span><br><span class="line">var meta;</span><br><span class="line">MetaCoin.deployed().then(function(instance) &#123;</span><br><span class="line">  meta = instance;</span><br><span class="line">  return meta.getBalance.call(account_one, &#123;from: account_one&#125;);</span><br><span class="line">&#125;).then(function(balance) &#123;</span><br><span class="line">  // If this callback is called, the call was successfully executed.</span><br><span class="line">  // Note that this returns immediately without any waiting.</span><br><span class="line">  // Let&#x27;s print the return value.</span><br><span class="line">  console.log(balance.toNumber());</span><br><span class="line">&#125;).catch(function(e) &#123;</span><br><span class="line">  // There was an error! Handle it.</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这里有趣的是：</p>
+<ul>
+<li>我们必须<code>.call()</code>明确地执行该功能，以让以太坊网络知道我们不打算坚持任何更改。</li>
+<li>我们在成功时收到了返回值而不是事务ID。请注意，因为以太坊网络可以处理非常大的数字，所以我们得到一个<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL01pa2VNY2wvYmlnbnVtYmVyLmpzLw==">BigNumber<i class="fa fa-external-link-alt"></i></span>对象，然后我们将其转换为数字。</li>
+</ul>
+<p><strong>警告：</strong>我们将返回值转换为数字，因为在这个例子中数字很小。但是，如果您尝试转换大于Javascript支持的最大整数的BigNumber，则可能会遇到错误或意外行为。</p>
+<h2 id="捕捉事件"><a href="#捕捉事件" class="headerlink" title=" 捕捉事件"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2NvbnRyYWN0cyNjYXRjaGluZy1ldmVudHM="> <i class="fa fa-external-link-alt"></i></span>捕捉事件</h2><p>您的合同可以触发您可以捕获的事件，以更深入地了解您的合同在做什么。处理事件的最简单方法是处理触发事件的事务的结果对象，如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">var account_one = &quot;0x1234...&quot;; // an address</span><br><span class="line">var account_two = &quot;0xabcd...&quot;; // another address</span><br><span class="line"></span><br><span class="line">var meta;</span><br><span class="line">MetaCoin.deployed().then(function(instance) &#123;</span><br><span class="line">  meta = instance;  </span><br><span class="line">  return meta.sendCoin(account_two, 10, &#123;from: account_one&#125;);</span><br><span class="line">&#125;).then(function(result) &#123;</span><br><span class="line">  // result is an object with the following values:</span><br><span class="line">  //</span><br><span class="line">  // result.tx      =&gt; transaction hash, string</span><br><span class="line">  // result.logs    =&gt; array of decoded events that were triggered within this transaction</span><br><span class="line">  // result.receipt =&gt; transaction receipt object, which includes gas used</span><br><span class="line"></span><br><span class="line">  // We can loop through result.logs to see if we triggered the Transfer event.</span><br><span class="line">  for (var i = 0; i &lt; result.logs.length; i++) &#123;</span><br><span class="line">    var log = result.logs[i];</span><br><span class="line"></span><br><span class="line">    if (log.event == &quot;Transfer&quot;) &#123;</span><br><span class="line">      // We found the event!</span><br><span class="line">      break;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;).catch(function(err) &#123;</span><br><span class="line">  // There was an error! Handle it.</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="处理交易结果"><a href="#处理交易结果" class="headerlink" title=" 处理交易结果"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2NvbnRyYWN0cyNwcm9jZXNzaW5nLXRyYW5zYWN0aW9uLXJlc3VsdHM="> <i class="fa fa-external-link-alt"></i></span>处理交易结果</h2><p>当您进行交易时，您会收到一个<code>result</code>对象，可以为您提供有关交易的丰富信息。具体来说，你会得到以下结果：</p>
+<ul>
+<li><code>result.tx</code> <em>（字符串）</em> - 事务散列</li>
+<li><code>result.logs</code> <em>（数组）</em> - 解码事件（日志）</li>
+<li><code>result.receipt</code> <em>（对象）</em> - 交易收据</li>
+</ul>
+<p>欲了解更多信息，请参阅<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RydWZmbGVzdWl0ZS90cnVmZmxlLWNvbnRyYWN0">README<i class="fa fa-external-link-alt"></i></span>中<code>truffle-contract</code>的项目。</p>
+<h2 id="向网络添加新的合同"><a href="#向网络添加新的合同" class="headerlink" title=" 向网络添加新的合同"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2NvbnRyYWN0cyNhZGQtYS1uZXctY29udHJhY3QtdG8tdGhlLW5ldHdvcms="> <i class="fa fa-external-link-alt"></i></span>向网络添加新的合同</h2><p>在上述所有情况下，我们一直在使用已经部署的合同抽象。我们可以使用以下<code>.new()</code>功能将我们自己的版本部署到网络中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MetaCoin.new().then(function(instance) &#123;</span><br><span class="line">  // Print the new address</span><br><span class="line">  console.log(instance.address);</span><br><span class="line">&#125;).catch(function(err) &#123;</span><br><span class="line">  // There was an error! Handle it.</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="在特定地址使用合同"><a href="#在特定地址使用合同" class="headerlink" title=" 在特定地址使用合同"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2NvbnRyYWN0cyN1c2UtYS1jb250cmFjdC1hdC1hLXNwZWNpZmljLWFkZHJlc3M="> <i class="fa fa-external-link-alt"></i></span>在特定地址使用合同</h2><p>如果您已经拥有合同地址，则可以创建一个新抽象来表示该地址的合同。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var instance = MetaCoin.at(&quot;0x1234...&quot;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="发送ETHER到合同"><a href="#发送ETHER到合同" class="headerlink" title=" 发送ETHER到合同"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2NvbnRyYWN0cyNzZW5kaW5nLWV0aGVyLXRvLWEtY29udHJhY3Q="> <i class="fa fa-external-link-alt"></i></span>发送ETHER到合同</h2><p>您可能只想直接将Ether发送给合同，或者触发合同的<span class="exturl" data-url="aHR0cDovL3NvbGlkaXR5LnJlYWR0aGVkb2NzLmlvL2VuL2RldmVsb3AvY29udHJhY3RzLmh0bWwjZmFsbGJhY2stZnVuY3Rpb24=">后备功能<i class="fa fa-external-link-alt"></i></span>。您可以使用以下两个选项之一来完成此操作。</p>
+<p>选项1：通过直接发送交易给合约<code>instance.sendTransaction()</code>。这与所有可用的契约实例函数一样是promisified，并且具有相同的API，<code>web3.eth.sendTransaction</code>但没有回调。<code>to</code>如果没有指定，该值将自动填入。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">instance.sendTransaction(&#123;...&#125;).then(function(result) &#123;</span><br><span class="line">  // Same transaction result object as above.</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>选项2：直接发送Ether也有简写：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">instance.send(web3.toWei(1, &quot;ether&quot;)).then(function(result) &#123;</span><br><span class="line">  // Same result object as above.</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="进一步阅读"><a href="#进一步阅读" class="headerlink" title=" 进一步阅读"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2NvbnRyYWN0cyNmdXJ0aGVyLXJlYWRpbmc="> <i class="fa fa-external-link-alt"></i></span>进一步阅读</h2><p>trullfe提供的合同抽象包含丰富的实用工具，可轻松与您的合同进行交互。查看<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RydWZmbGVzdWl0ZS90cnVmZmxlLWNvbnRyYWN0">trullfe contract<i class="fa fa-external-link-alt"></i></span>文档以了解提示，技巧和见解。</p>
+<h1 id="9-通过ETHPM进行包裹管理"><a href="#9-通过ETHPM进行包裹管理" class="headerlink" title="9.通过ETHPM进行包裹管理"></a>9.通过ETHPM进行包裹管理</h1><p>安装一个包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">truffle install &lt;package name&gt;</span><br></pre></td></tr></table></figure>
+<p>安装特定版本的软件包：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">truffle install &lt;package name&gt;@&lt;version&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装依赖关系"><a href="#安装依赖关系" class="headerlink" title="安装依赖关系"></a>安装依赖关系</h2><p>您的项目可以定义一个<code>ethpm.json</code>文件，其中可以将您的项目固定到特定的依赖项和版本。要安装<code>ethpm.json</code>文件中列出的所有依赖项，请运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ truffle install</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>有关该<code>ethpm.json</code>文件的更多详细信息，请参阅下面的<span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL3BhY2thZ2VzLWV0aHBtI3BhY2thZ2UtY29uZmlndXJhdGlvbg==">包配置<i class="fa fa-external-link-alt"></i></span>。</p>
+<h2 id="消费已安装的合同"><a href="#消费已安装的合同" class="headerlink" title="消费已安装的合同"></a>消费已安装的合同</h2><p>安装的软件包将被放置在<code>installed_contracts</code>您的项目文件夹中的目录中。如果没有<code>installed_contracts</code>目录存在，它会为你创建。你应该像对待<code>node_modules</code>NPM 文件夹那样对待这个文件夹 - 也就是说，除非你知道你在做什么，否则你不应该编辑内部的内容。:)</p>
+<p>安装的软件包可以在您的测试，迁移和固化合同文件中使用，通过<code>import</code>“ <code>require</code>包装”或按名称进行合同。例如，以下Solidity合约将从包中导入<code>owned.sol</code>文件<code>owned</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.4.2;</span><br><span class="line"></span><br><span class="line">import &quot;owned/owned.sol&quot;;</span><br><span class="line"></span><br><span class="line">contract MyContract is owned &#123;</span><br><span class="line">  // ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>同样，以下迁移文件将使用包中的<code>ENS.sol</code>合约<code>ens</code>：</p>
+<p>文件： <code>./migrations/2_deploy_contracts.js</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var ENS = artifacts.require(&quot;ens/ENS&quot;);</span><br><span class="line">var MyContract = artifacts.require(&quot;MyContract&quot;);</span><br><span class="line"></span><br><span class="line">module.exports = function(deployer) &#123;</span><br><span class="line">  // Only deploy ENS if there&#x27;s not already an address already.</span><br><span class="line">  // i.e., don&#x27;t deploy if we&#x27;re using the canonical ENS address,</span><br><span class="line">  // but do deploy it if we&#x27;re on a test network and ENS doesn&#x27;t exist.</span><br><span class="line">  deployer.deploy(ENS, &#123;overwrite: false&#125;).then(function() &#123;</span><br><span class="line">    return deployer.deploy(MyContract, ENS.address);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>请注意，在上面的迁移过程中，我们会根据<code>ens</code>ENS是否已设置地址来有条件地使用该包并部署ENS合同。这是<span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL21pZ3JhdGlvbnMjZGVwbG95ZXItZGVwbG95LWNvbnRyYWN0LWFyZ3Mtb3B0aW9ucy0=">部署人员<i class="fa fa-external-link-alt"></i></span>提供给你的一个奇妙的技巧，它使写入迁移依赖于网络工件的存在变得更加容易。在这种情况下，如果我们在Ropsten网络上运行我们的迁移，此迁移<strong>不会</strong>部署该<code>ENS</code>合同，因为（在撰写本文时）Ropsten是规范<code>ENS</code>合同存在的地方 - 我们不想部署我们自己的合同。但是，如果我们正在针对不同的网络或测试网络运行我们的迁移，那么我们想要部署该<code>ENS</code>合同，以便我们有一个依赖合约来处理。</p>
+<h2 id="发布你自己的软件包"><a href="#发布你自己的软件包" class="headerlink" title=" 发布你自己的软件包"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL3BhY2thZ2VzLWV0aHBtI3B1Ymxpc2hpbmcteW91ci1vd24tcGFja2FnZQ=="> <i class="fa fa-external-link-alt"></i></span>发布你自己的软件包</h2><p>发布自己的软件包与安装一样简单，但与NPM一样，需要更多配置。</p>
+<h3 id="ROPSTEN，ROPSTEN，ROPSTEN"><a href="#ROPSTEN，ROPSTEN，ROPSTEN" class="headerlink" title=" ROPSTEN，ROPSTEN，ROPSTEN"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL3BhY2thZ2VzLWV0aHBtI3JvcHN0ZW4tcm9wc3Rlbi1yb3BzdGVu"> <i class="fa fa-external-link-alt"></i></span>ROPSTEN，ROPSTEN，ROPSTEN</h3><p>Ethereum软件包注册表目前存在于Ropsten测试网络中。要发布到注册中心，我们需要建立我们自己的Ropsten配置，因为我们将进行需要签名的交易。</p>
+<p>在本例中，我们将使用Infura与<code>truffle-hdwallet-provider</code>NPM模块一起发布软件包以及一个代表Ropsten网络上Ethereum地址的12字高清钱包助记符。首先，<code>truffle-hdwallet-provider</code>在您的项目目录中安装通过NPM：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm install truffle-hdwallet-provider --save</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>然后编辑您的配置，<code>ropsten</code>使用12字助记符添加网络：</p>
+<p>文件： <code>truffle.js</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">var HDWalletProvider = require(&quot;truffle-hdwallet-provider&quot;);</span><br><span class="line"></span><br><span class="line">// 12-word mnemonic</span><br><span class="line">var mnemonic = &quot;opinion destroy betray ...&quot;;</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  networks: &#123;</span><br><span class="line">    development: &#123;</span><br><span class="line">      host: &quot;127.0.0.1&quot;,</span><br><span class="line">      port: 8545,</span><br><span class="line">      network_id: &quot;*&quot; // Match any network id</span><br><span class="line">    &#125;,</span><br><span class="line">    ropsten: &#123;</span><br><span class="line">      provider: new HDWalletProvider(mnemonic, &quot;https://ropsten.infura.io/&quot;),</span><br><span class="line">      network_id: 3 // official id of the ropsten network</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="程序包配置"><a href="#程序包配置" class="headerlink" title=" 程序包配置"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL3BhY2thZ2VzLWV0aHBtI3BhY2thZ2UtY29uZmlndXJhdGlvbg=="> <i class="fa fa-external-link-alt"></i></span>程序包配置</h3><p>与NPM类似，EthPM的配置选项位于单独的JSON文件中<code>ethpm.json</code>。此文件与您的Truffle配置并列，并为Truffle发布包装所需的所有信息。您可以在<span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvYWR2YW5jZWQvY29uZmlndXJhdGlvbg==">配置<i class="fa fa-external-link-alt"></i></span>部分看到可用选项的完整列表。</p>
+<p>文件： <code>ethpm.json</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;package_name&quot;: &quot;adder&quot;,</span><br><span class="line">  &quot;version&quot;: &quot;0.0.3&quot;,</span><br><span class="line">  &quot;description&quot;: &quot;Simple contract to add two numbers&quot;,</span><br><span class="line">  &quot;authors&quot;: [</span><br><span class="line">    &quot;Tim Coulter &lt;tim.coulter@consensys.net&gt;&quot;</span><br><span class="line">  ],</span><br><span class="line">  &quot;keywords&quot;: [</span><br><span class="line">    &quot;ethereum&quot;,</span><br><span class="line">    &quot;addition&quot;</span><br><span class="line">  ],</span><br><span class="line">  &quot;dependencies&quot;: &#123;</span><br><span class="line">    &quot;owned&quot;: &quot;^0.0.1&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;license&quot;: &quot;MIT&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="命令"><a href="#命令" class="headerlink" title=" 命令"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL3BhY2thZ2VzLWV0aHBtI2NvbW1hbmQ="> <i class="fa fa-external-link-alt"></i></span>命令</h3><p>在确定您的配置后，发布很简单：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ truffle publish</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>您会看到类似于下面的输出，并确认您的包已成功发布。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ truffle publish</span><br><span class="line">Gathering contracts...</span><br><span class="line">Finding publishable artifacts...</span><br><span class="line">Uploading sources and publishing to registry...</span><br><span class="line">+ adder@0.0.3</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="发布之前"><a href="#发布之前" class="headerlink" title=" 发布之前"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL3BhY2thZ2VzLWV0aHBtI2JlZm9yZS1wdWJsaXNoaW5n"> <i class="fa fa-external-link-alt"></i></span>发布之前</h3><p>当使用<code>develop</code>配置为匹配任何Ethereum客户端的默认网络（如<span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2dhbmFjaGU=">Ganache<i class="fa fa-external-link-alt"></i></span>或Truffle Develop）时，您肯定会在网络中存在不希望发布的工件。在发布您的软件包之前，请考虑运行以下命令以删除任何无关的网络工件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ truffle networks --clean</span><br></pre></td></tr></table></figure>
+<h1 id="10-通过NPM进行包装管理"><a href="#10-通过NPM进行包装管理" class="headerlink" title="10.通过NPM进行包装管理"></a>10.通过NPM进行包装管理</h1><p>Truffle标配<code>npm</code>集成，并且知道<code>node_modules</code>项目中的目录（如果存在）。这意味着您可以通过使用和分发契约，dapps和启用以太坊的库<code>npm</code>，使您的代码可用于其他人以及其他可用的代码。</p>
+<h2 id="包装布局"><a href="#包装布局" class="headerlink" title=" 包装布局"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL3BhY2thZ2VzLW5wbSNwYWNrYWdlLWxheW91dA=="> <i class="fa fa-external-link-alt"></i></span>包装布局</h2><p>使用Truffle创建的项目默认具有特定的布局，可以将它们用作包。这种布局不是必需的，但如果用作公共约定 - 或“事实上的标准” - 则通过NPM分发契约和dapps将变得更容易。</p>
+<p>truffle套餐中最重要的目录如下：</p>
+<ul>
+<li><code>/contracts</code></li>
+<li><code>/build</code>（其中包括<code>/build/contracts</code>由truffle创建的）</li>
+</ul>
+<p>第一个目录是您的合同目录，其中包含您的原始Solidity合同。第二个目录是构建目录，更具体地说<code>/build/contracts</code>，它以<code>.json</code>文件形式存放构建工件。在你的软件包中包括原始合同将允许其他人在他们自己的固体代码中导入这些合同。同样，<code>.json</code>在你的软件包中包含你的构建工件将允许其他人与你的JavaScript合约进行无缝交互，这可以在dapps，脚本和迁移中使用。</p>
+<h2 id="使用一个包"><a href="#使用一个包" class="headerlink" title=" 使用一个包"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL3BhY2thZ2VzLW5wbSN1c2luZy1hLXBhY2thZ2U="> <i class="fa fa-external-link-alt"></i></span>使用一个包</h2><p>在自己的项目中使用软件包时，需要注意的是，有两个地方可能对使用其他合同代码感兴趣：在您的合同中以及您的Javascript代码（迁移和测试）中。以下提供了每个案例的示例，并讨论了充分利用其他合约并构建工件的技巧。</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title=" 安装"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL3BhY2thZ2VzLW5wbSNpbnN0YWxsaW5n"> <i class="fa fa-external-link-alt"></i></span>安装</h3><p>在本例中，我们将使用<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0NvbnNlblN5cy9leGFtcGxlLXRydWZmbGUtbGlicmFyeQ==">示例truffle库<i class="fa fa-external-link-alt"></i></span>，该<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0NvbnNlblN5cy9leGFtcGxlLXRydWZmbGUtbGlicmFyeQ==">库<i class="fa fa-external-link-alt"></i></span>提供了一个简单的名称注册表，该注册表已部署到Morden测试网络。为了将其用作依赖项，我们必须首先通过<code>npm</code>以下方式将其安装在我们的项目中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cd my_project</span><br><span class="line">$ npm install example-truffle-library</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>请注意，上面的最后一个命令会下载该软件包并将其放在<code>my_project/node_modules</code>目录中，这对于下面的示例很重要。请参阅<span class="exturl" data-url="aHR0cHM6Ly9kb2NzLm5wbWpzLmNvbS8=">npm文档<i class="fa fa-external-link-alt"></i></span>以获取使用<code>npm</code>安装软件包的帮助。</p>
+<h3 id="在你的合同中"><a href="#在你的合同中" class="headerlink" title=" 在你的合同中"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL3BhY2thZ2VzLW5wbSN3aXRoaW4teW91ci1jb250cmFjdHM="> <i class="fa fa-external-link-alt"></i></span>在你的合同中</h3><p>要在合同中使用包裹的合同，这可以与Solidity的<span class="exturl" data-url="aHR0cDovL3NvbGlkaXR5LnJlYWR0aGVkb2NzLmlvL2VuL2RldmVsb3AvbGF5b3V0LW9mLXNvdXJjZS1maWxlcy5odG1sI2ltcG9ydGluZy1vdGhlci1zb3VyY2UtZmlsZXM=">进口<i class="fa fa-external-link-alt"></i></span>声明一样简单。当您的导入路径不是<span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2NvbXBpbGUjZGVwZW5kZW5jaWVz">明确的相对或绝对时<i class="fa fa-external-link-alt"></i></span>，这意味着您要从特定命名包中查找文件。考虑使用上面提到的示例truffle库的这个例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import &quot;example-truffle-library/contracts/SimpleNameRegistry.sol&quot;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>由于路径并未开始<code>./</code>，Truffle知道要在项目的<code>node_modules</code>目录中查找该<code>example-truffle-library</code>文件夹。从那里，它解决了为您提供您所要求的合同的途径。</p>
+<h3 id="在JAVASCRIPT代码中"><a href="#在JAVASCRIPT代码中" class="headerlink" title=" 在JAVASCRIPT代码中"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL3BhY2thZ2VzLW5wbSN3aXRoaW4tamF2YXNjcmlwdC1jb2Rl"> <i class="fa fa-external-link-alt"></i></span>在JAVASCRIPT代码中</h3><p>要在JavaScript代码中与包的合约进行交互，您只需要<code>require</code>该包的<code>.json</code>文件，然后使用<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RydWZmbGVzdWl0ZS90cnVmZmxlLWNvbnRyYWN0">truffle-contract<i class="fa fa-external-link-alt"></i></span>模块将这些文件转换为可用的抽象：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var contract = require(&quot;truffle-contract&quot;);</span><br><span class="line">var data = require(&quot;example-truffle-library/build/contracts/SimpleNameRegistry.json&quot;);</span><br><span class="line">var SimpleNameRegistry = contract(data);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>要使用这些抽象概念，请参阅<span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2NvbnRyYWN0cw==">与您的合同交互<i class="fa fa-external-link-alt"></i></span>一节以获取更多详细信息。</p>
+<h3 id="包的部署地址"><a href="#包的部署地址" class="headerlink" title=" 包的部署地址"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL3BhY2thZ2VzLW5wbSNwYWNrYWdlLTM5LXMtZGVwbG95ZWQtYWRkcmVzc2Vz"> <i class="fa fa-external-link-alt"></i></span>包的部署地址</h3><p>有时候你希望你的合同与这个包的先前部署的合同进行交互。由于部署的地址存在于包的<code>.json</code>文件中，因此您必须执行额外的步骤才能将这些地址存入您的合同。为此，请使您的合同接受依存关系合同的地址，然后使用迁移。以下是项目中存在的示例合同以及示例迁移：</p>
+<p>合同： <code>MyContract.sol</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.4.13;</span><br><span class="line"></span><br><span class="line">import &quot;example-truffle-library/contracts/SimpleNameRegistry.sol&quot;;</span><br><span class="line"></span><br><span class="line">contract MyContract &#123;</span><br><span class="line">  SimpleNameRegistry registry;</span><br><span class="line">  address public owner;</span><br><span class="line"></span><br><span class="line">  function MyContract &#123;</span><br><span class="line">    owner = msg.sender;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // Simple example that uses the deployed registry from the package.</span><br><span class="line">  function getModule(bytes32 name) returns (address) &#123;</span><br><span class="line">    return registry.names(name);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // Set the registry if you&#x27;re the owner.</span><br><span class="line">  function setRegistry(address addr) &#123;</span><br><span class="line">    require(msg.sender == owner);</span><br><span class="line"></span><br><span class="line">    registry = SimpleNameRegistry(addr);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>移民： <code>3_hook_up_example_library.js</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// Note that artifacts.require takes care of creating an abstraction for us.</span><br><span class="line">var SimpleNameRegistry = artifacts.require(&quot;example-truffle-library/SimpleNameRegistry&quot;);</span><br><span class="line"></span><br><span class="line">module.exports = function(deployer) &#123;</span><br><span class="line">  // Deploy our contract, then set the address of the registry.</span><br><span class="line">  deployer.deploy(MyContract).then(function() &#123;</span><br><span class="line">    return MyContract.deployed();</span><br><span class="line">  &#125;).then(function(deployed) &#123;</span><br><span class="line">    return deployed.setRegistry(SimpleNameRegistry.address);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="发布之前-1"><a href="#发布之前-1" class="headerlink" title=" 发布之前"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL3BhY2thZ2VzLW5wbSNiZWZvcmUtcHVibGlzaGluZw=="> <i class="fa fa-external-link-alt"></i></span>发布之前</h3><p>当使用<code>develop</code>配置为匹配任何Ethereum客户端的默认网络（如<span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2dhbmFjaGU=">Ganache<i class="fa fa-external-link-alt"></i></span>或Truffle Develop）时，您肯定会在网络中存在不希望发布的工件。在发布您的软件包之前，请考虑运行以下命令以删除任何无关的网络工件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ truffle networks --clean</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="11-调试您的合同"><a href="#11-调试您的合同" class="headerlink" title="11.调试您的合同"></a>11.调试您的合同</h1><p>truffle包含一个集成的调试器，以便您可以调试对您的合同进行的交易。这个调试器看起来和现有的可用于传统开发环境的命令行调试器相似。</p>
+<h2 id="概观"><a href="#概观" class="headerlink" title=" 概观"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2RlYnVnZ2luZyNvdmVydmlldw=="> <i class="fa fa-external-link-alt"></i></span>概观</h2><p>在区块链上调试事务与调试传统应用程序（例如，用C ++或Javascript编写的应用程序）不同。在区块链上调试事务时，您不是实时运行代码; 相反，您正在逐步执行该事务的历史执行，并将该执行映射到其相关代码。这为我们调试提供了许多自由度，因为我们可以在任何时候调试任何事务，只要我们拥有事务交互的合同的代码和工件即可。将这些代码和工件看作类似于传统调试器所需的调试符号。</p>
+<p>为了调试交易，您需要以下内容：</p>
+<ul>
+<li>truffle4.0或以上。</li>
+<li>交易在您想要的区块链上的散列。</li>
+<li>事务遇到的源代码和工件。</li>
+</ul>
+<p>请注意，如果您希望的交易导致异常情况或气体用完，那也没问题。事务仍然存在于链上，所以你仍然可以调试它！</p>
+<h2 id="命令-1"><a href="#命令-1" class="headerlink" title=" 命令"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2RlYnVnZ2luZyNjb21tYW5k"> <i class="fa fa-external-link-alt"></i></span>命令</h2><p>要使用调试器，请收集您想要调试的事务，然后运行以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ truffle debug &lt;transaction hash&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>以一个开始的事务<code>0x8e5dadfb921dd...</code>为例，该命令如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ truffle debug 0x8e5dadfb921ddddfa8f53af1f9bd8beeac6838d52d7e0c2fe5085b42a4f3ca76</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这将启动下面描述的调试接口。</p>
+<h2 id="调试接口"><a href="#调试接口" class="headerlink" title=" 调试接口"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2RlYnVnZ2luZyNkZWJ1Z2dpbmctaW50ZXJmYWNl"> <i class="fa fa-external-link-alt"></i></span>调试接口</h2><p>启动调试器将打开一个熟悉调试其他类型应用程序的界面。开始时，您会看到以下内容：</p>
+<ul>
+<li>在此交易过程中进行交易或创建的地址列表。</li>
+<li>使用调试器的可用命令列表。</li>
+<li>以及交易的初始入口点，包括合同源文件和代码预览。</li>
+</ul>
+<p>该<code>enter</code>键被设置为执行输入的最后一个命令。当调试器启动时，该<code>enter</code>键被设置为步进到在执行期间遇到的下一个逻辑源代码元素（即，由以太坊虚拟机评估的下一个表达式或语句）。此时，您可以按键<code>enter</code>逐步完成事务，或者输入其中一个可用命令来更详细地分析事务。命令列表详述如下。</p>
+<h3 id="（O）跨越"><a href="#（O）跨越" class="headerlink" title=" （O）跨越"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2RlYnVnZ2luZyMtby1zdGVwLW92ZXI="> <i class="fa fa-external-link-alt"></i></span>（O）跨越</h3><p>此命令遍历当前行，相对于当前在Solidity源文件中评估的语句或表达式的位置。如果您不想在当前行中进入函数调用或合约创建，或者想要快速跳转到源文件中的特定点，请使用此命令。</p>
+<h3 id="（I）进入"><a href="#（I）进入" class="headerlink" title=" （I）进入"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2RlYnVnZ2luZyMtaS1zdGVwLWludG8="> <i class="fa fa-external-link-alt"></i></span>（I）进入</h3><p>该命令进入当前正在评估的函数调用或合同创建。使用此命令跳转到该函数并快速开始调试那里存在的代码。</p>
+<h3 id="（你）走出去"><a href="#（你）走出去" class="headerlink" title=" （你）走出去"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2RlYnVnZ2luZyMtdS1zdGVwLW91dA=="> <i class="fa fa-external-link-alt"></i></span>（你）走出去</h3><p>该命令退出当前正在运行的功能。如果这是事务的入口点，则使用此命令可以快速返回调用函数，或者结束事务的执行。</p>
+<h3 id="（N）下一步"><a href="#（N）下一步" class="headerlink" title=" （N）下一步"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2RlYnVnZ2luZyMtbi1zdGVwLW5leHQ="> <i class="fa fa-external-link-alt"></i></span>（N）下一步</h3><p>该命令转到源代码中的下一个逻辑语句或表达式。例如，在虚拟机可以评估完整表达式之前，需要先评估子表达式。如果您想分析虚拟机评估的每个逻辑项，请使用此命令。</p>
+<h3 id="（-）步指令"><a href="#（-）步指令" class="headerlink" title=" （;）步指令"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2RlYnVnZ2luZyMtc3RlcC1pbnN0cnVjdGlvbg=="> <i class="fa fa-external-link-alt"></i></span>（;）步指令</h3><p>该命令允许您逐步查看虚拟机评估的每条单独指令。如果您有兴趣了解由Solidity源代码创建的低级别字节码，这非常有用。当你使用这个命令时，调试器在评估指令时也会打印出栈数据。</p>
+<h3 id="（P）打印指示"><a href="#（P）打印指示" class="headerlink" title=" （P）打印指示"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2RlYnVnZ2luZyMtcC1wcmludC1pbnN0cnVjdGlvbg=="> <i class="fa fa-external-link-alt"></i></span>（P）打印指示</h3><p>该命令打印当前的指令和堆栈数据，但不会进入下一条指令。如果希望在使用上述逻辑命令导航事务后查看当前指令和堆栈数据，请使用此选项。</p>
+<h3 id="（H）打印此帮助"><a href="#（H）打印此帮助" class="headerlink" title=" （H）打印此帮助"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2RlYnVnZ2luZyMtaC1wcmludC10aGlzLWhlbHA="> <i class="fa fa-external-link-alt"></i></span>（H）打印此帮助</h3><p>打印可用命令的列表。</p>
+<h3 id="（Q）退出"><a href="#（Q）退出" class="headerlink" title=" （Q）退出"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2RlYnVnZ2luZyMtcS1xdWl0"> <i class="fa fa-external-link-alt"></i></span>（Q）退出</h3><p>退出调试器。</p>
+<h1 id="12-使用truffle开发和控制台"><a href="#12-使用truffle开发和控制台" class="headerlink" title="12.使用truffle开发和控制台"></a>12.使用truffle开发和控制台</h1><p>有时，为了测试和调试目的，或者手动执行交易，交互式地处理您的合同是很好的。truffle为您提供了两种通过交互式控制台执行此操作的简单方法，您的合同可供使用并随时可用。</p>
+<ul>
+<li><strong>truffle控制台</strong>：连接到任何以太坊客户端的基本交互式控制台</li>
+<li><strong>truffle开发</strong>：交互式控制台，也产生一个发展区块链</li>
+</ul>
+<h2 id="为什么两个不同的控制台？"><a href="#为什么两个不同的控制台？" class="headerlink" title=" 为什么两个不同的控制台？"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2NvbnNvbGUjd2h5LXR3by1kaWZmZXJlbnQtY29uc29sZXMt"> <i class="fa fa-external-link-alt"></i></span>为什么两个不同的控制台？</h2><p>拥有两个不同的控制台可让您根据自己的需求选择最佳工具。</p>
+<p>使用<strong>truffle平台的</strong>理由：</p>
+<ul>
+<li>你有一个你已经使用的客户，如<span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2FuYWNoZS91c2luZw==">Ganache<i class="fa fa-external-link-alt"></i></span>或geth</li>
+<li>你想迁移到测试网络（或以太坊网络）</li>
+<li>您想要使用特定的助记符或帐户列表</li>
+</ul>
+<p>使用<strong>truffle的</strong>原因<strong>发展</strong>：</p>
+<ul>
+<li>您正在测试您的项目，无意立即部署</li>
+<li>您无需使用特定帐户（并且使用默认开发帐户即可）</li>
+<li>您不想安装和管理单独的区块链客户端</li>
+</ul>
+<h2 id="命令-2"><a href="#命令-2" class="headerlink" title=" 命令"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2NvbnNvbGUjY29tbWFuZHM="> <i class="fa fa-external-link-alt"></i></span>命令</h2><p>所有的命令都要求你在你的项目文件夹中。你不需要在根。</p>
+<h3 id="安慰"><a href="#安慰" class="headerlink" title=" 安慰"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2NvbnNvbGUjY29uc29sZQ=="> <i class="fa fa-external-link-alt"></i></span>安慰</h3><p>要启动控制台：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">truffle console</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这将查找<code>development</code>在配置中调用的网络定义，并连接到它（如果可用）。您可以使用该<code>--network &lt;name&gt;</code>选项覆盖此选项。在“ <span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvYWR2YW5jZWQvbmV0d29ya3M=">网络”<i class="fa fa-external-link-alt"></i></span>部分以及<span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvYWR2YW5jZWQvY29tbWFuZHM=">命令参考中<i class="fa fa-external-link-alt"></i></span>查看更多详细信息。</p>
+<p>当您加载控制台时，您会立即看到以下提示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">truffle(development)&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这告诉你你正在使用<code>development</code>网络在Truffle控制台中运行。</p>
+<h3 id="truffle开发"><a href="#truffle开发" class="headerlink" title=" truffle开发"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2NvbnNvbGUjdHJ1ZmZsZS1kZXZlbG9w"> <i class="fa fa-external-link-alt"></i></span>truffle开发</h3><p>开展truffle开发：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">truffle develop</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>9545</code>无论您的<code>truffle.js</code>配置文件需要什么，这将在端口上本地产生一个开发区块链。</p>
+<p>当你加载truffle开发，你会看到以下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">Truffle Develop started at http://localhost:9545/</span><br><span class="line"></span><br><span class="line">Accounts:</span><br><span class="line">(0) 0x627306090abab3a6e1400e9345bc60c78a8bef57</span><br><span class="line">(1) 0xf17f52151ebef6c7334fad080c5704d77216b732</span><br><span class="line">(2) 0xc5fdf4076b8f3a5357c5e395ab970b5b54098fef</span><br><span class="line">(3) 0x821aea9a577a9b44299b9c15c88cf3087f3b5544</span><br><span class="line">(4) 0x0d1d4e623d10f9fba5db95830f7d3839406c6af2</span><br><span class="line">(5) 0x2932b7a2355d6fecc4b5c0b6bd44cc31df247a2e</span><br><span class="line">(6) 0x2191ef87e392377ec08e7c08eb105ef5448eced5</span><br><span class="line">(7) 0x0f4f2ac550a1b4e2280d04c21cea7ebd822934b5</span><br><span class="line">(8) 0x6330a553fc93768f612722bb8c2ec78ac90b3bbc</span><br><span class="line">(9) 0x5aeda56215b167893e80b4fe645ba6d5bab767de</span><br><span class="line"></span><br><span class="line">Private Keys:</span><br><span class="line">(0) c87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3</span><br><span class="line">(1) ae6ae8e5ccbfb04590405997ee2d52d2b330726137b875053c36d94e974d162f</span><br><span class="line">(2) 0dbbe8e4ae425a6d2687f1a7e3ba17bc98c673636790f1b8ad91193c05875ef1</span><br><span class="line">(3) c88b703fb08cbea894b6aeff5a544fb92e78a18e19814cd85da83b71f772aa6c</span><br><span class="line">(4) 388c684f0ba1ef5017716adb5d21a053ea8e90277d0868337519f97bede61418</span><br><span class="line">(5) 659cbb0e2411a44db63778987b1e22153c086a95eb6b18bdf89de078917abc63</span><br><span class="line">(6) 82d052c865f5763aad42add438569276c00d3d88a2d062d36b2bae914d58b8c8</span><br><span class="line">(7) aa3680d5d48a8283413f7a108367c7299ca73f553735860a87b08f39395618b7</span><br><span class="line">(8) 0f62d96d6675f32685bbdb8ac13cda7c23436f63efbb9d07700d8669ff12b7c4</span><br><span class="line">(9) 8d5366123cb560bb606379f90a0bfd4769eecc0557f1b362dcae9012b548b1e5</span><br><span class="line"></span><br><span class="line">Mnemonic: candy maple cake sugar pudding cream honey rich smooth crumble sweet treat</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这会向您显示此特定区块链的地址，私钥和助记符。</p>
+<p><strong>注意</strong>：助记符和地址不能更改。如果您想使用不同的助记符或一组地址，我们推荐使用<span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2FuYWNoZS91c2luZw==">Ganache<i class="fa fa-external-link-alt"></i></span>。</p>
+<p><strong>警告</strong>：切记不要使用任何这些地址或主网上的助记符。这仅用于开发。</p>
+<h2 id="特征"><a href="#特征" class="headerlink" title=" 特征"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2NvbnNvbGUjZmVhdHVyZXM="> <i class="fa fa-external-link-alt"></i></span>特征</h2><p>Truffle Develop和控制台都提供了Truffle命令行工具中的大部分功能。例如，您可以<code>migrate --reset</code>在控制台中输入内容，并将其解释为与<code>truffle migrate --reset</code>在命令行上运行时相同。</p>
+<p>此外，truffle开发和控制台还具有以下特点：</p>
+<ul>
+<li><p>你所有的编译合同都可以使用。</p>
+</li>
+<li><p>在每个命令（例如<code>migrate --reset</code>）您的合同被重新配置后，您可以立即开始使用新分配的地址和二进制文件。</p>
+</li>
+<li><p>该<code>web3</code>库已经可用，并已设置为连接到您的以太坊客户端。</p>
+</li>
+<li><p>所有返回承诺的命令都会自动解析，并打印结果，不需要使用<code>.then()</code>简单的命令。例如，以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MyContract.at(&quot;0xabcd...&quot;).getValue.call();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>会返回类似于：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">5</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="命令可用"><a href="#命令可用" class="headerlink" title=" 命令可用"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2NvbnNvbGUjY29tbWFuZHMtYXZhaWxhYmxl"> <i class="fa fa-external-link-alt"></i></span>命令可用</h3><ul>
+<li><code>build</code></li>
+<li><code>compile</code></li>
+<li><code>create</code></li>
+<li><code>debug</code></li>
+<li><code>exec</code></li>
+<li><code>install</code></li>
+<li><code>migrate</code></li>
+<li><code>networks</code></li>
+<li><code>opcode</code></li>
+<li><code>publish</code></li>
+<li><code>test</code></li>
+<li><code>version</code></li>
+</ul>
+<p>如果truffle命令不可用，那是因为它与现有项目无关（例如<code>init</code>）或者没有意义（例如<code>develop</code>或<code>console</code>）。</p>
+<p>查看完整的<span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvYWR2YW5jZWQvY29tbWFuZHM=">命令参考<i class="fa fa-external-link-alt"></i></span>了解更多信息。</p>
+<h1 id="13-编写外部脚本"><a href="#13-编写外部脚本" class="headerlink" title="13.编写外部脚本"></a>13.编写外部脚本</h1><p>通常您可能想要运行与您的合同交互的外部脚本。truffle提供了一种简单的方法来实现这一点，根据您所需的网络引导您的合同，并根据您的<span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvYWR2YW5jZWQvY29uZmlndXJhdGlvbg==">项目配置<i class="fa fa-external-link-alt"></i></span>自动连接到您的以太坊客户端。</p>
+<h2 id="命令-3"><a href="#命令-3" class="headerlink" title=" 命令"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL3NjcmlwdHMjY29tbWFuZA=="> <i class="fa fa-external-link-alt"></i></span>命令</h2><p>要运行外部脚本，请执行以下操作：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ truffle exec &lt;path/to/file.js&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="文件结构"><a href="#文件结构" class="headerlink" title=" 文件结构"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL3NjcmlwdHMjZmlsZS1zdHJ1Y3R1cmU="> <i class="fa fa-external-link-alt"></i></span>文件结构</h2><p>为了使外部脚本正确运行，Truffle期望它们导出一个函数，该函数将一个参数作为回调函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">module.exports = function(callback) &#123;</span><br><span class="line">  // perform actions</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>只要在脚本结束时调用回调，就可以在该脚本中执行任何您想要的操作。回调接受一个错误作为它的第一个也是唯一的参数。如果提供了错误，执行将暂停并且该进程将返回非零退出代码。</p>
+<h1 id="13-使用构建管道"><a href="#13-使用构建管道" class="headerlink" title="13.使用构建管道"></a>13.使用构建管道</h1><p>Truffle 1.0和2.0标准的默认构建系统主要面向Web应用程序（这里，术语“构建”意味着将代码工件转换为HTML，Javascript和CSS）。该构建系统已被引入<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RydWZmbGVzdWl0ZS90cnVmZmxlLWRlZmF1bHQtYnVpbGRlci90cmVlL21hc3Rlcg==">自己的模块<i class="fa fa-external-link-alt"></i></span>，使Truffle可用于各种应用并可扩展。</p>
+<p>truffle可以配置为与任何构建系统紧密集成。要配置自定义<span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvYWR2YW5jZWQvYnVpbGRfcHJvY2Vzc2Vz">生成<i class="fa fa-external-link-alt"></i></span>系统，请参阅<span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvYWR2YW5jZWQvYnVpbGRfcHJvY2Vzc2Vz">高级生成进程<i class="fa fa-external-link-alt"></i></span>部分以获取更多详细信息。</p>
+<h2 id="命令-4"><a href="#命令-4" class="headerlink" title=" 命令"></a><span class="exturl" data-url="aHR0cDovL3RydWZmbGVmcmFtZXdvcmsuY29tL2RvY3MvZ2V0dGluZ19zdGFydGVkL2J1aWxkI2NvbW1hbmQ="> <i class="fa fa-external-link-alt"></i></span>命令</h2><p>要在构建系统时配置应用程序，请运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ truffle build</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>请注意，如果您尝试在<code>build</code>未首先配置自定义构建过程的情况下运行该命令，则会收到错误。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Zihao Yao 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Zihao Yao
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://yaozihao.com/eth_0x04_truffle/" title="0x04--智能合约之truffle">https://yaozihao.com/eth_0x04_truffle/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/bidingtou">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag"><i class="fa fa-tag"></i> 区块链</a>
+              <a href="/tags/eth/" rel="tag"><i class="fa fa-tag"></i> eth</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/eth_0x03_contract_solidity/" rel="prev" title="0x03--智能合约之Solidity基础知识">
+      <i class="fa fa-chevron-left"></i> 0x03--智能合约之Solidity基础知识
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/eth_c3_linearization/" rel="next" title="C3-Linearization--线性化python">
+      C3-Linearization--线性化python <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85truffle"><span class="nav-text">1.安装truffle</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E9%80%89%E7%94%A8ETH"><span class="nav-text">2.选用ETH</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E8%87%AA%E5%B8%A6%E7%9A%84"><span class="nav-text">（1）自带的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E5%B8%B8%E7%94%A8"><span class="nav-text">（2）常用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="nav-text">3.创建项目</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E7%8E%B0%E6%88%90%E7%9A%84%E5%BA%93"><span class="nav-text">（1）可以使用现成的库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%882%EF%BC%89diy%E4%B8%80%E4%B8%AA%E5%BA%93"><span class="nav-text">（2）diy一个库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E7%BC%96%E8%AF%91%E5%90%88%E5%90%8C"><span class="nav-text">4.编译合同</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E7%BB%93%E6%9E%84"><span class="nav-text">（1）结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E5%91%BD%E4%BB%A4"><span class="nav-text">（2）命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%883%EF%BC%89%E4%BE%9D%E8%B5%96"><span class="nav-text">（3）依赖</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E6%96%87%E4%BB%B6%E5%90%8D%E5%AF%BC%E5%85%A5%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB"><span class="nav-text">通过文件名导入依赖关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E5%A4%96%E9%83%A8%E5%8C%85%E5%AF%BC%E5%85%A5%E5%90%88%E5%90%8C"><span class="nav-text"> 从外部包导入合同</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-%E8%BF%81%E7%A7%BB"><span class="nav-text">5.迁移</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-%E6%B5%8B%E8%AF%95"><span class="nav-text">6.测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E5%90%88%E5%90%8C%E5%90%8D%E7%A7%B0"><span class="nav-text"> 测试合同名称</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E5%87%BD%E6%95%B0%E5%90%8D%E7%A7%B0"><span class="nav-text"> 测试函数名称</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%82%E9%92%A9%E4%B9%8B%E5%89%8D-x2F-%E4%B9%8B%E5%90%8E"><span class="nav-text"> 挂钩之前&#x2F;之后</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E5%8A%9F%E8%83%BD"><span class="nav-text"> 高级功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E4%BE%8B%E5%A4%96"><span class="nav-text"> 测试例外</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E4%BB%A5%E5%A4%AA%E7%BD%91%E4%BA%A4%E6%98%93"><span class="nav-text"> 测试以太网交易</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-%E6%8E%A7%E5%88%B6%E5%8F%B0"><span class="nav-text">7.控制台</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-%E5%90%88%E7%BA%A6%E4%BA%A4%E4%BA%92"><span class="nav-text">8.合约交互</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E5%92%8C%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="nav-text"> 读取和写入数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E6%98%93"><span class="nav-text"> 交易</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BC%E5%8F%AB"><span class="nav-text"> 呼叫</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E5%85%A5%E6%8A%BD%E8%B1%A1"><span class="nav-text"> 引入抽象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%90%88%E7%BA%A6%E5%8A%9F%E8%83%BD"><span class="nav-text"> 执行合约功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E8%A1%8C%E4%BA%A4%E6%98%93"><span class="nav-text"> 进行交易</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%A8%E6%89%93%E7%94%B5%E8%AF%9D"><span class="nav-text"> 拨打电话</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8D%95%E6%8D%89%E4%BA%8B%E4%BB%B6"><span class="nav-text"> 捕捉事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E4%BA%A4%E6%98%93%E7%BB%93%E6%9E%9C"><span class="nav-text"> 处理交易结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91%E7%BD%91%E7%BB%9C%E6%B7%BB%E5%8A%A0%E6%96%B0%E7%9A%84%E5%90%88%E5%90%8C"><span class="nav-text"> 向网络添加新的合同</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E7%89%B9%E5%AE%9A%E5%9C%B0%E5%9D%80%E4%BD%BF%E7%94%A8%E5%90%88%E5%90%8C"><span class="nav-text"> 在特定地址使用合同</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E9%80%81ETHER%E5%88%B0%E5%90%88%E5%90%8C"><span class="nav-text"> 发送ETHER到合同</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E4%B8%80%E6%AD%A5%E9%98%85%E8%AF%BB"><span class="nav-text"> 进一步阅读</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-%E9%80%9A%E8%BF%87ETHPM%E8%BF%9B%E8%A1%8C%E5%8C%85%E8%A3%B9%E7%AE%A1%E7%90%86"><span class="nav-text">9.通过ETHPM进行包裹管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB"><span class="nav-text">安装依赖关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E5%B7%B2%E5%AE%89%E8%A3%85%E7%9A%84%E5%90%88%E5%90%8C"><span class="nav-text">消费已安装的合同</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E4%BD%A0%E8%87%AA%E5%B7%B1%E7%9A%84%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="nav-text"> 发布你自己的软件包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ROPSTEN%EF%BC%8CROPSTEN%EF%BC%8CROPSTEN"><span class="nav-text"> ROPSTEN，ROPSTEN，ROPSTEN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E5%8C%85%E9%85%8D%E7%BD%AE"><span class="nav-text"> 程序包配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4"><span class="nav-text"> 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E4%B9%8B%E5%89%8D"><span class="nav-text"> 发布之前</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-%E9%80%9A%E8%BF%87NPM%E8%BF%9B%E8%A1%8C%E5%8C%85%E8%A3%85%E7%AE%A1%E7%90%86"><span class="nav-text">10.通过NPM进行包装管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%85%E8%A3%85%E5%B8%83%E5%B1%80"><span class="nav-text"> 包装布局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E4%B8%80%E4%B8%AA%E5%8C%85"><span class="nav-text"> 使用一个包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-text"> 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E4%BD%A0%E7%9A%84%E5%90%88%E5%90%8C%E4%B8%AD"><span class="nav-text"> 在你的合同中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8JAVASCRIPT%E4%BB%A3%E7%A0%81%E4%B8%AD"><span class="nav-text"> 在JAVASCRIPT代码中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%85%E7%9A%84%E9%83%A8%E7%BD%B2%E5%9C%B0%E5%9D%80"><span class="nav-text"> 包的部署地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E4%B9%8B%E5%89%8D-1"><span class="nav-text"> 发布之前</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#11-%E8%B0%83%E8%AF%95%E6%82%A8%E7%9A%84%E5%90%88%E5%90%8C"><span class="nav-text">11.调试您的合同</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%A7%82"><span class="nav-text"> 概观</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4-1"><span class="nav-text"> 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E6%8E%A5%E5%8F%A3"><span class="nav-text"> 调试接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88O%EF%BC%89%E8%B7%A8%E8%B6%8A"><span class="nav-text"> （O）跨越</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88I%EF%BC%89%E8%BF%9B%E5%85%A5"><span class="nav-text"> （I）进入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88%E4%BD%A0%EF%BC%89%E8%B5%B0%E5%87%BA%E5%8E%BB"><span class="nav-text"> （你）走出去</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88N%EF%BC%89%E4%B8%8B%E4%B8%80%E6%AD%A5"><span class="nav-text"> （N）下一步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88-%EF%BC%89%E6%AD%A5%E6%8C%87%E4%BB%A4"><span class="nav-text"> （;）步指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88P%EF%BC%89%E6%89%93%E5%8D%B0%E6%8C%87%E7%A4%BA"><span class="nav-text"> （P）打印指示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88H%EF%BC%89%E6%89%93%E5%8D%B0%E6%AD%A4%E5%B8%AE%E5%8A%A9"><span class="nav-text"> （H）打印此帮助</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88Q%EF%BC%89%E9%80%80%E5%87%BA"><span class="nav-text"> （Q）退出</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12-%E4%BD%BF%E7%94%A8truffle%E5%BC%80%E5%8F%91%E5%92%8C%E6%8E%A7%E5%88%B6%E5%8F%B0"><span class="nav-text">12.使用truffle开发和控制台</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%A4%E4%B8%AA%E4%B8%8D%E5%90%8C%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%B0%EF%BC%9F"><span class="nav-text"> 为什么两个不同的控制台？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4-2"><span class="nav-text"> 命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E6%85%B0"><span class="nav-text"> 安慰</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#truffle%E5%BC%80%E5%8F%91"><span class="nav-text"> truffle开发</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E5%BE%81"><span class="nav-text"> 特征</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E5%8F%AF%E7%94%A8"><span class="nav-text"> 命令可用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-%E7%BC%96%E5%86%99%E5%A4%96%E9%83%A8%E8%84%9A%E6%9C%AC"><span class="nav-text">13.编写外部脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4-3"><span class="nav-text"> 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="nav-text"> 文件结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-%E4%BD%BF%E7%94%A8%E6%9E%84%E5%BB%BA%E7%AE%A1%E9%81%93"><span class="nav-text">13.使用构建管道</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4-4"><span class="nav-text"> 命令</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zihao Yao</p>
+  <div class="site-description" itemprop="description">由渐入深，记录程序人生。全栈工程师与你共勉。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">278</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3VjZnlhbw==" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ucfyao"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOnVjZnlhb0BnbWFpbC5jb20=" title="E-Mail → mailto:ucfyao@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9iaWRpbmd0b3U=" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;bidingtou"><i class="fab fa-twitter fa-fw"></i>Twitter</span>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly93d3cuYmFpZHUuY29tLw==" title="https:&#x2F;&#x2F;www.baidu.com&#x2F;">baidu</span>
+        </li>
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8=" title="https:&#x2F;&#x2F;www.google.com&#x2F;">google</span>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zihao Yao</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">796k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">12:04</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+  <script data-pjax>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://yaozihao.com/eth_0x04_truffle/',]
+      });
+      });
+  </script>
+
+    </div>
+</body>
+</html>
