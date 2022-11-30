@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -267,36 +267,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>mongodb官网上下载最新版本的mongodb，按照官网上的说明进行安装：</p>
-<p>首先运行如下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -O http://downloads.mongodb.org/linux/mongodb-linux-x86_64-2.6.3.tgz</span><br></pre></td></tr></table></figure>
-<p>其次，运用tar 进行解压缩，按照如下命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf mongodb-linux-x86_64-2.6.3.tgz</span><br></pre></td></tr></table></figure>
-<p>第三，新建mongodb文件夹，把解压了的mongodb-linux-x86_64-2.6.3复制到mongodb下面。<br>按照如下命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p mongodb</span><br><span class="line">cp -R -n mongodb-linux-x86_64-2.6.3/ mongodb</span><br></pre></td></tr></table></figure>
-<p>第四，更改环境变量，在路径 &#x2F;etc&#x2F;下面，找到bashrc文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=&lt;mongodb-install-directory&gt;:$PATH</span><br></pre></td></tr></table></figure>
-<p>替换成你的mongodb路径就可以了</p>
-<p>第五，创建mongodb的dbdata的路径</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p  /usr/local/mongo/data  </span><br><span class="line">mongod --dbpath /usr/local/mongo/data</span><br></pre></td></tr></table></figure>
-<p>第六，进入mongo的文件夹，运行mongo命令，启动mongo就可以了。<br>上面的安装方法比较简单，但是有个问题，就是mongo启动必须同时制定data,也就是要运行<code>mongod –dbpath /usr/local/mongo/data</code>，比较繁琐，下面介绍一种一劳永逸的安装办法，把mongo的启动添加到服务当中。</p>
-<p>创建配置文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /usr/local/mongo/etc /usr/local/mongo/data /usr/local/mongo/log/ /usr/local/mongo/repair</span><br><span class="line">vim  /usr/local/mongo/etc/mongo.conf</span><br><span class="line">在mongo.conf中添加下面的内容</span><br><span class="line">dbpath = /usr/local/mongo/data</span><br><span class="line">logpath = /usr/local/mongo/mongodb.log</span><br><span class="line">repairpath = /usr/local/mongo/repair</span><br><span class="line">pidfilepath = /usr/local/mongo/mongodb.pid</span><br><span class="line">directoryperdb = true</span><br><span class="line">logappend = true</span><br><span class="line">noauth = true</span><br><span class="line">port = 27017</span><br><span class="line">maxConns = 1024</span><br><span class="line">fork = true</span><br><span class="line">rest = true</span><br><span class="line">quota = true</span><br><span class="line">quotaFiles = 1024</span><br><span class="line">nssize = 16</span><br></pre></td></tr></table></figure>
-<p>启动mongodb</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/local/mongo/bin/mongod /usr/bin/mongod</span><br><span class="line">mongod -f /usr/local/mongo/etc/mongo.conf</span><br></pre></td></tr></table></figure>
-<p>看看是不是启动起来了，但是使用这种方式管理mongodb服务器很不明智，我们完善一下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /usr/local/mongo/srv</span><br><span class="line">vim /usr/local/mongo/srv/mongodb-start</span><br></pre></td></tr></table></figure>
-<p>添加下面的内容</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">mongod -f /usr/local/mongo/etc/mongo.conf</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/local/mongo/srv/mongodb-stop</span><br></pre></td></tr></table></figure>
-<p>添加下面的内容</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">pid=`ps -o pid,command ax | grep mongod | awk &#x27;!/awk/ &amp;&amp; !/grep/ &#123;print $1&#125;&#x27;`;</span><br><span class="line">if [ &quot;$&#123;pid&#125;&quot; != &quot;&quot; ]; then</span><br><span class="line">    kill -2 $&#123;pid&#125;;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
-<p>添加执行权限</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x /usr/local/mongo/srv/mongodb-start</span><br><span class="line">chmod a+x /usr/local/mongo/srv/mongodb-stop</span><br><span class="line">vim /etc/rc.d/init.d/mongodb</span><br></pre></td></tr></table></figure>
-<p>添加下面的内容</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#! /bin/sh</span><br><span class="line">#</span><br><span class="line"># mongodb – this script starts and stops the mongodb daemon</span><br><span class="line">#</span><br><span class="line"># chkconfig: - 85 15</span><br><span class="line"># description: MongoDB is a non-relational database storage system.</span><br><span class="line"># processname: mongodb</span><br><span class="line"># config: /usr/local/mongo/etc/mongo.conf</span><br><span class="line"># pidfile: /usr/local/mongo/mongodb.pid</span><br><span class="line">PATH=/usr/local/mongo/bin:/sbin:/bin:/usr/sbin:/usr/bin</span><br><span class="line">NAME=mongodb</span><br><span class="line">test -x $DAEMON || exit 0</span><br><span class="line">set -e</span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">  start)</span><br><span class="line">        echo -n &quot;Starting MongoDB... &quot;</span><br><span class="line">        /usr/local/mongo/srv/mongodb-start</span><br><span class="line">        ;;</span><br><span class="line">  stop)</span><br><span class="line">        echo -n &quot;Stopping MongoDB... &quot;</span><br><span class="line">        /usr/local/mongo/srv/mongodb-stop</span><br><span class="line">        ;;</span><br><span class="line">      *)</span><br><span class="line">            N=/etc/init.d/$NAME</span><br><span class="line">            echo &quot;Usage: $N &#123;start|stop&#125;&quot; &gt;&amp;2</span><br><span class="line">            exit 1</span><br><span class="line">            ;;</span><br><span class="line">    esac</span><br><span class="line">    exit 0</span><br></pre></td></tr></table></figure>
-<p>添加服务</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x /etc/rc.d/init.d/mongodb</span><br><span class="line">chkconfig --add mongodb</span><br><span class="line">chkconfig --level 345 mongodb on</span><br><span class="line">/etc/rc.d/init.d/mongodb start</span><br></pre></td></tr></table></figure>
+          <blockquote>
+<p>mongodb官网上下载最新版本的mongodb，按照官网上的说明进行安装。</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/linux_mongodb/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -346,7 +327,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -441,7 +422,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -565,7 +546,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1036,7 +1017,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1163,7 +1144,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1259,7 +1240,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1388,7 +1369,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1544,7 +1525,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1582,45 +1563,15 @@
 
       
           <p>统计某人的代码提交量，包括增加，删除：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log –author=”$(git config –get user.name)” –pretty=tformat: –numstat | gawk &#x27;&#123; add += $1 ; subs += $2 ; loc += $1 - $2 &#125; END &#123; printf ”added lines: %s removed lines : %s total lines: %s\n”,add,subs,loc &#125;’  -</span><br></pre></td></tr></table></figure>
-<p>仓库提交者排名前 5（如果看全部，去掉 head 管道即可）：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log –pretty=’%aN’ | sort | uniq -c | sort -k1 -n -r | head -n 5</span><br></pre></td></tr></table></figure>
-<p>仓库提交者（邮箱）排名前 5：这个统计可能不会太准，因为很多人有不同的邮箱，但会使用相同的名字</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log –pretty=format:%ae | gawk – &#x27;&#123; ++c[$0]; &#125; END &#123; for(cc in c) printf ”%5d %s\n”,c[cc],cc; &#125;’ | sort -u -n -r | head -n 5</span><br></pre></td></tr></table></figure>
-<p>贡献者统计：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log –pretty=’%aN’ | sort -u | wc -l</span><br></pre></td></tr></table></figure>
-<p>提交数统计：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log –oneline | wc -l</span><br></pre></td></tr></table></figure>
-<p>添加或修改的代码行数：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log –stat|perl -ne ’END &#123; print $c &#125; $c += $1 if /(\d+) insertions/;</span><br></pre></td></tr></table></figure>
-<p>git log 参数说明：</p>
-<ul>
-<li>–author   指定作者</li>
-<li>–stat   显示每次更新的文件修改统计信息，会列出具体文件列表</li>
-<li>–shortstat    统计每个commit 的文件修改行数，包括增加，删除，但不列出文件列表</li>
-<li>–numstat   统计每个commit 的文件修改行数，包括增加，删除，并列出文件列表</li>
-<li>-p 选项展开显示每次提交的内容差异，用 -2 则仅显示最近的两次更新。例如：<code>git log -p  -2</code></li>
-<li>–name-only 仅在提交信息后显示已修改的文件清单</li>
-<li>–name-status 显示新增、修改、删除的文件清单</li>
-<li>–abbrev-commit 仅显示 SHA-1 的前几个字符，而非所有的 40 个字符</li>
-<li>–relative-date 使用较短的相对时间显示（比如，“2 weeks ago”）</li>
-<li>–graph 显示 ASCII 图形表示的分支合并历史</li>
-<li>–pretty 使用其他格式显示历史提交信息。可用的选项包括 <code>oneline，short，full，fuller 和 format（后跟指定格式）</code>例如： <code>git log –pretty=oneline ; git log –pretty=short ; git log –pretty=full ; git log –pretty=fuller</code></li>
-<li>–pretty&#x3D;tformat:   可以定制要显示的记录格式，这样的输出便于后期编程提取分析。例如：<code>git log –pretty=format:””%h – %an, %ar : %s””</code><br>下面列出了常用的格式占位符写法及其代表的意义。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">选项       说明</span><br><span class="line">%H      提交对象（commit）的完整哈希字串</span><br><span class="line">%h      提交对象的简短哈希字串</span><br><span class="line">%T      树对象（tree）的完整哈希字串</span><br><span class="line">%t      树对象的简短哈希字串</span><br><span class="line">%P      父对象（parent）的完整哈希字串</span><br><span class="line">%p      父对象的简短哈希字串</span><br><span class="line">%an     作者（author）的名字</span><br><span class="line">%ae     作者的电子邮件地址</span><br><span class="line">%ad     作者修订日期（可以用 -date= 选项定制格式）</span><br><span class="line">%ar     作者修订日期，按多久以前的方式显示</span><br><span class="line">%cn     提交者(committer)的名字</span><br><span class="line">%ce     提交者的电子邮件地址</span><br><span class="line">%cd     提交日期</span><br><span class="line">%cr     提交日期，按多久以前的方式显示</span><br><span class="line">%s      提交说明</span><br></pre></td></tr></table></figure></li>
-<li>–since  限制显示输出的范围，<br>例如： git log –since&#x3D;2.weeks    显示最近两周的提交</li>
-</ul>
-<p>选项 说明</p>
-<ul>
-<li>-(n)    仅显示最近的 n 条提交</li>
-<li>–since, –after 仅显示指定时间之后的提交。</li>
-<li>–until, –before 仅显示指定时间之前的提交。</li>
-<li>–author 仅显示指定作者相关的提交。</li>
-<li>–committer 仅显示指定提交者相关的提交。</li>
-</ul>
-<p>一些例子：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 一分钟之前的所有 log</span><br><span class="line">git log –until=1.minute.ago</span><br><span class="line">//一天之内的log</span><br><span class="line">git log –since=1.day.ago </span><br><span class="line">//一个小时之内的 log </span><br><span class="line">git log –since=1.hour.ago</span><br><span class="line">//一个月之前到半个月之前的log</span><br><span class="line">git log –since=`.month.ago –until=2.weeks.ago </span><br><span class="line">//某个时间段的 log</span><br><span class="line">git log –since ==2013-08.01 –until=2013-09-07</span><br><span class="line">// 看看某一个文件的相关历史记录</span><br><span class="line">git blame index.html –date short</span><br></pre></td></tr></table></figure>
-
-
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> –author=”$(git config –get user.name)” –pretty=tformat: –numstat | gawk <span class="string">&#x27;&#123; add += $1 ; subs += $2 ; loc += $1 - $2 &#125; END &#123; printf ”added lines: %s removed lines : %s total lines: %s\n”,add,subs,loc &#125;’  -</span></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/git_count/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1670,7 +1621,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1913,13 +1864,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">802k</span>
+    <span title="站点总字数">803k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:09</span>
+    <span title="站点阅读时长">12:10</span>
 </div>
 
         

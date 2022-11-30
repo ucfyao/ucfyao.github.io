@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -270,18 +270,15 @@
           <p>分析股票数据的时候，往往会用不同的周期进行分析，以期得到更加全面的结果。比如日线、周线、月线，或者5分钟、15分钟、30分钟、60分钟。甚至有的时候会想，为什么的我的周期必须是自然周或者自然月，我能不能每11天或者每24天一个周期。 面对这样的需求，就必须写程序在不同的周期之间进行转换。本篇文章以将日线数据转换为周线数据为案例例，向大家介绍pandas的以下功能：</p>
 <ul>
 <li>使用pandas导入和导出输出</li>
-<li>resample函数的用法</li>
-</ul>
-<p>下面开始正文。 需要把日线转为周线，那么首先必须要有日线数据，从这个<span class="exturl" data-url="aHR0cDovL2Jicy5waW5nZ3Uub3JnL2xpbmt0by5waHA/dXJsPWh0dHA6Ly95dWNlemhlLmNvbS9wcm9kdWN0P25hbWU9dHJhZGluZy1kYXRh">网站<i class="fa fa-external-link-alt"></i></span>可以下载到所有股票历史上的日线数据，可以作为我们计算的原始数据。数据下载下来是下图这个样子：</p>
-<p>每个股票一个csv文件 </p>
-<p><img data-src="http://www.yaozihao.cn/wp-content/uploads/2017/04/10-1.png"><br>每一行是每一天的数据<br> <img data-src="http://www.yaozihao.cn/wp-content/uploads/2017/04/11-1.png"></p>
-<h4 id="这个日线数据有以下的字段："><a href="#这个日线数据有以下的字段：" class="headerlink" title="这个日线数据有以下的字段："></a>这个日线数据有以下的字段：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">【code】 股票的代码，上证股票以sh开头，深证股票以sz开头</span><br><span class="line">【date】 交易日期</span><br><span class="line">【open】 开盘价</span><br><span class="line">【high】 最高价</span><br><span class="line">【low】 最低价</span><br><span class="line">【close】 收盘价</span><br><span class="line">【change】 涨跌幅，复权之后的真实涨跌幅，保证准确</span><br><span class="line">【volume】 成交量</span><br><span class="line">【money】 成交额</span><br><span class="line">【traded_market_value】 流通市值</span><br><span class="line">【market_value】 总市值</span><br><span class="line">【turnover】 换手率，成交量/流通股本</span><br><span class="line">【adjust_price】 后复权价，复权开始时间为股票上市日，精确到小数点后10位</span><br><span class="line">【report_type】 最近一期财务报告的类型，3-31对应一季报，6-30对应半年报，9-30对应三季报，12-31对应年报</span><br><span class="line">【report_date】 最近一期财务报告实际发布的日期</span><br><span class="line">【PE_TTM】 最近12个月市盈率，股价 / 最近12个月归属母公司的每股收益TTM</span><br><span class="line">【PS_TTM】 最近12个月市销率， 股价 / 最近12个月每股营业收入</span><br><span class="line">【PC_TTM】 最近12个月市现率， 股价 / 最近12个月每股经营现金流</span><br><span class="line">【PB】 市净率，股价 / 最近期财报每股净资产</span><br></pre></td></tr></table></figure>
-
-<p>在进行日线周线转换的时候，一定要注意，大部分周线的指标是这个日线指标在这一周最后一个交易日的值。比如周线的【close】应该等于这一周最后一天日线数据的【close】。但是有的指标是例外，比如周线的【high】应该等于这一周所有日线【high】中的最大值，周线的【volume】应该等于这一周所有日线【volume】的和。有了这样的理解之后，直接上程序截图，里面有详细的注释，有问题可以留言。 </p>
-<p><img data-src="http://www.yaozihao.cn/wp-content/uploads/2017/04/12-1.png">  </p>
-<p>把数据和程序下载下来，在程序中修改好文件的路径，应该就可以直接运行了。 </p>
-<p><strong>思考题：</strong><br>本案例中是将日线数据转换为周线，那么如何将日线数据转换为月线数据呢？ 答案：只要修改代码中的一个字母就行了。</p>
-
+<li>resample函数的用法
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/quant_python_pandas_kline/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -331,7 +328,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -373,17 +370,15 @@
 <li>数据的导入以及导出</li>
 <li>对整列数据进行操作</li>
 <li>数据合并的append操作</li>
-<li>groupby语句</li>
-</ul>
-<p>计算创业板股票每天的平均市盈率，那么必须要知道每个股票每天的市盈率。从<span class="exturl" data-url="aHR0cDovL2Jicy5waW5nZ3Uub3JnL2xpbmt0by5waHA/dXJsPWh0dHA6Ly95dWNlemhlLmNvbS9wcm9kdWN0P25hbWU9dHJhZGluZy1kYXRh">这里<i class="fa fa-external-link-alt"></i></span>可以下载到所有股票的从上市日起的每天的交易数据、以及市盈率数据，可以作为我们计算的原始数据。数据下载下来是下图这个样子： </p>
-<p>每个股票一个csv文件<br><img data-src="http://www.yaozihao.cn/wp-content/uploads/2017/04/1-2.png"> </p>
-<p>每一行是每一天的数据</p>
-<p><img data-src="http://www.yaozihao.cn/wp-content/uploads/2017/04/2-2.png"> </p>
-<p>有了原始数据之后就是代码了，下面是代码的截图，有详细的注释，附件中可以下载代码文件。 </p>
-<p> <img data-src="http://www.yaozihao.cn/wp-content/uploads/2017/04/3-2.png"> </p>
-<p> 把数据下载下来，并且直接运行代码，结果就会输出到“创业板平均市盈率.csv”文件。至于创业板股票的现在的平均市盈率是多少，这里就不贴出来啦，大家还是自己运行程序之后看结果吧<br> <img data-src="http://120.27.111.137/static/image/smiley/default/titter.gif"> </p>
-<p><strong>思考题：</strong><br>本案例中是计算创业板股票的平均市盈率，那么如果计算上证股票的平均市盈率呢？答案：其实只要修改代码中的一个数字就行了。</p>
-
+<li>groupby语句
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/quant_python_pandas_ratio/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -433,7 +428,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -451,7 +446,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
+              <span>1.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -473,19 +468,14 @@
           <blockquote>
 <p>我之前一直用SAS、MATLAB。最近用Python，发现python的pandas包简直是分析金融数据做量化研究的神器。准备写个系列帖子“量化小讲堂”，希望通过实际的列子，让大家知道如何使用python &amp; pandas进行金融数据处理，希望能对大家有帮助。帖子主要面向入门学习者，大神请轻拍。</p>
 </blockquote>
-<p>计算移动平均线是最常见的需求，下面这段代码将完成以下三件事情：</p>
-<ol>
-<li>从csv格式的文件中导入股票数据</li>
-<li>计算各类移动平均线，包括简单简单算术移动平均线MA、指数平滑移动平均线EMA；</li>
-<li>将计算好的数据输出到csv文件中。<br>代码应该复制下来就能运行了，关于从哪里可以得到代码中使用的数据，后面会讲，下面贴上代码：</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: utf-8 -*-</span><br></pre></td></tr></table></figure>
-<p>@author: yaozihao<br>@contact: QQ:906961433 email:<span class="exturl" data-url="bWFpbHRvOiYjMTIxOyYjeDYxOyYjeDZmOyYjMTIyOyYjMTA1OyYjeDY4OyYjOTc7JiMxMTE7JiN4NDA7JiMxMjE7JiM5NzsmI3g2ZjsmIzEyMjsmIzEwNTsmIzEwNDsmI3g2MTsmIzExMTsmI3gyZTsmIzk5OyYjeDZlOw==">&#121;&#x61;&#x6f;&#122;&#105;&#x68;&#97;&#111;&#x40;&#121;&#97;&#x6f;&#122;&#105;&#104;&#x61;&#111;&#x2e;&#99;&#x6e;<i class="fa fa-external-link-alt"></i></span></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line"></span><br><span class="line"># ========== 从原始csv文件中导入股票数据，以浦发银行sh600000为例</span><br><span class="line"># 导入数据 - 注意：这里请填写数据文件在您电脑中的路径</span><br><span class="line">stock_data = pd.read_csv(&#x27;stock data/sh600000.csv&#x27;, parse_dates=[1])</span><br><span class="line"></span><br><span class="line"># 将数据按照交易日期从远到近排序</span><br><span class="line">stock_data.sort(&#x27;date&#x27;, inplace=True)</span><br><span class="line"></span><br><span class="line"># ========== 计算移动平均线</span><br><span class="line"># 分别计算5日、20日、60日的移动平均线</span><br><span class="line">ma_list = [5, 20, 60]</span><br><span class="line"></span><br><span class="line"># 计算简单算术移动平均线MA - 注意：stock_data[&#x27;close&#x27;]为股票每天的收盘价</span><br><span class="line">for ma in ma_list:</span><br><span class="line">    stock_data[&#x27;MA_&#x27; + str(ma)] = pd.rolling_mean(stock_data[&#x27;close&#x27;], ma)</span><br><span class="line"></span><br><span class="line"># 计算指数平滑移动平均线EMA</span><br><span class="line">for ma in ma_list:</span><br><span class="line">    stock_data[&#x27;EMA_&#x27; + str(ma)] = pd.ewma(stock_data[&#x27;close&#x27;], span=ma)</span><br><span class="line"></span><br><span class="line"># 将数据按照交易日期从近到远排序</span><br><span class="line">stock_data.sort(&#x27;date&#x27;, ascending=False, inplace=True)</span><br><span class="line"></span><br><span class="line"># ========== 将算好的数据输出到csv文件 - 注意：这里请填写输出文件在您电脑中的路径</span><br><span class="line">stock_data.to_csv(&#x27;sh600000_ma_ema.csv&#x27;, index=False)</span><br></pre></td></tr></table></figure>
-
-<p>代码输出的数据截图如下：<br><img data-src="https://raw.githubusercontent.com/ucfyao/image/img/img/20190422133136.png"></p>
-<p>可以到这里下载程序中用到的股票数据：<span class="exturl" data-url="aHR0cDovL3l1Y2V6aGUuY29tLw==">网址<i class="fa fa-external-link-alt"></i></span> ，其中包含了所有股票、从上市日起的全部交易数据。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/quant_python_pandas_avg/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -535,7 +525,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -573,26 +563,16 @@
 
       
           <blockquote>
-<p>本篇内容主要讲如何安装Python和pandas。Python比较好安装，而pandas比较难装，当时装了我一整天。pandas是Python下面的一个package，专门用于金融数据的分析，简直是神器。这里有pandas的简单入门介绍<span class="exturl" data-url="aHR0cDovL2Jicy5waW5nZ3Uub3JnL2xpbmt0by5waHA/dXJsPWh0dHA6Ly9wYW5kYXMucHlkYXRhLm9yZy9wYW5kYXMtZG9jcy9zdGFibGUvMTBtaW4uaHRtbA==">http://pandas.pydata.org/pandas-docs/stable/10min.html<i class="fa fa-external-link-alt"></i></span>  首先推荐python的科学计算包：anaconda2。</p>
+<p>本篇内容主要讲如何安装Python和pandas。Python比较好安装，而pandas比较难装，当时装了我一整天。pandas是Python下面的一个package，专门用于金融数据的分析，简直是神器。这里有pandas的简单入门介绍<span class="exturl" data-url="aHR0cDovL2Jicy5waW5nZ3Uub3JnL2xpbmt0by5waHA/dXJsPWh0dHA6Ly9wYW5kYXMucHlkYXRhLm9yZy9wYW5kYXMtZG9jcy9zdGFibGUvMTBtaW4uaHRtbA==">http://pandas.pydata.org/pandas-docs/stable/10min.html<i class="fa fa-external-link-alt"></i></span>。首先推荐python的科学计算包：anaconda2。</p>
 </blockquote>
-<p>本篇主要涵盖以下三部分内容：</p>
-<ol>
-<li>Python、Pycharm的安装</li>
-<li>使用Pycharm创建、运行Python程序</li>
-<li>安装pandas</li>
-</ol>
-<h2 id="1-Python、Pycharm的安装"><a href="#1-Python、Pycharm的安装" class="headerlink" title="1.Python、Pycharm的安装"></a><strong>1.Python、Pycharm的安装</strong></h2><p>从Python官网下载windows版本的Python，要下载python2，不要下载python3。鉴于大家可能上了官网都不知道下载哪个版本（我自己一开始就是）。安装文件下载好之后，就像一般的软件一样，一直点击next就能安装。 Pycharm是一个ide，说简单点就是一个用来编写Python程序的软件，也是个神器，可以让我们更加方便的编写Python程序。我们后面安装pandas就需要用到它。Pycharm有收费版本也有免费版本，我们用免费版本就已经绰绰有余了。可以去官网下载，因为是国外的网站，下载速度可能很慢，我已经将安装文件上传到百度云，下载地址在附件中。 下载好之后一路点击next就能安装好。</p>
-<h2 id="2-使用Pycharm创建、运行Python程序"><a href="#2-使用Pycharm创建、运行Python程序" class="headerlink" title="2.使用Pycharm创建、运行Python程序"></a>2.使用Pycharm创建、运行Python程序</h2><p>安装好Python和Pycharm之后，我们打开pycharm（桌面上应该有快捷方式）， 点击创建create new project，这里需要在红框中填写一个路径地址。<br>这里解释一下这个路径，每当我们新建一个Python项目，一般是创建个新的空文件夹，把和这个项目相关的程序、数据等内容都放在这个文件夹中，方便管理。<br>红色框中的路径就是指向这个文件夹。<br>我这里这个文件夹叫demo，填写好之后点击create，<br>顺序点击File，New，Python File，填写文件名，这就创建了一个Python程序文件，<br>输入一行简单的代码 <code>print &#39;Hello World!&#39;</code>，顺序点击 Run，Run ‘demo’，就可以运行程序，并且查看输出了。<br>以上就是一个简单的Python程序</p>
-<h2 id="3-安装pandas"><a href="#3-安装pandas" class="headerlink" title="3.安装pandas"></a><strong>3.安装pandas</strong></h2><p>pandas是Python下面的一个库，一般来说安装库都是非常麻烦的，因为需要在命令行下面操作的，利用<code>pip</code>, <code>easy_install</code>等工具，对于非计算机专业的人来说简直是噩梦。幸好有了Pycharm，它可以帮我们很方便的安装各类库。</p>
-<p>下面以安装pandas为例，介绍如何使用Pycharm安装package：</p>
-<ul>
-<li>顺序点击File，Settings</li>
-<li>然后点击Project，Project Interpreter，</li>
-<li>在搜索框中输入pandas，点击最下方的Install Package，根据网速快慢，等待不定的时间，就完成了安装</li>
-</ul>
-<p>安装过程中可能会提示：Microsoft Visual C++ 9.0 is required (Unable to find vcvarsall.bat). Get it from <span class="exturl" data-url="aHR0cDovL2Jicy5waW5nZ3Uub3JnL2xpbmt0by5waHA/dXJsPWh0dHA6Ly9ha2EubXMvdmNweXRob24yNw==">http://aka.ms/vcpython27<i class="fa fa-external-link-alt"></i></span> 只要按照提示说的的去下载一个VC就可以了。</p>
-<p>这样就安装好了pandas。 然后在按照同样的流程安装好其他一些pandas依赖的package，分别是：<code>numpy</code>，<code>dateutil</code>，可能还有其他。 安装好之后试着运行下面这个程序，如果没有报错，就说明完全安装好pandas了。如果报错，一般是因为缺少依赖的库，按照上述方法继续安装就可以了。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/quant_python_pandas_windows/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -642,7 +622,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -680,24 +660,24 @@
 
       
           <p>本文主要以快速上手使用Pyhton进行系列分析为主题，介绍下我学习量化投资、Python的个人经验。</p>
-<h3 id="第一步：好奇心"><a href="#第一步：好奇心" class="headerlink" title="第一步：好奇心"></a>第一步：好奇心</h3><p>不要为了学习而去学习一门编程语言，或者任何工具。一定要心里首先有一个问题，抱着解决问题的心态，去了解并学习这个工具是如何解决问题的。驱动你去学习量化投资的，应该是你的好奇心。你认为你有一个炒股独家的窍门，你认为你发现了某个规律，你非常好奇的想用历史数据去验证你的想法。<br>比如我在大二的时候接触量化投资，就是因为我的好奇心。当时我看到一些入门的技术分析书上推荐KDJ这个技术指标，说KDJ低位金叉之后股票会涨，是个很好的买入信号，并且书上会配一些图，证明这个指标的有效性。我当时就很好奇，书上说的是不是真的？这几个配图是刻意挑选的还是有代表性的？是不是可以写个程序找出历史上所有的kdj金叉，看看之后涨的概率有多大?</p>
+<h2 id="第一步：好奇心"><a href="#第一步：好奇心" class="headerlink" title="第一步：好奇心"></a>第一步：好奇心</h2><p>不要为了学习而去学习一门编程语言，或者任何工具。一定要心里首先有一个问题，抱着解决问题的心态，去了解并学习这个工具是如何解决问题的。驱动你去学习量化投资的，应该是你的好奇心。你认为你有一个炒股独家的窍门，你认为你发现了某个规律，你非常好奇的想用历史数据去验证你的想法。<br>比如我在大二的时候接触量化投资，就是因为我的好奇心。当时我看到一些入门的技术分析书上推荐KDJ这个技术指标，说KDJ低位金叉之后股票会涨，是个很好的买入信号，并且书上会配一些图，证明这个指标的有效性。我当时就很好奇，书上说的是不是真的？这几个配图是刻意挑选的还是有代表性的？是不是可以写个程序找出历史上所有的kdj金叉，看看之后涨的概率有多大?</p>
 <p>这就是引领我入门的最初的好奇心。当时我不会编程，一开始用excel来试着验证，发现KDJ从大概率上来讲是不行的。好奇心继续升级：我调整一下KDJ默认的参数，效果会不会好一点？再配合一下其他的指标，效果会不会好一点？再加上点财务数据，效果会不会好一点……</p>
 <p>慢慢的想测试的想法越来越多，excel渐渐的不够用，开始学习编程。我学习编程的目的性很强，就是解决我眼前的问题。对于解决我问题没有帮助的，我就先不学。一开始用的是SAS，自己找书看，论坛上发帖子问。后来觉得SAS太重，不灵活，慢慢的迁移到Python。</p>
 <p>我是计算机专业的，但是学校并不教量化投资，一切都是自己学。可想而知，若没有好奇心一直引导我去探索，这么长的一段时间我怎么可能坚持下来呢？ </p>
-<h3 id="第二步：为什么Python"><a href="#第二步：为什么Python" class="headerlink" title="第二步：为什么Python"></a>第二步：为什么Python</h3><p>我推荐刚入门的量化投资研究者使用Python。主要理由如下：</p>
+<h2 id="第二步：为什么Python"><a href="#第二步：为什么Python" class="headerlink" title="第二步：为什么Python"></a>第二步：为什么Python</h2><p>我推荐刚入门的量化投资研究者使用Python。主要理由如下：</p>
 <ol>
 <li>适用性<br>  Python配合各类第三方的package（例如下面要降到的pandas），是非常适合用来处理金融数据的</li>
 <li>简单<br>  相比于c，c#等语言，Python容易太多了。让你可以更快，更方便的对自己的想法进行测试。life is short, use Python。</li>
 <li>全能<br>  Matlab是另外一个金融分析领域的统治级语言，以上讲的两点适用性、简单性matlab都是具备的，在业界的使用范围应该是比Python要高的。<br>而Python相比于matlab的一大优势，那就是全能。matlab基本只能用于金融数据分析。但是Python除了拥有不亚于matlab的矩阵计算、科学计算能力之外，其他几乎任何事情都可以做。比如数据的清理、整理，比如从网页上抓取数据，比如进行文本信息的挖掘，比如做一个网站……现在学习一门语言，将来在任何地方都能用到。</li>
 </ol>
-<h3 id="第三步：如何入门Python"><a href="#第三步：如何入门Python" class="headerlink" title="第三步：如何入门Python"></a>第三步：如何入门Python</h3><p>如果你有其他语言的编写经验（比如上过一个学期的编程课），有一定的编程基础。以下三步可以让你入门Python：</p>
+<h2 id="第三步：如何入门Python"><a href="#第三步：如何入门Python" class="headerlink" title="第三步：如何入门Python"></a>第三步：如何入门Python</h2><p>如果你有其他语言的编写经验（比如上过一个学期的编程课），有一定的编程基础。以下三步可以让你入门Python：</p>
 <ol>
 <li>随便找一本Pyhton入门书。这些教程网上有很多很多，论坛里面也有很多，随便搜索一下就是。我稍微整理了下，放在附件中，回复可见。</li>
 <li>挑一本Python入门书，不要花超过半天的时间，快速翻阅这本书。这个步骤不求记住什么东西，只要大概的知道这本书讲了什么，什么知识在这本书的哪一章写了就行，以便将来查阅。</li>
 <li>结合自己的好奇心，给自己寻找一个问题，简单的复杂的都可以，找一点数据(地址)，直接开始实战。遇到问题，第一步是去翻书，第二步是去google(别去百度)，第三步是论坛发帖求助。若你没有什么思路或者问题，可以加群438143420，我可以给你提供思路。</li>
 </ol>
 <p>如果你没有任何编程的基础，那么想要入门Python，也是以上三个步骤。但是第2步，就不是仅仅花半天的时间浏览书了，而是要细细的看书。对着书上的例子，实际的操作下，大概花一个星期的时间的业余时间也就够了吧。</p>
-<h3 id="第四步：如何入门pandas"><a href="#第四步：如何入门pandas" class="headerlink" title="第四步：如何入门pandas"></a>第四步：如何入门pandas</h3><p>使用Python做金融数据分析，一定要用pandas。pandas是Python的一个第三方库，简直是金融数据分析的神器，第一次遇到它的时候让我泪流满面。了解pandas最好的途径就是他的官方文档：<span class="exturl" data-url="aHR0cDovL3BhbmRhcy5weWRhdGEub3JnL3BhbmRhcy1kb2NzL3N0YWJsZS8xMG1pbi5odG1s">http://pandas.pydata.org/pandas-docs/stable/10min.html<i class="fa fa-external-link-alt"></i></span> ，当然也可以看我之前写的系列文章。</p>
+<h2 id="第四步：如何入门pandas"><a href="#第四步：如何入门pandas" class="headerlink" title="第四步：如何入门pandas"></a>第四步：如何入门pandas</h2><p>使用Python做金融数据分析，一定要用pandas。pandas是Python的一个第三方库，简直是金融数据分析的神器，第一次遇到它的时候让我泪流满面。了解pandas最好的途径就是他的官方文档：<span class="exturl" data-url="aHR0cDovL3BhbmRhcy5weWRhdGEub3JnL3BhbmRhcy1kb2NzL3N0YWJsZS8xMG1pbi5odG1s">http://pandas.pydata.org/pandas-docs/stable/10min.html<i class="fa fa-external-link-alt"></i></span> ，当然也可以看我之前写的系列文章。</p>
 
       
     </div>
@@ -748,7 +728,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1007,7 +987,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1175,7 +1155,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1339,7 +1319,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1498,7 +1478,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1723,13 +1703,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">802k</span>
+    <span title="站点总字数">803k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:09</span>
+    <span title="站点阅读时长">12:10</span>
 </div>
 
         

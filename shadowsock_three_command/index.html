@@ -23,15 +23,15 @@
     var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="shadowSocks客户端vps 环境 ubuntu 14.10 安装docker 1apt install docker.io 下载shadow sock 镜像 1docker pull oddrationale&#x2F;docker-shadowsocks 运行镜像 1docker run -d -p 7777:1984 -v &#x2F;etc&#x2F;hosts:&#x2F;etc&#x2F;hosts oddrationale&#x2F;d">
+  <meta name="description" content="使用自己部署Shadowsocks服务器，实现代理上网。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="三条命令搭建shadowsock服务器">
 <meta property="og:url" content="https://yaozihao.com/shadowsock_three_command/index.html">
 <meta property="og:site_name" content="Zihao">
-<meta property="og:description" content="shadowSocks客户端vps 环境 ubuntu 14.10 安装docker 1apt install docker.io 下载shadow sock 镜像 1docker pull oddrationale&#x2F;docker-shadowsocks 运行镜像 1docker run -d -p 7777:1984 -v &#x2F;etc&#x2F;hosts:&#x2F;etc&#x2F;hosts oddrationale&#x2F;d">
+<meta property="og:description" content="使用自己部署Shadowsocks服务器，实现代理上网。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2017-11-06T18:39:30.000Z">
-<meta property="article:modified_time" content="2022-11-29T11:49:30.909Z">
+<meta property="article:modified_time" content="2022-11-30T00:23:54.200Z">
 <meta property="article:author" content="Zihao Yao">
 <meta property="article:tag" content="shadowsock">
 <meta name="twitter:card" content="summary">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -276,23 +276,33 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="shadowSocks客户端"><a href="#shadowSocks客户端" class="headerlink" title="shadowSocks客户端"></a>shadowSocks客户端</h2><p>vps 环境 ubuntu 14.10</p>
-<p>安装docker</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install docker.io</span><br></pre></td></tr></table></figure>
-<p>下载shadow sock 镜像</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull oddrationale/docker-shadowsocks</span><br></pre></td></tr></table></figure>
-<p>运行镜像</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 7777:1984 -v /etc/hosts:/etc/hosts oddrationale/docker-shadowsocks -s 0.0.0.0 -p 1984 -k superzhan -m aes-256-cfb</span><br></pre></td></tr></table></figure>
+        <blockquote>
+<p>使用自己部署Shadowsocks服务器，实现代理上网。</p>
+</blockquote>
+<span id="more"></span>
 
-<p>7777 是shadow sock 连接端口。<br>superzhan 是shadow sock 的连接密码<br>aes-256-cfb 连接协议</p>
+<h2 id="shadowSocks客户端"><a href="#shadowSocks客户端" class="headerlink" title="shadowSocks客户端"></a>shadowSocks客户端</h2><p>vps 环境 ubuntu 14.10</p>
+<p>安装docker</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install docker.io</span><br></pre></td></tr></table></figure>
+
+<p>下载shadow sock 镜像</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull oddrationale/docker-shadowsocks</span><br></pre></td></tr></table></figure>
+
+<p>运行镜像</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 7777:1984 -v /etc/hosts:/etc/hosts oddrationale/docker-shadowsocks -s 0.0.0.0 -p 1984 -k superzhan -m aes-256-cfb</span><br></pre></td></tr></table></figure>
+
+<p><code>7777</code> 是<code>shadow sock</code> 连接端口。<br><code>superzhan</code> 是<code>shadow sock</code> 的连接密码<br><code>aes-256-cfb</code> 连接协议</p>
 <h2 id="shadowSocks服务器端"><a href="#shadowSocks服务器端" class="headerlink" title="shadowSocks服务器端"></a>shadowSocks服务器端</h2><p>ShadowSocks有服务器端和客户端，有技术能力的，可以自行搭建服务器端，一般可通过购买海外VPS之后进行搭建，没有技术能力的，可以购买商业ShadowSocks帐号。</p>
 <p>有网友做了个服务器端一键安装ShadowSocks的脚本，使用root用户登录，运行以下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget –no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-libev.sh</span><br><span class="line"></span><br><span class="line">chmod +x shadowsocks-libev.sh</span><br><span class="line"></span><br><span class="line">./shadowsocks-libev.sh 2&gt;&amp;1 | tee shadowsocks-libev.log</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget –no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-libev.sh</span><br><span class="line"></span><br><span class="line"><span class="built_in">chmod</span> +x shadowsocks-libev.sh</span><br><span class="line"></span><br><span class="line">./shadowsocks-libev.sh 2&gt;&amp;1 | <span class="built_in">tee</span> shadowsocks-libev.log</span><br></pre></td></tr></table></figure>
+
 <p>安装完成后，得到的服务器端口：8989，客户端端口：1080，密码为自己设定的密码。</p>
 <p>卸载方法：使用 root 用户登录，运行以下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./shadowsocks-libev.sh uninstall</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./shadowsocks-libev.sh uninstall</span><br></pre></td></tr></table></figure>
+
 <p>安装完成后即已后台启动 shadowsocks ，运行：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep ss-server | grep -v ps | grep -v grep</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep ss-server | grep -v ps | grep -v grep</span><br></pre></td></tr></table></figure>
+
 <p>可以查看进程是否存在。此脚本安装完成后，会将 shadowsocks-libev 加入开机自启动。</p>
 <p>使用命令：<br>启动：<code>/etc/init.d/shadowsocks start</code></p>
 <p>停止：<code>/etc/init.d/shadowsocks stop</code></p>
@@ -534,13 +544,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">802k</span>
+    <span title="站点总字数">803k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:09</span>
+    <span title="站点阅读时长">12:10</span>
 </div>
 
         

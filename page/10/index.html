@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -327,7 +327,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -423,7 +423,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -518,7 +518,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -616,7 +616,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -714,7 +714,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -752,20 +752,14 @@
 
       
           <p>VirtualBox虚拟磁盘空间不够了，默认10G。想扩大，图形界面下没有找到可操作菜单。Google了一下用 <code>Vbox</code>自带的命令工具<code>VBoxManage</code>即可解决。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\Oracle\VirtualBox&gt;VBoxManage modifyhd e:\vbox\Ubuntu12.04\Ubuntu1204-201302-disk1.vmdk --resize 30000</span><br><span class="line">0%...</span><br><span class="line">Progress state: VBOX_E_NOT_SUPPORTED</span><br><span class="line">VBoxManage.exe: error: Resize hard disk operation for this format is not implemented yet!</span><br></pre></td></tr></table></figure>
-<p>原来虚拟机用的是<code>vmdk</code>格式，这个命令只能支持<code>vdi</code>格式。怎么办</p>
-<p>发现可以利用<code>VBoxManager</code>来转化虚拟硬盘存储文件格式</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\Oracle\VirtualBox&gt;VBoxManage clonehd e:\vbox\Ubuntu12.04\Ubuntu1204-201302-disk1.vmdk  e:\vbox\Ubuntu12.04\Ubuntu1204-201310-disk1.vdi --format VDI</span><br><span class="line">0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%</span><br><span class="line">Clone hard disk created in format &#x27;VDI&#x27;. UUID: 455b7aa4-d776-4254-8353-d9b5b3fa1</span><br><span class="line">09b</span><br></pre></td></tr></table></figure>
-
-<p>最后用<code>VBoxManager</code>对转好的vdi文件进行扩容设置</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\Oracle\VirtualBox&gt;VBoxManage modifyhd e:\vbox\Ubuntu12.04\Ubunt</span><br><span class="line">u1204-201310-disk1.vdi --resize 30000</span><br><span class="line">0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%</span><br></pre></td></tr></table></figure>
-<p>大功告成，要将新的虚拟硬盘(vdi)挂载到虚拟机上了。</p>
-<p>打开虚拟机设置，找到存储，点击虚拟硬盘所在的控制器，点“添加虚拟硬盘”-&gt;选”使用现有的虚拟盘”-&gt;选中扩容后的vdi文件，确定后就看见控制器下多了一个硬盘图标，查看容量29.30G。<br>删除原来的vmdk虚拟盘。确定保存配置。大功告成！！</p>
-<p>别忙，还有一部。<br>启动虚拟机后，还要使用<code>GParted – Gnome Partition Editor</code>这个工具，将新扩展的分区进行初始化，否则系统还是不会认出新扩展的空间的。<br>Ubuntu中可用 <code>sudo apt-get install gparted</code>来安装。工具是图形化界面的。好用。设置好后要点菜单“编辑”-&gt;“应用全部操作”，系统才开始执行扩展磁盘的初始化。</p>
-<p>Gnome Partition Editor 官网地址：<span class="exturl" data-url="aHR0cDovL2dwYXJ0ZWQuc291cmNlZm9yZ2UubmV0Lw==">http://gparted.sourceforge.net/<i class="fa fa-external-link-alt"></i></span></p>
-<p>多嘴一句</p>
-<p>将原来的vid虚拟硬盘数据复制到新的vid硬盘，示例：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">旧vdi —&gt; 新vdi</span><br><span class="line"></span><br><span class="line">C:\Program Files\Oracle\VirtualBox\VBoxManage.exe  clonevdi  E:\vbox\server2003\win2003.vdi E:\vbox\server2003\server2003.vdi&quot; --existing</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/virtuabox_disk/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -815,7 +809,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -854,7 +848,8 @@
       
           <p>系统安装官方文档：<span class="exturl" data-url="aHR0cDovL3RocmlmdC5hcGFjaGUub3JnL2RvY3M=">http://thrift.apache.org/docs<i class="fa fa-external-link-alt"></i></span></p>
 <p>下载安装包</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git clone https://git-wip-us.apache.org/repos/asf/thrift.git</span><br><span class="line">cd thrift</span><br><span class="line">./bootstrap.sh</span><br><span class="line">./configure --with-lua=no</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://git-wip-us.apache.org/repos/asf/thrift.git</span><br><span class="line"><span class="built_in">cd</span> thrift</span><br><span class="line">./bootstrap.sh</span><br><span class="line">./configure --with-lua=no</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -904,7 +899,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -999,7 +994,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1096,7 +1091,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1300,13 +1295,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">802k</span>
+    <span title="站点总字数">803k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:09</span>
+    <span title="站点阅读时长">12:10</span>
 </div>
 
         

@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -268,23 +268,14 @@
 
       
           <p>Node.js是一个基于Chrome JavaScript运行时建立的平台， 用于方便地搭建响应速度快、易于扩展的网络应用。Node.js 使用事件驱动， 非阻塞I&#x2F;O 模型而得以轻量和高效，非常适合在分布式设备上运行的数据密集型的实时应用，如实时聊天等等。然而对于gzip编码，静态文件，HTTP缓存，SSL处理，负载平衡和反向代理等，都可以通过nginx来完成，从而减小node.js的负载，并通过nginx强大的缓存来节省网站的流量从而提高网站的加载速度。</p>
-<p>nginx配置如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    proxy_cache_path  /var/cache/nginx levels=1:2 keys_zone=one:8m max_size=3000m inactive=600m;</span><br><span class="line">    proxy_temp_path /var/tmp;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet–stream;</span><br><span class="line">    sendfile        on;</span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line">    gzip on;</span><br><span class="line">    gzip_comp_level 6;</span><br><span class="line">    gzip_vary on;</span><br><span class="line">    gzip_min_length  1000;</span><br><span class="line">    gzip_proxied any;</span><br><span class="line">    gzip_types text/plain text/html text/css application/json application/x–javascript text/xml application/xml application/xml+rss text/javascript;</span><br><span class="line">    gzip_buffers 16 8k;</span><br><span class="line">    ssl_certificate /some/location/sillyfacesociety.com.bundle.crt;</span><br><span class="line">    ssl_certificate_key /some/location/sillyfacesociety.com.key;</span><br><span class="line">    ssl_protocols        SSLv3 TLSv1;</span><br><span class="line">    ssl_ciphers HIGH:!aNULL:!MD5;</span><br><span class="line">    upstream silly_face_society_upstream &#123;</span><br><span class="line">      server 127.0.0.1:61337;</span><br><span class="line">      server 127.0.0.1:61338;</span><br><span class="line">      keepalive 64;</span><br><span class="line">    &#125;</span><br><span class="line">    server &#123;</span><br><span class="line">      listen 80;</span><br><span class="line">      listen 443 ssl;</span><br><span class="line">      server_name sillyfacesociety.com;</span><br><span class="line">      return 301 $scheme://www.sillyfacesociety.com$request_uri;</span><br><span class="line">    &#125;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen 80;</span><br><span class="line">        listen 443 ssl;</span><br><span class="line">        server_name www.sillyfacesociety.com;</span><br><span class="line">        error_page 502  /errors/502.html;</span><br><span class="line">        location ~ ^/(images/|img/|javascript/|js/|css/|stylesheets/|flash/|media/|static/|robots.txt|humans.txt|favicon.ico) &#123;</span><br><span class="line">          root /usr/local/silly_face_society/node/public;</span><br><span class="line">          access_log off;</span><br><span class="line">          expires max;</span><br><span class="line">        &#125;</span><br><span class="line">        location /errors &#123;</span><br><span class="line">          internal;</span><br><span class="line">          alias /usr/local/silly_face_society/node/public/errors;</span><br><span class="line">        &#125;</span><br><span class="line">        location / &#123;</span><br><span class="line">          proxy_redirect off;</span><br><span class="line">          proxy_set_header   X–Real–IP            $remote_addr;</span><br><span class="line">          proxy_set_header   X–Forwarded–For  $proxy_add_x_forwarded_for;</span><br><span class="line">          proxy_set_header   X–Forwarded–Proto $scheme;</span><br><span class="line">          proxy_set_header   Host                   $http_host;</span><br><span class="line">          proxy_set_header   X–NginX–Proxy    true;</span><br><span class="line">          proxy_set_header   Connection “”;</span><br><span class="line">          proxy_http_version 1.1;</span><br><span class="line">          proxy_cache one;</span><br><span class="line">          proxy_cache_key sfs$request_uri$scheme;</span><br><span class="line">          proxy_pass         http://silly_face_society_upstream;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>配置段说明</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    ...</span><br><span class="line">    upstream silly_face_society_upstream &#123;</span><br><span class="line">      server 127.0.0.1:61337;</span><br><span class="line">      server 127.0.0.1:61338;</span><br><span class="line">      keepalive 64;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>nginx负载均衡多个nodo.js实例。keepalive 64 指示nginx在任何时候保持最少64个HTTP&#x2F; 1.1连接到代理服务器。如果有更多的流量nginx将打开更多的连接。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    ...</span><br><span class="line">    server &#123;</span><br><span class="line">        ...</span><br><span class="line">        location / &#123;</span><br><span class="line">          proxy_redirect off;</span><br><span class="line">          proxy_set_header   X–Real–IP            $remote_addr;</span><br><span class="line">          proxy_set_header   X–Forwarded–For  $proxy_add_x_forwarded_for;</span><br><span class="line">          proxy_set_header   Host                   $http_host;</span><br><span class="line">          proxy_set_header   X–NginX–Proxy    true;</span><br><span class="line">          ...</span><br><span class="line">          proxy_set_header   Connection “”;</span><br><span class="line">          proxy_http_version 1.1;</span><br><span class="line">          proxy_pass         http://silly_face_society_upstream;</span><br><span class="line">        &#125;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<p>将符合哪些的请求发送到代理上。nginx的匹配规则可以取看看前面的文章。</p>
-<p>nginx处理静态内容</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    ...</span><br><span class="line">    server &#123;</span><br><span class="line">        ...</span><br><span class="line">        location ~ ^/(images/|img/|javascript/|js/|css/|stylesheets/|flash/|media/|static/|robots.txt|humans.txt|favicon.ico) &#123;</span><br><span class="line">          root /usr/local/silly_face_society/node/public;</span><br><span class="line">          access_log off;</span><br><span class="line">          expires max;</span><br><span class="line">        &#125;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>设置缓存</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    ...</span><br><span class="line">    proxy_cache_path  /var/cache/nginx levels=1:2 keys_zone=one:8m max_size=3000m inactive=600m;</span><br><span class="line">    proxy_temp_path /var/tmp;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line">http &#123;</span><br><span class="line">  server &#123;</span><br><span class="line">     ...</span><br><span class="line">     location / &#123;</span><br><span class="line">          ...</span><br><span class="line">          proxy_cache one;</span><br><span class="line">          proxy_cache_key sfs$request_uri$scheme;</span><br><span class="line">          ...</span><br><span class="line">     &#125;</span><br><span class="line">     ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>缓存是通过HTTP头部来控制的。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/js_nginx_node/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -334,7 +325,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -445,7 +436,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -483,19 +474,14 @@
 
       
           <p>当磁盘大小超过标准时会有报警提示，这时如果掌握<code>df</code>和<code>du</code>命令是非常明智的选择。</p>
-<p><code>df</code>可以查看一级文件夹大小、使用比例、档案系统及其挂入点，但对文件却无能为力。<br><code>du</code>可以查看文件及文件夹的大小。</p>
-<p>两者配合使用，非常有效。比如用df查看哪个一级目录过大，然后用df查看文件夹或文件的大小，如此便可迅速确定症结。</p>
-<p>下面分别简要介绍</p>
-<p>df命令可以显示目前所有文件系统的可用空间及使用情形，请看下列这个例子：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ df -h</span><br><span class="line">Filesystem            Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/sda1             3.9G  300M  3.4G   8% /</span><br><span class="line">/dev/sda7             100G  188M   95G   1% /data0</span><br><span class="line">/dev/sdb1             133G   80G   47G  64% /data1</span><br><span class="line">/dev/sda6             7.8G  218M  7.2G   3% /var</span><br><span class="line">/dev/sda5             7.8G  166M  7.2G   3% /tmp</span><br><span class="line">/dev/sda3             9.7G  2.5G  6.8G  27% /usr</span><br><span class="line">tmpfs                 2.0G     0  2.0G   0% /dev/shm</span><br></pre></td></tr></table></figure>
-
-<p>参数 <code>-h</code> 表示使用<code>「Human-readable」</code>的输出，也就是在档案系统大小使用 <code>GB</code>、<code>MB</code> 等易读的格式。</p>
-<p>上面的命令输出的第一个字段（Filesystem）及最后一个字段（Mounted on）分别是档案系统及其挂入点。我们可以看到 <code>/dev/sda1</code> 这个分割区被挂在根目录下。</p>
-<p>接下来的四个字段 <code>Size</code>、<code>Used</code>、<code>Avail</code>、及 <code>Use%</code> 分别是该分割区的容量、已使用的大小、剩下的大小、及使用的百分比。 FreeBSD下，当硬盘容量已满时，您可能会看到已使用的百分比超过 100%，因为 FreeBSD 会留一些空间给 <code>root</code>，让 <code>root</code> 在档案系统满时，还是可以写东西到该档案系统中，以进行管理。</p>
-<p>du：查询文件或文件夹的磁盘使用空间</p>
-<p>如果当前目录下文件和文件夹很多，使用不带参数<code>du</code>的命令，可以循环列出所有文件和文件夹所使用的空间。这对查看究竟是那个地方过大是不利的，所以得指定深入目录的层数，参数：<code>–max-depth=</code>，这是个极为有用的参数！如下，注意使用“*”，可以得到文件的使用空间大小.</p>
-<p>提醒：一向命令比linux复杂的FreeBSD，它的du命令指定深入目录的层数却是比linux简化，为 -d。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">du</span> -h –max-depth=1 work/testing</span><br><span class="line">27M     work/testing/logs</span><br><span class="line">35M     work/testing</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">du</span> -h –max-depth=1 work/testing/*</span><br><span class="line">8.0K    work/testing/func.php</span><br><span class="line">27M     work/testing/logs</span><br><span class="line">8.1M    work/testing/nohup.out</span><br><span class="line">8.0K    work/testing/testing_c.php</span><br><span class="line">12K     work/testing/testing_func_reg.php</span><br><span class="line">8.0K    work/testing/testing_get.php</span><br><span class="line">8.0K    work/testing/testing_g.php</span><br><span class="line">8.0K    work/testing/var.php</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">du</span> -h –max-depth=1 work/testing/logs/</span><br><span class="line">27M     work/testing/logs/</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">du</span> -h –max-depth=1 work/testing/logs/*</span><br><span class="line">24K     work/testing/logs/errdate.log_show.log</span><br><span class="line">8.0K    work/testing/logs/pertime_show.log</span><br><span class="line">27M     work/testing/logs/show.log</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">du</span> -shc *</span><br><span class="line"></span><br><span class="line">60M bitcoin</span><br><span class="line">60M total</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/linux_file_dir_size/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -545,7 +531,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -563,7 +549,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>247</span>
+              <span>239</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -582,14 +568,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="在Finder中查看文件夹大小："><a href="#在Finder中查看文件夹大小：" class="headerlink" title="在Finder中查看文件夹大小："></a>在Finder中查看文件夹大小：</h2><p>1、Cmd+A选中当前目录下所有文件</p>
-<p>2、在右键菜单中选择“显示选项”或者按Cmd+J快捷键</p>
-<p>3、选择“计算所有大小”的复选框</p>
+          <h2 id="在Finder中查看文件夹大小"><a href="#在Finder中查看文件夹大小" class="headerlink" title="在Finder中查看文件夹大小"></a>在Finder中查看文件夹大小</h2><ol>
+<li>Cmd+A选中当前目录下所有文件</li>
+<li>在右键菜单中选择“显示选项”或者按Cmd+J快捷键</li>
+<li>选择“计算所有大小”的复选框</li>
+</ol>
 <p>然后文件夹的大小就会显示出来了。</p>
 <p>参考：<span class="exturl" data-url="aHR0cDovL29zeGRhaWx5LmNvbS8yMDExLzA0LzA1L3Nob3ctZm9sZGVyLXNpemVzLWluLW1hYy1vcy14LWxpc3Qtdmlldy8=">http://osxdaily.com/2011/04/05/show-folder-sizes-in-mac-os-x-list-view/<i class="fa fa-external-link-alt"></i></span></p>
-<h2 id="在Terminal中查看当前目录下所有文件（包含文件夹）大小："><a href="#在Terminal中查看当前目录下所有文件（包含文件夹）大小：" class="headerlink" title="在Terminal中查看当前目录下所有文件（包含文件夹）大小："></a>在Terminal中查看当前目录下所有文件（包含文件夹）大小：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -hs *</span><br></pre></td></tr></table></figure>
+<h2 id="在Terminal中查看当前目录下所有文件（包含文件夹）大小"><a href="#在Terminal中查看当前目录下所有文件（包含文件夹）大小" class="headerlink" title="在Terminal中查看当前目录下所有文件（包含文件夹）大小"></a>在Terminal中查看当前目录下所有文件（包含文件夹）大小</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">du</span> -hs *</span><br></pre></td></tr></table></figure>
+
 <p>或者：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -shc *</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">du</span> -shc *</span><br></pre></td></tr></table></figure>
+
 <p>第二个命令能在最后显示一个Total大小，即当前目录的总大小。</p>
 
       
@@ -641,7 +631,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -738,7 +728,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -869,7 +859,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -907,27 +897,14 @@
 
       
           <p>Linux <code>crontab</code>命令可以实现定时执行任务，最小的执行周期是1分钟</p>
-<p>例：每天12点执行<code>test.PHP</code>，执行的输出会追加到<code>test.log</code>文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 12 * * * php /Users/fdipzone/test.php &gt;&gt; /Users/fdipzone/test.log 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
-
-<p><code>2&gt;&amp;1</code> 表示把标准错误输出重定向到与标准输出一致，即<code>test.log</code></p>
-<p>每天12点都执行一次，当天的输出就会追加到<code>test.log</code>文件。如果运行了一段很长的时间（如1年)，<code>test.log</code>文件的内容则会很大。这样不方便查看对应日期的输出记录。</p>
-<p>因此我们需要一个方法，可以按不同时段写入不同的日志文件，例如每日，每周，每月使用一个日志文件（具体根据不同的需求定义）这样就可以方便搜寻。</p>
-<p>例：每天12点执行，使用当天日期来命名重定向文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 12 * * * php /Users/fdipzone/test.php &gt;&gt; &quot;/Users/fdipzone/$(date +&quot;\%Y-\%m-\%d&quot;).log&quot; 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
-
-<p>2016-06-06 执行的，会追加入<code>/Users/fdipzone/2016-06-06.log</code><br>2016-06-07 执行的，会追加入<code>/Users/fdipzone/2016-06-07.log</code><br>…<br>这样可以很方便找到对应日期的定时任务执行日志</p>
-<p>如果每天创建的日志内容不多，我们可以使用月份&#x2F;周为日志命名。如果日志内容很多也可以按小时来命名，以下提供不同时段的命名重定向文件实例。</p>
-<p>使用月份命名</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 12 * * * php /Users/fdipzone/test.php &gt;&gt; &quot;/Users/fdipzone/$(date +&quot;\%Y-\%m&quot;).log&quot; 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
-<p>使用周命名</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 12 * * * php /Users/fdipzone/test.php &gt;&gt; &quot;/Users/fdipzone/$(date +&quot;\%Y-W\%W&quot;).log&quot; 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
-<p>使用小时命名</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* * * * * php /Users/fdipzone/test.php &gt;&gt; &quot;/Users/fdipzone/$(date +&quot;\%Y-\%m-\%d_\%H&quot;).log&quot; 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
-
-<p>2017年05月18日16:30:46</p>
-<p>总见人问 怎么设置<code>crontab</code> 每分钟定时执行之类的问题 ，今天我就贴了上来方便大家使用，会的同学就飘过吧不会的就留个脚印。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">每五分钟执行    */5 * * * *</span><br><span class="line">每小时执行      0 * * * *</span><br><span class="line">每天执行        0 0 * * *</span><br><span class="line">每周执行        0 0 * * 0</span><br><span class="line">每月执行        0 0 1 * *</span><br><span class="line">每年执行        0 0 1 1 *</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/linux_crontab/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -977,7 +954,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1021,70 +998,15 @@
 <li>删除不存在对应远程分支的本地分支</li>
 <li>重命名远程分支</li>
 <li>把本地tag推送到远程</li>
-<li>获取远程tag</li>
-</ol>
-<h2 id="查看远程分支"><a href="#查看远程分支" class="headerlink" title="查看远程分支"></a>查看远程分支</h2><p>加上-a参数可以查看远程分支，远程分支会用红色表示出来（如果你开了颜色支持的话）：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -a</span><br><span class="line">  master</span><br><span class="line">  remote</span><br><span class="line">  tungway</span><br><span class="line">  v1.52</span><br><span class="line">* zrong</span><br><span class="line">  remotes/origin/master</span><br><span class="line">  remotes/origin/tungway</span><br><span class="line">  remotes/origin/v1.52</span><br><span class="line">  remotes/origin/zrong</span><br></pre></td></tr></table></figure>
-
-<h2 id="删除远程分支和tag"><a href="#删除远程分支和tag" class="headerlink" title="删除远程分支和tag"></a>删除远程分支和tag</h2><p>在Git v1.7.0 之后，可以使用这种语法删除远程分支：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin --delete</span><br></pre></td></tr></table></figure>
-
-<p>删除tag这么用：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin --delete tag</span><br></pre></td></tr></table></figure>
-
-<p>否则，可以使用这种语法，推送一个空分支到远程分支，其实就相当于删除远程分支：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin :</span><br></pre></td></tr></table></figure>
-
-<p>这是删除tag的方法，推送一个空tag到远程tag：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git tag -d git </span><br><span class="line">push origin :refs/tags/ </span><br></pre></td></tr></table></figure>
-
-<p>两种语法作用完全相同。</p>
-<h2 id="删除不存在对应远程分支的本地分支"><a href="#删除不存在对应远程分支的本地分支" class="headerlink" title="删除不存在对应远程分支的本地分支"></a>删除不存在对应远程分支的本地分支</h2><p>假设这样一种情况：</p>
-<ol>
-<li>我创建了本地分支b1并pull到远程分支 <code>origin/b1</code>；</li>
-<li>其他人在本地使用fetch或pull创建了本地的b1分支；</li>
-<li>我删除了 <code>origin/b1</code> 远程分支；</li>
-<li>其他人再次执行fetch或者pull并不会删除这个他们本地的 <code>b1</code> 分支，运行 <code>git branch -a</code> 也不能看出这个branch被删除了，如何处理？</li>
-</ol>
-<p>使用下面的代码查看b1的状态：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ git remote show origin</span><br><span class="line">* remote origin</span><br><span class="line">  Fetch URL: git@github.com:xxx/xxx.git</span><br><span class="line">  Push  URL: git@github.com:xxx/xxx.git</span><br><span class="line">  HEAD branch: master</span><br><span class="line">  Remote branches:</span><br><span class="line">    master                 tracked</span><br><span class="line">    refs/remotes/origin/b1 stale (use &#x27;git remote prune&#x27; to remove)</span><br><span class="line">  Local branch configured for &#x27;git pull&#x27;:</span><br><span class="line">    master merges with remote master</span><br><span class="line">  Local ref configured for &#x27;git push&#x27;:</span><br><span class="line">    master pushes to master (up to date)</span><br></pre></td></tr></table></figure>
-
-<p>这时候能够看到b1是stale的，使用 <code>git remote prune origin</code> 可以将其从本地版本库中去除。 更简单的方法是使用这个命令，它在fetch之后删除掉没有与远程分支对应的本地分支：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch -p</span><br></pre></td></tr></table></figure>
-
-<h2 id="重命名远程分支"><a href="#重命名远程分支" class="headerlink" title="重命名远程分支"></a>重命名远程分支</h2><p>在git中重命名远程分支，其实就是先删除远程分支，然后重命名本地分支，再重新提交一个远程分支。 例如下面的例子中，我需要把 devel 分支重命名为 develop 分支：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -av</span><br><span class="line">* devel                             752bb84 Merge pull request #158 from Gwill/devel</span><br><span class="line">  master                            53b27b8 Merge pull request #138 from tdlrobin/master</span><br><span class="line">  zrong                             2ae98d8 modify CCFileUtils, export getFileData</span><br><span class="line">  remotes/origin/HEAD               -&gt; origin/master</span><br><span class="line">  remotes/origin/add_build_script   d4a8c4f Merge branch &#x27;master&#x27; into add_build_script</span><br><span class="line">  remotes/origin/devel              752bb84 Merge pull request #158 from Gwill/devel</span><br><span class="line">  remotes/origin/devel_qt51         62208f1 update .gitignore</span><br><span class="line">  remotes/origin/master             53b27b8 Merge pull request #138 from tdlrobin/master</span><br><span class="line">  remotes/origin/zrong              2ae98d8 modify CCFileUtils, export getFileData</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>删除远程分支：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git push --delete origin devel</span><br><span class="line">To git@github.com:zrong/quick-cocos2d-x.git</span><br><span class="line"> - [deleted]         devel</span><br></pre></td></tr></table></figure>
-
-<p>重命名本地分支：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -m devel develop</span><br></pre></td></tr></table></figure>
-
-<p>推送本地分支：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin develop</span><br><span class="line">Counting objects: 92, done.</span><br><span class="line">Delta compression using up to 4 threads.</span><br><span class="line">Compressing objects: 100% (48/48), done.</span><br><span class="line">Writing objects: 100% (58/58), 1.38 MiB, done.</span><br><span class="line">Total 58 (delta 34), reused 12 (delta 5)</span><br><span class="line">To git@github.com:zrong/quick-cocos2d-x.git</span><br><span class="line"> * [new branch]      develop -&gt; develop</span><br></pre></td></tr></table></figure>
-
-<p>然而，在 github 上操作的时候，我在删除远程分支时碰到这个错误：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git push --delete origin devel</span><br><span class="line">remote: error: refusing to delete the current branch: refs/heads/devel</span><br><span class="line">To git@github.com:zrong/quick-cocos2d-x.git</span><br><span class="line"> ! [remote rejected] devel (deletion of the current branch prohibited)</span><br><span class="line">error: failed to push some refs to &#x27;git@github.com:zrong/quick-cocos2d-x.git&#x27;</span><br></pre></td></tr></table></figure>
-
-<p>这是由于在 github 中，devel 是项目的默认分支。要解决此问题，这样操作：</p>
-<ol>
-<li>进入 github 中该项目的 Settings 页面；</li>
-<li>设置 Default Branch 为其他的分支（例如 master）；</li>
-<li>重新执行删除远程分支命令。</li>
-</ol>
-<h2 id="把本地tag推送到远程"><a href="#把本地tag推送到远程" class="headerlink" title="把本地tag推送到远程"></a>把本地tag推送到远程</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push --tags</span><br></pre></td></tr></table></figure>
-
-<h2 id="获取远程tag"><a href="#获取远程tag" class="headerlink" title="获取远程tag"></a>获取远程tag</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin tag</span><br></pre></td></tr></table></figure>
-
-<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ul>
-<li><span class="exturl" data-url="aHR0cHM6Ly9tYWthbmRyYWNhcmRzLmNvbS9tYWthbmRyYS82MjEtZ2l0LWRlbGV0ZS1hLWJyYW5jaC1sb2NhbC1vci1yZW1vdGU=">https://makandracards.com/makandra/621-git-delete-a-branch-local-or-remote<i class="fa fa-external-link-alt"></i></span></li>
-<li><span class="exturl" data-url="aHR0cDovL3N0YWNrb3ZlcmZsb3cuY29tL3F1ZXN0aW9ucy8yMDAzNTA1L2hvdy1kby1pLWRlbGV0ZS1hLWdpdC1icmFuY2gtYm90aC1sb2NhbGx5LWFuZC1pbi1naXRodWI=">http://stackoverflow.com/questions/2003505/how-do-i-delete-a-git-branch-both-locally-and-in-github<i class="fa fa-external-link-alt"></i></span></li>
-<li><span class="exturl" data-url="aHR0cDovL3d3dy5jbmJsb2dzLmNvbS9kZWVwbmlnaHR0d28vYXJjaGl2ZS8yMDExLzA2LzE4LzIwODQ0MzguaHRtbA==">http://www.cnblogs.com/deepnighttwo/archive/2011/06/18/2084438.html<i class="fa fa-external-link-alt"></i></span></li>
-<li><span class="exturl" data-url="aHR0cDovL3N0YWNrb3ZlcmZsb3cuY29tL3F1ZXN0aW9ucy8xNDA0MDc1NC9kZWxldGluZy1yZW1vdGUtbWFzdGVyLWJyYW5jaC1yZWZ1c2VkLWR1ZS10by1iZWluZy1jdXJyZW50LWJyYW5jaA==">http://stackoverflow.com/questions/14040754/deleting-remote-master-branch-refused-due-to-being-current-branch<i class="fa fa-external-link-alt"></i></span></li>
-<li><span class="exturl" data-url="aHR0cDovL3dlbGkuaXRleWUuY29tL2Jsb2cvMTQ0MTU4Mg==">http://weli.iteye.com/blog/1441582<i class="fa fa-external-link-alt"></i></span></li>
-</ul>
-
+<li>获取远程tag
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/git_tag_use/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1134,7 +1056,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1152,7 +1074,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>673</span>
+              <span>671</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -1171,26 +1093,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>使用git clone命令从github上同步github上的代码库时，如果使用SSH链接，而你的SSH key没有添加到github帐号设置中，系统会报下面的错误： </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Permission denied (publickey). fatal: The remote end hung up unexpectedly</span><br></pre></td></tr></table></figure>
-
-<p>这时需要在本地创建SSH key，然后将生成的SSH key文件内容添加到github帐号上去。 创建SSH key的方法很简单，执行如下命令就可以：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;yaozihao@yaozihao.cn&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>然后系统提示输入文件保存位置等信息，连续敲三次回车即可，生成的SSH key文件保存在 </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~/.ssh/id\_rsa.pub</span><br></pre></td></tr></table></figure>
-
-<p>然后用文本编辑工具打开该文件，我用的是vim,所以命令是：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
-
-<p>接着拷贝<code>.ssh/id_rsa.pub</code>文件内的所以内容，将它粘帖到github帐号管理中的添加SSH key界面中。 打开github帐号管理中的添加SSH key界面的步骤如下：</p>
-<ol>
-<li>登录github</li>
-<li>点击右上方的Accounting settings图标</li>
-<li>选择 SSH key</li>
-<li>点击 Add SSH key 在出现的界面中填写SSH key的名称，填一个你自己喜欢的名称即可，然后将上面拷贝的<code>~/.ssh/id_rsa.pub</code>文件内容粘帖到key一栏，在点击“add key”按钮就可以了。添加过程github会提示你输入一次你的github密码</li>
-</ol>
-<p>添加完成后再次执行<code>git clone</code>就可以成功克隆github上的代码库了。</p>
-
+          <p>使用<code>git clone</code>命令从<code>github</code>上同步<code>github</code>上的代码库时，如果使用SSH链接，而你的<code>SSH key</code>没有添加到github帐号设置中，系统会报下面的错误：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Permission denied (publickey). fatal: The remote end hung <span class="keyword">up</span> unexpectedly</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/git_ssh_key/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1240,7 +1152,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-29 11:49:30" itemprop="dateModified" datetime="2022-11-29T11:49:30Z">2022-11-29</time>
+                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1449,13 +1361,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">802k</span>
+    <span title="站点总字数">803k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:09</span>
+    <span title="站点阅读时长">12:10</span>
 </div>
 
         
