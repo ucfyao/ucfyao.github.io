@@ -23,16 +23,16 @@
     var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="实现目标1.页面的跳转（前进后退，点击等）不重新请求页面2.页面URL与页面展现内容一致（符合人们对传统网页的认识）3.在不支持的浏览器下降级成传统网页的方式 使用到的APIhistory.state当前URL下对应的状态信息。如果当前URL不是通过pushState或者replaceState产生的，那么history.state是null。 history.pushState(state, t">
+  <meta name="description" content="实现目标1.页面的跳转（前进后退，点击等）不重新请求页面2.页面URL与页面展现内容一致（符合人们对传统网页的认识）3.在不支持的浏览器下降级成传统网页的方式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="利用PushState开发无刷页面切换">
 <meta property="og:url" content="https://yaozihao.com/js_pushstate/index.html">
 <meta property="og:site_name" content="Zihao">
-<meta property="og:description" content="实现目标1.页面的跳转（前进后退，点击等）不重新请求页面2.页面URL与页面展现内容一致（符合人们对传统网页的认识）3.在不支持的浏览器下降级成传统网页的方式 使用到的APIhistory.state当前URL下对应的状态信息。如果当前URL不是通过pushState或者replaceState产生的，那么history.state是null。 history.pushState(state, t">
+<meta property="og:description" content="实现目标1.页面的跳转（前进后退，点击等）不重新请求页面2.页面URL与页面展现内容一致（符合人们对传统网页的认识）3.在不支持的浏览器下降级成传统网页的方式">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/ucfyao/image/img/img/20190422142154.png">
 <meta property="article:published_time" content="2016-01-22T16:21:43.000Z">
-<meta property="article:modified_time" content="2022-11-30T00:23:54.204Z">
+<meta property="article:modified_time" content="2022-12-01T08:56:54.499Z">
 <meta property="article:author" content="Zihao Yao">
 <meta property="article:tag" content="js">
 <meta name="twitter:card" content="summary">
@@ -133,7 +133,7 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">21</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
@@ -234,7 +234,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -250,7 +250,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Front/js/" itemprop="url" rel="index"><span itemprop="name">js</span></a>
+                  <a href="/categories/Web/Front/Js/" itemprop="url" rel="index"><span itemprop="name">Js</span></a>
                 </span>
             </span>
 
@@ -267,7 +267,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1k</span>
+              <span>1.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -287,11 +287,13 @@
 
       
         <h2 id="实现目标"><a href="#实现目标" class="headerlink" title="实现目标"></a>实现目标</h2><p>1.页面的跳转（前进后退，点击等）不重新请求页面<br>2.页面URL与页面展现内容一致（符合人们对传统网页的认识）<br>3.在不支持的浏览器下降级成传统网页的方式</p>
-<h2 id="使用到的API"><a href="#使用到的API" class="headerlink" title="使用到的API"></a>使用到的API</h2><h3 id="history-state"><a href="#history-state" class="headerlink" title="history.state"></a>history.state</h3><p>当前URL下对应的状态信息。如果当前URL不是通过pushState或者replaceState产生的，那么history.state是null。</p>
-<h3 id="history-pushState-state-title-url"><a href="#history-pushState-state-title-url" class="headerlink" title="history.pushState(state, title, url)"></a>history.pushState(state, title, url)</h3><p>将当前URL和history.state加入到history中，并用新的state和URL替换当前。不会造成页面刷新。 state：与要跳转到的URL对应的状态信息。 title：不知道干啥用，传空字符串就行了。 url：要跳转到的URL地址，不能跨域。</p>
+<span id="more"></span>
+
+<h2 id="使用到的API"><a href="#使用到的API" class="headerlink" title="使用到的API"></a>使用到的API</h2><h3 id="history-state"><a href="#history-state" class="headerlink" title="history.state"></a>history.state</h3><p>当前URL下对应的状态信息。如果当前URL不是通过<code>pushState</code>或者<code>replaceState</code>产生的，那么<code>history.state</code>是<code>null</code>。</p>
+<h3 id="history-pushState-state-title-url"><a href="#history-pushState-state-title-url" class="headerlink" title="history.pushState(state, title, url)"></a>history.pushState(state, title, url)</h3><p>将当前URL和<code>history.state</code>加入到history中，并用新的state和URL替换当前。不会造成页面刷新。 state：与要跳转到的URL对应的状态信息。 title：不知道干啥用，传空字符串就行了。 url：要跳转到的URL地址，不能跨域。</p>
 <h3 id="history-replaceState"><a href="#history-replaceState" class="headerlink" title="history.replaceState"></a>history.replaceState</h3><p>用新的state和URL替换当前。不会造成页面刷新。 state：与要跳转到的URL对应的状态信息。 title：不知道干啥用，传空字符串就行了。 url：要跳转到的URL地址，不能跨域。</p>
-<h3 id="window-onpopstate"><a href="#window-onpopstate" class="headerlink" title="window.onpopstate"></a>window.onpopstate</h3><p>history.go和history.back（包括用户按浏览器历史前进后退按钮）触发，并且页面无刷的时候（由于使用pushState修改了history）会触发popstate事件，事件发生时浏览器会从history中取出URL和对应的state对象替换当前的URL和history.state。通过event.state也可以获取history.state。</p>
-<h2 id="支持性判断"><a href="#支持性判断" class="headerlink" title="支持性判断"></a>支持性判断</h2><p>if (‘pushState’ in history) {…}</p>
+<h3 id="window-onpopstate"><a href="#window-onpopstate" class="headerlink" title="window.onpopstate"></a>window.onpopstate</h3><p><code>history.go</code>和<code>history.back</code>（包括用户按浏览器历史前进后退按钮）触发，并且页面无刷的时候（由于使用pushState修改了history）会触发<code>popstate</code>事件，事件发生时浏览器会从<code>history</code>中取出URL和对应的state对象替换当前的URL和<code>history.state</code>。通过<code>event.state</code>也可以获取<code>history.state</code>。</p>
+<h2 id="支持性判断"><a href="#支持性判断" class="headerlink" title="支持性判断"></a>支持性判断</h2><p><code>if (&#39;pushState&#39; in history) &#123;...&#125;</code></p>
 <h2 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h2><p>用户通过“点击触发”，“操作历史”，“直接访问URL”的方式修改当前URL。这三种触发方式会使浏览器做出不同的行为。如果页面做无刷跳转，那么页面具体显示什么内容需要js来控制，js则需要根据一些信息来知道当前应该显示什么内容，这个信息就是history.state。这样我们只要保持URL和history.state一一对应，就能保证URL和内容一一对应。大部分情况下URL和history.state都是一一对应的，但通过直接URL访问页面的方式进入页面，history.state是null，所以我们需要把URL转换成对应的history.state写入。我们不能直接写入history.state，需要通过replaceState的方式写入。对于不支持pushstate的浏览器，一律修改href跳转页面，等同于直接访问URL。示意图如下。 </p>
 <p><img data-src="https://raw.githubusercontent.com/ucfyao/image/img/img/20190422142154.png"></p>
 
@@ -460,7 +462,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -528,13 +530,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">803k</span>
+    <span title="站点总字数">802k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:10</span>
+    <span title="站点阅读时长">12:09</span>
 </div>
 
         

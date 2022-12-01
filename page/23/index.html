@@ -129,7 +129,7 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">21</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -246,7 +246,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/php/" itemprop="url" rel="index"><span itemprop="name">php</span></a>
+                  <a href="/categories/Web/Back/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a>
                 </span>
             </span>
 
@@ -256,7 +256,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
+              <span>1.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -275,23 +275,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <ol>
-<li><code>mkdir app &amp;&amp; cd app</code></li>
-<li><code>composer init</code></li>
-<li><code>vi composer.json</code>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;name&quot;: &quot;yourname/yourpro&quot;,</span><br><span class="line">    &quot;description&quot;: &quot;desc&quot;,</span><br><span class="line">    &quot;authors&quot;: [&#123;</span><br><span class="line">        &quot;name&quot;: &quot;yourname&quot;,</span><br><span class="line">        &quot;email&quot;: &quot;yourname@gmail.com&quot;</span><br><span class="line">    &#125;],</span><br><span class="line">    &quot;require&quot;: &#123;&#125;,</span><br><span class="line">    &quot;autoload&quot;: &#123;</span><br><span class="line">        &quot;classmap&quot;: [</span><br><span class="line">            &quot;lib/&quot;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>创建git库<code>yourname/yourpro</code></li>
-<li><code>git remote add origin git@github.com:yourname/yourpro</code> 设置公钥略过</li>
-<li><code>git add .&amp;&amp; git commit -am “init” &amp;&amp; git pull orgin master &amp;&amp; git push orgin master</code></li>
-<li>创建tag composer包版本来自于git分支和tag，分支代表dev版本(除master外)，tag代表stable版本</li>
-<li><code>git tag 1.0 &amp;&amp; git push origin –tags</code></li>
-<li>登录 <span class="exturl" data-url="aHR0cHM6Ly9wYWNrYWdpc3Qub3JnLw==">https://packagist.org/<i class="fa fa-external-link-alt"></i></span> 点击由上角的submit提交git仓库的地址</li>
-<li>添加 GitHub Service Hook domain 指向packagist的地址</li>
-<li>安装库 <code>composer require ‘yourname/yourpro:1.0.0</code><br>  如果报错,执行<code>composer update</code>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nothing：</span><br><span class="line"></span><br><span class="line">Potential causes:</span><br><span class="line">- A typo in the package name</span><br><span class="line">- The package is not available in a stable-enough version according to your minimum-stability setting</span><br><span class="line">  see &lt;https://groups.google.com/d/topic/composer-dev/_g3ASeIFlrc/discussion&gt; for more details.</span><br></pre></td></tr></table></figure>
-  如果<code>new \Class</code>;提示类找不到，执行<code>composer dumpautoload</code></li>
-<li>包创建成功，可以根据提示继续配置github自动同步功能，这样每次push后，packagist对应包的版本号也会更新。</li>
-<li>修改包并更新，修改后git push，然后到使用该包的项目中执行<code>composer –dev –prefer-source update  [包名]</code> ，加<code>–prefer-source</code>意思是从github上检出最新版本。</li>
-</ol>
-
+          <blockquote>
+<p>Composer是PHP的一个包管理器。Packagist 是主要的 Composer 仓库，它集合了与Composer一起安装的公开 PHP 软件包。我们可以创建库，上传到该平台，在项目中声明依赖的库文件，Composer会自动安装这些依赖的文件。</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/php_composer/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -341,7 +335,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -357,7 +351,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/php/" itemprop="url" rel="index"><span itemprop="name">php</span></a>
+                  <a href="/categories/Web/Back/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a>
                 </span>
             </span>
 
@@ -386,28 +380,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>我的学习方式是，通过自己写一个列子，来学习某个东西，这次的 laravel 也不列外</p>
-<p>这次说下，<code>laravel</code> 下的 <code>routes::resource</code> 使用方法，因为我英文水平不是很好，遇到各种坑，后来没辙，上问答社区找大神指点，终于明白了怎么回事</p>
-<p>简单说下他的功能吧</p>
-<p>我们写一个控制器，写一个方法，就得去 <code>routes</code> 里面绑定一次，其实有时候挺麻烦的，那么这个时候，有没有一个东西，绑定控制器后，下面的方法就不需要绑定了呢？有的，这就是 <code>resource</code></p>
-<p>通过列子来学习</p>
-<p>我们新建一个控制器</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan generate:controller TestController</span><br></pre></td></tr></table></figure>
+          <p>我的学习方式是，通过自己写一个列子，来学习某个东西，这次的 laravel 也不列外。</p>
+<p>这次说下，<code>laravel</code> 下的 <code>routes::resource</code> 使用方法，因为我英文水平不是很好，遇到各种坑，后来没辙，上问答社区找大神指点，终于明白了怎么回事。</p>
+<p>简单说下他的功能吧。</p>
+<p>我们写一个控制器，写一个方法，就得去 <code>routes</code> 里面绑定一次，其实有时候挺麻烦的，那么这个时候，有没有一个东西，绑定控制器后，下面的方法就不需要绑定了呢？有的，这就是 <code>resource</code>。</p>
+<p>通过列子来学习。</p>
+<p>我们新建一个控制器。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan generate:controller TestController</span><br></pre></td></tr></table></figure>
 
-<p>我们要修改下我们生成的控制器，使用命名空间<br>test 控制器代码如下</p>
+<p>我们要修改下我们生成的控制器，使用命名空间。<br>test 控制器代码如下。</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 命名空间</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">App</span>\<span class="title class_">Controllers</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">BaseController</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestController</span> <span class="keyword">extends</span> <span class="title">BaseController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Display a listing of the resource.</span></span><br><span class="line"><span class="comment">  * GET /test</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@return</span> Response</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;index&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Show the form for creating a new resource.</span></span><br><span class="line"><span class="comment">  * GET /test/create</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@return</span> Response</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">create</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Store a newly created resource in storage.</span></span><br><span class="line"><span class="comment">  * POST /test</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@return</span> Response</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">store</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Display the specified resource.</span></span><br><span class="line"><span class="comment">  * GET /test/&#123;id&#125;</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> int $id</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@return</span> Response</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">show</span>(<span class="params"><span class="variable">$id</span></span>)</span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Show the form for editing the specified resource.</span></span><br><span class="line"><span class="comment">  * GET /test/&#123;id&#125;/edit</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> int $id</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@return</span> Response</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">edit</span>(<span class="params"><span class="variable">$id</span></span>)</span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Update the specified resource in storage.</span></span><br><span class="line"><span class="comment">  * PUT /test/&#123;id&#125;</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> int $id</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@return</span> Response</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">update</span>(<span class="params"><span class="variable">$id</span></span>)</span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Remove the specified resource from storage.</span></span><br><span class="line"><span class="comment">  * DELETE /test/&#123;id&#125;</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> int $id</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@return</span> Response</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">destroy</span>(<span class="params"><span class="variable">$id</span></span>)</span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>好了，我们来新建我们的路由，<code>App\Controllers\TestController</code> 就是我们刚刚设置的命名空间哦</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">resource</span>(<span class="string">&#x27;test&#x27;</span>,<span class="string">&#x27;App\Controllers\TestController&#x27;</span>);</span><br></pre></td></tr></table></figure>
 
-<p>这个时候，你的控制器就与路由绑定了，</p>
-<p>我们访问 <code>localhost/tets</code> 如果输出 index ，那么绑定就成功啦！</p>
-<p>好了，绑定好了后，我们来讲讲怎么生成 url，因为使用 <code>URL::route()</code> 都是需要输入 路由的名称的，我们这次绑定整个路由，怎么输入名称呢 ？很简单</p>
-<p>就我们之前绑定的 <code>test</code></p>
+<p>这个时候，你的控制器就与路由绑定了，我们访问 <code>localhost/tets</code> 如果输出 index ，那么绑定就成功啦！</p>
+<p>好了，绑定好了后，我们来讲讲怎么生成 url，因为使用 <code>URL::route()</code> 都是需要输入 路由的名称的，我们这次绑定整个路由，怎么输入名称呢？很简单，就我们之前绑定的 <code>test</code>。</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">URL::<span class="title function_ invoke__">route</span>(<span class="string">&#x27;test.index&#x27;</span>) <span class="comment">// 首页</span></span><br><span class="line">URL::<span class="title function_ invoke__">route</span>(<span class="string">&#x27;test.edit&#x27;</span>,<span class="keyword">array</span>(<span class="string">&#x27;id&#x27;</span>=&gt;<span class="number">1</span>))<span class="comment">// 编辑</span></span><br></pre></td></tr></table></figure>
 
 <p>很简单吧，就是你绑定时候的 名称 连接上你的方法名，</p>
 <p>！！ 注意，在后台使用，路径要写全，如： <code>admin.test.index</code></p>
-<p>然后，<code>resource</code> 只支持下面几种方法来自动绑定</p>
+<p>然后，<code>resource</code> 只支持下面几种方法来自动绑定。</p>
 
       
     </div>
@@ -458,7 +451,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -503,20 +496,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="1、服务器要求"><a href="#1、服务器要求" class="headerlink" title="1、服务器要求"></a><strong>1、服务器要求</strong></h3><p>Laravel&#x2F;<span class="exturl" data-url="aHR0cDovL2xhcmF2ZWxhY2FkZW15Lm9yZy90YWdzL2x1bWVu">Lumen<i class="fa fa-external-link-alt"></i></span>框架对服务器有少许要求，当然，<span class="exturl" data-url="aHR0cDovL2xhcmF2ZWxhY2FkZW15Lm9yZy9wb3N0LzI3NDkuaHRtbA==">Laravel Homestead<i class="fa fa-external-link-alt"></i></span>虚拟机已经满足所有这些要求，所以强烈推荐使用<span class="exturl" data-url="aHR0cDovL2xhcmF2ZWxhY2FkZW15Lm9yZy90YWdzL2hvbWVzdGVhZA==">Homestead<i class="fa fa-external-link-alt"></i></span>作为本地<span class="exturl" data-url="aHR0cDovL2xhcmF2ZWxhY2FkZW15Lm9yZy90YWdzLyVlNSViYyU4MCVlNSU4ZiU5MSVlNyU4ZSVhZiVlNSVhMiU4Mw==">开发环境<i class="fa fa-external-link-alt"></i></span>。 如果你没有使用Homestead，那么需要确保服务器满足以下要求：</p>
-<ul>
-<li>PHP &gt;&#x3D; 5.5.9</li>
-<li>OpenSSL PHP Extension</li>
-<li>Mbstring PHP Extension</li>
-<li>PDO PHP Extension</li>
-</ul>
-<h3 id="2、安装Lumen"><a href="#2、安装Lumen" class="headerlink" title="2、安装Lumen"></a><strong>2、<span class="exturl" data-url="aHR0cDovL2xhcmF2ZWxhY2FkZW15Lm9yZy90YWdzLyVlNSVhZSU4OSVlOCVhMyU4NQ==">安装<i class="fa fa-external-link-alt"></i></span>Lumen</strong></h3><p>Lumen使用<span class="exturl" data-url="aHR0cDovL2xhcmF2ZWxhY2FkZW15Lm9yZy90YWdzL2NvbXBvc2Vy">Composer<i class="fa fa-external-link-alt"></i></span>来管理依赖，所以，在使用之前，确保你已经在机器上安装了Composer。 </p>
-<p><strong>通过Lumen安装器</strong><br>首先，使用Composer下载Lumen安装器： <code>composer global require &quot;laravel/lumen-installer&quot;</code> 确保<code>~/.composer/vendor/bin</code>在系统路径PATH中，否则不能在命令行调用<code>lumen</code>命令。 安装完成后，只需简单通过<code>lumen new</code>命令就可以在当前目录下创建一个新的Lumen应用，例如，<code>lumen new blog</code>将会创建一个名为<code>blog</code>的Lumen安装目录，该目录中已经包含了所有Lumen依赖。</p>
-<p>该安装方法比通过Composer安装要快很多：<code>lumen new blog</code> </p>
-<p><strong>通过Composer Create-Project安装</strong><br>你还可以在终端中通过Composer的<code>create-project命令</code>来安装Lumen： <code>composer create-project  ``laravel/lumen blog --prefer-dist &quot;5.2.*&quot;</code></p>
-<h3 id="3、配置"><a href="#3、配置" class="headerlink" title="3、配置"></a><strong>3、<span class="exturl" data-url="aHR0cDovL2xhcmF2ZWxhY2FkZW15Lm9yZy90YWdzLyVlOSU4NSU4ZCVlNyViZCVhZQ==">配置<i class="fa fa-external-link-alt"></i></span></strong></h3><p>Lumen框架的所有配置都存放在.env文件，安装好Lumen后，需要配置本地开发环境。</p>
-<p><strong>Application Key</strong><br>安装完Lumen后，需要设置APP_KEY为32位长的随机字符串，该key被配置在<code>.env</code>环境文件中（APP_KEY），如果你还没有将<code>.env.example</code>文件重命名为<code>.env</code>，现在立即这样做。如果key没有被设置，用户sessions和其它加密数据将会有安全隐患！</p>
-
+          <h2 id="1、服务器要求"><a href="#1、服务器要求" class="headerlink" title="1、服务器要求"></a><strong>1、服务器要求</strong></h2><p>Laravel&#x2F;<span class="exturl" data-url="aHR0cDovL2xhcmF2ZWxhY2FkZW15Lm9yZy90YWdzL2x1bWVu">Lumen<i class="fa fa-external-link-alt"></i></span>框架对服务器有少许要求，当然，<span class="exturl" data-url="aHR0cDovL2xhcmF2ZWxhY2FkZW15Lm9yZy9wb3N0LzI3NDkuaHRtbA==">Laravel Homestead<i class="fa fa-external-link-alt"></i></span>虚拟机已经满足所有这些要求，所以强烈推荐使用<span class="exturl" data-url="aHR0cDovL2xhcmF2ZWxhY2FkZW15Lm9yZy90YWdzL2hvbWVzdGVhZA==">Homestead<i class="fa fa-external-link-alt"></i></span>作为本地<span class="exturl" data-url="aHR0cDovL2xhcmF2ZWxhY2FkZW15Lm9yZy90YWdzLyVlNSViYyU4MCVlNSU4ZiU5MSVlNyU4ZSVhZiVlNSVhMiU4Mw==">开发环境<i class="fa fa-external-link-alt"></i></span>。 如果你没有使用Homestead，那么需要确保服务器满足以下要求：</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/php_comoiser_install_lumen/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -566,7 +554,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -663,7 +651,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -679,7 +667,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Front/js/" itemprop="url" rel="index"><span itemprop="name">js</span></a>
+                  <a href="/categories/Web/Front/Js/" itemprop="url" rel="index"><span itemprop="name">Js</span></a>
                 </span>
             </span>
 
@@ -710,15 +698,14 @@
       
           <p>虽然在Js中可以启动某个app，但是并不能判断该app是否安装；</p>
 <p>但是，但是….还是有奇思淫巧滴，启动app需要的时间较长，js中断时间长，如果没安装，js瞬间就执行完毕。直接上代码吧！</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">function testApp(url) &#123;</span><br><span class="line">    var timeout, t = 1000, hasApp = true;</span><br><span class="line">    setTimeout(function () &#123;</span><br><span class="line">        if (hasApp) &#123;</span><br><span class="line">            alert(&#x27;安装了app&#x27;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            alert(&#x27;未安装app&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line">        document.body.removeChild(ifr);</span><br><span class="line">    &#125;, 2000)</span><br><span class="line"></span><br><span class="line">    var t1 = Date.now();</span><br><span class="line">    var ifr = document.createElement(&quot;iframe&quot;);</span><br><span class="line">    ifr.setAttribute(&#x27;src&#x27;, url);</span><br><span class="line">    ifr.setAttribute(&#x27;style&#x27;, &#x27;display:none&#x27;);</span><br><span class="line">    document.body.appendChild(ifr);</span><br><span class="line">    timeout = setTimeout(function () &#123;</span><br><span class="line">         var t2 = Date.now();</span><br><span class="line">         if (!t1 || t2 - t1 &lt; t + 100) &#123;</span><br><span class="line">             hasApp = false;</span><br><span class="line">         &#125;</span><br><span class="line">    &#125;, t);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function isInstalled()&#123;</span><br><span class="line">        var the_href=$(&quot;.down_app&quot;).attr(&quot;href&quot;);//获得下载链接</span><br><span class="line">        window.location=&quot;apps custom url schemes&quot;;//打开某手机上的某个app应用</span><br><span class="line">        setTimeout(function()&#123;</span><br><span class="line">            window.location=the_href;//如果超时就跳转到app下载页</span><br><span class="line">        &#125;,500);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>apps custom url schemes</code>是什么呢？</p>
-<p>其实就是你与app约定的一个协议URL，在IOS客户端或者Android客户端中可以设置一个URL Scheme。例如，设置<code>URL Scheme：app</code>，然后其他的程序就可以通过<code>URLString=app://</code>调用该应用。还可以传参数，如：<code>app://reaction/?uid=1</code></p>
-<p>以上介绍了怎么创建该本地协议及调用该本地协议的方法。但这里还有个关键就是怎么判断用户是否安装了该呢？原理如下：</p>
-<p>在手机浏览器中用js代码请求该协议，如果在500ms内，如果有应用程序能解析这个协议，那么就能打开该应用；如果超过500ms就跳转到app下载页。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/js_app_check/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -768,7 +755,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -780,7 +767,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Db/" itemprop="url" rel="index"><span itemprop="name">Db</span></a>
+                  <a href="/categories/Web/DB/" itemprop="url" rel="index"><span itemprop="name">DB</span></a>
                 </span>
             </span>
 
@@ -810,42 +797,14 @@
 
       
           <p>MySql中添加用户,新建数据库,用户授权,删除用户,修改密码(注意每行后边都跟个;表示一个命令语句结束):</p>
-<h2 id="新建用户"><a href="#新建用户" class="headerlink" title="新建用户"></a>新建用户</h2><h3 id="登录MYSQL"><a href="#登录MYSQL" class="headerlink" title="登录MYSQL"></a>登录MYSQL</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line">密码</span><br></pre></td></tr></table></figure>
-
-<h3 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; insert into mysql.user(Host,User,Password) values(&quot;localhost&quot;,&quot;test&quot;,password(&quot;1234&quot;));</span><br></pre></td></tr></table></figure>
-<p>样就创建了一个名为：<code>test</code> 密码为：<code>1234</code> 的用户。<br>注意：此处的”localhost”，是指该用户只能在本地登录，不能在另外一台机器上远程登录。如果想远程登录的话，将”localhost”改为”%”，表示在任何一台电脑上都可以登录。也可以指定某台机器可以远程登录。</p>
-<h3 id="然后登录一下："><a href="#然后登录一下：" class="headerlink" title="然后登录一下："></a>然后登录一下：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; exit;</span><br><span class="line">@&gt; mysql -u test -p</span><br><span class="line">@&gt; 输入密码</span><br><span class="line">mysql&gt; 登录成功</span><br></pre></td></tr></table></figure>
-
-<h3 id="为用户授权"><a href="#为用户授权" class="headerlink" title="为用户授权"></a>为用户授权</h3><p>授权格式：<code>grant 权限 on 数据库.* to 用户名@登录主机 identified by “密码”</code>;</p>
-<h4 id="登录MYSQL（有ROOT权限），这里以ROOT身份登录："><a href="#登录MYSQL（有ROOT权限），这里以ROOT身份登录：" class="headerlink" title="登录MYSQL（有ROOT权限），这里以ROOT身份登录："></a>登录MYSQL（有ROOT权限），这里以ROOT身份登录：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@&gt; mysql -u root -p</span><br><span class="line">@&gt; 密码</span><br></pre></td></tr></table></figure>
-
-<h4 id="首先为用户创建一个数据库-testDB-："><a href="#首先为用户创建一个数据库-testDB-：" class="headerlink" title="首先为用户创建一个数据库(testDB)："></a>首先为用户创建一个数据库(testDB)：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; create database testDB;</span><br></pre></td></tr></table></figure>
-
-<h4 id="授权test用户拥有testDB数据库的所有权限（某个数据库的所有权限）："><a href="#授权test用户拥有testDB数据库的所有权限（某个数据库的所有权限）：" class="headerlink" title="授权test用户拥有testDB数据库的所有权限（某个数据库的所有权限）："></a>授权test用户拥有testDB数据库的所有权限（某个数据库的所有权限）：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; grant all privileges on testDB.* to test@localhost identified by &#x27;1234&#x27;;</span><br><span class="line">mysql&gt; flush privileges;//刷新系统权限表</span><br></pre></td></tr></table></figure>
-<p>格式：<code>grant 权限 on 数据库.* to 用户名@登录主机 identified by “密码”</code>;</p>
-<h4 id="如果想指定部分权限给一用户，可以这样来写"><a href="#如果想指定部分权限给一用户，可以这样来写" class="headerlink" title="如果想指定部分权限给一用户，可以这样来写:"></a>如果想指定部分权限给一用户，可以这样来写:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">　　mysql&gt; grant select,update on testDB.* to test@localhost identified by &#x27;1234&#x27;;</span><br><span class="line">　　mysql&gt; flush privileges; //刷新系统权限表</span><br></pre></td></tr></table></figure>
-<h4 id="授权test用户拥有所有数据库的某些权限"><a href="#授权test用户拥有所有数据库的某些权限" class="headerlink" title="授权test用户拥有所有数据库的某些权限:"></a>授权test用户拥有所有数据库的某些权限:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; grant select,delete,update,create,drop on *.* to test@&quot;%&quot; identified by &quot;1234&quot;;</span><br></pre></td></tr></table></figure>
-<p>   test用户对所有数据库都有select,delete,update,create,drop 权限。<br>　  @”%” 表示对所有非本地主机授权，不包括localhost。<br>　  对localhost授权：加上一句grant all privileges on testDB.* to test@localhost identified by ‘1234’;即可。</p>
-<ol>
-<li><p>删除用户</p>
-<p> @&gt; mysql -u root -p<br> @&gt; 密码<br> mysql&gt; Delete FROM user Where User&#x3D;’test’ and Host&#x3D;’localhost’;<br> mysql&gt; flush privileges;<br> mysql&gt; drop database testDB; &#x2F;&#x2F;删除用户的数据库</p>
-<p> &#x2F;&#x2F; 删除账户及权限：<br> drop user 用户名@’%’;<br> drop user 用户名@ localhost;</p>
-</li>
-<li><p>修改指定用户密码</p>
-</li>
-</ol>
-<p>  　@&gt; mysql -u root -p<br>  　@&gt; 密码<br>  　mysql&gt; update mysql.user set password&#x3D;password(‘新密码’) where User&#x3D;”test” and Host&#x3D;”localhost”;<br>  　mysql&gt; flush privileges;<br>5. 列出所有数据库</p>
-<p>　　mysql&gt; show database;<br>6. 切换数据库</p>
-<p>　　mysql&gt; use ‘数据库名’;<br>7. 列出所有表</p>
-<p>　　mysql&gt; show tables;<br>8. 显示数据表结构</p>
-<pre><code>mysql&gt; describe 表名;
-</code></pre>
-<ol start="9">
-<li><p>删除数据库和数据表</p>
-<p> mysql&gt; drop database 数据库名;<br> mysql&gt; drop table 数据表名;</p>
-</li>
-</ol>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/mysql_create_database_user/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -895,7 +854,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -973,7 +932,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/php_bom/" class="post-title-link" itemprop="url">Php批量去除bom头脚本</a>
+            <a href="/php_bom/" class="post-title-link" itemprop="url">PHP批量去除bom头脚本</a>
         </h2>
 
         <div class="post-meta">
@@ -990,7 +949,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1006,7 +965,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/php/" itemprop="url" rel="index"><span itemprop="name">php</span></a>
+                  <a href="/categories/Web/Back/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a>
                 </span>
             </span>
 
@@ -1016,7 +975,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.5k</span>
+              <span>1.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -1035,8 +994,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>请放在根目录下使用</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">//remove the utf-8 boms</span><br><span class="line">//by magicbug at gmail dot com</span><br><span class="line"></span><br><span class="line">if (isset($_GET[&#x27;dir&#x27;]))&#123; //config the basedir</span><br><span class="line">    $basedir=$_GET[&#x27;dir&#x27;];</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    $basedir = &#x27;.&#x27;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$auto = 1;</span><br><span class="line"></span><br><span class="line">checkdir($basedir);</span><br><span class="line"></span><br><span class="line">function checkdir($basedir)&#123;</span><br><span class="line">    if ($dh = opendir($basedir)) &#123;</span><br><span class="line">        while (($file = readdir($dh)) !== false) &#123;</span><br><span class="line">            if ($file != &#x27;.&#x27; &amp;&amp; $file != &#x27;..&#x27;)&#123;</span><br><span class="line">                if (!is_dir($basedir.&quot;/&quot;.$file)) &#123;</span><br><span class="line">                    echo &quot;filename</span><br><span class="line"> $basedir/$file &quot;.checkBOM(&quot;$basedir/$file&quot;).&quot; &lt;br&gt;&quot;;</span><br><span class="line">                &#125;else&#123;</span><br><span class="line">                    $dirname = $basedir.&quot;/&quot;.$file;</span><br><span class="line">                    checkdir($dirname);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        closedir($dh);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function checkBOM ($filename) &#123;</span><br><span class="line">    global $auto;</span><br><span class="line">    $contents = file_get_contents($filename);</span><br><span class="line">    $charset[1] = substr($contents, 0, 1);</span><br><span class="line">    $charset[2] = substr($contents, 1, 1);</span><br><span class="line">    $charset[3] = substr($contents, 2, 1);</span><br><span class="line">    if (ord($charset[1]) == 239 &amp;&amp; ord($charset[2]) == 187 &amp;&amp; ord($charset[3]) == 191) &#123;</span><br><span class="line">        if ($auto == 1) &#123;</span><br><span class="line">            $rest = substr($contents, 3);</span><br><span class="line">            rewrite ($filename, $rest);</span><br><span class="line">            return (&quot;&lt;font color=red&gt;BOM found, automatically removed.&lt;/font&gt;&quot;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return (&quot;&lt;font color=red&gt;BOM found.&lt;/font&gt;&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else return (&quot;BOM Not Found.&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function rewrite ($filename, $data) &#123;</span><br><span class="line">    $filenum = fopen($filename, &quot;w&quot;);</span><br><span class="line">    flock($filenum, LOCK_EX);</span><br><span class="line">    fwrite($filenum, $data);</span><br><span class="line">    fclose($filenum);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+          <blockquote>
+<p>BOM头（字节顺序标记(ByteOrderMark)）是用来判断文本文件是哪一种Unicode编码的标记，其本身是一个Unicode字符（”\uFEFF”），位于文本文件头部。PHP不会自动识别BOM头，并不会忽略它。而根据嵌入式语言的特点，这串字符会直接执行，从而导致html中会有三个字符。实现了一个脚本来删除BOM，请放在根目录下使用。</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/php_bom/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1086,7 +1054,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1098,7 +1066,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Db/" itemprop="url" rel="index"><span itemprop="name">Db</span></a>
+                  <a href="/categories/Web/DB/" itemprop="url" rel="index"><span itemprop="name">DB</span></a>
                 </span>
             </span>
 
@@ -1127,12 +1095,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>通过HeidiSQL连接MYSQL数据库报错：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL Error (1130): Host ‘192.168.1.126’ is not allowed to connect to this MySQL server</span><br></pre></td></tr></table></figure>
+          <p>通过<code>HeidiSQL</code>连接<code>MYSQL</code>数据库报错：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SQL</span> Error (<span class="number">1130</span>): Host ‘<span class="number">192.168</span><span class="number">.1</span><span class="number">.126</span>’ <span class="keyword">is</span> <span class="keyword">not</span> allowed <span class="keyword">to</span> <span class="keyword">connect</span> <span class="keyword">to</span> this MySQL server</span><br></pre></td></tr></table></figure>
 
 <p>说明所连接的用户帐号没有远程连接的权限，只能在本机(localhost)登录。<br>需更改 mysql 数据库里的<code>user</code>表里的<code>host</code>项把localhost改成%</p>
 <p>首先按下面的步骤登录Mysql服务器，登录mysql需要切换到dos下的mysql的bin目录，进行如下操作：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;use mysql;</span><br><span class="line"></span><br><span class="line">mysql&gt;update user set host = ‘%’ where user =’root’;</span><br><span class="line">MariaDB [mysql]&gt; update user set host = ‘%’ where host = ‘localhost’;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line">Rows matched: 0 Changed: 0 Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt;flush privileges;</span><br><span class="line">mysql&gt;select host, user from user;</span><br><span class="line">mysql&gt;quit</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span>use mysql;</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span><span class="keyword">update</span> <span class="keyword">user</span> <span class="keyword">set</span> host <span class="operator">=</span> ‘<span class="operator">%</span>’ <span class="keyword">where</span> <span class="keyword">user</span> <span class="operator">=</span>’root’;</span><br><span class="line">MariaDB [mysql]<span class="operator">&gt;</span> <span class="keyword">update</span> <span class="keyword">user</span> <span class="keyword">set</span> host <span class="operator">=</span> ‘<span class="operator">%</span>’ <span class="keyword">where</span> host <span class="operator">=</span> ‘localhost’;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"><span class="keyword">Rows</span> matched: <span class="number">0</span> Changed: <span class="number">0</span> Warnings: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span>flush privileges;</span><br><span class="line">mysql<span class="operator">&gt;</span><span class="keyword">select</span> host, <span class="keyword">user</span> <span class="keyword">from</span> <span class="keyword">user</span>;</span><br><span class="line">mysql<span class="operator">&gt;</span>quit</span><br></pre></td></tr></table></figure>
 
 <p>OK。远程连接成功！</p>
 
@@ -1185,7 +1153,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1321,7 +1289,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -1389,13 +1357,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">803k</span>
+    <span title="站点总字数">802k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:10</span>
+    <span title="站点阅读时长">12:09</span>
 </div>
 
         

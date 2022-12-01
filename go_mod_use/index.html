@@ -31,7 +31,7 @@
 <meta property="og:description" content="go modules 是 golang 1.11 新加的特性。  模块是相关Go包的集合。modules是源代码交换和版本控制的单元。 go命令直接支持使用modules，包括记录和解析对其他模块的依赖性。modules替换旧的基于GOPATH的方法来指定在给定构建中使用哪些源文件。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-07-18T21:23:51.000Z">
-<meta property="article:modified_time" content="2022-11-30T00:23:54.200Z">
+<meta property="article:modified_time" content="2022-12-01T08:56:54.491Z">
 <meta property="article:author" content="Zihao Yao">
 <meta property="article:tag" content="go">
 <meta name="twitter:card" content="summary">
@@ -131,7 +131,7 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">21</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -248,7 +248,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
+                  <a href="/categories/Web/Back/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
                 </span>
             </span>
 
@@ -265,14 +265,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>6.3k</span>
+              <span>5.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
+              <span>5 分钟</span>
             </span>
 
         </div>
@@ -365,10 +365,10 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">$ go run server.go</span><br><span class="line">go: finding github.com/labstack/echo v3.3.10+incompatible</span><br><span class="line">go: downloading github.com/labstack/echo v3.3.10+incompatible</span><br><span class="line">go: finding github.com/labstack/gommon/color latest</span><br><span class="line">go: finding github.com/labstack/gommon/log latest</span><br><span class="line">go: finding golang.org/x/crypto/acme/autocert latest</span><br><span class="line">go: finding github.com/labstack/gommon v0.2.9</span><br><span class="line">go: finding golang.org/x/crypto/acme latest</span><br><span class="line"></span><br><span class="line"><span class="comment"># 此处省略很多行</span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">   ____    __</span><br><span class="line">  / __/___/ /  ___</span><br><span class="line"> / _// __/ _ \/ _ \</span><br><span class="line">/___/\__/_//_/\___/ v3.3.10-dev</span><br><span class="line">High performance, minimalist Go web framework</span><br><span class="line">https://echo.labstack.com</span><br><span class="line">____________________________________O/_______</span><br><span class="line">                                    O\</span><br><span class="line">⇨ http server started on [::]:1323</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>现在查看go.mod 内容：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> go.mod</span><br><span class="line"></span><br><span class="line">module hello</span><br><span class="line"></span><br><span class="line">require (</span><br><span class="line">	github.com/labstack/echo v3.3.10+incompatible // indirect</span><br><span class="line">	github.com/labstack/gommon v0.2.9 // indirect</span><br><span class="line">	golang.org/x/crypto v0.0.0-20190701094942-4def268fd1a4 // indirect</span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> go.mod</span><br><span class="line"></span><br><span class="line">module hello</span><br><span class="line"></span><br><span class="line">require (</span><br><span class="line">	github.com/labstack/echo v3.3.10+incompatible // indirect</span><br><span class="line">	github.com/labstack/gommon v0.2.9 // indirect</span><br><span class="line">	golang.org/x/crypto v0.0.0-20190701094942-4def268fd1a4 // indirect</span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p><code>go module</code> 安装 <code>package</code> 的原則是先拉最新的 <code>release tag</code>，若无tag则拉最新的commit，详见 Modules官方介绍。 <code>go</code> 会自动生成一个 go.sum 文件来记录 dependency tree：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> go.sum</span><br><span class="line">github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=</span><br><span class="line">github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=</span><br><span class="line">github.com/labstack/echo v3.3.10+incompatible h1:pGRcYk231ExFAyoAjAfD85kQzRJCRI8bbnE7CX5OEgg=</span><br><span class="line">github.com/labstack/echo v3.3.10+incompatible/go.mod h1:0INS7j/VjnFxD4E2wkz67b8cVwCLbBmJyDaka6Cmk1s=</span><br><span class="line">github.com/labstack/gommon v0.2.9 h1:heVeuAYtevIQVYkGj6A41dtfT91LrvFG220lavpWhrU=</span><br><span class="line">github.com/labstack/gommon v0.2.9/go.mod h1:E8ZTmW9vw5az5/ZyHWCp0Lw4OH2ecsaBP1C/NKavGG4=</span><br><span class="line">... 省略很多行</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> go.sum</span><br><span class="line"></span><br><span class="line">github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=</span><br><span class="line">github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=</span><br><span class="line">github.com/labstack/echo v3.3.10+incompatible h1:pGRcYk231ExFAyoAjAfD85kQzRJCRI8bbnE7CX5OEgg=</span><br><span class="line">github.com/labstack/echo v3.3.10+incompatible/go.mod h1:0INS7j/VjnFxD4E2wkz67b8cVwCLbBmJyDaka6Cmk1s=</span><br><span class="line">github.com/labstack/gommon v0.2.9 h1:heVeuAYtevIQVYkGj6A41dtfT91LrvFG220lavpWhrU=</span><br><span class="line">github.com/labstack/gommon v0.2.9/go.mod h1:E8ZTmW9vw5az5/ZyHWCp0Lw4OH2ecsaBP1C/NKavGG4=</span><br><span class="line">... 省略很多行</span><br></pre></td></tr></table></figure>
 
 <ol>
 <li>再次执行脚本 <code>go run server.go</code> 发现跳过了检查并安装依赖的步骤。</li>
@@ -395,7 +395,7 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">build command-line-arguments: cannot find module <span class="keyword">for</span> path _/home/gs/helloworld/api</span><br></pre></td></tr></table></figure>
 
 <p>但是go.mod 已经更新：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> go.mod</span><br><span class="line"></span><br><span class="line">module helloworld</span><br><span class="line"></span><br><span class="line">require (</span><br><span class="line">	github.com/labstack/echo v3.3.10+incompatible // indirect</span><br><span class="line">	github.com/labstack/gommon v0.2.9 // indirect</span><br><span class="line">	golang.org/x/crypto v0.0.0-20190701094942-4def268fd1a4 // indirect</span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> go.mod</span><br><span class="line"></span><br><span class="line">module helloworld</span><br><span class="line"></span><br><span class="line">require (</span><br><span class="line">	github.com/labstack/echo v3.3.10+incompatible // indirect</span><br><span class="line">	github.com/labstack/gommon v0.2.9 // indirect</span><br><span class="line">	golang.org/x/crypto v0.0.0-20190701094942-4def268fd1a4 // indirect</span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>那为什么会抛出这个错误呢？<br>这是因为 <code>server.go</code> 中使用 <code>internal package</code> 的方法跟以前已经不同了，由于 go.mod会扫描同工作目录下所有 package 并且变更引入方法，必须将 helloworld当成路径的前缀，也就是需要写成 <code>import helloworld/api</code>，以往 <code>GOPATH/dep</code> 模式允许的 <code>import ./api</code> ，已经失效详情可以查看这个 <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dvbGFuZy9nby9pc3N1ZXMvMjY2NDU=">issue<i class="fa fa-external-link-alt"></i></span>。</p>
 <p>所以<code>server.go</code> 需要改写成：</p>
@@ -408,8 +408,6 @@
 
 <p>或者</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">replace golang.org/x/crypto v0<span class="number">.0</span><span class="number">.0</span><span class="number">-20190313024323</span>-a1f597ede03a =&gt; github.com/golang/crypto v0<span class="number">.0</span><span class="number">.0</span><span class="number">-20190313024323</span>-a1f597ede03a</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p>[1] Modules官方介绍: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dvbGFuZy9nby8=">https://github.com/golang/go/<i class="fa fa-external-link-alt"></i></span>…<br>[2] issue: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dvbGFuZy9nby8=">https://github.com/golang/go/<i class="fa fa-external-link-alt"></i></span>…<br>[3] 这种错误: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dvbGFuZy9nby8=">https://github.com/golang/go/<i class="fa fa-external-link-alt"></i></span>…<br>[4] Modules官方介绍: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dvbGFuZy9nby8=">https://github.com/golang/go/<i class="fa fa-external-link-alt"></i></span>…<br>[5] Golang 1.11 新功能介紹 – Modules: <span class="exturl" data-url="aHR0cHM6Ly93d3cubGlnaHRibHVlLmFzaWEvZ28=">https://www.lightblue.asia/go<i class="fa fa-external-link-alt"></i></span>…<br>[6] What are Go modules and how do I use them?: <span class="exturl" data-url="aHR0cHM6Ly90YWxrcy5nb2RvYy5vcmcvZ2l0aHU=">https://talks.godoc.org/githu<i class="fa fa-external-link-alt"></i></span>…<br>[7] go mod doesn’t work for github.com&#x2F;gomarkdown&#x2F;markdown&#x2F;html : <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dvbGFuZy9nby8=">https://github.com/golang/go/<i class="fa fa-external-link-alt"></i></span>…<br>[8] 再探go modules：使用与细节: <span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vYXBvY2U=">https://www.cnblogs.com/apoce<i class="fa fa-external-link-alt"></i></span>…<br>[9] 初窥Go module: <span class="exturl" data-url="aHR0cHM6Ly90b255YmFpLmNvbS8yMDE4LzA3LzE=">https://tonybai.com/2018/07/1<i class="fa fa-external-link-alt"></i></span>…</p>
 
     </div>
 
@@ -555,7 +553,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8-Modules-%EF%BC%9F"><span class="nav-text">如何使用 Modules ？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#go-mod"><span class="nav-text">go mod</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BD%BF%E7%94%A8"><span class="nav-text">如何在项目中使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%B8%80%EF%BC%9A%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%B0%E9%A1%B9%E7%9B%AE"><span class="nav-text">示例一：创建一个新项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E4%BE%9D%E8%B5%96"><span class="nav-text">添加依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#go-get-%E5%8D%87%E7%BA%A7"><span class="nav-text">go get 升级</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BA%8C%EF%BC%9A%E6%94%B9%E9%80%A0%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE-helloword"><span class="nav-text">示例二：改造现有项目(helloword)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8replace%E6%9B%BF%E6%8D%A2%E6%97%A0%E6%B3%95%E7%9B%B4%E6%8E%A5%E8%8E%B7%E5%8F%96%E7%9A%84package"><span class="nav-text">使用replace替换无法直接获取的package</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-text">参考链接</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8-Modules-%EF%BC%9F"><span class="nav-text">如何使用 Modules ？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#go-mod"><span class="nav-text">go mod</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BD%BF%E7%94%A8"><span class="nav-text">如何在项目中使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%B8%80%EF%BC%9A%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%B0%E9%A1%B9%E7%9B%AE"><span class="nav-text">示例一：创建一个新项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E4%BE%9D%E8%B5%96"><span class="nav-text">添加依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#go-get-%E5%8D%87%E7%BA%A7"><span class="nav-text">go get 升级</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BA%8C%EF%BC%9A%E6%94%B9%E9%80%A0%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE-helloword"><span class="nav-text">示例二：改造现有项目(helloword)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8replace%E6%9B%BF%E6%8D%A2%E6%97%A0%E6%B3%95%E7%9B%B4%E6%8E%A5%E8%8E%B7%E5%8F%96%E7%9A%84package"><span class="nav-text">使用replace替换无法直接获取的package</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -576,7 +574,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -644,13 +642,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">803k</span>
+    <span title="站点总字数">802k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:10</span>
+    <span title="站点阅读时长">12:09</span>
 </div>
 
         

@@ -23,15 +23,15 @@
     var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="我的学习方式是，通过自己写一个列子，来学习某个东西，这次的 laravel 也不列外 这次说下，laravel 下的 routes::resource 使用方法，因为我英文水平不是很好，遇到各种坑，后来没辙，上问答社区找大神指点，终于明白了怎么回事 简单说下他的功能吧 我们写一个控制器，写一个方法，就得去 routes 里面绑定一次，其实有时候挺麻烦的，那么这个时候，有没有一个东西，绑定控制器后，">
+  <meta name="description" content="我的学习方式是，通过自己写一个列子，来学习某个东西，这次的 laravel 也不列外。 这次说下，laravel 下的 routes::resource 使用方法，因为我英文水平不是很好，遇到各种坑，后来没辙，上问答社区找大神指点，终于明白了怎么回事。 简单说下他的功能吧。 我们写一个控制器，写一个方法，就得去 routes 里面绑定一次，其实有时候挺麻烦的，那么这个时候，有没有一个东西，绑定控制">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Laravel中resource路由详细使用方法">
 <meta property="og:url" content="https://yaozihao.com/php_laravel_resource/index.html">
 <meta property="og:site_name" content="Zihao">
-<meta property="og:description" content="我的学习方式是，通过自己写一个列子，来学习某个东西，这次的 laravel 也不列外 这次说下，laravel 下的 routes::resource 使用方法，因为我英文水平不是很好，遇到各种坑，后来没辙，上问答社区找大神指点，终于明白了怎么回事 简单说下他的功能吧 我们写一个控制器，写一个方法，就得去 routes 里面绑定一次，其实有时候挺麻烦的，那么这个时候，有没有一个东西，绑定控制器后，">
+<meta property="og:description" content="我的学习方式是，通过自己写一个列子，来学习某个东西，这次的 laravel 也不列外。 这次说下，laravel 下的 routes::resource 使用方法，因为我英文水平不是很好，遇到各种坑，后来没辙，上问答社区找大神指点，终于明白了怎么回事。 简单说下他的功能吧。 我们写一个控制器，写一个方法，就得去 routes 里面绑定一次，其实有时候挺麻烦的，那么这个时候，有没有一个东西，绑定控制">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2016-09-24T14:55:28.000Z">
-<meta property="article:modified_time" content="2022-11-30T00:23:54.200Z">
+<meta property="article:modified_time" content="2022-12-01T08:56:54.491Z">
 <meta property="article:author" content="Zihao Yao">
 <meta property="article:tag" content="php">
 <meta property="article:tag" content="laravel">
@@ -132,7 +132,7 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">21</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -249,7 +249,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/php/" itemprop="url" rel="index"><span itemprop="name">php</span></a>
+                  <a href="/categories/Web/Back/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a>
                 </span>
             </span>
 
@@ -285,28 +285,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>我的学习方式是，通过自己写一个列子，来学习某个东西，这次的 laravel 也不列外</p>
-<p>这次说下，<code>laravel</code> 下的 <code>routes::resource</code> 使用方法，因为我英文水平不是很好，遇到各种坑，后来没辙，上问答社区找大神指点，终于明白了怎么回事</p>
-<p>简单说下他的功能吧</p>
-<p>我们写一个控制器，写一个方法，就得去 <code>routes</code> 里面绑定一次，其实有时候挺麻烦的，那么这个时候，有没有一个东西，绑定控制器后，下面的方法就不需要绑定了呢？有的，这就是 <code>resource</code></p>
-<p>通过列子来学习</p>
-<p>我们新建一个控制器</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan generate:controller TestController</span><br></pre></td></tr></table></figure>
+        <p>我的学习方式是，通过自己写一个列子，来学习某个东西，这次的 laravel 也不列外。</p>
+<p>这次说下，<code>laravel</code> 下的 <code>routes::resource</code> 使用方法，因为我英文水平不是很好，遇到各种坑，后来没辙，上问答社区找大神指点，终于明白了怎么回事。</p>
+<p>简单说下他的功能吧。</p>
+<p>我们写一个控制器，写一个方法，就得去 <code>routes</code> 里面绑定一次，其实有时候挺麻烦的，那么这个时候，有没有一个东西，绑定控制器后，下面的方法就不需要绑定了呢？有的，这就是 <code>resource</code>。</p>
+<p>通过列子来学习。</p>
+<p>我们新建一个控制器。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan generate:controller TestController</span><br></pre></td></tr></table></figure>
 
-<p>我们要修改下我们生成的控制器，使用命名空间<br>test 控制器代码如下</p>
+<p>我们要修改下我们生成的控制器，使用命名空间。<br>test 控制器代码如下。</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 命名空间</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">App</span>\<span class="title class_">Controllers</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">BaseController</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestController</span> <span class="keyword">extends</span> <span class="title">BaseController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Display a listing of the resource.</span></span><br><span class="line"><span class="comment">  * GET /test</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@return</span> Response</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;index&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Show the form for creating a new resource.</span></span><br><span class="line"><span class="comment">  * GET /test/create</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@return</span> Response</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">create</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Store a newly created resource in storage.</span></span><br><span class="line"><span class="comment">  * POST /test</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@return</span> Response</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">store</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Display the specified resource.</span></span><br><span class="line"><span class="comment">  * GET /test/&#123;id&#125;</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> int $id</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@return</span> Response</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">show</span>(<span class="params"><span class="variable">$id</span></span>)</span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Show the form for editing the specified resource.</span></span><br><span class="line"><span class="comment">  * GET /test/&#123;id&#125;/edit</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> int $id</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@return</span> Response</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">edit</span>(<span class="params"><span class="variable">$id</span></span>)</span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Update the specified resource in storage.</span></span><br><span class="line"><span class="comment">  * PUT /test/&#123;id&#125;</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> int $id</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@return</span> Response</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">update</span>(<span class="params"><span class="variable">$id</span></span>)</span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Remove the specified resource from storage.</span></span><br><span class="line"><span class="comment">  * DELETE /test/&#123;id&#125;</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> int $id</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@return</span> Response</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">destroy</span>(<span class="params"><span class="variable">$id</span></span>)</span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>好了，我们来新建我们的路由，<code>App\Controllers\TestController</code> 就是我们刚刚设置的命名空间哦</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">resource</span>(<span class="string">&#x27;test&#x27;</span>,<span class="string">&#x27;App\Controllers\TestController&#x27;</span>);</span><br></pre></td></tr></table></figure>
 
-<p>这个时候，你的控制器就与路由绑定了，</p>
-<p>我们访问 <code>localhost/tets</code> 如果输出 index ，那么绑定就成功啦！</p>
-<p>好了，绑定好了后，我们来讲讲怎么生成 url，因为使用 <code>URL::route()</code> 都是需要输入 路由的名称的，我们这次绑定整个路由，怎么输入名称呢 ？很简单</p>
-<p>就我们之前绑定的 <code>test</code></p>
+<p>这个时候，你的控制器就与路由绑定了，我们访问 <code>localhost/tets</code> 如果输出 index ，那么绑定就成功啦！</p>
+<p>好了，绑定好了后，我们来讲讲怎么生成 url，因为使用 <code>URL::route()</code> 都是需要输入 路由的名称的，我们这次绑定整个路由，怎么输入名称呢？很简单，就我们之前绑定的 <code>test</code>。</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">URL::<span class="title function_ invoke__">route</span>(<span class="string">&#x27;test.index&#x27;</span>) <span class="comment">// 首页</span></span><br><span class="line">URL::<span class="title function_ invoke__">route</span>(<span class="string">&#x27;test.edit&#x27;</span>,<span class="keyword">array</span>(<span class="string">&#x27;id&#x27;</span>=&gt;<span class="number">1</span>))<span class="comment">// 编辑</span></span><br></pre></td></tr></table></figure>
 
 <p>很简单吧，就是你绑定时候的 名称 连接上你的方法名，</p>
 <p>！！ 注意，在后台使用，路径要写全，如： <code>admin.test.index</code></p>
-<p>然后，<code>resource</code> 只支持下面几种方法来自动绑定</p>
+<p>然后，<code>resource</code> 只支持下面几种方法来自动绑定。</p>
 
     </div>
 
@@ -473,7 +472,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -541,13 +540,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">803k</span>
+    <span title="站点总字数">802k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:10</span>
+    <span title="站点阅读时长">12:09</span>
 </div>
 
         

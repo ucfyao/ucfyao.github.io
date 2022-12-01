@@ -129,7 +129,7 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">21</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -246,7 +246,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                  <a href="/categories/Web/Back/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -277,81 +277,15 @@
       
           <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><code>pandas</code> 是基于<code>Numpy</code>构建的含有更高级数据结构和工具的数据分析包</p>
 <p>类似于<code>Numpy</code>的核心是<code>ndarray</code>，<code>pandas</code>也是围绕着<code>Series</code>和<code>DataFrame</code>两个核心数据结构展开的。<code>Series</code> 和 <code>DataFrame</code> 分别对应于一维的序列和二维的表结构。<code>pandas</code> 约定俗成的导入方法如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from pandas import Series,DataFrame</span><br><span class="line">import pandas as pd</span><br></pre></td></tr></table></figure>
-
-<h2 id="Series"><a href="#Series" class="headerlink" title="Series"></a>Series</h2><p>Series 可以看做一个定长的有序字典。基本任意的一维数据都可以用来构造 Series 对象：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s = Series([1,2,3.0,&#x27;abc&#x27;])</span><br><span class="line">&gt;&gt;&gt; s</span><br><span class="line">0      1</span><br><span class="line">1      2</span><br><span class="line">2      3</span><br><span class="line">3    abc</span><br><span class="line">dtype: object</span><br></pre></td></tr></table></figure>
-<p>虽然 <code>dtype:object</code> 可以包含多种基本数据类型，但总感觉会影响性能的样子，最好还是保持单纯的 <code>dtype</code>。</p>
-<p><code>Series</code> 对象包含两个主要的属性：<code>index</code> 和 <code>values</code>，分别为上例中左右两列。因为传给构造器的是一个列表，所以 <code>index</code> 的值是从 0 起递增的整数，如果传入的是一个类字典的键值对结构，就会生成 <code>index-value</code> 对应的 <code>Series</code>；或者在初始化的时候以关键字参数显式指定一个 <code>index</code> 对象：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s = Series(data=[1,3,5,7],index = [&#x27;a&#x27;,&#x27;b&#x27;,&#x27;x&#x27;,&#x27;y&#x27;])</span><br><span class="line">&gt;&gt;&gt; s</span><br><span class="line">a    1</span><br><span class="line">b    3</span><br><span class="line">x    5</span><br><span class="line">y    7</span><br><span class="line">dtype: int64</span><br><span class="line">&gt;&gt;&gt; s.index</span><br><span class="line">Index([&#x27;a&#x27;, &#x27;b&#x27;, &#x27;x&#x27;, &#x27;y&#x27;], dtype=&#x27;object&#x27;)</span><br><span class="line">&gt;&gt;&gt; s.values</span><br><span class="line">array([1, 3, 5, 7], dtype=int64)</span><br></pre></td></tr></table></figure>
-
-<p><code>Series</code> 对象的元素会严格依照给出的 index 构建，这意味着：如果 data 参数是有键值对的，那么只有 index 中含有的键会被使用；以及如果 data 中缺少响应的键，即使给出 NaN 值，这个键也会被添加。</p>
-<p>注意<code>Series</code>的<code>index</code>和 <code>values</code> 的元素之间虽然存在对应关系，但这与字典的映射不同。<code>index</code> 和 <code>values</code> 实际仍为互相独立的 <code>ndarray</code> 数组，因此 <code>Series</code> 对象的性能完全 ok。</p>
-<p><code>Series</code> 这种使用键值对的数据结构最大的好处在于，<code>Series</code> 间进行算术运算时，<code>index</code> 会自动对齐。</p>
-<p>另外，<code>Series</code> 对象和它的 index 都含有一个 name 属性：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s.name = &#x27;a_series&#x27;</span><br><span class="line">&gt;&gt;&gt; s.index.name = &#x27;the_index&#x27;</span><br><span class="line">&gt;&gt;&gt; s</span><br><span class="line">the_index</span><br><span class="line">a            1</span><br><span class="line">b            3</span><br><span class="line">x            5</span><br><span class="line">y            7</span><br><span class="line">Name: a_series, dtype: int64</span><br></pre></td></tr></table></figure>
-
-<h2 id="DataFrame"><a href="#DataFrame" class="headerlink" title="DataFrame"></a>DataFrame</h2><p><code>DataFrame</code> 是一个表格型的数据结构，它含有一组有序的列（类似于 index），每列可以是不同的值类型（不像 <code>ndarray</code> 只能有一个 dtype）。基本上可以把 <code>DataFrame</code> 看成是共享同一个 <code>index</code> 的 <code>Series</code> 的集合。</p>
-<p><code>DataFrame</code> 的构造方法与 <code>Series</code> 类似，只不过可以同时接受多条一维数据源，每一条都会成为单独的一列：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; data = &#123;&#x27;state&#x27;:[&#x27;Ohino&#x27;,&#x27;Ohino&#x27;,&#x27;Ohino&#x27;,&#x27;Nevada&#x27;,&#x27;Nevada&#x27;],</span><br><span class="line">        &#x27;year&#x27;:[2000,2001,2002,2001,2002],</span><br><span class="line">        &#x27;pop&#x27;:[1.5,1.7,3.6,2.4,2.9]&#125;</span><br><span class="line">&gt;&gt;&gt; df = DataFrame(data)</span><br><span class="line">&gt;&gt;&gt; df</span><br><span class="line">   pop   state  year</span><br><span class="line">0  1.5   Ohino  2000</span><br><span class="line">1  1.7   Ohino  2001</span><br><span class="line">2  3.6   Ohino  2002</span><br><span class="line">3  2.4  Nevada  2001</span><br><span class="line">4  2.9  Nevada  2002</span><br><span class="line"></span><br><span class="line">[5 rows x 3 columns]</span><br></pre></td></tr></table></figure>
-<p>虽然参数 <code>data</code> 看起来是个字典，但字典的键并非充当 <code>DataFrame</code> 的 <code>index</code> 的角色，而是 <code>Series</code> 的 “name” 属性。这里生成的 <code>index</code> 仍是 “01234”。</p>
-<p>较完整的 <code>DataFrame</code> 构造器参数为：<code>DataFrame(data=None,index=None,coloumns=None)</code>，<code>columns</code> 即 “name”：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; df = DataFrame(data,index=[&#x27;one&#x27;,&#x27;two&#x27;,&#x27;three&#x27;,&#x27;four&#x27;,&#x27;five&#x27;],</span><br><span class="line">               columns=[&#x27;year&#x27;,&#x27;state&#x27;,&#x27;pop&#x27;,&#x27;debt&#x27;])</span><br><span class="line">&gt;&gt;&gt; df</span><br><span class="line">       year   state  pop debt</span><br><span class="line">one    2000   Ohino  1.5  NaN</span><br><span class="line">two    2001   Ohino  1.7  NaN</span><br><span class="line">three  2002   Ohino  3.6  NaN</span><br><span class="line">four   2001  Nevada  2.4  NaN</span><br><span class="line">five   2002  Nevada  2.9  NaN</span><br><span class="line"></span><br><span class="line">[5 rows x 4 columns]</span><br></pre></td></tr></table></figure>
-<p>同样缺失值由 <code>NaN</code> 补上。看一下 <code>index、columns</code> 和 索引的类型：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; df.index</span><br><span class="line">Index([&#x27;one&#x27;, &#x27;two&#x27;, &#x27;three&#x27;, &#x27;four&#x27;, &#x27;five&#x27;], dtype=&#x27;object&#x27;)</span><br><span class="line">&gt;&gt;&gt; df.columns</span><br><span class="line">Index([&#x27;year&#x27;, &#x27;state&#x27;, &#x27;pop&#x27;, &#x27;debt&#x27;], dtype=&#x27;object&#x27;)</span><br><span class="line">&gt;&gt;&gt; type(df[&#x27;debt&#x27;])</span><br><span class="line">&lt;class &#x27;pandas.core.series.Series&#x27;&gt;</span><br></pre></td></tr></table></figure>
-<p><code>DataFrame</code> 面向行和面向列的操作基本是平衡的，任意抽出一列都是 <code>Series</code>。</p>
-<h2 id="对象属性"><a href="#对象属性" class="headerlink" title="对象属性"></a>对象属性</h2><h3 id="重新索引"><a href="#重新索引" class="headerlink" title="重新索引"></a>重新索引</h3><p><code>Series</code> 对象的重新索引通过其 <code>.reindex(index=None,**kwargs)</code> 方法实现。<code>**kwargs</code> 中常用的参数有俩：<code>method=None,fill_value=np.NaN</code>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">ser = Series([4.5,7.2,-5.3,3.6],index=[&#x27;d&#x27;,&#x27;b&#x27;,&#x27;a&#x27;,&#x27;c&#x27;])</span><br><span class="line">&gt;&gt;&gt; a = [&#x27;a&#x27;,&#x27;b&#x27;,&#x27;c&#x27;,&#x27;d&#x27;,&#x27;e&#x27;]</span><br><span class="line">&gt;&gt;&gt; ser.reindex(a)</span><br><span class="line">a   -5.3</span><br><span class="line">b    7.2</span><br><span class="line">c    3.6</span><br><span class="line">d    4.5</span><br><span class="line">e    NaN</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; ser.reindex(a,fill_value=0)</span><br><span class="line">a   -5.3</span><br><span class="line">b    7.2</span><br><span class="line">c    3.6</span><br><span class="line">d    4.5</span><br><span class="line">e    0.0</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; ser.reindex(a,method=&#x27;ffill&#x27;)</span><br><span class="line">a   -5.3</span><br><span class="line">b    7.2</span><br><span class="line">c    3.6</span><br><span class="line">d    4.5</span><br><span class="line">e    4.5</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; ser.reindex(a,fill_value=0,method=&#x27;ffill&#x27;)</span><br><span class="line">a   -5.3</span><br><span class="line">b    7.2</span><br><span class="line">c    3.6</span><br><span class="line">d    4.5</span><br><span class="line">e    4.5</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
-<p><code>.reindex()</code> 方法会返回一个新对象，其 <code>index</code> 严格遵循给出的参数，<code>method:&#123;&#39;backfill&#39;, &#39;bfill&#39;, &#39;pad&#39;, &#39;ffill&#39;, None&#125;</code> 参数用于指定插值（填充）方式，当没有给出时，自动用 <code>fill_value</code> 填充，默认为 <code>NaN（ffill = pad，bfill = back fill</code>，分别指插值时向前还是向后取值）</p>
-<p><code>DataFrame</code> 对象的重新索引方法为：<code>.reindex(index=None,columns=None,**kwargs)</code>。仅比 <code>Series</code> 多了一个可选的 <code>columns</code> 参数，用于给列索引。用法与上例类似，只不过插值方法 method 参数只能应用于行，即轴 0。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; state = [&#x27;Texas&#x27;,&#x27;Utha&#x27;,&#x27;California&#x27;]</span><br><span class="line">&gt;&gt;&gt; df.reindex(columns=state,method=&#x27;ffill&#x27;)</span><br><span class="line">    Texas  Utha  California</span><br><span class="line">a      1   NaN           2</span><br><span class="line">c      4   NaN           5  </span><br><span class="line">d      7   NaN           8</span><br><span class="line"></span><br><span class="line">[3 rows x 3 columns]</span><br><span class="line">&gt;&gt;&gt; df.reindex(index=[&#x27;a&#x27;,&#x27;b&#x27;,&#x27;c&#x27;,&#x27;d&#x27;],columns=state,method=&#x27;ffill&#x27;)</span><br><span class="line">   Texas  Utha  California</span><br><span class="line">a      1   NaN           2</span><br><span class="line">b      1   NaN           2</span><br><span class="line">c      4   NaN           5</span><br><span class="line">d      7   NaN           8</span><br><span class="line"></span><br><span class="line">[4 rows x 3 columns]</span><br></pre></td></tr></table></figure>
-<p>不过 <code>fill_value</code> 依然对有效。聪明的小伙伴可能已经想到了，可不可以通过 <code>df.T.reindex(index,method=&#39;**&#39;).T</code>这样的方式来实现在列上的插值呢，答案是可行的。另外要注意，使用 <code>reindex(index,method=&#39;**&#39;)</code> 的时候，<code>index</code> 必须是单调的，否则就会引发一个 <code>ValueError: Must be monotonic for forward fill</code>，比如上例中的最后一次调用，如果使用 <code>index=[&#39;a&#39;,&#39;b&#39;,&#39;d&#39;,&#39;c&#39;]</code> 的话就不行。</p>
-<h3 id="删除指定轴上的项"><a href="#删除指定轴上的项" class="headerlink" title="删除指定轴上的项"></a>删除指定轴上的项</h3><p>即删除 <code>Serie</code>s 的元素或 <code>DataFrame</code> 的某一行（列）的意思，通过对象的 <code>.drop(labels, axis=0)</code> 方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; ser</span><br><span class="line">d    4.5</span><br><span class="line">b    7.2</span><br><span class="line">a   -5.3</span><br><span class="line">c    3.6</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; df</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">a     0      1           2</span><br><span class="line">c     3      4           5</span><br><span class="line">d     6      7           8</span><br><span class="line"></span><br><span class="line">[3 rows x 3 columns]</span><br><span class="line">&gt;&gt;&gt; ser.drop(&#x27;c&#x27;)</span><br><span class="line">d    4.5</span><br><span class="line">b    7.2</span><br><span class="line">a   -5.3</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; df.drop(&#x27;a&#x27;)</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">c     3      4           5</span><br><span class="line">d     6      7           8</span><br><span class="line"></span><br><span class="line">[2 rows x 3 columns]</span><br><span class="line">&gt;&gt;&gt; df.drop([&#x27;Ohio&#x27;,&#x27;Texas&#x27;],axis=1)</span><br><span class="line">   California</span><br><span class="line">a           2</span><br><span class="line">c           5</span><br><span class="line">d           8</span><br><span class="line"></span><br><span class="line">[3 rows x 1 columns]</span><br></pre></td></tr></table></figure>
-<p><code>.drop()</code> 返回的是一个新对象，元对象不会被改变。</p>
-<h3 id="索引和切片"><a href="#索引和切片" class="headerlink" title="索引和切片"></a>索引和切片</h3><p>就像 <code>Numpy</code>，<code>pandas</code> 也支持通过 <code>obj[::]</code> 的方式进行索引和切片，以及通过布尔型数组进行过滤。</p>
-<p>不过须要注意，因为 <code>pandas</code> 对象的 <code>index</code> 不限于整数，所以当使用非整数作为切片索引时，它是末端包含的。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; foo</span><br><span class="line">a    4.5</span><br><span class="line">b    7.2</span><br><span class="line">c   -5.3</span><br><span class="line">d    3.6</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; bar</span><br><span class="line">0    4.5</span><br><span class="line">1    7.2</span><br><span class="line">2   -5.3</span><br><span class="line">3    3.6</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; foo[:2]</span><br><span class="line">a    4.5</span><br><span class="line">b    7.2</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; bar[:2]</span><br><span class="line">0    4.5</span><br><span class="line">1    7.2</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; foo[:&#x27;c&#x27;]</span><br><span class="line">a    4.5</span><br><span class="line">b    7.2</span><br><span class="line">c   -5.3</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
-<p>这里 <code>foo</code> 和 <code>bar</code> 只有 <code>index</code> 不同——bar 的 <code>index</code> 是整数序列。可见当使用整数索引切片时，结果与 <code>Python</code> 列表或 <code>Numpy</code> 的默认状况相同；换成 ‘c’ 这样的字符串索引时，结果就包含了这个边界元素。</p>
-<p>另外一个特别之处在于 <code>DataFrame</code> 对象的索引方式，因为他有两个轴向（双重索引）。</p>
-<p>可以这么理解：DataFrame 对象的标准切片语法为：<code>.ix[::,::]</code>。<code>ix</code> 对象可以接受两套切片，分别为行<code>（axis=0）</code>和列<code>（axis=1）</code>的方向：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; df</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">a     0      1           2</span><br><span class="line">c     3      4           5</span><br><span class="line">d     6      7           8</span><br><span class="line"></span><br><span class="line">[3 rows x 3 columns]</span><br><span class="line">&gt;&gt;&gt; df.ix[:2,:2]</span><br><span class="line">   Ohio  Texas</span><br><span class="line">a     0      1</span><br><span class="line">c     3      4</span><br><span class="line"></span><br><span class="line">[2 rows x 2 columns]</span><br><span class="line">&gt;&gt;&gt; df.ix[&#x27;a&#x27;,&#x27;Ohio&#x27;]</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
-<p>而不使用 <code>ix</code> ，直接切的情况就特殊了：</p>
-<p>索引时，选取的是列<br>切片时，选取的是行<br>这看起来有点不合逻辑，但作者解释说 “这种语法设定来源于实践”，我们信他。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; df[&#x27;Ohio&#x27;]</span><br><span class="line">a    0</span><br><span class="line">c    3</span><br><span class="line">d    6</span><br><span class="line">Name: Ohio, dtype: int32</span><br><span class="line">&gt;&gt;&gt; df[:&#x27;c&#x27;]</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">a     0      1           2</span><br><span class="line">c     3      4           5</span><br><span class="line"></span><br><span class="line">[2 rows x 3 columns]</span><br><span class="line">&gt;&gt;&gt; df[:2]</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">a     0      1           2</span><br><span class="line">c     3      4           5</span><br><span class="line"></span><br><span class="line">[2 rows x 3 columns]</span><br></pre></td></tr></table></figure>
-<p>使用布尔型数组的情况，注意行与列的不同切法（列切法的 <code>:</code> 不能省）：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; df[&#x27;Texas&#x27;]&gt;=4</span><br><span class="line">a    False</span><br><span class="line">c     True</span><br><span class="line">d     True</span><br><span class="line">Name: Texas, dtype: bool</span><br><span class="line">&gt;&gt;&gt; df[df[&#x27;Texas&#x27;]&gt;=4]</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">c     3      4           5</span><br><span class="line">d     6      7           8</span><br><span class="line"></span><br><span class="line">[2 rows x 3 columns]</span><br><span class="line">&gt;&gt;&gt; df.ix[:,df.ix[&#x27;c&#x27;]&gt;=4]</span><br><span class="line">   Texas  California</span><br><span class="line">a      1           2</span><br><span class="line">c      4           5</span><br><span class="line">d      7           8</span><br><span class="line"></span><br><span class="line">[3 rows x 2 columns]</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
-<h3 id="算术运算和数据对齐"><a href="#算术运算和数据对齐" class="headerlink" title="算术运算和数据对齐"></a>算术运算和数据对齐</h3><p><code>pandas</code> 最重要的一个功能是，它可以对不同索引的对象进行算术运算。在将对象相加时，结果的索引取索引对的并集。自动的数据对齐在不重叠的索引处引入空值，默认为 <code>NaN</code>。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; foo = Series(&#123;&#x27;a&#x27;:1,&#x27;b&#x27;:2&#125;)</span><br><span class="line">&gt;&gt;&gt; foo</span><br><span class="line">a    1</span><br><span class="line">b    2</span><br><span class="line">dtype: int64</span><br><span class="line">&gt;&gt;&gt; bar = Series(&#123;&#x27;b&#x27;:3,&#x27;d&#x27;:4&#125;)</span><br><span class="line">&gt;&gt;&gt; bar</span><br><span class="line">b    3</span><br><span class="line">d    4</span><br><span class="line">dtype: int64</span><br><span class="line">&gt;&gt;&gt; foo + bar</span><br><span class="line">a   NaN</span><br><span class="line">b     5</span><br><span class="line">d   NaN</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
-<p><code>DataFrame</code> 的对齐操作会同时发生在行和列上。</p>
-<p>当不希望在运算结果中出现 <code>NA</code> 值时，可以使用前面 <code>reindex</code> 中提到过 <code>fill_value</code> 参数，不过为了传递这个参数，就需要使用对象的方法，而不是操作符：<code>df1.add(df2,fill_value=0)</code>。其他算术方法还有：<code>sub(), div(), mul()</code>。</p>
-<p><code>Series</code> 和 <code>DataFrame</code> 之间的算术运算涉及广播，暂时先不讲。</p>
-<h3 id="函数应用和映射"><a href="#函数应用和映射" class="headerlink" title="函数应用和映射"></a>函数应用和映射</h3><p><code>Numpy</code> 的 <code>ufuncs</code>（元素级数组方法）也可用于操作 <code>pandas</code> 对象。</p>
-<p>当希望将函数应用到 <code>DataFrame</code> 对象的某一行或列时，可以使用 <code>.apply(func, axis=0, args=(), **kwds)</code> 方法。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">f = lambda x:x.max()-x.min()</span><br><span class="line">&gt;&gt;&gt; df</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">a     0      1           2</span><br><span class="line">c     3      4           5</span><br><span class="line">d     6      7           8</span><br><span class="line"></span><br><span class="line">[3 rows x 3 columns]</span><br><span class="line">&gt;&gt;&gt; df.apply(f)</span><br><span class="line">Ohio          6</span><br><span class="line">Texas         6</span><br><span class="line">California    6</span><br><span class="line">dtype: int64</span><br><span class="line">&gt;&gt;&gt; df.apply(f,axis=1)</span><br><span class="line">a    2</span><br><span class="line">c    2</span><br><span class="line">d    2</span><br><span class="line">dtype: int64</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
-
-<h3 id="排序和排名"><a href="#排序和排名" class="headerlink" title="排序和排名"></a>排序和排名</h3><p><code>Series</code> 的 <code>sort_index(ascending=True)</code> 方法可以对 <code>index</code> 进行排序操作，<code>ascending</code> 参数用于控制升序或降序，默认为升序。</p>
-<p>若要按值对 <code>Series</code> 进行排序，当使用 <code>.order()</code> 方法，任何缺失值默认都会被放到 <code>Series</code> 的末尾。</p>
-<p>在 <code>DataFrame</code> 上，<code>.sort_index(axis=0, by=None, ascending=True)</code> 方法多了一个轴向的选择参数与一个 <code>by</code> 参数，<code>by</code> 参数的作用是针对某一（些）列进行排序（不能对行使用 by 参数）：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; df.sort_index(by=&#x27;Ohio&#x27;)</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">a     0      1           2</span><br><span class="line">c     3      4           5</span><br><span class="line">d     6      7           8</span><br><span class="line"></span><br><span class="line">[3 rows x 3 columns]</span><br><span class="line">&gt;&gt;&gt; df.sort_index(by=[&#x27;California&#x27;,&#x27;Texas&#x27;])</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">a     0      1           2</span><br><span class="line">c     3      4           5</span><br><span class="line">d     6      7           8</span><br><span class="line"></span><br><span class="line">[3 rows x 3 columns]</span><br><span class="line">&gt;&gt;&gt; df.sort_index(axis=1)</span><br><span class="line">   California  Ohio  Texas</span><br><span class="line">a           2     0      1</span><br><span class="line">c           5     3      4</span><br><span class="line">d           8     6      7</span><br><span class="line"></span><br><span class="line">[3 rows x 3 columns]</span><br></pre></td></tr></table></figure>
-<p>排名<code>（Series.rank(method=&#39;average&#39;, ascending=True)）</code>的作用与排序的不同之处在于，他会把对象的 <code>values </code>替换成名次（从 1 到 n）。这时唯一的问题在于如何处理平级项，方法里的 <code>method</code> 参数就是起这个作用的，他有四个值可选：<code>average, min, max, first</code>。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; ser=Series([3,2,0,3],index=list(&#x27;abcd&#x27;))</span><br><span class="line">&gt;&gt;&gt; ser</span><br><span class="line">a    3</span><br><span class="line">b    2</span><br><span class="line">c    0</span><br><span class="line">d    3</span><br><span class="line">dtype: int64</span><br><span class="line">&gt;&gt;&gt; ser.rank()</span><br><span class="line">a    3.5</span><br><span class="line">b    2.0</span><br><span class="line">c    1.0</span><br><span class="line">d    3.5</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; ser.rank(method=&#x27;min&#x27;)</span><br><span class="line">a    3</span><br><span class="line">b    2</span><br><span class="line">c    1</span><br><span class="line">d    3</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; ser.rank(method=&#x27;max&#x27;)</span><br><span class="line">a    4</span><br><span class="line">b    2</span><br><span class="line">c    1</span><br><span class="line">d    4</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; ser.rank(method=&#x27;first&#x27;)</span><br><span class="line">a    3</span><br><span class="line">b    2</span><br><span class="line">c    1</span><br><span class="line">d    4</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
-<p>注意在 <code>ser[0]=ser[3]</code> 这对平级项上，不同 <code>method</code> 参数表现出的不同名次。</p>
-<p><code>DataFrame</code> 的 <code>.rank(axis=0, method=&#39;average&#39;, ascending=True)</code> 方法多了个 <code>axis</code> 参数，可选择按行或列分别进行排名，暂时好像没有针对全部元素的排名方法。</p>
-<h3 id="统计方法"><a href="#统计方法" class="headerlink" title="统计方法"></a>统计方法</h3><p><code>pandas</code> 对象有一些统计方法。它们大部分都属于约简和汇总统计，用于从 <code>Series</code> 中提取单个值，或从 <code>DataFrame</code> 的行或列中提取一个 <code>Series</code>。</p>
-<p>比如 <code>DataFrame.mean(axis=0,skipna=True)</code>方法，当数据集中存在 <code>NA</code> 值时，这些值会被简单跳过，除非整个切片（行或列）全是 NA，如果不想这样，则可以通过 <code>skipna=False</code> 来禁用此功能：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; df</span><br><span class="line">    one  two</span><br><span class="line">a  1.40  NaN</span><br><span class="line">b  7.10 -4.5</span><br><span class="line">c   NaN  NaN</span><br><span class="line">d  0.75 -1.3</span><br><span class="line"></span><br><span class="line">[4 rows x 2 columns]</span><br><span class="line">&gt;&gt;&gt; df.mean()</span><br><span class="line">one    3.083333</span><br><span class="line">two   -2.900000</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; df.mean(axis=1)</span><br><span class="line">a    1.400</span><br><span class="line">b    1.300</span><br><span class="line">c      NaN</span><br><span class="line">d   -0.275</span><br><span class="line">dtype: float64</span><br><span class="line">&gt;&gt;&gt; df.mean(axis=1,skipna=False)</span><br><span class="line">a      NaN</span><br><span class="line">b    1.300</span><br><span class="line">c      NaN</span><br><span class="line">d   -0.275</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
-<p>其他常用的统计方法有：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">count	非 NA 值的数量</span><br><span class="line">describe	针对 Series 或 DF 的列计算汇总统计</span><br><span class="line">min , max	最小值和最大值</span><br><span class="line">argmin , argmax	最小值和最大值的索引位置（整数）</span><br><span class="line">idxmin , idxmax	最小值和最大值的索引值</span><br><span class="line">quantile	样本分位数（0 到 1）</span><br><span class="line">sum	求和</span><br><span class="line">mean	均值</span><br><span class="line">median	中位数</span><br><span class="line">mad	根据均值计算平均绝对离差</span><br><span class="line">var	方差</span><br><span class="line">std	标准差</span><br><span class="line">skew	样本值的偏度（三阶矩）</span><br><span class="line">kurt	样本值的峰度（四阶矩）</span><br><span class="line">cumsum	样本值的累计和</span><br><span class="line">cummin , cummax	样本值的累计最大值和累计最小值</span><br><span class="line">cumprod	样本值的累计积</span><br><span class="line">diff	计算一阶差分（对时间序列很有用）</span><br><span class="line">pct_change	计算百分数变化</span><br></pre></td></tr></table></figure>
-
-<h3 id="处理缺失数据"><a href="#处理缺失数据" class="headerlink" title="处理缺失数据"></a>处理缺失数据</h3><p><code>pandas</code> 中 NA 的主要表现为 <code>np.nan</code>，另外 Python 内建的 <code>None</code> 也会被当做 <code>NA</code> 处理。</p>
-<p>处理 <code>NA</code> 的方法有四种：<code>dropna , fillna , isnull , notnull</code> 。</p>
-<h4 id="is-not-null"><a href="#is-not-null" class="headerlink" title="is(not)null"></a>is(not)null</h4><p>这一对方法对对象做元素级应用，然后返回一个布尔型数组，一般可用于布尔型索引。</p>
-<h4 id="dropna"><a href="#dropna" class="headerlink" title="dropna"></a>dropna</h4><p>对于一个 Series，dropna 返回一个仅含非空数据和索引值的 Series。</p>
-<p>问题在于对 DataFrame 的处理方式，因为一旦 <code>drop</code> 的话，至少要丢掉一行（列）。这里的解决方式与前面类似，还是通过一个额外的参数：<code>dropna(axis=0, how=&#39;any&#39;, thresh=None)</code> ，<code>how</code> 参数可选的值为 <code>any</code> 或者 <code>all</code>。<code>all</code> 仅在切片元素全为 <code>NA</code> 时才抛弃该行(列)。另外一个有趣的参数是 <code>thresh</code>，该参数的类型为整数，它的作用是，比如 <code>thresh=3</code>，会在一行中至少有 3 个非 <code>NA</code> 值时将其保留。</p>
-<h4 id="fillna"><a href="#fillna" class="headerlink" title="fillna"></a>fillna</h4><p><code>fillna(value=None, method=None, axis=0)</code> 中的 <code>value</code> 参数除了基本类型外，还可以使用字典，这样可以实现对不同的列填充不同的值。<code>method</code> 的用法与前面 <code>.reindex()</code> 方法相同，这里不再赘述。</p>
-<h3 id="inplace-参数"><a href="#inplace-参数" class="headerlink" title="inplace 参数"></a>inplace 参数</h3><p>前面有个点一直没讲，结果整篇示例写下来发现还挺重要的。就是 <code>Series</code> 和 <code>DataFrame</code> 对象的方法中，凡是会对数组作出修改并返回一个新数组的，往往都有一个 <code>replace=False</code> 的可选参数。如果手动设定为 <code>True</code>，那么原数组就可以被替换。</p>
-
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series,DataFrame</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/python_pandas_basis/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -401,7 +335,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -417,7 +351,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                  <a href="/categories/Web/Back/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -447,25 +381,14 @@
 
       
           <p>python中的float除法和整除法，有需要的朋友可以参考下。</p>
-<p>从python2.2开始，便有两种除法运算符：”&#x2F;”、”&#x2F;&#x2F;”。两者最大区别在：</p>
-<ol>
-<li>python2.2前的版本和python2.2以后3.0以前的版本的默认情况下，”&#x2F;”所做的除法是以一种两个数或者多个数出现一个浮点数结果就以浮点数的形式表示，即float除法</li>
-<li>“&#x2F;&#x2F;”所做的除法则不相同，”&#x2F;&#x2F;”不管两者出现任何数，都以整除结果为准，不对小数部分进行处理，直接抛弃，也就是整除法</li>
-</ol>
-<p>以下是在编译器测试的数据，测试的版本是python2.7</p>
-<p>关于”&#x2F;”：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; 3/2</span><br><span class="line">1</span><br><span class="line">&gt;&gt;&gt; 3/2.0</span><br><span class="line">1.5</span><br><span class="line">&gt;&gt;&gt; 3.0/2</span><br><span class="line">1.5</span><br><span class="line">&gt;&gt;&gt; 10/3.0</span><br><span class="line">3.3333333333333335</span><br></pre></td></tr></table></figure>
-<p>由以上的例子我们可得出，只要除数中<strong>有一个数</strong>是浮点数，那么得到的结果也是浮点数</p>
-<p>以下是关于”&#x2F;&#x2F;”:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; 3//2</span><br><span class="line">1</span><br><span class="line">&gt;&gt;&gt; 3//2.0</span><br><span class="line">1.0</span><br><span class="line">&gt;&gt;&gt; 3.0//2</span><br><span class="line">1.0</span><br><span class="line">&gt;&gt;&gt; 3.0//2.0</span><br><span class="line">1.0</span><br></pre></td></tr></table></figure>
-<p>由以上的例子，我们可以看出，两个整型相除，得到的还是整型，但是。如果一个浮点数除以一个非浮点数得到的还会是一个浮点数，但是，计算的结果却是忽略小数部分，运算的结果类似两个整型相除，但是得到一个浮点数。另外”&#x2F;&#x2F;”对于两个浮点数也是不例外的。</p>
-<p>如何让”&#x2F;”和”&#x2F;&#x2F;”进行分工</p>
-<p>在默认情况下，这两种运算符有很大的重叠地方，比如，当两个数都是整数的时候，两者的运算结果是没有区别的。如果想在python中让这两种有一个明确的分工。即”&#x2F;”可以用于float除法，”&#x2F;&#x2F;”用于整除法，我们可以在程序开始的时候做以下声明：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from __future__ import division</span><br></pre></td></tr></table></figure>
-<p>声明后测试的结果（以下测试的版本是python2.7）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from __future__ import division</span><br><span class="line">&gt;&gt;&gt; 3/2</span><br><span class="line">1.5</span><br><span class="line">&gt;&gt;&gt; 3.0/2</span><br><span class="line">1.5</span><br><span class="line">&gt;&gt;&gt; 3/2.0</span><br><span class="line">1.5</span><br><span class="line">&gt;&gt;&gt; 3.0/2.0</span><br><span class="line">1.5</span><br><span class="line">&gt;&gt;&gt; 3//2</span><br><span class="line">1</span><br><span class="line">&gt;&gt;&gt; 3.0//2</span><br><span class="line">1.0</span><br><span class="line">&gt;&gt;&gt; 3.0//2.0</span><br><span class="line">1.0</span><br><span class="line">&gt;&gt;&gt; 3//2.0</span><br><span class="line">1.0</span><br><span class="line">&gt;&gt;&gt; -11/2</span><br><span class="line">-5.5</span><br></pre></td></tr></table></figure>
-<p>以上，我们可以知道，做这个声明以后，”&#x2F;”进行的将是float除法而不是整除法。<br>还需要注意的是，在<strong>pyhton3</strong>中，”&#x2F;”表示的就是float除，不需要再引入模块，就算分子分母都是int，返回的也将是浮点数</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/python_float/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -515,7 +438,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -531,7 +454,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                  <a href="/categories/Web/Back/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -562,18 +485,14 @@
       
           <h2 id="通过Latex输出中文PDF"><a href="#通过Latex输出中文PDF" class="headerlink" title="通过Latex输出中文PDF"></a>通过Latex输出中文PDF</h2><p>安装latex可以选择完整安装，和安装<code>latex-base</code>版本。完整安装仅安装包就有约2.7G，latex-base是一个基础包，安装包100M左右，安装需要400M不到的空间。我们目前仅需要通过latex输出PDF文档，所以不需要安装完整安装。使用latex-base就可以了。但是latex-base安装后，不能直接使用，还需要一些额外操作才能正常支持中文格式。</p>
 <p>Latex在 Mac OS中 叫MacTex.</p>
-<h2 id="安装BasicTex"><a href="#安装BasicTex" class="headerlink" title="安装BasicTex"></a>安装BasicTex</h2><p>从官网下载BaisicTex安装包，下载链接：<span class="exturl" data-url="aHR0cDovL3R1Zy5vcmcvY2dpLWJpbi9tYWN0ZXgtZG93bmxvYWQvQmFzaWNUZVgucGtn">http://tug.org/cgi-bin/mactex-download/BasicTeX.pkg<i class="fa fa-external-link-alt"></i></span></p>
-<p>下载完成后，直接双击安装即可。<br>坑：安装完成后，相应工具集的路径并不会被添加到环境变量中，所以这时直接执行相应工具，或配置编译，会报找不到相应工具的错误。</p>
-<h2 id="添加工具路径到环境变量-PATH中"><a href="#添加工具路径到环境变量-PATH中" class="headerlink" title="添加工具路径到环境变量$PATH中"></a>添加工具路径到环境变量$PATH中</h2><p>工具路径一般在<code>/usr/local/texlive/2016basic/bin/universal-darwin/</code> (注： ”2016basic“是我安装的版本，如果你安装的版本不同这个文件的名字可能不同。）</p>
-<p>1）修改.bash_profile, 添加如下行：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$PATH:/usr/local/texlive/2016basic/bin/universal-darwin/</span><br></pre></td></tr></table></figure>
-<p>2）使修改生效</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure>
-
-<h2 id="安装一些额外的tex包"><a href="#安装一些额外的tex包" class="headerlink" title="安装一些额外的tex包"></a>安装一些额外的tex包</h2><p>更新tlmgr</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo tlmgr update --self</span><br></pre></td></tr></table></figure>
-<p>安装相应的工具</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo tlmgr install mathpazo adjustbox</span><br><span class="line">sudo tlmgr install courier collectbox ucs</span><br><span class="line">sudo tlmgr install palatino</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/mac_jupyter_notebook/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -623,7 +542,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -639,7 +558,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                  <a href="/categories/Web/Back/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -649,7 +568,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>854</span>
+              <span>826</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -668,9 +587,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># Matplotlib中文显示有问题,当然可以修改配置文件matplotlibrc ,不过较为麻烦.其实只要在代码中指定字体就可以了</span><br><span class="line"></span><br><span class="line"># 第一种方法:</span><br><span class="line"></span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">from pylab import *</span><br><span class="line">mpl.rcParams[&#x27;font.sans-serif&#x27;] = [&#x27;SimHei&#x27;] #指定默认字体</span><br><span class="line"></span><br><span class="line">mpl.rcParams[&#x27;axes.unicode_minus&#x27;] = False #解决保存图像是负号&#x27;-&#x27;显示为方块的问题</span><br><span class="line"></span><br><span class="line">t = arange(-5*pi, 5*pi, 0.01)</span><br><span class="line">y = sin(t)/t</span><br><span class="line">plt.plot(t, y)</span><br><span class="line">plt.title(u&#x27;这里写的是中文&#x27;)</span><br><span class="line">plt.xlabel(u&#x27;X坐标&#x27;)</span><br><span class="line">plt.ylabel(u&#x27;Y坐标&#x27;)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"># 第二种方法</span><br><span class="line"></span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">from pylab import *</span><br><span class="line">myfont = matplotlib.font_manager.FontProperties(fname=&#x27;C:/Windows/Fonts/msyh.ttf&#x27;)</span><br><span class="line">mpl.rcParams[&#x27;axes.unicode_minus&#x27;] = False</span><br><span class="line">t = arange(-5*pi, 5*pi, 0.01)</span><br><span class="line">y = sin(t)/t</span><br><span class="line">plt.plot(t, y)</span><br><span class="line">plt.title(u&#x27;这里写的是中文&#x27;,fontproperties=myfont) #指定字体</span><br><span class="line">plt.xlabel(u&#x27;X坐标&#x27;,fontproperties=myfont)</span><br><span class="line">plt.ylabel(u&#x27;Y坐标&#x27;,fontproperties=myfont)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p><img data-src="https://raw.githubusercontent.com/ucfyao/image/master/img/20190419144753.png?token=ACYTD73FNGR2SCSBCWW4JRS4XFXVQ"></p>
-
+          <p>Matplotlib中文显示有问题,当然可以修改配置文件matplotlibrc，不过较为麻烦。其实只要在代码中指定字体就可以了。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/python_matplotlib/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -720,7 +645,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -736,7 +661,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                  <a href="/categories/Web/Back/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -766,26 +691,14 @@
 
       
           <p><code>shift</code>函数是对数据进行移动的操作，假如现在有一个DataFrame数据df，如下所示：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">index	value1</span><br><span class="line">A	0</span><br><span class="line">B	1</span><br><span class="line">C	2</span><br><span class="line">D	3</span><br></pre></td></tr></table></figure>
-<p>那么如果执行以下代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.shift()</span><br></pre></td></tr></table></figure>
-<p>就会变成如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">index	value1</span><br><span class="line">A	NaN</span><br><span class="line">B	0</span><br><span class="line">C	1</span><br><span class="line">D	2</span><br></pre></td></tr></table></figure>
-<p>看一下函数原型：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DataFrame.shift(periods=1, freq=None, axis=0)</span><br></pre></td></tr></table></figure>
-
-<p>参数:</p>
-<ul>
-<li>periods：类型为int，表示移动的幅度，可以是正数，也可以是负数，默认值是1,1就表示移动一次，注意这里移动的都是数据，而索引是不移动的，移动之后没有对应值的，就赋值为NaN。<br>执行以下代码：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.shift(2)</span><br></pre></td></tr></table></figure>
-就会得到：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">index	value1</span><br><span class="line">A	NaN</span><br><span class="line">B	NaN</span><br><span class="line">C	0</span><br><span class="line">D	1</span><br></pre></td></tr></table></figure>
-执行：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.shift(-1)</span><br></pre></td></tr></table></figure>
-会得到：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">index	value1</span><br><span class="line">A	1</span><br><span class="line">B	2</span><br><span class="line">C	3</span><br><span class="line">D	NaN</span><br></pre></td></tr></table></figure></li>
-<li>freq： DateOffset, timedelta, or time rule string，可选参数，默认值为None，只适用于时间序列，如果这个参数存在，那么会按照参数值移动时间索引，而数据值没有发生变化。<br>例如现在有df1如下：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">index	value1</span><br><span class="line">2016-06-01	0</span><br><span class="line">2016-06-02	1</span><br><span class="line">2016-06-03	2</span><br><span class="line">2016-06-04	3</span><br></pre></td></tr></table></figure>
-执行：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df1.shift(periods=1,freq=datetime.timedelta(1))</span><br></pre></td></tr></table></figure>
-会得到：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">index | value1</span><br><span class="line">—-|—-</span><br><span class="line">2016-06-02 | 0</span><br><span class="line">2016-06-03 | 1</span><br><span class="line">2016-06-04 | 2</span><br><span class="line">2016-06-05 | 3</span><br></pre></td></tr></table></figure></li>
-<li>axis：{0, 1, ‘index’, ‘columns’}，表示移动的方向，如果是0或者’index’表示上下移动，如果是1或者’columns’，则会左右移动。</li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/python_pandas_shift/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -835,7 +748,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -932,7 +845,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1027,7 +940,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1123,7 +1036,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1220,7 +1133,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1260,28 +1173,14 @@
           <blockquote>
 <p>KDJ指标是最常用的技术指标之一，它的作用是判断股票未来短期的走势。很多书店里卖的炒股类书籍都会推荐这个指标，并认为KDJ指标低位金叉是一个非常好的买点，还会给出几个很漂亮的K线图形来印证他们的观点。少数的几个例子不能让人信服，KDJ指标低位金叉选股效果到底好不好，一定要用大样本说话。</p>
 </blockquote>
-<p>本篇文章将找出历史上所有股票的全部低位金叉情况，并且统计这些股票在金叉之后若干个交易日内的涨幅，看是否有显著的正收益。通过这个案例将着重向大家介绍pandas的如下功能：</p>
-<ul>
-<li>使用pandas导入股票数据</li>
-<li>如何计算KDJ指标</li>
-<li>如何计算KDJ指标金叉</li>
-<li>shift()函数的用法</li>
-<li>append()函数的用法</li>
-</ul>
-<p><strong>下面开始正文：</strong></p>
-<p>需要找出历史上所有股票的全部低位金叉情况，那么首先必须要有股票的历史日线交易数据，从这个<span class="exturl" data-url="aHR0cDovL2Jicy5waW5nZ3Uub3JnL2xpbmt0by5waHA/dXJsPWh0dHA6Ly93d3cueXVjZXpoZS5jb20v">网站<i class="fa fa-external-link-alt"></i></span>可以下载到所有股票的历史日线数据，可以作为我们计算的原始数据。数据下载下来是下图这个样子：</p>
-<p>每个股票一个csv文件</p>
-<p><img data-src="http://www.yaozihao.cn/wp-content/uploads/2017/04/21.png">  </p>
-<p>每一行是每一天的数据</p>
-<p><img data-src="http://www.yaozihao.cn/wp-content/uploads/2017/04/22.png">  </p>
-<p>这个日线数据有以下的字段：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">【code】 股票的代码，上证股票以sh开头，深证股票以sz开头</span><br><span class="line">【date】 交易日期</span><br><span class="line">【open】 开盘价</span><br><span class="line">【high】 最高价</span><br><span class="line">【low】 最低价</span><br><span class="line">【close】 收盘价</span><br><span class="line">【change】 涨跌幅，复权之后的真实涨跌幅，保证准确</span><br><span class="line">【volume】 成交量</span><br><span class="line">【money】 成交额</span><br><span class="line">【traded_market_value】 流通市值</span><br><span class="line">【market_value】 总市值</span><br><span class="line">【turnover】 换手率，成交量/流通股本</span><br><span class="line">【adjust_price】 后复权价，复权开始时间为股票上市日，精确到小数点后10位</span><br><span class="line">【report_type】 最近一期财务报告的类型，3-31对应一季报，6-30对应半年报，9-30对应三季报，12-31对应年报</span><br><span class="line">【report_date】 最近一期财务报告实际发布的日期</span><br><span class="line">【PE_TTM】 最近12个月市盈率，股价 / 最近12个月归属母公司的每股收益TTM</span><br><span class="line">【PS_TTM】 最近12个月市销率， 股价 / 最近12个月每股营业收入</span><br><span class="line">【PC_TTM】 最近12个月市现率， 股价 / 最近12个月每股经营现金流</span><br><span class="line">【PB】 市净率，股价 / 最近期财报每股净资产</span><br></pre></td></tr></table></figure>
-
-<p>有了原始数据之后就是代码，下面是代码的截图，里面有详细的注释，有问题可以留言。</p>
-<p><img data-src="http://www.yaozihao.cn/wp-content/uploads/2017/04/23.png"><img data-src="http://www.yaozihao.cn/wp-content/uploads/2017/04/24.png"> </p>
-<p>把数据下载下来，直接运行代码，就可以看到输出的结果了。这里就不贴出KDJ选股具体的效果了，这样大家可能更有动力钻研下程序吧~ 反正总体选股效果不大好，在总过出现的51万次KDJ金叉状况下，接下来股票会上涨的概率是50%左右。</p>
-<p><strong>思考题</strong><br>本程序其实是挑出了所有KDJ金叉的股票，并不是低位KDJ金叉。有人认为低位KDJ金叉效果更好，例如D值小于20时的金叉。在现有程序上进行小小的改动就可以挑选出低位KDJ金叉的股票，大家感兴趣可以看看选股效果怎么样，说实话具体怎么样我也没有试过。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/quant_python_pandas_kdj/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1372,7 +1271,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -1440,13 +1339,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">803k</span>
+    <span title="站点总字数">802k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:10</span>
+    <span title="站点阅读时长">12:09</span>
 </div>
 
         

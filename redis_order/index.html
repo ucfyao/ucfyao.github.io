@@ -31,7 +31,7 @@
 <meta property="og:description" content="Key Key命令速查： DEL删除给定的一个或多个 key，不存在的 key 会被忽略，返回值：被删除 key 的数量 DUMP序列化给定 key，返回被序列化的值，使用 RESTORE 命令可以将这个值反序列化为 Redis 键 EXISTS检查给定key是否存在 EXPIRE为给定key设置有效时间，接受时间点 EXPIREAT为给定key设置有效时间，接受时间戳timestamp KEYS">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2015-12-23T10:14:08.000Z">
-<meta property="article:modified_time" content="2022-11-30T00:23:54.204Z">
+<meta property="article:modified_time" content="2022-12-01T08:56:54.499Z">
 <meta property="article:author" content="Zihao Yao">
 <meta property="article:tag" content="db">
 <meta property="article:tag" content="redis">
@@ -132,7 +132,7 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">21</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -245,7 +245,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Db/" itemprop="url" rel="index"><span itemprop="name">Db</span></a>
+                  <a href="/categories/Web/DB/" itemprop="url" rel="index"><span itemprop="name">DB</span></a>
                 </span>
             </span>
 
@@ -281,191 +281,191 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="Key"><a href="#Key" class="headerlink" title="Key"></a>Key</h3><hr>
+        <h2 id="Key"><a href="#Key" class="headerlink" title="Key"></a>Key</h2><hr>
 <p>Key命令速查：</p>
-<h4 id="DEL"><a href="#DEL" class="headerlink" title="DEL"></a>DEL</h4><p>删除给定的一个或多个 key，不存在的 key 会被忽略，返回值：被删除 key 的数量</p>
-<h4 id="DUMP"><a href="#DUMP" class="headerlink" title="DUMP"></a>DUMP</h4><p>序列化给定 key，返回被序列化的值，使用 RESTORE 命令可以将这个值反序列化为 Redis 键</p>
-<h4 id="EXISTS"><a href="#EXISTS" class="headerlink" title="EXISTS"></a>EXISTS</h4><p>检查给定key是否存在</p>
-<h4 id="EXPIRE"><a href="#EXPIRE" class="headerlink" title="EXPIRE"></a>EXPIRE</h4><p>为给定key设置有效时间，接受时间点</p>
-<h4 id="EXPIREAT"><a href="#EXPIREAT" class="headerlink" title="EXPIREAT"></a>EXPIREAT</h4><p>为给定key设置有效时间，接受时间戳timestamp</p>
-<h4 id="KEYS"><a href="#KEYS" class="headerlink" title="KEYS"></a>KEYS</h4><p>查找所有符合给定模式 pattern 的 key；KEYS <code>*</code> 匹配数据库中所有 key；<code>KEYS h*llo</code> 匹配 hello，hallo等。<code>KEYS h[ae]llo</code>匹配hello和hallo</p>
-<h4 id="MIGRATE"><a href="#MIGRATE" class="headerlink" title="MIGRATE"></a>MIGRATE</h4><p>将 key 原子性地从当前实例传送到目标实例的指定数据库上，一旦传送成功， key 保证会出现在目标实例上，而当前实例上的 key 会被删除。执行的时候会阻塞进行迁移的两个实例</p>
-<h4 id="MOVE"><a href="#MOVE" class="headerlink" title="MOVE"></a>MOVE</h4><p>将当前数据库的 key 移动到给定的数据库 db 当中</p>
-<h4 id="OBJECT"><a href="#OBJECT" class="headerlink" title="OBJECT"></a>OBJECT</h4><p>从内部察看给定 key 的 Redis 对象</p>
-<h4 id="PERSIST"><a href="#PERSIST" class="headerlink" title="PERSIST"></a>PERSIST</h4><p>移除给定 key 的有效时间</p>
-<h4 id="PEXPIRE"><a href="#PEXPIRE" class="headerlink" title="PEXPIRE"></a>PEXPIRE</h4><p>以毫秒为单位设置 key 的有效时间</p>
-<h4 id="EXPIREAT-1"><a href="#EXPIREAT-1" class="headerlink" title="EXPIREAT"></a>EXPIREAT</h4><p>以毫秒为单位设置 key 的有效时间(timespan)</p>
-<h4 id="PTTL"><a href="#PTTL" class="headerlink" title="PTTL"></a>PTTL</h4><p>以毫秒为单位返回key的剩余有效时间</p>
-<h4 id="RANDOMKEY"><a href="#RANDOMKEY" class="headerlink" title="RANDOMKEY"></a>RANDOMKEY</h4><p>从当前数据库中随机返回(已使用的)一个key</p>
-<h4 id="RENAME"><a href="#RENAME" class="headerlink" title="RENAME"></a>RENAME</h4><p>将Key改名</p>
-<h4 id="RENAMENX"><a href="#RENAMENX" class="headerlink" title="RENAMENX"></a>RENAMENX</h4><p>当且仅当 newkey 不存在时，将 key 改名为 newkey</p>
-<h4 id="RESTORE"><a href="#RESTORE" class="headerlink" title="RESTORE"></a>RESTORE</h4><p>反序列化给定的序列化值，并将它和给定的 key 关联</p>
-<h4 id="SORT"><a href="#SORT" class="headerlink" title="SORT"></a>SORT</h4><p>返回或保存给定列表、集合、有序集合 key 中经过排序的元素</p>
-<h4 id="TTL"><a href="#TTL" class="headerlink" title="TTL"></a>TTL</h4><p>以秒为单位，返回给定 key 的剩余有效时间</p>
-<h4 id="TYPE"><a href="#TYPE" class="headerlink" title="TYPE"></a>TYPE</h4><p>返回 key 所储存的值的类型</p>
-<h4 id="SCAN"><a href="#SCAN" class="headerlink" title="SCAN"></a>SCAN</h4><p>增量迭代</p>
+<h3 id="DEL"><a href="#DEL" class="headerlink" title="DEL"></a>DEL</h3><p>删除给定的一个或多个 key，不存在的 key 会被忽略，返回值：被删除 key 的数量</p>
+<h3 id="DUMP"><a href="#DUMP" class="headerlink" title="DUMP"></a>DUMP</h3><p>序列化给定 key，返回被序列化的值，使用 RESTORE 命令可以将这个值反序列化为 Redis 键</p>
+<h3 id="EXISTS"><a href="#EXISTS" class="headerlink" title="EXISTS"></a>EXISTS</h3><p>检查给定key是否存在</p>
+<h3 id="EXPIRE"><a href="#EXPIRE" class="headerlink" title="EXPIRE"></a>EXPIRE</h3><p>为给定key设置有效时间，接受时间点</p>
+<h3 id="EXPIREAT"><a href="#EXPIREAT" class="headerlink" title="EXPIREAT"></a>EXPIREAT</h3><p>为给定key设置有效时间，接受时间戳timestamp</p>
+<h3 id="KEYS"><a href="#KEYS" class="headerlink" title="KEYS"></a>KEYS</h3><p>查找所有符合给定模式 pattern 的 key；KEYS <code>*</code> 匹配数据库中所有 key；<code>KEYS h*llo</code> 匹配 hello，hallo等。<code>KEYS h[ae]llo</code>匹配hello和hallo</p>
+<h3 id="MIGRATE"><a href="#MIGRATE" class="headerlink" title="MIGRATE"></a>MIGRATE</h3><p>将 key 原子性地从当前实例传送到目标实例的指定数据库上，一旦传送成功， key 保证会出现在目标实例上，而当前实例上的 key 会被删除。执行的时候会阻塞进行迁移的两个实例</p>
+<h3 id="MOVE"><a href="#MOVE" class="headerlink" title="MOVE"></a>MOVE</h3><p>将当前数据库的 key 移动到给定的数据库 db 当中</p>
+<h3 id="OBJECT"><a href="#OBJECT" class="headerlink" title="OBJECT"></a>OBJECT</h3><p>从内部察看给定 key 的 Redis 对象</p>
+<h3 id="PERSIST"><a href="#PERSIST" class="headerlink" title="PERSIST"></a>PERSIST</h3><p>移除给定 key 的有效时间</p>
+<h3 id="PEXPIRE"><a href="#PEXPIRE" class="headerlink" title="PEXPIRE"></a>PEXPIRE</h3><p>以毫秒为单位设置 key 的有效时间</p>
+<h3 id="EXPIREAT-1"><a href="#EXPIREAT-1" class="headerlink" title="EXPIREAT"></a>EXPIREAT</h3><p>以毫秒为单位设置 key 的有效时间(timespan)</p>
+<h3 id="PTTL"><a href="#PTTL" class="headerlink" title="PTTL"></a>PTTL</h3><p>以毫秒为单位返回key的剩余有效时间</p>
+<h3 id="RANDOMKEY"><a href="#RANDOMKEY" class="headerlink" title="RANDOMKEY"></a>RANDOMKEY</h3><p>从当前数据库中随机返回(已使用的)一个key</p>
+<h3 id="RENAME"><a href="#RENAME" class="headerlink" title="RENAME"></a>RENAME</h3><p>将Key改名</p>
+<h3 id="RENAMENX"><a href="#RENAMENX" class="headerlink" title="RENAMENX"></a>RENAMENX</h3><p>当且仅当 newkey 不存在时，将 key 改名为 newkey</p>
+<h3 id="RESTORE"><a href="#RESTORE" class="headerlink" title="RESTORE"></a>RESTORE</h3><p>反序列化给定的序列化值，并将它和给定的 key 关联</p>
+<h3 id="SORT"><a href="#SORT" class="headerlink" title="SORT"></a>SORT</h3><p>返回或保存给定列表、集合、有序集合 key 中经过排序的元素</p>
+<h3 id="TTL"><a href="#TTL" class="headerlink" title="TTL"></a>TTL</h3><p>以秒为单位，返回给定 key 的剩余有效时间</p>
+<h3 id="TYPE"><a href="#TYPE" class="headerlink" title="TYPE"></a>TYPE</h3><p>返回 key 所储存的值的类型</p>
+<h3 id="SCAN"><a href="#SCAN" class="headerlink" title="SCAN"></a>SCAN</h3><p>增量迭代</p>
 <hr>
-<h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><hr>
+<h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><hr>
 <p>String命令速查：</p>
-<h4 id="APPEND"><a href="#APPEND" class="headerlink" title="APPEND"></a>APPEND</h4><p>将值追加到指定key的值末尾，如果key不存在，则相当于增加操作。</p>
-<h4 id="BITCOUNT"><a href="#BITCOUNT" class="headerlink" title="BITCOUNT"></a>BITCOUNT</h4><p>计算给定字符串中，被设置为 1 的Bit位的数量。</p>
-<h4 id="BITOP"><a href="#BITOP" class="headerlink" title="BITOP"></a>BITOP</h4><p>对一个或多个保存二进制位的字符串 key 进行位元操作</p>
-<h4 id="DECR"><a href="#DECR" class="headerlink" title="DECR"></a>DECR</h4><p>将 key 中储存的数字值减一。Key不存在，则将值置0，key类型不正确返回一个错误。</p>
-<h4 id="DECRBY"><a href="#DECRBY" class="headerlink" title="DECRBY"></a>DECRBY</h4><p>将key所储存的值减去指定数量</p>
-<h4 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h4><p>返回key所关联的字符串值，如果Key储存的值不是字符串类型，返回一个错误。</p>
-<h4 id="GETBIT"><a href="#GETBIT" class="headerlink" title="GETBIT"></a>GETBIT</h4><p>对key所储存的字符串值，获取指定偏移量上的位</p>
-<h4 id="GETRANGE"><a href="#GETRANGE" class="headerlink" title="GETRANGE"></a>GETRANGE</h4><p>返回key中字符串值的子字符串，字符串的截取范围由start和end两个偏移量决定</p>
-<h4 id="GETSET"><a href="#GETSET" class="headerlink" title="GETSET"></a>GETSET</h4><p>将给定key的值设为value，并返回key的旧值。非字符串报错。</p>
-<h4 id="INCR"><a href="#INCR" class="headerlink" title="INCR"></a>INCR</h4><p>将 key 中储存的数字值增一。不能转换为数字则报错。</p>
-<h4 id="INCRBY"><a href="#INCRBY" class="headerlink" title="INCRBY"></a>INCRBY</h4><p>将key所储存的值加上指定增量</p>
-<h4 id="INCRBYFLOAT"><a href="#INCRBYFLOAT" class="headerlink" title="INCRBYFLOAT"></a>INCRBYFLOAT</h4><p>为key中所储存的值加上指定的浮点数增量</p>
-<h4 id="MGET"><a href="#MGET" class="headerlink" title="MGET"></a>MGET</h4><p>返回所有(一个或多个)给定key的值</p>
-<h4 id="MSET"><a href="#MSET" class="headerlink" title="MSET"></a>MSET</h4><p>同时设置一个或多个key-value对</p>
-<h4 id="MSETNX"><a href="#MSETNX" class="headerlink" title="MSETNX"></a>MSETNX</h4><p>同时设置一个或多个key-value对，若一个key已被占用，则全部的执行取消。</p>
-<h4 id="PSETEX"><a href="#PSETEX" class="headerlink" title="PSETEX"></a>PSETEX</h4><p>以毫秒为单位设置 key 的有效时间</p>
-<h4 id="SET"><a href="#SET" class="headerlink" title="SET"></a>SET</h4><p>将字符串值value关联到key</p>
-<h4 id="SETBIT"><a href="#SETBIT" class="headerlink" title="SETBIT"></a>SETBIT</h4><p>对key所储存的字符串值，设置或清除指定偏移量上的位(bit)</p>
-<h4 id="SETEX"><a href="#SETEX" class="headerlink" title="SETEX"></a>SETEX</h4><p>将值value关联到 key，并将key的有效时间(秒)</p>
-<h4 id="SETNX"><a href="#SETNX" class="headerlink" title="SETNX"></a>SETNX</h4><p>当key未被使用时，设置为指定值</p>
-<h4 id="SETRANGE"><a href="#SETRANGE" class="headerlink" title="SETRANGE"></a>SETRANGE</h4><p>用value参数覆写(overwrite)给定key所储存的字符串值，从偏移量 offset 开始</p>
-<h4 id="STRLEN"><a href="#STRLEN" class="headerlink" title="STRLEN"></a>STRLEN</h4><p>返回key所储存的字符串值的长度</p>
+<h3 id="APPEND"><a href="#APPEND" class="headerlink" title="APPEND"></a>APPEND</h3><p>将值追加到指定key的值末尾，如果key不存在，则相当于增加操作。</p>
+<h3 id="BITCOUNT"><a href="#BITCOUNT" class="headerlink" title="BITCOUNT"></a>BITCOUNT</h3><p>计算给定字符串中，被设置为 1 的Bit位的数量。</p>
+<h3 id="BITOP"><a href="#BITOP" class="headerlink" title="BITOP"></a>BITOP</h3><p>对一个或多个保存二进制位的字符串 key 进行位元操作</p>
+<h3 id="DECR"><a href="#DECR" class="headerlink" title="DECR"></a>DECR</h3><p>将 key 中储存的数字值减一。Key不存在，则将值置0，key类型不正确返回一个错误。</p>
+<h3 id="DECRBY"><a href="#DECRBY" class="headerlink" title="DECRBY"></a>DECRBY</h3><p>将key所储存的值减去指定数量</p>
+<h3 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h3><p>返回key所关联的字符串值，如果Key储存的值不是字符串类型，返回一个错误。</p>
+<h3 id="GETBIT"><a href="#GETBIT" class="headerlink" title="GETBIT"></a>GETBIT</h3><p>对key所储存的字符串值，获取指定偏移量上的位</p>
+<h3 id="GETRANGE"><a href="#GETRANGE" class="headerlink" title="GETRANGE"></a>GETRANGE</h3><p>返回key中字符串值的子字符串，字符串的截取范围由start和end两个偏移量决定</p>
+<h3 id="GETSET"><a href="#GETSET" class="headerlink" title="GETSET"></a>GETSET</h3><p>将给定key的值设为value，并返回key的旧值。非字符串报错。</p>
+<h3 id="INCR"><a href="#INCR" class="headerlink" title="INCR"></a>INCR</h3><p>将 key 中储存的数字值增一。不能转换为数字则报错。</p>
+<h3 id="INCRBY"><a href="#INCRBY" class="headerlink" title="INCRBY"></a>INCRBY</h3><p>将key所储存的值加上指定增量</p>
+<h3 id="INCRBYFLOAT"><a href="#INCRBYFLOAT" class="headerlink" title="INCRBYFLOAT"></a>INCRBYFLOAT</h3><p>为key中所储存的值加上指定的浮点数增量</p>
+<h3 id="MGET"><a href="#MGET" class="headerlink" title="MGET"></a>MGET</h3><p>返回所有(一个或多个)给定key的值</p>
+<h3 id="MSET"><a href="#MSET" class="headerlink" title="MSET"></a>MSET</h3><p>同时设置一个或多个key-value对</p>
+<h3 id="MSETNX"><a href="#MSETNX" class="headerlink" title="MSETNX"></a>MSETNX</h3><p>同时设置一个或多个key-value对，若一个key已被占用，则全部的执行取消。</p>
+<h3 id="PSETEX"><a href="#PSETEX" class="headerlink" title="PSETEX"></a>PSETEX</h3><p>以毫秒为单位设置 key 的有效时间</p>
+<h3 id="SET"><a href="#SET" class="headerlink" title="SET"></a>SET</h3><p>将字符串值value关联到key</p>
+<h3 id="SETBIT"><a href="#SETBIT" class="headerlink" title="SETBIT"></a>SETBIT</h3><p>对key所储存的字符串值，设置或清除指定偏移量上的位(bit)</p>
+<h3 id="SETEX"><a href="#SETEX" class="headerlink" title="SETEX"></a>SETEX</h3><p>将值value关联到 key，并将key的有效时间(秒)</p>
+<h3 id="SETNX"><a href="#SETNX" class="headerlink" title="SETNX"></a>SETNX</h3><p>当key未被使用时，设置为指定值</p>
+<h3 id="SETRANGE"><a href="#SETRANGE" class="headerlink" title="SETRANGE"></a>SETRANGE</h3><p>用value参数覆写(overwrite)给定key所储存的字符串值，从偏移量 offset 开始</p>
+<h3 id="STRLEN"><a href="#STRLEN" class="headerlink" title="STRLEN"></a>STRLEN</h3><p>返回key所储存的字符串值的长度</p>
 <hr>
-<h3 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h3><hr>
+<h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h2><hr>
 <p>Hash命令速查：</p>
-<h4 id="HDEL"><a href="#HDEL" class="headerlink" title="HDEL"></a>HDEL</h4><p>删除哈希表 key 中的一个或多个指定域，不存在的域将被忽略。</p>
-<h4 id="HEXISTS"><a href="#HEXISTS" class="headerlink" title="HEXISTS"></a>HEXISTS</h4><p>查看哈希表 key 中，给定域 field 是否存在</p>
-<h4 id="HGET"><a href="#HGET" class="headerlink" title="HGET"></a>HGET</h4><p>返回哈希表 key 中给定域 field 的值</p>
-<h4 id="HGETALL"><a href="#HGETALL" class="headerlink" title="HGETALL"></a>HGETALL</h4><p>返回哈希表 key 中，所有的域和值</p>
-<h4 id="HINCRBY"><a href="#HINCRBY" class="headerlink" title="HINCRBY"></a>HINCRBY</h4><p>为哈希表 key 中的域 field 的值加上指定增量</p>
-<h4 id="HINCRBYFLOAT"><a href="#HINCRBYFLOAT" class="headerlink" title="HINCRBYFLOAT"></a>HINCRBYFLOAT</h4><p>为哈希表 key 中的域 field 加上指定的浮点数增量</p>
-<h4 id="HKEYS"><a href="#HKEYS" class="headerlink" title="HKEYS"></a>HKEYS</h4><p>返回哈希表 key 中的所有域</p>
-<h4 id="HLEN"><a href="#HLEN" class="headerlink" title="HLEN"></a>HLEN</h4><p>返回哈希表 key 中域的数量</p>
-<h4 id="HMGET"><a href="#HMGET" class="headerlink" title="HMGET"></a>HMGET</h4><p>返回哈希表 key 中，一个或多个给定域的值</p>
-<h4 id="HMSET"><a href="#HMSET" class="headerlink" title="HMSET"></a>HMSET</h4><p>同时将多个 field-value (域-值)对设置到哈希表 key 中</p>
-<h4 id="HSET"><a href="#HSET" class="headerlink" title="HSET"></a>HSET</h4><p>将哈希表 key 中的域 field 的值设为 value</p>
-<h4 id="HSETNX"><a href="#HSETNX" class="headerlink" title="HSETNX"></a>HSETNX</h4><p>当且仅当域 field 不存在时，将哈希表 key 中的域 field 的值设置为 value</p>
-<h4 id="HVALS"><a href="#HVALS" class="headerlink" title="HVALS"></a>HVALS</h4><p>返回哈希表 key 中所有域的值</p>
-<h4 id="HSCAN"><a href="#HSCAN" class="headerlink" title="HSCAN"></a>HSCAN</h4><p>增量迭代</p>
+<h3 id="HDEL"><a href="#HDEL" class="headerlink" title="HDEL"></a>HDEL</h3><p>删除哈希表 key 中的一个或多个指定域，不存在的域将被忽略。</p>
+<h3 id="HEXISTS"><a href="#HEXISTS" class="headerlink" title="HEXISTS"></a>HEXISTS</h3><p>查看哈希表 key 中，给定域 field 是否存在</p>
+<h3 id="HGET"><a href="#HGET" class="headerlink" title="HGET"></a>HGET</h3><p>返回哈希表 key 中给定域 field 的值</p>
+<h3 id="HGETALL"><a href="#HGETALL" class="headerlink" title="HGETALL"></a>HGETALL</h3><p>返回哈希表 key 中，所有的域和值</p>
+<h3 id="HINCRBY"><a href="#HINCRBY" class="headerlink" title="HINCRBY"></a>HINCRBY</h3><p>为哈希表 key 中的域 field 的值加上指定增量</p>
+<h3 id="HINCRBYFLOAT"><a href="#HINCRBYFLOAT" class="headerlink" title="HINCRBYFLOAT"></a>HINCRBYFLOAT</h3><p>为哈希表 key 中的域 field 加上指定的浮点数增量</p>
+<h3 id="HKEYS"><a href="#HKEYS" class="headerlink" title="HKEYS"></a>HKEYS</h3><p>返回哈希表 key 中的所有域</p>
+<h3 id="HLEN"><a href="#HLEN" class="headerlink" title="HLEN"></a>HLEN</h3><p>返回哈希表 key 中域的数量</p>
+<h3 id="HMGET"><a href="#HMGET" class="headerlink" title="HMGET"></a>HMGET</h3><p>返回哈希表 key 中，一个或多个给定域的值</p>
+<h3 id="HMSET"><a href="#HMSET" class="headerlink" title="HMSET"></a>HMSET</h3><p>同时将多个 field-value (域-值)对设置到哈希表 key 中</p>
+<h3 id="HSET"><a href="#HSET" class="headerlink" title="HSET"></a>HSET</h3><p>将哈希表 key 中的域 field 的值设为 value</p>
+<h3 id="HSETNX"><a href="#HSETNX" class="headerlink" title="HSETNX"></a>HSETNX</h3><p>当且仅当域 field 不存在时，将哈希表 key 中的域 field 的值设置为 value</p>
+<h3 id="HVALS"><a href="#HVALS" class="headerlink" title="HVALS"></a>HVALS</h3><p>返回哈希表 key 中所有域的值</p>
+<h3 id="HSCAN"><a href="#HSCAN" class="headerlink" title="HSCAN"></a>HSCAN</h3><p>增量迭代</p>
 <hr>
-<h3 id="List"><a href="#List" class="headerlink" title="List"></a>List</h3><hr>
+<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><hr>
 <p>List命令速查：</p>
-<h4 id="BLPOP"><a href="#BLPOP" class="headerlink" title="BLPOP"></a>BLPOP</h4><p>它是 LPOP 命令的阻塞版本，当给定列表内没有任何元素可供弹出的时候，连接将被 BLPOP 命令阻塞，直到等待超时或发现可弹出元素为止</p>
-<h4 id="BRPOP"><a href="#BRPOP" class="headerlink" title="BRPOP"></a>BRPOP</h4><p>与BLPOP同义，弹出位置不同</p>
-<h4 id="BRPOPLPUSH"><a href="#BRPOPLPUSH" class="headerlink" title="BRPOPLPUSH"></a>BRPOPLPUSH</h4><p>当列表 source 为空时， BRPOPLPUSH 命令将阻塞连接，直到等待超时</p>
-<h4 id="LINDEX"><a href="#LINDEX" class="headerlink" title="LINDEX"></a>LINDEX</h4><p>返回列表 key 中，下标为 index 的元素</p>
-<h4 id="LINSERT"><a href="#LINSERT" class="headerlink" title="LINSERT"></a>LINSERT</h4><p>将值 value 插入到列表 key 当中</p>
-<h4 id="LLEN"><a href="#LLEN" class="headerlink" title="LLEN"></a>LLEN</h4><p>返回列表 key 的长度</p>
-<h4 id="LPOP"><a href="#LPOP" class="headerlink" title="LPOP"></a>LPOP</h4><p>移除并返回列表 key 的头元素</p>
-<h4 id="LPUSH"><a href="#LPUSH" class="headerlink" title="LPUSH"></a>LPUSH</h4><p>将一个或多个值 value 插入到列表 key 的表头</p>
-<h4 id="LPUSHX"><a href="#LPUSHX" class="headerlink" title="LPUSHX"></a>LPUSHX</h4><p>将值 value 插入到列表 key 的表头，当且仅当 key 存在并且是一个列表</p>
-<h4 id="LRANGE"><a href="#LRANGE" class="headerlink" title="LRANGE"></a>LRANGE</h4><p>返回列表 key 中指定区间内的元素，区间以偏移量 start 和 stop 指定</p>
-<h4 id="LREM"><a href="#LREM" class="headerlink" title="LREM"></a>LREM</h4><p>根据参数 count 的值，移除列表中与参数 value 相等的元素</p>
-<h4 id="LSET"><a href="#LSET" class="headerlink" title="LSET"></a>LSET</h4><p>将列表 key 下标为 index 的元素的值设置为 value</p>
-<h4 id="LTRIM"><a href="#LTRIM" class="headerlink" title="LTRIM"></a>LTRIM</h4><p>对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除</p>
-<h4 id="RPOP"><a href="#RPOP" class="headerlink" title="RPOP"></a>RPOP</h4><p>移除并返回列表 key 的尾元素</p>
-<h4 id="RPOPLPUSH"><a href="#RPOPLPUSH" class="headerlink" title="RPOPLPUSH"></a>RPOPLPUSH</h4><p>命令 RPOPLPUSH 在一个原子时间内，执行两个动作：1、将列表 source 中的最后一个元素(尾元素)弹出，并返回给客户端。2、将 source 弹出的元素插入到列表 destination ，作为 destination 列表的的头元素。</p>
-<h4 id="RPUSH"><a href="#RPUSH" class="headerlink" title="RPUSH"></a>RPUSH</h4><p>将一个或多个值 value 插入到列表 key 的表尾</p>
-<h4 id="RPUSHX"><a href="#RPUSHX" class="headerlink" title="RPUSHX"></a>RPUSHX</h4><p>将值 value 插入到列表 key 的表尾，当且仅当 key 存在并且是一个列表</p>
+<h3 id="BLPOP"><a href="#BLPOP" class="headerlink" title="BLPOP"></a>BLPOP</h3><p>它是 LPOP 命令的阻塞版本，当给定列表内没有任何元素可供弹出的时候，连接将被 BLPOP 命令阻塞，直到等待超时或发现可弹出元素为止</p>
+<h3 id="BRPOP"><a href="#BRPOP" class="headerlink" title="BRPOP"></a>BRPOP</h3><p>与BLPOP同义，弹出位置不同</p>
+<h3 id="BRPOPLPUSH"><a href="#BRPOPLPUSH" class="headerlink" title="BRPOPLPUSH"></a>BRPOPLPUSH</h3><p>当列表 source 为空时， BRPOPLPUSH 命令将阻塞连接，直到等待超时</p>
+<h3 id="LINDEX"><a href="#LINDEX" class="headerlink" title="LINDEX"></a>LINDEX</h3><p>返回列表 key 中，下标为 index 的元素</p>
+<h3 id="LINSERT"><a href="#LINSERT" class="headerlink" title="LINSERT"></a>LINSERT</h3><p>将值 value 插入到列表 key 当中</p>
+<h3 id="LLEN"><a href="#LLEN" class="headerlink" title="LLEN"></a>LLEN</h3><p>返回列表 key 的长度</p>
+<h3 id="LPOP"><a href="#LPOP" class="headerlink" title="LPOP"></a>LPOP</h3><p>移除并返回列表 key 的头元素</p>
+<h3 id="LPUSH"><a href="#LPUSH" class="headerlink" title="LPUSH"></a>LPUSH</h3><p>将一个或多个值 value 插入到列表 key 的表头</p>
+<h3 id="LPUSHX"><a href="#LPUSHX" class="headerlink" title="LPUSHX"></a>LPUSHX</h3><p>将值 value 插入到列表 key 的表头，当且仅当 key 存在并且是一个列表</p>
+<h3 id="LRANGE"><a href="#LRANGE" class="headerlink" title="LRANGE"></a>LRANGE</h3><p>返回列表 key 中指定区间内的元素，区间以偏移量 start 和 stop 指定</p>
+<h3 id="LREM"><a href="#LREM" class="headerlink" title="LREM"></a>LREM</h3><p>根据参数 count 的值，移除列表中与参数 value 相等的元素</p>
+<h3 id="LSET"><a href="#LSET" class="headerlink" title="LSET"></a>LSET</h3><p>将列表 key 下标为 index 的元素的值设置为 value</p>
+<h3 id="LTRIM"><a href="#LTRIM" class="headerlink" title="LTRIM"></a>LTRIM</h3><p>对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除</p>
+<h3 id="RPOP"><a href="#RPOP" class="headerlink" title="RPOP"></a>RPOP</h3><p>移除并返回列表 key 的尾元素</p>
+<h3 id="RPOPLPUSH"><a href="#RPOPLPUSH" class="headerlink" title="RPOPLPUSH"></a>RPOPLPUSH</h3><p>命令 RPOPLPUSH 在一个原子时间内，执行两个动作：1、将列表 source 中的最后一个元素(尾元素)弹出，并返回给客户端。2、将 source 弹出的元素插入到列表 destination ，作为 destination 列表的的头元素。</p>
+<h3 id="RPUSH"><a href="#RPUSH" class="headerlink" title="RPUSH"></a>RPUSH</h3><p>将一个或多个值 value 插入到列表 key 的表尾</p>
+<h3 id="RPUSHX"><a href="#RPUSHX" class="headerlink" title="RPUSHX"></a>RPUSHX</h3><p>将值 value 插入到列表 key 的表尾，当且仅当 key 存在并且是一个列表</p>
 <hr>
-<h3 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h3><hr>
+<h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><hr>
 <p>Set命令速查</p>
-<h4 id="SADD"><a href="#SADD" class="headerlink" title="SADD"></a>SADD</h4><p>将一个或多个 member 元素加入到集合 key 当中，已经存在于集合的 member 元素将被忽略</p>
-<h4 id="SCARD"><a href="#SCARD" class="headerlink" title="SCARD"></a>SCARD</h4><p>返回集合 key 的集合中元素的数量</p>
-<h4 id="SDIFF"><a href="#SDIFF" class="headerlink" title="SDIFF"></a>SDIFF</h4><p>返回一个集合的全部成员，该集合是所有给定集合之间的差集</p>
-<h4 id="SDIFFSTORE"><a href="#SDIFFSTORE" class="headerlink" title="SDIFFSTORE"></a>SDIFFSTORE</h4><p>这个命令的作用和 SDIFF 类似，但它将结果保存到新集合，而不是简单地返回结果集</p>
-<h4 id="SINTER"><a href="#SINTER" class="headerlink" title="SINTER"></a>SINTER</h4><p>返回一个集合的全部成员，该集合是所有给定集合的交集</p>
-<h4 id="SINTERSTORE"><a href="#SINTERSTORE" class="headerlink" title="SINTERSTORE"></a>SINTERSTORE</h4><p>与SINTER类似，不过可以指定保存到新集合</p>
-<h4 id="SISMEMBER"><a href="#SISMEMBER" class="headerlink" title="SISMEMBER"></a>SISMEMBER</h4><p>判断 member 元素是否集合 key 的成员</p>
-<h4 id="SMEMBERS"><a href="#SMEMBERS" class="headerlink" title="SMEMBERS"></a>SMEMBERS</h4><p>返回集合 key 中的所有成员</p>
-<h4 id="SMOVE"><a href="#SMOVE" class="headerlink" title="SMOVE"></a>SMOVE</h4><p>将 member 元素从一个集合移动到另一个集合</p>
-<h4 id="SPOP"><a href="#SPOP" class="headerlink" title="SPOP"></a>SPOP</h4><p>移除并返回集合中的一个随机元素</p>
-<h4 id="SRANDMEMBER"><a href="#SRANDMEMBER" class="headerlink" title="SRANDMEMBER"></a>SRANDMEMBER</h4><p>仅仅返回随机元素，而不对集合进行任何改动，与SPOP的区别在于不移除</p>
-<h4 id="SREM"><a href="#SREM" class="headerlink" title="SREM"></a>SREM</h4><p>移除集合 key 中的一个或多个 member 元素，不存在的 member 元素会被忽略</p>
-<h4 id="SUNION"><a href="#SUNION" class="headerlink" title="SUNION"></a>SUNION</h4><p>返回一个集合的全部成员，该集合是所有给定集合的并集</p>
-<h4 id="SUNIONSTORE"><a href="#SUNIONSTORE" class="headerlink" title="SUNIONSTORE"></a>SUNIONSTORE</h4><p>与SUNION类似，不过可以指定保存到新集合</p>
-<h4 id="SSCAN"><a href="#SSCAN" class="headerlink" title="SSCAN"></a>SSCAN</h4><p>增量迭代</p>
+<h3 id="SADD"><a href="#SADD" class="headerlink" title="SADD"></a>SADD</h3><p>将一个或多个 member 元素加入到集合 key 当中，已经存在于集合的 member 元素将被忽略</p>
+<h3 id="SCARD"><a href="#SCARD" class="headerlink" title="SCARD"></a>SCARD</h3><p>返回集合 key 的集合中元素的数量</p>
+<h3 id="SDIFF"><a href="#SDIFF" class="headerlink" title="SDIFF"></a>SDIFF</h3><p>返回一个集合的全部成员，该集合是所有给定集合之间的差集</p>
+<h3 id="SDIFFSTORE"><a href="#SDIFFSTORE" class="headerlink" title="SDIFFSTORE"></a>SDIFFSTORE</h3><p>这个命令的作用和 SDIFF 类似，但它将结果保存到新集合，而不是简单地返回结果集</p>
+<h3 id="SINTER"><a href="#SINTER" class="headerlink" title="SINTER"></a>SINTER</h3><p>返回一个集合的全部成员，该集合是所有给定集合的交集</p>
+<h3 id="SINTERSTORE"><a href="#SINTERSTORE" class="headerlink" title="SINTERSTORE"></a>SINTERSTORE</h3><p>与SINTER类似，不过可以指定保存到新集合</p>
+<h3 id="SISMEMBER"><a href="#SISMEMBER" class="headerlink" title="SISMEMBER"></a>SISMEMBER</h3><p>判断 member 元素是否集合 key 的成员</p>
+<h3 id="SMEMBERS"><a href="#SMEMBERS" class="headerlink" title="SMEMBERS"></a>SMEMBERS</h3><p>返回集合 key 中的所有成员</p>
+<h3 id="SMOVE"><a href="#SMOVE" class="headerlink" title="SMOVE"></a>SMOVE</h3><p>将 member 元素从一个集合移动到另一个集合</p>
+<h3 id="SPOP"><a href="#SPOP" class="headerlink" title="SPOP"></a>SPOP</h3><p>移除并返回集合中的一个随机元素</p>
+<h3 id="SRANDMEMBER"><a href="#SRANDMEMBER" class="headerlink" title="SRANDMEMBER"></a>SRANDMEMBER</h3><p>仅仅返回随机元素，而不对集合进行任何改动，与SPOP的区别在于不移除</p>
+<h3 id="SREM"><a href="#SREM" class="headerlink" title="SREM"></a>SREM</h3><p>移除集合 key 中的一个或多个 member 元素，不存在的 member 元素会被忽略</p>
+<h3 id="SUNION"><a href="#SUNION" class="headerlink" title="SUNION"></a>SUNION</h3><p>返回一个集合的全部成员，该集合是所有给定集合的并集</p>
+<h3 id="SUNIONSTORE"><a href="#SUNIONSTORE" class="headerlink" title="SUNIONSTORE"></a>SUNIONSTORE</h3><p>与SUNION类似，不过可以指定保存到新集合</p>
+<h3 id="SSCAN"><a href="#SSCAN" class="headerlink" title="SSCAN"></a>SSCAN</h3><p>增量迭代</p>
 <hr>
-<h3 id="SortedSet"><a href="#SortedSet" class="headerlink" title="SortedSet"></a>SortedSet</h3><hr>
+<h2 id="SortedSet"><a href="#SortedSet" class="headerlink" title="SortedSet"></a>SortedSet</h2><hr>
 <p>SortedSet命令速查：</p>
-<h4 id="ZADD"><a href="#ZADD" class="headerlink" title="ZADD"></a>ZADD</h4><p>将一个或多个 member 元素及其 score 值加入到有序集 key 当中</p>
-<h4 id="ZCARD"><a href="#ZCARD" class="headerlink" title="ZCARD"></a>ZCARD</h4><p>返回有序集 key 的基数</p>
-<h4 id="ZCOUNT"><a href="#ZCOUNT" class="headerlink" title="ZCOUNT"></a>ZCOUNT</h4><p>返回有序集 key 中， score 值在 min 和 max 之间(包括 score 值等于 min 或 max )的成员的数量</p>
-<h4 id="ZINCRBY"><a href="#ZINCRBY" class="headerlink" title="ZINCRBY"></a>ZINCRBY</h4><p>为有序集 key 的成员 member 的 score 值加上指定增量</p>
-<h4 id="ZRANGE"><a href="#ZRANGE" class="headerlink" title="ZRANGE"></a>ZRANGE</h4><p>返回有序集 key 中，指定区间内的成员(小到大排列)</p>
-<h4 id="ZRANGEBYSCORE"><a href="#ZRANGEBYSCORE" class="headerlink" title="ZRANGEBYSCORE"></a>ZRANGEBYSCORE</h4><p>返回有序集 key 中，所有 score 值介于 min 和 max 之间(包括等于 min 或 max )的成员</p>
-<h4 id="ZRANK"><a href="#ZRANK" class="headerlink" title="ZRANK"></a>ZRANK</h4><p>返回有序集 key 中成员 member 的排名。其中有序集成员按 score 值递增(从小到大)顺序排列</p>
-<h4 id="ZREM"><a href="#ZREM" class="headerlink" title="ZREM"></a>ZREM</h4><p>移除有序集 key 中的一个或多个成员，不存在的成员将被忽略</p>
-<h4 id="ZREMRANGEBYRANK"><a href="#ZREMRANGEBYRANK" class="headerlink" title="ZREMRANGEBYRANK"></a>ZREMRANGEBYRANK</h4><p>移除有序集 key 中，指定排名(rank)区间内的所有成员</p>
-<h4 id="ZREMRANGEBYSCORE"><a href="#ZREMRANGEBYSCORE" class="headerlink" title="ZREMRANGEBYSCORE"></a>ZREMRANGEBYSCORE</h4><p>移除有序集 key 中，所有 score 值介于 min 和 max 之间(包括等于 min 或 max )的成员</p>
-<h4 id="ZREVRANGE"><a href="#ZREVRANGE" class="headerlink" title="ZREVRANGE"></a>ZREVRANGE</h4><p>返回有序集 key 中，指定区间内的成员，成员位置按score大到小排列</p>
-<h4 id="ZREVRANGEBYSCORE"><a href="#ZREVRANGEBYSCORE" class="headerlink" title="ZREVRANGEBYSCORE"></a>ZREVRANGEBYSCORE</h4><p>返回有序集 key 中， score 值介于 max 和 min 之间(默认包括等于 max 或 min )的所有的成员。成员按 score 值递减(从大到小)排列</p>
-<h4 id="ZREVRANK"><a href="#ZREVRANK" class="headerlink" title="ZREVRANK"></a>ZREVRANK</h4><p>返回有序集 key 中成员 member 的排名。其中有序集成员按 score 值递减(从大到小)排序</p>
-<h4 id="ZSCORE"><a href="#ZSCORE" class="headerlink" title="ZSCORE"></a>ZSCORE</h4><p>返回有序集 key 中，成员 member 的 score 值</p>
-<h4 id="ZUNIONSTORE"><a href="#ZUNIONSTORE" class="headerlink" title="ZUNIONSTORE"></a>ZUNIONSTORE</h4><p>计算给定的一个或多个有序集的并集，其中给定 key 的数量必须以 numkeys 参数指定，并将该并集(结果集)储存到新集合</p>
-<h4 id="ZINTERSTORE"><a href="#ZINTERSTORE" class="headerlink" title="ZINTERSTORE"></a>ZINTERSTORE</h4><p>计算给定的一个或多个有序集的交集，其中给定 key 的数量必须以 numkeys 参数指定，并将该交集(结果集)储存到新集合</p>
-<h4 id="ZSCAN"><a href="#ZSCAN" class="headerlink" title="ZSCAN"></a>ZSCAN</h4><p>增量迭代</p>
+<h3 id="ZADD"><a href="#ZADD" class="headerlink" title="ZADD"></a>ZADD</h3><p>将一个或多个 member 元素及其 score 值加入到有序集 key 当中</p>
+<h3 id="ZCARD"><a href="#ZCARD" class="headerlink" title="ZCARD"></a>ZCARD</h3><p>返回有序集 key 的基数</p>
+<h3 id="ZCOUNT"><a href="#ZCOUNT" class="headerlink" title="ZCOUNT"></a>ZCOUNT</h3><p>返回有序集 key 中， score 值在 min 和 max 之间(包括 score 值等于 min 或 max )的成员的数量</p>
+<h3 id="ZINCRBY"><a href="#ZINCRBY" class="headerlink" title="ZINCRBY"></a>ZINCRBY</h3><p>为有序集 key 的成员 member 的 score 值加上指定增量</p>
+<h3 id="ZRANGE"><a href="#ZRANGE" class="headerlink" title="ZRANGE"></a>ZRANGE</h3><p>返回有序集 key 中，指定区间内的成员(小到大排列)</p>
+<h3 id="ZRANGEBYSCORE"><a href="#ZRANGEBYSCORE" class="headerlink" title="ZRANGEBYSCORE"></a>ZRANGEBYSCORE</h3><p>返回有序集 key 中，所有 score 值介于 min 和 max 之间(包括等于 min 或 max )的成员</p>
+<h3 id="ZRANK"><a href="#ZRANK" class="headerlink" title="ZRANK"></a>ZRANK</h3><p>返回有序集 key 中成员 member 的排名。其中有序集成员按 score 值递增(从小到大)顺序排列</p>
+<h3 id="ZREM"><a href="#ZREM" class="headerlink" title="ZREM"></a>ZREM</h3><p>移除有序集 key 中的一个或多个成员，不存在的成员将被忽略</p>
+<h3 id="ZREMRANGEBYRANK"><a href="#ZREMRANGEBYRANK" class="headerlink" title="ZREMRANGEBYRANK"></a>ZREMRANGEBYRANK</h3><p>移除有序集 key 中，指定排名(rank)区间内的所有成员</p>
+<h3 id="ZREMRANGEBYSCORE"><a href="#ZREMRANGEBYSCORE" class="headerlink" title="ZREMRANGEBYSCORE"></a>ZREMRANGEBYSCORE</h3><p>移除有序集 key 中，所有 score 值介于 min 和 max 之间(包括等于 min 或 max )的成员</p>
+<h3 id="ZREVRANGE"><a href="#ZREVRANGE" class="headerlink" title="ZREVRANGE"></a>ZREVRANGE</h3><p>返回有序集 key 中，指定区间内的成员，成员位置按score大到小排列</p>
+<h3 id="ZREVRANGEBYSCORE"><a href="#ZREVRANGEBYSCORE" class="headerlink" title="ZREVRANGEBYSCORE"></a>ZREVRANGEBYSCORE</h3><p>返回有序集 key 中， score 值介于 max 和 min 之间(默认包括等于 max 或 min )的所有的成员。成员按 score 值递减(从大到小)排列</p>
+<h3 id="ZREVRANK"><a href="#ZREVRANK" class="headerlink" title="ZREVRANK"></a>ZREVRANK</h3><p>返回有序集 key 中成员 member 的排名。其中有序集成员按 score 值递减(从大到小)排序</p>
+<h3 id="ZSCORE"><a href="#ZSCORE" class="headerlink" title="ZSCORE"></a>ZSCORE</h3><p>返回有序集 key 中，成员 member 的 score 值</p>
+<h3 id="ZUNIONSTORE"><a href="#ZUNIONSTORE" class="headerlink" title="ZUNIONSTORE"></a>ZUNIONSTORE</h3><p>计算给定的一个或多个有序集的并集，其中给定 key 的数量必须以 numkeys 参数指定，并将该并集(结果集)储存到新集合</p>
+<h3 id="ZINTERSTORE"><a href="#ZINTERSTORE" class="headerlink" title="ZINTERSTORE"></a>ZINTERSTORE</h3><p>计算给定的一个或多个有序集的交集，其中给定 key 的数量必须以 numkeys 参数指定，并将该交集(结果集)储存到新集合</p>
+<h3 id="ZSCAN"><a href="#ZSCAN" class="headerlink" title="ZSCAN"></a>ZSCAN</h3><p>增量迭代</p>
 <hr>
-<h3 id="Pub-x2F-Sub"><a href="#Pub-x2F-Sub" class="headerlink" title="Pub&#x2F;Sub"></a>Pub&#x2F;Sub</h3><hr>
+<h2 id="Pub-x2F-Sub"><a href="#Pub-x2F-Sub" class="headerlink" title="Pub&#x2F;Sub"></a>Pub&#x2F;Sub</h2><hr>
 <p>Pub&#x2F;Sub命令速查：</p>
-<h4 id="PSUBSCRIBE"><a href="#PSUBSCRIBE" class="headerlink" title="PSUBSCRIBE"></a>PSUBSCRIBE</h4><p>订阅一个或多个符合给定模式的频道</p>
-<h4 id="PUBLISH"><a href="#PUBLISH" class="headerlink" title="PUBLISH"></a>PUBLISH</h4><p>将信息 message 发送到指定的频道</p>
-<h4 id="PUBSUB"><a href="#PUBSUB" class="headerlink" title="PUBSUB"></a>PUBSUB</h4><p>PUBSUB 是一个查看订阅与发布系统状态的内省命令</p>
-<h4 id="PUNSUBSCRIBE"><a href="#PUNSUBSCRIBE" class="headerlink" title="PUNSUBSCRIBE"></a>PUNSUBSCRIBE</h4><p>指示客户端退订所有给定模式</p>
-<h4 id="SUBSCRIBE"><a href="#SUBSCRIBE" class="headerlink" title="SUBSCRIBE"></a>SUBSCRIBE</h4><p>订阅给定的一个或多个频道的信息</p>
-<h4 id="UNSUBSCRIBE"><a href="#UNSUBSCRIBE" class="headerlink" title="UNSUBSCRIBE"></a>UNSUBSCRIBE</h4><p>指示客户端退订给定的频道</p>
+<h3 id="PSUBSCRIBE"><a href="#PSUBSCRIBE" class="headerlink" title="PSUBSCRIBE"></a>PSUBSCRIBE</h3><p>订阅一个或多个符合给定模式的频道</p>
+<h3 id="PUBLISH"><a href="#PUBLISH" class="headerlink" title="PUBLISH"></a>PUBLISH</h3><p>将信息 message 发送到指定的频道</p>
+<h3 id="PUBSUB"><a href="#PUBSUB" class="headerlink" title="PUBSUB"></a>PUBSUB</h3><p>PUBSUB 是一个查看订阅与发布系统状态的内省命令</p>
+<h3 id="PUNSUBSCRIBE"><a href="#PUNSUBSCRIBE" class="headerlink" title="PUNSUBSCRIBE"></a>PUNSUBSCRIBE</h3><p>指示客户端退订所有给定模式</p>
+<h3 id="SUBSCRIBE"><a href="#SUBSCRIBE" class="headerlink" title="SUBSCRIBE"></a>SUBSCRIBE</h3><p>订阅给定的一个或多个频道的信息</p>
+<h3 id="UNSUBSCRIBE"><a href="#UNSUBSCRIBE" class="headerlink" title="UNSUBSCRIBE"></a>UNSUBSCRIBE</h3><p>指示客户端退订给定的频道</p>
 <hr>
-<h3 id="Transaction"><a href="#Transaction" class="headerlink" title="Transaction"></a>Transaction</h3><hr>
+<h2 id="Transaction"><a href="#Transaction" class="headerlink" title="Transaction"></a>Transaction</h2><hr>
 <p>Transaction命令速查：</p>
-<h4 id="DISCARD"><a href="#DISCARD" class="headerlink" title="DISCARD"></a>DISCARD</h4><p>取消事务，放弃执行事务块内的所有命令</p>
-<h4 id="EXEC"><a href="#EXEC" class="headerlink" title="EXEC"></a>EXEC</h4><p>执行所有事务块内的命令</p>
-<h4 id="MULTI"><a href="#MULTI" class="headerlink" title="MULTI"></a>MULTI</h4><p>标记一个事务块的开始</p>
-<h4 id="UNWATCH"><a href="#UNWATCH" class="headerlink" title="UNWATCH"></a>UNWATCH</h4><p>取消 WATCH 命令对所有 key 的监视</p>
-<h4 id="WATCH"><a href="#WATCH" class="headerlink" title="WATCH"></a>WATCH</h4><p>监视一个(或多个) key ，如果在事务执行之前这个(或这些) key 被其他命令所改动，那么事务将被打断</p>
+<h3 id="DISCARD"><a href="#DISCARD" class="headerlink" title="DISCARD"></a>DISCARD</h3><p>取消事务，放弃执行事务块内的所有命令</p>
+<h3 id="EXEC"><a href="#EXEC" class="headerlink" title="EXEC"></a>EXEC</h3><p>执行所有事务块内的命令</p>
+<h3 id="MULTI"><a href="#MULTI" class="headerlink" title="MULTI"></a>MULTI</h3><p>标记一个事务块的开始</p>
+<h3 id="UNWATCH"><a href="#UNWATCH" class="headerlink" title="UNWATCH"></a>UNWATCH</h3><p>取消 WATCH 命令对所有 key 的监视</p>
+<h3 id="WATCH"><a href="#WATCH" class="headerlink" title="WATCH"></a>WATCH</h3><p>监视一个(或多个) key ，如果在事务执行之前这个(或这些) key 被其他命令所改动，那么事务将被打断</p>
 <hr>
-<h3 id="Script"><a href="#Script" class="headerlink" title="Script"></a>Script</h3><hr>
+<h2 id="Script"><a href="#Script" class="headerlink" title="Script"></a>Script</h2><hr>
 <p>script命令速查：</p>
-<h4 id="EVAL"><a href="#EVAL" class="headerlink" title="EVAL"></a>EVAL</h4><p>通过内置的 Lua 解释器，可以使用 EVAL 命令对 Lua 脚本进行求值</p>
-<h4 id="VALSHA"><a href="#VALSHA" class="headerlink" title="VALSHA"></a>VALSHA</h4><p>根据给定的 sha1 校验码，对缓存在服务器中的脚本进行求值</p>
-<h4 id="SCRIPT-EXISTS"><a href="#SCRIPT-EXISTS" class="headerlink" title="SCRIPT EXISTS"></a>SCRIPT EXISTS</h4><p>给定一个或多个脚本的 SHA1 校验和，返回一个包含 0 和 1 的列表，表示校验和所指定的脚本是否已经被保存在缓存当中</p>
-<h4 id="SCRIPT-FLUSH"><a href="#SCRIPT-FLUSH" class="headerlink" title="SCRIPT FLUSH"></a>SCRIPT FLUSH</h4><p>清除所有 Lua 脚本缓存</p>
-<h4 id="SCRIPT-KILL"><a href="#SCRIPT-KILL" class="headerlink" title="SCRIPT KILL"></a>SCRIPT KILL</h4><p>停止当前正在运行的 Lua 脚本，当且仅当这个脚本没有执行过任何写操作时，这个命令才生效。这个命令主要用于终止运行时间过长的脚本</p>
-<h4 id="SCRIPT-LOAD"><a href="#SCRIPT-LOAD" class="headerlink" title="SCRIPT LOAD"></a>SCRIPT LOAD</h4><p>将脚本 script 添加到脚本缓存中，但并不立即执行这个脚本</p>
+<h3 id="EVAL"><a href="#EVAL" class="headerlink" title="EVAL"></a>EVAL</h3><p>通过内置的 Lua 解释器，可以使用 EVAL 命令对 Lua 脚本进行求值</p>
+<h3 id="VALSHA"><a href="#VALSHA" class="headerlink" title="VALSHA"></a>VALSHA</h3><p>根据给定的 sha1 校验码，对缓存在服务器中的脚本进行求值</p>
+<h3 id="SCRIPT-EXISTS"><a href="#SCRIPT-EXISTS" class="headerlink" title="SCRIPT EXISTS"></a>SCRIPT EXISTS</h3><p>给定一个或多个脚本的 SHA1 校验和，返回一个包含 0 和 1 的列表，表示校验和所指定的脚本是否已经被保存在缓存当中</p>
+<h3 id="SCRIPT-FLUSH"><a href="#SCRIPT-FLUSH" class="headerlink" title="SCRIPT FLUSH"></a>SCRIPT FLUSH</h3><p>清除所有 Lua 脚本缓存</p>
+<h3 id="SCRIPT-KILL"><a href="#SCRIPT-KILL" class="headerlink" title="SCRIPT KILL"></a>SCRIPT KILL</h3><p>停止当前正在运行的 Lua 脚本，当且仅当这个脚本没有执行过任何写操作时，这个命令才生效。这个命令主要用于终止运行时间过长的脚本</p>
+<h3 id="SCRIPT-LOAD"><a href="#SCRIPT-LOAD" class="headerlink" title="SCRIPT LOAD"></a>SCRIPT LOAD</h3><p>将脚本 script 添加到脚本缓存中，但并不立即执行这个脚本</p>
 <hr>
-<h3 id="Connection"><a href="#Connection" class="headerlink" title="Connection"></a>Connection</h3><hr>
+<h2 id="Connection"><a href="#Connection" class="headerlink" title="Connection"></a>Connection</h2><hr>
 <p>connection命令速查:</p>
-<h4 id="AUTH"><a href="#AUTH" class="headerlink" title="AUTH"></a>AUTH</h4><p>通过设置配置文件中 requirepass 项的值，可以使用密码来保护 Redis 服务器</p>
-<h4 id="ECHO"><a href="#ECHO" class="headerlink" title="ECHO"></a>ECHO</h4><p>打印一个特定的信息 message ，测试时使用。</p>
-<h4 id="PING"><a href="#PING" class="headerlink" title="PING"></a>PING</h4><p>使用客户端向 Redis 服务器发送一个 PING ，如果服务器运作正常的话，会返回一个 PONG，通常用于测试与服务器的连接是否仍然生效，或者用于测量延迟值</p>
-<h4 id="QUIT"><a href="#QUIT" class="headerlink" title="QUIT"></a>QUIT</h4><p>请求服务器关闭与当前客户端的连接</p>
-<h4 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a>SELECT</h4><p>切换到指定的数据库，数据库索引号 index 用数字值指定，以 0 作为起始索引值</p>
+<h3 id="AUTH"><a href="#AUTH" class="headerlink" title="AUTH"></a>AUTH</h3><p>通过设置配置文件中 requirepass 项的值，可以使用密码来保护 Redis 服务器</p>
+<h3 id="ECHO"><a href="#ECHO" class="headerlink" title="ECHO"></a>ECHO</h3><p>打印一个特定的信息 message ，测试时使用。</p>
+<h3 id="PING"><a href="#PING" class="headerlink" title="PING"></a>PING</h3><p>使用客户端向 Redis 服务器发送一个 PING ，如果服务器运作正常的话，会返回一个 PONG，通常用于测试与服务器的连接是否仍然生效，或者用于测量延迟值</p>
+<h3 id="QUIT"><a href="#QUIT" class="headerlink" title="QUIT"></a>QUIT</h3><p>请求服务器关闭与当前客户端的连接</p>
+<h3 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a>SELECT</h3><p>切换到指定的数据库，数据库索引号 index 用数字值指定，以 0 作为起始索引值</p>
 <hr>
-<h3 id="Server"><a href="#Server" class="headerlink" title="Server"></a>Server</h3><hr>
+<h2 id="Server"><a href="#Server" class="headerlink" title="Server"></a>Server</h2><hr>
 <p>server命令速查：</p>
-<h4 id="BGREWRITEAOF"><a href="#BGREWRITEAOF" class="headerlink" title="BGREWRITEAOF"></a>BGREWRITEAOF</h4><p>执行一个 AOF文件 重写操作。重写会创建一个当前 AOF 文件的体积优化版本。</p>
-<h4 id="BGSAVE"><a href="#BGSAVE" class="headerlink" title="BGSAVE"></a>BGSAVE</h4><p>在后台异步(Asynchronously)保存当前数据库的数据到磁盘</p>
-<h4 id="CLIENT-GETNAME"><a href="#CLIENT-GETNAME" class="headerlink" title="CLIENT GETNAME"></a>CLIENT GETNAME</h4><p>返回 CLIENT SETNAME 命令为连接设置的名字</p>
-<h4 id="CLIENT-KILL"><a href="#CLIENT-KILL" class="headerlink" title="CLIENT KILL"></a>CLIENT KILL</h4><p>关闭地址为 ip:port 的客户端</p>
-<h4 id="CLIENT-LIST"><a href="#CLIENT-LIST" class="headerlink" title="CLIENT LIST"></a>CLIENT LIST</h4><p>以人类可读的格式，返回所有连接到服务器的客户端信息和统计数据</p>
-<h4 id="CLIENT-SETNAME"><a href="#CLIENT-SETNAME" class="headerlink" title="CLIENT SETNAME"></a>CLIENT SETNAME</h4><p>为当前连接分配一个名字</p>
-<h4 id="CONFIG-GET"><a href="#CONFIG-GET" class="headerlink" title="CONFIG GET"></a>CONFIG GET</h4><p>CONFIG GET 命令用于取得运行中的 Redis 服务器的配置参数</p>
-<h4 id="CONFIG-RESETSTAT"><a href="#CONFIG-RESETSTAT" class="headerlink" title="CONFIG RESETSTAT"></a>CONFIG RESETSTAT</h4><p>重置 INFO 命令中的某些统计数据</p>
-<h4 id="CONFIG-REWRITE"><a href="#CONFIG-REWRITE" class="headerlink" title="CONFIG REWRITE"></a>CONFIG REWRITE</h4><p>CONFIG REWRITE 命令对启动 Redis 服务器时所指定的 redis.conf 文件进行改写</p>
-<h4 id="CONFIG-SET"><a href="#CONFIG-SET" class="headerlink" title="CONFIG SET"></a>CONFIG SET</h4><p>CONFIG SET 命令可以动态地调整 Redis 服务器的配置而无须重启</p>
-<h4 id="DBSIZE"><a href="#DBSIZE" class="headerlink" title="DBSIZE"></a>DBSIZE</h4><p>返回当前数据库的 key 的数量</p>
-<h4 id="DEBUG-OBJECT"><a href="#DEBUG-OBJECT" class="headerlink" title="DEBUG OBJECT"></a>DEBUG OBJECT</h4><p>DEBUG OBJECT 是一个调试命令，它不应被客户端所使用</p>
-<h4 id="DEBUG-SEGFAULT"><a href="#DEBUG-SEGFAULT" class="headerlink" title="DEBUG SEGFAULT"></a>DEBUG SEGFAULT</h4><p>执行一个不合法的内存访问从而让 Redis 崩溃，仅在开发时用于 BUG 模拟</p>
-<h4 id="FLUSHALL"><a href="#FLUSHALL" class="headerlink" title="FLUSHALL"></a>FLUSHALL</h4><p>清空整个 Redis 服务器的数据(删除所有数据库的所有 key )</p>
-<h4 id="FLUSHDB"><a href="#FLUSHDB" class="headerlink" title="FLUSHDB"></a>FLUSHDB</h4><p>清空当前数据库中的所有 key</p>
-<h4 id="INFO"><a href="#INFO" class="headerlink" title="INFO"></a>INFO</h4><p>返回关于 Redis 服务器的各种信息和统计数值</p>
-<h4 id="LASTSAVE"><a href="#LASTSAVE" class="headerlink" title="LASTSAVE"></a>LASTSAVE</h4><p>返回最近一次 Redis 成功将数据保存到磁盘上的时间，以 UNIX 时间戳格式表示</p>
-<h4 id="MONITOR"><a href="#MONITOR" class="headerlink" title="MONITOR"></a>MONITOR</h4><p>实时打印出 Redis 服务器接收到的命令，调试用</p>
-<h4 id="PSYNC"><a href="#PSYNC" class="headerlink" title="PSYNC"></a>PSYNC</h4><p>用于复制功能的内部命令</p>
-<h4 id="SAVE"><a href="#SAVE" class="headerlink" title="SAVE"></a>SAVE</h4><p>SAVE 命令执行一个同步保存操作，将当前 Redis 实例的所有数据快照(snapshot)以 RDB 文件的形式保存到硬盘。 一般来说，在生产环境很少执行 SAVE 操作，因为它会阻塞所有客户端，保存数据库的任务通常由 BGSAVE 命令异步地执行。然而，如果负责保存数据的后台子进程不幸出现问题时， SAVE 可以作为保存数据的最后手段来使用。</p>
-<h4 id="SHUTDOWN"><a href="#SHUTDOWN" class="headerlink" title="SHUTDOWN"></a>SHUTDOWN</h4><p>SHUTDOWN 命令执行以下操作： 停止所有客户端 如果有至少一个保存点在等待，执行 SAVE 命令 如果 AOF 选项被打开，更新 AOF 文件 关闭 redis 服务器(server)</p>
-<h4 id="SLAVEOF"><a href="#SLAVEOF" class="headerlink" title="SLAVEOF"></a>SLAVEOF</h4><p>SLAVEOF 命令用于在 Redis 运行时动态地修改复制(replication)功能的行为</p>
-<h4 id="SLOWLOG"><a href="#SLOWLOG" class="headerlink" title="SLOWLOG"></a>SLOWLOG</h4><p>Slow log 是 Redis 用来记录查询执行时间的日志系统</p>
-<h4 id="SYNC"><a href="#SYNC" class="headerlink" title="SYNC"></a>SYNC</h4><p>用于复制功能的内部命令</p>
-<h4 id="TIME"><a href="#TIME" class="headerlink" title="TIME"></a>TIME</h4><p>返回当前服务器时间</p>
+<h3 id="BGREWRITEAOF"><a href="#BGREWRITEAOF" class="headerlink" title="BGREWRITEAOF"></a>BGREWRITEAOF</h3><p>执行一个 AOF文件 重写操作。重写会创建一个当前 AOF 文件的体积优化版本。</p>
+<h3 id="BGSAVE"><a href="#BGSAVE" class="headerlink" title="BGSAVE"></a>BGSAVE</h3><p>在后台异步(Asynchronously)保存当前数据库的数据到磁盘</p>
+<h3 id="CLIENT-GETNAME"><a href="#CLIENT-GETNAME" class="headerlink" title="CLIENT GETNAME"></a>CLIENT GETNAME</h3><p>返回 CLIENT SETNAME 命令为连接设置的名字</p>
+<h3 id="CLIENT-KILL"><a href="#CLIENT-KILL" class="headerlink" title="CLIENT KILL"></a>CLIENT KILL</h3><p>关闭地址为 ip:port 的客户端</p>
+<h3 id="CLIENT-LIST"><a href="#CLIENT-LIST" class="headerlink" title="CLIENT LIST"></a>CLIENT LIST</h3><p>以人类可读的格式，返回所有连接到服务器的客户端信息和统计数据</p>
+<h3 id="CLIENT-SETNAME"><a href="#CLIENT-SETNAME" class="headerlink" title="CLIENT SETNAME"></a>CLIENT SETNAME</h3><p>为当前连接分配一个名字</p>
+<h3 id="CONFIG-GET"><a href="#CONFIG-GET" class="headerlink" title="CONFIG GET"></a>CONFIG GET</h3><p>CONFIG GET 命令用于取得运行中的 Redis 服务器的配置参数</p>
+<h3 id="CONFIG-RESETSTAT"><a href="#CONFIG-RESETSTAT" class="headerlink" title="CONFIG RESETSTAT"></a>CONFIG RESETSTAT</h3><p>重置 INFO 命令中的某些统计数据</p>
+<h3 id="CONFIG-REWRITE"><a href="#CONFIG-REWRITE" class="headerlink" title="CONFIG REWRITE"></a>CONFIG REWRITE</h3><p>CONFIG REWRITE 命令对启动 Redis 服务器时所指定的 redis.conf 文件进行改写</p>
+<h3 id="CONFIG-SET"><a href="#CONFIG-SET" class="headerlink" title="CONFIG SET"></a>CONFIG SET</h3><p>CONFIG SET 命令可以动态地调整 Redis 服务器的配置而无须重启</p>
+<h3 id="DBSIZE"><a href="#DBSIZE" class="headerlink" title="DBSIZE"></a>DBSIZE</h3><p>返回当前数据库的 key 的数量</p>
+<h3 id="DEBUG-OBJECT"><a href="#DEBUG-OBJECT" class="headerlink" title="DEBUG OBJECT"></a>DEBUG OBJECT</h3><p>DEBUG OBJECT 是一个调试命令，它不应被客户端所使用</p>
+<h3 id="DEBUG-SEGFAULT"><a href="#DEBUG-SEGFAULT" class="headerlink" title="DEBUG SEGFAULT"></a>DEBUG SEGFAULT</h3><p>执行一个不合法的内存访问从而让 Redis 崩溃，仅在开发时用于 BUG 模拟</p>
+<h3 id="FLUSHALL"><a href="#FLUSHALL" class="headerlink" title="FLUSHALL"></a>FLUSHALL</h3><p>清空整个 Redis 服务器的数据(删除所有数据库的所有 key )</p>
+<h3 id="FLUSHDB"><a href="#FLUSHDB" class="headerlink" title="FLUSHDB"></a>FLUSHDB</h3><p>清空当前数据库中的所有 key</p>
+<h3 id="INFO"><a href="#INFO" class="headerlink" title="INFO"></a>INFO</h3><p>返回关于 Redis 服务器的各种信息和统计数值</p>
+<h3 id="LASTSAVE"><a href="#LASTSAVE" class="headerlink" title="LASTSAVE"></a>LASTSAVE</h3><p>返回最近一次 Redis 成功将数据保存到磁盘上的时间，以 UNIX 时间戳格式表示</p>
+<h3 id="MONITOR"><a href="#MONITOR" class="headerlink" title="MONITOR"></a>MONITOR</h3><p>实时打印出 Redis 服务器接收到的命令，调试用</p>
+<h3 id="PSYNC"><a href="#PSYNC" class="headerlink" title="PSYNC"></a>PSYNC</h3><p>用于复制功能的内部命令</p>
+<h3 id="SAVE"><a href="#SAVE" class="headerlink" title="SAVE"></a>SAVE</h3><p>SAVE 命令执行一个同步保存操作，将当前 Redis 实例的所有数据快照(snapshot)以 RDB 文件的形式保存到硬盘。 一般来说，在生产环境很少执行 SAVE 操作，因为它会阻塞所有客户端，保存数据库的任务通常由 BGSAVE 命令异步地执行。然而，如果负责保存数据的后台子进程不幸出现问题时， SAVE 可以作为保存数据的最后手段来使用。</p>
+<h3 id="SHUTDOWN"><a href="#SHUTDOWN" class="headerlink" title="SHUTDOWN"></a>SHUTDOWN</h3><p>SHUTDOWN 命令执行以下操作： 停止所有客户端 如果有至少一个保存点在等待，执行 SAVE 命令 如果 AOF 选项被打开，更新 AOF 文件 关闭 redis 服务器(server)</p>
+<h3 id="SLAVEOF"><a href="#SLAVEOF" class="headerlink" title="SLAVEOF"></a>SLAVEOF</h3><p>SLAVEOF 命令用于在 Redis 运行时动态地修改复制(replication)功能的行为</p>
+<h3 id="SLOWLOG"><a href="#SLOWLOG" class="headerlink" title="SLOWLOG"></a>SLOWLOG</h3><p>Slow log 是 Redis 用来记录查询执行时间的日志系统</p>
+<h3 id="SYNC"><a href="#SYNC" class="headerlink" title="SYNC"></a>SYNC</h3><p>用于复制功能的内部命令</p>
+<h3 id="TIME"><a href="#TIME" class="headerlink" title="TIME"></a>TIME</h3><p>返回当前服务器时间</p>
 
     </div>
 
@@ -547,8 +547,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/php_debug_backtrace/" rel="prev" title="Php调试函数debug_backtrace">
-      <i class="fa fa-chevron-left"></i> Php调试函数debug_backtrace
+    <a href="/php_debug_backtrace/" rel="prev" title="PHP调试函数debug_backtrace">
+      <i class="fa fa-chevron-left"></i> PHP调试函数debug_backtrace
     </a></div>
       <div class="post-nav-item">
     <a href="/go_first_hello_go/" rel="next" title="创建第一个Go语言程序Hello,Go!">
@@ -612,7 +612,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Key"><span class="nav-text">Key</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DEL"><span class="nav-text">DEL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DUMP"><span class="nav-text">DUMP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EXISTS"><span class="nav-text">EXISTS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EXPIRE"><span class="nav-text">EXPIRE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EXPIREAT"><span class="nav-text">EXPIREAT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#KEYS"><span class="nav-text">KEYS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MIGRATE"><span class="nav-text">MIGRATE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MOVE"><span class="nav-text">MOVE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OBJECT"><span class="nav-text">OBJECT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PERSIST"><span class="nav-text">PERSIST</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PEXPIRE"><span class="nav-text">PEXPIRE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EXPIREAT-1"><span class="nav-text">EXPIREAT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PTTL"><span class="nav-text">PTTL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RANDOMKEY"><span class="nav-text">RANDOMKEY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RENAME"><span class="nav-text">RENAME</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RENAMENX"><span class="nav-text">RENAMENX</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RESTORE"><span class="nav-text">RESTORE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SORT"><span class="nav-text">SORT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TTL"><span class="nav-text">TTL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TYPE"><span class="nav-text">TYPE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SCAN"><span class="nav-text">SCAN</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String"><span class="nav-text">String</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#APPEND"><span class="nav-text">APPEND</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BITCOUNT"><span class="nav-text">BITCOUNT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BITOP"><span class="nav-text">BITOP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DECR"><span class="nav-text">DECR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DECRBY"><span class="nav-text">DECRBY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GET"><span class="nav-text">GET</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GETBIT"><span class="nav-text">GETBIT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GETRANGE"><span class="nav-text">GETRANGE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GETSET"><span class="nav-text">GETSET</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#INCR"><span class="nav-text">INCR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#INCRBY"><span class="nav-text">INCRBY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#INCRBYFLOAT"><span class="nav-text">INCRBYFLOAT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MGET"><span class="nav-text">MGET</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MSET"><span class="nav-text">MSET</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MSETNX"><span class="nav-text">MSETNX</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PSETEX"><span class="nav-text">PSETEX</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SET"><span class="nav-text">SET</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SETBIT"><span class="nav-text">SETBIT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SETEX"><span class="nav-text">SETEX</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SETNX"><span class="nav-text">SETNX</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SETRANGE"><span class="nav-text">SETRANGE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#STRLEN"><span class="nav-text">STRLEN</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hash"><span class="nav-text">Hash</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HDEL"><span class="nav-text">HDEL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HEXISTS"><span class="nav-text">HEXISTS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HGET"><span class="nav-text">HGET</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HGETALL"><span class="nav-text">HGETALL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HINCRBY"><span class="nav-text">HINCRBY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HINCRBYFLOAT"><span class="nav-text">HINCRBYFLOAT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HKEYS"><span class="nav-text">HKEYS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HLEN"><span class="nav-text">HLEN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HMGET"><span class="nav-text">HMGET</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HMSET"><span class="nav-text">HMSET</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HSET"><span class="nav-text">HSET</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HSETNX"><span class="nav-text">HSETNX</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HVALS"><span class="nav-text">HVALS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HSCAN"><span class="nav-text">HSCAN</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#List"><span class="nav-text">List</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#BLPOP"><span class="nav-text">BLPOP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BRPOP"><span class="nav-text">BRPOP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BRPOPLPUSH"><span class="nav-text">BRPOPLPUSH</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LINDEX"><span class="nav-text">LINDEX</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LINSERT"><span class="nav-text">LINSERT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LLEN"><span class="nav-text">LLEN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LPOP"><span class="nav-text">LPOP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LPUSH"><span class="nav-text">LPUSH</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LPUSHX"><span class="nav-text">LPUSHX</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LRANGE"><span class="nav-text">LRANGE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LREM"><span class="nav-text">LREM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LSET"><span class="nav-text">LSET</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LTRIM"><span class="nav-text">LTRIM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RPOP"><span class="nav-text">RPOP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RPOPLPUSH"><span class="nav-text">RPOPLPUSH</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RPUSH"><span class="nav-text">RPUSH</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RPUSHX"><span class="nav-text">RPUSHX</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Set"><span class="nav-text">Set</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SADD"><span class="nav-text">SADD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SCARD"><span class="nav-text">SCARD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SDIFF"><span class="nav-text">SDIFF</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SDIFFSTORE"><span class="nav-text">SDIFFSTORE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SINTER"><span class="nav-text">SINTER</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SINTERSTORE"><span class="nav-text">SINTERSTORE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SISMEMBER"><span class="nav-text">SISMEMBER</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SMEMBERS"><span class="nav-text">SMEMBERS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SMOVE"><span class="nav-text">SMOVE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SPOP"><span class="nav-text">SPOP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SRANDMEMBER"><span class="nav-text">SRANDMEMBER</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SREM"><span class="nav-text">SREM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SUNION"><span class="nav-text">SUNION</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SUNIONSTORE"><span class="nav-text">SUNIONSTORE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SSCAN"><span class="nav-text">SSCAN</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SortedSet"><span class="nav-text">SortedSet</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ZADD"><span class="nav-text">ZADD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZCARD"><span class="nav-text">ZCARD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZCOUNT"><span class="nav-text">ZCOUNT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZINCRBY"><span class="nav-text">ZINCRBY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZRANGE"><span class="nav-text">ZRANGE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZRANGEBYSCORE"><span class="nav-text">ZRANGEBYSCORE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZRANK"><span class="nav-text">ZRANK</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZREM"><span class="nav-text">ZREM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZREMRANGEBYRANK"><span class="nav-text">ZREMRANGEBYRANK</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZREMRANGEBYSCORE"><span class="nav-text">ZREMRANGEBYSCORE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZREVRANGE"><span class="nav-text">ZREVRANGE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZREVRANGEBYSCORE"><span class="nav-text">ZREVRANGEBYSCORE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZREVRANK"><span class="nav-text">ZREVRANK</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZSCORE"><span class="nav-text">ZSCORE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZUNIONSTORE"><span class="nav-text">ZUNIONSTORE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZINTERSTORE"><span class="nav-text">ZINTERSTORE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZSCAN"><span class="nav-text">ZSCAN</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pub-x2F-Sub"><span class="nav-text">Pub&#x2F;Sub</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#PSUBSCRIBE"><span class="nav-text">PSUBSCRIBE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PUBLISH"><span class="nav-text">PUBLISH</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PUBSUB"><span class="nav-text">PUBSUB</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PUNSUBSCRIBE"><span class="nav-text">PUNSUBSCRIBE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SUBSCRIBE"><span class="nav-text">SUBSCRIBE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UNSUBSCRIBE"><span class="nav-text">UNSUBSCRIBE</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Transaction"><span class="nav-text">Transaction</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DISCARD"><span class="nav-text">DISCARD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EXEC"><span class="nav-text">EXEC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MULTI"><span class="nav-text">MULTI</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UNWATCH"><span class="nav-text">UNWATCH</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WATCH"><span class="nav-text">WATCH</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Script"><span class="nav-text">Script</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#EVAL"><span class="nav-text">EVAL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VALSHA"><span class="nav-text">VALSHA</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SCRIPT-EXISTS"><span class="nav-text">SCRIPT EXISTS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SCRIPT-FLUSH"><span class="nav-text">SCRIPT FLUSH</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SCRIPT-KILL"><span class="nav-text">SCRIPT KILL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SCRIPT-LOAD"><span class="nav-text">SCRIPT LOAD</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Connection"><span class="nav-text">Connection</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AUTH"><span class="nav-text">AUTH</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ECHO"><span class="nav-text">ECHO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PING"><span class="nav-text">PING</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#QUIT"><span class="nav-text">QUIT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SELECT"><span class="nav-text">SELECT</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Server"><span class="nav-text">Server</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#BGREWRITEAOF"><span class="nav-text">BGREWRITEAOF</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BGSAVE"><span class="nav-text">BGSAVE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CLIENT-GETNAME"><span class="nav-text">CLIENT GETNAME</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CLIENT-KILL"><span class="nav-text">CLIENT KILL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CLIENT-LIST"><span class="nav-text">CLIENT LIST</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CLIENT-SETNAME"><span class="nav-text">CLIENT SETNAME</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CONFIG-GET"><span class="nav-text">CONFIG GET</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CONFIG-RESETSTAT"><span class="nav-text">CONFIG RESETSTAT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CONFIG-REWRITE"><span class="nav-text">CONFIG REWRITE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CONFIG-SET"><span class="nav-text">CONFIG SET</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DBSIZE"><span class="nav-text">DBSIZE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DEBUG-OBJECT"><span class="nav-text">DEBUG OBJECT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DEBUG-SEGFAULT"><span class="nav-text">DEBUG SEGFAULT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FLUSHALL"><span class="nav-text">FLUSHALL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FLUSHDB"><span class="nav-text">FLUSHDB</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#INFO"><span class="nav-text">INFO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LASTSAVE"><span class="nav-text">LASTSAVE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MONITOR"><span class="nav-text">MONITOR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PSYNC"><span class="nav-text">PSYNC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SAVE"><span class="nav-text">SAVE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SHUTDOWN"><span class="nav-text">SHUTDOWN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SLAVEOF"><span class="nav-text">SLAVEOF</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SLOWLOG"><span class="nav-text">SLOWLOG</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SYNC"><span class="nav-text">SYNC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TIME"><span class="nav-text">TIME</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Key"><span class="nav-text">Key</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DEL"><span class="nav-text">DEL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DUMP"><span class="nav-text">DUMP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EXISTS"><span class="nav-text">EXISTS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EXPIRE"><span class="nav-text">EXPIRE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EXPIREAT"><span class="nav-text">EXPIREAT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KEYS"><span class="nav-text">KEYS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MIGRATE"><span class="nav-text">MIGRATE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MOVE"><span class="nav-text">MOVE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OBJECT"><span class="nav-text">OBJECT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PERSIST"><span class="nav-text">PERSIST</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PEXPIRE"><span class="nav-text">PEXPIRE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EXPIREAT-1"><span class="nav-text">EXPIREAT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PTTL"><span class="nav-text">PTTL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RANDOMKEY"><span class="nav-text">RANDOMKEY</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RENAME"><span class="nav-text">RENAME</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RENAMENX"><span class="nav-text">RENAMENX</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RESTORE"><span class="nav-text">RESTORE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SORT"><span class="nav-text">SORT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TTL"><span class="nav-text">TTL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TYPE"><span class="nav-text">TYPE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SCAN"><span class="nav-text">SCAN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String"><span class="nav-text">String</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#APPEND"><span class="nav-text">APPEND</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BITCOUNT"><span class="nav-text">BITCOUNT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BITOP"><span class="nav-text">BITOP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DECR"><span class="nav-text">DECR</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DECRBY"><span class="nav-text">DECRBY</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GET"><span class="nav-text">GET</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GETBIT"><span class="nav-text">GETBIT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GETRANGE"><span class="nav-text">GETRANGE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GETSET"><span class="nav-text">GETSET</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#INCR"><span class="nav-text">INCR</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#INCRBY"><span class="nav-text">INCRBY</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#INCRBYFLOAT"><span class="nav-text">INCRBYFLOAT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MGET"><span class="nav-text">MGET</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MSET"><span class="nav-text">MSET</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MSETNX"><span class="nav-text">MSETNX</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PSETEX"><span class="nav-text">PSETEX</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SET"><span class="nav-text">SET</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SETBIT"><span class="nav-text">SETBIT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SETEX"><span class="nav-text">SETEX</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SETNX"><span class="nav-text">SETNX</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SETRANGE"><span class="nav-text">SETRANGE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#STRLEN"><span class="nav-text">STRLEN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hash"><span class="nav-text">Hash</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HDEL"><span class="nav-text">HDEL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HEXISTS"><span class="nav-text">HEXISTS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HGET"><span class="nav-text">HGET</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HGETALL"><span class="nav-text">HGETALL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HINCRBY"><span class="nav-text">HINCRBY</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HINCRBYFLOAT"><span class="nav-text">HINCRBYFLOAT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HKEYS"><span class="nav-text">HKEYS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HLEN"><span class="nav-text">HLEN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HMGET"><span class="nav-text">HMGET</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HMSET"><span class="nav-text">HMSET</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HSET"><span class="nav-text">HSET</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HSETNX"><span class="nav-text">HSETNX</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HVALS"><span class="nav-text">HVALS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HSCAN"><span class="nav-text">HSCAN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#List"><span class="nav-text">List</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BLPOP"><span class="nav-text">BLPOP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BRPOP"><span class="nav-text">BRPOP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BRPOPLPUSH"><span class="nav-text">BRPOPLPUSH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LINDEX"><span class="nav-text">LINDEX</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LINSERT"><span class="nav-text">LINSERT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LLEN"><span class="nav-text">LLEN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LPOP"><span class="nav-text">LPOP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LPUSH"><span class="nav-text">LPUSH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LPUSHX"><span class="nav-text">LPUSHX</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LRANGE"><span class="nav-text">LRANGE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LREM"><span class="nav-text">LREM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LSET"><span class="nav-text">LSET</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LTRIM"><span class="nav-text">LTRIM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RPOP"><span class="nav-text">RPOP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RPOPLPUSH"><span class="nav-text">RPOPLPUSH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RPUSH"><span class="nav-text">RPUSH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RPUSHX"><span class="nav-text">RPUSHX</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Set"><span class="nav-text">Set</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SADD"><span class="nav-text">SADD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SCARD"><span class="nav-text">SCARD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SDIFF"><span class="nav-text">SDIFF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SDIFFSTORE"><span class="nav-text">SDIFFSTORE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SINTER"><span class="nav-text">SINTER</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SINTERSTORE"><span class="nav-text">SINTERSTORE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SISMEMBER"><span class="nav-text">SISMEMBER</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SMEMBERS"><span class="nav-text">SMEMBERS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SMOVE"><span class="nav-text">SMOVE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SPOP"><span class="nav-text">SPOP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SRANDMEMBER"><span class="nav-text">SRANDMEMBER</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SREM"><span class="nav-text">SREM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SUNION"><span class="nav-text">SUNION</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SUNIONSTORE"><span class="nav-text">SUNIONSTORE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSCAN"><span class="nav-text">SSCAN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SortedSet"><span class="nav-text">SortedSet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ZADD"><span class="nav-text">ZADD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZCARD"><span class="nav-text">ZCARD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZCOUNT"><span class="nav-text">ZCOUNT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZINCRBY"><span class="nav-text">ZINCRBY</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZRANGE"><span class="nav-text">ZRANGE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZRANGEBYSCORE"><span class="nav-text">ZRANGEBYSCORE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZRANK"><span class="nav-text">ZRANK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZREM"><span class="nav-text">ZREM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZREMRANGEBYRANK"><span class="nav-text">ZREMRANGEBYRANK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZREMRANGEBYSCORE"><span class="nav-text">ZREMRANGEBYSCORE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZREVRANGE"><span class="nav-text">ZREVRANGE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZREVRANGEBYSCORE"><span class="nav-text">ZREVRANGEBYSCORE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZREVRANK"><span class="nav-text">ZREVRANK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZSCORE"><span class="nav-text">ZSCORE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZUNIONSTORE"><span class="nav-text">ZUNIONSTORE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZINTERSTORE"><span class="nav-text">ZINTERSTORE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZSCAN"><span class="nav-text">ZSCAN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pub-x2F-Sub"><span class="nav-text">Pub&#x2F;Sub</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PSUBSCRIBE"><span class="nav-text">PSUBSCRIBE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PUBLISH"><span class="nav-text">PUBLISH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PUBSUB"><span class="nav-text">PUBSUB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PUNSUBSCRIBE"><span class="nav-text">PUNSUBSCRIBE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SUBSCRIBE"><span class="nav-text">SUBSCRIBE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UNSUBSCRIBE"><span class="nav-text">UNSUBSCRIBE</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Transaction"><span class="nav-text">Transaction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DISCARD"><span class="nav-text">DISCARD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EXEC"><span class="nav-text">EXEC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MULTI"><span class="nav-text">MULTI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UNWATCH"><span class="nav-text">UNWATCH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WATCH"><span class="nav-text">WATCH</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Script"><span class="nav-text">Script</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#EVAL"><span class="nav-text">EVAL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VALSHA"><span class="nav-text">VALSHA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SCRIPT-EXISTS"><span class="nav-text">SCRIPT EXISTS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SCRIPT-FLUSH"><span class="nav-text">SCRIPT FLUSH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SCRIPT-KILL"><span class="nav-text">SCRIPT KILL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SCRIPT-LOAD"><span class="nav-text">SCRIPT LOAD</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Connection"><span class="nav-text">Connection</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AUTH"><span class="nav-text">AUTH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ECHO"><span class="nav-text">ECHO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PING"><span class="nav-text">PING</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#QUIT"><span class="nav-text">QUIT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SELECT"><span class="nav-text">SELECT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Server"><span class="nav-text">Server</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BGREWRITEAOF"><span class="nav-text">BGREWRITEAOF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BGSAVE"><span class="nav-text">BGSAVE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CLIENT-GETNAME"><span class="nav-text">CLIENT GETNAME</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CLIENT-KILL"><span class="nav-text">CLIENT KILL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CLIENT-LIST"><span class="nav-text">CLIENT LIST</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CLIENT-SETNAME"><span class="nav-text">CLIENT SETNAME</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CONFIG-GET"><span class="nav-text">CONFIG GET</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CONFIG-RESETSTAT"><span class="nav-text">CONFIG RESETSTAT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CONFIG-REWRITE"><span class="nav-text">CONFIG REWRITE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CONFIG-SET"><span class="nav-text">CONFIG SET</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DBSIZE"><span class="nav-text">DBSIZE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DEBUG-OBJECT"><span class="nav-text">DEBUG OBJECT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DEBUG-SEGFAULT"><span class="nav-text">DEBUG SEGFAULT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FLUSHALL"><span class="nav-text">FLUSHALL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FLUSHDB"><span class="nav-text">FLUSHDB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#INFO"><span class="nav-text">INFO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LASTSAVE"><span class="nav-text">LASTSAVE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MONITOR"><span class="nav-text">MONITOR</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PSYNC"><span class="nav-text">PSYNC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SAVE"><span class="nav-text">SAVE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SHUTDOWN"><span class="nav-text">SHUTDOWN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SLAVEOF"><span class="nav-text">SLAVEOF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SLOWLOG"><span class="nav-text">SLOWLOG</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SYNC"><span class="nav-text">SYNC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TIME"><span class="nav-text">TIME</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -633,7 +633,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -701,13 +701,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">803k</span>
+    <span title="站点总字数">802k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:10</span>
+    <span title="站点阅读时长">12:09</span>
 </div>
 
         

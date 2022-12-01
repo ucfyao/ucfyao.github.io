@@ -129,7 +129,7 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">21</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -246,7 +246,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                  <a href="/categories/Web/Back/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -278,35 +278,14 @@
           <blockquote>
 <p>为了能够长时间访问 Jupyter Notebook，避免每次都需登陆服务器手动执行命令，我们需要让该命令一直在后台自动运行，最好是支持系统重启时自动启动。因此，我们可以将 jupyter 变成一个系统服务。</p>
 </blockquote>
-<h3 id="启动脚本"><a href="#启动脚本" class="headerlink" title="启动脚本"></a>启动脚本</h3><p>创建 <code>/etc/init/jupyter.conf</code> 文件，写入如下内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">start on runlevel [2345]</span><br><span class="line">stop on runlevel [!2345]</span><br><span class="line">setuid ubuntu</span><br><span class="line">setgid ubuntu</span><br><span class="line">env PATH=/home/ubuntu/venv/bin</span><br><span class="line">chdir /home/ubuntu/jupyter</span><br><span class="line">exec jupyter notebook --config /home/ubuntu/venv/conf.py</span><br></pre></td></tr></table></figure>
-
-<p>上面定义了该服务在 runlevel 为 2、3、4、5 时启动，而在非这几个 runlevel 时停止该服务。</p>
-<ul>
-<li>运行级别0：系统停机状态，系统默认运行级别不能设为0，否则不能正常启动</li>
-<li>运行级别1：单用户工作状态，root权限，用于系统维护，禁止远程登陆</li>
-<li>运行级别2：多用户状态(没有NFS)</li>
-<li>运行级别3：完全的多用户状态(有NFS)，登陆后进入控制台命令行模式</li>
-<li>运行级别4：系统未使用，保留</li>
-<li>运行级别5：X11控制台，登陆后进入图形GUI模式</li>
-<li>运行级别6：系统正常关闭并重启，默认运行级别不能设为6，否则不能正常启动</li>
-</ul>
-<p>配置好了<code>/etc/init/jupyter.conf</code> 文件之后，就能够通过如下命令启动、停止和重启 Jupyter Notebook 了： </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo start jupyter # 启动 jupyter</span><br><span class="line">sudo stop/restart jupyter # 停止/重启 jupyter</span><br><span class="line">sudo status jupyter # 查看 jupyter 的状态</span><br></pre></td></tr></table></figure>
-
-<h3 id="配置-Nignx-并创建系统服务"><a href="#配置-Nignx-并创建系统服务" class="headerlink" title="配置 Nignx 并创建系统服务"></a><strong>配置 Nignx 并创建系统服务</strong></h3><p>下一步，我们设置 Nginx 作为 Jupyter 的反向代理服务器。首先，安装 Nginx，并修改 default 设置：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install nignx</span><br><span class="line">sudo vim /etc/nginx/sites-available/default</span><br></pre></td></tr></table></figure>
-<p>修改其中的 location &#x2F; 部分，并注释掉某些行，具体见下面的示例：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80 default_server;</span><br><span class="line"></span><br><span class="line">    listen [::]:80 default_server ipv6only=on;</span><br><span class="line"></span><br><span class="line">    #root /usr/share/nginx/html;</span><br><span class="line"></span><br><span class="line">    #index index.html index.htm;</span><br><span class="line"></span><br><span class="line">    # Make site accessible from http://localhost/</span><br><span class="line"></span><br><span class="line">    server_name localhost;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line"></span><br><span class="line">        # First attempt to serve request as file, then</span><br><span class="line"></span><br><span class="line">        # as directory, then fall back to displaying a 404.</span><br><span class="line"></span><br><span class="line">        # try_files $uri $uri/ =404;</span><br><span class="line"></span><br><span class="line">        proxy_pass http://localhost:8881;</span><br><span class="line"></span><br><span class="line">        # Uncomment to enable naxsi on this location</span><br><span class="line"></span><br><span class="line">        # include /etc/nginx/naxsi.rules</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这一步需要注释掉 try_files 一行，并新增 proxy_pass <span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4ODgxO++8jOWwhuWvuQ==">http://localhost:8881;，将对<i class="fa fa-external-link-alt"></i></span> <span class="exturl" data-url="aHR0cDovL2N2bS1pcC8=">http://cvm-ip<i class="fa fa-external-link-alt"></i></span> 的访问请求转发至该地址 。</p>
-<p>保存并退出文件，然后重启 Nginx 服务即可。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service nginx restart</span><br></pre></td></tr></table></figure>
-<p>之后，再修改 conf.py 文件：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#conf.py</span><br><span class="line">c.NotebookApp.ip = &#x27;localhost&#x27; # 表示只接受来自本机的请求</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>并重启 Jupyter 服务：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo restart jupyter</span><br></pre></td></tr></table></figure>
-<p>现在我们访问云服务器的 IP 地址时，就会进入 Jupyter Notebook 的登陆页面</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/python_jupyter_dev/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -356,7 +335,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -372,7 +351,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                  <a href="/categories/Web/Back/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -382,7 +361,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>776</span>
+              <span>768</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -404,29 +383,14 @@
           <blockquote>
 <p>Anaconda是用于科学计算的平台，它集成了很多关于Python科学计算的第三方库，可运行在Linux、Windows 和 macOS下。它的功能包括：包管理、环境管理、700+软件包。Anaconda主要由Miniconda和Conda两个组件组成。</p>
 </blockquote>
-<p>我在Ubuntu 16.04上安装Anaconda，安装步骤应该适用于任何Linux发行版。</p>
-<h3 id="Linux安装Anaconda"><a href="#Linux安装Anaconda" class="headerlink" title="Linux安装Anaconda"></a>Linux安装Anaconda</h3><p>下载安装脚本：<code>https://www.continuum.io/downloads</code>，<br>选择要安装的Python版本和系统架构： </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Python 3.5</span><br><span class="line">$ wget https://repo.continuum.io/archive/Anaconda3-4.2.0-Linux-x86_64.sh # 64位系统</span><br><span class="line">$ wget https://repo.continuum.io/archive/Anaconda3-4.2.0-Linux-x86.sh # 32位系统</span><br><span class="line"># Python 2.7</span><br><span class="line">$ wget https://repo.continuum.io/archive/Anaconda2-4.2.0-Linux-x86_64.sh # 64位系统</span><br><span class="line">$ wget https://repo.continuum.io/archive/Anaconda2-4.2.0-Linux-x86.sh # 32位系统</span><br></pre></td></tr></table></figure>
-
-<h3 id="运行安装向导"><a href="#运行安装向导" class="headerlink" title="运行安装向导"></a>运行安装向导</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bash Anaconda3-4.2.0-Linux-x86_64.sh</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>接受协议</li>
-<li>yes</li>
-<li>设置安装路径，默认安装在用户家目录</li>
-<li>最后，把安装路径添加到环境变量</li>
-</ol>
-<h3 id="测试安装"><a href="#测试安装" class="headerlink" title="测试安装"></a>测试安装</h3><p>启动新终端；查看conda版本：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda --version conda 4.2.9</span><br></pre></td></tr></table></figure>
-
-<p>列出安装的包：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda list</span><br></pre></td></tr></table></figure>
-
-<p>更新包：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda update conda</span><br></pre></td></tr></table></figure>
-
-<p>Anaconda文档：<span class="exturl" data-url="aHR0cHM6Ly9kb2NzLmNvbnRpbnV1bS5pby8=">https://docs.continuum.io/<i class="fa fa-external-link-alt"></i></span></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/linux_anaconda/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -476,7 +440,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -492,7 +456,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                  <a href="/categories/Web/Back/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -521,40 +485,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>主要使用的是<code>wkhtmltopdf</code>的Python封装——<code>pdfkit</code></p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
-<li>Install python-pdfkit:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip install pdfkit</span><br></pre></td></tr></table></figure></li>
-<li>Install wkhtmltopdf:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Debian/Ubuntu:</span><br><span class="line">$ sudo apt-get install wkhtmltopdf</span><br><span class="line">Redhat/CentOS</span><br><span class="line">sudo yum intsall wkhtmltopdf</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>一个简单的例子:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import pdfkit</span><br><span class="line">pdfkit.from_url(&#x27;http://google.com&#x27;, &#x27;out.pdf&#x27;)</span><br><span class="line">pdfkit.from_file(&#x27;test.html&#x27;, &#x27;out.pdf&#x27;)</span><br><span class="line">pdfkit.from_string(&#x27;Hello!&#x27;, &#x27;out.pdf&#x27;)</span><br></pre></td></tr></table></figure>
-<p>你也可以传递一个url或者文件名列表:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pdfkit.from_url([&#x27;google.com&#x27;, &#x27;yandex.ru&#x27;, &#x27;engadget.com&#x27;], &#x27;out.pdf&#x27;)</span><br><span class="line">pdfkit.from_file([&#x27;file1.html&#x27;, &#x27;file2.html&#x27;], &#x27;out.pdf&#x27;)</span><br></pre></td></tr></table></figure>
-<p>也可以传递一个打开的文件:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">with open(&#x27;file.html&#x27;) as f:</span><br><span class="line">pdfkit.from_file(f, &#x27;out.pdf&#x27;)</span><br></pre></td></tr></table></figure>
-<p>如果你想对生成的PDF作进一步处理， 你可以将其读取到一个变量中:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 设置输出文件为False，将结果赋给一个变量</span><br><span class="line">pdf = pdfkit.from_url(&#x27;http://google.com&#x27;, False)</span><br></pre></td></tr></table></figure>
-<p>你可以制定所有的 wkhtmltopdf . 你可以移除选项名字前面的 ‘–‘ .如果选项没有值, 使用None, False or * 作为字典值:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">options = &#123;</span><br><span class="line">    &#x27;page-size&#x27;: &#x27;Letter&#x27;,</span><br><span class="line">    &#x27;margin-top&#x27;: &#x27;0.75in&#x27;,</span><br><span class="line">    &#x27;margin-right&#x27;: &#x27;0.75in&#x27;,</span><br><span class="line">    &#x27;margin-bottom&#x27;: &#x27;0.75in&#x27;,</span><br><span class="line">    &#x27;margin-left&#x27;: &#x27;0.75in&#x27;,</span><br><span class="line">    &#x27;encoding&#x27;: &quot;UTF-8&quot;,</span><br><span class="line">    &#x27;no-outline&#x27;: None</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">pdfkit.from_url(&#x27;http://google.com&#x27;, &#x27;out.pdf&#x27;, options=options)</span><br></pre></td></tr></table></figure>
-<p>默认情况下, PDFKit 将会显示所有的 wkhtmltopdf 输出. 如果你不想看到这些信息，你需要传递一个 quiet 选项:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">options = &#123;</span><br><span class="line">    &#x27;quiet&#x27;: &#x27;&#x27;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">pdfkit.from_url(&#x27;google.com&#x27;, &#x27;out.pdf&#x27;, options=options)</span><br></pre></td></tr></table></figure>
-<p>由于wkhtmltopdf的命令语法 , TOC 和 Cover 选项必须分开指定:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">toc = &#123;</span><br><span class="line">    &#x27;xsl-style-sheet&#x27;: &#x27;toc.xsl&#x27;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">cover = &#x27;cover.html&#x27;</span><br><span class="line"></span><br><span class="line">pdfkit.from_file(&#x27;file.html&#x27;, options=options, toc=toc, cover=cover)</span><br></pre></td></tr></table></figure>
-<p>当你转换文件、或字符串的时候，你可以通过css选项指定扩展的 CSS 文件。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 单个 CSS 文件</span><br><span class="line">css = &#x27;example.css&#x27;</span><br><span class="line">pdfkit.from_file(&#x27;file.html&#x27;, options=options, css=css)</span><br><span class="line"></span><br><span class="line"># Multiple CSS files</span><br><span class="line">css = [&#x27;example.css&#x27;, &#x27;example2.css&#x27;]</span><br><span class="line">pdfkit.from_file(&#x27;file.html&#x27;, options=options, css=css)</span><br></pre></td></tr></table></figure>
-<p>你也可以通过你的HTML中的meta tags传递任意选项：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">body = &quot;&quot;&quot;</span><br><span class="line">    &lt;html&gt;</span><br><span class="line">      &lt;head&gt;</span><br><span class="line">        &lt;meta name=&quot;pdfkit-page-size&quot; content=&quot;Legal&quot;/&gt;</span><br><span class="line">        &lt;meta name=&quot;pdfkit-orientation&quot; content=&quot;Landscape&quot;/&gt;</span><br><span class="line">      &lt;/head&gt;</span><br><span class="line">      Hello World!</span><br><span class="line">      &lt;/html&gt;</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">pdfkit.from_string(body, &#x27;out.pdf&#x27;) #with --page-size=Legal and --orientation=Landscape</span><br></pre></td></tr></table></figure>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>每个API调用都有一个可选的参数。这应该是<code>pdfkit.configuration()</code>API 调用的一个实例. 采用<code>configuration</code>选项作为初始化参数。可用的选项有:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wkhtmltopdf ——wkhtmltopdf 二进制文件所在的位置。默认情况下pdfkit 会尝试使用which (在类UNIX系统中) 或 where (在Windows系统中)来判断.</span><br><span class="line">meta_tag_prefix — pdfkit的前缀指定 meta tags（元标签） – 默认情况是pdfkit-</span><br></pre></td></tr></table></figure>
-
-<p>示例 ：针对wkhtmltopdf不在系统路径中（不在$PATH里面）:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">config = pdfkit.configuration(wkhtmltopdf=&#x27;/opt/bin/wkhtmltopdf&#x27;))</span><br><span class="line">pdfkit.from_string(html_string, output_file, configuration=config)</span><br></pre></td></tr></table></figure>
-
-<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p><code>IOError: &#39;No wkhtmltopdf executable found&#39;:</code><br>确保 wkhtmltopdf 在你的系统路径中（$PATH）， 会通过 configuration进行了配置 (详情看上文描述)。 在Windows系统中使用<code>where wkhtmltopdf</code>命令或在<code>linux</code>系统中使用 <code>which wkhtmltopdf</code> 会返回 <code>wkhtmltopdf</code>二进制可执行文件所在的确切位置.</p>
-<p><code>IOError: &#39;Command Failed&#39;</code><br>如果出现这个错误意味着 PDFKit不能处理一个输入。你可以尝试直接在错误信息后面直接运行一个命令来查看是什么导致了这个错误 （某些版本的 wkhtmltopdf会因为段错误导致处理失败）</p>
-<p>正常生成，但是出现中文乱码<br>确保两项：<br>1）、你的系统中有中文字体<br>2）、在html中加入</p>
-<p>下面是我随便写的一个HTML表格：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;table width=&quot;400&quot; border=&quot;1&quot;&gt;</span><br><span class="line"> &lt;tr&gt;</span><br><span class="line">  &lt;th align=&quot;left&quot;&gt;Item....&lt;/th&gt;</span><br><span class="line">  &lt;th align=&quot;right&quot;&gt;1&lt;/th&gt;</span><br><span class="line"> &lt;/tr&gt;</span><br><span class="line"> &lt;tr&gt;</span><br><span class="line">  &lt;td align=&quot;left&quot;&gt;衣服&lt;/td&gt;</span><br><span class="line">  &lt;td align=&quot;right&quot;&gt;$241.10&lt;/td&gt;</span><br><span class="line"> &lt;/tr&gt;</span><br><span class="line"> &lt;tr&gt;</span><br><span class="line">  &lt;td align=&quot;left&quot;&gt;化妆品&lt;/td&gt;</span><br><span class="line">  &lt;td align=&quot;right&quot;&gt;$30.00&lt;/td&gt;</span><br><span class="line"> &lt;/tr&gt;</span><br><span class="line"> &lt;tr&gt;</span><br><span class="line">  &lt;td align=&quot;left&quot;&gt;食物&lt;/td&gt;</span><br><span class="line">  &lt;td align=&quot;right&quot;&gt;$730.40&lt;/td&gt;</span><br><span class="line"> &lt;/tr&gt;</span><br><span class="line"> &lt;tr&gt;</span><br><span class="line">  &lt;th align=&quot;left&quot;&gt;tOTAL&lt;/th&gt;</span><br><span class="line">  &lt;th align=&quot;right&quot;&gt;$1001.50&lt;/th&gt;</span><br><span class="line"> &lt;/tr&gt;</span><br><span class="line">&lt;/table&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+          <p>主要使用的是<code>wkhtmltopdf</code>的Python封装——<code>pdfkit</code>。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/python_html_pdf/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -604,7 +543,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -620,7 +559,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                  <a href="/categories/Web/Back/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -649,21 +588,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>生成的文件名不能带有中文字符</p>
-<p>处理方法：<br>我暂时想到的处理方式是先生成英文文件名，再将这个文件重命名为中文的文件名</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># coding=utf8</span><br><span class="line">import os</span><br><span class="line">import pdfkit</span><br><span class="line">from uuid import uuid1</span><br><span class="line"></span><br><span class="line">ret = &#x27;测试pdf内容部分&#x27;.decode(&#x27;utf8&#x27;)</span><br><span class="line">file_name = str(uuid1())</span><br><span class="line">pdfkit.from_string(ret, file_name) # file_name不能带有中文 如果有会报错</span><br><span class="line">file_name_new = &#x27;测试.pdf&#x27;</span><br><span class="line">os.rename(file_name, file_name_new)</span><br><span class="line">生成的pdf内容中文为乱码</span><br><span class="line">pd_arr = pd.read_excel(expath)</span><br><span class="line">print pd_arr</span><br><span class="line">print pd_arr.to_html()</span><br><span class="line">header = &#x27;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;/head&gt;&#x27;</span><br><span class="line">pdfkit.from_string(header + pd_arr.to_html(), pdfexpath)</span><br></pre></td></tr></table></figure>
-
-<p>生成的pdf内容中文为乱码原因</p>
-<p><strong>原因1：</strong></p>
-<p>因为<code>pdfkit</code>生成pdf功能其实调用的是webkit的子模块<code>wkhtmltopdf</code>(通过命令行方式)，所以<code>pdfkit</code>生成中文乱码其实是<code>wkhtmltopdf</code>中文乱码导致的；而<code>wkhtmltopdf</code>中文乱码是因为系统中不存在中文字体导致的</p>
-<p>处理方式:<br>在系统中添加中文字体<br>我的本地电脑是ubuntu14.04的字体文件保存在<code>/usr/share/fonts</code>下(包含了中文字体文件具体哪一个我也不知道汗。)，我的服务器是redhat系统(没有中文字体)，所以在我的电脑上操作如下:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/share/fonts</span><br><span class="line">zip -r fonts.zip ./*</span><br><span class="line">scp fonts.zip 服务器用户名@服务器ip:/usr/share/fonts</span><br></pre></td></tr></table></figure>
-<p>在服务器上操作如下:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/share/fonts</span><br><span class="line">unzip fonts.zip</span><br><span class="line">fc-cache -fv</span><br><span class="line">fc-list # 查看新添加的字体</span><br></pre></td></tr></table></figure>
-<p>你需要找一台有安装了中文字体的电脑复制一份字体文件(就是<code>/usr/share/fonts</code>下的文件)，然后如我以上操作就可以了。</p>
-<p><strong>原因2：</strong></p>
-<p>需要在html的字符集设置为<code>utf8</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;/head&gt;</span><br></pre></td></tr></table></figure>
+          <p>生成的文件名不能带有中文字符。</p>
+<p>处理方法：<br>我暂时想到的处理方式是先生成英文文件名，再将这个文件重命名为中文的文件名。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/pyhton_pdfkit_code/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -713,7 +647,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -729,7 +663,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                  <a href="/categories/Web/Back/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -758,52 +692,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>这篇文章主要介绍了Python自定义函数的创建、调用和函数的参数、变量作用域等常见问题,需要的朋友可以参考下</p>
+          <p>这篇文章主要介绍了Python自定义函数的创建、调用和函数的参数、变量作用域等常见问题,需要的朋友可以参考下。</p>
 <p>函数是组织好的，可重复使用的，用来实现单一，或相关联功能的代码段。<br>函数能提高应用的模块性，和代码的重复利用率。你已经知道Python提供了许多内建函数，比如<code>print()</code>。但你也可以自己创见函数，这被叫做用户自定义函数。</p>
-<h2 id="定义一个函数"><a href="#定义一个函数" class="headerlink" title="定义一个函数"></a>定义一个函数</h2><p>你可以定义一个由自己想要功能的函数，以下是简单的规则：</p>
-<p>函数代码块以def关键词开头，后接函数标识符名称和圆括号()。<br>任何传入参数和自变量必须放在圆括号中间。圆括号之间可以用于定义参数。<br>函数的第一行语句可以选择性地使用文档字符串—用于存放函数说明。<br>函数内容以冒号起始，并且缩进。<br><code>Return[expression]</code>结束函数，选择性地返回一个值给调用方。不带表达式的return相当于返回<code>None</code>。</p>
-<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def functionname( parameters ):</span><br><span class="line">    &quot;函数_文档字符串&quot;</span><br><span class="line">    function_suite</span><br><span class="line">    return [expression]</span><br></pre></td></tr></table></figure>
-<p>默认情况下，参数值和参数名称是按函数声明中定义的的顺序匹配起来的。</p>
-<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>以下为一个简单的Python函数，它将一个字符串作为传入参数，再打印到标准显示设备上。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def printme( str ):</span><br><span class="line">    &quot;打印传入的字符串到标准显示设备上&quot;</span><br><span class="line">    print str</span><br><span class="line">    return</span><br></pre></td></tr></table></figure>
-
-<h2 id="函数调用"><a href="#函数调用" class="headerlink" title="函数调用"></a>函数调用</h2><p>定义一个函数只给了函数一个名称，指定了函数里包含的参数，和代码块结构。这个函数的基本结构完成以后，你可以通过另一个函数调用执行，也可以直接从Python提示符执行。</p>
-<p>如下实例调用了<code>printme()</code>函数：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"></span><br><span class="line"># Function definition is here</span><br><span class="line">def printme( str ):</span><br><span class="line">    &quot;打印任何传入的字符串&quot;</span><br><span class="line">    print str;</span><br><span class="line">    return;</span><br><span class="line"></span><br><span class="line"># Now you can call printme function</span><br><span class="line">printme(&quot;我要调用用户自定义函数!&quot;);</span><br><span class="line">printme(&quot;再次调用同一函数&quot;);</span><br><span class="line"># 以上实例输出结果：</span><br><span class="line"># 我要调用用户自定义函数!</span><br><span class="line"># 再次调用同一函数</span><br></pre></td></tr></table></figure>
-
-<h2 id="按值传递参数和按引用传递参数"><a href="#按值传递参数和按引用传递参数" class="headerlink" title="按值传递参数和按引用传递参数"></a>按值传递参数和按引用传递参数</h2><p>所有参数（自变量）在Python里都是按引用传递。如果你在函数里修改了参数，那么在调用这个函数的函数里，原始的参数也被改变了。例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"></span><br><span class="line"># 可写函数说明</span><br><span class="line">def changeme( mylist ):</span><br><span class="line">    &quot;修改传入的列表&quot;</span><br><span class="line">    mylist.append([1,2,3,4]);</span><br><span class="line">    print &quot;函数内取值: &quot;, mylist</span><br><span class="line">    return</span><br><span class="line"></span><br><span class="line"># 调用changeme函数</span><br><span class="line">mylist = [10,20,30];</span><br><span class="line">changeme( mylist );</span><br><span class="line">print &quot;函数外取值: &quot;, mylist</span><br><span class="line"># 传入函数的和在末尾添加新内容的对象用的是同一个引用。故输出结果如下：</span><br><span class="line"># 函数内取值: [10, 20, 30, [1, 2, 3, 4]]</span><br><span class="line"># 函数外取值: [10, 20, 30, [1, 2, 3, 4]]</span><br></pre></td></tr></table></figure>
-
-<h2 id="Python函数可以使用的参数类型："><a href="#Python函数可以使用的参数类型：" class="headerlink" title="Python函数可以使用的参数类型："></a>Python函数可以使用的参数类型：</h2><p>必备参数、命名参数、缺省参数、不定长参数</p>
-<h3 id="必备参数"><a href="#必备参数" class="headerlink" title="必备参数"></a>必备参数</h3><p>必备参数须以正确的顺序传入函数。调用时的数量必须和声明时的一样。<br>调用<code>printme()</code>函数，你必须传入一个参数，不然会出现语法错误：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"></span><br><span class="line"># 可写函数说明</span><br><span class="line">def printme( str ):</span><br><span class="line">    &quot;打印任何传入的字符串&quot;</span><br><span class="line">    print str;</span><br><span class="line">    return;</span><br><span class="line"></span><br><span class="line"># 调用printme函数</span><br><span class="line">printme();</span><br><span class="line"># 以上实例输出结果：</span><br><span class="line"># Traceback (most recent call last):</span><br><span class="line"># File &quot;test.py&quot;, line 11, in </span><br><span class="line"># printme();</span><br><span class="line"># TypeError: printme() takes exactly 1 argument (0 given)</span><br></pre></td></tr></table></figure>
-
-<h3 id="命名参数"><a href="#命名参数" class="headerlink" title="命名参数"></a>命名参数</h3><p>命名参数和函数调用关系紧密，调用方用参数的命名确定传入的参数值。你可以跳过不传的参数或者乱序传参，因为Python解释器能够用参数名匹配参数值。用命名参数调用<code>printme()</code>函数：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># 可写函数说明</span><br><span class="line">def printme( str ):</span><br><span class="line">    &quot;打印任何传入的字符串&quot;</span><br><span class="line">    print str;</span><br><span class="line">    return;</span><br><span class="line"></span><br><span class="line"># 调用printme函数</span><br><span class="line">printme( str = &quot;My string&quot;);</span><br><span class="line"># 以上实例输出结果：</span><br><span class="line"># My string</span><br></pre></td></tr></table></figure>
-<p>下例能将命名参数顺序不重要展示得更清楚：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"></span><br><span class="line">#可写函数说明</span><br><span class="line">def printinfo( name, age ):</span><br><span class="line">    &quot;打印任何传入的字符串&quot;</span><br><span class="line">    print &quot;Name: &quot;, name;</span><br><span class="line">    print &quot;Age &quot;, age;</span><br><span class="line">    return;</span><br><span class="line"></span><br><span class="line"># 调用printinfo函数</span><br><span class="line">printinfo( age=50, name=&quot;miki&quot; );</span><br><span class="line"># 以上实例输出结果：</span><br><span class="line"># Name: miki</span><br><span class="line"># Age 50</span><br></pre></td></tr></table></figure>
-
-<h3 id="缺省参数"><a href="#缺省参数" class="headerlink" title="缺省参数"></a>缺省参数</h3><p>调用函数时，缺省参数的值如果没有传入，则被认为是默认值。下例会打印默认的age，如果age没有被传入：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"></span><br><span class="line"># 可写函数说明</span><br><span class="line">def printinfo( name, age = 35 ):</span><br><span class="line">    &quot;打印任何传入的字符串&quot;</span><br><span class="line">    print &quot;Name: &quot;, name;</span><br><span class="line">    print &quot;Age &quot;, age;</span><br><span class="line">    return;</span><br><span class="line"></span><br><span class="line"># 调用printinfo函数</span><br><span class="line">printinfo( age=50, name=&quot;miki&quot; );</span><br><span class="line">printinfo( name=&quot;miki&quot; );</span><br><span class="line"># 以上实例输出结果：</span><br><span class="line"># Name: miki</span><br><span class="line"># Age 50</span><br><span class="line"># Name: miki</span><br><span class="line"># Age 35</span><br></pre></td></tr></table></figure>
-<h3 id="不定长参数"><a href="#不定长参数" class="headerlink" title="不定长参数"></a>不定长参数</h3><p>你可能需要一个函数能处理比当初声明时更多的参数。这些参数叫做不定长参数，和上述2种参数不同，声明时不会命名。基本语法如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def functionname([formal_args,] *var_args_tuple ):</span><br><span class="line">    &quot;函数_文档字符串&quot;</span><br><span class="line">    function_suite</span><br><span class="line">    return [expression]</span><br></pre></td></tr></table></figure>
-<p>加了星号（*）的变量名会存放所有未命名的变量参数。选择不多传参数也可。如下实例：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"></span><br><span class="line"># 可写函数说明</span><br><span class="line">def printinfo( arg1, *vartuple ):</span><br><span class="line">    &quot;打印任何传入的参数&quot;</span><br><span class="line">    print &quot;输出: &quot;</span><br><span class="line">    print arg1</span><br><span class="line">    for var in vartuple:</span><br><span class="line">        print var</span><br><span class="line">    return;</span><br><span class="line"></span><br><span class="line"># 调用printinfo 函数</span><br><span class="line">printinfo( 10 );</span><br><span class="line">printinfo( 70, 60, 50 );</span><br><span class="line"># 以上实例输出结果：</span><br><span class="line"># 输出:</span><br><span class="line"># 10</span><br><span class="line"># 输出:</span><br><span class="line"># 70</span><br><span class="line"># 60</span><br><span class="line"># 50</span><br></pre></td></tr></table></figure>
-
-<h2 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h2><p>用lambda关键词能创建小型匿名函数。这种函数得名于省略了用def声明函数的标准步骤。</p>
-<p>Lambda函数能接收任何数量的参数但只能返回一个表达式的值，同时只能不能包含命令或多个表达式。<br>匿名函数不能直接调用print，因为lambda需要一个表达式。<br>lambda函数拥有自己的名字空间，且不能访问自有参数列表之外或全局名字空间里的参数。<br>虽然lambda函数看起来只能写一行，却不等同于C或C++的内联函数，后者的目的是调用小函数时不占用栈内存从而增加运行效率。</p>
-<h3 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h3><p>lambda函数的语法只包含一个语句，如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lambda [arg1 [,arg2,.....argn]]:expression</span><br></pre></td></tr></table></figure>
-<h3 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"></span><br><span class="line"># 可写函数说明</span><br><span class="line">sum = lambda arg1, arg2: arg1 + arg2;</span><br><span class="line"></span><br><span class="line"># 调用sum函数</span><br><span class="line">print &quot;Value of total : &quot;, sum( 10, 20 )</span><br><span class="line">print &quot;Value of total : &quot;, sum( 20, 20 )</span><br><span class="line"># 以上实例输出结果：</span><br><span class="line"># Value of total : 30</span><br><span class="line"># Value of total : 40</span><br></pre></td></tr></table></figure>
-
-<h2 id="关于return语句"><a href="#关于return语句" class="headerlink" title="关于return语句"></a>关于return语句</h2><p>return语句表达式退出函数，选择性地向调用方返回一个表达式。不带参数值的return语句返回None。之前的例子都没有示范如何返回数值，下例便告诉你怎么做：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"></span><br><span class="line"># 可写函数说明</span><br><span class="line">def sum( arg1, arg2 ):</span><br><span class="line">    # 返回2个参数的和.&quot;</span><br><span class="line">    total = arg1 + arg2</span><br><span class="line">    print &quot;Inside the function : &quot;, total</span><br><span class="line">    return total;</span><br><span class="line"></span><br><span class="line"># 调用sum函数</span><br><span class="line">total = sum( 10, 20 );</span><br><span class="line">print &quot;Outside the function : &quot;, total</span><br><span class="line"># 以上实例输出结果：</span><br><span class="line"># Inside the function : 30</span><br><span class="line"># Outside the function : 30</span><br></pre></td></tr></table></figure>
-
-<h2 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h2><p>一个程序的所有的变量并不是在哪个位置都可以访问的。访问权限决定于这个变量是在哪里赋值的。</p>
-<p>变量的作用域决定了在哪一部分程序你可以访问哪个特定的变量名称。两种最基本的变量作用域如下：<br>1.全局变量<br>2.局部变量</p>
-<h2 id="变量和局部变量"><a href="#变量和局部变量" class="headerlink" title="变量和局部变量"></a>变量和局部变量</h2><p>定义在函数内部的变量拥有一个局部作用域，定义在函数外的拥有全局作用域。</p>
-<p>局部变量只能在其被声明的函数内部访问，而全局变量可以在整个程序范围内访问。调用函数时，所有在函数内声明的变量名称都将被加入到作用域中。如下实例：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"></span><br><span class="line">total = 0; # This is global variable.</span><br><span class="line"># 可写函数说明</span><br><span class="line">def sum( arg1, arg2 ):</span><br><span class="line">    #返回2个参数的和.&quot;</span><br><span class="line">    total = arg1 + arg2; # total在这里是局部变量.</span><br><span class="line">    print &quot;Inside the function local total : &quot;, total</span><br><span class="line">    return total;</span><br><span class="line"></span><br><span class="line"># 调用sum函数</span><br><span class="line">sum( 10, 20 );</span><br><span class="line">print &quot;Outside the function global total : &quot;, total</span><br><span class="line"># 以上实例输出结果：</span><br><span class="line"># Inside the function local total : 30</span><br><span class="line"># Outside the function global total : 0</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/python_custom_function/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -853,7 +751,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -869,7 +767,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                  <a href="/categories/Web/Back/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -879,7 +777,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>372</span>
+              <span>362</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -899,14 +797,14 @@
 
       
           <p>这个问题涉及到包和模块管理。包名和模块名一般是小写。你的文件是下面的结构，需要创建空文件 <code>b/__init__.py</code>，将b目录变成package。</p>
-<p>a&#x2F;a.py</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from b.c import index</span><br><span class="line">index()</span><br></pre></td></tr></table></figure>
-<p>b&#x2F;c.py</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def index():</span><br><span class="line">    print(&quot;hello&quot;)</span><br></pre></td></tr></table></figure>
-<p><code>b/__init__.pya/a.py</code> 里面有两种引用方式，相对引用和绝对引用：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 如果a.py是 library，两种引用方式都可以</span><br><span class="line"></span><br><span class="line">from ..b.c import index</span><br><span class="line"># 如果a.py是 executable，必须使用绝对引用</span><br><span class="line"></span><br><span class="line">from b.c import index</span><br></pre></td></tr></table></figure>
-<p>如果使用绝对引用，需要确保b所在目录在<code>PYTHONPATH (sys.path)</code>里面，比如可以这样执行：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">env PYTHONPATH=. python a/a.py</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/python_import_self_module/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -956,7 +854,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -972,7 +870,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                  <a href="/categories/Web/Back/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -1005,85 +903,15 @@
 <ol>
 <li>Series，1维序列，可视作为没有column名的、只有一个column的DataFrame；</li>
 <li>DataFrame，同Spark SQL中的DataFrame一样，其概念来自于R语言，为多column并schema化的2维结构化数据，可视作为Series的容器（container）；</li>
-<li>Panel，为3维的结构化数据，可视作为DataFrame的容器；</li>
-</ol>
-<p>DataFrame较为常见，因此本文主要讨论内容将为DataFrame。DataFrame的生成可通过读取纯文本、Json等数据来生成，亦可以通过Python对象来生成： </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line">import numpy as np</span><br><span class="line">df = pd.DataFrame(&#123;&#x27;total_bill&#x27;: [16.99, 10.34, 23.68, 23.68, 24.59],</span><br><span class="line"> &#x27;tip&#x27;: [1.01, 1.66, 3.50, 3.31, 3.61],</span><br><span class="line"> &#x27;sex&#x27;: [&#x27;Female&#x27;, &#x27;Male&#x27;, &#x27;Male&#x27;, &#x27;Male&#x27;, &#x27;Female&#x27;]&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>对于DataFrame，我们可以看到其固有属性： </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># data type of columns</span><br><span class="line">print df.dtypes</span><br><span class="line"># indexes</span><br><span class="line">print df.index</span><br><span class="line"># return pandas.Index</span><br><span class="line">print df.columns</span><br><span class="line"># each row, return array[array]</span><br><span class="line">print df.values</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>.index，为行索引 .columns，为列名称（label） .dtype，为列数据类型</p>
-<h2 id="SQL操作"><a href="#SQL操作" class="headerlink" title="SQL操作"></a>SQL操作</h2><p>官方Doc给出了部分SQL的Pandas实现。在此基础上，本文给出了一些扩充说明。以下内容基于Python 2.7 + Pandas 0.18.1的版本。</p>
-<h3 id="select"><a href="#select" class="headerlink" title="select"></a>select</h3><p>SQL中的select是根据列的名称来选取；Pandas则更为灵活，不但可根据列名称选取，还可以根据列所在的position选取。相关函数如下：</p>
-<ul>
-<li><p>loc，基于列label，可选取特定行（根据行index）；</p>
-</li>
-<li><p>iloc，基于行&#x2F;列的position；</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print df.loc[1:3, [&#x27;total_bill&#x27;, &#x27;tip&#x27;]]</span><br><span class="line">print df.loc[1:3, &#x27;tip&#x27;: &#x27;total_bill&#x27;]</span><br><span class="line">print df.iloc[1:3, [1, 2]]</span><br><span class="line">print df.iloc[1:3, 1: 3]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>at，根据指定行index及列label，快速定位DataFrame的元素；</p>
-</li>
-<li><p>iat，与at类似，不同的是根据position来定位的；</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print df.at[3, &#x27;tip&#x27;]</span><br><span class="line">print df.iat[3, 1]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>ix，为loc与iloc的混合体，既支持label也支持position；</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print df.ix[1:3, [1, 2]]</span><br><span class="line">print df.ix[1:3, [&#x27;total_bill&#x27;, &#x27;tip&#x27;]]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>此外，有更为简洁的行&#x2F;列选取方式： </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print df[1: 3]</span><br><span class="line">print df[[&#x27;total_bill&#x27;, &#x27;tip&#x27;]]</span><br><span class="line"># print df[1:2, [&#x27;total_bill&#x27;, &#x27;tip&#x27;]] # TypeError: unhashable type</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="where"><a href="#where" class="headerlink" title="where"></a>where</h3><p>Pandas实现where filter，较为常用的办法为<code>df[df[colunm] boolean expr]</code>，比如： </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print df[df[&#x27;sex&#x27;] == &#x27;Female&#x27;]</span><br><span class="line">print df[df[&#x27;total_bill&#x27;] &gt; 20]</span><br><span class="line"></span><br><span class="line"># or</span><br><span class="line">print df.query(&#x27;total_bill &gt; 20&#x27;)</span><br></pre></td></tr></table></figure>
-
-<p>在where子句中常常会搭配and, or, in, not关键词，Pandas中也有对应的实现：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># and</span><br><span class="line">print df[(df[&#x27;sex&#x27;] == &#x27;Female&#x27;) &amp; (df[&#x27;total_bill&#x27;] &gt; 20)]</span><br><span class="line"># or</span><br><span class="line">print df[(df[&#x27;sex&#x27;] == &#x27;Female&#x27;) | (df[&#x27;total_bill&#x27;] &gt; 20)]</span><br><span class="line"># in</span><br><span class="line">print df[df[&#x27;total_bill&#x27;].isin([21.01, 23.68, 24.59])]</span><br><span class="line"># not</span><br><span class="line">print df[-(df[&#x27;sex&#x27;] == &#x27;Male&#x27;)]</span><br><span class="line">print df[-df[&#x27;total_bill&#x27;].isin([21.01, 23.68, 24.59])]</span><br><span class="line"># string function</span><br><span class="line">print df = df[(-df[&#x27;app&#x27;].isin(sys_app)) &amp; (-df.app.str.contains(&#x27;^微信\d+$&#x27;))]</span><br></pre></td></tr></table></figure>
-
-<p>对where条件筛选后只有一行的dataframe取其中某一列的值，其两种实现方式如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">total = df.loc[df[&#x27;tip&#x27;] == 1.66, &#x27;total_bill&#x27;].values[0]</span><br><span class="line">total = df.get_value(df.loc[df[&#x27;tip&#x27;] == 1.66].index.values[0], &#x27;total_bill&#x27;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="distinct"><a href="#distinct" class="headerlink" title="distinct"></a>distinct</h3><p>drop_duplicates根据某列对dataframe进行去重：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.drop\_duplicates(subset=\[&#x27;sex&#x27;\], keep=&#x27;first&#x27;, inplace=True)</span><br></pre></td></tr></table></figure>
-
-<p>包含参数：</p>
-<ul>
-<li>subset，为选定的列做distinct，默认为所有列；</li>
-<li>keep，值选项{‘first’, ‘last’, False}，保留重复元素中的第一个、最后一个，或全部删除；</li>
-<li>inplace ，默认为False，返回一个新的dataframe；若为True，则返回去重后的原dataframe</li>
-</ul>
-<h3 id="group"><a href="#group" class="headerlink" title="group"></a>group</h3><p>group一般会配合合计函数（Aggregate functions）使用，比如：count、avg等。Pandas对合计函数的支持有限，有count和size函数实现SQL的count：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print df.groupby(&#x27;sex&#x27;).size()</span><br><span class="line">print df.groupby(&#x27;sex&#x27;).count()</span><br><span class="line">print df.groupby(&#x27;sex&#x27;)[&#x27;tip&#x27;].count()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>对于多合计函数，</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">select sex, max(tip), sum(total_bill) as total</span><br><span class="line">from tips_tb</span><br><span class="line">group by sex;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>实现在agg()中指定dict：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print df.groupby(&#x27;sex&#x27;).agg(&#123;&#x27;tip&#x27;: np.max, &#x27;total_bill&#x27;: np.sum&#125;)</span><br><span class="line"></span><br><span class="line"># count(distinct **)</span><br><span class="line">print df.groupby(&#x27;tip&#x27;).agg(&#123;&#x27;sex&#x27;: pd.Series.nunique&#125;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="as"><a href="#as" class="headerlink" title="as"></a>as</h3><p>SQL中使用as修改列的别名，Pandas也支持这种修改：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># first implementation</span><br><span class="line">df.columns = [&#x27;total&#x27;, &#x27;pit&#x27;, &#x27;xes&#x27;]</span><br><span class="line"># second implementation</span><br><span class="line">df.rename(columns=&#123;&#x27;total_bill&#x27;: &#x27;total&#x27;, &#x27;tip&#x27;: &#x27;pit&#x27;, &#x27;sex&#x27;: &#x27;xes&#x27;&#125;, inplace=True)</span><br></pre></td></tr></table></figure>
-
-<p>其中，第一种方法的修改是有问题的，因为其是按照列position逐一替换的。因此，我推荐第二种方法。</p>
-<h3 id="join"><a href="#join" class="headerlink" title="join"></a>join</h3><p>Pandas中join的实现也有两种：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 1.</span><br><span class="line">df.join(df2, how=&#x27;left&#x27;...)</span><br><span class="line"></span><br><span class="line"># 2.</span><br><span class="line">pd.merge(df1, df2, how=&#x27;left&#x27;, left_on=&#x27;app&#x27;, right_on=&#x27;app&#x27;)</span><br></pre></td></tr></table></figure>
-
-<p>第一种方法是按DataFrame的index进行join的，而第二种方法才是按on指定的列做join。Pandas满足left、right、inner、full outer四种join方式。</p>
-<h3 id="order"><a href="#order" class="headerlink" title="order"></a>order</h3><p>Pandas中支持多列order，并可以调整不同列的升序&#x2F;降序，有更高的排序自由度：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print df.sort_values([&#x27;total_bill&#x27;, &#x27;tip&#x27;], ascending=[False, True])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="top"><a href="#top" class="headerlink" title="top"></a>top</h3><p>对于全局的top：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">print df.nlargest(3, columns=[&#x27;total_bill&#x27;])</span><br><span class="line">对于分组top，MySQL的实现（采用自join的方式）：</span><br><span class="line"></span><br><span class="line">select a.sex, a.tip</span><br><span class="line">from tips_tb a</span><br><span class="line">where (</span><br><span class="line">    select count(*)</span><br><span class="line">    from tips_tb b</span><br><span class="line">    where b.sex = a.sex and b.tip &gt; a.tip</span><br><span class="line">) &lt; 2</span><br><span class="line">order by a.sex, a.tip desc;</span><br></pre></td></tr></table></figure>
-<p>Pandas的等价实现，思路与上类似：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 1.</span><br><span class="line">df.assign(rn=df.sort_values([&#x27;total_bill&#x27;], ascending=False)</span><br><span class="line">.groupby(&#x27;sex&#x27;)</span><br><span class="line">.cumcount()+1)\</span><br><span class="line">.query(&#x27;rn &lt; 3&#x27;)\</span><br><span class="line">.sort_values([&#x27;sex&#x27;, &#x27;rn&#x27;])</span><br><span class="line"></span><br><span class="line"># 2.</span><br><span class="line">df.assign(rn=df.groupby(&#x27;sex&#x27;)[&#x27;total_bill&#x27;]</span><br><span class="line">.rank(method=&#x27;first&#x27;, ascending=False)) \</span><br><span class="line">.query(&#x27;rn &lt; 3&#x27;) \</span><br><span class="line">.sort_values([&#x27;sex&#x27;, &#x27;rn&#x27;])</span><br></pre></td></tr></table></figure>
-<h3 id="replace"><a href="#replace" class="headerlink" title="replace"></a>replace</h3><p>replace函数提供对dataframe全局修改，亦可通过where条件进行过滤修改（搭配loc）：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># overall replace</span><br><span class="line">df.replace(to_replace=&#x27;Female&#x27;, value=&#x27;Sansa&#x27;, inplace=True)</span><br><span class="line"></span><br><span class="line"># dict replace</span><br><span class="line">df.replace(&#123;&#x27;sex&#x27;: &#123;&#x27;Female&#x27;: &#x27;Sansa&#x27;, &#x27;Male&#x27;: &#x27;Leone&#x27;&#125;&#125;, inplace=True)</span><br><span class="line"></span><br><span class="line"># replace on where condition</span><br><span class="line">df.loc[df.sex == &#x27;Male&#x27;, &#x27;sex&#x27;] = &#x27;Leone&#x27;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="自定义"><a href="#自定义" class="headerlink" title="自定义"></a>自定义</h3><p>除了上述SQL操作外，Pandas提供对每列&#x2F;每一元素做自定义操作，为此而设计以下三个函数： </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">map(func)，为Series的函数，DataFrame不能直接调用，需取列后再调用；</span><br><span class="line">apply(func)，对DataFrame中的某一行/列进行func操作；</span><br><span class="line">applymap(func)，为element-wise函数，对每一个元素做func操作</span><br><span class="line">print df[&#x27;tip&#x27;].map(lambda x: x - 1)</span><br><span class="line">print df[[&#x27;total_bill&#x27;, &#x27;tip&#x27;]].apply(sum)</span><br><span class="line">print df.applymap(lambda x: x.upper() if type(x) is str else x)</span><br></pre></td></tr></table></figure>
-
-<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><h3 id="环比增长"><a href="#环比增长" class="headerlink" title="环比增长"></a>环比增长</h3><p>现有两个月APP的UV数据，要得到月UV环比增长；该操作等价于两个Dataframe left join后按指定列做减操作： </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">def chain(current, last):</span><br><span class="line">    df1 = pd.read_csv(current, names=[&#x27;app&#x27;, &#x27;tag&#x27;, &#x27;uv&#x27;], sep=&#x27;\t&#x27;)</span><br><span class="line">    df2 = pd.read_csv(last, names=[&#x27;app&#x27;, &#x27;tag&#x27;, &#x27;uv&#x27;], sep=&#x27;\t&#x27;)</span><br><span class="line">    df3 = pd.merge(df1, df2, how=&#x27;left&#x27;, on=&#x27;app&#x27;)</span><br><span class="line">    df3[&#x27;uv_y&#x27;] = df3[&#x27;uv_y&#x27;].map(lambda x: 0.0 if pd.isnull(x) else x)</span><br><span class="line">    df3[&#x27;growth&#x27;] = df3[&#x27;uv_x&#x27;] - df3[&#x27;uv_y&#x27;]</span><br><span class="line">    return df3[[&#x27;app&#x27;, &#x27;growth&#x27;, &#x27;uv_x&#x27;, &#x27;uv_y&#x27;]].sort_values(by=&#x27;growth&#x27;, ascending=False)</span><br></pre></td></tr></table></figure>
-
-<h3 id="差集"><a href="#差集" class="headerlink" title="差集"></a>差集</h3><p>对于给定的列，一个Dataframe过滤另一个Dataframe该列的值；相当于集合的差集操作：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">def difference(left, right, on):</span><br><span class="line">  &quot;&quot;&quot;</span><br><span class="line">  difference of two dataframes</span><br><span class="line">  :param left: left dataframe</span><br><span class="line">  :param right: right dataframe</span><br><span class="line">  :param on: join key</span><br><span class="line">  :return: difference dataframe</span><br><span class="line">  &quot;&quot;&quot;</span><br><span class="line">  df = pd.merge(left, right, how=&#x27;left&#x27;, on=on)</span><br><span class="line">  left_columns = left.columns</span><br><span class="line">  col_y = df.columns[left_columns.size]</span><br><span class="line">  df = df[df[col_y].isnull()]</span><br><span class="line">  df = df.ix[:, 0:left_columns.size]</span><br><span class="line">  df.columns = left_columns</span><br><span class="line">  return df</span><br></pre></td></tr></table></figure>
+<li>Panel，为3维的结构化数据，可视作为DataFrame的容器；
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/python_pandas/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1133,7 +961,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1149,7 +977,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                  <a href="/categories/Web/Back/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -1178,15 +1006,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">import pandas as pd</span><br><span class="line">from pandas import Sereis, DataFrame</span><br><span class="line"></span><br><span class="line">ser = Series(np.arange(3.))</span><br><span class="line"></span><br><span class="line">data = DataFrame(np.arange(16).reshape(4,4),index=list(&#x27;abcd&#x27;),columns=list(&#x27;wxyz&#x27;))</span><br><span class="line"></span><br><span class="line">data[&#x27;w&#x27;] #选择表格中的&#x27;w&#x27;列，使用类字典属性,返回的是Series类型</span><br><span class="line"></span><br><span class="line">data.w #选择表格中的&#x27;w&#x27;列，使用点属性,返回的是Series类型</span><br><span class="line"></span><br><span class="line">data[[&#x27;w&#x27;]] #选择表格中的&#x27;w&#x27;列，返回的是DataFrame类型</span><br><span class="line"></span><br><span class="line">data[[&#x27;w&#x27;,&#x27;z&#x27;]] #选择表格中的&#x27;w&#x27;、&#x27;z&#x27;列</span><br><span class="line"></span><br><span class="line">data[0:2] #返回第1行到第2行的所有行，前闭后开，包括前不包括后</span><br><span class="line"></span><br><span class="line">data[1:2] #返回第2行，从0计，返回的是单行，通过有前后值的索引形式，</span><br><span class="line"># 如果采用data[1]则报错</span><br><span class="line"></span><br><span class="line">data.ix[1:2] #返回第2行的第三种方法，返回的是DataFrame，跟data[1:2]同</span><br><span class="line"></span><br><span class="line">data[&#x27;a&#x27;:&#x27;b&#x27;] #利用index值进行切片，返回的是**前闭后闭**的DataFrame,</span><br><span class="line"># 即末端是包含的</span><br><span class="line">data.irow(0) #取data的第一行</span><br><span class="line">data.icol(0) #取data的第一列</span><br><span class="line"></span><br><span class="line">data.head() #返回data的前几行数据，默认为前五行，需要前十行则data.head(10)</span><br><span class="line">data.tail() #返回data的后几行数据，默认为后五行，需要后十行则data.tail(10)</span><br><span class="line"></span><br><span class="line">ser.iget_value(0) #选取ser序列中的第一个</span><br><span class="line">ser.iget_value(-1) #选取ser序列中的最后一个，这种轴索引包含索引器的series不能采用ser[-1]去获取最后一个，这会引起歧义。</span><br><span class="line"></span><br><span class="line">data.iloc[-1] #选取DataFrame最后一行，返回的是Series</span><br><span class="line">data.iloc[-1:] #选取DataFrame最后一行，返回的是DataFrame</span><br><span class="line"></span><br><span class="line">data.loc[&#x27;a&#x27;,[&#x27;w&#x27;,&#x27;x&#x27;]] #返回‘a’行&#x27;w&#x27;、&#x27;x&#x27;列，这种用于选取行索引列索引已知</span><br><span class="line"></span><br><span class="line">data.iat[1,1] #选取第二行第二列，用于已知行、列位置的选取。</span><br></pre></td></tr></table></figure>
-<p>下面是简单的例子使用验证：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line">from pandas import Series, DataFrame</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">data = DataFrame(np.arange(15).reshape(3,5),index=[&#x27;one&#x27;,&#x27;two&#x27;,&#x27;three&#x27;],columns=[&#x27;a&#x27;,&#x27;b&#x27;,&#x27;c&#x27;,&#x27;d&#x27;,&#x27;e&#x27;])</span><br><span class="line"></span><br><span class="line">data</span><br><span class="line"> Out[7]:</span><br><span class="line"> a b c d e</span><br><span class="line"> one 0 1 2 3 4</span><br><span class="line"> two 5 6 7 8 9</span><br><span class="line"> three 10 11 12 13 14</span><br><span class="line"></span><br><span class="line"># 对列的操作方法有如下几种</span><br><span class="line"></span><br><span class="line">data.icol(0) #选取第一列</span><br><span class="line">E:\Anaconda2\lib\site-packages\spyder\utils\ipython\start_kernel.py:1: FutureWarning: icol(i) is deprecated. Please use .iloc[:,i]</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line"> Out[35]:</span><br><span class="line"> one 0</span><br><span class="line"> two 5</span><br><span class="line"> three 10</span><br><span class="line"> Name: a, dtype: int32</span><br><span class="line"></span><br><span class="line">data[&#x27;a&#x27;]</span><br><span class="line"> Out[8]:</span><br><span class="line"> one 0</span><br><span class="line"> two 5</span><br><span class="line"> three 10</span><br><span class="line"> Name: a, dtype: int32</span><br><span class="line"></span><br><span class="line">data.a</span><br><span class="line"> Out[9]:</span><br><span class="line"> one 0</span><br><span class="line"> two 5</span><br><span class="line"> three 10</span><br><span class="line"> Name: a, dtype: int32</span><br><span class="line"></span><br><span class="line">data[[&#x27;a&#x27;]]</span><br><span class="line"> Out[10]:</span><br><span class="line"> a</span><br><span class="line"> one 0</span><br><span class="line"> two 5</span><br><span class="line"> three 10</span><br><span class="line"></span><br><span class="line">data.ix[:,[0,1,2]] #不知道列名只知道列的位置时</span><br><span class="line"> Out[13]:</span><br><span class="line"> a b c</span><br><span class="line"> one 0 1 2</span><br><span class="line"> two 5 6 7</span><br><span class="line"> three 10 11 12</span><br><span class="line"></span><br><span class="line">data.ix[1,[0]] #选择第2行第1列的值</span><br><span class="line"> Out[14]:</span><br><span class="line"> a 5</span><br><span class="line"> Name: two, dtype: int32</span><br><span class="line"></span><br><span class="line">data.ix[[1,2],[0]] #选择第2,3行第1列的值</span><br><span class="line"> Out[15]:</span><br><span class="line"> a</span><br><span class="line"> two 5</span><br><span class="line"> three 10</span><br><span class="line"></span><br><span class="line">data.ix[1:3,[0,2]] #选择第2-4行第1、3列的值</span><br><span class="line"> Out[17]:</span><br><span class="line"> a c</span><br><span class="line"> two 5 7</span><br><span class="line"> three 10 12</span><br><span class="line"></span><br><span class="line">data.ix[1:2,2:4] #选择第2-3行，3-5（不包括5）列的值</span><br><span class="line"> Out[29]:</span><br><span class="line"> c d</span><br><span class="line"> two 7 8</span><br><span class="line"></span><br><span class="line">data.ix[data.a&gt;5,3]</span><br><span class="line"> Out[30]:</span><br><span class="line"> three 13</span><br><span class="line"> Name: d, dtype: int32</span><br><span class="line"></span><br><span class="line">data.ix[data.b&gt;6,3:4] #选择&#x27;b&#x27;列中大于6所在的行中的第4列，有点拗口</span><br><span class="line"> Out[31]:</span><br><span class="line"> d</span><br><span class="line"> three 13</span><br><span class="line"></span><br><span class="line">data.ix[data.a&gt;5,2:4] #选择&#x27;a&#x27;列中大于5所在的行中的第3-5（不包括5）列</span><br><span class="line"> Out[32]:</span><br><span class="line"> c d</span><br><span class="line"> three 12 13</span><br><span class="line"></span><br><span class="line">data.ix[data.a&gt;5,[2,2,2]] #选择&#x27;a&#x27;列中大于5所在的行中的第2列并重复3次</span><br><span class="line"> Out[33]:</span><br><span class="line"> c c c</span><br><span class="line"> three 12 12 12</span><br><span class="line"></span><br><span class="line"># 还可以行数或列数跟行名列名混着用</span><br><span class="line">data.ix[1:3,[&#x27;a&#x27;,&#x27;e&#x27;]]</span><br><span class="line"> Out[24]:</span><br><span class="line"> a e</span><br><span class="line"> two 5 9</span><br><span class="line"> three 10 14</span><br><span class="line"></span><br><span class="line">data.ix[&#x27;one&#x27;:&#x27;two&#x27;,[2,1]]</span><br><span class="line"> Out[25]:</span><br><span class="line"> c b</span><br><span class="line"> one 2 1</span><br><span class="line"> two 7 6</span><br><span class="line"></span><br><span class="line">data.ix[[&#x27;one&#x27;,&#x27;three&#x27;],[2,2]]</span><br><span class="line"> Out[26]:</span><br><span class="line"> c c</span><br><span class="line"> one 2 2</span><br><span class="line"> three 12 12</span><br><span class="line"></span><br><span class="line">data.ix[&#x27;one&#x27;:&#x27;three&#x27;,[&#x27;a&#x27;,&#x27;c&#x27;]]</span><br><span class="line"> Out[27]:</span><br><span class="line"> a c</span><br><span class="line"> one 0 2</span><br><span class="line"> two 5 7</span><br><span class="line"> three 10 12</span><br><span class="line"></span><br><span class="line">data.ix[[&#x27;one&#x27;,&#x27;one&#x27;],[&#x27;a&#x27;,&#x27;e&#x27;,&#x27;d&#x27;,&#x27;d&#x27;,&#x27;d&#x27;]]</span><br><span class="line"> Out[28]:</span><br><span class="line"> a e d d d</span><br><span class="line"> one 0 4 3 3 3</span><br><span class="line"> one 0 4 3 3 3</span><br><span class="line"></span><br><span class="line"># 对行的操作有如下几种：</span><br><span class="line">data[1:2] #（不知道列索引时）选择第2行，不能用data[1]，可以用data.ix[1]</span><br><span class="line"> Out[18]:</span><br><span class="line"> a b c d e</span><br><span class="line"> two 5 6 7 8 9</span><br><span class="line"></span><br><span class="line">data.irow(1) #选取第二行</span><br><span class="line"> Out[36]:</span><br><span class="line"> a 5</span><br><span class="line"> b 6</span><br><span class="line"> c 7</span><br><span class="line"> d 8</span><br><span class="line"> e 9</span><br><span class="line"> Name: two, dtype: int32</span><br><span class="line"></span><br><span class="line">data.ix[1] #选择第2行</span><br><span class="line"> Out[20]:</span><br><span class="line"> a 5</span><br><span class="line"> b 6</span><br><span class="line"> c 7</span><br><span class="line"> d 8</span><br><span class="line"> e 9</span><br><span class="line"> Name: two, dtype: int32</span><br><span class="line"></span><br><span class="line">data[&#x27;one&#x27;:&#x27;two&#x27;] #当用已知的行索引时为前闭后闭区间，这点与切片稍有不同。</span><br><span class="line"> Out[22]:</span><br><span class="line"> a b c d e</span><br><span class="line"> one 0 1 2 3 4</span><br><span class="line"> two 5 6 7 8 9</span><br><span class="line"></span><br><span class="line">data.ix[1:3] #选择第2到4行，不包括第4行，即前闭后开区间。</span><br><span class="line"> Out[23]:</span><br><span class="line"> a b c d e</span><br><span class="line"> two 5 6 7 8 9</span><br><span class="line"> three 10 11 12 13 14</span><br><span class="line"></span><br><span class="line">data.ix[-1:] #取DataFrame中最后一行，返回的是DataFrame类型,**注意**这种取法是有使用条件的，只有当行索引不是数字索引时才可以使用，否则可以选用`data[-1:]`--返回DataFrame类型或`data.irow(-1)`--返回Series类型</span><br><span class="line"> Out[11]:</span><br><span class="line"> a b c d e</span><br><span class="line"> three 10 11 12 13 14</span><br><span class="line"></span><br><span class="line">data[-1:] #跟上面一样，取DataFrame中最后一行，返回的是DataFrame类型</span><br><span class="line"> Out[12]:</span><br><span class="line"> a b c d e</span><br><span class="line"> three 10 11 12 13 14</span><br><span class="line"></span><br><span class="line">data.ix[-1] #取DataFrame中最后一行，返回的是Series类型，这个一样，行索引不能是数字时才可以使用</span><br><span class="line"> Out[13]:</span><br><span class="line"> a 10</span><br><span class="line"> b 11</span><br><span class="line"> c 12</span><br><span class="line"> d 13</span><br><span class="line"> e 14</span><br><span class="line"> Name: three, dtype: int32</span><br><span class="line"></span><br><span class="line">data.tail(1) #返回DataFrame中的最后一行</span><br><span class="line">data.head(1) #返回DataFrame中的第一行</span><br></pre></td></tr></table></figure>
-<p>最近处理数据时发现当<code>pd.read_csv()</code>数据时有时候会有读取到未命名的列，且该列也用不到，一般是索引列被换掉后导致的，有强迫症的看着难受，这时候<code>dataframe.drop([columns,])</code>是没法处理的，怎么办呢，<br>最笨的方法是直接给列索引重命名：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">data6</span><br><span class="line"></span><br><span class="line">Unnamed: 0 high symbol time</span><br><span class="line"> date</span><br><span class="line"> 2016-11-01 0 3317.4 IF1611 18:10:44.8</span><br><span class="line"> 2016-11-01 1 3317.4 IF1611 06:01:04.5</span><br><span class="line"> 2016-11-01 2 3317.4 IF1611 07:46:25.5</span><br><span class="line"> 2016-11-01 3 3318.4 IF1611 09:30:04.0</span><br><span class="line"> 2016-11-01 4 3321.8 IF1611 09:31:04.0</span><br><span class="line"></span><br><span class="line">data6.columns = list(&#x27;abcd&#x27;)</span><br><span class="line"></span><br><span class="line">data6</span><br><span class="line"></span><br><span class="line">a b c d</span><br><span class="line"> date</span><br><span class="line"> 2016-11-01 0 3317.4 IF1611 18:10:44.8</span><br><span class="line"> 2016-11-01 1 3317.4 IF1611 06:01:04.5</span><br><span class="line"> 2016-11-01 2 3317.4 IF1611 07:46:25.5</span><br><span class="line"> 2016-11-01 3 3318.4 IF1611 09:30:04.0</span><br><span class="line"> 2016-11-01 4 3321.8 IF1611 09:31:04.0</span><br></pre></td></tr></table></figure>
-<p>重新命名后就可以用<code>dataframe.drop([columns])</code>来删除了，当然不用我这样全部给列名替换掉了，可以只是改变未命名的那个列，然后删除。不过这个用起来总是觉得有点low，有没有更好的方法呢，有，可以不去删除，直接：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data7 = data6.ix[:,1:]</span><br></pre></td></tr></table></figure>
-<p>这样既不改变原有数据，也达到了删除神烦列，当然我这里时第0列删除，可以根据实际选择所在的列删除之，至于这个原理，可以看下前面的对列的操作。</p>
-
+          <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Sereis, DataFrame</span><br><span class="line"></span><br><span class="line">ser = Series(np.arange(<span class="number">3.</span>))</span><br><span class="line"></span><br><span class="line">data = DataFrame(np.arange(<span class="number">16</span>).reshape(<span class="number">4</span>,<span class="number">4</span>),index=<span class="built_in">list</span>(<span class="string">&#x27;abcd&#x27;</span>),columns=<span class="built_in">list</span>(<span class="string">&#x27;wxyz&#x27;</span>))</span><br><span class="line"></span><br><span class="line">data[<span class="string">&#x27;w&#x27;</span>] <span class="comment">#选择表格中的&#x27;w&#x27;列，使用类字典属性,返回的是Series类型</span></span><br><span class="line"></span><br><span class="line">data.w <span class="comment">#选择表格中的&#x27;w&#x27;列，使用点属性,返回的是Series类型</span></span><br><span class="line"></span><br><span class="line">data[[<span class="string">&#x27;w&#x27;</span>]] <span class="comment">#选择表格中的&#x27;w&#x27;列，返回的是DataFrame类型</span></span><br><span class="line"></span><br><span class="line">data[[<span class="string">&#x27;w&#x27;</span>,<span class="string">&#x27;z&#x27;</span>]] <span class="comment">#选择表格中的&#x27;w&#x27;、&#x27;z&#x27;列</span></span><br><span class="line"></span><br><span class="line">data[<span class="number">0</span>:<span class="number">2</span>] <span class="comment">#返回第1行到第2行的所有行，前闭后开，包括前不包括后</span></span><br><span class="line"></span><br><span class="line">data[<span class="number">1</span>:<span class="number">2</span>] <span class="comment">#返回第2行，从0计，返回的是单行，通过有前后值的索引形式，</span></span><br><span class="line"><span class="comment"># 如果采用data[1]则报错</span></span><br><span class="line"></span><br><span class="line">data.ix[<span class="number">1</span>:<span class="number">2</span>] <span class="comment">#返回第2行的第三种方法，返回的是DataFrame，跟data[1:2]同</span></span><br><span class="line"></span><br><span class="line">data[<span class="string">&#x27;a&#x27;</span>:<span class="string">&#x27;b&#x27;</span>] <span class="comment">#利用index值进行切片，返回的是**前闭后闭**的DataFrame,</span></span><br><span class="line"><span class="comment"># 即末端是包含的</span></span><br><span class="line">data.irow(<span class="number">0</span>) <span class="comment">#取data的第一行</span></span><br><span class="line">data.icol(<span class="number">0</span>) <span class="comment">#取data的第一列</span></span><br><span class="line"></span><br><span class="line">data.head() <span class="comment">#返回data的前几行数据，默认为前五行，需要前十行则data.head(10)</span></span><br><span class="line">data.tail() <span class="comment">#返回data的后几行数据，默认为后五行，需要后十行则data.tail(10)</span></span><br><span class="line"></span><br><span class="line">ser.iget_value(<span class="number">0</span>) <span class="comment">#选取ser序列中的第一个</span></span><br><span class="line">ser.iget_value(-<span class="number">1</span>) <span class="comment">#选取ser序列中的最后一个，这种轴索引包含索引器的series不能采用ser[-1]去获取最后一个，这会引起歧义。</span></span><br><span class="line"></span><br><span class="line">data.iloc[-<span class="number">1</span>] <span class="comment">#选取DataFrame最后一行，返回的是Series</span></span><br><span class="line">data.iloc[-<span class="number">1</span>:] <span class="comment">#选取DataFrame最后一行，返回的是DataFrame</span></span><br><span class="line"></span><br><span class="line">data.loc[<span class="string">&#x27;a&#x27;</span>,[<span class="string">&#x27;w&#x27;</span>,<span class="string">&#x27;x&#x27;</span>]] <span class="comment">#返回‘a’行&#x27;w&#x27;、&#x27;x&#x27;列，这种用于选取行索引列索引已知</span></span><br><span class="line"></span><br><span class="line">data.iat[<span class="number">1</span>,<span class="number">1</span>] <span class="comment">#选取第二行第二列，用于已知行、列位置的选取。</span></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/python_pandas_dataframe/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1236,7 +1064,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1252,7 +1080,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                  <a href="/categories/Web/Back/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -1281,7 +1109,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line">import numpy as np</span><br><span class="line">d = &#123;&#x27;one&#x27; : pd.Series([1., 2., 3.], index=[&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;]),&#x27;two&#x27; : pd.Series([1., 2., 3., 4.], index=[&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;, &#x27;d&#x27;])&#125;</span><br><span class="line">df=pd.DataFrame(d)</span><br><span class="line">print df</span><br><span class="line">mean=df.mean()</span><br><span class="line">print mean</span><br><span class="line">#可以通过传递一个list对象来创建一个Series，pandas会默认创建整型索引：</span><br><span class="line">#通过传递一个numpy array，时间索引以及列标签来创建一个DataFrame：</span><br><span class="line">dates=pd.date_range(&#x27;20161120&#x27;,periods=6)</span><br><span class="line">print dates</span><br><span class="line"></span><br><span class="line">df1=pd.DataFrame(np.random.randn(6,4),index=dates,columns=list(&#x27;ABCD&#x27;))</span><br><span class="line">print df1</span><br><span class="line">#通过传递一个能够被转换成类似序列结构的字典对象来创建一个DataFrame：</span><br><span class="line">df2=pd.DataFrame(&#123;&#x27;A&#x27;:1.,&#x27;B&#x27;:pd.Series(1,index=list(range(5)),dtype=&#x27;float32&#x27;),&#x27;C&#x27;:pd.Timestamp(&#x27;20161124&#x27;),&#x27;D&#x27;:np.array([3]*5,dtype=&#x27;int32&#x27;),&#x27;E&#x27;:pd.Categorical([&#x27;test&#x27;,&#x27;train&#x27;,&#x27;test&#x27;,&#x27;train&#x27;,&#x27;test&#x27;]),&#x27;F&#x27;:&#x27;foo&#x27;&#125;)</span><br><span class="line">print df2</span><br><span class="line"></span><br><span class="line"># 查看frame中头部和尾部的行：</span><br><span class="line">print df1.tail(1)</span><br><span class="line"></span><br><span class="line">print df1.head(3)</span><br><span class="line"></span><br><span class="line"># 显示索引、列和底层的numpy数据：</span><br><span class="line">print df2.index</span><br><span class="line"></span><br><span class="line">print df2.columns</span><br><span class="line"></span><br><span class="line">print df2.values</span><br><span class="line"></span><br><span class="line"># describe()函数对于数据的快速统计汇总：</span><br><span class="line">print df1.describe()</span><br><span class="line"></span><br><span class="line"># 对数据的转置：</span><br><span class="line">print df1.T</span><br><span class="line"></span><br><span class="line"># 按轴进行排序</span><br><span class="line">print df1.sort_index(axis=1,ascending=False)</span><br><span class="line"></span><br><span class="line"># 按值进行排序</span><br><span class="line">print df1.sort(columns=&#x27;B&#x27;)</span><br><span class="line"></span><br><span class="line"># 选择一个单独的列，这将会返回一个Series，等同于df.A：</span><br><span class="line"></span><br><span class="line">print &#x27;df1[A]&#x27;+&#x27;\n&#x27;,df1[&#x27;A&#x27;]</span><br><span class="line"></span><br><span class="line"># 通过[]进行选择，这将会对行进行切片</span><br><span class="line"></span><br><span class="line">print &#x27;df1[0:3]&#x27;+&#x27;\n&#x27;,df1[0:2],&#x27;\n&#x27;</span><br><span class="line"></span><br><span class="line"># 使用标签来获取一个交叉的区域</span><br><span class="line">print df1.loc[dates[0]],&#x27;\n\n&#x27;</span><br><span class="line"></span><br><span class="line"># 通过标签来在多个轴上进行选择</span><br><span class="line">print df1.loc[dates[0:2],[&#x27;C&#x27;,&#x27;A&#x27;]]</span><br><span class="line"># pandas使用浮点值NaN（Not a Number）表示浮点和非浮点数组中的缺失数据。  </span><br><span class="line"># NA处理办法  </span><br><span class="line">dropna      根据各标签值中是否存在缺失数据对轴标签进行过滤，可通过阀值调节对缺失值的容忍度  </span><br><span class="line">fillna      用指定的或插值方法(如ffil或bfill)填充缺失数据  </span><br><span class="line">isnull      返回一个含有布尔值的对象，这些布尔值表示哪些值是缺失值/NA，该对象的类型与源类型一样  </span><br><span class="line">notnull     isnull的否定式</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+          <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">d = &#123;<span class="string">&#x27;one&#x27;</span> : pd.Series([<span class="number">1.</span>, <span class="number">2.</span>, <span class="number">3.</span>], index=[<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>]),<span class="string">&#x27;two&#x27;</span> : pd.Series([<span class="number">1.</span>, <span class="number">2.</span>, <span class="number">3.</span>, <span class="number">4.</span>], index=[<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>])&#125;</span><br><span class="line">df=pd.DataFrame(d)</span><br><span class="line"><span class="built_in">print</span> df</span><br><span class="line">mean=df.mean()</span><br><span class="line"><span class="built_in">print</span> mean</span><br><span class="line"><span class="comment">#可以通过传递一个list对象来创建一个Series，pandas会默认创建整型索引：</span></span><br><span class="line"><span class="comment">#通过传递一个numpy array，时间索引以及列标签来创建一个DataFrame：</span></span><br><span class="line">dates=pd.date_range(<span class="string">&#x27;20161120&#x27;</span>,periods=<span class="number">6</span>)</span><br><span class="line"><span class="built_in">print</span> dates</span><br><span class="line"></span><br><span class="line">df1=pd.DataFrame(np.random.randn(<span class="number">6</span>,<span class="number">4</span>),index=dates,columns=<span class="built_in">list</span>(<span class="string">&#x27;ABCD&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span> df1</span><br><span class="line"><span class="comment">#通过传递一个能够被转换成类似序列结构的字典对象来创建一个DataFrame：</span></span><br><span class="line">df2=pd.DataFrame(&#123;<span class="string">&#x27;A&#x27;</span>:<span class="number">1.</span>,<span class="string">&#x27;B&#x27;</span>:pd.Series(<span class="number">1</span>,index=<span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">5</span>)),dtype=<span class="string">&#x27;float32&#x27;</span>),<span class="string">&#x27;C&#x27;</span>:pd.Timestamp(<span class="string">&#x27;20161124&#x27;</span>),<span class="string">&#x27;D&#x27;</span>:np.array([<span class="number">3</span>]*<span class="number">5</span>,dtype=<span class="string">&#x27;int32&#x27;</span>),<span class="string">&#x27;E&#x27;</span>:pd.Categorical([<span class="string">&#x27;test&#x27;</span>,<span class="string">&#x27;train&#x27;</span>,<span class="string">&#x27;test&#x27;</span>,<span class="string">&#x27;train&#x27;</span>,<span class="string">&#x27;test&#x27;</span>]),<span class="string">&#x27;F&#x27;</span>:<span class="string">&#x27;foo&#x27;</span>&#125;)</span><br><span class="line"><span class="built_in">print</span> df2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看frame中头部和尾部的行：</span></span><br><span class="line"><span class="built_in">print</span> df1.tail(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> df1.head(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示索引、列和底层的numpy数据：</span></span><br><span class="line"><span class="built_in">print</span> df2.index</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> df2.columns</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> df2.values</span><br><span class="line"></span><br><span class="line"><span class="comment"># describe()函数对于数据的快速统计汇总：</span></span><br><span class="line"><span class="built_in">print</span> df1.describe()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对数据的转置：</span></span><br><span class="line"><span class="built_in">print</span> df1.T</span><br><span class="line"></span><br><span class="line"><span class="comment"># 按轴进行排序</span></span><br><span class="line"><span class="built_in">print</span> df1.sort_index(axis=<span class="number">1</span>,ascending=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 按值进行排序</span></span><br><span class="line"><span class="built_in">print</span> df1.sort(columns=<span class="string">&#x27;B&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择一个单独的列，这将会返回一个Series，等同于df.A：</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> <span class="string">&#x27;df1[A]&#x27;</span>+<span class="string">&#x27;\n&#x27;</span>,df1[<span class="string">&#x27;A&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过[]进行选择，这将会对行进行切片</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> <span class="string">&#x27;df1[0:3]&#x27;</span>+<span class="string">&#x27;\n&#x27;</span>,df1[<span class="number">0</span>:<span class="number">2</span>],<span class="string">&#x27;\n&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用标签来获取一个交叉的区域</span></span><br><span class="line"><span class="built_in">print</span> df1.loc[dates[<span class="number">0</span>]],<span class="string">&#x27;\n\n&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过标签来在多个轴上进行选择</span></span><br><span class="line"><span class="built_in">print</span> df1.loc[dates[<span class="number">0</span>:<span class="number">2</span>],[<span class="string">&#x27;C&#x27;</span>,<span class="string">&#x27;A&#x27;</span>]]</span><br><span class="line"><span class="comment"># pandas使用浮点值NaN（Not a Number）表示浮点和非浮点数组中的缺失数据。  </span></span><br><span class="line"><span class="comment"># NA处理办法  </span></span><br><span class="line">dropna      根据各标签值中是否存在缺失数据对轴标签进行过滤，可通过阀值调节对缺失值的容忍度  </span><br><span class="line">fillna      用指定的或插值方法(如ffil或bfill)填充缺失数据  </span><br><span class="line">isnull      返回一个含有布尔值的对象，这些布尔值表示哪些值是缺失值/NA，该对象的类型与源类型一样  </span><br><span class="line">notnull     isnull的否定式</span><br></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -1331,7 +1160,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-30 00:23:54" itemprop="dateModified" datetime="2022-11-30T00:23:54Z">2022-11-30</time>
+                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1347,7 +1176,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                  <a href="/categories/Web/Back/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -1376,26 +1205,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="python判断文件和文件夹是否存在、创建文件夹"><a href="#python判断文件和文件夹是否存在、创建文件夹" class="headerlink" title="python判断文件和文件夹是否存在、创建文件夹"></a>python判断文件和文件夹是否存在、创建文件夹</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import os</span><br><span class="line">&gt;&gt;&gt; os.path.exists(&#x27;d:/assist&#x27;)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; os.path.exists(&#x27;d:/assist/getTeacherList.py&#x27;)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; os.path.isfile(&#x27;d:/assist&#x27;)</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; os.path.isfile(&#x27;d:/assist/getTeacherList.py&#x27;)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; os.makedirs(&#x27;d:/assist/set&#x27;)</span><br><span class="line">&gt;&gt;&gt; os.path.exists(&#x27;d:/assist/set&#x27;)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
-<h2 id="python判断文件是否存在"><a href="#python判断文件是否存在" class="headerlink" title="python判断文件是否存在"></a>python判断文件是否存在</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line"> </span><br><span class="line">filename = r&#x27;/home/tim/workspace/test.txt&#x27;</span><br><span class="line">if os.path.exists(filename):</span><br><span class="line">    message = &#x27;OK, the &quot;%s&quot; file exists.&#x27;</span><br><span class="line">else:</span><br><span class="line">    message = &quot;Sorry, I cannot find the &quot;%s&quot; file.&quot;</span><br><span class="line">print message % filename</span><br></pre></td></tr></table></figure>
-<h2 id="如何用Python判断文件是否存在"><a href="#如何用Python判断文件是否存在" class="headerlink" title="如何用Python判断文件是否存在"></a>如何用Python判断文件是否存在</h2><p>使用<code>os.path.exists()</code>方法可以直接判断文件是否存在。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import os</span><br><span class="line">&gt;&gt;&gt; os.path.exists(r&#x27;C:\1.TXT&#x27;)</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
-<p>如果存在返回值为True，如果不存在则返回False</p>
-<h2 id="python判断文件夹是否存在"><a href="#python判断文件夹是否存在" class="headerlink" title="python判断文件夹是否存在"></a>python判断文件夹是否存在</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ python</span><br><span class="line">Python 2.7.3 (default, Jan  2 2013, 16:53:07) </span><br><span class="line">[GCC 4.7.2] on linux2</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line">&gt;&gt;&gt; import os</span><br><span class="line">&gt;&gt;&gt; </span><br><span class="line">&gt;&gt;&gt; </span><br><span class="line">&gt;&gt;&gt; tobecheckdir = r&#x27;/home/tim/workspace&#x27;</span><br><span class="line">&gt;&gt;&gt; os.path.isdir(tobecheckdir)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="python检查文件是否存在，以及路径是否为文件"><a href="#python检查文件是否存在，以及路径是否为文件" class="headerlink" title="python检查文件是否存在，以及路径是否为文件"></a>python检查文件是否存在，以及路径是否为文件</h2><p>在写文件之前通常需要检查文件路径是否可写：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">from os import path, access, R_OK  # W_OK for write permission.</span><br><span class="line"></span><br><span class="line">PATH=&#x27;./file.txt&#x27;</span><br><span class="line"></span><br><span class="line">if path.exists(PATH) and path.isfile(PATH) and access(PATH, R_OK):</span><br><span class="line">    print &quot;File exists and is readable&quot;</span><br><span class="line">else:</span><br><span class="line">    print &quot;Either file is missing or is not readable&quot;</span><br></pre></td></tr></table></figure>
-<p>你也可以通过下面的方式实现：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def file_exists(filename):</span><br><span class="line">    try:</span><br><span class="line">        with open(filename) as f:</span><br><span class="line">            return True</span><br><span class="line">    except IOError:</span><br><span class="line">        return False</span><br></pre></td></tr></table></figure>
-
-<h2 id="python判断文件和文件夹是否存在"><a href="#python判断文件和文件夹是否存在" class="headerlink" title="python判断文件和文件夹是否存在"></a>python判断文件和文件夹是否存在</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import os </span><br><span class="line">os.path.isfile(&#x27;test.txt&#x27;) #如果不存在就返回False </span><br><span class="line">os.path.exists(directory) #如果目录不存在就返回False</span><br></pre></td></tr></table></figure>
-
-<h2 id="os-path-lexist"><a href="#os-path-lexist" class="headerlink" title="os.path.lexist"></a>os.path.lexist</h2><p>还有<code>os.path.lexists(path)</code><br>对broken的link file也返回True.</p>
-<h2 id="python-FTP判断文件夹是否存在"><a href="#python-FTP判断文件夹是否存在" class="headerlink" title="python FTP判断文件夹是否存在"></a>python FTP判断文件夹是否存在</h2><p>python怎样判断文件夹是否存在？广大网友给出了答案：<br>使用ftp库就可以了，下面是Python核心编程上的例子：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from ftplib import FTP</span><br><span class="line">&gt;&gt;&gt; f = FTP(&#x27;ftp.python.org&#x27;)</span><br><span class="line">&gt;&gt;&gt; f.login(&#x27;anonymous&#x27;, &#x27;guido@python.org&#x27;)</span><br><span class="line">&#x27;230 Guest login ok, access restrictions apply.&#x27;</span><br><span class="line">&gt;&gt;&gt; f.dir()</span><br></pre></td></tr></table></figure>
-<p>dir结果中无此文件，就是不存在。<br>或者如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">try:</span><br><span class="line">f.retrbinary(&#x27;RETR %s&#x27; % FILE,open(FILE, &#x27;wb&#x27;).write)</span><br><span class="line">except ftplib.error_perm:</span><br><span class="line">print &#x27;ERROR: cannot read file &quot;%s&quot;&#x27; % FILE 40 os.unlink(FILE)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>不能读此文件，也视为不存在。</p>
-
+          <h2 id="python判断文件和文件夹是否存在、创建文件夹"><a href="#python判断文件和文件夹是否存在、创建文件夹" class="headerlink" title="python判断文件和文件夹是否存在、创建文件夹"></a>python判断文件和文件夹是否存在、创建文件夹</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> os</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.exists(<span class="string">&#x27;d:/assist&#x27;</span>)</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.exists(<span class="string">&#x27;d:/assist/getTeacherList.py&#x27;</span>)</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.isfile(<span class="string">&#x27;d:/assist&#x27;</span>)</span><br><span class="line"><span class="literal">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.isfile(<span class="string">&#x27;d:/assist/getTeacherList.py&#x27;</span>)</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.makedirs(<span class="string">&#x27;d:/assist/set&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.exists(<span class="string">&#x27;d:/assist/set&#x27;</span>)</span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/python_file_exits/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1486,7 +1304,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -1554,13 +1372,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">803k</span>
+    <span title="站点总字数">802k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:10</span>
+    <span title="站点阅读时长">12:09</span>
 </div>
 
         
