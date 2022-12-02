@@ -20,18 +20,18 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="Key Key命令速查： DEL删除给定的一个或多个 key，不存在的 key 会被忽略，返回值：被删除 key 的数量 DUMP序列化给定 key，返回被序列化的值，使用 RESTORE 命令可以将这个值反序列化为 Redis 键 EXISTS检查给定key是否存在 EXPIRE为给定key设置有效时间，接受时间点 EXPIREAT为给定key设置有效时间，接受时间戳timestamp KEYS">
+  <meta name="description" content="Redis 是一个开源的、基于内存的键值数据库，经常使用在高并发、低延迟环境比较高的环境中。数据类型简单，最为常用的是作为计数器、队列等场景。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redis常用命令">
 <meta property="og:url" content="https://yaozihao.com/redis_order/index.html">
 <meta property="og:site_name" content="Zihao">
-<meta property="og:description" content="Key Key命令速查： DEL删除给定的一个或多个 key，不存在的 key 会被忽略，返回值：被删除 key 的数量 DUMP序列化给定 key，返回被序列化的值，使用 RESTORE 命令可以将这个值反序列化为 Redis 键 EXISTS检查给定key是否存在 EXPIRE为给定key设置有效时间，接受时间点 EXPIREAT为给定key设置有效时间，接受时间戳timestamp KEYS">
+<meta property="og:description" content="Redis 是一个开源的、基于内存的键值数据库，经常使用在高并发、低延迟环境比较高的环境中。数据类型简单，最为常用的是作为计数器、队列等场景。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2015-12-23T10:14:08.000Z">
-<meta property="article:modified_time" content="2022-12-01T08:56:54.499Z">
+<meta property="article:modified_time" content="2022-12-02T06:18:12.181Z">
 <meta property="article:author" content="Zihao Yao">
 <meta property="article:tag" content="db">
 <meta property="article:tag" content="redis">
@@ -132,7 +132,7 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">21</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">19</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
+                <time title="修改时间：2022-12-02 06:18:12" itemprop="dateModified" datetime="2022-12-02T06:18:12Z">2022-12-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -262,7 +262,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5.7k</span>
+              <span>5.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -281,7 +281,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Key"><a href="#Key" class="headerlink" title="Key"></a>Key</h2><hr>
+        <blockquote>
+<p>Redis 是一个开源的、基于内存的键值数据库，经常使用在高并发、低延迟环境比较高的环境中。数据类型简单，最为常用的是作为计数器、队列等场景。</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="Key"><a href="#Key" class="headerlink" title="Key"></a>Key</h2><hr>
 <p>Key命令速查：</p>
 <h3 id="DEL"><a href="#DEL" class="headerlink" title="DEL"></a>DEL</h3><p>删除给定的一个或多个 key，不存在的 key 会被忽略，返回值：被删除 key 的数量</p>
 <h3 id="DUMP"><a href="#DUMP" class="headerlink" title="DUMP"></a>DUMP</h3><p>序列化给定 key，返回被序列化的值，使用 RESTORE 命令可以将这个值反序列化为 Redis 键</p>
@@ -633,7 +638,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">

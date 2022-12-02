@@ -20,7 +20,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
   <meta name="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
@@ -129,7 +129,7 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">21</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">19</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
@@ -213,7 +213,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/centos_mysql_compile/" class="post-title-link" itemprop="url">Centos编译mysql</a>
+            <a href="/centos_mysql_compile/" class="post-title-link" itemprop="url">CentOS 编译 mysql</a>
         </h2>
 
         <div class="post-meta">
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
+                <time title="修改时间：2022-12-02 06:18:12" itemprop="dateModified" datetime="2022-12-02T06:18:12Z">2022-12-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -267,56 +267,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget http://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.23.tar.gz</span><br><span class="line"></span><br><span class="line">tar zxvf mysql-5.6.23.tar.gz</span><br></pre></td></tr></table></figure>
-
-<h2 id="安装必要的包"><a href="#安装必要的包" class="headerlink" title="安装必要的包"></a>安装必要的包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install cmake gcc gcc-c++ ncurses-devel perl-Data-Dumper cmake ncurses-devel bison autoconf automake zlib* fiex* libxml* libmcrypt* libtool-ltdl-devel*</span><br></pre></td></tr></table></figure>
-
-<h2 id="进入mysql源码目录，生成makefile"><a href="#进入mysql源码目录，生成makefile" class="headerlink" title="进入mysql源码目录，生成makefile"></a>进入mysql源码目录，生成makefile</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> mysql-5.6.23</span><br><span class="line">cmake .</span><br></pre></td></tr></table></figure>
-
-<p>生成失败的的话</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> -f CMakeCache.txt</span><br></pre></td></tr></table></figure>
-
-<p>查看问题，进行修复</p>
-<h2 id="编译并安装"><a href="#编译并安装" class="headerlink" title="编译并安装"></a>编译并安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
-
-<p>mysql将会安装到<code>/usr/local/mysql</code>路径。</p>
-<h2 id="添加mysql用户和组"><a href="#添加mysql用户和组" class="headerlink" title="添加mysql用户和组"></a>添加mysql用户和组</h2><p>先查看是否存在</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/passwd | grep mysql</span><br><span class="line"></span><br><span class="line"><span class="built_in">cat</span> /etc/group | grep mysql</span><br></pre></td></tr></table></figure>
-
-<p>添加</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo groupadd mysql</span><br><span class="line">sudo useradd -r -g mysql mysql</span><br><span class="line"><span class="built_in">chown</span> -R mysql:mysql /usr/local/mysql</span><br></pre></td></tr></table></figure>
-
-<h2 id="修改目录和文件权限，安装默认数据库"><a href="#修改目录和文件权限，安装默认数据库" class="headerlink" title="修改目录和文件权限，安装默认数据库"></a>修改目录和文件权限，安装默认数据库</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/mysql</span><br><span class="line">sudo scripts/mysql_install_db --user=mysql?--basedir=/usr/local/mysql --datadir=/usr/local/mysql/data</span><br></pre></td></tr></table></figure>
-
-<p>至此，<code>mysql</code>就可以启动运行了。</p>
-<h2 id="启动mysql"><a href="#启动mysql" class="headerlink" title="启动mysql"></a>启动mysql</h2><p>CentOS7自带MariaDB的支持，<code>/etc</code>下默认存在<code>my.cnf</code>文件干扰mysql运行，需要先删掉</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc</span><br><span class="line">sudo <span class="built_in">rm</span> -fr my.cnf my.cnf.d</span><br></pre></td></tr></table></figure>
-
-<p>然后再<code>/etc</code>下重建<code>my.cnf</code>文件，内容如下</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"># Foradvice onhow tochange settings please see</span><br><span class="line"># http://dev.mysql.<span class="keyword">com</span>/doc/refman/<span class="number">5.6</span>/<span class="keyword">en</span>/server-configuration-defaults.html</span><br><span class="line">[mysqld]</span><br><span class="line"># Remove leading # andsettothe amount ofRAM forthe most important data</span><br><span class="line"># cache inMySQL. Start at70% oftotal RAM fordedicated server, else10%.</span><br><span class="line"># innodb_buffer_pool_size = <span class="number">128</span>M</span><br><span class="line"># Remove leading # toturn ona very important data integrity option: logging</span><br><span class="line"># <span class="keyword">changes</span> tothe binarylog betweenbackups.</span><br><span class="line"># log_bin</span><br><span class="line"># These are commonly <span class="keyword">set</span>, <span class="built_in">remove</span> the # andsetasrequired.</span><br><span class="line"># basedir = .....</span><br><span class="line"># datadir = /data/mysql/data</span><br><span class="line">?port = .....</span><br><span class="line"># server_id = .....</span><br><span class="line"># socket = .....</span><br><span class="line"># Remove leading # tosetoptions mainly useful forreporting servers.</span><br><span class="line"># The server defaults are faster fortransactions andfast SELECTs.</span><br><span class="line"># Adjust sizes asneeded, experiment tofind the optimal <span class="built_in">values</span>.</span><br><span class="line"># join_buffer_size = <span class="number">128</span>M</span><br><span class="line"># sort_buffer_size = <span class="number">2</span>M</span><br><span class="line"># read_rnd_buffer_size = <span class="number">2</span>M</span><br><span class="line">max_connection = <span class="number">10000</span></span><br><span class="line">sql_mode = NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES</span><br><span class="line">#binarylog</span><br><span class="line"><span class="built_in">log</span>-bin = mysql-bin</span><br><span class="line">binlog_format = mixed</span><br><span class="line">expire_logs_day = <span class="number">30</span></span><br><span class="line">#slow query <span class="built_in">log</span></span><br><span class="line">slow_query_log = <span class="number">1</span></span><br><span class="line">slow_query_log_file = /var/<span class="built_in">log</span>/mysql/slow.<span class="built_in">log</span></span><br><span class="line">long_query_time = <span class="number">3</span></span><br><span class="line"><span class="built_in">log</span>-queries-not-using-indexes</span><br><span class="line"><span class="built_in">log</span>-slow-admin-statements</span><br><span class="line">?</span><br><span class="line">innodb_log_files_in_group=<span class="number">2</span></span><br><span class="line">innodb_data_home_dir = /<span class="keyword">opt</span>/data/mysql/</span><br><span class="line">innodb_data_file_path = ibdata1:<span class="number">2000</span>M;ibdata2:<span class="number">2000</span>M;ibdata3:<span class="number">20</span>M:autoextend</span><br><span class="line">innodb_log_group_home_dir = /<span class="keyword">opt</span>/data/mysql/</span><br><span class="line"></span><br><span class="line"># <span class="number">4</span>G RAM</span><br><span class="line">innodb_buffer_pool_size = <span class="number">1</span>G</span><br><span class="line">innodb_log_file_size = <span class="number">256</span>M</span><br><span class="line">innodb_log_buffer_size = <span class="number">8</span>M</span><br><span class="line">innodb_flush_log_at_trx_commit=<span class="number">0</span></span><br><span class="line">innodb_thread_concurrency=<span class="number">8</span></span><br><span class="line">innodb_flush_method=O_DIRECT</span><br><span class="line"></span><br><span class="line"># perform</span><br><span class="line">tmp_table_size = <span class="number">512</span>M</span><br><span class="line">max_heap_table_size=<span class="number">128</span>M</span><br></pre></td></tr></table></figure>
-
-<p>现在可以启动mysql了</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/local/mysql/bin/mysqld_safe --user=mysql &amp;</span><br></pre></td></tr></table></figure>
-
-<p>CentOS7 不能使用service控制mysql服务，而源码安装的mysql也没有提供<code>Systemd</code>的控制脚本。</p>
-<h2 id="开机启动"><a href="#开机启动" class="headerlink" title="开机启动"></a>开机启动</h2><p>于是编辑<code>/etc/rc.d/rc.local</code>文件，添加<code>mysql</code>的开机启动命令。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/mysql/bin/mysqld_safe --user=mysql &amp;</span><br></pre></td></tr></table></figure>
-
-<p>然后给<code>/etc/rc.d/rc.local</code>添加可执行权限</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">chmod</span> a+x /etc/rc.d/rc.local</span><br></pre></td></tr></table></figure>
-
-<p>如果开启时报错 ，重新初始化，注意用户名别用错了</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/local/mysql/bin/mysqld_safe --user=mysql &amp;</span><br></pre></td></tr></table></figure>
-
-<h2 id="修改root密码"><a href="#修改root密码" class="headerlink" title="修改root密码"></a>修改root密码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/mysql/bin/mysql -uroot</span><br><span class="line">use mysql;</span><br><span class="line">select * from mysql?WHERE?user=?<span class="string">&#x27;root&#x27;</span>;</span><br><span class="line">UPDATE user SET?password= PASSWORD(<span class="string">&#x27;123456&#x27;</span>) WHERE?user= <span class="string">&#x27;root&#x27;</span>;</span><br><span class="line"></span><br><span class="line">GRANT ALL PRIVILEGES ON *.*  TO root@<span class="string">&#x27;%&#x27;</span> IDENTIFIED BY <span class="string">&#x27;123456&#x27;</span>;</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
-
-<p>至此，安装基本完成了，一个mysql就能用了。</p>
-<h2 id="服务启动mysql"><a href="#服务启动mysql" class="headerlink" title="服务启动mysql"></a>服务启动mysql</h2><p>添加服务，拷贝服务脚本到init.d目录，并设置开机启动</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> support-files/mysql.server /etc/init.d/mysql</span><br><span class="line">chkconfig mysql on</span><br><span class="line">service mysql start –启动MySQL</span><br></pre></td></tr></table></figure>
-
-<p>查看是否启动成功</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -lntp | grep 3306</span><br></pre></td></tr></table></figure>
-
+          <blockquote>
+<p>本文介绍了如何在 CentOS 上进行 Mysql 编译。</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/centos_mysql_compile/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -366,7 +327,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
+                <time title="修改时间：2022-12-02 06:18:12" itemprop="dateModified" datetime="2022-12-02T06:18:12Z">2022-12-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -461,7 +422,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
+                <time title="修改时间：2022-12-02 06:18:12" itemprop="dateModified" datetime="2022-12-02T06:18:12Z">2022-12-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -558,7 +519,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
+                <time title="修改时间：2022-12-02 06:18:12" itemprop="dateModified" datetime="2022-12-02T06:18:12Z">2022-12-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -661,7 +622,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
+                <time title="修改时间：2022-12-02 06:18:12" itemprop="dateModified" datetime="2022-12-02T06:18:12Z">2022-12-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -766,7 +727,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
+                <time title="修改时间：2022-12-02 06:18:12" itemprop="dateModified" datetime="2022-12-02T06:18:12Z">2022-12-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -872,7 +833,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
+                <time title="修改时间：2022-12-02 06:18:12" itemprop="dateModified" datetime="2022-12-02T06:18:12Z">2022-12-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -975,7 +936,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
+                <time title="修改时间：2022-12-02 06:18:12" itemprop="dateModified" datetime="2022-12-02T06:18:12Z">2022-12-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -997,7 +958,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5.7k</span>
+              <span>5.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -1016,192 +977,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="Key"><a href="#Key" class="headerlink" title="Key"></a>Key</h2><hr>
-<p>Key命令速查：</p>
-<h3 id="DEL"><a href="#DEL" class="headerlink" title="DEL"></a>DEL</h3><p>删除给定的一个或多个 key，不存在的 key 会被忽略，返回值：被删除 key 的数量</p>
-<h3 id="DUMP"><a href="#DUMP" class="headerlink" title="DUMP"></a>DUMP</h3><p>序列化给定 key，返回被序列化的值，使用 RESTORE 命令可以将这个值反序列化为 Redis 键</p>
-<h3 id="EXISTS"><a href="#EXISTS" class="headerlink" title="EXISTS"></a>EXISTS</h3><p>检查给定key是否存在</p>
-<h3 id="EXPIRE"><a href="#EXPIRE" class="headerlink" title="EXPIRE"></a>EXPIRE</h3><p>为给定key设置有效时间，接受时间点</p>
-<h3 id="EXPIREAT"><a href="#EXPIREAT" class="headerlink" title="EXPIREAT"></a>EXPIREAT</h3><p>为给定key设置有效时间，接受时间戳timestamp</p>
-<h3 id="KEYS"><a href="#KEYS" class="headerlink" title="KEYS"></a>KEYS</h3><p>查找所有符合给定模式 pattern 的 key；KEYS <code>*</code> 匹配数据库中所有 key；<code>KEYS h*llo</code> 匹配 hello，hallo等。<code>KEYS h[ae]llo</code>匹配hello和hallo</p>
-<h3 id="MIGRATE"><a href="#MIGRATE" class="headerlink" title="MIGRATE"></a>MIGRATE</h3><p>将 key 原子性地从当前实例传送到目标实例的指定数据库上，一旦传送成功， key 保证会出现在目标实例上，而当前实例上的 key 会被删除。执行的时候会阻塞进行迁移的两个实例</p>
-<h3 id="MOVE"><a href="#MOVE" class="headerlink" title="MOVE"></a>MOVE</h3><p>将当前数据库的 key 移动到给定的数据库 db 当中</p>
-<h3 id="OBJECT"><a href="#OBJECT" class="headerlink" title="OBJECT"></a>OBJECT</h3><p>从内部察看给定 key 的 Redis 对象</p>
-<h3 id="PERSIST"><a href="#PERSIST" class="headerlink" title="PERSIST"></a>PERSIST</h3><p>移除给定 key 的有效时间</p>
-<h3 id="PEXPIRE"><a href="#PEXPIRE" class="headerlink" title="PEXPIRE"></a>PEXPIRE</h3><p>以毫秒为单位设置 key 的有效时间</p>
-<h3 id="EXPIREAT-1"><a href="#EXPIREAT-1" class="headerlink" title="EXPIREAT"></a>EXPIREAT</h3><p>以毫秒为单位设置 key 的有效时间(timespan)</p>
-<h3 id="PTTL"><a href="#PTTL" class="headerlink" title="PTTL"></a>PTTL</h3><p>以毫秒为单位返回key的剩余有效时间</p>
-<h3 id="RANDOMKEY"><a href="#RANDOMKEY" class="headerlink" title="RANDOMKEY"></a>RANDOMKEY</h3><p>从当前数据库中随机返回(已使用的)一个key</p>
-<h3 id="RENAME"><a href="#RENAME" class="headerlink" title="RENAME"></a>RENAME</h3><p>将Key改名</p>
-<h3 id="RENAMENX"><a href="#RENAMENX" class="headerlink" title="RENAMENX"></a>RENAMENX</h3><p>当且仅当 newkey 不存在时，将 key 改名为 newkey</p>
-<h3 id="RESTORE"><a href="#RESTORE" class="headerlink" title="RESTORE"></a>RESTORE</h3><p>反序列化给定的序列化值，并将它和给定的 key 关联</p>
-<h3 id="SORT"><a href="#SORT" class="headerlink" title="SORT"></a>SORT</h3><p>返回或保存给定列表、集合、有序集合 key 中经过排序的元素</p>
-<h3 id="TTL"><a href="#TTL" class="headerlink" title="TTL"></a>TTL</h3><p>以秒为单位，返回给定 key 的剩余有效时间</p>
-<h3 id="TYPE"><a href="#TYPE" class="headerlink" title="TYPE"></a>TYPE</h3><p>返回 key 所储存的值的类型</p>
-<h3 id="SCAN"><a href="#SCAN" class="headerlink" title="SCAN"></a>SCAN</h3><p>增量迭代</p>
-<hr>
-<h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><hr>
-<p>String命令速查：</p>
-<h3 id="APPEND"><a href="#APPEND" class="headerlink" title="APPEND"></a>APPEND</h3><p>将值追加到指定key的值末尾，如果key不存在，则相当于增加操作。</p>
-<h3 id="BITCOUNT"><a href="#BITCOUNT" class="headerlink" title="BITCOUNT"></a>BITCOUNT</h3><p>计算给定字符串中，被设置为 1 的Bit位的数量。</p>
-<h3 id="BITOP"><a href="#BITOP" class="headerlink" title="BITOP"></a>BITOP</h3><p>对一个或多个保存二进制位的字符串 key 进行位元操作</p>
-<h3 id="DECR"><a href="#DECR" class="headerlink" title="DECR"></a>DECR</h3><p>将 key 中储存的数字值减一。Key不存在，则将值置0，key类型不正确返回一个错误。</p>
-<h3 id="DECRBY"><a href="#DECRBY" class="headerlink" title="DECRBY"></a>DECRBY</h3><p>将key所储存的值减去指定数量</p>
-<h3 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h3><p>返回key所关联的字符串值，如果Key储存的值不是字符串类型，返回一个错误。</p>
-<h3 id="GETBIT"><a href="#GETBIT" class="headerlink" title="GETBIT"></a>GETBIT</h3><p>对key所储存的字符串值，获取指定偏移量上的位</p>
-<h3 id="GETRANGE"><a href="#GETRANGE" class="headerlink" title="GETRANGE"></a>GETRANGE</h3><p>返回key中字符串值的子字符串，字符串的截取范围由start和end两个偏移量决定</p>
-<h3 id="GETSET"><a href="#GETSET" class="headerlink" title="GETSET"></a>GETSET</h3><p>将给定key的值设为value，并返回key的旧值。非字符串报错。</p>
-<h3 id="INCR"><a href="#INCR" class="headerlink" title="INCR"></a>INCR</h3><p>将 key 中储存的数字值增一。不能转换为数字则报错。</p>
-<h3 id="INCRBY"><a href="#INCRBY" class="headerlink" title="INCRBY"></a>INCRBY</h3><p>将key所储存的值加上指定增量</p>
-<h3 id="INCRBYFLOAT"><a href="#INCRBYFLOAT" class="headerlink" title="INCRBYFLOAT"></a>INCRBYFLOAT</h3><p>为key中所储存的值加上指定的浮点数增量</p>
-<h3 id="MGET"><a href="#MGET" class="headerlink" title="MGET"></a>MGET</h3><p>返回所有(一个或多个)给定key的值</p>
-<h3 id="MSET"><a href="#MSET" class="headerlink" title="MSET"></a>MSET</h3><p>同时设置一个或多个key-value对</p>
-<h3 id="MSETNX"><a href="#MSETNX" class="headerlink" title="MSETNX"></a>MSETNX</h3><p>同时设置一个或多个key-value对，若一个key已被占用，则全部的执行取消。</p>
-<h3 id="PSETEX"><a href="#PSETEX" class="headerlink" title="PSETEX"></a>PSETEX</h3><p>以毫秒为单位设置 key 的有效时间</p>
-<h3 id="SET"><a href="#SET" class="headerlink" title="SET"></a>SET</h3><p>将字符串值value关联到key</p>
-<h3 id="SETBIT"><a href="#SETBIT" class="headerlink" title="SETBIT"></a>SETBIT</h3><p>对key所储存的字符串值，设置或清除指定偏移量上的位(bit)</p>
-<h3 id="SETEX"><a href="#SETEX" class="headerlink" title="SETEX"></a>SETEX</h3><p>将值value关联到 key，并将key的有效时间(秒)</p>
-<h3 id="SETNX"><a href="#SETNX" class="headerlink" title="SETNX"></a>SETNX</h3><p>当key未被使用时，设置为指定值</p>
-<h3 id="SETRANGE"><a href="#SETRANGE" class="headerlink" title="SETRANGE"></a>SETRANGE</h3><p>用value参数覆写(overwrite)给定key所储存的字符串值，从偏移量 offset 开始</p>
-<h3 id="STRLEN"><a href="#STRLEN" class="headerlink" title="STRLEN"></a>STRLEN</h3><p>返回key所储存的字符串值的长度</p>
-<hr>
-<h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h2><hr>
-<p>Hash命令速查：</p>
-<h3 id="HDEL"><a href="#HDEL" class="headerlink" title="HDEL"></a>HDEL</h3><p>删除哈希表 key 中的一个或多个指定域，不存在的域将被忽略。</p>
-<h3 id="HEXISTS"><a href="#HEXISTS" class="headerlink" title="HEXISTS"></a>HEXISTS</h3><p>查看哈希表 key 中，给定域 field 是否存在</p>
-<h3 id="HGET"><a href="#HGET" class="headerlink" title="HGET"></a>HGET</h3><p>返回哈希表 key 中给定域 field 的值</p>
-<h3 id="HGETALL"><a href="#HGETALL" class="headerlink" title="HGETALL"></a>HGETALL</h3><p>返回哈希表 key 中，所有的域和值</p>
-<h3 id="HINCRBY"><a href="#HINCRBY" class="headerlink" title="HINCRBY"></a>HINCRBY</h3><p>为哈希表 key 中的域 field 的值加上指定增量</p>
-<h3 id="HINCRBYFLOAT"><a href="#HINCRBYFLOAT" class="headerlink" title="HINCRBYFLOAT"></a>HINCRBYFLOAT</h3><p>为哈希表 key 中的域 field 加上指定的浮点数增量</p>
-<h3 id="HKEYS"><a href="#HKEYS" class="headerlink" title="HKEYS"></a>HKEYS</h3><p>返回哈希表 key 中的所有域</p>
-<h3 id="HLEN"><a href="#HLEN" class="headerlink" title="HLEN"></a>HLEN</h3><p>返回哈希表 key 中域的数量</p>
-<h3 id="HMGET"><a href="#HMGET" class="headerlink" title="HMGET"></a>HMGET</h3><p>返回哈希表 key 中，一个或多个给定域的值</p>
-<h3 id="HMSET"><a href="#HMSET" class="headerlink" title="HMSET"></a>HMSET</h3><p>同时将多个 field-value (域-值)对设置到哈希表 key 中</p>
-<h3 id="HSET"><a href="#HSET" class="headerlink" title="HSET"></a>HSET</h3><p>将哈希表 key 中的域 field 的值设为 value</p>
-<h3 id="HSETNX"><a href="#HSETNX" class="headerlink" title="HSETNX"></a>HSETNX</h3><p>当且仅当域 field 不存在时，将哈希表 key 中的域 field 的值设置为 value</p>
-<h3 id="HVALS"><a href="#HVALS" class="headerlink" title="HVALS"></a>HVALS</h3><p>返回哈希表 key 中所有域的值</p>
-<h3 id="HSCAN"><a href="#HSCAN" class="headerlink" title="HSCAN"></a>HSCAN</h3><p>增量迭代</p>
-<hr>
-<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><hr>
-<p>List命令速查：</p>
-<h3 id="BLPOP"><a href="#BLPOP" class="headerlink" title="BLPOP"></a>BLPOP</h3><p>它是 LPOP 命令的阻塞版本，当给定列表内没有任何元素可供弹出的时候，连接将被 BLPOP 命令阻塞，直到等待超时或发现可弹出元素为止</p>
-<h3 id="BRPOP"><a href="#BRPOP" class="headerlink" title="BRPOP"></a>BRPOP</h3><p>与BLPOP同义，弹出位置不同</p>
-<h3 id="BRPOPLPUSH"><a href="#BRPOPLPUSH" class="headerlink" title="BRPOPLPUSH"></a>BRPOPLPUSH</h3><p>当列表 source 为空时， BRPOPLPUSH 命令将阻塞连接，直到等待超时</p>
-<h3 id="LINDEX"><a href="#LINDEX" class="headerlink" title="LINDEX"></a>LINDEX</h3><p>返回列表 key 中，下标为 index 的元素</p>
-<h3 id="LINSERT"><a href="#LINSERT" class="headerlink" title="LINSERT"></a>LINSERT</h3><p>将值 value 插入到列表 key 当中</p>
-<h3 id="LLEN"><a href="#LLEN" class="headerlink" title="LLEN"></a>LLEN</h3><p>返回列表 key 的长度</p>
-<h3 id="LPOP"><a href="#LPOP" class="headerlink" title="LPOP"></a>LPOP</h3><p>移除并返回列表 key 的头元素</p>
-<h3 id="LPUSH"><a href="#LPUSH" class="headerlink" title="LPUSH"></a>LPUSH</h3><p>将一个或多个值 value 插入到列表 key 的表头</p>
-<h3 id="LPUSHX"><a href="#LPUSHX" class="headerlink" title="LPUSHX"></a>LPUSHX</h3><p>将值 value 插入到列表 key 的表头，当且仅当 key 存在并且是一个列表</p>
-<h3 id="LRANGE"><a href="#LRANGE" class="headerlink" title="LRANGE"></a>LRANGE</h3><p>返回列表 key 中指定区间内的元素，区间以偏移量 start 和 stop 指定</p>
-<h3 id="LREM"><a href="#LREM" class="headerlink" title="LREM"></a>LREM</h3><p>根据参数 count 的值，移除列表中与参数 value 相等的元素</p>
-<h3 id="LSET"><a href="#LSET" class="headerlink" title="LSET"></a>LSET</h3><p>将列表 key 下标为 index 的元素的值设置为 value</p>
-<h3 id="LTRIM"><a href="#LTRIM" class="headerlink" title="LTRIM"></a>LTRIM</h3><p>对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除</p>
-<h3 id="RPOP"><a href="#RPOP" class="headerlink" title="RPOP"></a>RPOP</h3><p>移除并返回列表 key 的尾元素</p>
-<h3 id="RPOPLPUSH"><a href="#RPOPLPUSH" class="headerlink" title="RPOPLPUSH"></a>RPOPLPUSH</h3><p>命令 RPOPLPUSH 在一个原子时间内，执行两个动作：1、将列表 source 中的最后一个元素(尾元素)弹出，并返回给客户端。2、将 source 弹出的元素插入到列表 destination ，作为 destination 列表的的头元素。</p>
-<h3 id="RPUSH"><a href="#RPUSH" class="headerlink" title="RPUSH"></a>RPUSH</h3><p>将一个或多个值 value 插入到列表 key 的表尾</p>
-<h3 id="RPUSHX"><a href="#RPUSHX" class="headerlink" title="RPUSHX"></a>RPUSHX</h3><p>将值 value 插入到列表 key 的表尾，当且仅当 key 存在并且是一个列表</p>
-<hr>
-<h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><hr>
-<p>Set命令速查</p>
-<h3 id="SADD"><a href="#SADD" class="headerlink" title="SADD"></a>SADD</h3><p>将一个或多个 member 元素加入到集合 key 当中，已经存在于集合的 member 元素将被忽略</p>
-<h3 id="SCARD"><a href="#SCARD" class="headerlink" title="SCARD"></a>SCARD</h3><p>返回集合 key 的集合中元素的数量</p>
-<h3 id="SDIFF"><a href="#SDIFF" class="headerlink" title="SDIFF"></a>SDIFF</h3><p>返回一个集合的全部成员，该集合是所有给定集合之间的差集</p>
-<h3 id="SDIFFSTORE"><a href="#SDIFFSTORE" class="headerlink" title="SDIFFSTORE"></a>SDIFFSTORE</h3><p>这个命令的作用和 SDIFF 类似，但它将结果保存到新集合，而不是简单地返回结果集</p>
-<h3 id="SINTER"><a href="#SINTER" class="headerlink" title="SINTER"></a>SINTER</h3><p>返回一个集合的全部成员，该集合是所有给定集合的交集</p>
-<h3 id="SINTERSTORE"><a href="#SINTERSTORE" class="headerlink" title="SINTERSTORE"></a>SINTERSTORE</h3><p>与SINTER类似，不过可以指定保存到新集合</p>
-<h3 id="SISMEMBER"><a href="#SISMEMBER" class="headerlink" title="SISMEMBER"></a>SISMEMBER</h3><p>判断 member 元素是否集合 key 的成员</p>
-<h3 id="SMEMBERS"><a href="#SMEMBERS" class="headerlink" title="SMEMBERS"></a>SMEMBERS</h3><p>返回集合 key 中的所有成员</p>
-<h3 id="SMOVE"><a href="#SMOVE" class="headerlink" title="SMOVE"></a>SMOVE</h3><p>将 member 元素从一个集合移动到另一个集合</p>
-<h3 id="SPOP"><a href="#SPOP" class="headerlink" title="SPOP"></a>SPOP</h3><p>移除并返回集合中的一个随机元素</p>
-<h3 id="SRANDMEMBER"><a href="#SRANDMEMBER" class="headerlink" title="SRANDMEMBER"></a>SRANDMEMBER</h3><p>仅仅返回随机元素，而不对集合进行任何改动，与SPOP的区别在于不移除</p>
-<h3 id="SREM"><a href="#SREM" class="headerlink" title="SREM"></a>SREM</h3><p>移除集合 key 中的一个或多个 member 元素，不存在的 member 元素会被忽略</p>
-<h3 id="SUNION"><a href="#SUNION" class="headerlink" title="SUNION"></a>SUNION</h3><p>返回一个集合的全部成员，该集合是所有给定集合的并集</p>
-<h3 id="SUNIONSTORE"><a href="#SUNIONSTORE" class="headerlink" title="SUNIONSTORE"></a>SUNIONSTORE</h3><p>与SUNION类似，不过可以指定保存到新集合</p>
-<h3 id="SSCAN"><a href="#SSCAN" class="headerlink" title="SSCAN"></a>SSCAN</h3><p>增量迭代</p>
-<hr>
-<h2 id="SortedSet"><a href="#SortedSet" class="headerlink" title="SortedSet"></a>SortedSet</h2><hr>
-<p>SortedSet命令速查：</p>
-<h3 id="ZADD"><a href="#ZADD" class="headerlink" title="ZADD"></a>ZADD</h3><p>将一个或多个 member 元素及其 score 值加入到有序集 key 当中</p>
-<h3 id="ZCARD"><a href="#ZCARD" class="headerlink" title="ZCARD"></a>ZCARD</h3><p>返回有序集 key 的基数</p>
-<h3 id="ZCOUNT"><a href="#ZCOUNT" class="headerlink" title="ZCOUNT"></a>ZCOUNT</h3><p>返回有序集 key 中， score 值在 min 和 max 之间(包括 score 值等于 min 或 max )的成员的数量</p>
-<h3 id="ZINCRBY"><a href="#ZINCRBY" class="headerlink" title="ZINCRBY"></a>ZINCRBY</h3><p>为有序集 key 的成员 member 的 score 值加上指定增量</p>
-<h3 id="ZRANGE"><a href="#ZRANGE" class="headerlink" title="ZRANGE"></a>ZRANGE</h3><p>返回有序集 key 中，指定区间内的成员(小到大排列)</p>
-<h3 id="ZRANGEBYSCORE"><a href="#ZRANGEBYSCORE" class="headerlink" title="ZRANGEBYSCORE"></a>ZRANGEBYSCORE</h3><p>返回有序集 key 中，所有 score 值介于 min 和 max 之间(包括等于 min 或 max )的成员</p>
-<h3 id="ZRANK"><a href="#ZRANK" class="headerlink" title="ZRANK"></a>ZRANK</h3><p>返回有序集 key 中成员 member 的排名。其中有序集成员按 score 值递增(从小到大)顺序排列</p>
-<h3 id="ZREM"><a href="#ZREM" class="headerlink" title="ZREM"></a>ZREM</h3><p>移除有序集 key 中的一个或多个成员，不存在的成员将被忽略</p>
-<h3 id="ZREMRANGEBYRANK"><a href="#ZREMRANGEBYRANK" class="headerlink" title="ZREMRANGEBYRANK"></a>ZREMRANGEBYRANK</h3><p>移除有序集 key 中，指定排名(rank)区间内的所有成员</p>
-<h3 id="ZREMRANGEBYSCORE"><a href="#ZREMRANGEBYSCORE" class="headerlink" title="ZREMRANGEBYSCORE"></a>ZREMRANGEBYSCORE</h3><p>移除有序集 key 中，所有 score 值介于 min 和 max 之间(包括等于 min 或 max )的成员</p>
-<h3 id="ZREVRANGE"><a href="#ZREVRANGE" class="headerlink" title="ZREVRANGE"></a>ZREVRANGE</h3><p>返回有序集 key 中，指定区间内的成员，成员位置按score大到小排列</p>
-<h3 id="ZREVRANGEBYSCORE"><a href="#ZREVRANGEBYSCORE" class="headerlink" title="ZREVRANGEBYSCORE"></a>ZREVRANGEBYSCORE</h3><p>返回有序集 key 中， score 值介于 max 和 min 之间(默认包括等于 max 或 min )的所有的成员。成员按 score 值递减(从大到小)排列</p>
-<h3 id="ZREVRANK"><a href="#ZREVRANK" class="headerlink" title="ZREVRANK"></a>ZREVRANK</h3><p>返回有序集 key 中成员 member 的排名。其中有序集成员按 score 值递减(从大到小)排序</p>
-<h3 id="ZSCORE"><a href="#ZSCORE" class="headerlink" title="ZSCORE"></a>ZSCORE</h3><p>返回有序集 key 中，成员 member 的 score 值</p>
-<h3 id="ZUNIONSTORE"><a href="#ZUNIONSTORE" class="headerlink" title="ZUNIONSTORE"></a>ZUNIONSTORE</h3><p>计算给定的一个或多个有序集的并集，其中给定 key 的数量必须以 numkeys 参数指定，并将该并集(结果集)储存到新集合</p>
-<h3 id="ZINTERSTORE"><a href="#ZINTERSTORE" class="headerlink" title="ZINTERSTORE"></a>ZINTERSTORE</h3><p>计算给定的一个或多个有序集的交集，其中给定 key 的数量必须以 numkeys 参数指定，并将该交集(结果集)储存到新集合</p>
-<h3 id="ZSCAN"><a href="#ZSCAN" class="headerlink" title="ZSCAN"></a>ZSCAN</h3><p>增量迭代</p>
-<hr>
-<h2 id="Pub-x2F-Sub"><a href="#Pub-x2F-Sub" class="headerlink" title="Pub&#x2F;Sub"></a>Pub&#x2F;Sub</h2><hr>
-<p>Pub&#x2F;Sub命令速查：</p>
-<h3 id="PSUBSCRIBE"><a href="#PSUBSCRIBE" class="headerlink" title="PSUBSCRIBE"></a>PSUBSCRIBE</h3><p>订阅一个或多个符合给定模式的频道</p>
-<h3 id="PUBLISH"><a href="#PUBLISH" class="headerlink" title="PUBLISH"></a>PUBLISH</h3><p>将信息 message 发送到指定的频道</p>
-<h3 id="PUBSUB"><a href="#PUBSUB" class="headerlink" title="PUBSUB"></a>PUBSUB</h3><p>PUBSUB 是一个查看订阅与发布系统状态的内省命令</p>
-<h3 id="PUNSUBSCRIBE"><a href="#PUNSUBSCRIBE" class="headerlink" title="PUNSUBSCRIBE"></a>PUNSUBSCRIBE</h3><p>指示客户端退订所有给定模式</p>
-<h3 id="SUBSCRIBE"><a href="#SUBSCRIBE" class="headerlink" title="SUBSCRIBE"></a>SUBSCRIBE</h3><p>订阅给定的一个或多个频道的信息</p>
-<h3 id="UNSUBSCRIBE"><a href="#UNSUBSCRIBE" class="headerlink" title="UNSUBSCRIBE"></a>UNSUBSCRIBE</h3><p>指示客户端退订给定的频道</p>
-<hr>
-<h2 id="Transaction"><a href="#Transaction" class="headerlink" title="Transaction"></a>Transaction</h2><hr>
-<p>Transaction命令速查：</p>
-<h3 id="DISCARD"><a href="#DISCARD" class="headerlink" title="DISCARD"></a>DISCARD</h3><p>取消事务，放弃执行事务块内的所有命令</p>
-<h3 id="EXEC"><a href="#EXEC" class="headerlink" title="EXEC"></a>EXEC</h3><p>执行所有事务块内的命令</p>
-<h3 id="MULTI"><a href="#MULTI" class="headerlink" title="MULTI"></a>MULTI</h3><p>标记一个事务块的开始</p>
-<h3 id="UNWATCH"><a href="#UNWATCH" class="headerlink" title="UNWATCH"></a>UNWATCH</h3><p>取消 WATCH 命令对所有 key 的监视</p>
-<h3 id="WATCH"><a href="#WATCH" class="headerlink" title="WATCH"></a>WATCH</h3><p>监视一个(或多个) key ，如果在事务执行之前这个(或这些) key 被其他命令所改动，那么事务将被打断</p>
-<hr>
-<h2 id="Script"><a href="#Script" class="headerlink" title="Script"></a>Script</h2><hr>
-<p>script命令速查：</p>
-<h3 id="EVAL"><a href="#EVAL" class="headerlink" title="EVAL"></a>EVAL</h3><p>通过内置的 Lua 解释器，可以使用 EVAL 命令对 Lua 脚本进行求值</p>
-<h3 id="VALSHA"><a href="#VALSHA" class="headerlink" title="VALSHA"></a>VALSHA</h3><p>根据给定的 sha1 校验码，对缓存在服务器中的脚本进行求值</p>
-<h3 id="SCRIPT-EXISTS"><a href="#SCRIPT-EXISTS" class="headerlink" title="SCRIPT EXISTS"></a>SCRIPT EXISTS</h3><p>给定一个或多个脚本的 SHA1 校验和，返回一个包含 0 和 1 的列表，表示校验和所指定的脚本是否已经被保存在缓存当中</p>
-<h3 id="SCRIPT-FLUSH"><a href="#SCRIPT-FLUSH" class="headerlink" title="SCRIPT FLUSH"></a>SCRIPT FLUSH</h3><p>清除所有 Lua 脚本缓存</p>
-<h3 id="SCRIPT-KILL"><a href="#SCRIPT-KILL" class="headerlink" title="SCRIPT KILL"></a>SCRIPT KILL</h3><p>停止当前正在运行的 Lua 脚本，当且仅当这个脚本没有执行过任何写操作时，这个命令才生效。这个命令主要用于终止运行时间过长的脚本</p>
-<h3 id="SCRIPT-LOAD"><a href="#SCRIPT-LOAD" class="headerlink" title="SCRIPT LOAD"></a>SCRIPT LOAD</h3><p>将脚本 script 添加到脚本缓存中，但并不立即执行这个脚本</p>
-<hr>
-<h2 id="Connection"><a href="#Connection" class="headerlink" title="Connection"></a>Connection</h2><hr>
-<p>connection命令速查:</p>
-<h3 id="AUTH"><a href="#AUTH" class="headerlink" title="AUTH"></a>AUTH</h3><p>通过设置配置文件中 requirepass 项的值，可以使用密码来保护 Redis 服务器</p>
-<h3 id="ECHO"><a href="#ECHO" class="headerlink" title="ECHO"></a>ECHO</h3><p>打印一个特定的信息 message ，测试时使用。</p>
-<h3 id="PING"><a href="#PING" class="headerlink" title="PING"></a>PING</h3><p>使用客户端向 Redis 服务器发送一个 PING ，如果服务器运作正常的话，会返回一个 PONG，通常用于测试与服务器的连接是否仍然生效，或者用于测量延迟值</p>
-<h3 id="QUIT"><a href="#QUIT" class="headerlink" title="QUIT"></a>QUIT</h3><p>请求服务器关闭与当前客户端的连接</p>
-<h3 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a>SELECT</h3><p>切换到指定的数据库，数据库索引号 index 用数字值指定，以 0 作为起始索引值</p>
-<hr>
-<h2 id="Server"><a href="#Server" class="headerlink" title="Server"></a>Server</h2><hr>
-<p>server命令速查：</p>
-<h3 id="BGREWRITEAOF"><a href="#BGREWRITEAOF" class="headerlink" title="BGREWRITEAOF"></a>BGREWRITEAOF</h3><p>执行一个 AOF文件 重写操作。重写会创建一个当前 AOF 文件的体积优化版本。</p>
-<h3 id="BGSAVE"><a href="#BGSAVE" class="headerlink" title="BGSAVE"></a>BGSAVE</h3><p>在后台异步(Asynchronously)保存当前数据库的数据到磁盘</p>
-<h3 id="CLIENT-GETNAME"><a href="#CLIENT-GETNAME" class="headerlink" title="CLIENT GETNAME"></a>CLIENT GETNAME</h3><p>返回 CLIENT SETNAME 命令为连接设置的名字</p>
-<h3 id="CLIENT-KILL"><a href="#CLIENT-KILL" class="headerlink" title="CLIENT KILL"></a>CLIENT KILL</h3><p>关闭地址为 ip:port 的客户端</p>
-<h3 id="CLIENT-LIST"><a href="#CLIENT-LIST" class="headerlink" title="CLIENT LIST"></a>CLIENT LIST</h3><p>以人类可读的格式，返回所有连接到服务器的客户端信息和统计数据</p>
-<h3 id="CLIENT-SETNAME"><a href="#CLIENT-SETNAME" class="headerlink" title="CLIENT SETNAME"></a>CLIENT SETNAME</h3><p>为当前连接分配一个名字</p>
-<h3 id="CONFIG-GET"><a href="#CONFIG-GET" class="headerlink" title="CONFIG GET"></a>CONFIG GET</h3><p>CONFIG GET 命令用于取得运行中的 Redis 服务器的配置参数</p>
-<h3 id="CONFIG-RESETSTAT"><a href="#CONFIG-RESETSTAT" class="headerlink" title="CONFIG RESETSTAT"></a>CONFIG RESETSTAT</h3><p>重置 INFO 命令中的某些统计数据</p>
-<h3 id="CONFIG-REWRITE"><a href="#CONFIG-REWRITE" class="headerlink" title="CONFIG REWRITE"></a>CONFIG REWRITE</h3><p>CONFIG REWRITE 命令对启动 Redis 服务器时所指定的 redis.conf 文件进行改写</p>
-<h3 id="CONFIG-SET"><a href="#CONFIG-SET" class="headerlink" title="CONFIG SET"></a>CONFIG SET</h3><p>CONFIG SET 命令可以动态地调整 Redis 服务器的配置而无须重启</p>
-<h3 id="DBSIZE"><a href="#DBSIZE" class="headerlink" title="DBSIZE"></a>DBSIZE</h3><p>返回当前数据库的 key 的数量</p>
-<h3 id="DEBUG-OBJECT"><a href="#DEBUG-OBJECT" class="headerlink" title="DEBUG OBJECT"></a>DEBUG OBJECT</h3><p>DEBUG OBJECT 是一个调试命令，它不应被客户端所使用</p>
-<h3 id="DEBUG-SEGFAULT"><a href="#DEBUG-SEGFAULT" class="headerlink" title="DEBUG SEGFAULT"></a>DEBUG SEGFAULT</h3><p>执行一个不合法的内存访问从而让 Redis 崩溃，仅在开发时用于 BUG 模拟</p>
-<h3 id="FLUSHALL"><a href="#FLUSHALL" class="headerlink" title="FLUSHALL"></a>FLUSHALL</h3><p>清空整个 Redis 服务器的数据(删除所有数据库的所有 key )</p>
-<h3 id="FLUSHDB"><a href="#FLUSHDB" class="headerlink" title="FLUSHDB"></a>FLUSHDB</h3><p>清空当前数据库中的所有 key</p>
-<h3 id="INFO"><a href="#INFO" class="headerlink" title="INFO"></a>INFO</h3><p>返回关于 Redis 服务器的各种信息和统计数值</p>
-<h3 id="LASTSAVE"><a href="#LASTSAVE" class="headerlink" title="LASTSAVE"></a>LASTSAVE</h3><p>返回最近一次 Redis 成功将数据保存到磁盘上的时间，以 UNIX 时间戳格式表示</p>
-<h3 id="MONITOR"><a href="#MONITOR" class="headerlink" title="MONITOR"></a>MONITOR</h3><p>实时打印出 Redis 服务器接收到的命令，调试用</p>
-<h3 id="PSYNC"><a href="#PSYNC" class="headerlink" title="PSYNC"></a>PSYNC</h3><p>用于复制功能的内部命令</p>
-<h3 id="SAVE"><a href="#SAVE" class="headerlink" title="SAVE"></a>SAVE</h3><p>SAVE 命令执行一个同步保存操作，将当前 Redis 实例的所有数据快照(snapshot)以 RDB 文件的形式保存到硬盘。 一般来说，在生产环境很少执行 SAVE 操作，因为它会阻塞所有客户端，保存数据库的任务通常由 BGSAVE 命令异步地执行。然而，如果负责保存数据的后台子进程不幸出现问题时， SAVE 可以作为保存数据的最后手段来使用。</p>
-<h3 id="SHUTDOWN"><a href="#SHUTDOWN" class="headerlink" title="SHUTDOWN"></a>SHUTDOWN</h3><p>SHUTDOWN 命令执行以下操作： 停止所有客户端 如果有至少一个保存点在等待，执行 SAVE 命令 如果 AOF 选项被打开，更新 AOF 文件 关闭 redis 服务器(server)</p>
-<h3 id="SLAVEOF"><a href="#SLAVEOF" class="headerlink" title="SLAVEOF"></a>SLAVEOF</h3><p>SLAVEOF 命令用于在 Redis 运行时动态地修改复制(replication)功能的行为</p>
-<h3 id="SLOWLOG"><a href="#SLOWLOG" class="headerlink" title="SLOWLOG"></a>SLOWLOG</h3><p>Slow log 是 Redis 用来记录查询执行时间的日志系统</p>
-<h3 id="SYNC"><a href="#SYNC" class="headerlink" title="SYNC"></a>SYNC</h3><p>用于复制功能的内部命令</p>
-<h3 id="TIME"><a href="#TIME" class="headerlink" title="TIME"></a>TIME</h3><p>返回当前服务器时间</p>
-
+          <blockquote>
+<p>Redis 是一个开源的、基于内存的键值数据库，经常使用在高并发、低延迟环境比较高的环境中。数据类型简单，最为常用的是作为计数器、队列等场景。</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/redis_order/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1251,7 +1037,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
+                <time title="修改时间：2022-12-02 06:18:12" itemprop="dateModified" datetime="2022-12-02T06:18:12Z">2022-12-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1354,7 +1140,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-01 08:56:54" itemprop="dateModified" datetime="2022-12-01T08:56:54Z">2022-12-01</time>
+                <time title="修改时间：2022-12-02 06:18:12" itemprop="dateModified" datetime="2022-12-02T06:18:12Z">2022-12-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1490,7 +1276,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
