@@ -147,7 +147,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">279</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">280</span></a>
 
   </li>
         <li class="menu-item menu-item-about">
@@ -212,6 +212,105 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/mysql_other_permission/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zihao Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zihao">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/mysql_other_permission/" class="post-title-link" itemprop="url">mysql修改其他机器可以连接的权限</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-07-19 11:03:27" itemprop="dateCreated datePublished" datetime="2016-07-19T11:03:27Z">2016-07-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-03-18 04:26:38" itemprop="dateModified" datetime="2023-03-18T04:26:38Z">2023-03-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/DB/" itemprop="url" rel="index"><span itemprop="name">DB</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>508</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>通过<code>HeidiSQL</code>连接<code>MYSQL</code>数据库报错：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SQL</span> Error (<span class="number">1130</span>): Host ‘<span class="number">192.168</span><span class="number">.1</span><span class="number">.126</span>’ <span class="keyword">is</span> <span class="keyword">not</span> allowed <span class="keyword">to</span> <span class="keyword">connect</span> <span class="keyword">to</span> this MySQL server</span><br></pre></td></tr></table></figure>
+
+<p>说明所连接的用户帐号没有远程连接的权限，只能在本机(localhost)登录。<br>需更改 mysql 数据库里的<code>user</code>表里的<code>host</code>项把localhost改成%</p>
+<p>首先按下面的步骤登录Mysql服务器，登录mysql需要切换到dos下的mysql的bin目录，进行如下操作：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span>use mysql;</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span><span class="keyword">update</span> <span class="keyword">user</span> <span class="keyword">set</span> host <span class="operator">=</span> ‘<span class="operator">%</span>’ <span class="keyword">where</span> <span class="keyword">user</span> <span class="operator">=</span>’root’;</span><br><span class="line">MariaDB [mysql]<span class="operator">&gt;</span> <span class="keyword">update</span> <span class="keyword">user</span> <span class="keyword">set</span> host <span class="operator">=</span> ‘<span class="operator">%</span>’ <span class="keyword">where</span> host <span class="operator">=</span> ‘localhost’;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"><span class="keyword">Rows</span> matched: <span class="number">0</span> Changed: <span class="number">0</span> Warnings: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span>flush privileges;</span><br><span class="line">mysql<span class="operator">&gt;</span><span class="keyword">select</span> host, <span class="keyword">user</span> <span class="keyword">from</span> <span class="keyword">user</span>;</span><br><span class="line">mysql<span class="operator">&gt;</span>quit</span><br></pre></td></tr></table></figure>
+
+<p>OK。远程连接成功！</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
     <link itemprop="mainEntityOfPage" href="https://yaozihao.com/mark_devops/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -243,7 +342,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-05 06:02:37" itemprop="dateModified" datetime="2022-12-05T06:02:37Z">2022-12-05</time>
+                <time title="修改时间：2023-03-18 04:26:38" itemprop="dateModified" datetime="2023-03-18T04:26:38Z">2023-03-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -338,7 +437,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-05 06:02:37" itemprop="dateModified" datetime="2022-12-05T06:02:37Z">2022-12-05</time>
+                <time title="修改时间：2023-03-18 04:26:38" itemprop="dateModified" datetime="2023-03-18T04:26:38Z">2023-03-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -435,7 +534,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-05 06:02:37" itemprop="dateModified" datetime="2022-12-05T06:02:37Z">2022-12-05</time>
+                <time title="修改时间：2023-03-18 04:26:38" itemprop="dateModified" datetime="2023-03-18T04:26:38Z">2023-03-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -538,7 +637,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-05 06:02:37" itemprop="dateModified" datetime="2022-12-05T06:02:37Z">2022-12-05</time>
+                <time title="修改时间：2023-03-18 04:26:38" itemprop="dateModified" datetime="2023-03-18T04:26:38Z">2023-03-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -645,7 +744,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-05 06:02:37" itemprop="dateModified" datetime="2022-12-05T06:02:37Z">2022-12-05</time>
+                <time title="修改时间：2023-03-18 04:26:38" itemprop="dateModified" datetime="2023-03-18T04:26:38Z">2023-03-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -750,7 +849,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-05 06:02:37" itemprop="dateModified" datetime="2022-12-05T06:02:37Z">2022-12-05</time>
+                <time title="修改时间：2023-03-18 04:26:38" itemprop="dateModified" datetime="2023-03-18T04:26:38Z">2023-03-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -853,7 +952,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-05 06:02:37" itemprop="dateModified" datetime="2022-12-05T06:02:37Z">2022-12-05</time>
+                <time title="修改时间：2023-03-18 04:26:38" itemprop="dateModified" datetime="2023-03-18T04:26:38Z">2023-03-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -956,7 +1055,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-05 06:02:37" itemprop="dateModified" datetime="2022-12-05T06:02:37Z">2022-12-05</time>
+                <time title="修改时间：2023-03-18 04:26:38" itemprop="dateModified" datetime="2023-03-18T04:26:38Z">2023-03-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1055,7 +1154,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-05 06:02:37" itemprop="dateModified" datetime="2022-12-05T06:02:37Z">2022-12-05</time>
+                <time title="修改时间：2023-03-18 04:26:38" itemprop="dateModified" datetime="2023-03-18T04:26:38Z">2023-03-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1102,102 +1201,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/mysql_user_permissions/" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/git_count/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zihao Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zihao">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/git_count/" class="post-title-link" itemprop="url">Git代码行统计命令集</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-02-29 19:12:06" itemprop="dateCreated datePublished" datetime="2016-02-29T19:12:06Z">2016-02-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-12-05 06:02:37" itemprop="dateModified" datetime="2022-12-05T06:02:37Z">2022-12-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tool/" itemprop="url" rel="index"><span itemprop="name">Tool</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.9k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>统计某人的代码提交量，包括增加，删除：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> –author=”$(git config –get user.name)” –pretty=tformat: –numstat | gawk <span class="string">&#x27;&#123; add += $1 ; subs += $2 ; loc += $1 - $2 &#125; END &#123; printf ”added lines: %s removed lines : %s total lines: %s\n”,add,subs,loc &#125;’  -</span></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/git_count/" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1286,7 +1289,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">279</span>
+          <span class="site-state-item-count">280</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1351,7 +1354,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -1361,13 +1364,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">805k</span>
+    <span title="站点总字数">921k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:12</span>
+    <span title="站点阅读时长">13:58</span>
 </div>
 
         
