@@ -20,7 +20,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
   <meta name="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
@@ -46,7 +46,20 @@
     lang   : 'zh-CN'
   };
 </script>
-<script async src="/lib/fireworks.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style><script async src="/lib/fireworks.js"></script>
   <title>Zihao - Make small but daily progress</title>
   
 
@@ -124,17 +137,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">64</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">65</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">19</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">278</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">282</span></a>
 
   </li>
         <li class="menu-item menu-item-about">
@@ -199,6 +212,494 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/git_code_system/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zihao Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zihao">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/git_code_system/" class="post-title-link" itemprop="url">12款Git代码托管系统</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-01-18 22:25:23" itemprop="dateCreated datePublished" datetime="2016-01-18T22:25:23Z">2016-01-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-30 00:04:14" itemprop="dateModified" datetime="2022-11-30T00:04:14Z">2022-11-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tool/" itemprop="url" rel="index"><span itemprop="name">Tool</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>常见的12款Git代码托管系统。</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/git_code_system/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/mac_tree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zihao Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zihao">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/mac_tree/" class="post-title-link" itemprop="url">Mac终端中显示文件清单，tree的命令</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-01-18 22:20:03" itemprop="dateCreated datePublished" datetime="2016-01-18T22:20:03Z">2016-01-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-29 23:52:38" itemprop="dateModified" datetime="2022-11-29T23:52:38Z">2022-11-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Mac/" itemprop="url" rel="index"><span itemprop="name">Mac</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在 linux 下你可以很方便的使用 tree 命令来查看当前目录下的目录树机构. 但是在mac下，需要安装一个工具.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/mac_tree/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/php_session_err/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zihao Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zihao">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/php_session_err/" class="post-title-link" itemprop="url">解决Undefined variable: _SESSION的方法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-01-07 11:18:46" itemprop="dateCreated datePublished" datetime="2016-01-07T11:18:46Z">2016-01-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-02 04:51:48" itemprop="dateModified" datetime="2022-12-02T04:51:48Z">2022-12-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/Back/" itemprop="url" rel="index"><span itemprop="name">Back</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/Back/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>710</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本文为大家介绍解决PHP使用SESSION报错的方法。对于初次使用session的人来说可能会遇到<code>Undefined variable: _SESSION</code>这样的错误，错误原因是因为没有开启session。因为php中的session默认是不开启的，需要在程序中开启才能使用。PHP错误：<code>PHP Notice: Undefined variable: _SESSION</code>原因及解决方法。</p>
+<p>遇到<code>Undefined variable: _SESSION</code> 错误的原因是<code>php session</code>没有开启引起的。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/php_session_err/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/linux_centos_nginx_compile/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zihao Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zihao">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/linux_centos_nginx_compile/" class="post-title-link" itemprop="url">Centos下编译nginx</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-01-05 19:30:26" itemprop="dateCreated datePublished" datetime="2016-01-05T19:30:26Z">2016-01-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-29 23:18:10" itemprop="dateModified" datetime="2022-11-29T23:18:10Z">2022-11-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本篇文章主要介绍如何在Centos上进行源码编译安装nginx。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/linux_centos_nginx_compile/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/centos_mysql_compile/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zihao Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zihao">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/centos_mysql_compile/" class="post-title-link" itemprop="url">CentOS 编译 mysql</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-01-05 19:29:20" itemprop="dateCreated datePublished" datetime="2016-01-05T19:29:20Z">2016-01-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-02 05:58:34" itemprop="dateModified" datetime="2022-12-02T05:58:34Z">2022-12-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本文介绍了如何在 CentOS 上进行 Mysql 编译。</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/centos_mysql_compile/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
     <link itemprop="mainEntityOfPage" href="https://yaozihao.com/linux_centos_php_install/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -230,7 +731,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-24 05:24:10" itemprop="dateModified" datetime="2022-11-24T05:24:10Z">2022-11-24</time>
+                <time title="修改时间：2022-11-29 23:17:53" itemprop="dateModified" datetime="2022-11-29T23:17:53Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -267,37 +768,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="系统环境："><a href="#系统环境：" class="headerlink" title="系统环境："></a>系统环境：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CentOS 6.5 / 7.0 x86_64</span><br><span class="line">Fedora 20 x86_64</span><br></pre></td></tr></table></figure>
-<h3 id="下载-PHP-源码包"><a href="#下载-PHP-源码包" class="headerlink" title="下载 PHP 源码包"></a>下载 PHP 源码包</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># wget http://cn2.php.net/distributions/php-5.6.0.tar.xz</span><br><span class="line"># xz -d php-5.6.0.tar.xz</span><br><span class="line"># tar xf php-5.6.0.tar -C /usr/local/src/</span><br><span class="line">添加 epel 源</span><br><span class="line"># rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm</span><br></pre></td></tr></table></figure>
-<h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># yum -y install gcc bison bison-devel zlib-devel libmcrypt-devel mcrypt mhash-devel openssl-devel libxml2-devel libcurl-devel bzip2-devel readline-devel libedit-devel sqlite-devel</span><br></pre></td></tr></table></figure>
-
-<p>注：如果你使用的<code>epel 7</code>的源，可能会没有<code>mcrypt mhash mhash-devel</code>几个包，在 <span class="exturl" data-url="aHR0cDovL2RsLmZlZG9yYXByb2plY3Qub3JnL3B1Yi9lcGVsLzYveDg2XzY0Lw==">http://dl.fedoraproject.org/pub/epel/6/x86_64/<i class="fa fa-external-link-alt"></i></span> 中下载，使用<code>yum localinstall xxx.rpm</code>或<code>rpm -Uvh xxx.rpm</code>手动安装即可。</p>
-<h3 id="创建-www-用户"><a href="#创建-www-用户" class="headerlink" title="创建 www 用户"></a>创建 www 用户</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># groupadd www</span><br><span class="line"># useradd -g www -s /sbin/nologin -M www</span><br></pre></td></tr></table></figure>
-<h3 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"># cd /usr/local/src/php-5.6.0/</span><br><span class="line"># ./configure \--prefix=/usr/local/php56 \</span><br><span class="line">--with-config-file-path=/usr/local/php56/etc \</span><br><span class="line">--enable-inline-optimization \</span><br><span class="line">--disable-debug \</span><br><span class="line">--disable-rpath \</span><br><span class="line">--enable-shared \</span><br><span class="line">--enable-opcache \</span><br><span class="line">--enable-fpm \</span><br><span class="line">--with-fpm-user=www \</span><br><span class="line">--with-fpm-group=www \</span><br><span class="line">--with-mysql=mysqlnd \</span><br><span class="line">--with-mysqli=mysqlnd \</span><br><span class="line">--with-pdo-mysql=mysqlnd \</span><br><span class="line">--with-gettext \</span><br><span class="line">--enable-mbstring \</span><br><span class="line">--with-iconv \</span><br><span class="line">--with-mcrypt \</span><br><span class="line">--with-mhash \</span><br><span class="line">--with-openssl \</span><br><span class="line">--enable-bcmath \</span><br><span class="line">--enable-soap \</span><br><span class="line">--with-libxml-dir \</span><br><span class="line">--enable-pcntl \</span><br><span class="line">--enable-shmop \</span><br><span class="line">--enable-sysvmsg \</span><br><span class="line">--enable-sysvsem \</span><br><span class="line">--enable-sysvshm \</span><br><span class="line">--enable-sockets \</span><br><span class="line">--with-curl \</span><br><span class="line">--with-zlib \</span><br><span class="line">--enable-zip \</span><br><span class="line">--with-bz2 \</span><br><span class="line">--with-readline</span><br></pre></td></tr></table></figure>
-
-<p>参数说明：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&quot;&quot;&quot; 安装路径 &quot;&quot;&quot;--prefix=/usr/local/php56 \</span><br><span class="line">&quot;&quot;&quot; php.ini 配置文件路径 &quot;&quot;&quot;--with-config-file-path=/usr/local/php56/etc \</span><br><span class="line">&quot;&quot;&quot; 优化选项 &quot;&quot;&quot;--enable-inline-optimization \</span><br><span class="line">--disable-debug \</span><br><span class="line">--disable-rpath \</span><br><span class="line">--enable-shared \</span><br><span class="line">&quot;&quot;&quot; 启用 opcache，默认为 ZendOptimizer+(ZendOpcache) &quot;&quot;&quot;--enable-opcache \</span><br><span class="line">&quot;&quot;&quot; FPM &quot;&quot;&quot;--enable-fpm \</span><br><span class="line">--with-fpm-user=www \</span><br><span class="line">--with-fpm-group=www \</span><br><span class="line">&quot;&quot;&quot; MySQL &quot;&quot;&quot;--with-mysql=mysqlnd \</span><br><span class="line">--with-mysqli=mysqlnd \</span><br><span class="line">--with-pdo-mysql=mysqlnd \</span><br><span class="line">&quot;&quot;&quot; 国际化与字符编码支持 &quot;&quot;&quot;--with-gettext \</span><br><span class="line">--enable-mbstring \</span><br><span class="line">--with-iconv \</span><br><span class="line">&quot;&quot;&quot; 加密扩展 &quot;&quot;&quot;--with-mcrypt \</span><br><span class="line">--with-mhash \</span><br><span class="line">--with-openssl \</span><br><span class="line">&quot;&quot;&quot; 数学扩展 &quot;&quot;&quot;--enable-bcmath \</span><br><span class="line">&quot;&quot;&quot; Web 服务，soap 依赖 libxml &quot;&quot;&quot;--enable-soap \</span><br><span class="line">--with-libxml-dir \</span><br><span class="line">&quot;&quot;&quot; 进程，信号及内存 &quot;&quot;&quot;--enable-pcntl \</span><br><span class="line">--enable-shmop \</span><br><span class="line">--enable-sysvmsg \</span><br><span class="line">--enable-sysvsem \</span><br><span class="line">--enable-sysvshm \</span><br><span class="line">&quot;&quot;&quot; socket &amp; curl &quot;&quot;&quot;--enable-sockets \</span><br><span class="line">--with-curl \</span><br><span class="line">&quot;&quot;&quot; 压缩与归档 &quot;&quot;&quot;--with-zlib \</span><br><span class="line">--enable-zip \</span><br><span class="line">--with-bz2 \</span><br><span class="line">&quot;&quot;&quot; GNU Readline 命令行快捷键绑定 &quot;&quot;&quot;--with-readline</span><br></pre></td></tr></table></figure>
-<p>如果你的 Web Server 使用的 Apache 请添加类似：<code>--with-apxs2=/usr/local/apache-xx/bin/apxs</code>参数。</p>
-<p>关于<code>mysqlnd</code>请查看什么是 <code>PHP</code> 的 <code>MySQL Native</code> 驱动或查看 <code>MySQL</code>官方介绍：<code>MySQL native driver for PHP</code>， 或<code>Installation on Unix</code>。</p>
-<p>PHP 5.6 內建了<code>phpdbg</code>交互式调试器，通过<code>--enable-phpdbg</code>开启，会在<code>PREFIX/bin</code>目录下产生一个 phpdbg 命令，感兴趣的可以试一下。</p>
-<p>更多编译参数请使用<code>./configure --help</code>查看。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># make -j8</span><br><span class="line"># make install</span><br></pre></td></tr></table></figure>
-<p>如果想重新安装：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># make clean</span><br><span class="line"># make clean all</span><br><span class="line"># ./configure ...</span><br><span class="line"># make -j8</span><br><span class="line"># make install</span><br></pre></td></tr></table></figure>
-<h3 id="配置-PHP"><a href="#配置-PHP" class="headerlink" title="配置 PHP"></a>配置 PHP</h3><p>配置文件：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># cp php.ini-development /usr/local/php56/etc/php.ini</span><br></pre></td></tr></table></figure>
-
-<h3 id="php-fpm-服务"><a href="#php-fpm-服务" class="headerlink" title="php-fpm 服务"></a>php-fpm 服务</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># cp /usr/local/php56/etc/php-fpm.conf.default /usr/local/php56/etc/php-fpm.conf</span><br><span class="line"># cp sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm56</span><br><span class="line"># chmod +x /etc/init.d/php-fpm56</span><br></pre></td></tr></table></figure>
-<p>启动 php-fpm</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># service php-fpm56 start</span><br><span class="line">Starting php-fpm  done</span><br></pre></td></tr></table></figure>
-<p><code>php-fpm</code> 可用参数 <code>start|stop|force-quit|restart|reload|status</code></p>
-<h3 id="添加-PHP-命令到环境变量"><a href="#添加-PHP-命令到环境变量" class="headerlink" title="添加 PHP 命令到环境变量"></a>添加 PHP 命令到环境变量</h3><p>编辑<code>~/.bash_profile</code>，将：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PATH=$PATH:$HOME/bin</span><br></pre></td></tr></table></figure>
-<p>改为：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PATH=$PATH:$HOME/bin:/usr/local/php56/bin</span><br></pre></td></tr></table></figure>
-<p>使 PHP 环境变量生效：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># . ~/.bash_profile</span><br></pre></td></tr></table></figure>
-<h3 id="查看看-PHP-版本"><a href="#查看看-PHP-版本" class="headerlink" title="查看看 PHP 版本"></a>查看看 PHP 版本</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># php -v</span><br><span class="line">PHP 5.6.0(cli)(built:Sep23201403:44:18)Copyright(c)1997-2014The PHP GroupZendEngine v2.6.0,Copyright(c)1998-2014ZendTechnologies</span><br></pre></td></tr></table></figure>
+          <p>本篇文章主要介绍如何在Centos上进行源码编译安装php。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/linux_centos_php_install/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -347,7 +826,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-24 05:24:10" itemprop="dateModified" datetime="2022-11-24T05:24:10Z">2022-11-24</time>
+                <time title="修改时间：2022-11-29 11:53:32" itemprop="dateModified" datetime="2022-11-29T11:53:32Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -386,16 +865,15 @@
       
           <p>centos7精简安装后，使用中发现没有<code>killall</code>命令。</p>
 <p>经查找，可以通过以下命令解决：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install psmisc</span><br></pre></td></tr></table></figure>
-
-<p>简单介绍一下 psmisc ：</p>
-<p><code>Psmisc</code>软件包包含三个帮助管理<code>/proc</code>目录的程序。</p>
-<p>安装下列程序: fuser, killall,pstree和pstree.x11(到pstree的链接)</p>
-<p><code>fuser</code> 显示使用指定文件或者文件系统的进程的PID。</p>
-<p><code>killall</code> 杀死某个名字的进程，它向运行指定命令的所有进程发出信号。</p>
-<p><code>pstree</code> 树型显示当前运行的进程。</p>
-<p><code>pstree.x11</code>与<code>pstree</code>功能相同，只是在退出前需要确认。</p>
-
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install psmisc</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/linux_centos_lite_version_add_kpf/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -428,7 +906,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/php_thread_libeven/" class="post-title-link" itemprop="url">Php多线程系列之libevent</a>
+            <a href="/php_thread_libeven/" class="post-title-link" itemprop="url">PHP多线程系列之libevent</a>
         </h2>
 
         <div class="post-meta">
@@ -445,7 +923,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-28 00:14:23" itemprop="dateModified" datetime="2022-11-28T00:14:23Z">2022-11-28</time>
+                <time title="修改时间：2022-12-02 04:51:49" itemprop="dateModified" datetime="2022-12-02T04:51:49Z">2022-12-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -461,7 +939,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/php/" itemprop="url" rel="index"><span itemprop="name">php</span></a>
+                  <a href="/categories/Web/Back/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a>
                 </span>
             </span>
 
@@ -491,20 +969,14 @@
 
       
           <p><code>libevent</code>是一个基于事件驱动的高性能网络库。支持多种 <code>I/O</code> 多路复用技术， <code>epoll</code>、 <code>poll</code>、 <code>dev/poll</code>、 <code>select</code> 和 <code>kqueue</code> 等；支持 <code>I/O</code>，定时器和信号等事件；注册事件优先级。</p>
-<h2 id="PHP-libevent扩展安装"><a href="#PHP-libevent扩展安装" class="headerlink" title="PHP libevent扩展安装"></a>PHP libevent扩展安装</h2><p>libevent扩展依赖于原始的<code>libevent</code>库，必须先把libevent库安装。</p>
-<h3 id="1-安装libevent库"><a href="#1-安装libevent库" class="headerlink" title="(1)安装libevent库"></a>(1)安装libevent库</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget http://cloud.github.com/downloads/libevent/libevent/libevent-2.0.20-stable.tar.gz</span><br><span class="line">tar zxvf libevent–2.0.20–stable.tar.gz</span><br><span class="line">cd libevent–2.0.20–stable/</span><br><span class="line">./configure —prefix=/usr/local/libevent–2.0.20/</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-安装libevent扩展"><a href="#2-安装libevent扩展" class="headerlink" title="(2)安装libevent扩展"></a>(2)安装<span class="exturl" data-url="aHR0cDovL3BlY2wucGhwLm5ldC9wYWNrYWdlL2xpYmV2ZW50">libevent扩展<i class="fa fa-external-link-alt"></i></span></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget http://pecl.php.net/get/libevent-0.1.0.tgz</span><br><span class="line">tar –zxvf libevent–0.1.0.tgz</span><br><span class="line">cd libevent–0.1.0</span><br><span class="line">./configure —with–php–config=/usr/local/php54/bin/php–config —with–libevent=/usr/local/libevent–2.0.20/</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line">#php.ini添加extension=libevent.so</span><br></pre></td></tr></table></figure>
-
-<h2 id="PHP-Libevent扩展介绍："><a href="#PHP-Libevent扩展介绍：" class="headerlink" title="PHP Libevent扩展介绍："></a>PHP Libevent扩展介绍：</h2><h3 id="1-常量"><a href="#1-常量" class="headerlink" title="(1)常量"></a>(1)常量</h3><p>libevent1.png</p>
-<h3 id="2-函数"><a href="#2-函数" class="headerlink" title="(2)函数"></a>(2)函数</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">event_base_free() 释放资源，这不能销毁绑定事件</span><br><span class="line">event_base_loop() 处理事件，根据指定的base来处理事件循环</span><br><span class="line">event_base_loopbreak() 立即取消事件循环，行为各break语句相同</span><br><span class="line">event_base_loopexit() 在指定的时间后退出循环</span><br><span class="line">event_base_new() 创建并且初始事件</span><br><span class="line">event_base_priority_init() 设定事件的优先级</span><br><span class="line">event_base_set() 关联事件到事件base</span><br><span class="line">event_buffer_base_set() 关联缓存的事件到event_base</span><br><span class="line">event_buffer_disable() 禁用一个缓存的事件</span><br><span class="line">event_buffer_enable() 启用一个指定的缓存的事件</span><br><span class="line">event_buffer_fd_set() 改变一个缓存的文件系统描述</span><br><span class="line">event_buffer_free() 释放缓存事件</span><br><span class="line">event_buffer_new() 建立一个新的缓存事件</span><br><span class="line">event_buffer_priority_set() 缓存事件的优先级设定</span><br><span class="line">event_buffer_read() 读取缓存事件中的数据</span><br><span class="line">event_buffer_set_callback() 给缓存的事件设置或重置回调hansh函数</span><br><span class="line">event_buffer_timeout_set() 给一个缓存的事件设定超时的读写时间</span><br><span class="line">event_buffer_watermark_set 设置读写事件的水印标记</span><br><span class="line">event_buffer_write() 向缓存事件中写入数据</span><br><span class="line">event_add() 向指定的设置中添加一个执行事件</span><br><span class="line">event_del() 从设置的事件中移除事件</span><br><span class="line">event_free() 清空事件句柄</span><br><span class="line">event_new() 创建一个新的事件</span><br><span class="line">event_set() 准备想要在event_add中添加事件</span><br><span class="line">PHP Libevent扩展使用：</span><br></pre></td></tr></table></figure>
-
-<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><h3 id="例1-5s后触发callback"><a href="#例1-5s后触发callback" class="headerlink" title="例1:5s后触发callback"></a>例1:5s后触发callback</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$base = event_base_new();</span><br><span class="line">$event = event_new();</span><br><span class="line"></span><br><span class="line">event_set($event, 0, EV_TIMEOUT, function() &#123;</span><br><span class="line">  echo “function called”;</span><br><span class="line">&#125;);</span><br><span class="line">event_base_set($event, $base);</span><br><span class="line"></span><br><span class="line">event_add($event, 5000000);</span><br><span class="line">event_base_loop($base);</span><br></pre></td></tr></table></figure>
-
-<h3 id="例2：打印输入流"><a href="#例2：打印输入流" class="headerlink" title="例2：打印输入流"></a>例2：打印输入流</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">function print_line($fd, $events, $arg)</span><br><span class="line">&#123;</span><br><span class="line">  static $max_requests = 0;</span><br><span class="line">  $max_requests++;</span><br><span class="line">  if ($max_requests == 10) &#123;</span><br><span class="line">    // exit loop after 10 writes</span><br><span class="line">    event_base_loopexit($arg[1]);</span><br><span class="line">  &#125;</span><br><span class="line">  echo fgets($fd);</span><br><span class="line"></span><br><span class="line">?</span><br><span class="line">// create base and event</span><br><span class="line">$base = event_base_new();</span><br><span class="line">$event = event_new();</span><br><span class="line"></span><br><span class="line">$fd = STDIN;</span><br><span class="line">// set event flags</span><br><span class="line">event_set($event, $fd, EV_READ | EV_PERSIST, ‘print_line’, array($event, $base));</span><br><span class="line">// set event base</span><br><span class="line">event_base_set($event, $base);</span><br><span class="line">// enable event</span><br><span class="line">event_add($event);</span><br><span class="line">// start event loop</span><br><span class="line">event_base_loop($base);</span><br></pre></td></tr></table></figure>
-
-<h3 id="例3：实现简单web-server"><a href="#例3：实现简单web-server" class="headerlink" title="例3：实现简单web server"></a>例3：实现简单web server</h3><p>在cli执行后，打开浏览器2000端口试试看。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">$socket = stream_socket_server (‘tcp://0.0.0.0:2000’, $errno, $errstr);</span><br><span class="line">stream_set_blocking($socket, 0);</span><br><span class="line"></span><br><span class="line">$base = event_base_new();</span><br><span class="line">$event = event_new();</span><br><span class="line">event_set($event, $socket, EV_READ | EV_PERSIST, ‘ev_accept’, $base);</span><br><span class="line">event_base_set($event, $base);</span><br><span class="line">event_add($event);</span><br><span class="line">event_base_loop($base);</span><br><span class="line"></span><br><span class="line">function ev_accept($socket, $flag, $base)</span><br><span class="line">&#123;</span><br><span class="line">  $connection = stream_socket_accept($socket);</span><br><span class="line">  stream_set_blocking($connection, 0);</span><br><span class="line">  </span><br><span class="line">  $buffer = event_buffer_new($connection, ‘ev_read’, NULL, ‘ev_error’, $connection);</span><br><span class="line">  event_buffer_base_set($buffer, $base);</span><br><span class="line">  event_buffer_timeout_set($buffer, 30, 30);</span><br><span class="line">  event_buffer_watermark_set($buffer, EV_READ, 0, 0xffffff);</span><br><span class="line">  event_buffer_priority_set($buffer, 10);</span><br><span class="line">  event_buffer_enable($buffer, EV_READ | EV_PERSIST);</span><br><span class="line">  </span><br><span class="line">  $GLOBALS[‘_’] = $buffer; //这个buffer一定要赋给个全局的变量 貌似是传值过程中的bug 或者5.3.8的闭包还是有问题？</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function ev_error($buffer, $error, $connection)</span><br><span class="line">&#123;</span><br><span class="line">  event_buffer_disable($buffer, EV_READ | EV_WRITE);</span><br><span class="line">  event_buffer_free($buffer);</span><br><span class="line">  fclose($connection);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function ev_read($buffer, $connection)</span><br><span class="line">&#123;</span><br><span class="line">  while ($read = event_buffer_read($buffer, 256)) &#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  fwrite($connection , date(‘Y-m-d H:i:s’));</span><br><span class="line">  ev_error($buffer , ” , $connection);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/php_thread_libeven/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -537,7 +1009,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/php_thread_stream/" class="post-title-link" itemprop="url">Php多线程系列之stream_*</a>
+            <a href="/php_thread_stream/" class="post-title-link" itemprop="url">PHP多线程系列之stream_*</a>
         </h2>
 
         <div class="post-meta">
@@ -554,7 +1026,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-28 00:14:23" itemprop="dateModified" datetime="2022-11-28T00:14:23Z">2022-11-28</time>
+                <time title="修改时间：2022-12-02 04:51:49" itemprop="dateModified" datetime="2022-12-02T04:51:49Z">2022-12-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -570,7 +1042,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/php/" itemprop="url" rel="index"><span itemprop="name">php</span></a>
+                  <a href="/categories/Web/Back/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a>
                 </span>
             </span>
 
@@ -599,16 +1071,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">stream_bucket_append函数：为队列添加数据</span><br><span class="line">stream_bucket_make_writeable函数：从操作的队列中返回一个数据对象</span><br><span class="line">stream_bucket_new函数：为当前队列创建一个新的数据</span><br><span class="line">stream_bucket_prepend函数：预备数据到队列</span><br><span class="line">stream_context_create函数：创建数据流上下文</span><br><span class="line">stream_context_get_default函数：获取默认的数据流上下文</span><br><span class="line">stream_context_get_options函数：获取数据流的设置</span><br><span class="line">stream_context_set_option函数：对数据流、数据包或者上下文进行设置</span><br><span class="line">stream_context_set_params函数：为数据流、数据包或者上下文设置参数</span><br><span class="line">stream_copy_to_stream函数：在数据流之间进行复制操作</span><br><span class="line">stream_filter_append函数：为数据流添加过滤器</span><br><span class="line">stream_filter_prepend函数：为数据流预备添加过滤器</span><br><span class="line">stream_filter_register函数：注册一个数据流的过滤器并作为PHP类执行</span><br><span class="line">stream_filter_remove函数：从一个数据流中移除过滤器</span><br><span class="line">stream_get_contents函数：读取数据流中的剩余数据到字符串</span><br><span class="line">stream_get_filters函数：返回已经注册的数据流过滤器列表</span><br><span class="line">stream_get_line函数：按照给定的定界符从数据流资源中获取行</span><br><span class="line">stream_get_meta_data函数：从封装协议文件指针中获取报头/元数据</span><br><span class="line">stream_get_transports函数：返回注册的Socket传输列表</span><br><span class="line">stream_get_wrappers函数：返回注册的数据流列表</span><br><span class="line">stream_register_wrapper函数：注册一个用PHP类实现的URL封装协议</span><br><span class="line">stream_select函数：接收数据流数组并等待它们状态的改变</span><br><span class="line">stream_set_blocking函数：将一个数据流设置为堵塞或者非堵塞状态</span><br><span class="line">stream_set_timeout函数：对数据流进行超时设置</span><br><span class="line">stream_set_write_buffer函数：为数据流设置缓冲区</span><br><span class="line">stream_socket_accept函数：接受由函数stream_ socket_server()创建的Socket连接</span><br><span class="line">stream_socket_client函数：打开网络或者UNIX主机的Socket连接</span><br><span class="line">stream_socket_enable_crypto函数：为一个已经连接的Socket打开或者关闭数据加密</span><br><span class="line">stream_socket_get_name函数：获取本地或者网络Socket的名称</span><br><span class="line">stream_socket_pair函数：创建两个无区别的Socket数据流连接</span><br><span class="line">stream_socket_recvfrom函数：从Socket获取数据，不管其连接与否</span><br><span class="line">stream_socket_sendto函数：向Socket发送数据，不管其连接与否</span><br><span class="line">stream_socket_server函数：创建一个网络或者UNIX Socket服务端</span><br><span class="line">stream_wrapper_restore函数：恢复一个事先注销的数据包</span><br><span class="line">stream_wrapper_unregister函数：注销一个URL地址包</span><br></pre></td></tr></table></figure>
-
-<p>实例：</p>
-<p>PHP使用PCNTL系列的函数也能做到多进程处理一个事务。比如我需要从数据库中获取80w条的数据，再做一系列后续的处理，这个时候，用单进程？你可以等到明年今天了。。。所以应该使用pcntl函数了。</p>
-<p>假设我想要启动20个进程，将1-80w的数据分成20份来做，主进程等待所有子进程都结束了才退出：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">$max = 800000;</span><br><span class="line">$workers = 20;</span><br><span class="line">$pids = array();</span><br><span class="line">for($i = 0; $i &lt; $workers; $i++)&#123;</span><br><span class="line">    $pids[$i] = pcntl_fork();</span><br><span class="line">    switch ($pids[$i]) &#123;</span><br><span class="line">        case -1:</span><br><span class="line">            echo &quot;fork error : &#123;$i&#125; \r\n&quot;;</span><br><span class="line">            exit;</span><br><span class="line">        case 0:</span><br><span class="line">            $param = array(</span><br><span class="line">                &#x27;lastid&#x27; =&gt; $max / $workers * $i,</span><br><span class="line">                &#x27;maxid&#x27; =&gt; $max / $workers * ($i+1),</span><br><span class="line">            );</span><br><span class="line">            $this-&gt;executeWorker($input, $output, $param);</span><br><span class="line">            exit;</span><br><span class="line">        default:</span><br><span class="line">            break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">foreach ($pids as $i =&gt; $pid) &#123;</span><br><span class="line">    if($pid) &#123;</span><br><span class="line">        pcntl_waitpid($pid, $status);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这里当<code>pcntl_fork</code>出来以后，会返回一个<code>pid</code>值，这个pid在子进程中看是0，在父进程中看是子进程的<code>pid（&gt;0）</code>，如果pid为<code>-1</code>说明<code>fork</code>出错了。</p>
-<p>使用一个<code>$pids</code>数组就可以让主进程等候所有进程完结之后再结束了</p>
-
+          <blockquote>
+<p>线程是操作系统中最小的调度单元。多线程可以在多核CPU上同时运行。PHP有多种实现方式，本篇文章主要介绍 stream系列。</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/php_thread_stream/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -658,7 +1131,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-28 00:14:23" itemprop="dateModified" datetime="2022-11-28T00:14:23Z">2022-11-28</time>
+                <time title="修改时间：2022-12-02 04:51:49" itemprop="dateModified" datetime="2022-12-02T04:51:49Z">2022-12-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -674,7 +1147,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/php/" itemprop="url" rel="index"><span itemprop="name">php</span></a>
+                  <a href="/categories/Web/Back/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a>
                 </span>
             </span>
 
@@ -707,750 +1180,14 @@
 <p>但有时候我们还是需要php同时做一些操作，这时候我们可以借助服务器的多程线来实现。</p>
 <p>自然就会想起 <code>curl_multi_*</code>系列函数，这些函数说明并不详细，例子也很少。</p>
 <p>一般来说，想到要用这些函数时，目的显然应该是要同时请求多个url，而不是一个一个依次请求。</p>
-<p>步骤总结如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">第一步：调用curl_multi_init</span><br><span class="line">第二步：循环调用curl_multi_add_handle</span><br><span class="line">这一步需要注意的是，curl_multi_add_handle的第二个参数是由curl_init而来的子handle。</span><br><span class="line">第三步：持续调用curl_multi_exec</span><br><span class="line">第四步：根据需要循环调用curl_multi_getcontent获取结果</span><br><span class="line">第五步：调用curl_multi_remove_handle，并为每个字handle调用curl_close</span><br><span class="line">第六步：调用curl_multi_close</span><br></pre></td></tr></table></figure>
-<p>————————— 以下例子为本人测试时使用  —————————-</p>
-<p>背景:</p>
-<p>1.在test数据库下建立test</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">use test;</span><br><span class="line"></span><br><span class="line">CREATE TABLE `test` (</span><br><span class="line">`id` int(11) NOT NULL auto_increment,</span><br><span class="line">`record_date` datetime NOT NULL,</span><br><span class="line">PRIMARY KEY   (`id`)</span><br><span class="line">) ENGINE=MyISAM   DEFAULT CHARSET=utf8;</span><br></pre></td></tr></table></figure>
-<p>2.在虚拟目录下建立相关测试目录和两个文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/www/test/curl_multi/index.php &amp; do.php</span><br></pre></td></tr></table></figure>
-
-<p>[php] view plaincopy</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">&lt;?</span><br><span class="line">/**</span><br><span class="line">* @Author:  Ewing</span><br><span class="line">* @Date: 2010-10-10</span><br><span class="line">* @File:curl/multi/index.php</span><br><span class="line">* @Desc: make multi action</span><br><span class="line">*/</span><br><span class="line">$t=getTime();</span><br><span class="line">$total=60;//由测试得少于64个线程运行一次没有延迟，太多的话可能是apache的原因，效果并不理想，大家可以自己输入不同的值测试</span><br><span class="line">for($i=0;$i&lt;$total;$i++)</span><br><span class="line">    $url_arr[]=“http://localhost/test/curl_multi/do.php?i=$i”;</span><br><span class="line">$mh = curl_multi_init();</span><br><span class="line">foreach ($url_arr as $i =&gt; $url) &#123;</span><br><span class="line">  $conn[$i]=curl_init($url);</span><br><span class="line">  curl_setopt($conn[$i],CURLOPT_RETURNTRANSFER,1);//设置返回do.php页面输出内容</span><br><span class="line">  curl_multi_add_handle ($mh,$conn[$i]);//添加线程</span><br><span class="line">&#125;</span><br><span class="line">#—————-执行线程—————-</span><br><span class="line">//do&#123;$n=curl_multi_exec($mh,$active); &#125;while($active); //网上说些方法有时会让CPU达100%</span><br><span class="line">do&#123;</span><br><span class="line">  $mrc = curl_multi_exec($mh,$active);</span><br><span class="line">&#125;while($mrc == CURLM_CALL_MULTI_PERFORM);</span><br><span class="line">while($active and $mrc == CURLM_OK)&#123;</span><br><span class="line">  if(curl_multi_select($mh) != -1)&#123;</span><br><span class="line">    do&#123;</span><br><span class="line">      $mrc = curl_multi_exec($mh, $active);</span><br><span class="line">    &#125;while($mrc == CURLM_CALL_MULTI_PERFORM);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">#——————————-</span><br><span class="line">foreach($url_arr as $i =&gt; $url)&#123;</span><br><span class="line">  $res[$i]=curl_multi_getcontent($conn[$i]);//得到页面输入内容</span><br><span class="line">  curl_close($conn[$i]);</span><br><span class="line">&#125;</span><br><span class="line">foreach($res as $k=&gt;$v)&#123;</span><br><span class="line">  $k=str_pad($k,2,0);</span><br><span class="line">  echo “$k =&gt; $v &lt;br&gt;”;</span><br><span class="line">&#125;</span><br><span class="line">runTime($t);</span><br><span class="line">#———– calculate time function————-</span><br><span class="line">function getTime()&#123;</span><br><span class="line">  $TIME=explode(“ ”,microtime());</span><br><span class="line">  $TIME=$TIME[1].substr($TIME[0],1);</span><br><span class="line">  return $TIME;</span><br><span class="line">&#125;</span><br><span class="line">function runTime($t,$l=3)&#123;</span><br><span class="line">  $dif=getTime()-$t;</span><br><span class="line">  echo ‘ ’.number_format($dif,$l);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>[c-sharp] view plaincopy</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;?</span><br><span class="line">/**</span><br><span class="line">* @Author: Ewing</span><br><span class="line">* @Date: 2010-10-10</span><br><span class="line">* @File:curl/multi/do.php</span><br><span class="line">* @Desc: do something here</span><br><span class="line">*/</span><br><span class="line">$t=getTime();</span><br><span class="line">sleep(mt_rand(1,3));//设置延迟</span><br><span class="line">//数据库处理</span><br><span class="line">mysql_connect(“localhost”,“root”,“your_password”);</span><br><span class="line">mysql_select_db(“test”);</span><br><span class="line">mysql_query(“insert into test(record_date) value(NOW())”);</span><br><span class="line">//文件处理</span><br><span class="line">$file=‘./test.txt’;</span><br><span class="line">$fp=fopen($file,‘a’);</span><br><span class="line">flock($fp, LOCK_EX);</span><br><span class="line">fwrite($fp,date(‘H:i:s’).“/n/r”);</span><br><span class="line">fclose($fp);</span><br><span class="line">echo date(‘H:i:s’);</span><br><span class="line">runTime($t);</span><br><span class="line">#————-calculate time function————</span><br><span class="line">function getTime()&#123;</span><br><span class="line">  $TIME=explode(“ ”,microtime());</span><br><span class="line">  $TIME=$TIME[1].substr($TIME[0],1);</span><br><span class="line">  return $TIME;</span><br><span class="line">&#125;</span><br><span class="line">function runTime($t,$l=3)&#123;</span><br><span class="line">  $dif=getTime()-$t;</span><br><span class="line">  echo ‘ ’.number_format($dif,$l);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<p>在浏览器上打开 <code>http://localhost/test/curl_multi/</code> 即可看到效果</p>
-<p>ps:以上例子只是用于本地处理多线程，用多线程取网页数据也是可以的，只要把<code>index.php</code>中的<code>$url_arr</code>换成外网的url即可。不过建议不要一次拿太多的url，不然会有意想不到的结果哦，想知道是什么？自己试试吧。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/go_first_hello_go/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zihao Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zihao">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/go_first_hello_go/" class="post-title-link" itemprop="url">创建第一个Go语言程序Hello,Go!</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2015-12-28 17:29:24" itemprop="dateCreated datePublished" datetime="2015-12-28T17:29:24Z">2015-12-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-28 00:14:23" itemprop="dateModified" datetime="2022-11-28T00:14:23Z">2022-11-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/" itemprop="url" rel="index"><span itemprop="name">Back</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>建立一个用于编写Go程序的工作目录<code>go-examples</code>，其绝对路径为<code>/home/go-examples</code>.开始编写我们的第一个Go程序。</p>
-<h3 id="一、在go-examples下创建一个文件hello-go"><a href="#一、在go-examples下创建一个文件hello-go" class="headerlink" title="一、在go-examples下创建一个文件hello.go"></a>一、在<code>go-examples</code>下创建一个文件<code>hello.go</code></h3><p>复制代码代码如下:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//hello.go</span><br><span class="line">package mainimport “fmt”//实现格式化的I/O</span><br><span class="line">/*Printf someting*/</span><br><span class="line">func main()&#123;</span><br><span class="line">  fmt.Printf(“Hello,GO!\n”)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>我们来分析下这个程序：</p>
-<ul>
-<li>1、程序中的第2行这个是必须的。所有的Go文件以<code>package &lt;something&gt;</code>开头，对于独立运行的执行文件必须是<code>package main</code>；</li>
-<li>2、第4行说需要将”fmt”包加入main。不是main的其他包都被称为库，其他许多编程语言有着类似的概念。</li>
-<li>3、第1行和第4行中的<code>//</code>和<code>/*—*/</code>都是注释</li>
-<li>4、<code>package main</code> 必须首先出现，紧跟着是<code>import</code>。在Go中，<code>package</code> 总是首先出现，然后是<code>import</code>，然后是其他所有内容。当Go 程序在执行的时候，首先调用的函数是<code>main.main()</code>，这是从C 中继承而来。这里定义了这个函数；</li>
-<li>5、第8行调用了来自于fmt包的函数打印字符串到屏幕</li>
-</ul>
-<h3 id="二、编译和运行代码"><a href="#二、编译和运行代码" class="headerlink" title="二、编译和运行代码"></a>二、编译和运行代码</h3><p>编译该源文件并执行生成的可执行文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost go-examples]# go build hello.go</span><br><span class="line">[root@localhost go-examples]# ls</span><br><span class="line">hello hello.go</span><br><span class="line">[root@localhost go-examples]# ./hello</span><br><span class="line">Hello,GO!</span><br></pre></td></tr></table></figure>
-
-<p>通过<code>go build</code>加上要编译的Go源文件名，我们即可得到一个可执行文件，默认情况下这个文件的名字为源文件名字去掉<code>.go</code>后缀。当然我们也可以通过<code>-o</code>选项来指定其他名字：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost go-examples]# go build -o firstgo hello.go</span><br><span class="line">[root@localhost go-examples]# ls</span><br><span class="line">firstgo hello.go</span><br></pre></td></tr></table></figure>
-<p>如果我们在<code>go-examples</code>目录下直接执行<code>go build</code>命令，后面不带文件名，我们将得到一个与目录名同名的可执行文件：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost go-examples]# go build</span><br><span class="line">[root@localhost go-examples]# ls</span><br><span class="line">go-examples hello.go</span><br></pre></td></tr></table></figure>
-
-<h3 id="三、程序入口点-entry-point-和包-package"><a href="#三、程序入口点-entry-point-和包-package" class="headerlink" title="三、程序入口点(entry point)和包(package)"></a>三、程序入口点(entry point)和包(package)</h3><p>Go保持了与C家族语言一致的风格：即目标为可执行程序的Go源码中务必要有一个名为main的函数，该函数即为可执行程序的入口点。除此之外 Go还增加了一个约束：作为入口点的main函数必须在名为main的package中。正如上面<code>hellogo.go</code>源文件中的那样，在源码第 一行就声明了该文件所归属的package为main。</p>
-<p>Go去除了头文件的概念，而借鉴了很多主流语言都采用的package的源码组织方式。<code>package</code>是个逻辑概念，与文件没有一一对应的关系。 如果多个源文件都在开头声明自己属于某个名为foo的包，那这些源文件中的代码在逻辑上都归属于包foo(这些文件最好在同一个目录下，至少目前 的Go版本还无法支持不同目录下的源文件归属于同一个包)。</p>
-<p>我们看到<code>hellogo.go</code>中<code>import</code>一个名为fmt的包，并利用该包内的<code>Printf</code>函数输出”Hello, Go!”。直觉告诉我们fmt包似乎是一个标准库中的包。没错，<code>fmt</code>包提供了格式化文本输出以及读取格式化输入的相关函数，与C中的<code>printf</code>或 <code>scanf</code>等类似。我们通过<code>import</code>语句将fmt包导入我们的源文件后就可以使用该fmt包导出(export)的功能函数了(比如 Printf)。</p>
-<p>在C中，我们通过<code>static</code>来标识局部函数还是全局函数。而在Go中，包中的函数是否可以被外部调用，要看该函数名的首母是否为大写。这是一种 Go语言固化的约定：首母大写的函数被认为是导出的函数，可以被包之外的代码调用；而小写字母开头的函数则仅能在包内使用。在例子中你也看到了 <code>fmt</code>包的<code>Printf</code>函数其首母就是大写的。</p>
-<h3 id="四、GOPATH"><a href="#四、GOPATH" class="headerlink" title="四、GOPATH"></a>四、GOPATH</h3><p>把上面的<code>hellogo.go</code>稍作改造，拆分成两个文件：<code>main.go</code>和<code>hello.go</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//hello.go</span><br><span class="line">package hello</span><br><span class="line">import “fmt”</span><br><span class="line"></span><br><span class="line">func Hello(who string)&#123;</span><br><span class="line">  fmt.Printf(“Hello,%s!\n”, who)</span><br><span class="line">&#125;</span><br><span class="line">//main.go</span><br><span class="line">package main</span><br><span class="line">import “hello”</span><br><span class="line"></span><br><span class="line">func main()&#123;</span><br><span class="line">  hello.Hello(“GO”)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>用<code>go build</code>编译<code>main.go</code> 结果如下</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost go-examples]# go build main.go</span><br><span class="line">main.go:4:8: import “hello”: cannot find package</span><br></pre></td></tr></table></figure>
-<p>编译器居然提示无法找到<code>hello</code>这个<code>package</code>，而<code>hello.go</code>中明明定义了<code>package hello</code>了。这是怎么回事呢？原来<code>go compiler</code>搜索<code>package</code>的方式与我们常规理解的有不同，Go在这方面也有一套约定，这里面涉及到一个重要的环境变量：<code>GOPATH</code>。我们可以使用go help gopath来查看一下有关gopath的manual。</p>
-<p><code>Go compiler</code>的<code>package</code>搜索顺序是这样的，以搜索<code>hello</code>这个<code>package</code>为例：</p>
-<ul>
-<li>首先，<code>Go compiler</code>会在GO安装目录(<code>GOROOT</code>，这里是<code>/home/go/</code>)下查找是否有<code>src/pkg/hello</code>相关包源码；如果没有则继续；</li>
-<li>如果<code>export GOPATH=PATH1:PAHT2</code>，则<code>Go compiler</code>会依次查找是否存在<code>PATH1/src/hello</code>、<code>PATH2/src/hello</code>；配置在GOPATH中的<code>PATH1</code>和<code>PATH2</code>被称作<code>workplace</code>；</li>
-<li>如果在上述几个位置均无法找到<code>hello</code>这个<code>package</code>，则提示出错。</li>
-</ul>
-<p>在本例子中，我们尚未设置过<code>GOPATH</code>环境变量，也没有建立类似<code>PATH1/src/hello</code>这样的路径，因此<code>Go compiler</code>显然无法找到<code>hello</code>这个<code>package</code>了。我们来设置一下GOPATH变量并建立相关目录：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost go-examples]# export GOPATH=/home/go-examples/</span><br><span class="line">[root@localhost go-examples]# mkdir src/hello -p</span><br><span class="line">[root@localhost go-examples]# mv hello.go src/hello/</span><br><span class="line">[root@localhost go-examples]# go build main.go</span><br><span class="line">[root@localhost go-examples]# ls</span><br><span class="line">main main.go src</span><br><span class="line">[root@localhost go-examples]# ./main</span><br><span class="line">Hello,GO!</span><br></pre></td></tr></table></figure>
-
-<h3 id="Go-install"><a href="#Go-install" class="headerlink" title="Go install"></a>Go install</h3><p>将<code>main.go</code>移到<code>src/main</code>中，这样这个<code>demo project</code>显得更加合理，所有源码均在src下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost go-examples]# cd src/</span><br><span class="line">[root@localhost src]# ls</span><br><span class="line">hello main.go</span><br></pre></td></tr></table></figure>
-<p>Go提供了<code>install</code>命令，与<code>build</code>命令相比，<code>install</code>命令在编译源码后还会将可执行文件或库文件安装到约定的目录下。我们以main目录为例：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost src]# cd main/</span><br><span class="line">[root@localhost main]# go install</span><br></pre></td></tr></table></figure>
-<p><code>install</code>命令执行后，我们发现main目录下没有任何变化，原先build时产生的main可执行文件也不见了踪影。别急，<code>Go install</code>也有一套自己的约定：</p>
-<ul>
-<li><code>go install</code>(在<code>src/DIR</code>下)编译出的可执行文件以其所在目录名(DIR)命名</li>
-<li><code>go install</code>将可执行文件安装到与<code>src</code>同级别的<code>bin</code>目录下，<code>bin</code>目录由<code>go install</code>自动创建</li>
-<li><code>go install</code>将可执行文件依赖的各种<code>package</code>编译后，放在与<code>src</code>同级别的<code>pkg</code>目录下</li>
-</ul>
-<p>现在我们来看看<code>bin</code>目录：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost go-examples]# ls</span><br><span class="line">bin pkg src</span><br><span class="line">[root@localhost go-examples]# ls bin/</span><br><span class="line">main</span><br></pre></td></tr></table></figure>
-<p>的确出现一个<code>bin</code>目录，并且刚刚编译的程序<code>main</code>在<code>bin</code>下面。</p>
-<p><code>hello.go</code>编译后并非可执行程序，在编译main的同时，由于main依赖<code>hello package</code>，因此<code>hello</code>也被关联编译了。这与单独在<code>hello</code>目录下执行<code>install</code>的结果是一样的，我们试试：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost src]# cd hello/</span><br><span class="line">[root@localhost hello]# go install</span><br><span class="line">[root@localhost hello]# ls /home/go-examples/</span><br><span class="line">bin pkg src</span><br></pre></td></tr></table></figure>
-<p>在我们的<code>workspace</code>(go-examples目录)下出现了一个<code>pkg</code>目录，<code>pkg</code>目录下是一个名为<code>linux_386</code>的子目录，其下面有一个文件：<code>hello.a</code>。这就是我们<code>install</code>的结果。<code>hello.go</code>被编译为<code>hello.a</code>并安装到<code>pkg/linux_386</code>目录下了。</p>
-<p><code>.a</code>这个后缀名让我们想起了静态共享库，但这里的<code>.a</code>却是Go独有的文件格式，与传统的静态共享库并不兼容。但Go语言的设计者使用这个后缀名似乎是希望 这个<code>.a</code>文件也承担起Go语言中”静态共享库”的角色。我们不妨来试试，看看这个<code>hello.a</code>是否可以被<code>Go compiler</code>当作”静态共享库”来对待。我们移除<code>src</code>中的<code>hello</code>目录，然后在<code>main</code>目录下执行<code>go build</code>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost main]# go build</span><br><span class="line">main.go:4:8: import “hello”: cannot find package</span><br></pre></td></tr></table></figure>
-<p>Go编译器提示无法找到<code>hello</code>这个包，可见目前版本的Go编译器似乎不理pkg下的<code>.a</code>文件。<span class="exturl" data-url="aHR0cDovL2NvZGUuZ29vZ2xlLmNvbS9wL2dvL2lzc3Vlcy9kZXRhaWw/aWQ9Mjc3NQ==">http://code.google.com/p/go/issues/detail?id=2775<i class="fa fa-external-link-alt"></i></span> 这个issue也印证了这一点，不过后续Go版本很可能会支持链接<code>.a</code>文件。毕竟我们在使用第三方package的时候，很可能无法得到其源码，并且在每个项目中都保存一份第三方包的源码也十分不利于项目源码的后期维护。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/redis_order/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zihao Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zihao">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/redis_order/" class="post-title-link" itemprop="url">Redis常用命令</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2015-12-23 10:14:08" itemprop="dateCreated datePublished" datetime="2015-12-23T10:14:08Z">2015-12-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-24 05:24:10" itemprop="dateModified" datetime="2022-11-24T05:24:10Z">2022-11-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Db/" itemprop="url" rel="index"><span itemprop="name">Db</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>5.7k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Key"><a href="#Key" class="headerlink" title="Key"></a>Key</h3><hr>
-<p>Key命令速查：</p>
-<h4 id="DEL"><a href="#DEL" class="headerlink" title="DEL"></a>DEL</h4><p>删除给定的一个或多个 key，不存在的 key 会被忽略，返回值：被删除 key 的数量</p>
-<h4 id="DUMP"><a href="#DUMP" class="headerlink" title="DUMP"></a>DUMP</h4><p>序列化给定 key，返回被序列化的值，使用 RESTORE 命令可以将这个值反序列化为 Redis 键</p>
-<h4 id="EXISTS"><a href="#EXISTS" class="headerlink" title="EXISTS"></a>EXISTS</h4><p>检查给定key是否存在</p>
-<h4 id="EXPIRE"><a href="#EXPIRE" class="headerlink" title="EXPIRE"></a>EXPIRE</h4><p>为给定key设置有效时间，接受时间点</p>
-<h4 id="EXPIREAT"><a href="#EXPIREAT" class="headerlink" title="EXPIREAT"></a>EXPIREAT</h4><p>为给定key设置有效时间，接受时间戳timestamp</p>
-<h4 id="KEYS"><a href="#KEYS" class="headerlink" title="KEYS"></a>KEYS</h4><p>查找所有符合给定模式 pattern 的 key；KEYS <code>*</code> 匹配数据库中所有 key；<code>KEYS h*llo</code> 匹配 hello，hallo等。<code>KEYS h[ae]llo</code>匹配hello和hallo</p>
-<h4 id="MIGRATE"><a href="#MIGRATE" class="headerlink" title="MIGRATE"></a>MIGRATE</h4><p>将 key 原子性地从当前实例传送到目标实例的指定数据库上，一旦传送成功， key 保证会出现在目标实例上，而当前实例上的 key 会被删除。执行的时候会阻塞进行迁移的两个实例</p>
-<h4 id="MOVE"><a href="#MOVE" class="headerlink" title="MOVE"></a>MOVE</h4><p>将当前数据库的 key 移动到给定的数据库 db 当中</p>
-<h4 id="OBJECT"><a href="#OBJECT" class="headerlink" title="OBJECT"></a>OBJECT</h4><p>从内部察看给定 key 的 Redis 对象</p>
-<h4 id="PERSIST"><a href="#PERSIST" class="headerlink" title="PERSIST"></a>PERSIST</h4><p>移除给定 key 的有效时间</p>
-<h4 id="PEXPIRE"><a href="#PEXPIRE" class="headerlink" title="PEXPIRE"></a>PEXPIRE</h4><p>以毫秒为单位设置 key 的有效时间</p>
-<h4 id="EXPIREAT-1"><a href="#EXPIREAT-1" class="headerlink" title="EXPIREAT"></a>EXPIREAT</h4><p>以毫秒为单位设置 key 的有效时间(timespan)</p>
-<h4 id="PTTL"><a href="#PTTL" class="headerlink" title="PTTL"></a>PTTL</h4><p>以毫秒为单位返回key的剩余有效时间</p>
-<h4 id="RANDOMKEY"><a href="#RANDOMKEY" class="headerlink" title="RANDOMKEY"></a>RANDOMKEY</h4><p>从当前数据库中随机返回(已使用的)一个key</p>
-<h4 id="RENAME"><a href="#RENAME" class="headerlink" title="RENAME"></a>RENAME</h4><p>将Key改名</p>
-<h4 id="RENAMENX"><a href="#RENAMENX" class="headerlink" title="RENAMENX"></a>RENAMENX</h4><p>当且仅当 newkey 不存在时，将 key 改名为 newkey</p>
-<h4 id="RESTORE"><a href="#RESTORE" class="headerlink" title="RESTORE"></a>RESTORE</h4><p>反序列化给定的序列化值，并将它和给定的 key 关联</p>
-<h4 id="SORT"><a href="#SORT" class="headerlink" title="SORT"></a>SORT</h4><p>返回或保存给定列表、集合、有序集合 key 中经过排序的元素</p>
-<h4 id="TTL"><a href="#TTL" class="headerlink" title="TTL"></a>TTL</h4><p>以秒为单位，返回给定 key 的剩余有效时间</p>
-<h4 id="TYPE"><a href="#TYPE" class="headerlink" title="TYPE"></a>TYPE</h4><p>返回 key 所储存的值的类型</p>
-<h4 id="SCAN"><a href="#SCAN" class="headerlink" title="SCAN"></a>SCAN</h4><p>增量迭代</p>
-<hr>
-<h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><hr>
-<p>String命令速查：</p>
-<h4 id="APPEND"><a href="#APPEND" class="headerlink" title="APPEND"></a>APPEND</h4><p>将值追加到指定key的值末尾，如果key不存在，则相当于增加操作。</p>
-<h4 id="BITCOUNT"><a href="#BITCOUNT" class="headerlink" title="BITCOUNT"></a>BITCOUNT</h4><p>计算给定字符串中，被设置为 1 的Bit位的数量。</p>
-<h4 id="BITOP"><a href="#BITOP" class="headerlink" title="BITOP"></a>BITOP</h4><p>对一个或多个保存二进制位的字符串 key 进行位元操作</p>
-<h4 id="DECR"><a href="#DECR" class="headerlink" title="DECR"></a>DECR</h4><p>将 key 中储存的数字值减一。Key不存在，则将值置0，key类型不正确返回一个错误。</p>
-<h4 id="DECRBY"><a href="#DECRBY" class="headerlink" title="DECRBY"></a>DECRBY</h4><p>将key所储存的值减去指定数量</p>
-<h4 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h4><p>返回key所关联的字符串值，如果Key储存的值不是字符串类型，返回一个错误。</p>
-<h4 id="GETBIT"><a href="#GETBIT" class="headerlink" title="GETBIT"></a>GETBIT</h4><p>对key所储存的字符串值，获取指定偏移量上的位</p>
-<h4 id="GETRANGE"><a href="#GETRANGE" class="headerlink" title="GETRANGE"></a>GETRANGE</h4><p>返回key中字符串值的子字符串，字符串的截取范围由start和end两个偏移量决定</p>
-<h4 id="GETSET"><a href="#GETSET" class="headerlink" title="GETSET"></a>GETSET</h4><p>将给定key的值设为value，并返回key的旧值。非字符串报错。</p>
-<h4 id="INCR"><a href="#INCR" class="headerlink" title="INCR"></a>INCR</h4><p>将 key 中储存的数字值增一。不能转换为数字则报错。</p>
-<h4 id="INCRBY"><a href="#INCRBY" class="headerlink" title="INCRBY"></a>INCRBY</h4><p>将key所储存的值加上指定增量</p>
-<h4 id="INCRBYFLOAT"><a href="#INCRBYFLOAT" class="headerlink" title="INCRBYFLOAT"></a>INCRBYFLOAT</h4><p>为key中所储存的值加上指定的浮点数增量</p>
-<h4 id="MGET"><a href="#MGET" class="headerlink" title="MGET"></a>MGET</h4><p>返回所有(一个或多个)给定key的值</p>
-<h4 id="MSET"><a href="#MSET" class="headerlink" title="MSET"></a>MSET</h4><p>同时设置一个或多个key-value对</p>
-<h4 id="MSETNX"><a href="#MSETNX" class="headerlink" title="MSETNX"></a>MSETNX</h4><p>同时设置一个或多个key-value对，若一个key已被占用，则全部的执行取消。</p>
-<h4 id="PSETEX"><a href="#PSETEX" class="headerlink" title="PSETEX"></a>PSETEX</h4><p>以毫秒为单位设置 key 的有效时间</p>
-<h4 id="SET"><a href="#SET" class="headerlink" title="SET"></a>SET</h4><p>将字符串值value关联到key</p>
-<h4 id="SETBIT"><a href="#SETBIT" class="headerlink" title="SETBIT"></a>SETBIT</h4><p>对key所储存的字符串值，设置或清除指定偏移量上的位(bit)</p>
-<h4 id="SETEX"><a href="#SETEX" class="headerlink" title="SETEX"></a>SETEX</h4><p>将值value关联到 key，并将key的有效时间(秒)</p>
-<h4 id="SETNX"><a href="#SETNX" class="headerlink" title="SETNX"></a>SETNX</h4><p>当key未被使用时，设置为指定值</p>
-<h4 id="SETRANGE"><a href="#SETRANGE" class="headerlink" title="SETRANGE"></a>SETRANGE</h4><p>用value参数覆写(overwrite)给定key所储存的字符串值，从偏移量 offset 开始</p>
-<h4 id="STRLEN"><a href="#STRLEN" class="headerlink" title="STRLEN"></a>STRLEN</h4><p>返回key所储存的字符串值的长度</p>
-<hr>
-<h3 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h3><hr>
-<p>Hash命令速查：</p>
-<h4 id="HDEL"><a href="#HDEL" class="headerlink" title="HDEL"></a>HDEL</h4><p>删除哈希表 key 中的一个或多个指定域，不存在的域将被忽略。</p>
-<h4 id="HEXISTS"><a href="#HEXISTS" class="headerlink" title="HEXISTS"></a>HEXISTS</h4><p>查看哈希表 key 中，给定域 field 是否存在</p>
-<h4 id="HGET"><a href="#HGET" class="headerlink" title="HGET"></a>HGET</h4><p>返回哈希表 key 中给定域 field 的值</p>
-<h4 id="HGETALL"><a href="#HGETALL" class="headerlink" title="HGETALL"></a>HGETALL</h4><p>返回哈希表 key 中，所有的域和值</p>
-<h4 id="HINCRBY"><a href="#HINCRBY" class="headerlink" title="HINCRBY"></a>HINCRBY</h4><p>为哈希表 key 中的域 field 的值加上指定增量</p>
-<h4 id="HINCRBYFLOAT"><a href="#HINCRBYFLOAT" class="headerlink" title="HINCRBYFLOAT"></a>HINCRBYFLOAT</h4><p>为哈希表 key 中的域 field 加上指定的浮点数增量</p>
-<h4 id="HKEYS"><a href="#HKEYS" class="headerlink" title="HKEYS"></a>HKEYS</h4><p>返回哈希表 key 中的所有域</p>
-<h4 id="HLEN"><a href="#HLEN" class="headerlink" title="HLEN"></a>HLEN</h4><p>返回哈希表 key 中域的数量</p>
-<h4 id="HMGET"><a href="#HMGET" class="headerlink" title="HMGET"></a>HMGET</h4><p>返回哈希表 key 中，一个或多个给定域的值</p>
-<h4 id="HMSET"><a href="#HMSET" class="headerlink" title="HMSET"></a>HMSET</h4><p>同时将多个 field-value (域-值)对设置到哈希表 key 中</p>
-<h4 id="HSET"><a href="#HSET" class="headerlink" title="HSET"></a>HSET</h4><p>将哈希表 key 中的域 field 的值设为 value</p>
-<h4 id="HSETNX"><a href="#HSETNX" class="headerlink" title="HSETNX"></a>HSETNX</h4><p>当且仅当域 field 不存在时，将哈希表 key 中的域 field 的值设置为 value</p>
-<h4 id="HVALS"><a href="#HVALS" class="headerlink" title="HVALS"></a>HVALS</h4><p>返回哈希表 key 中所有域的值</p>
-<h4 id="HSCAN"><a href="#HSCAN" class="headerlink" title="HSCAN"></a>HSCAN</h4><p>增量迭代</p>
-<hr>
-<h3 id="List"><a href="#List" class="headerlink" title="List"></a>List</h3><hr>
-<p>List命令速查：</p>
-<h4 id="BLPOP"><a href="#BLPOP" class="headerlink" title="BLPOP"></a>BLPOP</h4><p>它是 LPOP 命令的阻塞版本，当给定列表内没有任何元素可供弹出的时候，连接将被 BLPOP 命令阻塞，直到等待超时或发现可弹出元素为止</p>
-<h4 id="BRPOP"><a href="#BRPOP" class="headerlink" title="BRPOP"></a>BRPOP</h4><p>与BLPOP同义，弹出位置不同</p>
-<h4 id="BRPOPLPUSH"><a href="#BRPOPLPUSH" class="headerlink" title="BRPOPLPUSH"></a>BRPOPLPUSH</h4><p>当列表 source 为空时， BRPOPLPUSH 命令将阻塞连接，直到等待超时</p>
-<h4 id="LINDEX"><a href="#LINDEX" class="headerlink" title="LINDEX"></a>LINDEX</h4><p>返回列表 key 中，下标为 index 的元素</p>
-<h4 id="LINSERT"><a href="#LINSERT" class="headerlink" title="LINSERT"></a>LINSERT</h4><p>将值 value 插入到列表 key 当中</p>
-<h4 id="LLEN"><a href="#LLEN" class="headerlink" title="LLEN"></a>LLEN</h4><p>返回列表 key 的长度</p>
-<h4 id="LPOP"><a href="#LPOP" class="headerlink" title="LPOP"></a>LPOP</h4><p>移除并返回列表 key 的头元素</p>
-<h4 id="LPUSH"><a href="#LPUSH" class="headerlink" title="LPUSH"></a>LPUSH</h4><p>将一个或多个值 value 插入到列表 key 的表头</p>
-<h4 id="LPUSHX"><a href="#LPUSHX" class="headerlink" title="LPUSHX"></a>LPUSHX</h4><p>将值 value 插入到列表 key 的表头，当且仅当 key 存在并且是一个列表</p>
-<h4 id="LRANGE"><a href="#LRANGE" class="headerlink" title="LRANGE"></a>LRANGE</h4><p>返回列表 key 中指定区间内的元素，区间以偏移量 start 和 stop 指定</p>
-<h4 id="LREM"><a href="#LREM" class="headerlink" title="LREM"></a>LREM</h4><p>根据参数 count 的值，移除列表中与参数 value 相等的元素</p>
-<h4 id="LSET"><a href="#LSET" class="headerlink" title="LSET"></a>LSET</h4><p>将列表 key 下标为 index 的元素的值设置为 value</p>
-<h4 id="LTRIM"><a href="#LTRIM" class="headerlink" title="LTRIM"></a>LTRIM</h4><p>对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除</p>
-<h4 id="RPOP"><a href="#RPOP" class="headerlink" title="RPOP"></a>RPOP</h4><p>移除并返回列表 key 的尾元素</p>
-<h4 id="RPOPLPUSH"><a href="#RPOPLPUSH" class="headerlink" title="RPOPLPUSH"></a>RPOPLPUSH</h4><p>命令 RPOPLPUSH 在一个原子时间内，执行两个动作：1、将列表 source 中的最后一个元素(尾元素)弹出，并返回给客户端。2、将 source 弹出的元素插入到列表 destination ，作为 destination 列表的的头元素。</p>
-<h4 id="RPUSH"><a href="#RPUSH" class="headerlink" title="RPUSH"></a>RPUSH</h4><p>将一个或多个值 value 插入到列表 key 的表尾</p>
-<h4 id="RPUSHX"><a href="#RPUSHX" class="headerlink" title="RPUSHX"></a>RPUSHX</h4><p>将值 value 插入到列表 key 的表尾，当且仅当 key 存在并且是一个列表</p>
-<hr>
-<h3 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h3><hr>
-<p>Set命令速查</p>
-<h4 id="SADD"><a href="#SADD" class="headerlink" title="SADD"></a>SADD</h4><p>将一个或多个 member 元素加入到集合 key 当中，已经存在于集合的 member 元素将被忽略</p>
-<h4 id="SCARD"><a href="#SCARD" class="headerlink" title="SCARD"></a>SCARD</h4><p>返回集合 key 的集合中元素的数量</p>
-<h4 id="SDIFF"><a href="#SDIFF" class="headerlink" title="SDIFF"></a>SDIFF</h4><p>返回一个集合的全部成员，该集合是所有给定集合之间的差集</p>
-<h4 id="SDIFFSTORE"><a href="#SDIFFSTORE" class="headerlink" title="SDIFFSTORE"></a>SDIFFSTORE</h4><p>这个命令的作用和 SDIFF 类似，但它将结果保存到新集合，而不是简单地返回结果集</p>
-<h4 id="SINTER"><a href="#SINTER" class="headerlink" title="SINTER"></a>SINTER</h4><p>返回一个集合的全部成员，该集合是所有给定集合的交集</p>
-<h4 id="SINTERSTORE"><a href="#SINTERSTORE" class="headerlink" title="SINTERSTORE"></a>SINTERSTORE</h4><p>与SINTER类似，不过可以指定保存到新集合</p>
-<h4 id="SISMEMBER"><a href="#SISMEMBER" class="headerlink" title="SISMEMBER"></a>SISMEMBER</h4><p>判断 member 元素是否集合 key 的成员</p>
-<h4 id="SMEMBERS"><a href="#SMEMBERS" class="headerlink" title="SMEMBERS"></a>SMEMBERS</h4><p>返回集合 key 中的所有成员</p>
-<h4 id="SMOVE"><a href="#SMOVE" class="headerlink" title="SMOVE"></a>SMOVE</h4><p>将 member 元素从一个集合移动到另一个集合</p>
-<h4 id="SPOP"><a href="#SPOP" class="headerlink" title="SPOP"></a>SPOP</h4><p>移除并返回集合中的一个随机元素</p>
-<h4 id="SRANDMEMBER"><a href="#SRANDMEMBER" class="headerlink" title="SRANDMEMBER"></a>SRANDMEMBER</h4><p>仅仅返回随机元素，而不对集合进行任何改动，与SPOP的区别在于不移除</p>
-<h4 id="SREM"><a href="#SREM" class="headerlink" title="SREM"></a>SREM</h4><p>移除集合 key 中的一个或多个 member 元素，不存在的 member 元素会被忽略</p>
-<h4 id="SUNION"><a href="#SUNION" class="headerlink" title="SUNION"></a>SUNION</h4><p>返回一个集合的全部成员，该集合是所有给定集合的并集</p>
-<h4 id="SUNIONSTORE"><a href="#SUNIONSTORE" class="headerlink" title="SUNIONSTORE"></a>SUNIONSTORE</h4><p>与SUNION类似，不过可以指定保存到新集合</p>
-<h4 id="SSCAN"><a href="#SSCAN" class="headerlink" title="SSCAN"></a>SSCAN</h4><p>增量迭代</p>
-<hr>
-<h3 id="SortedSet"><a href="#SortedSet" class="headerlink" title="SortedSet"></a>SortedSet</h3><hr>
-<p>SortedSet命令速查：</p>
-<h4 id="ZADD"><a href="#ZADD" class="headerlink" title="ZADD"></a>ZADD</h4><p>将一个或多个 member 元素及其 score 值加入到有序集 key 当中</p>
-<h4 id="ZCARD"><a href="#ZCARD" class="headerlink" title="ZCARD"></a>ZCARD</h4><p>返回有序集 key 的基数</p>
-<h4 id="ZCOUNT"><a href="#ZCOUNT" class="headerlink" title="ZCOUNT"></a>ZCOUNT</h4><p>返回有序集 key 中， score 值在 min 和 max 之间(包括 score 值等于 min 或 max )的成员的数量</p>
-<h4 id="ZINCRBY"><a href="#ZINCRBY" class="headerlink" title="ZINCRBY"></a>ZINCRBY</h4><p>为有序集 key 的成员 member 的 score 值加上指定增量</p>
-<h4 id="ZRANGE"><a href="#ZRANGE" class="headerlink" title="ZRANGE"></a>ZRANGE</h4><p>返回有序集 key 中，指定区间内的成员(小到大排列)</p>
-<h4 id="ZRANGEBYSCORE"><a href="#ZRANGEBYSCORE" class="headerlink" title="ZRANGEBYSCORE"></a>ZRANGEBYSCORE</h4><p>返回有序集 key 中，所有 score 值介于 min 和 max 之间(包括等于 min 或 max )的成员</p>
-<h4 id="ZRANK"><a href="#ZRANK" class="headerlink" title="ZRANK"></a>ZRANK</h4><p>返回有序集 key 中成员 member 的排名。其中有序集成员按 score 值递增(从小到大)顺序排列</p>
-<h4 id="ZREM"><a href="#ZREM" class="headerlink" title="ZREM"></a>ZREM</h4><p>移除有序集 key 中的一个或多个成员，不存在的成员将被忽略</p>
-<h4 id="ZREMRANGEBYRANK"><a href="#ZREMRANGEBYRANK" class="headerlink" title="ZREMRANGEBYRANK"></a>ZREMRANGEBYRANK</h4><p>移除有序集 key 中，指定排名(rank)区间内的所有成员</p>
-<h4 id="ZREMRANGEBYSCORE"><a href="#ZREMRANGEBYSCORE" class="headerlink" title="ZREMRANGEBYSCORE"></a>ZREMRANGEBYSCORE</h4><p>移除有序集 key 中，所有 score 值介于 min 和 max 之间(包括等于 min 或 max )的成员</p>
-<h4 id="ZREVRANGE"><a href="#ZREVRANGE" class="headerlink" title="ZREVRANGE"></a>ZREVRANGE</h4><p>返回有序集 key 中，指定区间内的成员，成员位置按score大到小排列</p>
-<h4 id="ZREVRANGEBYSCORE"><a href="#ZREVRANGEBYSCORE" class="headerlink" title="ZREVRANGEBYSCORE"></a>ZREVRANGEBYSCORE</h4><p>返回有序集 key 中， score 值介于 max 和 min 之间(默认包括等于 max 或 min )的所有的成员。成员按 score 值递减(从大到小)排列</p>
-<h4 id="ZREVRANK"><a href="#ZREVRANK" class="headerlink" title="ZREVRANK"></a>ZREVRANK</h4><p>返回有序集 key 中成员 member 的排名。其中有序集成员按 score 值递减(从大到小)排序</p>
-<h4 id="ZSCORE"><a href="#ZSCORE" class="headerlink" title="ZSCORE"></a>ZSCORE</h4><p>返回有序集 key 中，成员 member 的 score 值</p>
-<h4 id="ZUNIONSTORE"><a href="#ZUNIONSTORE" class="headerlink" title="ZUNIONSTORE"></a>ZUNIONSTORE</h4><p>计算给定的一个或多个有序集的并集，其中给定 key 的数量必须以 numkeys 参数指定，并将该并集(结果集)储存到新集合</p>
-<h4 id="ZINTERSTORE"><a href="#ZINTERSTORE" class="headerlink" title="ZINTERSTORE"></a>ZINTERSTORE</h4><p>计算给定的一个或多个有序集的交集，其中给定 key 的数量必须以 numkeys 参数指定，并将该交集(结果集)储存到新集合</p>
-<h4 id="ZSCAN"><a href="#ZSCAN" class="headerlink" title="ZSCAN"></a>ZSCAN</h4><p>增量迭代</p>
-<hr>
-<h3 id="Pub-x2F-Sub"><a href="#Pub-x2F-Sub" class="headerlink" title="Pub&#x2F;Sub"></a>Pub&#x2F;Sub</h3><hr>
-<p>Pub&#x2F;Sub命令速查：</p>
-<h4 id="PSUBSCRIBE"><a href="#PSUBSCRIBE" class="headerlink" title="PSUBSCRIBE"></a>PSUBSCRIBE</h4><p>订阅一个或多个符合给定模式的频道</p>
-<h4 id="PUBLISH"><a href="#PUBLISH" class="headerlink" title="PUBLISH"></a>PUBLISH</h4><p>将信息 message 发送到指定的频道</p>
-<h4 id="PUBSUB"><a href="#PUBSUB" class="headerlink" title="PUBSUB"></a>PUBSUB</h4><p>PUBSUB 是一个查看订阅与发布系统状态的内省命令</p>
-<h4 id="PUNSUBSCRIBE"><a href="#PUNSUBSCRIBE" class="headerlink" title="PUNSUBSCRIBE"></a>PUNSUBSCRIBE</h4><p>指示客户端退订所有给定模式</p>
-<h4 id="SUBSCRIBE"><a href="#SUBSCRIBE" class="headerlink" title="SUBSCRIBE"></a>SUBSCRIBE</h4><p>订阅给定的一个或多个频道的信息</p>
-<h4 id="UNSUBSCRIBE"><a href="#UNSUBSCRIBE" class="headerlink" title="UNSUBSCRIBE"></a>UNSUBSCRIBE</h4><p>指示客户端退订给定的频道</p>
-<hr>
-<h3 id="Transaction"><a href="#Transaction" class="headerlink" title="Transaction"></a>Transaction</h3><hr>
-<p>Transaction命令速查：</p>
-<h4 id="DISCARD"><a href="#DISCARD" class="headerlink" title="DISCARD"></a>DISCARD</h4><p>取消事务，放弃执行事务块内的所有命令</p>
-<h4 id="EXEC"><a href="#EXEC" class="headerlink" title="EXEC"></a>EXEC</h4><p>执行所有事务块内的命令</p>
-<h4 id="MULTI"><a href="#MULTI" class="headerlink" title="MULTI"></a>MULTI</h4><p>标记一个事务块的开始</p>
-<h4 id="UNWATCH"><a href="#UNWATCH" class="headerlink" title="UNWATCH"></a>UNWATCH</h4><p>取消 WATCH 命令对所有 key 的监视</p>
-<h4 id="WATCH"><a href="#WATCH" class="headerlink" title="WATCH"></a>WATCH</h4><p>监视一个(或多个) key ，如果在事务执行之前这个(或这些) key 被其他命令所改动，那么事务将被打断</p>
-<hr>
-<h3 id="Script"><a href="#Script" class="headerlink" title="Script"></a>Script</h3><hr>
-<p>script命令速查：</p>
-<h4 id="EVAL"><a href="#EVAL" class="headerlink" title="EVAL"></a>EVAL</h4><p>通过内置的 Lua 解释器，可以使用 EVAL 命令对 Lua 脚本进行求值</p>
-<h4 id="VALSHA"><a href="#VALSHA" class="headerlink" title="VALSHA"></a>VALSHA</h4><p>根据给定的 sha1 校验码，对缓存在服务器中的脚本进行求值</p>
-<h4 id="SCRIPT-EXISTS"><a href="#SCRIPT-EXISTS" class="headerlink" title="SCRIPT EXISTS"></a>SCRIPT EXISTS</h4><p>给定一个或多个脚本的 SHA1 校验和，返回一个包含 0 和 1 的列表，表示校验和所指定的脚本是否已经被保存在缓存当中</p>
-<h4 id="SCRIPT-FLUSH"><a href="#SCRIPT-FLUSH" class="headerlink" title="SCRIPT FLUSH"></a>SCRIPT FLUSH</h4><p>清除所有 Lua 脚本缓存</p>
-<h4 id="SCRIPT-KILL"><a href="#SCRIPT-KILL" class="headerlink" title="SCRIPT KILL"></a>SCRIPT KILL</h4><p>停止当前正在运行的 Lua 脚本，当且仅当这个脚本没有执行过任何写操作时，这个命令才生效。这个命令主要用于终止运行时间过长的脚本</p>
-<h4 id="SCRIPT-LOAD"><a href="#SCRIPT-LOAD" class="headerlink" title="SCRIPT LOAD"></a>SCRIPT LOAD</h4><p>将脚本 script 添加到脚本缓存中，但并不立即执行这个脚本</p>
-<hr>
-<h3 id="Connection"><a href="#Connection" class="headerlink" title="Connection"></a>Connection</h3><hr>
-<p>connection命令速查:</p>
-<h4 id="AUTH"><a href="#AUTH" class="headerlink" title="AUTH"></a>AUTH</h4><p>通过设置配置文件中 requirepass 项的值，可以使用密码来保护 Redis 服务器</p>
-<h4 id="ECHO"><a href="#ECHO" class="headerlink" title="ECHO"></a>ECHO</h4><p>打印一个特定的信息 message ，测试时使用。</p>
-<h4 id="PING"><a href="#PING" class="headerlink" title="PING"></a>PING</h4><p>使用客户端向 Redis 服务器发送一个 PING ，如果服务器运作正常的话，会返回一个 PONG，通常用于测试与服务器的连接是否仍然生效，或者用于测量延迟值</p>
-<h4 id="QUIT"><a href="#QUIT" class="headerlink" title="QUIT"></a>QUIT</h4><p>请求服务器关闭与当前客户端的连接</p>
-<h4 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a>SELECT</h4><p>切换到指定的数据库，数据库索引号 index 用数字值指定，以 0 作为起始索引值</p>
-<hr>
-<h3 id="Server"><a href="#Server" class="headerlink" title="Server"></a>Server</h3><hr>
-<p>server命令速查：</p>
-<h4 id="BGREWRITEAOF"><a href="#BGREWRITEAOF" class="headerlink" title="BGREWRITEAOF"></a>BGREWRITEAOF</h4><p>执行一个 AOF文件 重写操作。重写会创建一个当前 AOF 文件的体积优化版本。</p>
-<h4 id="BGSAVE"><a href="#BGSAVE" class="headerlink" title="BGSAVE"></a>BGSAVE</h4><p>在后台异步(Asynchronously)保存当前数据库的数据到磁盘</p>
-<h4 id="CLIENT-GETNAME"><a href="#CLIENT-GETNAME" class="headerlink" title="CLIENT GETNAME"></a>CLIENT GETNAME</h4><p>返回 CLIENT SETNAME 命令为连接设置的名字</p>
-<h4 id="CLIENT-KILL"><a href="#CLIENT-KILL" class="headerlink" title="CLIENT KILL"></a>CLIENT KILL</h4><p>关闭地址为 ip:port 的客户端</p>
-<h4 id="CLIENT-LIST"><a href="#CLIENT-LIST" class="headerlink" title="CLIENT LIST"></a>CLIENT LIST</h4><p>以人类可读的格式，返回所有连接到服务器的客户端信息和统计数据</p>
-<h4 id="CLIENT-SETNAME"><a href="#CLIENT-SETNAME" class="headerlink" title="CLIENT SETNAME"></a>CLIENT SETNAME</h4><p>为当前连接分配一个名字</p>
-<h4 id="CONFIG-GET"><a href="#CONFIG-GET" class="headerlink" title="CONFIG GET"></a>CONFIG GET</h4><p>CONFIG GET 命令用于取得运行中的 Redis 服务器的配置参数</p>
-<h4 id="CONFIG-RESETSTAT"><a href="#CONFIG-RESETSTAT" class="headerlink" title="CONFIG RESETSTAT"></a>CONFIG RESETSTAT</h4><p>重置 INFO 命令中的某些统计数据</p>
-<h4 id="CONFIG-REWRITE"><a href="#CONFIG-REWRITE" class="headerlink" title="CONFIG REWRITE"></a>CONFIG REWRITE</h4><p>CONFIG REWRITE 命令对启动 Redis 服务器时所指定的 redis.conf 文件进行改写</p>
-<h4 id="CONFIG-SET"><a href="#CONFIG-SET" class="headerlink" title="CONFIG SET"></a>CONFIG SET</h4><p>CONFIG SET 命令可以动态地调整 Redis 服务器的配置而无须重启</p>
-<h4 id="DBSIZE"><a href="#DBSIZE" class="headerlink" title="DBSIZE"></a>DBSIZE</h4><p>返回当前数据库的 key 的数量</p>
-<h4 id="DEBUG-OBJECT"><a href="#DEBUG-OBJECT" class="headerlink" title="DEBUG OBJECT"></a>DEBUG OBJECT</h4><p>DEBUG OBJECT 是一个调试命令，它不应被客户端所使用</p>
-<h4 id="DEBUG-SEGFAULT"><a href="#DEBUG-SEGFAULT" class="headerlink" title="DEBUG SEGFAULT"></a>DEBUG SEGFAULT</h4><p>执行一个不合法的内存访问从而让 Redis 崩溃，仅在开发时用于 BUG 模拟</p>
-<h4 id="FLUSHALL"><a href="#FLUSHALL" class="headerlink" title="FLUSHALL"></a>FLUSHALL</h4><p>清空整个 Redis 服务器的数据(删除所有数据库的所有 key )</p>
-<h4 id="FLUSHDB"><a href="#FLUSHDB" class="headerlink" title="FLUSHDB"></a>FLUSHDB</h4><p>清空当前数据库中的所有 key</p>
-<h4 id="INFO"><a href="#INFO" class="headerlink" title="INFO"></a>INFO</h4><p>返回关于 Redis 服务器的各种信息和统计数值</p>
-<h4 id="LASTSAVE"><a href="#LASTSAVE" class="headerlink" title="LASTSAVE"></a>LASTSAVE</h4><p>返回最近一次 Redis 成功将数据保存到磁盘上的时间，以 UNIX 时间戳格式表示</p>
-<h4 id="MONITOR"><a href="#MONITOR" class="headerlink" title="MONITOR"></a>MONITOR</h4><p>实时打印出 Redis 服务器接收到的命令，调试用</p>
-<h4 id="PSYNC"><a href="#PSYNC" class="headerlink" title="PSYNC"></a>PSYNC</h4><p>用于复制功能的内部命令</p>
-<h4 id="SAVE"><a href="#SAVE" class="headerlink" title="SAVE"></a>SAVE</h4><p>SAVE 命令执行一个同步保存操作，将当前 Redis 实例的所有数据快照(snapshot)以 RDB 文件的形式保存到硬盘。 一般来说，在生产环境很少执行 SAVE 操作，因为它会阻塞所有客户端，保存数据库的任务通常由 BGSAVE 命令异步地执行。然而，如果负责保存数据的后台子进程不幸出现问题时， SAVE 可以作为保存数据的最后手段来使用。</p>
-<h4 id="SHUTDOWN"><a href="#SHUTDOWN" class="headerlink" title="SHUTDOWN"></a>SHUTDOWN</h4><p>SHUTDOWN 命令执行以下操作： 停止所有客户端 如果有至少一个保存点在等待，执行 SAVE 命令 如果 AOF 选项被打开，更新 AOF 文件 关闭 redis 服务器(server)</p>
-<h4 id="SLAVEOF"><a href="#SLAVEOF" class="headerlink" title="SLAVEOF"></a>SLAVEOF</h4><p>SLAVEOF 命令用于在 Redis 运行时动态地修改复制(replication)功能的行为</p>
-<h4 id="SLOWLOG"><a href="#SLOWLOG" class="headerlink" title="SLOWLOG"></a>SLOWLOG</h4><p>Slow log 是 Redis 用来记录查询执行时间的日志系统</p>
-<h4 id="SYNC"><a href="#SYNC" class="headerlink" title="SYNC"></a>SYNC</h4><p>用于复制功能的内部命令</p>
-<h4 id="TIME"><a href="#TIME" class="headerlink" title="TIME"></a>TIME</h4><p>返回当前服务器时间</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/php_debug_backtrace/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zihao Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zihao">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/php_debug_backtrace/" class="post-title-link" itemprop="url">Php调试函数debug_backtrace</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2015-11-30 17:38:39" itemprop="dateCreated datePublished" datetime="2015-11-30T17:38:39Z">2015-11-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-28 00:14:23" itemprop="dateModified" datetime="2022-11-28T00:14:23Z">2022-11-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/" itemprop="url" rel="index"><span itemprop="name">Back</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/php/" itemprop="url" rel="index"><span itemprop="name">php</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="debug-print-backtrace"><a href="#debug-print-backtrace" class="headerlink" title="debug_print_backtrace();"></a>debug_print_backtrace();</h3><p>会在页面直接输出。可以开启缓冲期</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ob_start();开启缓冲区</span><br><span class="line">ob_flush();缓冲器清除</span><br><span class="line">ob_get_contents();获取缓冲区内容</span><br><span class="line">ob_end_clean();缓冲器清除</span><br><span class="line">这个函数不会输出内部缓冲区的内容而是把它删除！</span><br><span class="line">function getBacktrace() &#123;</span><br><span class="line">  ob_start();</span><br><span class="line">  debug_print_backtrace();</span><br><span class="line">  return ob_get_clean();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>调用这个函数取得错误堆栈，然后使用file_put_contents(‘log_path’, FILE_APPEND);写入日志文件。</p>
-<h3 id="debug-backtrace"><a href="#debug-backtrace" class="headerlink" title="debug_backtrace();"></a>debug_backtrace();</h3><p>会返回一个数组，支持自己进行logger记录。</p>
-<p>若需进行堆栈信息自行输出。可使用下列自定义的函数</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">private function print_stack_trace()</span><br><span class="line">&#123;</span><br><span class="line">    $array = debug_backtrace();</span><br><span class="line">    unset($array[0]);</span><br><span class="line">    foreach($array as $key=&gt;$row)</span><br><span class="line">    &#123;</span><br><span class="line">        $file =  isset($row[&#x27;file&#x27;]) ? $row[&#x27;file&#x27;].&#x27; : &#x27; : &#x27;&#x27; ;</span><br><span class="line">        $line =  isset($row[&#x27;line&#x27;]) ? $row[&#x27;line&#x27;].&#x27; 行,调用方法 &#x27; : &#x27;&#x27;;</span><br><span class="line">        $function =  isset($row[&#x27;function&#x27;]) ?  $row[&#x27;function&#x27;] :&#x27;&#x27;;</span><br><span class="line">        Logger::notice($file.$line.$function);</span><br><span class="line">    &#125;</span><br><span class="line">    return true ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="debug-zval-dump"><a href="#debug-zval-dump" class="headerlink" title="debug_zval_dump();"></a>debug_zval_dump();</h3><p>该函数与<code>var_dump()</code>的区别是它新增了一个值<code>refcount</code>,及记录变量被引用的次数。同时它还可以打印几个变量。</p>
-<p>php垃圾回收机制引用计数器概念：</p>
-<p><span class="exturl" data-url="aHR0cDovL3d3dy5waHBkZHQuY29tL3BocC9nYy1yZWZjb3VudGluZy1iYXNpY3MuaHRtbA==">http://www.phpddt.com/php/gc-refcounting-basics.html<i class="fa fa-external-link-alt"></i></span></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">xdebug_debug_zval();</span><br><span class="line"></span><br><span class="line">refcount=2,is_ref=0</span><br><span class="line">debug_zval_dump();</span><br><span class="line"></span><br><span class="line">refcount(3)</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/git_gitignore/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zihao Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zihao">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/git_gitignore/" class="post-title-link" itemprop="url">Git上传时忽略不想上传的文件</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2015-11-23 17:36:10" itemprop="dateCreated datePublished" datetime="2015-11-23T17:36:10Z">2015-11-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-24 05:24:10" itemprop="dateModified" datetime="2022-11-24T05:24:10Z">2022-11-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tool/" itemprop="url" rel="index"><span itemprop="name">Tool</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>500</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在进行协作开发代码管理的过程中，常常会遇到某些临时文件、配置文件、或者生成文件等，这些文件由于不同的开发端会不一样，如果使用<code>git add</code> . 将所有文件纳入git库中，那么会出现频繁的改动和push，这样会引起开发上的不便。</p>
-<p>Git可以很方便的帮助我们解决这个问题，那就是建立项目文件过滤规则。</p>
-<p>git中提供两种过滤机制，一种是全局过滤机制，即对所有的git都适用；另一种是针对某个项目使用的过滤规则。个人倾向于第二种。</p>
-<p>以我的一个项目为例，该项目用<code>.net</code>开发，<code>.config</code>文件、包括生成的<code>bin/Debug</code>,<code>bin/Release</code>文件等，我希望不加入git管理。</p>
-<p>在代码目录下建立<code>.gitignore</code>文件：<code>vim .gitignore</code> ,内容如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#过滤数据库文件、sln解决方案文件、配置文件</span><br><span class="line">*.mdb</span><br><span class="line">*.ldb</span><br><span class="line">*.sln</span><br><span class="line">*.config</span><br><span class="line">#过滤文件夹Debug,Release,obj</span><br><span class="line">Debug/</span><br><span class="line">Release/</span><br><span class="line">obj/</span><br></pre></td></tr></table></figure>
-<p>然后调用<code>git add .</code> ，执行 <code>git commit</code>即可。</p>
-<p>问题：<code>.gitignore</code>只适用于尚未添加到git库的文件。如果已经添加了，则需用<code>git rm</code>移除后再重新<code>commit</code>。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/linux_vibox_centos_network/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zihao Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zihao">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/linux_vibox_centos_network/" class="post-title-link" itemprop="url">虚拟机安装Centos7后配置网络</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2015-11-13 10:46:45" itemprop="dateCreated datePublished" datetime="2015-11-13T10:46:45Z">2015-11-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-24 05:24:10" itemprop="dateModified" datetime="2022-11-24T05:24:10Z">2022-11-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>101</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li><p>1：添加网卡2 桥接网卡</p>
-</li>
-<li><p>2：复制网络配置文件</p>
-</li>
-<li><p>3：使用ip addr 看一下本机分配的ip</p>
-</li>
-<li><p>4：根据本机信息修改配置文件</p>
-</li>
-<li><p>5： 习惯使用<code>ifconfig</code>的话 使用 <code>yum -y install net-tools</code> 安装一个网络包</p>
-</li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/php_thread_curl_multi/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1468,7 +1205,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/25/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><span class="page-number current">26</span><a class="page-number" href="/page/27/">27</a><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/27/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/25/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><span class="page-number current">26</span><a class="page-number" href="/page/27/">27</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/27/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1534,20 +1271,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">278</span>
+          <span class="site-state-item-count">282</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-count">65</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1599,7 +1336,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -1609,13 +1346,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">796k</span>
+    <span title="站点总字数">922k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:04</span>
+    <span title="站点阅读时长">13:59</span>
 </div>
 
         
@@ -1795,6 +1532,15 @@ window.addEventListener('pjax:success', () => {
       });
   </script>
 
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "box";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "bottomCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
     </div>
 </body>
 </html>

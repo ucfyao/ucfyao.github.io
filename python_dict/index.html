@@ -20,18 +20,18 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="这篇文章主要介绍了python中的字典详细介绍,字典是Python中最强大的数据类型之一,本文讲解了什么是字典、创建字典和给字典赋值 、字典的基本操作、映射类型操作符、映射相关的函数、字典的方法等内容,需要的朋友可以参考下 什么是字典？字典是Python语言中唯一的映射类型。 映射类型对象里哈希值（键，key）和指向的对象（值，value）是一对多的的关系，通常被认为是可变的哈希表。 字典对象是可">
+  <meta name="description" content="这篇文章主要介绍了python中的字典详细介绍,字典是Python中最强大的数据类型之一,本文讲解了什么是字典、创建字典和给字典赋值、字典的基本操作、映射类型操作符、映射相关的函数、字典的方法等内容，需要的朋友可以参考下。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python中的字典详细介绍">
 <meta property="og:url" content="https://yaozihao.com/python_dict/index.html">
 <meta property="og:site_name" content="Zihao">
-<meta property="og:description" content="这篇文章主要介绍了python中的字典详细介绍,字典是Python中最强大的数据类型之一,本文讲解了什么是字典、创建字典和给字典赋值 、字典的基本操作、映射类型操作符、映射相关的函数、字典的方法等内容,需要的朋友可以参考下 什么是字典？字典是Python语言中唯一的映射类型。 映射类型对象里哈希值（键，key）和指向的对象（值，value）是一对多的的关系，通常被认为是可变的哈希表。 字典对象是可">
+<meta property="og:description" content="这篇文章主要介绍了python中的字典详细介绍,字典是Python中最强大的数据类型之一,本文讲解了什么是字典、创建字典和给字典赋值、字典的基本操作、映射类型操作符、映射相关的函数、字典的方法等内容，需要的朋友可以参考下。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2017-03-30T15:33:29.000Z">
-<meta property="article:modified_time" content="2022-11-28T00:14:23.128Z">
+<meta property="article:modified_time" content="2022-12-02T04:30:55.480Z">
 <meta property="article:author" content="Zihao Yao">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
@@ -48,7 +48,20 @@
     lang   : 'zh-CN'
   };
 </script>
-<script async src="/lib/fireworks.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style><script async src="/lib/fireworks.js"></script>
   <title>Python中的字典详细介绍 | Zihao</title>
   
 
@@ -126,17 +139,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">64</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">65</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">19</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">278</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">282</span></a>
 
   </li>
         <li class="menu-item menu-item-about">
@@ -232,7 +245,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-28 00:14:23" itemprop="dateModified" datetime="2022-11-28T00:14:23Z">2022-11-28</time>
+                <time title="修改时间：2022-12-02 04:30:55" itemprop="dateModified" datetime="2022-12-02T04:30:55Z">2022-12-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -248,7 +261,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                  <a href="/categories/Web/Back/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
                 </span>
             </span>
 
@@ -284,7 +297,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>这篇文章主要介绍了python中的字典详细介绍,字典是Python中最强大的数据类型之一,本文讲解了什么是字典、创建字典和给字典赋值 、字典的基本操作、映射类型操作符、映射相关的函数、字典的方法等内容,需要的朋友可以参考下</p>
+        <p>这篇文章主要介绍了python中的字典详细介绍,字典是Python中最强大的数据类型之一,本文讲解了什么是字典、创建字典和给字典赋值、字典的基本操作、映射类型操作符、映射相关的函数、字典的方法等内容，需要的朋友可以参考下。</p>
+<span id="more"></span>
+
 <h2 id="什么是字典？"><a href="#什么是字典？" class="headerlink" title="什么是字典？"></a>什么是字典？</h2><p>字典是Python语言中唯一的映射类型。</p>
 <p>映射类型对象里哈希值（键，key）和指向的对象（值，value）是一对多的的关系，通常被认为是可变的哈希表。</p>
 <p>字典对象是可变的，它是一个容器类型，能存储任意个数的Python对象，其中也可包括其他容器类型。</p>
@@ -298,7 +313,8 @@
 </ul>
 <p>字典是Python中最强大的数据类型之一。</p>
 <h2 id="如何创建字典和给字典赋值"><a href="#如何创建字典和给字典赋值" class="headerlink" title="如何创建字典和给字典赋值"></a>如何创建字典和给字典赋值</h2><p>简单地说字典就是用大括号包裹的键值对的集合。（键值对也被称作项）<br>一般形式：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">adict = &#123;&#125;</span><br><span class="line">adict = &#123;key1：value2， key2：value2， …&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">adict = &#123;&#125;</span><br><span class="line">adict = &#123;key1：value2， key2：value2， …&#125;</span><br></pre></td></tr></table></figure>
+
 <p>或用<code>dict()</code>函数，如，<code>adict = dict()</code> 或 <code>adict = dict（（[‘x’,1],[‘y’,2]））</code>这样写对吗？<code>adict = dict（[‘x’,1],[‘y’,2]）</code>。关键字参数创建字典，如：<code>adict= dict(name=’allen’,age=’40′)</code><br>或用<code>fromkeys()</code>方法，如，<code>adict = &#123;&#125;.fromkeys((‘x’,’y’), -1)</code> 这样创建的字典的value是一样的，若不给值，默认为None。</p>
 <p>特点：</p>
 <ol>
@@ -306,17 +322,20 @@
 <li>项与项用逗号“，”分开；</li>
 <li>字典中的键必须是唯一的，而值可以不唯一。</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adict = &#123;‘name&#x27;:&#x27;allen&#x27;, ‘name&#x27;:&#x27;lucy&#x27;, ‘age&#x27;:&#x27;40′&#125; 与 bdict = &#123;‘name&#x27;:&#x27;allen&#x27;, ‘name2′:&#x27;allen&#x27;, ‘age&#x27;:&#x27;40′&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">adict = &#123;‘name<span class="string">&#x27;:&#x27;</span>allen<span class="string">&#x27;, ‘name&#x27;</span>:<span class="string">&#x27;lucy&#x27;</span>, ‘age<span class="string">&#x27;:&#x27;</span><span class="number">40</span>′&#125; </span><br><span class="line">bdict = &#123;‘name<span class="string">&#x27;:&#x27;</span>allen<span class="string">&#x27;, ‘name2′:&#x27;</span>allen<span class="string">&#x27;, ‘age&#x27;</span>:<span class="string">&#x27;40′&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>注意：如果字典中的值为数字，最好使用字符串数字形式，如：<code>’age’:’040′</code> 而不用 <code>‘age’:040</code></p>
 <h2 id="字典的基本操作"><a href="#字典的基本操作" class="headerlink" title="字典的基本操作"></a>字典的基本操作</h2><h3 id="如何访问字典中的值？"><a href="#如何访问字典中的值？" class="headerlink" title="如何访问字典中的值？"></a>如何访问字典中的值？</h3><p>adict[key] 形式返回键key对应的值value，如果key不在字典中会引发一个KeyError。</p>
-<h3 id="如何检查key是否在字典中？"><a href="#如何检查key是否在字典中？" class="headerlink" title="如何检查key是否在字典中？"></a>如何检查key是否在字典中？</h3><p>a、has_key()方法 形如：adict.haskey(‘name’) 有–&gt;True，无–&gt;False<br>b、in 、not in   形如：’name’ in adict      有–&gt;True，无–&gt;False</p>
+<h3 id="如何检查key是否在字典中？"><a href="#如何检查key是否在字典中？" class="headerlink" title="如何检查key是否在字典中？"></a>如何检查key是否在字典中？</h3><ul>
+<li><code>has_key()</code>方法，如：<code>adict.haskey(‘name’)</code> 有–&gt;True，无–&gt;False</li>
+<li><code>in</code> 、<code>not in</code>，如：<code>name</code> in <code>adict</code> 有–&gt;True，无–&gt;False</li>
+</ul>
 <h3 id="如何更新字典？"><a href="#如何更新字典？" class="headerlink" title="如何更新字典？"></a>如何更新字典？</h3><h4 id="添加一个数据项（新元素）或键值对"><a href="#添加一个数据项（新元素）或键值对" class="headerlink" title="添加一个数据项（新元素）或键值对"></a>添加一个数据项（新元素）或键值对</h4><p><code>adict[new_key] = value</code> 形式添加一个项</p>
 <h4 id="更新一个数据项（元素）或键值对"><a href="#更新一个数据项（元素）或键值对" class="headerlink" title="更新一个数据项（元素）或键值对"></a>更新一个数据项（元素）或键值对</h4><p><code>adict[old_key] = new_value</code></p>
 <h4 id="删除一个数据项（元素）或键值对"><a href="#删除一个数据项（元素）或键值对" class="headerlink" title="删除一个数据项（元素）或键值对"></a>删除一个数据项（元素）或键值对</h4><p><code>del adict[key]</code> 删除键key的项 &#x2F; del adict 删除整个字典<br><code>adict.pop(key)</code> 删除键key的项并返回key对应的 value值</p>
 <h2 id="映射类型操作符"><a href="#映射类型操作符" class="headerlink" title="映射类型操作符"></a>映射类型操作符</h2><p>标准类型操作符<code>（+，-，*，&lt;,&gt;,&lt;=,&gt;=,==,!=,and,or, not)</code></p>
 <h3 id="a、字典不支持拼接和重复操作符（-，-）"><a href="#a、字典不支持拼接和重复操作符（-，-）" class="headerlink" title="a、字典不支持拼接和重复操作符（+，*）"></a>a、字典不支持拼接和重复操作符<code>（+，*）</code></h3><h3 id="b、字典的比较操作"><a href="#b、字典的比较操作" class="headerlink" title="b、字典的比较操作"></a>b、字典的比较操作</h3><p>先比较字典的长度也就是字典的元素个数<br>键比较<br>值比较<br>例子：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adict = &#123;&#125;</span><br><span class="line">bdict = &#123;‘name&#x27;:&#x27;allen&#x27;, ‘age&#x27;:&#x27;40′&#125;</span><br><span class="line">cmp(adict, bdict)  &lt; –&gt;-1 or &gt; –&gt;1 or ==  –&gt;0</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adict = &#123;&#125;</span><br><span class="line">bdict = &#123;‘name<span class="string">&#x27;:&#x27;</span>allen<span class="string">&#x27;, ‘age&#x27;</span>:<span class="string">&#x27;40′&#125;</span></span><br><span class="line"><span class="string">cmp(adict, bdict)  &lt; –&gt;-1 or &gt; –&gt;1 or ==  –&gt;0</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="映射相关的函数"><a href="#映射相关的函数" class="headerlink" title="映射相关的函数"></a>映射相关的函数</h2><ul>
 <li>1、<code>len()</code> 返回字典的长度</li>
@@ -337,12 +356,17 @@
 <li>11、adict.setdefault(key, default&#x3D;None) 和set()方法相似，但如果字典中不存在Key键，由 adict[key] &#x3D; default 为它赋值；</li>
 <li>12、adict.update(bdict) 将字典bdict的键值对添加到字典adict中。</li>
 </ul>
-<h2 id="字典的遍历"><a href="#字典的遍历" class="headerlink" title="字典的遍历"></a>字典的遍历</h2><h3 id="1、遍历字典的key（键）"><a href="#1、遍历字典的key（键）" class="headerlink" title="1、遍历字典的key（键）"></a>1、遍历字典的key（键）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for key in adict.keys():</span><br><span class="line">    print key</span><br></pre></td></tr></table></figure>
-<h3 id="2、遍历字典的value（值）"><a href="#2、遍历字典的value（值）" class="headerlink" title="2、遍历字典的value（值）"></a>2、遍历字典的value（值）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for value in adict.values():</span><br><span class="line">    print value</span><br></pre></td></tr></table></figure>
-<h3 id="3、遍历字典的项（元素）"><a href="#3、遍历字典的项（元素）" class="headerlink" title="3、遍历字典的项（元素）"></a>3、遍历字典的项（元素）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for item in adict.items():</span><br><span class="line">    print item</span><br></pre></td></tr></table></figure>
-<h3 id="4、遍历字典的key-value"><a href="#4、遍历字典的key-value" class="headerlink" title="4、遍历字典的key-value"></a>4、遍历字典的key-value</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for item，value in adict.items(): </span><br><span class="line">    print &#x27;key=%s, value=%s&#x27; %(item, value)  </span><br></pre></td></tr></table></figure>
-<p>或   </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for item，value in adict.iteritems(): </span><br><span class="line">    print &#x27;key=%s, value=%s&#x27; %(item, value)</span><br></pre></td></tr></table></figure>
+<h2 id="字典的遍历"><a href="#字典的遍历" class="headerlink" title="字典的遍历"></a>字典的遍历</h2><h3 id="1、遍历字典的key（键）"><a href="#1、遍历字典的key（键）" class="headerlink" title="1、遍历字典的key（键）"></a>1、遍历字典的key（键）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> key <span class="keyword">in</span> adict.keys():</span><br><span class="line">    <span class="built_in">print</span> key</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、遍历字典的value（值）"><a href="#2、遍历字典的value（值）" class="headerlink" title="2、遍历字典的value（值）"></a>2、遍历字典的value（值）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> value <span class="keyword">in</span> adict.values():</span><br><span class="line">    <span class="built_in">print</span> value</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、遍历字典的项（元素）"><a href="#3、遍历字典的项（元素）" class="headerlink" title="3、遍历字典的项（元素）"></a>3、遍历字典的项（元素）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> adict.items():</span><br><span class="line">    <span class="built_in">print</span> item</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、遍历字典的key-value"><a href="#4、遍历字典的key-value" class="headerlink" title="4、遍历字典的key-value"></a>4、遍历字典的key-value</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> item，value <span class="keyword">in</span> adict.items(): </span><br><span class="line">    <span class="built_in">print</span> <span class="string">&#x27;key=%s, value=%s&#x27;</span> %(item, value)  </span><br></pre></td></tr></table></figure>
+
+<p>或</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> item，value <span class="keyword">in</span> adict.iteritems(): </span><br><span class="line">    <span class="built_in">print</span> <span class="string">&#x27;key=%s, value=%s&#x27;</span> %(item, value)</span><br></pre></td></tr></table></figure>
+
 <p>注意：<code>for item,value in adict.items(): print ‘key=%s’, ‘value=%s’, %(item, value)</code> 这种写法是错误的</p>
 <h2 id="使用字典的注意事项"><a href="#使用字典的注意事项" class="headerlink" title="使用字典的注意事项"></a>使用字典的注意事项</h2><ul>
 <li>1、不能允许一键对应多个值；</li>
@@ -353,7 +377,13 @@
 
     
     
-    
+    <div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
         <div class="reward-container">
   <div></div>
   <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
@@ -507,20 +537,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">278</span>
+          <span class="site-state-item-count">282</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-count">65</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -572,7 +602,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -582,13 +612,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">796k</span>
+    <span title="站点总字数">922k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:04</span>
+    <span title="站点阅读时长">13:59</span>
 </div>
 
         
@@ -768,6 +798,15 @@ window.addEventListener('pjax:success', () => {
       });
   </script>
 
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "box";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "bottomCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
     </div>
 </body>
 </html>

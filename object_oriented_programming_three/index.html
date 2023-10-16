@@ -20,18 +20,18 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="面向对象之封装每个对象都包含它能进行操作所需要的所有信息，这个特性称为封装，因此对象不必依赖其他对象来完成自己的操作。这样方法和属性包装在类中，通过类的实例来实现。 封装的好处：  良好的封装能够减少耦合（耦合的意思就是两个单元之间紧密配合与相互影响）。  类内部的实现可以自由地修改。  类具有清晰的对外接口。   解释封装的意思就是将单独的单元或者称之为模块写成一个方法，便于调用。此方法只负责单">
+  <meta name="description" content="面向对象之封装每个对象都包含它能进行操作所需要的所有信息，这个特性称为封装，因此对象不必依赖其他对象来完成自己的操作。这样方法和属性包装在类中，通过类的实例来实现。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="面向对象的基础三">
 <meta property="og:url" content="https://yaozihao.com/object_oriented_programming_three/index.html">
 <meta property="og:site_name" content="Zihao">
-<meta property="og:description" content="面向对象之封装每个对象都包含它能进行操作所需要的所有信息，这个特性称为封装，因此对象不必依赖其他对象来完成自己的操作。这样方法和属性包装在类中，通过类的实例来实现。 封装的好处：  良好的封装能够减少耦合（耦合的意思就是两个单元之间紧密配合与相互影响）。  类内部的实现可以自由地修改。  类具有清晰的对外接口。   解释封装的意思就是将单独的单元或者称之为模块写成一个方法，便于调用。此方法只负责单">
+<meta property="og:description" content="面向对象之封装每个对象都包含它能进行操作所需要的所有信息，这个特性称为封装，因此对象不必依赖其他对象来完成自己的操作。这样方法和属性包装在类中，通过类的实例来实现。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2015-09-03T12:49:04.000Z">
-<meta property="article:modified_time" content="2022-11-24T05:24:10.280Z">
+<meta property="article:modified_time" content="2022-12-01T08:28:26.130Z">
 <meta property="article:author" content="Zihao Yao">
 <meta property="article:tag" content="PHP, JS, Python, Go, Bitcoin, BlockChain, Quantification, Full stack.">
 <meta name="twitter:card" content="summary">
@@ -48,7 +48,20 @@
     lang   : 'zh-CN'
   };
 </script>
-<script async src="/lib/fireworks.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style><script async src="/lib/fireworks.js"></script>
   <title>面向对象的基础三 | Zihao</title>
   
 
@@ -126,17 +139,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">64</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">65</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">19</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">278</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">282</span></a>
 
   </li>
         <li class="menu-item menu-item-about">
@@ -232,7 +245,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-24 05:24:10" itemprop="dateModified" datetime="2022-11-24T05:24:10Z">2022-11-24</time>
+                <time title="修改时间：2022-12-01 08:28:26" itemprop="dateModified" datetime="2022-12-01T08:28:26Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -281,6 +294,8 @@
 
       
         <h2 id="面向对象之封装"><a href="#面向对象之封装" class="headerlink" title="面向对象之封装"></a>面向对象之封装</h2><p>每个对象都包含它能进行操作所需要的所有信息，这个特性称为封装，因此对象不必依赖其他对象来完成自己的操作。这样方法和属性包装在类中，通过类的实例来实现。</p>
+<span id="more"></span>
+
 <p>封装的好处：</p>
 <ol>
 <li><p>良好的封装能够减少耦合（耦合的意思就是两个单元之间紧密配合与相互影响）。</p>
@@ -292,7 +307,7 @@
 </ol>
 <p>解释封装的意思就是将单独的单元或者称之为模块写成一个方法，便于调用。此方法只负责单一的功能。</p>
 <h2 id="面向对象之继承"><a href="#面向对象之继承" class="headerlink" title="面向对象之继承"></a>面向对象之继承</h2><p>继承理解起来也很容易，工作方式就是定义子类和父类，或叫做基类和派生类，其种子类继承父类的所有特性，子类不但继承了父类的特性，还可以定义新的特性，还可以以自己的方式实现父类的功能（方法重写）。如果需要调用父类的构造函数，则可以使用：parent::父类函数 或 父类名::父类函数。默认情况下会自动调用父类的构造方法。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">class Fruit &#123;</span><br><span class="line"></span><br><span class="line">  public function __construct($name)&#123;</span><br><span class="line"></span><br><span class="line">    echo ‘水果’.$name.’创建了’;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Apple extends Fruit &#123;</span><br><span class="line"></span><br><span class="line">  public function __construct($name)&#123;</span><br><span class="line"></span><br><span class="line">  parent::__construct($name);</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$apple = new Apple(“苹果”);</span><br><span class="line"></span><br><span class="line">// 输出 水果苹果创建了</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Fruit</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$name</span></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> ‘水果’.<span class="variable">$name</span>.’创建了’;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Apple</span> <span class="keyword">extends</span> <span class="title">Fruit</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$name</span></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">parent</span>::<span class="title function_ invoke__">__construct</span>(<span class="variable">$name</span>);</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$apple</span> = <span class="keyword">new</span> <span class="title class_">Apple</span>(“苹果”);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出 水果苹果创建了</span></span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>继承是有缺点的，就是父类变化，子类不得不变，继承会破坏包装，父类实现细节暴漏给子类，这样就增加了两大类之间的耦合性（藕断丝连，尽管两个类分开，但如果关系密切，一方的改变就会影响另一方，就是耦合性高的表现）。</p>
 <h2 id="面向对象之多态"><a href="#面向对象之多态" class="headerlink" title="面向对象之多态"></a>面向对象之多态</h2><p>多态去理解的话就是不同的对象可以执行相同的动作，但要通过他们自己的实现代码来执行。多态的原理只有对象继承最末端的方法实现会被调用。</p>
@@ -302,22 +317,38 @@
 <p>一个类的任何子类对象都可以满足以当前类型作为类型提示的类型要求。所有实现这个接口的类，都可以满足以接口类型作为类型提示的方法参数要求。简单的说，一个类拥有其父类、和已实现接口的身份。</p>
 <h3 id="通过实现接口实现多态"><a href="#通过实现接口实现多态" class="headerlink" title="通过实现接口实现多态"></a>通过实现接口实现多态</h3><p>下面的例子中，UserAdmin类的静态方法，要求一个User类型的参数。</p>
 <p>在后面的使用中，传递了一个实现了User接口的类NormalUser的实例。代码成功运行。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;?</span><br><span class="line"></span><br><span class="line">interface User&#123; // User接口</span><br><span class="line"></span><br><span class="line">  public function  getName();</span><br><span class="line"></span><br><span class="line">  public function setName($_name);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class NormalUser implements User &#123; // 实现接口的类.</span><br><span class="line">  private $name;</span><br><span class="line">  public function getName()&#123;</span><br><span class="line">    return $this-&gt;name;</span><br><span class="line">  &#125;</span><br><span class="line">  public function setName($_name)&#123;</span><br><span class="line">    $this-&gt;name = $_name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">class UserAdmin&#123; //操作.</span><br><span class="line">  public static function  ChangeUserName(User $_user,$_userName)&#123;</span><br><span class="line">    $_user-&gt;setName($_userName);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">$normalUser = new NormalUser();</span><br><span class="line">UserAdmin::ChangeUserName($normalUser,&quot;Tom&quot;);//这里传入的是 NormalUser的实例.</span><br><span class="line">echo $normalUser-&gt;getName();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">User</span></span>&#123; <span class="comment">// User接口</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span>  <span class="title">getName</span>(<span class="params"></span>)</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">setName</span>(<span class="params"><span class="variable">$_name</span></span>)</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NormalUser</span> <span class="keyword">implements</span> <span class="title">User</span> </span>&#123; <span class="comment">// 实现接口的类.</span></span><br><span class="line">  <span class="keyword">private</span> <span class="variable">$name</span>;</span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;name;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">setName</span>(<span class="params"><span class="variable">$_name</span></span>)</span>&#123;</span><br><span class="line">    <span class="variable language_">$this</span>-&gt;name = <span class="variable">$_name</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserAdmin</span></span>&#123; <span class="comment">//操作.</span></span><br><span class="line">  <span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span>  <span class="title">ChangeUserName</span>(<span class="params">User <span class="variable">$_user</span>,<span class="variable">$_userName</span></span>)</span>&#123;</span><br><span class="line">    <span class="variable">$_user</span>-&gt;<span class="title function_ invoke__">setName</span>(<span class="variable">$_userName</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$normalUser</span> = <span class="keyword">new</span> <span class="title class_">NormalUser</span>();</span><br><span class="line"><span class="title class_">UserAdmin</span>::<span class="title function_ invoke__">ChangeUserName</span>(<span class="variable">$normalUser</span>,<span class="string">&quot;Tom&quot;</span>);<span class="comment">//这里传入的是 NormalUser的实例.</span></span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$normalUser</span>-&gt;<span class="title function_ invoke__">getName</span>();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p>程序运行结果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tom</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tom</span><br></pre></td></tr></table></figure>
 
 <h3 id="通过继承关系实现多态"><a href="#通过继承关系实现多态" class="headerlink" title="通过继承关系实现多态"></a>通过继承关系实现多态</h3><p>下面是类和子类的关系。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;?</span><br><span class="line"></span><br><span class="line">classUser&#123; // User接口</span><br><span class="line"></span><br><span class="line">     public function getName()&#123;&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">classNormalUser extendsUser &#123; // 继承自User类</span><br><span class="line"></span><br><span class="line">private  $name;</span><br><span class="line"></span><br><span class="line">  public function getName()&#123;</span><br><span class="line">      return  $this-&gt;name;</span><br><span class="line">    &#125;</span><br><span class="line">   public function setName($_name)&#123;</span><br><span class="line">      $this-&gt;name = $_name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class UserAdmin&#123; //操作.</span><br><span class="line">     public static function  ChangeUserName(User $_user,$_userName)&#123;</span><br><span class="line">       $_user-&gt;setName($_userName);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">$normalUser= newNormalUser();</span><br><span class="line">UserAdmin::ChangeUserName($normalUser,&quot;Tom&quot;);//这里传入的是 NormalUser的实例.</span><br><span class="line">echo$normalUser-&gt;getName();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<p>程序运行结果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Tom</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?</span></span><br><span class="line"></span><br><span class="line">classUser&#123; <span class="comment">// User接口</span></span><br><span class="line"></span><br><span class="line">     <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">classNormalUser extendsUser &#123; <span class="comment">// 继承自User类</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>  <span class="variable">$name</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span>  <span class="variable language_">$this</span>-&gt;name;</span><br><span class="line">    &#125;</span><br><span class="line">   <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">setName</span>(<span class="params"><span class="variable">$_name</span></span>)</span>&#123;</span><br><span class="line">      <span class="variable language_">$this</span>-&gt;name = <span class="variable">$_name</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserAdmin</span></span>&#123; <span class="comment">//操作.</span></span><br><span class="line">     <span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span>  <span class="title">ChangeUserName</span>(<span class="params">User <span class="variable">$_user</span>,<span class="variable">$_userName</span></span>)</span>&#123;</span><br><span class="line">       <span class="variable">$_user</span>-&gt;<span class="title function_ invoke__">setName</span>(<span class="variable">$_userName</span>);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$normalUser</span>= <span class="title function_ invoke__">newNormalUser</span>();</span><br><span class="line"><span class="title class_">UserAdmin</span>::<span class="title function_ invoke__">ChangeUserName</span>(<span class="variable">$normalUser</span>,<span class="string">&quot;Tom&quot;</span>);<span class="comment">//这里传入的是 NormalUser的实例.</span></span><br><span class="line"><span class="keyword">echo</span><span class="variable">$normalUser</span>-&gt;<span class="title function_ invoke__">getName</span>();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>1、当一个父类知道所有的子类都有一个方法，但是父类不能确定该方法如何写，可以让子类去覆盖它的方法,方法覆盖(重写)，必须要求子类的方法名和参数个数完全一致<br>2、如果子类要去调用父类的某个方法(protected&#x2F;public)，可以使用 <code>父类名::方法名</code> 或者 <code>parent::方法名</code><br>3、在实现方法重写的时候，访问修饰符可以不一样，但是子类方法的访问权限必须大于等于父类方法的访问权限（即不能缩小父类方法的访问权限）<br>如父类<code>public function cry()&#123;&#125;</code> 子类 <code>protected function cry()&#123;&#125;</code> 则会报错<br>但是子类的访问权限可以放大，如：<br>父类<code>private function cry()&#123;&#125;</code> 子类 <code>protected function cry()&#123;&#125;</code> 可以正确执行</p>
+<p>程序运行结果：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Tom</span><br></pre></td></tr></table></figure>
+
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ol>
+<li>当一个父类知道所有的子类都有一个方法，但是父类不能确定该方法如何写，可以让子类去覆盖它的方法,方法覆盖(重写)，必须要求子类的方法名和参数个数完全一致</li>
+<li>如果子类要去调用父类的某个方法(protected&#x2F;public)，可以使用 <code>父类名::方法名</code> 或者 <code>parent::方法名</code></li>
+<li>在实现方法重写的时候，访问修饰符可以不一样，但是子类方法的访问权限必须大于等于父类方法的访问权限（即不能缩小父类方法的访问权限）。如：<ol>
+<li>父类<code>public function cry()&#123;&#125;</code> 子类 <code>protected function cry()&#123;&#125;</code> 则会报错但是子类的访问权限可以放大。</li>
+<li>父类<code>private function cry()&#123;&#125;</code> 子类 <code>protected function cry()&#123;&#125;</code> 可以正确执行。</li>
+</ol>
+</li>
+</ol>
 
     </div>
 
     
     
-    
+    <div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
         <div class="reward-container">
   <div></div>
   <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
@@ -467,20 +498,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">278</span>
+          <span class="site-state-item-count">282</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-count">65</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -532,7 +563,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -542,13 +573,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">796k</span>
+    <span title="站点总字数">922k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:04</span>
+    <span title="站点阅读时长">13:59</span>
 </div>
 
         
@@ -728,6 +759,15 @@ window.addEventListener('pjax:success', () => {
       });
   </script>
 
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "box";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "bottomCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
     </div>
 </body>
 </html>

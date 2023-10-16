@@ -20,18 +20,18 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="在mac环境下，可以使用 brew 来安装， 也可以直接下载app安装。 初始化数据库1initdb &#x2F;usr&#x2F;local&#x2F;var&#x2F;postgres  启动或停止数据库启动服务1pg_ctl -D &#x2F;usr&#x2F;local&#x2F;var&#x2F;postgres -l &#x2F;usr&#x2F;local&#x2F;var&#x2F;postgres&#x2F;server.log start 停止服务1pg_ctl -D &#x2F;usr&#x2F;local&#x2F;var&#x2F;pos">
+  <meta name="description" content="强大的开源对象关系数据库系统，它使用并扩展了SQL语言。在mac环境下，可以使用 brew 来安装，也可以直接下载app安装。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PostgreSQL mac 环境下初识篇">
 <meta property="og:url" content="https://yaozihao.com/postgresql_mac/index.html">
 <meta property="og:site_name" content="Zihao">
-<meta property="og:description" content="在mac环境下，可以使用 brew 来安装， 也可以直接下载app安装。 初始化数据库1initdb &#x2F;usr&#x2F;local&#x2F;var&#x2F;postgres  启动或停止数据库启动服务1pg_ctl -D &#x2F;usr&#x2F;local&#x2F;var&#x2F;postgres -l &#x2F;usr&#x2F;local&#x2F;var&#x2F;postgres&#x2F;server.log start 停止服务1pg_ctl -D &#x2F;usr&#x2F;local&#x2F;var&#x2F;pos">
+<meta property="og:description" content="强大的开源对象关系数据库系统，它使用并扩展了SQL语言。在mac环境下，可以使用 brew 来安装，也可以直接下载app安装。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2017-06-08T20:50:29.000Z">
-<meta property="article:modified_time" content="2022-11-24T05:24:10.283Z">
+<meta property="article:modified_time" content="2022-12-02T05:25:04.032Z">
 <meta property="article:author" content="Zihao Yao">
 <meta property="article:tag" content="mac">
 <meta property="article:tag" content="db">
@@ -50,7 +50,20 @@
     lang   : 'zh-CN'
   };
 </script>
-<script async src="/lib/fireworks.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style><script async src="/lib/fireworks.js"></script>
   <title>PostgreSQL mac 环境下初识篇 | Zihao</title>
   
 
@@ -128,17 +141,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">64</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">65</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">19</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">278</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">282</span></a>
 
   </li>
         <li class="menu-item menu-item-about">
@@ -234,7 +247,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-24 05:24:10" itemprop="dateModified" datetime="2022-11-24T05:24:10Z">2022-11-24</time>
+                <time title="修改时间：2022-12-02 05:25:04" itemprop="dateModified" datetime="2022-12-02T05:25:04Z">2022-12-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -246,7 +259,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Db/" itemprop="url" rel="index"><span itemprop="name">Db</span></a>
+                  <a href="/categories/Web/DB/" itemprop="url" rel="index"><span itemprop="name">DB</span></a>
                 </span>
             </span>
 
@@ -282,51 +295,70 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>在mac环境下，可以使用 brew 来安装， 也可以直接下载app安装。</p>
-<h2 id="初始化数据库"><a href="#初始化数据库" class="headerlink" title="初始化数据库"></a>初始化数据库</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">initdb /usr/local/var/postgres</span><br></pre></td></tr></table></figure>
+        <blockquote>
+<p>强大的开源对象关系数据库系统，它使用并扩展了SQL语言。在mac环境下，可以使用 <code>brew</code> 来安装，也可以直接下载app安装。</p>
+</blockquote>
+<span id="more"></span>
 
-<h2 id="启动或停止数据库"><a href="#启动或停止数据库" class="headerlink" title="启动或停止数据库"></a>启动或停止数据库</h2><h3 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start</span><br></pre></td></tr></table></figure>
-<h3 id="停止服务"><a href="#停止服务" class="headerlink" title="停止服务"></a>停止服务</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pg_ctl -D /usr/local/var/postgres stop -s -m fast</span><br></pre></td></tr></table></figure>
+<h2 id="初始化数据库"><a href="#初始化数据库" class="headerlink" title="初始化数据库"></a>初始化数据库</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">initdb /usr/local/var/postgres</span><br></pre></td></tr></table></figure>
+
+<h2 id="启动或停止数据库"><a href="#启动或停止数据库" class="headerlink" title="启动或停止数据库"></a>启动或停止数据库</h2><h3 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start</span><br></pre></td></tr></table></figure>
+
+<h3 id="停止服务"><a href="#停止服务" class="headerlink" title="停止服务"></a>停止服务</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pg_ctl -D /usr/local/var/postgres stop -s -m fast</span><br></pre></td></tr></table></figure>
 
 <p>如果先嫌麻烦，可以加入开机自动启动</p>
-<p>ln -sfv &#x2F;usr&#x2F;local&#x2F;opt&#x2F;postgresql&#x2F;*.plist ~&#x2F;Library&#x2F;LaunchAgents</p>
-<h2 id="操作数据库"><a href="#操作数据库" class="headerlink" title="操作数据库"></a>操作数据库</h2><p>pgAdmin 是一个可视化数据库服务器管理工具。</p>
-<p>SQL Shell (psql ) 控制台数据库管理入口。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ln</span> -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents</span><br></pre></td></tr></table></figure>
+
+<h2 id="操作数据库"><a href="#操作数据库" class="headerlink" title="操作数据库"></a>操作数据库</h2><p><code>pgAdmin</code> 是一个可视化数据库服务器管理工具。</p>
+<p><code>SQL Shell (psql )</code> 控制台数据库管理入口。</p>
 <p>在安装的过程中，会自动为系统生成一个账号PostgreSQL，密码随机，这里你要重设一个密码。</p>
 <h3 id="重设密码"><a href="#重设密码" class="headerlink" title="重设密码"></a>重设密码</h3><p>控制台下:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo passwd -d postgres</span><br><span class="line">password  -d 为删除指定用户密码</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo passwd -d postgres</span><br><span class="line">password  -d 为删除指定用户密码</span><br></pre></td></tr></table></figure>
+
 <p>然后设置新密码:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres passwd</span><br></pre></td></tr></table></figure>
-<p>然后你就可以用 postgres 用户在服务器上通过 pgAdmin 或者 psql 来操作数据库了 。</p>
-<h3 id="psql-的简单操作"><a href="#psql-的简单操作" class="headerlink" title="psql 的简单操作"></a>psql 的简单操作</h3><p>点击 SQL Shell (psql) 启动控制台应用 。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Server [localhost]:    //第一步 ，默认本地 ，直接回车即可 ，远程数据库 ，请输入远程服务器IP</span><br><span class="line">Database [postgres]:   //第二步 ，执行数据库 ， postgresql 安装时已经默认安装 postgres 数据库 ，直接回车进入此库</span><br><span class="line">Port [5432]:           //第三步 ，默认绑定 5432 端口 ，如果你有修改请这里指定 ，否则默认连接此端口(注意防火墙放行端口)</span><br><span class="line">Username [postgres]:   //第四步 ，默认使用 postgres 用户登录数据库 ，没有指定用户的话 ，直接回车</span><br><span class="line">psql (9.4.1)</span><br><span class="line">Type &quot;help&quot; for help 。</span><br><span class="line">postgres=#     //看到这一步 ，已经成功进入 postgres 数据库 。</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres passwd</span><br></pre></td></tr></table></figure>
+
+<p>然后你就可以用 <code>postgres</code> 用户在服务器上通过 <code>pgAdmin</code> 或者 <code>psql</code> 来操作数据库了 。</p>
+<h3 id="psql-的简单操作"><a href="#psql-的简单操作" class="headerlink" title="psql 的简单操作"></a>psql 的简单操作</h3><p>点击 SQL Shell (psql) 启动控制台应用。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Server [localhost]:    //第一步 ，默认本地 ，直接回车即可 ，远程数据库 ，请输入远程服务器IP</span><br><span class="line">Database [postgres]:   //第二步 ，执行数据库 ， postgresql 安装时已经默认安装 postgres 数据库 ，直接回车进入此库</span><br><span class="line">Port [<span class="number">5432</span>]:           //第三步 ，默认绑定 <span class="number">5432</span> 端口 ，如果你有修改请这里指定 ，否则默认连接此端口(注意防火墙放行端口)</span><br><span class="line">Username [postgres]:   //第四步 ，默认使用 postgres 用户登录数据库 ，没有指定用户的话 ，直接回车</span><br><span class="line">psql (<span class="number">9.4</span>.<span class="number">1</span>)</span><br><span class="line">Type <span class="string">&quot;help&quot;</span> <span class="keyword">for</span> <span class="keyword">help</span> 。</span><br><span class="line">postgres=#     //看到这一步 ，已经成功进入 postgres 数据库 。</span><br></pre></td></tr></table></figure>
 
 <p>或者你可以用下面一条命令来登录PostgreSQL</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">psql -U postgres -d postgres -h 127.0.0.1 -p 5432</span><br><span class="line">//参数说明: -U 指定用户    -d 指定数据库   -h 数据库服务器ip    -p 端口</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">psql -U postgres -d postgres -h 127.0.0.1 -p 5432</span><br><span class="line">//参数说明: -U 指定用户    -d 指定数据库   -h 数据库服务器ip    -p 端口</span><br></pre></td></tr></table></figure>
+
 <p>如果你的系统登录用户名和PostgreSQL数据库操作用户名相同的话，可以省略 -U 参数 。</p>
 <p>如果你的Mac 命令控制台不支持psql，那么需要你手动添加到全局变量里:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">locate psql | grep /bin</span><br><span class="line">/Library/PostgreSQL/9.4/bin/psql</span><br></pre></td></tr></table></figure>
-<p>编辑.bash_profile文件或.bashrc文件，添加命令别名</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias psql=/Library/PostgreSQL/9.4/bin/psql</span><br></pre></td></tr></table></figure>
-<p>然后让 .bash_profile 生效即可</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source .bash_profile</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">locate psql | grep /bin</span><br><span class="line">/Library/PostgreSQL/9.4/bin/psql</span><br></pre></td></tr></table></figure>
 
-<h3 id="psql-控制台简单的操作命令"><a href="#psql-控制台简单的操作命令" class="headerlink" title="psql 控制台简单的操作命令"></a>psql 控制台简单的操作命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">\h select。</span><br><span class="line">\? 查看psql命令列表。</span><br><span class="line">\l 列出所有数据库。</span><br><span class="line">\c [database_name]：连接其他数据库。</span><br><span class="line">\d 列出当前数据库的所有表格。</span><br><span class="line">\d [table_name]：列出某一张表格的结构。</span><br><span class="line">\du 列出所有用户。</span><br><span class="line">\e 打开文本编辑器。</span><br><span class="line">\conninfo 列出当前数据库和连接的信息。</span><br><span class="line">\q  退出</span><br><span class="line">\password  设置命令</span><br></pre></td></tr></table></figure>
+<p>编辑<code>.bash_profile</code>文件或<code>.bashrc</code>文件，添加命令别名</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias psql=/Library/PostgreSQL/<span class="number">9.4</span>/bin/psql</span><br></pre></td></tr></table></figure>
 
-<h3 id="操作sql"><a href="#操作sql" class="headerlink" title="操作sql"></a>操作sql</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"># 创建新表 </span><br><span class="line">CREATE TABLE user_tbl(name VARCHAR(20), signup_date DATE);</span><br><span class="line"># 插入数据 </span><br><span class="line">INSERT INTO user_tbl(name, signup_date) VALUES(&#x27;张三&#x27;, &#x27;2013-12-22&#x27;);</span><br><span class="line"># 选择记录 </span><br><span class="line">SELECT * FROM user_tbl;</span><br><span class="line"># 更新数据 </span><br><span class="line">UPDATE user_tbl set name = &#x27;李四&#x27; WHERE name = &#x27;张三&#x27;;</span><br><span class="line"># 删除记录 </span><br><span class="line">DELETE FROM user_tbl WHERE name = &#x27;李四&#x27; ;</span><br><span class="line"># 添加栏位 </span><br><span class="line">ALTER TABLE user_tbl ADD email VARCHAR(40);</span><br><span class="line"># 更新结构 </span><br><span class="line">ALTER TABLE user_tbl ALTER COLUMN signup_date SET NOT NULL;</span><br><span class="line"># 更名栏位 </span><br><span class="line">ALTER TABLE user_tbl RENAME COLUMN signup_date TO signup;</span><br><span class="line"># 删除栏位 </span><br><span class="line">ALTER TABLE user_tbl DROP COLUMN email;</span><br><span class="line"># 表格更名 </span><br><span class="line">ALTER TABLE user_tbl RENAME TO backup_tbl;</span><br><span class="line"># 删除表格 </span><br><span class="line">DROP TABLE IF EXISTS backup_tbl;</span><br><span class="line"></span><br><span class="line"># 创建一个 PostgreSQL 用户</span><br><span class="line"></span><br><span class="line">createuser username -P</span><br><span class="line">#Enter password for new role:</span><br><span class="line">#Enter it again:</span><br><span class="line">上面的 username 是用户名，回车输入 2 次用户密码后即用户创建完成。更多用户创建信息可以 “createuser –help” 查看。</span><br><span class="line"></span><br><span class="line"># 创建数据库</span><br><span class="line"></span><br><span class="line">createdb dbname -O username -E UTF8 -e</span><br><span class="line">上面创建了一个名为 dbname 的数据库，并指定 username 为改数据库的拥有者（owner），数据库的编码（encoding）是 UTF8，参数 “-e” 是指把数据库执行操作的命令显示出来。</span><br><span class="line"></span><br><span class="line">更多数据库创建信息可以 “createdb –help” 查看。</span><br></pre></td></tr></table></figure>
+<p>然后让<code>.bash_profile</code>生效即可</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">source</span> .bash_profile</span><br></pre></td></tr></table></figure>
 
-<h3 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h3><p>psql -U username -d dbname -h 127.0.0.1</p>
-<h3 id="数据的导出"><a href="#数据的导出" class="headerlink" title="数据的导出"></a>数据的导出</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ pg_dump -U postgres(用户名) (-t 表名) 数据库名(缺省时同用户名) &gt; 路径/文件名.sql</span><br><span class="line"> [html] view plain copy</span><br><span class="line">$ pg_dump -U postgres -t system_calls wangye &gt; ./test.sql</span><br><span class="line">$ ls</span><br><span class="line">$ 9.1 test.sql</span><br></pre></td></tr></table></figure>
+<h3 id="psql-控制台简单的操作命令"><a href="#psql-控制台简单的操作命令" class="headerlink" title="psql 控制台简单的操作命令"></a>psql 控制台简单的操作命令</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">\h select。</span><br><span class="line">\? 查看psql命令列表。</span><br><span class="line">\<span class="keyword">l</span> 列出所有数据库。</span><br><span class="line">\<span class="keyword">c</span> [database_name]：连接其他数据库。</span><br><span class="line">\d 列出当前数据库的所有表格。</span><br><span class="line">\d [table_name]：列出某一张表格的结构。</span><br><span class="line">\du 列出所有用户。</span><br><span class="line">\<span class="keyword">e</span> 打开文本编辑器。</span><br><span class="line">\conninfo 列出当前数据库和连接的信息。</span><br><span class="line">\q  退出</span><br><span class="line">\password  设置命令</span><br></pre></td></tr></table></figure>
+
+<h3 id="操作sql"><a href="#操作sql" class="headerlink" title="操作sql"></a>操作sql</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"># 创建新表 </span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> user_tbl(name <span class="type">VARCHAR</span>(<span class="number">20</span>), signup_date <span class="type">DATE</span>);</span><br><span class="line"># 插入数据 </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> user_tbl(name, signup_date) <span class="keyword">VALUES</span>(<span class="string">&#x27;张三&#x27;</span>, <span class="string">&#x27;2013-12-22&#x27;</span>);</span><br><span class="line"># 选择记录 </span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> user_tbl;</span><br><span class="line"># 更新数据 </span><br><span class="line"><span class="keyword">UPDATE</span> user_tbl <span class="keyword">set</span> name <span class="operator">=</span> <span class="string">&#x27;李四&#x27;</span> <span class="keyword">WHERE</span> name <span class="operator">=</span> <span class="string">&#x27;张三&#x27;</span>;</span><br><span class="line"># 删除记录 </span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> user_tbl <span class="keyword">WHERE</span> name <span class="operator">=</span> <span class="string">&#x27;李四&#x27;</span> ;</span><br><span class="line"># 添加栏位 </span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> user_tbl <span class="keyword">ADD</span> email <span class="type">VARCHAR</span>(<span class="number">40</span>);</span><br><span class="line"># 更新结构 </span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> user_tbl <span class="keyword">ALTER</span> <span class="keyword">COLUMN</span> signup_date <span class="keyword">SET</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span>;</span><br><span class="line"># 更名栏位 </span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> user_tbl RENAME <span class="keyword">COLUMN</span> signup_date <span class="keyword">TO</span> signup;</span><br><span class="line"># 删除栏位 </span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> user_tbl <span class="keyword">DROP</span> <span class="keyword">COLUMN</span> email;</span><br><span class="line"># 表格更名 </span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> user_tbl RENAME <span class="keyword">TO</span> backup_tbl;</span><br><span class="line"># 删除表格 </span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> IF <span class="keyword">EXISTS</span> backup_tbl;</span><br><span class="line"></span><br><span class="line"># 创建一个 PostgreSQL 用户</span><br><span class="line"></span><br><span class="line">createuser username <span class="operator">-</span>P</span><br><span class="line">#Enter password <span class="keyword">for</span> <span class="keyword">new</span> role:</span><br><span class="line">#Enter it again:</span><br><span class="line">上面的 username 是用户名，回车输入 <span class="number">2</span> 次用户密码后即用户创建完成。更多用户创建信息可以 “createuser –help” 查看。</span><br><span class="line"></span><br><span class="line"># 创建数据库</span><br><span class="line"></span><br><span class="line">createdb dbname <span class="operator">-</span>O username <span class="operator">-</span>E UTF8 <span class="operator">-</span>e</span><br><span class="line">上面创建了一个名为 dbname 的数据库，并指定 username 为改数据库的拥有者（owner），数据库的编码（encoding）是 UTF8，参数 “<span class="operator">-</span>e” 是指把数据库执行操作的命令显示出来。</span><br><span class="line"></span><br><span class="line">更多数据库创建信息可以 “createdb –help” 查看。</span><br></pre></td></tr></table></figure>
+
+<h3 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psql <span class="operator">-</span>U username <span class="operator">-</span>d dbname <span class="operator">-</span>h <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="数据的导出"><a href="#数据的导出" class="headerlink" title="数据的导出"></a>数据的导出</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pg_dump -U postgres(用户名) (-t 表名) 数据库名(缺省时同用户名) &gt; 路径/文件名.sql</span><br><span class="line"> [html] view plain copy</span><br><span class="line">pg_dump -U postgres -t system_calls wangye &gt; ./test.sql</span><br><span class="line"><span class="built_in">ls</span></span><br><span class="line">9.1 test.sql</span><br></pre></td></tr></table></figure>
 
 <h3 id="数据的导入"><a href="#数据的导入" class="headerlink" title="数据的导入"></a>数据的导入</h3><p>导入数据时首先创建数据库再用psql导入：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ createdb newdatabase</span><br><span class="line">$ psql -d newdatabase -U postgres -f mydatabase.sql // sql 文件在当前路径下</span><br><span class="line">$ psql -d databaename(数据库名) -U username(用户名) -f &lt; 路径/文件名.sql // sql 文件不在当前路径下</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">createdb newdatabase</span><br><span class="line">psql <span class="operator">-</span>d newdatabase <span class="operator">-</span>U postgres <span class="operator">-</span>f mydatabase.sql <span class="operator">/</span><span class="operator">/</span> <span class="keyword">sql</span> 文件在当前路径下</span><br><span class="line">psql <span class="operator">-</span>d databaename(数据库名) <span class="operator">-</span>U username(用户名) <span class="operator">-</span>f <span class="operator">&lt;</span> 路径<span class="operator">/</span>文件名.<span class="keyword">sql</span> <span class="operator">/</span><span class="operator">/</span> <span class="keyword">sql</span> 文件不在当前路径下</span><br></pre></td></tr></table></figure>
 
-<h3 id="赋予用户超级权限"><a href="#赋予用户超级权限" class="headerlink" title="赋予用户超级权限"></a>赋予用户超级权限</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres psql</span><br><span class="line">CREATE USER root WITH SUPERUSER;</span><br></pre></td></tr></table></figure>
+<h3 id="赋予用户超级权限"><a href="#赋予用户超级权限" class="headerlink" title="赋予用户超级权限"></a>赋予用户超级权限</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres psql</span><br><span class="line">CREATE USER root WITH SUPERUSER;</span><br></pre></td></tr></table></figure>
+
     </div>
 
     
     
-    
+    <div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
         <div class="reward-container">
   <div></div>
   <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
@@ -482,20 +514,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">278</span>
+          <span class="site-state-item-count">282</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-count">65</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -547,7 +579,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -557,13 +589,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">796k</span>
+    <span title="站点总字数">922k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:04</span>
+    <span title="站点阅读时长">13:59</span>
 </div>
 
         
@@ -743,6 +775,15 @@ window.addEventListener('pjax:success', () => {
       });
   </script>
 
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "box";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "bottomCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
     </div>
 </body>
 </html>

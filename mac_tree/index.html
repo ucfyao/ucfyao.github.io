@@ -20,19 +20,19 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="在 linux 下你可以很方便的使用 tree 命令来查看当前目录下的目录树机构. 但是在mac下，需要安装一个工具. 方法一 使用命令组合命令： 1find . -print | sed -e &amp;#x27;s;[^&#x2F;]*&#x2F;;|____;g;s;____|; |;g&amp;#x27; 然后手动alias一下，在你的.bash_profile或者.zshrc中添加: 1alias tree&#x3D;&quot;f">
+  <meta name="description" content="在 linux 下你可以很方便的使用 tree 命令来查看当前目录下的目录树机构. 但是在mac下，需要安装一个工具.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mac终端中显示文件清单，tree的命令">
 <meta property="og:url" content="https://yaozihao.com/mac_tree/index.html">
 <meta property="og:site_name" content="Zihao">
-<meta property="og:description" content="在 linux 下你可以很方便的使用 tree 命令来查看当前目录下的目录树机构. 但是在mac下，需要安装一个工具. 方法一 使用命令组合命令： 1find . -print | sed -e &amp;#x27;s;[^&#x2F;]*&#x2F;;|____;g;s;____|; |;g&amp;#x27; 然后手动alias一下，在你的.bash_profile或者.zshrc中添加: 1alias tree&#x3D;&quot;f">
+<meta property="og:description" content="在 linux 下你可以很方便的使用 tree 命令来查看当前目录下的目录树机构. 但是在mac下，需要安装一个工具.">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/748014-945fd58fe00c93e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp">
 <meta property="article:published_time" content="2016-01-18T22:20:03.000Z">
-<meta property="article:modified_time" content="2022-11-24T05:24:10.299Z">
+<meta property="article:modified_time" content="2022-11-29T23:52:38.294Z">
 <meta property="article:author" content="Zihao Yao">
 <meta property="article:tag" content="PHP, JS, Python, Go, Bitcoin, BlockChain, Quantification, Full stack.">
 <meta name="twitter:card" content="summary">
@@ -50,7 +50,20 @@
     lang   : 'zh-CN'
   };
 </script>
-<script async src="/lib/fireworks.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style><script async src="/lib/fireworks.js"></script>
   <title>Mac终端中显示文件清单，tree的命令 | Zihao</title>
   
 
@@ -128,17 +141,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">64</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">65</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">19</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">278</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">282</span></a>
 
   </li>
         <li class="menu-item menu-item-about">
@@ -234,7 +247,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-24 05:24:10" itemprop="dateModified" datetime="2022-11-24T05:24:10Z">2022-11-24</time>
+                <time title="修改时间：2022-11-29 23:52:38" itemprop="dateModified" datetime="2022-11-29T23:52:38Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -279,54 +292,54 @@
 
       
         <p>在 linux 下你可以很方便的使用 tree 命令来查看当前目录下的目录树机构. 但是在mac下，需要安装一个工具.</p>
+<span id="more"></span>
+
 <h2 id="方法一-使用命令组合"><a href="#方法一-使用命令组合" class="headerlink" title="方法一 使用命令组合"></a>方法一 使用命令组合</h2><p>命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -print | sed -e &#x27;s;[^/]*/;|____;g;s;____|; |;g&#x27;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -<span class="built_in">print</span> | sed -e <span class="string">&#x27;s;[^/]*/;|____;g;s;____|; |;g&#x27;</span></span><br></pre></td></tr></table></figure>
+
 <p>然后手动<code>alias</code>一下，在你的<code>.bash_profile</code>或者<code>.zshrc</code>中添加:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias tree=&quot;find . -print | sed -e &#x27;s;[^/]*/;|____;g;s;____|; |;g&#x27;&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> tree=<span class="string">&quot;find . -print | sed -e &#x27;s;[^/]*/;|____;g;s;____|; |;g&#x27;&quot;</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="方法二-下载命令tree"><a href="#方法二-下载命令tree" class="headerlink" title="方法二 下载命令tree"></a>方法二 下载命令tree</h2><h3 id="1-mac-下使用-brew包管理工具安装-tree"><a href="#1-mac-下使用-brew包管理工具安装-tree" class="headerlink" title="1. mac 下使用 brew包管理工具安装 tree"></a>1. mac 下使用 <span class="exturl" data-url="aHR0cDovL3lpamllYnV5aS5jb20vc28uaHRtbD9rPWJyZXc=">brew包管理工具<i class="fa fa-external-link-alt"></i></span>安装 tree</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install tree</span><br></pre></td></tr></table></figure>
+<h2 id="方法二-下载命令tree"><a href="#方法二-下载命令tree" class="headerlink" title="方法二 下载命令tree"></a>方法二 下载命令tree</h2><p>Mac 下使用 <span class="exturl" data-url="aHR0cDovL3lpamllYnV5aS5jb20vc28uaHRtbD9rPWJyZXc=">brew包管理工具<i class="fa fa-external-link-alt"></i></span>安装 tree</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install tree</span><br></pre></td></tr></table></figure>
 
-<h3 id="2-安装成功后，直接在终端使用，使用-–help-查看帮助信息"><a href="#2-安装成功后，直接在终端使用，使用-–help-查看帮助信息" class="headerlink" title="2. 安装成功后，直接在终端使用，使用 –help 查看帮助信息"></a>2. 安装成功后，直接在终端使用，使用 –help 查看帮助信息</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tree --help</span><br></pre></td></tr></table></figure>
+<p>安装成功后，直接在终端使用，使用 –help 查看帮助信息</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tree --<span class="built_in">help</span></span><br></pre></td></tr></table></figure>
 
 <p>看到如下功能</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">tree --help                                                                                  10:06:14</span><br><span class="line">usage: tree [-acdfghilnpqrstuvxACDFJQNSUX] [-H baseHREF] [-T title ]</span><br><span class="line">    [-L level [-R]] [-P pattern] [-I pattern] [-o filename] [--version]</span><br><span class="line">    [--help] [--inodes] [--device] [--noreport] [--nolinks] [--dirsfirst]</span><br><span class="line">    [--charset charset] [--filelimit[=]#] [--si] [--timefmt[=]&lt;f&gt;]</span><br><span class="line">    [--sort[=]&lt;name&gt;] [--matchdirs] [--ignore-case] [--] [&lt;directory list&gt;]</span><br><span class="line">  ------- Listing options -------</span><br><span class="line">  -a            All files are listed.</span><br><span class="line">  -d            List directories only.</span><br><span class="line">  -l            Follow symbolic links like directories.</span><br><span class="line">  -f            Print the full path prefix for each file.</span><br><span class="line">  -x            Stay on current filesystem only.</span><br><span class="line">  -L level      Descend only level directories deep.</span><br><span class="line">  -R            Rerun tree when max dir level reached.</span><br><span class="line">  -P pattern    List only those files that match the pattern given.</span><br><span class="line">  -I pattern    Do not list files that match the given pattern.</span><br><span class="line">  --ignore-case Ignore case when pattern matching.</span><br><span class="line">  --matchdirs   Include directory names in -P pattern matching.</span><br><span class="line">  --noreport    Turn off file/directory count at end of tree listing.</span><br><span class="line">  --charset X   Use charset X for terminal/HTML and indentation line output.</span><br><span class="line">  --filelimit # Do not descend dirs with more than # files in them.</span><br><span class="line">  --timefmt &lt;f&gt; Print and format time according to the format &lt;f&gt;.</span><br><span class="line">  -o filename   Output to file instead of stdout.</span><br><span class="line">  -------- File options ---------</span><br><span class="line">  -q            Print non-printable characters as &#x27;?&#x27;.</span><br><span class="line">  -N            Print non-printable characters as is.</span><br><span class="line">  -Q            Quote filenames with double quotes.</span><br><span class="line">  -p            Print the protections for each file.</span><br><span class="line">  -u            Displays file owner or UID number.</span><br><span class="line">  -g            Displays file group owner or GID number.</span><br><span class="line">  -s            Print the size in bytes of each file.</span><br><span class="line">  -h            Print the size in a more human readable way.</span><br><span class="line">  --si          Like -h, but use in SI units (powers of 1000).</span><br><span class="line">  -D            Print the date of last modification or (-c) status change.</span><br><span class="line">  -F            Appends &#x27;/&#x27;, &#x27;=&#x27;, &#x27;*&#x27;, &#x27;@&#x27;, &#x27;|&#x27; or &#x27;&gt;&#x27; as per ls -F.</span><br><span class="line">  --inodes      Print inode number of each file.</span><br><span class="line">  --device      Print device ID number to which each file belongs.</span><br><span class="line">  ------- Sorting options -------</span><br><span class="line">  -v            Sort files alphanumerically by version.</span><br><span class="line">  -t            Sort files by last modification time.</span><br><span class="line">  -c            Sort files by last status change time.</span><br><span class="line">  -U            Leave files unsorted.</span><br><span class="line">  -r            Reverse the order of the sort.</span><br><span class="line">  --dirsfirst   List directories before files (-U disables).</span><br><span class="line">  --sort X      Select sort: name,version,size,mtime,ctime.</span><br><span class="line">  ------- Graphics options ------</span><br><span class="line">  -i            Don&#x27;t print indentation lines.</span><br><span class="line">  -A            Print ANSI lines graphic indentation lines.</span><br><span class="line">  -S            Print with CP437 (console) graphics indentation lines.</span><br><span class="line">  -n            Turn colorization off always (-C overrides).</span><br><span class="line">  -C            Turn colorization on always.</span><br><span class="line">  ------- XML/HTML/JSON options -------</span><br><span class="line">  -X            Prints out an XML representation of the tree.</span><br><span class="line">  -J            Prints out an JSON representation of the tree.</span><br><span class="line">  -H baseHREF   Prints out HTML format with baseHREF as top directory.</span><br><span class="line">  -T string     Replace the default HTML title and H1 header with string.</span><br><span class="line">  --nolinks     Turn off hyperlinks in HTML output.</span><br><span class="line">  ---- Miscellaneous options ----</span><br><span class="line">  --version     Print version and exit.</span><br><span class="line">  --help        Print usage and this help message and exit.</span><br><span class="line">  --            Options processing terminator.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">tree --<span class="keyword">help</span>                                                                                  <span class="number">10</span>:<span class="number">06</span>:<span class="number">14</span></span><br><span class="line">usage: tree [-acdfghilnpqrstuvxACDFJQNSUX] [-H baseHREF] [-T title ]</span><br><span class="line">    [-L level [-R]] [-<span class="keyword">P</span> pattern] [-I pattern] [-<span class="keyword">o</span> filename] [--<span class="keyword">version</span>]</span><br><span class="line">    [--<span class="keyword">help</span>] [--inodes] [--device] [--noreport] [--nolinks] [--dirsfirst]</span><br><span class="line">    [--charset charset] [--filelimit[=]#] [--si] [--timefmt[=]<span class="symbol">&lt;f&gt;</span>]</span><br><span class="line">    [--<span class="keyword">sort</span>[=]<span class="symbol">&lt;name&gt;</span>] [--matchdirs] [--ignore-case] [--] [&lt;directory <span class="keyword">list</span>&gt;]</span><br><span class="line">  ------- Listing <span class="keyword">options</span> -------</span><br><span class="line">  -<span class="keyword">a</span>            All <span class="keyword">files</span> are listed.</span><br><span class="line">  -d            List directories <span class="keyword">only</span>.</span><br><span class="line">  -<span class="keyword">l</span>            Follow symbolic links like directories.</span><br><span class="line">  -<span class="keyword">f</span>            <span class="keyword">Print</span> the full path prefix <span class="keyword">for</span> each <span class="keyword">file</span>.</span><br><span class="line">  -<span class="keyword">x</span>            Stay <span class="keyword">on</span> current filesystem <span class="keyword">only</span>.</span><br><span class="line">  -L level      Descend <span class="keyword">only</span> level directories deep.</span><br><span class="line">  -R            Rerun tree when <span class="built_in">max</span> dir level reached.</span><br><span class="line">  -<span class="keyword">P</span> pattern    List <span class="keyword">only</span> those <span class="keyword">files</span> that <span class="keyword">match</span> the pattern given.</span><br><span class="line">  -I pattern    Do not <span class="keyword">list</span> <span class="keyword">files</span> that <span class="keyword">match</span> the given pattern.</span><br><span class="line">  --ignore-case Ignore case when pattern matching.</span><br><span class="line">  --matchdirs   Include directory names in -<span class="keyword">P</span> pattern matching.</span><br><span class="line">  --noreport    Turn off <span class="keyword">file</span>/directory <span class="built_in">count</span> at end of tree listing.</span><br><span class="line">  --charset <span class="keyword">X</span>   Use charset <span class="keyword">X</span> <span class="keyword">for</span> terminal/HTML <span class="built_in">and</span> indentation <span class="built_in">line</span> output.</span><br><span class="line">  --filelimit # Do not descend dirs with more than # <span class="keyword">files</span> in them.</span><br><span class="line">  --timefmt <span class="symbol">&lt;f&gt;</span> <span class="keyword">Print</span> <span class="built_in">and</span> format time according <span class="keyword">to</span> the format <span class="symbol">&lt;f&gt;</span>.</span><br><span class="line">  -<span class="keyword">o</span> filename   Output <span class="keyword">to</span> <span class="keyword">file</span> instead of stdout.</span><br><span class="line">  -------- File <span class="keyword">options</span> ---------</span><br><span class="line">  -q            <span class="keyword">Print</span> non-printable characters <span class="keyword">as</span> <span class="string">&#x27;?&#x27;</span>.</span><br><span class="line">  -<span class="keyword">N</span>            <span class="keyword">Print</span> non-printable characters <span class="keyword">as</span> <span class="keyword">is</span>.</span><br><span class="line">  -Q            Quote filenames with double quotes.</span><br><span class="line">  -<span class="keyword">p</span>            <span class="keyword">Print</span> the protections <span class="keyword">for</span> each <span class="keyword">file</span>.</span><br><span class="line">  -<span class="keyword">u</span>            Displays <span class="keyword">file</span> owner <span class="built_in">or</span> UID <span class="keyword">number</span>.</span><br><span class="line">  -g            Displays <span class="keyword">file</span> group owner <span class="built_in">or</span> GID <span class="keyword">number</span>.</span><br><span class="line">  -s            <span class="keyword">Print</span> the size in bytes of each <span class="keyword">file</span>.</span><br><span class="line">  -h            <span class="keyword">Print</span> the size in <span class="keyword">a</span> more human readable way.</span><br><span class="line">  --si          Like -h, but use in SI units (powers of <span class="number">1000</span>).</span><br><span class="line">  -D            <span class="keyword">Print</span> the date of <span class="keyword">last</span> modification <span class="built_in">or</span> (-<span class="keyword">c</span>) status <span class="keyword">change</span>.</span><br><span class="line">  -F            Appends <span class="string">&#x27;/&#x27;</span>, <span class="string">&#x27;=&#x27;</span>, <span class="string">&#x27;*&#x27;</span>, <span class="string">&#x27;@&#x27;</span>, <span class="string">&#x27;|&#x27;</span> <span class="built_in">or</span> <span class="string">&#x27;&gt;&#x27;</span> <span class="keyword">as</span> per <span class="keyword">ls</span> -F.</span><br><span class="line">  --inodes      <span class="keyword">Print</span> inode <span class="keyword">number</span> of each <span class="keyword">file</span>.</span><br><span class="line">  --device      <span class="keyword">Print</span> device ID <span class="keyword">number</span> <span class="keyword">to</span> which each <span class="keyword">file</span> belongs.</span><br><span class="line">  ------- Sorting <span class="keyword">options</span> -------</span><br><span class="line">  -v            Sort <span class="keyword">files</span> alphanumerically by <span class="keyword">version</span>.</span><br><span class="line">  -t            Sort <span class="keyword">files</span> by <span class="keyword">last</span> modification time.</span><br><span class="line">  -<span class="keyword">c</span>            Sort <span class="keyword">files</span> by <span class="keyword">last</span> status <span class="keyword">change</span> time.</span><br><span class="line">  -U            Leave <span class="keyword">files</span> unsorted.</span><br><span class="line">  -r            Reverse the order of the <span class="keyword">sort</span>.</span><br><span class="line">  --dirsfirst   List directories before <span class="keyword">files</span> (-U disables).</span><br><span class="line">  --<span class="keyword">sort</span> <span class="keyword">X</span>      Select <span class="keyword">sort</span>: name,<span class="keyword">version</span>,size,mtime,ctime.</span><br><span class="line">  ------- Graphics <span class="keyword">options</span> ------</span><br><span class="line">  -i            Don<span class="string">&#x27;t print indentation lines.</span></span><br><span class="line"><span class="string">  -A            Print ANSI lines graphic indentation lines.</span></span><br><span class="line"><span class="string">  -S            Print with CP437 (console) graphics indentation lines.</span></span><br><span class="line"><span class="string">  -n            Turn colorization off always (-C overrides).</span></span><br><span class="line"><span class="string">  -C            Turn colorization on always.</span></span><br><span class="line"><span class="string">  ------- XML/HTML/JSON options -------</span></span><br><span class="line"><span class="string">  -X            Prints out an XML representation of the tree.</span></span><br><span class="line"><span class="string">  -J            Prints out an JSON representation of the tree.</span></span><br><span class="line"><span class="string">  -H baseHREF   Prints out HTML format with baseHREF as top directory.</span></span><br><span class="line"><span class="string">  -T string     Replace the default HTML title and H1 header with string.</span></span><br><span class="line"><span class="string">  --nolinks     Turn off hyperlinks in HTML output.</span></span><br><span class="line"><span class="string">  ---- Miscellaneous options ----</span></span><br><span class="line"><span class="string">  --version     Print version and exit.</span></span><br><span class="line"><span class="string">  --help        Print usage and this help message and exit.</span></span><br><span class="line"><span class="string">  --            Options processing terminator.</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure>
 
-<h3 id="3-输出你的树层目录结构"><a href="#3-输出你的树层目录结构" class="headerlink" title="3. 输出你的树层目录结构"></a>3. 输出你的树层目录结构</h3><ol>
-<li><p>cd 目标文件夹路径</p>
-</li>
-<li><p>然后 tree 一下，会将该层级下所有文件都遍历了输出，不管层级多深</p>
-<p><img data-src="//upload-images.jianshu.io/upload_images/748014-945fd58fe00c93e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="image"></p>
-</li>
-</ol>
-<h3 id="4-常用技巧"><a href="#4-常用技巧" class="headerlink" title="4. 常用技巧"></a>4. 常用技巧</h3><ol>
-<li>我们可以在目录遍历时使用 -L 参数指定遍历层级</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tree -L 2</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>输出你的树层目录结构</p>
+<p>进入目标文件夹路径。然后 <code>tree</code> 一下，会将该层级下所有文件都遍历了输出，不管层级多深</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> folder</span><br><span class="line">tree</span><br></pre></td></tr></table></figure>
 
-<ol start="2">
-<li>如果你想把一个目录的结构树导出到文件 Readme.md ,可以这样操作</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tree -L 2 &gt;README.md //然后我们看下当前目录下的 README.md 文件</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>  <img data-src="//upload-images.jianshu.io/upload_images/748014-945fd58fe00c93e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="image"></p>
+<h2 id="常用技巧"><a href="#常用技巧" class="headerlink" title="常用技巧"></a>常用技巧</h2><p>我们可以在目录遍历时使用 -L 参数指定遍历层级</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tree -L 2</span><br></pre></td></tr></table></figure>
 
-<ol start="3">
-<li>只显示文件夹；</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tree -d </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>如果你想把一个目录的结构树导出到文件 Readme.md ,可以这样操作</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tree -L 2 &gt;README.md //然后我们看下当前目录下的 README.md 文件</span><br></pre></td></tr></table></figure>
 
-<ol start="4">
-<li>显示项目的层级，n表示层级数。例：显示项目三层结构，tree -l 3；</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tree -L n </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>只显示文件夹；</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tree -d </span><br></pre></td></tr></table></figure>
 
-<ol start="5">
-<li>tree -I pattern 用于过滤不想要显示的文件或者文件夹。比如要过滤项目中的node_modules文件夹；</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tree -I “node_modules”</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>显示项目的层级，n表示层级数。例：显示项目三层结构，tree -l 3；</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tree -L n </span><br></pre></td></tr></table></figure>
+
+<p><code>tree -I pattern</code> 用于过滤不想要显示的文件或者文件夹。比如要过滤项目中的node_modules文件夹；</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tree -I “node_modules”</span><br></pre></td></tr></table></figure>
+
     </div>
 
     
     
-    
+    <div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
         <div class="reward-container">
   <div></div>
   <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
@@ -462,7 +475,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80-%E4%BD%BF%E7%94%A8%E5%91%BD%E4%BB%A4%E7%BB%84%E5%90%88"><span class="nav-text">方法一 使用命令组合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C-%E4%B8%8B%E8%BD%BD%E5%91%BD%E4%BB%A4tree"><span class="nav-text">方法二 下载命令tree</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-mac-%E4%B8%8B%E4%BD%BF%E7%94%A8-brew%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85-tree"><span class="nav-text">1. mac 下使用 brew包管理工具安装 tree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F%E5%90%8E%EF%BC%8C%E7%9B%B4%E6%8E%A5%E5%9C%A8%E7%BB%88%E7%AB%AF%E4%BD%BF%E7%94%A8%EF%BC%8C%E4%BD%BF%E7%94%A8-%E2%80%93help-%E6%9F%A5%E7%9C%8B%E5%B8%AE%E5%8A%A9%E4%BF%A1%E6%81%AF"><span class="nav-text">2. 安装成功后，直接在终端使用，使用 –help 查看帮助信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E8%BE%93%E5%87%BA%E4%BD%A0%E7%9A%84%E6%A0%91%E5%B1%82%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-text">3. 输出你的树层目录结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%B8%B8%E7%94%A8%E6%8A%80%E5%B7%A7"><span class="nav-text">4. 常用技巧</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80-%E4%BD%BF%E7%94%A8%E5%91%BD%E4%BB%A4%E7%BB%84%E5%90%88"><span class="nav-text">方法一 使用命令组合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C-%E4%B8%8B%E8%BD%BD%E5%91%BD%E4%BB%A4tree"><span class="nav-text">方法二 下载命令tree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E6%8A%80%E5%B7%A7"><span class="nav-text">常用技巧</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -476,20 +489,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">278</span>
+          <span class="site-state-item-count">282</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-count">65</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -541,7 +554,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -551,13 +564,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">796k</span>
+    <span title="站点总字数">922k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:04</span>
+    <span title="站点阅读时长">13:59</span>
 </div>
 
         
@@ -737,6 +750,15 @@ window.addEventListener('pjax:success', () => {
       });
   </script>
 
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "box";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "bottomCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
     </div>
 </body>
 </html>

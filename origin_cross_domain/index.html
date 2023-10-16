@@ -20,18 +20,18 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="什么是同源策略理解跨域首先必须要了解同源策略。同源策略是浏览器上为安全性考虑实施的非常重要的安全策略。 何谓同源:URL由协议、域名、端口和路径组成，如果两个URL的协议、域名和端口相同，则表示他们同源。 同源策略:浏览器的同源策略，限制了来自不同源的”document”或脚本，对当前”document”读取或设置某些属性。从一个域上加载的脚本不允许访问另外一个域的文档属性。 举个例子：比如一个恶">
+  <meta name="description" content="什么是同源策略理解跨域首先必须要了解同源策略。同源策略是浏览器上为安全性考虑实施的非常重要的安全策略。 何谓同源:URL由协议、域名、端口和路径组成，如果两个URL的协议、域名和端口相同，则表示他们同源。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="同源策略和跨域访问">
 <meta property="og:url" content="https://yaozihao.com/origin_cross_domain/index.html">
 <meta property="og:site_name" content="Zihao">
-<meta property="og:description" content="什么是同源策略理解跨域首先必须要了解同源策略。同源策略是浏览器上为安全性考虑实施的非常重要的安全策略。 何谓同源:URL由协议、域名、端口和路径组成，如果两个URL的协议、域名和端口相同，则表示他们同源。 同源策略:浏览器的同源策略，限制了来自不同源的”document”或脚本，对当前”document”读取或设置某些属性。从一个域上加载的脚本不允许访问另外一个域的文档属性。 举个例子：比如一个恶">
+<meta property="og:description" content="什么是同源策略理解跨域首先必须要了解同源策略。同源策略是浏览器上为安全性考虑实施的非常重要的安全策略。 何谓同源:URL由协议、域名、端口和路径组成，如果两个URL的协议、域名和端口相同，则表示他们同源。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2017-02-20T16:21:37.000Z">
-<meta property="article:modified_time" content="2022-11-24T05:24:10.279Z">
+<meta property="article:modified_time" content="2022-12-01T08:09:55.255Z">
 <meta property="article:author" content="Zihao Yao">
 <meta property="article:tag" content="PHP, JS, Python, Go, Bitcoin, BlockChain, Quantification, Full stack.">
 <meta name="twitter:card" content="summary">
@@ -48,7 +48,20 @@
     lang   : 'zh-CN'
   };
 </script>
-<script async src="/lib/fireworks.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style><script async src="/lib/fireworks.js"></script>
   <title>同源策略和跨域访问 | Zihao</title>
   
 
@@ -126,17 +139,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">64</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">65</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">19</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">278</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">282</span></a>
 
   </li>
         <li class="menu-item menu-item-about">
@@ -232,7 +245,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-24 05:24:10" itemprop="dateModified" datetime="2022-11-24T05:24:10Z">2022-11-24</time>
+                <time title="修改时间：2022-12-01 08:09:55" itemprop="dateModified" datetime="2022-12-01T08:09:55Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -261,7 +274,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>7.5k</span>
+              <span>7.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -282,30 +295,34 @@
       
         <h2 id="什么是同源策略"><a href="#什么是同源策略" class="headerlink" title="什么是同源策略"></a>什么是同源策略</h2><p>理解跨域首先必须要了解同源策略。同源策略是浏览器上为安全性考虑实施的非常重要的安全策略。</p>
 <h3 id="何谓同源"><a href="#何谓同源" class="headerlink" title="何谓同源:"></a>何谓同源:</h3><p>URL由协议、域名、端口和路径组成，如果两个URL的协议、域名和端口相同，则表示他们同源。</p>
-<h3 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略:"></a>同源策略:</h3><p>浏览器的同源策略，限制了来自不同源的”document”或脚本，对当前”document”读取或设置某些属性。<br>从一个域上加载的脚本不允许访问另外一个域的文档属性。</p>
+<span id="more"></span>
+
+<h3 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略:"></a>同源策略:</h3><p>浏览器的同源策略，限制了来自不同源的“document”或脚本，对当前“document”读取或设置某些属性。<br>从一个域上加载的脚本不允许访问另外一个域的文档属性。</p>
 <p>举个例子：<br>比如一个恶意网站的页面通过iframe嵌入了银行的登录页面（二者不同源），如果没有同源限制，恶意网页上的javascript脚本就可以在用户登录银行的时候获取用户名和密码。</p>
 <p>在浏览器中，<code>&lt;script&gt;、&lt;img&gt;、&lt;iframe&gt;、&lt;link&gt;</code>等标签都可以加载跨域资源，而不受同源限制，但浏览器限制了JavaScript的权限使其不能读、写加载的内容。<br>另外同源策略只对网页的HTML文档做了限制，对加载的其他静态资源如javascript、css、图片等仍然认为属于同源。</p>
 <p>代码示例（<span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgwLyVFNSU5MiU4Q2h0dHA6Ly9sb2NhbGhvc3Q6ODA4MSVFNyU5NCVCMSVFNCVCQSU4RSVFNyVBQiVBRiVFNSU4RiVBMyVFNCVCOCU4RCVFNSU5MCU4QyVFOCU4MCU4QyVFNCVCOCU4RCVFNSU5MCU4QyVFNiVCQSU5MCVFRiVCQyU4OSVFRiVCQyU5QQ==">http://localhost:8080/和http://localhost:8081由于端口不同而不同源）：<i class="fa fa-external-link-alt"></i></span><br><span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgwL3Rlc3QuaHRtbA==">http://localhost:8080/test.html<i class="fa fa-external-link-alt"></i></span></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;&lt;title&gt;test same origin policy&lt;/title&gt;&lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;iframe id=“test” src=“http://localhost:8081/test2.html”&gt;&lt;/iframe&gt;</span><br><span class="line">        &lt;script type=“text/javascript”&gt;</span><br><span class="line">            document.getElementById(“test”).contentDocument.body.innerHTML = “write somthing”;</span><br><span class="line">        &lt;/script&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;&lt;title&gt;test same origin policy&lt;/title&gt;&lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;iframe id=&quot;test&quot; src=&quot;http://localhost:8081/test2.html&quot;&gt;&lt;/iframe&gt;</span><br><span class="line">        &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">            document.getElementById(&quot;test&quot;).contentDocument.body.innerHTML = ‘write somthing‘;</span><br><span class="line">        &lt;/script&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 
 <p><span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgxL3Rlc3QyLmh0bWw=">http://localhost:8081/test2.html<i class="fa fa-external-link-alt"></i></span></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;&lt;title&gt;test same origin policy&lt;/title&gt;&lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        Testing.</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span><span class="tag">&lt;<span class="name">title</span>&gt;</span>test same origin policy<span class="tag">&lt;/<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        Testing.</span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>在Firefox中会得到如下错误：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Error: Permission denied to access property ‘body’</span><br></pre></td></tr></table></figure>
-
-<p>Document对象的domain属性存放着装载文档的服务器的主机名，可以设置它。<br>例如来自”blog.csdn.net”和来自”bbs.csdn.net”的页面，都将document.domain设置为”csdn.net”，则来自两个子域名的脚本即可相互访问。<br>出于安全的考虑，不能设置为其他主domain，比如 <span class="exturl" data-url="aHR0cDovL3d3dy5jc2RuLm5ldC8=">http://www.csdn.net/<i class="fa fa-external-link-alt"></i></span> 不能设置为sina.com</p>
+<p><code>Error: Permission denied to access property &#39;body&#39;</code></p>
+<p>Document对象的domain属性存放着装载文档的服务器的主机名，可以设置它。<br>例如来自“blog.csdn.net”和来自“bbs.csdn.net”的页面，都将document.domain设置为“csdn.net”，则来自两个子域名的脚本即可相互访问。<br>出于安全的考虑，不能设置为其他主domain，比如 <span class="exturl" data-url="aHR0cDovL3d3dy5jc2RuLm5ldC8=">http://www.csdn.net/<i class="fa fa-external-link-alt"></i></span> 不能设置为sina.com</p>
 <h2 id="Ajax跨域"><a href="#Ajax跨域" class="headerlink" title="Ajax跨域"></a>Ajax跨域</h2><p>Ajax (XMLHttpRequest)请求受到同源策略的限制。<br>Ajax通过XMLHttpRequest能够与远程的服务器进行信息交互，另外XMLHttpRequest是一个纯粹的javascript对象，这样的交互过程，是在后台进行的，用户不易察觉。<br>因此，XMLHTTP实际上已经突破了原有的javascript的安全限制。</p>
 <p>举个例子：</p>
 <p>假设某网站引用了其它站点的javascript，这个站点被compromise并在javascript中加入获取用户输入并通过ajax提交给其他站点，这样就可以源源不断收集信息。<br>或者某网站因为存在漏洞导致XSS注入了javascript脚本，这个脚本就可以通过ajax获取用户信息并通过ajax提交给其他站点，这样就可以源源不断收集信息。<br>如果我们又想利用XMLHTTP的无刷新异步交互能力，又不愿意公然突破javascript的安全策略，可以选择的方案就是给XMLHTTP加上严格的同源限制。<br>这样的安全策略，很类似于Applet的安全策略。IFrame的限制还仅仅是不能访问跨域HTMLDOM中的数据，而XMLHTTP则根本上限制了跨域请求的提交。（实际上下面提到了CORS已经放宽了限制）</p>
 <p>随着Ajax技术和网络服务的发展，对跨域的要求也越来越强烈。下面介绍Ajax的跨域技术。</p>
 <h3 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h3><p>JSONP技术实际和Ajax没有关系。我们知道<code>&lt;script&gt;</code>标签可以加载跨域的javascript脚本，并且被加载的脚本和当前文档属于同一个域。因此在文档中可以调用&#x2F;访问脚本中的数据和函数。如果javascript脚本中的数据是动态生成的，那么只要在文档中动态创建<code>&lt;script&gt;</code>标签就可以实现和服务端的数据交互。<br>JSONP就是利用<code>&lt;script&gt;</code>标签的跨域能力实现跨域数据的访问，请求动态生成的JavaScript脚本同时带一个callback函数名作为参数。其中callback函数本地文档的JavaScript函数，服务器端动态生成的脚本会产生数据，并在代码中以产生的数据为参数调用callback函数。当这段脚本加载到本地文档时，callback函数就被调用。</p>
 <p>第一个站点的测试页面（<span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgwL3Rlc3QuaHRtbCVFRiVCQyU4OSVFRiVCQyU5QQ==">http://localhost:8080/test.html）：<i class="fa fa-external-link-alt"></i></span></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=“http://localhost:8081/test_data.js”&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        function test_handler(data) &#123;</span><br><span class="line">            console.log(data);</span><br><span class="line">        &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">&quot;http://localhost:8081/test_data.js&quot;</span>&gt;</span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">test_handler</span>(<span class="params">data</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(data);</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
 <p>服务器端的javascript脚本（<span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgxL3Rlc3RfZGF0YS5qcyVFRiVCQyU4OSVFRiVCQyU5QQ==">http://localhost:8081/test_data.js）：<i class="fa fa-external-link-alt"></i></span></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">test_handler(‘&#123;“data”: “something”&#125;’);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">test_handler</span>(<span class="string">&#x27;&#123;&quot;data&quot;: &quot;something&quot;&#125;&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
 <p>为了动态实现JSONP请求，可以使用javascript动态插入<code>&lt;script&gt;</code>标签：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=“text/javascript”&gt;</span><br><span class="line">        // this shows dynamic script insertion</span><br><span class="line">        var script = document.createElement(‘script’);</span><br><span class="line">        script.setAttribute(‘src’, url);</span><br><span class="line">        // load the script</span><br><span class="line">        document.getElementsByTagName(‘head’)[0].appendChild(script);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="line">        <span class="comment">// this shows dynamic script insertion</span></span><br><span class="line">        <span class="keyword">var</span> script = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;script&#x27;</span>);</span><br><span class="line">        script.<span class="title function_">setAttribute</span>(<span class="string">&#x27;src&#x27;</span>, url);</span><br><span class="line">        <span class="comment">// load the script</span></span><br><span class="line">        <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&#x27;head&#x27;</span>)[<span class="number">0</span>].<span class="title function_">appendChild</span>(script);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
 <p>JSONP协议封装了上述步骤，jQuery中统一是现在AJAX中(其中data type为JSONP)：<br><span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgwL3Rlc3Q/Y2FsbGJhY2s9dGVzdF9oYW5kbGVy">http://localhost:8080/test?callback=test_handler<i class="fa fa-external-link-alt"></i></span></p>
 <p>为了支持JSONP协议，服务器端必须提供特别的支持，另外JSONP只支持GET请求。</p>
 <h3 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h3><p>使用代理方式跨域更加直接，因为SOP的限制是浏览器实现的。如果请求不是从浏览器发起的，就不存在跨域问题了。<br>使用本方法跨域步骤如下：</p>
@@ -313,8 +330,8 @@
 <li>把访问其它域的请求替换为本域的请求</li>
 <li>本域的请求是服务器端的动态脚本负责转发实际的请求</li>
 </ol>
-<p>各种服务器的Reverse Proxy功能都可以非常方便的实现请求的转发，如Apache httpd + mod_proxy。<br>Eg.<br>为了通过Ajax从 <span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgwLw==">http://localhost:8080<i class="fa fa-external-link-alt"></i></span> 访问 <span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgxL2FwaQ==">http://localhost:8081/api<i class="fa fa-external-link-alt"></i></span> ，可以将请求发往 <span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgwL2FwaQ==">http://localhost:8080/api<i class="fa fa-external-link-alt"></i></span> 。<br>然后利用Apache Web服务器的Reverse Proxy功能做如下配置：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ProxyPass /api http://localhost:8081/api</span><br></pre></td></tr></table></figure>
+<p>各种服务器的Reverse Proxy功能都可以非常方便的实现请求的转发，如Apache httpd + mod_proxy。<br>Eg.<br>为了通过Ajax从<code>http://localhost:8080</code>访问 <code>http://localhost:8081/api</code>，可以将请求发往 <span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgwL2FwaQ==">http://localhost:8080/api<i class="fa fa-external-link-alt"></i></span> 。<br>然后利用Apache Web服务器的Reverse Proxy功能做如下配置：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ProxyPass /api http://localhost:8081/api</span><br></pre></td></tr></table></figure>
 
 <h3 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h3><p>Cross origin resource sharing</p>
 <blockquote>
@@ -322,7 +339,8 @@
 </blockquote>
 <p>通过在HTTP Header中加入扩展字段，服务器在相应网页头部加入字段表示允许访问的domain和HTTP method，客户端检查自己的域是否在允许列表中，决定是否处理响应。<br>实现的基础是JavaScript不能够操作HTTP Header。某些浏览器插件实际上是具有这个能力的。</p>
 <p>服务器端在HTTP的响应头中加入（页面层次的控制模式）：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin: example.com</span><br><span class="line">Access-Control-Request-Method: GET, POST</span><br><span class="line">Access-Control-Allow-Headers: Content-Type, Authorization, Accept, Range, Origin</span><br><span class="line">Access-Control-Expose-Headers: Content-Range</span><br><span class="line">Access-Control-Max-Age: 3600</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin: example.com</span><br><span class="line">Access-Control-Request-Method: GET, POST</span><br><span class="line">Access-Control-Allow-Headers: Content-Type, Authorization, Accept, Range, Origin</span><br><span class="line">Access-Control-Expose-Headers: Content-Range</span><br><span class="line">Access-Control-Max-Age: 3600</span><br></pre></td></tr></table></figure>
+
 <p>多个域名之间用逗号分隔，表示对所示域名提供跨域访问权限。<code>*</code>表示允许所有域名的跨域访问。</p>
 <p>客户端可以有两种行为：</p>
 <ol>
@@ -338,30 +356,32 @@
 <li>Opera 不支持</li>
 </ul>
 <h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p>测试页面 <span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgwL3Rlc3QzLmh0bWw=">http://localhost:8080/test3.html<i class="fa fa-external-link-alt"></i></span> 使用<code>jquery</code>发送Ajax请求。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">        &lt;head&gt;&lt;title&gt;testing cross sop&lt;/title&gt;&lt;/head&gt;</span><br><span class="line">        &lt;body&gt;</span><br><span class="line">            Testing.</span><br><span class="line">            &lt;script src=“jquery-2.0.0.min.js”&gt;&lt;/script&gt;</span><br><span class="line">            &lt;script type=‘text/javascript’&gt;</span><br><span class="line">                $.ajax(&#123;</span><br><span class="line">                    url: ‘http://localhost:8000/hello’,</span><br><span class="line">                    success: function(data) &#123;</span><br><span class="line">                        alert(data);</span><br><span class="line">                    &#125;,</span><br><span class="line">                    error: function() &#123;</span><br><span class="line">                        alert(‘error’);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &lt;/script&gt;</span><br><span class="line">        &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span><span class="tag">&lt;<span class="name">title</span>&gt;</span>testing cross sop<span class="tag">&lt;/<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        Testing.</span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;jquery-2.0.0.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&#x27;text/javascript&#x27;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">            $.<span class="title function_">ajax</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="attr">url</span>: <span class="string">&#x27;http://localhost:8000/hello&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">                <span class="attr">success</span>: <span class="keyword">function</span>(<span class="params">data</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">                    <span class="title function_">alert</span>(data);</span></span><br><span class="line"><span class="language-javascript">                &#125;,</span></span><br><span class="line"><span class="language-javascript">                <span class="attr">error</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">                    <span class="title function_">alert</span>(<span class="string">&#x27;error&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">                &#125;</span></span><br><span class="line"><span class="language-javascript">            &#125;);</span></span><br><span class="line"><span class="language-javascript">        </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p>测试Restful API(<span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDAwL2hlbGxvLyU3Qm5hbWUlN0Q=">http://localhost:8000/hello/{name}<i class="fa fa-external-link-alt"></i></span>) 使用<code>bottle.py</code>来host。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from bottle import route, run, response</span><br><span class="line">@route(‘/hello’)</span><br><span class="line">def index():</span><br><span class="line">return ‘Hello World.’</span><br><span class="line">run(host=’localhost’, port=8000)</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> bottle <span class="keyword">import</span> route, run, response</span><br><span class="line">@<span class="title function_">route</span>(<span class="string">&#x27;/hello&#x27;</span>)</span><br><span class="line">def <span class="title function_">index</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Hello World.&#x27;</span></span><br><span class="line"><span class="title function_">run</span>(host=<span class="string">&#x27;localhost&#x27;</span>, port=<span class="number">8000</span>)</span><br></pre></td></tr></table></figure>
 
 <h4 id="测试1："><a href="#测试1：" class="headerlink" title="测试1："></a>测试1：</h4><p>测试正常的跨域请求的行为。</p>
 <p>测试结果：</p>
 <ol>
-<li>跨域GET请求已经发出，请求header中带有<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Origin    http://localhost:8080</span><br></pre></td></tr></table></figure></li>
+<li>跨域GET请求已经发出，请求header中带有 <code>Origin    http://localhost:8080</code></li>
 <li>服务器端正确给出response</li>
 <li>javascript拒绝读取数据，在firebug中发现reponse为空，并且触发error回调</li>
 </ol>
 <h4 id="测试2："><a href="#测试2：" class="headerlink" title="测试2："></a>测试2：</h4><p>测试支持CORS的服务器的跨域请求行为。<br>对Restful API做如下改动，在response中加入header：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def index():</span><br><span class="line">#Add CORS header#</span><br><span class="line">response.set_header(“Access-Control-Allow-Origin”, “http://localhost:8080”)</span><br><span class="line">return ‘Hello World.’</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def <span class="title function_">index</span>():</span><br><span class="line">    #<span class="title class_">Add</span> <span class="variable constant_">CORS</span> header#</span><br><span class="line">    response.<span class="title function_">set_header</span>(<span class="string">&quot;Access-Control-Allow-Origin&quot;</span>, <span class="string">&quot;http://localhost:8080&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Hello World.&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <p>测试结果：</p>
 <ol>
-<li>跨域GET请求已经发出，请求header中带有<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Origin    http://localhost:8080</span><br></pre></td></tr></table></figure></li>
+<li>跨域GET请求已经发出，请求header中带有<br><code>Origin    http://localhost:8080</code></li>
 <li>服务器端正确给出response</li>
 <li>客户端正常获取数据</li>
 </ol>
 <h4 id="测试3："><a href="#测试3：" class="headerlink" title="测试3："></a>测试3：</h4><p>测试OPTIONS请求获取CORS信息。<br>对客户端的Ajax请求增加header：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">          url: ‘http://localhost:8000/hello’,</span><br><span class="line">          headers: &#123;‘Content-Type’: ‘text/html’&#125;,</span><br><span class="line">          success: function(data) &#123;</span><br><span class="line">              alert(data);</span><br><span class="line">          &#125;,</span><br><span class="line">          error: function() &#123;</span><br><span class="line">              alert(‘error’);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$.<span class="title function_">ajax</span>(&#123;</span><br><span class="line">          <span class="attr">url</span>: <span class="string">&#x27;http://localhost:8000/hello&#x27;</span>,</span><br><span class="line">          <span class="attr">headers</span>: &#123;<span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;text/html&#x27;</span>&#125;,</span><br><span class="line">          <span class="attr">success</span>: <span class="keyword">function</span>(<span class="params">data</span>) &#123;</span><br><span class="line">              <span class="title function_">alert</span>(data);</span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="attr">error</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">              <span class="title function_">alert</span>(<span class="string">&#x27;error&#x27;</span>);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;);</span><br></pre></td></tr></table></figure>
+
 <p>对Restful API做如下改动：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@route(‘/hello’, method = [‘OPTIONS’, ‘GET’])</span><br><span class="line">def index():</span><br><span class="line">if request.method == ‘OPTIONS’:</span><br><span class="line">return ”</span><br><span class="line">return ‘Hello World.’</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@<span class="title function_">route</span>(<span class="string">&#x27;/hello&#x27;</span>, method = [<span class="string">&#x27;OPTIONS&#x27;</span>, <span class="string">&#x27;GET&#x27;</span>])</span><br><span class="line">def <span class="title function_">index</span>():</span><br><span class="line">    <span class="keyword">if</span> request.<span class="property">method</span> == <span class="string">&#x27;OPTIONS&#x27;</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Hello World.&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <p>测试结果：</p>
 <ol>
@@ -370,7 +390,7 @@
 <li>客户端发现没有CORS header后不会发送GET请求</li>
 </ol>
 <h4 id="测试4："><a href="#测试4：" class="headerlink" title="测试4："></a>测试4：</h4><p>增加服务器端对OPTIONS方法的处理。<br>对Restful API做如下改动：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@route(‘/hello’, method = [‘OPTIONS’, ‘GET’])</span><br><span class="line">def index():</span><br><span class="line">response.headers[‘Access-Control-Allow-Origin’] = ‘http://localhost:8080’</span><br><span class="line">response.headers[‘Access-Control-Allow-Methods’] = ‘GET, OPTIONS’</span><br><span class="line">response.headers[‘Access-Control-Allow-Headers’] = ‘Origin, Accept, Content-Type’</span><br><span class="line">if request.method == ‘OPTIONS’:</span><br><span class="line">return ”</span><br><span class="line">return ‘Hello World.’</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@<span class="title function_">route</span>(<span class="string">&#x27;/hello&#x27;</span>, method = [<span class="string">&#x27;OPTIONS&#x27;</span>, <span class="string">&#x27;GET&#x27;</span>])</span><br><span class="line">def <span class="title function_">index</span>():</span><br><span class="line">    response.<span class="property">headers</span>[<span class="string">&#x27;Access-Control-Allow-Origin&#x27;</span>] = <span class="string">&#x27;http://localhost:8080&#x27;</span></span><br><span class="line">    response.<span class="property">headers</span>[<span class="string">&#x27;Access-Control-Allow-Methods&#x27;</span>] = <span class="string">&#x27;GET, OPTIONS&#x27;</span></span><br><span class="line">    response.<span class="property">headers</span>[<span class="string">&#x27;Access-Control-Allow-Headers&#x27;</span>] = <span class="string">&#x27;Origin, Accept, Content-Type&#x27;</span></span><br><span class="line">    <span class="keyword">if</span> request.<span class="property">method</span> == <span class="string">&#x27;OPTIONS&#x27;</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Hello World.&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <p>测试结果：</p>
 <ol>
@@ -379,9 +399,9 @@
 <li>客户端匹配CORS header中的allow headers and orgin后会正确发送GET请求并获取结果<br>测试发现，<code>Access-Control-Allow-Headers</code>是必须的。</li>
 </ol>
 <p>CORS协议提升了Ajax的跨域能力，但也增加了风险。一旦网站被注入脚本或XSS攻击，将非常方便的获取用户信息并悄悄传递出去。</p>
-<h2 id="Cookie-同源策略"><a href="#Cookie-同源策略" class="headerlink" title="Cookie 同源策略"></a>Cookie 同源策略</h2><p>Cookie中的同源只关注域名，忽略协议和端口。所以 <span class="exturl" data-url="aHR0cHM6Ly9sb2NhbGhvc3Q6ODA4MC8=">https://localhost:8080/<i class="fa fa-external-link-alt"></i></span> 和 <span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgxLw==">http://localhost:8081/<i class="fa fa-external-link-alt"></i></span> 的Cookie是共享的。</p>
+<h2 id="Cookie-同源策略"><a href="#Cookie-同源策略" class="headerlink" title="Cookie 同源策略"></a>Cookie 同源策略</h2><p>Cookie中的同源只关注域名，忽略协议和端口。所以 <code>https://localhost:8080/</code> 和 <code>http://localhost:8081/</code> 的Cookie是共享的。</p>
 <h2 id="Flash-x2F-SilverLight跨域"><a href="#Flash-x2F-SilverLight跨域" class="headerlink" title="Flash&#x2F;SilverLight跨域"></a>Flash&#x2F;SilverLight跨域</h2><p>浏览器的各种插件也存在跨域需求。通常是通过在服务器配置<code>crossdomain.xml</code>，设置本服务允许哪些域名的跨域访问。<br>客户端会首先请求此文件，如果发现自己的域名在访问列表里，就发起真正的请求，否则不发送请求。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=”1.0″?&gt;</span><br><span class="line">&lt;!DOCTYPE cross-domain-policy SYSTEM “http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd”&gt;</span><br><span class="line">&lt;cross-domain-policy&gt;</span><br><span class="line">&lt;allow-access-from domain=”*”/&gt;</span><br><span class="line">&lt;allow-http-request-headers-from domain=”*” headers=”*”/&gt;</span><br><span class="line">&lt;/cross-domain-policy&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">cross-domain-policy</span> <span class="keyword">SYSTEM</span> <span class="string">&quot;http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">cross-domain-policy</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">allow-access-from</span> <span class="attr">domain</span>=<span class="string">&quot;*&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">allow-http-request-headers-from</span> <span class="attr">domain</span>=<span class="string">&quot;*&quot;</span> <span class="attr">headers</span>=<span class="string">&quot;*&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">cross-domain-policy</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>通常<code>crossdomain.xml</code>放置在网站根目录。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>互联网的发展催生了跨域访问的需求，各种跨域方法和协议满足了需求但也增加了各种风险。尤其是XSS和CSRF等攻击的盛行也得益于此。<br>了解这些技术背景有助于在实际项目中熟练应用并规避各种安全风险。</p>
@@ -391,7 +411,13 @@
 
     
     
-    
+    <div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
         <div class="reward-container">
   <div></div>
   <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
@@ -541,20 +567,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">278</span>
+          <span class="site-state-item-count">282</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-count">65</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -606,7 +632,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -616,13 +642,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">796k</span>
+    <span title="站点总字数">922k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:04</span>
+    <span title="站点阅读时长">13:59</span>
 </div>
 
         
@@ -802,6 +828,15 @@ window.addEventListener('pjax:success', () => {
       });
   </script>
 
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "box";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "bottomCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
     </div>
 </body>
 </html>

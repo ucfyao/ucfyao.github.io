@@ -20,7 +20,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
   <meta name="description" content="统计某人的代码提交量，包括增加，删除： 1git log –author&#x3D;”$(git config –get user.name)” –pretty&#x3D;tformat: –numstat | gawk &amp;#x27;&amp;#123; add +&#x3D; $1 ; subs +&#x3D; $2 ; loc +&#x3D; $1 - $2 &amp;#125; END &amp;#123; printf ”added lines: %s remo">
@@ -31,7 +31,7 @@
 <meta property="og:description" content="统计某人的代码提交量，包括增加，删除： 1git log –author&#x3D;”$(git config –get user.name)” –pretty&#x3D;tformat: –numstat | gawk &amp;#x27;&amp;#123; add +&#x3D; $1 ; subs +&#x3D; $2 ; loc +&#x3D; $1 - $2 &amp;#125; END &amp;#123; printf ”added lines: %s remo">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2016-02-29T19:12:06.000Z">
-<meta property="article:modified_time" content="2022-11-24T05:24:10.394Z">
+<meta property="article:modified_time" content="2022-11-29T23:59:28.326Z">
 <meta property="article:author" content="Zihao Yao">
 <meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary">
@@ -48,7 +48,20 @@
     lang   : 'zh-CN'
   };
 </script>
-<script async src="/lib/fireworks.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style><script async src="/lib/fireworks.js"></script>
   <title>Git代码行统计命令集 | Zihao</title>
   
 
@@ -126,17 +139,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">64</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">65</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">19</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">278</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">282</span></a>
 
   </li>
         <li class="menu-item menu-item-about">
@@ -232,7 +245,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-24 05:24:10" itemprop="dateModified" datetime="2022-11-24T05:24:10Z">2022-11-24</time>
+                <time title="修改时间：2022-11-29 23:59:28" itemprop="dateModified" datetime="2022-11-29T23:59:28Z">2022-11-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -277,34 +290,52 @@
 
       
         <p>统计某人的代码提交量，包括增加，删除：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log –author=”$(git config –get user.name)” –pretty=tformat: –numstat | gawk &#x27;&#123; add += $1 ; subs += $2 ; loc += $1 - $2 &#125; END &#123; printf ”added lines: %s removed lines : %s total lines: %s\n”,add,subs,loc &#125;’  -</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> –author=”$(git config –get user.name)” –pretty=tformat: –numstat | gawk <span class="string">&#x27;&#123; add += $1 ; subs += $2 ; loc += $1 - $2 &#125; END &#123; printf ”added lines: %s removed lines : %s total lines: %s\n”,add,subs,loc &#125;’  -</span></span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
 <p>仓库提交者排名前 5（如果看全部，去掉 head 管道即可）：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log –pretty=’%aN’ | sort | uniq -c | sort -k1 -n -r | head -n 5</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> –pretty=’%aN’ | <span class="built_in">sort</span> | <span class="built_in">uniq</span> -c | <span class="built_in">sort</span> -k1 -n -r | <span class="built_in">head</span> -n 5</span><br></pre></td></tr></table></figure>
+
 <p>仓库提交者（邮箱）排名前 5：这个统计可能不会太准，因为很多人有不同的邮箱，但会使用相同的名字</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log –pretty=format:%ae | gawk – &#x27;&#123; ++c[$0]; &#125; END &#123; for(cc in c) printf ”%5d %s\n”,c[cc],cc; &#125;’ | sort -u -n -r | head -n 5</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> –pretty=format:%ae | gawk – <span class="string">&#x27;&#123; ++c[$0]; &#125; END &#123; for(cc in c) printf ”%5d %s\n”,c[cc],cc; &#125;’ | sort -u -n -r | head -n 5</span></span><br></pre></td></tr></table></figure>
+
 <p>贡献者统计：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log –pretty=’%aN’ | sort -u | wc -l</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> –pretty=’%aN’ | <span class="built_in">sort</span> -u | <span class="built_in">wc</span> -l</span><br></pre></td></tr></table></figure>
+
 <p>提交数统计：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log –oneline | wc -l</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> –oneline | <span class="built_in">wc</span> -l</span><br></pre></td></tr></table></figure>
+
 <p>添加或修改的代码行数：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log –stat|perl -ne ’END &#123; print $c &#125; $c += $1 if /(\d+) insertions/;</span><br></pre></td></tr></table></figure>
-<p>git log 参数说明：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> –<span class="built_in">stat</span>|perl -ne ’END &#123; <span class="built_in">print</span> <span class="variable">$c</span> &#125; <span class="variable">$c</span> += <span class="variable">$1</span> <span class="keyword">if</span> /(\d+) insertions/;</span><br></pre></td></tr></table></figure>
+
+<p><code>git log</code> 参数说明：</p>
 <ul>
-<li>–author   指定作者</li>
-<li>–stat   显示每次更新的文件修改统计信息，会列出具体文件列表</li>
-<li>–shortstat    统计每个commit 的文件修改行数，包括增加，删除，但不列出文件列表</li>
-<li>–numstat   统计每个commit 的文件修改行数，包括增加，删除，并列出文件列表</li>
-<li>-p 选项展开显示每次提交的内容差异，用 -2 则仅显示最近的两次更新。例如：<code>git log -p  -2</code></li>
-<li>–name-only 仅在提交信息后显示已修改的文件清单</li>
-<li>–name-status 显示新增、修改、删除的文件清单</li>
-<li>–abbrev-commit 仅显示 SHA-1 的前几个字符，而非所有的 40 个字符</li>
-<li>–relative-date 使用较短的相对时间显示（比如，“2 weeks ago”）</li>
-<li>–graph 显示 ASCII 图形表示的分支合并历史</li>
-<li>–pretty 使用其他格式显示历史提交信息。可用的选项包括 <code>oneline，short，full，fuller 和 format（后跟指定格式）</code>例如： <code>git log –pretty=oneline ; git log –pretty=short ; git log –pretty=full ; git log –pretty=fuller</code></li>
-<li>–pretty&#x3D;tformat:   可以定制要显示的记录格式，这样的输出便于后期编程提取分析。例如：<code>git log –pretty=format:””%h – %an, %ar : %s””</code><br>下面列出了常用的格式占位符写法及其代表的意义。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">选项       说明</span><br><span class="line">%H      提交对象（commit）的完整哈希字串</span><br><span class="line">%h      提交对象的简短哈希字串</span><br><span class="line">%T      树对象（tree）的完整哈希字串</span><br><span class="line">%t      树对象的简短哈希字串</span><br><span class="line">%P      父对象（parent）的完整哈希字串</span><br><span class="line">%p      父对象的简短哈希字串</span><br><span class="line">%an     作者（author）的名字</span><br><span class="line">%ae     作者的电子邮件地址</span><br><span class="line">%ad     作者修订日期（可以用 -date= 选项定制格式）</span><br><span class="line">%ar     作者修订日期，按多久以前的方式显示</span><br><span class="line">%cn     提交者(committer)的名字</span><br><span class="line">%ce     提交者的电子邮件地址</span><br><span class="line">%cd     提交日期</span><br><span class="line">%cr     提交日期，按多久以前的方式显示</span><br><span class="line">%s      提交说明</span><br></pre></td></tr></table></figure></li>
-<li>–since  限制显示输出的范围，<br>例如： git log –since&#x3D;2.weeks    显示最近两周的提交</li>
-</ul>
-<p>选项 说明</p>
+<li><p>–author 指定作者</p>
+</li>
+<li><p>–stat 显示每次更新的文件修改统计信息，会列出具体文件列表</p>
+</li>
+<li><p>–shortstat 统计每个commit 的文件修改行数，包括增加，删除，但不列出文件列表</p>
+</li>
+<li><p>–numstat 统计每个commit 的文件修改行数，包括增加，删除，并列出文件列表</p>
+</li>
+<li><p>-p 选项展开显示每次提交的内容差异，用 -2 则仅显示最近的两次更新。例如：<code>git log -p  -2</code></p>
+</li>
+<li><p>–name-only 仅在提交信息后显示已修改的文件清单</p>
+</li>
+<li><p>–name-status 显示新增、修改、删除的文件清单</p>
+</li>
+<li><p>–abbrev-commit 仅显示 SHA-1 的前几个字符，而非所有的 40 个字符</p>
+</li>
+<li><p>–relative-date 使用较短的相对时间显示（比如，“2 weeks ago”）</p>
+</li>
+<li><p>–graph 显示 ASCII 图形表示的分支合并历史</p>
+</li>
+<li><p>–pretty 使用其他格式显示历史提交信息。可用的选项包括 <code>oneline，short，full，fuller 和 format（后跟指定格式）</code>例如： <code>git log –pretty=oneline ; git log –pretty=short ; git log –pretty=full ; git log –pretty=fuller</code></p>
+</li>
+<li><p>–pretty&#x3D;tformat:   可以定制要显示的记录格式，这样的输出便于后期编程提取分析。例如：<code>git log –pretty=format:””%h – %an, %ar : %s””</code><br>下面列出了常用的格式占位符写法及其代表的意义。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">选项       说明</span><br><span class="line">%H      提交对象（commit）的完整哈希字串</span><br><span class="line">%h      提交对象的简短哈希字串</span><br><span class="line">%T      树对象（tree）的完整哈希字串</span><br><span class="line">%t      树对象的简短哈希字串</span><br><span class="line">%<span class="keyword">P</span>      父对象（parent）的完整哈希字串</span><br><span class="line">%<span class="keyword">p</span>      父对象的简短哈希字串</span><br><span class="line">%<span class="keyword">an</span>     作者（author）的名字</span><br><span class="line">%ae     作者的电子邮件地址</span><br><span class="line">%ad     作者修订日期（可以用 -date= 选项定制格式）</span><br><span class="line">%<span class="keyword">ar</span>     作者修订日期，按多久以前的方式显示</span><br><span class="line">%<span class="keyword">cn</span>     提交者(committer)的名字</span><br><span class="line">%<span class="keyword">ce</span>     提交者的电子邮件地址</span><br><span class="line">%<span class="keyword">cd</span>     提交日期</span><br><span class="line">%<span class="keyword">cr</span>     提交日期，按多久以前的方式显示</span><br><span class="line">%s      提交说明</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>–since  限制显示输出的范围，<br>例如：<code>git log –since=2.weeks</code> 显示最近两周的提交<br>选项 说明</p>
 <ul>
 <li>-(n)    仅显示最近的 n 条提交</li>
 <li>–since, –after 仅显示指定时间之后的提交。</li>
@@ -312,15 +343,22 @@
 <li>–author 仅显示指定作者相关的提交。</li>
 <li>–committer 仅显示指定提交者相关的提交。</li>
 </ul>
+</li>
+</ul>
 <p>一些例子：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 一分钟之前的所有 log</span><br><span class="line">git log –until=1.minute.ago</span><br><span class="line">//一天之内的log</span><br><span class="line">git log –since=1.day.ago </span><br><span class="line">//一个小时之内的 log </span><br><span class="line">git log –since=1.hour.ago</span><br><span class="line">//一个月之前到半个月之前的log</span><br><span class="line">git log –since=`.month.ago –until=2.weeks.ago </span><br><span class="line">//某个时间段的 log</span><br><span class="line">git log –since ==2013-08.01 –until=2013-09-07</span><br><span class="line">// 看看某一个文件的相关历史记录</span><br><span class="line">git blame index.html –date short</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 一分钟之前的所有 log</span></span><br><span class="line">git <span class="built_in">log</span> –until=1.minute.ago</span><br><span class="line"><span class="comment"># 一天之内的log</span></span><br><span class="line">git <span class="built_in">log</span> –since=1.day.ago </span><br><span class="line"><span class="comment"># 一个小时之内的 log </span></span><br><span class="line">git <span class="built_in">log</span> –since=1.hour.ago</span><br><span class="line"><span class="comment"># 一个月之前到半个月之前的log</span></span><br><span class="line">git <span class="built_in">log</span> –since=<span class="string">&#x27;.month.ago&#x27;</span> –until=2.weeks.ago </span><br><span class="line"><span class="comment"># 某个时间段的 log</span></span><br><span class="line">git <span class="built_in">log</span> –since ==2013-08.01 –until=2013-09-07</span><br><span class="line"><span class="comment"># 看看某一个文件的相关历史记录</span></span><br><span class="line">git blame index.html –<span class="built_in">date</span> short</span><br></pre></td></tr></table></figure>
 
     </div>
 
     
     
-    
+    <div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
         <div class="reward-container">
   <div></div>
   <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
@@ -473,20 +511,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">278</span>
+          <span class="site-state-item-count">282</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-count">65</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -538,7 +576,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -548,13 +586,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">796k</span>
+    <span title="站点总字数">922k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:04</span>
+    <span title="站点阅读时长">13:59</span>
 </div>
 
         
@@ -734,6 +772,15 @@ window.addEventListener('pjax:success', () => {
       });
   </script>
 
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "box";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "bottomCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
     </div>
 </body>
 </html>

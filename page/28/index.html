@@ -20,7 +20,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
   <meta name="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
@@ -46,7 +46,20 @@
     lang   : 'zh-CN'
   };
 </script>
-<script async src="/lib/fireworks.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style><script async src="/lib/fireworks.js"></script>
   <title>Zihao - Make small but daily progress</title>
   
 
@@ -124,17 +137,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">64</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">65</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">19</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">278</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">282</span></a>
 
   </li>
         <li class="menu-item menu-item-about">
@@ -199,6 +212,522 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/samba_windows/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zihao Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zihao">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/samba_windows/" class="post-title-link" itemprop="url">windows如何连接samba服务器</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2015-10-19 19:58:55" itemprop="dateCreated datePublished" datetime="2015-10-19T19:58:55Z">2015-10-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-30 00:17:32" itemprop="dateModified" datetime="2022-11-30T00:17:32Z">2022-11-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tool/" itemprop="url" rel="index"><span itemprop="name">Tool</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>191</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>上一篇<a href="/samba_vm_tool">博客</a>已经讲了怎么在centos下安装samba服务器，这篇文章主要讲如何在windows下连接。</p>
+<p>点击开始—&gt;输入运行(快捷键 win+r)—&gt; 填写<code>170.168.1.1</code> (你的linux服务器ip)—&gt;输入刚刚设置的samba服务器账号密码，连接成功。</p>
+<p>可将该磁盘映射到本机，方便访问。</p>
+<p>点开计算机—-&gt;映射网络驱动器—&gt;在文件夹位置选择要映射的文件夹。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/samba_windows/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/php_dev_windows/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zihao Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zihao">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/php_dev_windows/" class="post-title-link" itemprop="url">Windows下开发php5.5的扩展</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2015-10-13 17:24:46" itemprop="dateCreated datePublished" datetime="2015-10-13T17:24:46Z">2015-10-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-02 04:51:49" itemprop="dateModified" datetime="2022-12-02T04:51:49Z">2022-12-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/Back/" itemprop="url" rel="index"><span itemprop="name">Back</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/Back/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>讲述在 Windows 下开发PHP的扩展。</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/php_dev_windows/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/php_xdebug/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zihao Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zihao">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/php_xdebug/" class="post-title-link" itemprop="url">Php安装配置xdebug</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2015-10-13 11:08:08" itemprop="dateCreated datePublished" datetime="2015-10-13T11:08:08Z">2015-10-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-02 04:51:49" itemprop="dateModified" datetime="2022-12-02T04:51:49Z">2022-12-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/Back/" itemprop="url" rel="index"><span itemprop="name">Back</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/Back/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>php下搭配使用xdebug是十分好的组合，用于php的调试工作。</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/php_xdebug/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/js_card_luhm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zihao Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zihao">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/js_card_luhm/" class="post-title-link" itemprop="url">Js银行卡号Luhm校验</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2015-10-10 14:43:34" itemprop="dateCreated datePublished" datetime="2015-10-10T14:43:34Z">2015-10-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-02 04:48:56" itemprop="dateModified" datetime="2022-12-02T04:48:56Z">2022-12-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/Front/" itemprop="url" rel="index"><span itemprop="name">Front</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/Front/JS/" itemprop="url" rel="index"><span itemprop="name">JS</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>实用的银行卡号校验和邮箱校验脚本</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/js_card_luhm/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/mongodb_cluster_question/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zihao Yao">
+      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zihao">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/mongodb_cluster_question/" class="post-title-link" itemprop="url">Mongodb衍伸的互联网思考</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2015-10-09 17:17:44" itemprop="dateCreated datePublished" datetime="2015-10-09T17:17:44Z">2015-10-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-01 06:27:06" itemprop="dateModified" datetime="2022-12-01T06:27:06Z">2022-12-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/DB/" itemprop="url" rel="index"><span itemprop="name">DB</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>739</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>引子：如何使用三台服务器搭建高可用mongodb集群。</p>
+</blockquote>
+<p>从技术角度出发，基本上聊完这个话题就可以清晰地知道对mongodb的掌握程度。</p>
+<p>mongodb副本集故障转移功能得益于它的选举机制，采用了bully算法。一般分布式集群都会有一个所谓的主节点。比如常用的mysql经常会申明一个主节点，其他的都为从节点。这样一个问题就是当主节点挂掉，我们就需要手工操作，上架一个新的主节点或者从从节点恢复数据等手段，并不太灵活。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/mongodb_cluster_question/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
     <link itemprop="mainEntityOfPage" href="https://yaozihao.com/object_oriented_programming_five/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -230,7 +759,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-24 05:24:10" itemprop="dateModified" datetime="2022-11-24T05:24:10Z">2022-11-24</time>
+                <time title="修改时间：2022-12-01 08:25:33" itemprop="dateModified" datetime="2022-12-01T08:25:33Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -276,15 +805,14 @@
 <p>实现接口必须实现接口中的所有的方法和属性。</p>
 <p>一个类可以支持多个接口，多个类也可以支持相同的接口。</p>
 <p>说白了，接口是抽象方法和静态常量定义的集合。接口是一种特殊的抽象类，这种抽象类中只包含抽象方法和静态常量。</p>
-<h2 id="关于抽象类和接口的区别"><a href="#关于抽象类和接口的区别" class="headerlink" title="关于抽象类和接口的区别"></a>关于抽象类和接口的区别</h2><p>抽象类可以给出一些成员的实现，接口却不包含成员的实现，抽象类的抽象成员可被子类部分实现，接口的成员需要实现类完全实现，一个类只能继承一个抽象类，但可以实现多个接口等。</p>
-<p>第一：类是对对象的抽象；抽象类是对类的抽象；接口是对行为的抽象。</p>
-<p>也就是说接口是对类的局部行为进行的抽象，而抽象类是对类整体的抽象。</p>
-<p>第二：如果行为跨越不同类的对象，可使用接口；对于一些相似的类对象，用继承抽象类。实现接口和继承抽象类并不冲突。</p>
-<p>第三：从设计角度讲，抽象类是从子类中发现公共的东西，泛化出父类，然后子类继承父类，而接口根本不知子类的存在，方法如何实现还不确定，预先定义。</p>
-<h2 id="关于接口继承S"><a href="#关于接口继承S" class="headerlink" title="关于接口继承S"></a>关于接口继承S</h2><p>php5中类是单继承，但是接口很特殊，一个接口可以继承自多个接口，一个接口继承其它接口时候，直接继承接口的静态常量属性和抽象方法。</p>
-<p>接口和接口之间继承要使用extends关键字。</p>
-<p>类实现接口必须实现其抽象方法，使用实现关键字implements。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/object_oriented_programming_five/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -334,7 +862,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-24 05:24:10" itemprop="dateModified" datetime="2022-11-24T05:24:10Z">2022-11-24</time>
+                <time title="修改时间：2022-12-01 08:27:14" itemprop="dateModified" datetime="2022-12-01T08:27:14Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -381,14 +909,14 @@
 <p>第三：如果类中包含抽象方法，那么就必须定义为抽象类，不论是否还包含其他一般方法。</p>
 <p>抽象类拥有尽可能多的共同代码，拥有尽可能少的数据。</p>
 <p>抽象类通常代表一个抽象概念，它提供了一个继承的出发点，当设计一个新的抽象类时，一定使用来继承的。所以，在一个以继承关系形成的等级结构里面，树叶节点应当是具体类，而树枝节点均应当是抽象类。</p>
-<p>抽象类继承抽象类，目的是对抽象类的扩展，不能重写其中的抽象方法</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">//定义一个抽象类</span><br><span class="line"></span><br><span class="line">abstract class User&#123;</span><br><span class="line"></span><br><span class="line">    public function __toString()&#123;</span><br><span class="line"></span><br><span class="line">        return get_class($this);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//实例化这个类会出错</span><br><span class="line"></span><br><span class="line">//echo new user();</span><br><span class="line"></span><br><span class="line">class NormalUser extends User&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$a = new NormalUser();</span><br><span class="line"></span><br><span class="line">echo ‘这是类’;</span><br><span class="line"></span><br><span class="line">echo $a;</span><br><span class="line"></span><br><span class="line">echo ‘的实例’;</span><br></pre></td></tr></table></figure>
-
-<p>单独设置一个抽象类是没有意义的，只有有了抽象方法，抽象类才有类血肉。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">abstract class User&#123;</span><br><span class="line"></span><br><span class="line">  protected ?$sal = 0;</span><br><span class="line"></span><br><span class="line">  //这里定义抽象方法。抽象方法没有方法体，而且方法结束使用;号。</span><br><span class="line"></span><br><span class="line">  abstract function getSal();</span><br><span class="line"></span><br><span class="line">  abstract function setSal($sal);</span><br><span class="line"></span><br><span class="line">  //这里定义它的__tostring方法</span><br><span class="line"></span><br><span class="line">  public function __toString()&#123;</span><br><span class="line"></span><br><span class="line">    return get_class($this);</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//此时类继承这个抽象类必须要重写这个两个抽象方法。哪怕是&#123;&#125;空的方法体</span><br><span class="line"></span><br><span class="line">//注意：1.不能缺少参数。2.不能多余的参数。3.参数类型不能错误。</span><br><span class="line"></span><br><span class="line">class NormalUser extends ?User&#123;</span><br><span class="line"></span><br><span class="line">  function getSal()&#123;&#125;</span><br><span class="line"></span><br><span class="line">  function setSal($sal)&#123;&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>抽象方法没有<code>&#123;&#125;</code>，而采用<code>;</code>结束。参数的数量和类型必须一致</p>
-<p>PHP5.0和5.1的类中允许静态抽象方法。在5.2以上，只有接口可以拥有静态抽象方法。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/object_oriented_programming_four/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -438,7 +966,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-24 05:24:10" itemprop="dateModified" datetime="2022-11-24T05:24:10Z">2022-11-24</time>
+                <time title="修改时间：2022-12-01 08:28:26" itemprop="dateModified" datetime="2022-12-01T08:28:26Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -480,38 +1008,14 @@
 
       
           <h2 id="面向对象之封装"><a href="#面向对象之封装" class="headerlink" title="面向对象之封装"></a>面向对象之封装</h2><p>每个对象都包含它能进行操作所需要的所有信息，这个特性称为封装，因此对象不必依赖其他对象来完成自己的操作。这样方法和属性包装在类中，通过类的实例来实现。</p>
-<p>封装的好处：</p>
-<ol>
-<li><p>良好的封装能够减少耦合（耦合的意思就是两个单元之间紧密配合与相互影响）。</p>
-</li>
-<li><p>类内部的实现可以自由地修改。</p>
-</li>
-<li><p>类具有清晰的对外接口。</p>
-</li>
-</ol>
-<p>解释封装的意思就是将单独的单元或者称之为模块写成一个方法，便于调用。此方法只负责单一的功能。</p>
-<h2 id="面向对象之继承"><a href="#面向对象之继承" class="headerlink" title="面向对象之继承"></a>面向对象之继承</h2><p>继承理解起来也很容易，工作方式就是定义子类和父类，或叫做基类和派生类，其种子类继承父类的所有特性，子类不但继承了父类的特性，还可以定义新的特性，还可以以自己的方式实现父类的功能（方法重写）。如果需要调用父类的构造函数，则可以使用：parent::父类函数 或 父类名::父类函数。默认情况下会自动调用父类的构造方法。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">class Fruit &#123;</span><br><span class="line"></span><br><span class="line">  public function __construct($name)&#123;</span><br><span class="line"></span><br><span class="line">    echo ‘水果’.$name.’创建了’;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Apple extends Fruit &#123;</span><br><span class="line"></span><br><span class="line">  public function __construct($name)&#123;</span><br><span class="line"></span><br><span class="line">  parent::__construct($name);</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$apple = new Apple(“苹果”);</span><br><span class="line"></span><br><span class="line">// 输出 水果苹果创建了</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>继承是有缺点的，就是父类变化，子类不得不变，继承会破坏包装，父类实现细节暴漏给子类，这样就增加了两大类之间的耦合性（藕断丝连，尽管两个类分开，但如果关系密切，一方的改变就会影响另一方，就是耦合性高的表现）。</p>
-<h2 id="面向对象之多态"><a href="#面向对象之多态" class="headerlink" title="面向对象之多态"></a>面向对象之多态</h2><p>多态去理解的话就是不同的对象可以执行相同的动作，但要通过他们自己的实现代码来执行。多态的原理只有对象继承最末端的方法实现会被调用。</p>
-<p>多态这个概念，在Java中指的是变量可以指向的对象的类型，可是变量声明类型的子类。对象一旦创建，它的类型是不变的，多态的是变量。</p>
-<p>在PHP5中，变量的类型是不确定的，一个变量可以指向任何类型的数值、字符串、对象、资源等。我们无法说PHP5中多态的是变量。</p>
-<p>我们只能说在PHP5中，多态应用在方法参数的类型提示位置。</p>
-<p>一个类的任何子类对象都可以满足以当前类型作为类型提示的类型要求。所有实现这个接口的类，都可以满足以接口类型作为类型提示的方法参数要求。简单的说，一个类拥有其父类、和已实现接口的身份。</p>
-<h3 id="通过实现接口实现多态"><a href="#通过实现接口实现多态" class="headerlink" title="通过实现接口实现多态"></a>通过实现接口实现多态</h3><p>下面的例子中，UserAdmin类的静态方法，要求一个User类型的参数。</p>
-<p>在后面的使用中，传递了一个实现了User接口的类NormalUser的实例。代码成功运行。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;?</span><br><span class="line"></span><br><span class="line">interface User&#123; // User接口</span><br><span class="line"></span><br><span class="line">  public function  getName();</span><br><span class="line"></span><br><span class="line">  public function setName($_name);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class NormalUser implements User &#123; // 实现接口的类.</span><br><span class="line">  private $name;</span><br><span class="line">  public function getName()&#123;</span><br><span class="line">    return $this-&gt;name;</span><br><span class="line">  &#125;</span><br><span class="line">  public function setName($_name)&#123;</span><br><span class="line">    $this-&gt;name = $_name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">class UserAdmin&#123; //操作.</span><br><span class="line">  public static function  ChangeUserName(User $_user,$_userName)&#123;</span><br><span class="line">    $_user-&gt;setName($_userName);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">$normalUser = new NormalUser();</span><br><span class="line">UserAdmin::ChangeUserName($normalUser,&quot;Tom&quot;);//这里传入的是 NormalUser的实例.</span><br><span class="line">echo $normalUser-&gt;getName();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<p>程序运行结果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tom</span><br></pre></td></tr></table></figure>
-
-<h3 id="通过继承关系实现多态"><a href="#通过继承关系实现多态" class="headerlink" title="通过继承关系实现多态"></a>通过继承关系实现多态</h3><p>下面是类和子类的关系。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;?</span><br><span class="line"></span><br><span class="line">classUser&#123; // User接口</span><br><span class="line"></span><br><span class="line">     public function getName()&#123;&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">classNormalUser extendsUser &#123; // 继承自User类</span><br><span class="line"></span><br><span class="line">private  $name;</span><br><span class="line"></span><br><span class="line">  public function getName()&#123;</span><br><span class="line">      return  $this-&gt;name;</span><br><span class="line">    &#125;</span><br><span class="line">   public function setName($_name)&#123;</span><br><span class="line">      $this-&gt;name = $_name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class UserAdmin&#123; //操作.</span><br><span class="line">     public static function  ChangeUserName(User $_user,$_userName)&#123;</span><br><span class="line">       $_user-&gt;setName($_userName);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">$normalUser= newNormalUser();</span><br><span class="line">UserAdmin::ChangeUserName($normalUser,&quot;Tom&quot;);//这里传入的是 NormalUser的实例.</span><br><span class="line">echo$normalUser-&gt;getName();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<p>程序运行结果：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Tom</span><br></pre></td></tr></table></figure>
-
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>1、当一个父类知道所有的子类都有一个方法，但是父类不能确定该方法如何写，可以让子类去覆盖它的方法,方法覆盖(重写)，必须要求子类的方法名和参数个数完全一致<br>2、如果子类要去调用父类的某个方法(protected&#x2F;public)，可以使用 <code>父类名::方法名</code> 或者 <code>parent::方法名</code><br>3、在实现方法重写的时候，访问修饰符可以不一样，但是子类方法的访问权限必须大于等于父类方法的访问权限（即不能缩小父类方法的访问权限）<br>如父类<code>public function cry()&#123;&#125;</code> 子类 <code>protected function cry()&#123;&#125;</code> 则会报错<br>但是子类的访问权限可以放大，如：<br>父类<code>private function cry()&#123;&#125;</code> 子类 <code>protected function cry()&#123;&#125;</code> 可以正确执行</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/object_oriented_programming_three/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -561,7 +1065,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-24 05:24:10" itemprop="dateModified" datetime="2022-11-24T05:24:10Z">2022-11-24</time>
+                <time title="修改时间：2022-12-01 06:52:36" itemprop="dateModified" datetime="2022-12-01T06:52:36Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -604,12 +1108,14 @@
       
           <p>方法重载：方法重载提供了创建同名的多个方法的能力，但这些方法需使用不同的参数类型。所有的方法都可以重载。</p>
 <p>大白话解释就是。在子类中写一个与父类中相同的方法名，那么调用的时候，调用的就是在子类中重新写的方法。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Cat&#123;</span><br><span class="line"></span><br><span class="line">  private  $name = “”;</span><br><span class="line"></span><br><span class="line">  public function Cat($name)&#123;</span><br><span class="line"></span><br><span class="line">    $this-&gt;name = $name;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>方法重载可不再改变原方法基础上新增功能。</p>
-<p>PHP中有三种访问修饰符，分别是：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public（公共的、默认）</span><br><span class="line">protected（受保护的）</span><br><span class="line">private（私有的）</span><br><span class="line"></span><br><span class="line">public（公共的、默认）在PHP5中如果类没有指定成员的访问修饰符，默认就是public的访问权限。</span><br><span class="line">protected（受保护的）被声明为protected的成员，只允许该类的子类进行访问。</span><br><span class="line">private（私有的 ） 被定义为private的成员，对于类内部所有成员都可见，没有访问限制。对类外部不允许访问。</span><br></pre></td></tr></table></figure>
-<p>访问受保护属性,报致命错误。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/object_oriented_programming_two/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -659,7 +1165,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-24 05:24:10" itemprop="dateModified" datetime="2022-11-24T05:24:10Z">2022-11-24</time>
+                <time title="修改时间：2022-12-01 08:26:49" itemprop="dateModified" datetime="2022-12-01T08:26:49Z">2022-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -703,301 +1209,14 @@
           <p>如果希望一步步将面向对象的思想，设计模式熟练掌握。</p>
 <p>以下基础知识可能需要常常遍历，直到滚瓜烂熟。</p>
 <p>对象是一个自包含的实体，用一组可识别的特性和行为来表示。将一组事物的共性抽离出来。</p>
-<p>类就是具有相同的属性和功能的对象的抽象的集合。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class  Cat&#123;</span><br><span class="line"></span><br><span class="line">  public function Shout()&#123;</span><br><span class="line"></span><br><span class="line">    return “喵”;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>一个猫的类。有一个方法返回叫声。</p>
-<p><code>class</code> 是表示定义类的关键字，<code>Cat</code> 就是类的名称，<code>Shout</code>就是类的方法。</p>
-<p>注意点（通常的规范，具体请遵从公司规定）：</p>
-<p>第一，类名首字母大写，多个单词则各个首字母大写。</p>
-<p>第二，对外公开的方法需要用<code>public</code>修饰符。</p>
-<p>怎么用这个类呢？很简单，实例化一下就可以了。</p>
-<p>实例，就是一个真实的对象，而实例化就是创建对象的过程，使用new关键字来创建。说白了，你就当一个new出来的是个新的存在的class就完事了。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$cat = new Cat();</span><br><span class="line"></span><br><span class="line">return $cat-&gt;Shout();</span><br></pre></td></tr></table></figure>
-<p>着重提出构造方法，其他的魔术方法都差不多的意思，自行脑补。</p>
-<p>构造方法，又叫构造函数，其实就是对类进行初始化。如果实在php5版本以后使用魔术方法__construct(),4以前的版本构造方法与类同名。无返回值，在new的时候调用。也就是说在new一个类的时候默认就会执行这个类中的构造方法。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Cat&#123;</span><br><span class="line"></span><br><span class="line">  private $name=”;</span><br><span class="line"></span><br><span class="line">  public function __construct($name)&#123;</span><br><span class="line"></span><br><span class="line">    $this-&gt;name=$name;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public function Shout()&#123;</span><br><span class="line"></span><br><span class="line">    return “我的名字是”+$name+”喵”;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在实例化的时候，传入一个名字，构造函数自动执行，将名字赋值给了私有变量。然后我们调用叫的方法，返回私有变量$name，你会发现返回的是赋值过后的$name。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/plan_15_08_31/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zihao Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zihao">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/plan_15_08_31/" class="post-title-link" itemprop="url">短期计划08-31</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2015-08-31 22:31:49" itemprop="dateCreated datePublished" datetime="2015-08-31T22:31:49Z">2015-08-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-24 05:24:10" itemprop="dateModified" datetime="2022-11-24T05:24:10Z">2022-11-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Life/" itemprop="url" rel="index"><span itemprop="name">Life</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>143</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>于08-31日起，再次拜读《大话设计模式》以加深印象。</p>
-<p>并整理出相关资料以供新手使用，容易学习。当然因为专业方向会使用php将此思想按照个人的理解重新编写。但是语言应该不会造成思想的理解。</p>
-<p>如果您对设计模式已有一定了解，推荐参阅《Head First》,Gof所著《设计模式》，《重构》等经典</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/php_phpini/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zihao Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zihao">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/php_phpini/" class="post-title-link" itemprop="url">php.ini配置文件详解</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2015-08-31 21:25:35" itemprop="dateCreated datePublished" datetime="2015-08-31T21:25:35Z">2015-08-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-28 00:14:23" itemprop="dateModified" datetime="2022-11-28T00:14:23Z">2022-11-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/" itemprop="url" rel="index"><span itemprop="name">Back</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/Back/php/" itemprop="url" rel="index"><span itemprop="name">php</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>11k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>10 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[PHP]</span><br><span class="line"></span><br><span class="line">engine = On ——→ 是否启用PHP解析引擎</span><br><span class="line"></span><br><span class="line">short_open_tag = Off ——→ 是否使用简介标志</span><br><span class="line"></span><br><span class="line">asp_tags = Off ——→ 不允许asp类标志</span><br><span class="line"></span><br><span class="line">precision = 14 ——→ 浮点型数据显示的有效期</span><br><span class="line"></span><br><span class="line">y2k_compliance = On</span><br><span class="line"></span><br><span class="line">####是否强制打开2000年适应(可能在非Y2K适应的浏览器中导致问题)。</span><br><span class="line"></span><br><span class="line">output_buffering = 4096 ——→ 输出缓冲区大小(字节)。建议值为4096~8192。</span><br><span class="line"></span><br><span class="line">zlib.output_compression = Off ——→ 是否开启zlib输出压缩</span><br><span class="line"></span><br><span class="line">implicit_flush = Off ——→ 是否要求PHP输出层在每个输出块之后自动刷新数据</span><br><span class="line"></span><br><span class="line">这等效于在每个 print()、echo()、HTML块 之后自动调用flush()函数。打开这个选项对程序执行的性能有严重的影响，通常只推荐在调试时使用。在CLI SAPI的执行模式下，该指令默认为 On 。</span><br><span class="line"></span><br><span class="line">unserialize_callback_func =</span><br><span class="line"></span><br><span class="line">serialize_precision = 17</span><br><span class="line"></span><br><span class="line">####将浮点型和双精度型数据序列化存储时的精度(有效位数)。默认值能够确保浮点型数据被解序列化程序解码时不会丢失数据。</span><br><span class="line"></span><br><span class="line">allow_call_time_pass_reference = Off</span><br><span class="line"></span><br><span class="line">####是否强迫在函数调用时按引用传递参数(每次使用此特性都会收到一条警告)。</span><br><span class="line"></span><br><span class="line">; php反对这种做法，并在将来的版本里不再支持，因为它影响到了代码的整洁。</span><br><span class="line"></span><br><span class="line">; 鼓励的方法是在函数声明里明确指定哪些参数按引用传递。</span><br><span class="line"></span><br><span class="line">; 我们鼓励你关闭这一选项，以保证你的脚本在将来版本的语言里仍能正常工作。</span><br><span class="line"></span><br><span class="line">safe_mode = Off ——→ 安全模式</span><br><span class="line"></span><br><span class="line">safe_mode_gid = Off</span><br><span class="line"></span><br><span class="line">safe_mode_include_dir =</span><br><span class="line"></span><br><span class="line">#在安全模式下，该组目录和其子目录下的文件被包含时，将跳过UID/GID检查。换句话说，如果此处的值为空，任何UID/GID不符合的文件都不允许被包含。这里设置的目录必须已经存在于include_path指令中或者用完整路径来包含。多个目录之间用冒号(Win下为分号)隔开。指定的限制实际上是一个前缀，而非一个目录名。</span><br><span class="line"></span><br><span class="line">safe_mode_exec_dir = ——→ 安全模式下的可执行文件存放目录</span><br><span class="line"></span><br><span class="line">safe_mode_allowed_env_vars = PHP_</span><br><span class="line"></span><br><span class="line">####在安全模式下，用户仅可以更改的环境变量的前缀列表(逗号分隔)。允许用户设置某些环境变量，可能会导致潜在的安全漏洞。注意: 如果这一参数值为空，PHP将允许用户更改任意环境变量。</span><br><span class="line"></span><br><span class="line">safe_mode_protected_env_vars = LD_LIBRARY_PATH</span><br><span class="line"></span><br><span class="line">####在安全模式下，用户不能更改的环境变量列表(逗号分隔)。这些变量即使在safe_mode_allowed_env_vars指令设置为允许的情况下也会得到保护。</span><br><span class="line"></span><br><span class="line">disable_functions = ——→ 该指令接受一个用逗号分隔的函数名列表，以禁用特定的函数。</span><br><span class="line"></span><br><span class="line">disable_classes = ——→ 该指令接受一个用逗号分隔的类名列表，以禁用特定的类</span><br><span class="line"></span><br><span class="line">zend.enable_gc = On ——→</span><br><span class="line"></span><br><span class="line">expose_php = On ——→ 在网页头部显示php信息</span><br><span class="line"></span><br><span class="line">max_execution_time = 30 ——→ 每个脚本最大执行秒数</span><br><span class="line"></span><br><span class="line">max_input_time = 60 ——→ 每个脚本用来分析请求数据的最大限制时间</span><br><span class="line"></span><br><span class="line">memory_limit = 128M ——→ 每个脚本执行的内存限制</span><br><span class="line"></span><br><span class="line">error_reporting = E_ALL &amp; ~E_DEPRECATED</span><br><span class="line"></span><br><span class="line">display_errors = Off ——→ #显示失误（该关闭，换成日志显示）</span><br><span class="line"></span><br><span class="line">display_startup_errors = Off ——→ #显示启动失误</span><br><span class="line"></span><br><span class="line">log_errors = On ——→ 生成错误错误日志显示</span><br><span class="line"></span><br><span class="line">log_errors_max_len = 1024 ——→ 设定error_log最大长度</span><br><span class="line"></span><br><span class="line">ignore_repeated_errors = Off ——→ 打开后，不记录重复的信息</span><br><span class="line"></span><br><span class="line">ignore_repeated_source = Off ——→ 打开后当记录重复的信息时忽略来源</span><br><span class="line"></span><br><span class="line">report_memleaks = On ——→ 报告内存泄露，仅在debug编译模式下有效</span><br><span class="line"></span><br><span class="line">track_errors = Off ——→ ####在$php_errormsg中保存最后一次错误/警告消息 (逻辑值).永远不要再生产环境中使用此特性：html_errors 会显示php错误所在的html标签</span><br><span class="line"></span><br><span class="line">html_errors = Off ——→ 是否开启静态网页错误提示</span><br><span class="line"></span><br><span class="line">variables_order = “GPCS” ——→ ####此指令描述了PHP注册GET, POST, Cookie, 环境 和 内置变量的顺序 (各自使用G, P, C, E 和 S , 一般使用 EGPCS 或 GPC). 注册使用从左往右的顺序, 新的值会覆盖旧的值.</span><br><span class="line"></span><br><span class="line">request_order = “GP”</span><br><span class="line"></span><br><span class="line">####此指令描述的顺序PHP注册GET，POST和COOKIE变量_REQUEST数组。注册是由左到右，新的值将覆盖旧值。如果这个指令没有设置，variables_order中使用$ _REQUEST内容。请注意，默认分配的php.ini文件中不包含’C’饼干，出于安全方面的考虑。</span><br><span class="line"></span><br><span class="line">register_globals = Off ——→ ##是否打开register全局变量</span><br><span class="line"></span><br><span class="line">register_long_arrays = Off</span><br><span class="line"></span><br><span class="line">####是否注册老形式的输入数组, HTTP_GET_VARS 和相关数组；如果你不使用他们,建议为了提高性能关闭他们.</span><br><span class="line"></span><br><span class="line">register_argc_argv = Off</span><br><span class="line"></span><br><span class="line">####此指令让PHP确认是否申明 argv&amp;argc 变量 (这些变量会包含GET信息). ;如果你不使用这些变量,为了提升性能应该关闭此选项.</span><br><span class="line"></span><br><span class="line">auto_globals_jit = On</span><br><span class="line"></span><br><span class="line">####当打开此项, SERVER 和 ENV 变量将在第一次被使用时而不是脚本一开始时创建(运行时);如果这些变量在脚本中没有被使用过, 打开此项会增加一点性能.;为了使此指令有效,PHP指令 register_globals, register_long_arrays,;以及 register_argc_argv 必须被关闭.</span><br><span class="line"></span><br><span class="line">post_max_size = 8M ——→ #PHP可以接受的最大的POST数据大小</span><br><span class="line"></span><br><span class="line">magic_quotes_gpc = Off ——→ #针对GET/POST/Cookie数据打开Magic quotes.</span><br><span class="line"></span><br><span class="line">magic_quotes_runtime = Off</span><br><span class="line"></span><br><span class="line">####针对实时产生的数据打开Magic quotes,例如从SQL获取的数据, 从exec()返回的数据等等.</span><br><span class="line"></span><br><span class="line">magic_quotes_sybase = Off ##使用 Sybase 风格的 magic quotes (使用”来引导’替代\’).</span><br><span class="line"></span><br><span class="line">auto_prepend_file = ——→ #在任何PHP文档之前或之后自动增加文件</span><br><span class="line"></span><br><span class="line">auto_append_file =</span><br><span class="line"></span><br><span class="line">####两个有趣的变量是auto_prepend_file以及auto_append_file。这些变量指定PHP自动添加到任何PHP文档文件头或文件尾的其他文件。这对于为PHP产生的页面添加页眉或页脚非常有用，可以节省为每个PHP文档添加代码的时间。但需要注意这里的指定文件将会添加到所有的PHP文档中，所以这些变量必须适合单应用程序（single-application）的服务器。所包含的文件要么是PHP脚本，要么是普通的HTML文档。嵌入式PHP代码必须用标准&lt;?php…?&gt;标记括起来。</span><br><span class="line"></span><br><span class="line">default_mimetype = “text/html” ——→ #PHP内建默认为text/html</span><br><span class="line"></span><br><span class="line">doc_root = ——→ #PHP的”根目录”。仅在非空时有效。</span><br><span class="line"></span><br><span class="line">; 如果safe_mode=On，则此目录之外的文件一概被拒绝。 ; 如果编译PHP时没有指定FORCE_REDIRECT，并且在非IIS服务器上以CGI方式运行， ; 则必须设置此指令(参见手册中的安全部分)。 ; 替代方案是使用的cgi.force_redirect指令</span><br><span class="line"></span><br><span class="line">user_dir =</span><br><span class="line"></span><br><span class="line">####告诉php在使用 /~username 打开脚本时到哪个目录下去找，仅在非空时有效。 也就是在用户目录之下使用PHP文件的基本目录名，例如：”public_html”</span><br><span class="line"></span><br><span class="line">enable_dl = Off</span><br><span class="line"></span><br><span class="line">####是否允许使用dl()函数。dl()函数仅在将PHP作为apache模块安装时才有效。 禁用dl()函数主要是出于安全考虑，因为它可以绕过open_ｂａｓｅdir指令的限制。 在安全模式下始终禁用dl()函数，而不管此处如何设置。</span><br><span class="line"></span><br><span class="line">file_uploads = On 是否开启上传功能</span><br><span class="line"></span><br><span class="line">upload_max_filesize = 2M #最大可上传文件，2M</span><br><span class="line"></span><br><span class="line">max_file_uploads = 20 最大同时可以上传20个文件</span><br><span class="line"></span><br><span class="line">allow_url_fopen = On #是否允许打开远程文件</span><br><span class="line"></span><br><span class="line">allow_url_include = Off #是否允许include/require远程文件</span><br><span class="line"></span><br><span class="line">default_socket_timeout = 60 默认的socket超时时间</span><br><span class="line"></span><br><span class="line">[Date] 日期</span><br><span class="line"></span><br><span class="line">[filter]</span><br><span class="line"></span><br><span class="line">[iconv]</span><br><span class="line"></span><br><span class="line">[intl]</span><br><span class="line"></span><br><span class="line">[sqlite]</span><br><span class="line"></span><br><span class="line">[sqlite3]</span><br><span class="line"></span><br><span class="line">[Pcre]</span><br><span class="line"></span><br><span class="line">[Pdo]</span><br><span class="line"></span><br><span class="line">[Pdo_mysql]</span><br><span class="line"></span><br><span class="line">pdo_mysql.cache_size = 2000 ——→ Ped_mysql的缓存大小</span><br><span class="line"></span><br><span class="line">pdo_mysql.default_socket= ——→ 默认的socket时间</span><br><span class="line"></span><br><span class="line">[Phar]</span><br><span class="line"></span><br><span class="line">[Syslog]</span><br><span class="line"></span><br><span class="line">define_syslog_variables = Off ——→ 是否定义各种的系统日志变量</span><br><span class="line"></span><br><span class="line">[mail function] ——→ 邮件功能</span><br><span class="line"></span><br><span class="line">SMTP = localhost ——→ 本地作为邮件服务器</span><br><span class="line"></span><br><span class="line">smtp_port = 25 邮件端口号默认是25</span><br><span class="line"></span><br><span class="line">mail.add_x_header = On ——→ 是否开启最大的header</span><br><span class="line"></span><br><span class="line">[SQL]</span><br><span class="line"></span><br><span class="line">sql.safe_mode = Off</span><br><span class="line"></span><br><span class="line">####是否使用SQL安全模式。如果打开，指定默认值的数据库连接函数将会使用这些默认值代替支持的参数。对于每个不同数据库的连接函数，其默认值请参考相应的手册页面。</span><br><span class="line"></span><br><span class="line">[ODBC]</span><br><span class="line"></span><br><span class="line">odbc.allow_persistent = On ——→ 允许或阻止持久连接.</span><br><span class="line"></span><br><span class="line">odbc.check_persistent = On ——→ 在重用前检查连接是否可用</span><br><span class="line"></span><br><span class="line">odbc.max_persistent = -1 ——→ 持久连接的最大数目，-1意味着没有限制.</span><br><span class="line"></span><br><span class="line">odbc.max_links = -1 ——→ 最大连接数(持久 + 非持久).-1意味着没有限制.</span><br><span class="line"></span><br><span class="line">odbc.defaultlrl = 4096 ——→ 长字段处理.返回变量的字节数.0 意味着略过.</span><br><span class="line"></span><br><span class="line">odbc.defaultbinmode = 1</span><br><span class="line"></span><br><span class="line">####二进制数据处理.0意味着略过,1按照实际返回,2转换到字符.;查看odbc_binmode和odbc_longreadlen 的文档来获取针对uodbc.defaultlrl和uodbc.defaultbinmode的解释</span><br><span class="line"></span><br><span class="line">[Interbase] ——→ Interbase数据库</span><br><span class="line"></span><br><span class="line">ibase.allow_persistent = 1 ——→ 允许或组织持久连接。</span><br><span class="line"></span><br><span class="line">ibase.max_persistent = -1 ——→ 持久连接的最大数目，-1意味着没有限制.</span><br><span class="line"></span><br><span class="line">ibase.max_links = -1 ——→ 最大连接数(持久 + 非持久).-1意味着没有限制.</span><br><span class="line"></span><br><span class="line">ibase.timestampformat = “%Y-%m-%d %H:%M:%S” ——→ 数据库时间记录模式</span><br><span class="line"></span><br><span class="line">ibase.dateformat = “%Y-%m-%d”</span><br><span class="line"></span><br><span class="line">ibase.timeformat = “%H:%M:%S”</span><br><span class="line"></span><br><span class="line">[MySQL]</span><br><span class="line"></span><br><span class="line">mysql.allow_local_infile = On ——→ 是否允许本地文件连接数据库</span><br><span class="line"></span><br><span class="line">mysql.allow_persistent = On ——→ 允许或禁止 持久连接</span><br><span class="line"></span><br><span class="line">mysql.cache_size = 2000 ——→ mysql缓存大小</span><br><span class="line"></span><br><span class="line">mysql.max_persistent = -1 ——→ 持久连接的最大数目. -1 意味着没有限制.</span><br><span class="line"></span><br><span class="line">mysql.max_links = -1 ——→ 连接的最大数目（持久和非持久）。-1 代表无限制</span><br><span class="line"></span><br><span class="line">mysql.default_port =</span><br><span class="line"></span><br><span class="line">####mysql_connect() 使用的默认端口，如不设置，mysql_connect()</span><br><span class="line"></span><br><span class="line">;将使用变量 $MYSQL_TCP_PORT，或在/etc/services 下的mysql-tcp 条目(unix)，</span><br><span class="line"></span><br><span class="line">;或在编译是定义的 MYSQL_PORT(按这样的顺序)</span><br><span class="line"></span><br><span class="line">;Win32环境，将仅检查MYSQL_PORT。</span><br><span class="line"></span><br><span class="line">mysql.default_socket =</span><br><span class="line"></span><br><span class="line">####用于本地 MySql 连接的默认的套接字名。为空，使用 MYSQL 内建值</span><br><span class="line"></span><br><span class="line">mysql.default_host = ——→ mysql_connect() 默认使用的主机（安全模式下无效）</span><br><span class="line"></span><br><span class="line">mysql.default_user = ——→ mysql_connect() 默认使用的用户名（安全模式下无效）</span><br><span class="line"></span><br><span class="line">mysql.default_password = ——→ mysql_connect() 默认使用的密码（安全模式下无效</span><br><span class="line"></span><br><span class="line">mysql.connect_timeout = 60 ——→ 连接超时时间，默认是60s</span><br><span class="line"></span><br><span class="line">mysql.trace_mode = Off</span><br><span class="line"></span><br><span class="line">[MySQLi]</span><br><span class="line"></span><br><span class="line">mysqli.max_persistent = -1 ——→ 持久连接的最大数目. -1 意味着没有限制.</span><br><span class="line"></span><br><span class="line">mysqli.allow_persistent = On ——→ 允许或拒绝之久连接</span><br><span class="line"></span><br><span class="line">mysqli.max_links = -1 ——→ 最大连接数. -1 意味着没有限制.</span><br><span class="line"></span><br><span class="line">mysqli.cache_size = 2000 ——→ 连接缓存大小</span><br><span class="line"></span><br><span class="line">mysqli.default_port = 3306 ——→ 连接端口号</span><br><span class="line"></span><br><span class="line">####mysqli_connect()默认的端口号.如果没有设置, mysql_connect() 会使用 $MYSQL_TCP_PORT;或者 位于/etc/services的 mysql-tcp 入口或者编译时定义的MYSQL_PORT 值(按照此顺序查找).;Win32 只会查找MYSQL_PORT值.</span><br><span class="line"></span><br><span class="line">mysqli.default_socket =</span><br><span class="line"></span><br><span class="line">####对于本地MySQL连接的默认socket名称. 如果为空, 则使用MySQL内建默认值.</span><br><span class="line"></span><br><span class="line">mysqli.default_host =</span><br><span class="line"></span><br><span class="line">####mysqli_connect()的默认host值(在安全模式中不会生效)</span><br><span class="line"></span><br><span class="line">mysqli.default_user =</span><br><span class="line"></span><br><span class="line">####mysqli_connect()的默认user值(在安全模式中不会生效).</span><br><span class="line"></span><br><span class="line">mysqli.default_pw =</span><br><span class="line"></span><br><span class="line">####mysqli_connect() 的默认password值(在安全模式中不会生效).</span><br><span class="line"></span><br><span class="line">; 注意在此文件中保存密码一般来说是 *糟糕* 的主义.</span><br><span class="line"></span><br><span class="line">; *任何* 使用PHP的用户可以执行 ‘echo get_cfg_var(“mysqli.default_password”)</span><br><span class="line"></span><br><span class="line">; 并且获取到此密码! 而且理所当然, 任何有对此文件读权限的用户都可以获取到此密码.</span><br><span class="line"></span><br><span class="line">mysqli.reconnect = Off ——→ 允许或阻止持久连接</span><br><span class="line"></span><br><span class="line">[mysqlnd]</span><br><span class="line"></span><br><span class="line">mysqlnd.collect_statistics = On</span><br><span class="line"></span><br><span class="line">mysqlnd.collect_memory_statistics = Off</span><br><span class="line"></span><br><span class="line">[OCI8]</span><br><span class="line"></span><br><span class="line">[PostgreSQL]</span><br><span class="line"></span><br><span class="line">pgsql.allow_persistent = On ——→ 允许或阻止持久连接.</span><br><span class="line"></span><br><span class="line">pgsql.auto_reset_persistent = Off</span><br><span class="line"></span><br><span class="line">####总是在 pg_pconnect() 时检测断开的持久连接.;自动重置特性会引起一点开销.</span><br><span class="line"></span><br><span class="line">pgsql.max_persistent = -1 ——→ 持久连接的最大数目. -1 意味着没有限制.</span><br><span class="line"></span><br><span class="line">pgsql.max_links = -1 ——→ 最大连接数 (持久 + 非持久). -1 意味着没有限制</span><br><span class="line"></span><br><span class="line">pgsql.ignore_notice = 0 ——→ 是否忽略 PostgreSQL 后端通告消息.;通告消息记录会需要一点开销.</span><br><span class="line"></span><br><span class="line">pgsql.log_notice = 0</span><br><span class="line"></span><br><span class="line">####是否记录 PostgreSQL 后端通告消息.;除非 pgsql.ignore_notice=0, 否则模块无法记录通告消息。</span><br><span class="line"></span><br><span class="line">[Sybase-CT]</span><br><span class="line"></span><br><span class="line">sybct.allow_persistent = On ——→ 允许或阻止持久连接.</span><br><span class="line"></span><br><span class="line">sybct.max_persistent = -1 ——→ 持久连接的最大数目. -1 意味着没有限制.</span><br><span class="line"></span><br><span class="line">sybct.max_links = -1 ——→ 最大连接数 (持久 + 非持久). -1 意味着没有限制.</span><br><span class="line"></span><br><span class="line">sybct.min_server_severity = 10 ——→ 显示出的错误最小严重程度.</span><br><span class="line"></span><br><span class="line">sybct.min_client_severity = 10 ——→ 显示出的消息最小严重程度</span><br><span class="line"></span><br><span class="line">[bcmath]</span><br><span class="line"></span><br><span class="line">bcmath.scale = 0 ——→ #用于所有bcmath函数的10十进制数数字的个数</span><br><span class="line"></span><br><span class="line">[browscap]</span><br><span class="line"></span><br><span class="line">[Session]</span><br><span class="line"></span><br><span class="line">session.save_handler = files ——→ 用于保存/取回数据的控制方式</span><br><span class="line"></span><br><span class="line">session.use_cookies = 1 ——→ 是否使用cookies</span><br><span class="line"></span><br><span class="line">session.use_only_cookies = 1</span><br><span class="line"></span><br><span class="line">####这个选项允许管理员去保护那些在URL中传送session id的用户免于被攻击;默认是0.</span><br><span class="line"></span><br><span class="line">session.name = PHPSESSID ——→ session 的名字（同时作为cookie的名称</span><br><span class="line"></span><br><span class="line">session.auto_start = 0 ——→ 在请求开始时初始化 session</span><br><span class="line"></span><br><span class="line">session.cookie_lifetime = 0 ——→ cookie的存活秒数，如果为0，则是直到浏览器重新启动</span><br><span class="line"></span><br><span class="line">session.cookie_path = / ——→ cookie的有效路径</span><br><span class="line"></span><br><span class="line">session.cookie_domain = ——→ cookie的有效域名</span><br><span class="line"></span><br><span class="line">session.cookie_httponly =</span><br><span class="line"></span><br><span class="line">####是否将httpOnly标志增加到cookie上,</span><br><span class="line"></span><br><span class="line">增加后则cookie无法被浏览器的脚本语言(例如JavaScript)存取.</span><br><span class="line"></span><br><span class="line">session.serialize_handler = php 用于序列化数据的处理器. php是标准的PHP序列化器.</span><br><span class="line"></span><br><span class="line">session.gc_probability = 1</span><br><span class="line"></span><br><span class="line">####; 定义’垃圾回收’进程在每次session初始化时开始的比例.</span><br><span class="line"></span><br><span class="line">; 比例由 gc_probability/gc_divisor来得出,</span><br><span class="line"></span><br><span class="line">; 例如. 1/100 意味着在每次请求时有1%的机会启动’垃圾回收’进程.</span><br><span class="line"></span><br><span class="line">session.gc_divisor = 1000</span><br><span class="line"></span><br><span class="line">session.gc_maxlifetime = 1440</span><br><span class="line"></span><br><span class="line">####在这里数字所指的秒数后，保存的数据将被视为’碎片(garbage)’并由gc进程清理掉。</span><br><span class="line"></span><br><span class="line">session.bug_compat_42 = Off</span><br><span class="line"></span><br><span class="line">####PHP 4.2 和更早版本有一个未公开的 特性/bug , 此特性允许你在全局初始化一个session变量,即便 register_globals已经被关闭.;如果此特性被使用,PHP 4.3 和更早版本会警告你.;你可以关闭此特性并且隔离此警告. 这时候,如果打开bug_compat_42,那此警告只是被显示出来.</span><br><span class="line"></span><br><span class="line">session.bug_compat_warn = Off</span><br><span class="line"></span><br><span class="line">session.referer_check =</span><br><span class="line"></span><br><span class="line">####检查HTTP Referer来防止带有id的外部URL.;HTTP_REFERER 必须包含从session来的这个字段才会被认为是合法的.</span><br><span class="line"></span><br><span class="line">session.entropy_length = 0 ——→ 从此文件读取多少字节</span><br><span class="line"></span><br><span class="line">session.cache_limiter = nocache</span><br><span class="line"></span><br><span class="line">####设置为&#123;nocache,private,public,&#125;来决定HTTP缓冲的类型;留空则防止发送anti-caching头.</span><br><span class="line"></span><br><span class="line">session.cache_expire = 180 ——→ 文档在n分钟之后过期.</span><br><span class="line"></span><br><span class="line">session.use_trans_sid = 0</span><br><span class="line"></span><br><span class="line">####trans sid 支持默认关闭.</span><br><span class="line"></span><br><span class="line">;使用 trans sid 可能让你的用户承担安全风险.;使用此项必须小心.; – 用户也许通过email/irc/其他途径发送包含有效的session ID的URL给其他人.; – 包含有效session ID的URL可能被存放在容易被公共存取的电脑上.; – 用户可能通过在浏览器历史记录或者收藏夹里面的包含相同的session ID的URL来访问你的站点.</span><br><span class="line"></span><br><span class="line">session.hash_function = 0 ——→ 选择hash方法;0:MD5(128 bits);1:SHA-1(160 bits)</span><br><span class="line"></span><br><span class="line">session.hash_bits_per_character = 5</span><br><span class="line"></span><br><span class="line">; 当转换二进制hash数据到可读形式时,每个字符保存时有几位.</span><br><span class="line"></span><br><span class="line">; 4 bits: 0-9, a-f; 5 bits: 0-9, a-v; 6 bits: 0-9, a-z, A-Z, “-“, “,”</span><br><span class="line"></span><br><span class="line">url_rewriter.tags = “a=href,area=href,frame=src,input=src,form=fakeentry”</span><br><span class="line"></span><br><span class="line">URL rewriter会在已经定义的一组HTML标签内查找URL.; form/fieldset 是特殊字符; 如果你在这里包含他们, rewriter会增加一个包含信息的隐藏字段否则就是在URL中附加信息.; 如果你你想遵守XHTML, 删除form的入口.; 注意 所有合法的入口都需要一个”=”符号, 甚至是没有任何值的.</span><br><span class="line"></span><br><span class="line">[MSSQL]</span><br><span class="line"></span><br><span class="line">mssql.allow_persistent = On ——→ 允许或阻止持久连接</span><br><span class="line"></span><br><span class="line">mssql.max_persistent = -1 ——→ 持久连接的最大数目. -1 意味着没有限制.</span><br><span class="line"></span><br><span class="line">mssql.max_links = -1 ——→ 最大连接数 (持久 + 非持久). -1 意味着没有限制.</span><br><span class="line"></span><br><span class="line">mssql.min_error_severity = 10 ——→ 显示出的错误最小严重程度.</span><br><span class="line"></span><br><span class="line">mssql.min_message_severity = 10 ——→ 显示出的消息最小严重程度</span><br><span class="line"></span><br><span class="line">mssql.compatability_mode = Off ——→ PHP 3.0 老版本的兼容模式.</span><br><span class="line"></span><br><span class="line">mssql.secure_connection = Off ——→ 当连接到服务器时使用NT验证</span><br><span class="line"></span><br><span class="line">[Assertion]</span><br><span class="line"></span><br><span class="line">[COM]</span><br><span class="line"></span><br><span class="line">[mbstring]</span><br><span class="line"></span><br><span class="line">[gd]</span><br><span class="line"></span><br><span class="line">[exif]</span><br><span class="line"></span><br><span class="line">[Tidy]</span><br><span class="line"></span><br><span class="line">当调用tidy时,默认指向tidy配置文件的路径 tidy是否自动清除和修复输出?; 警告: 不要在你产生非html内容时使用此项,例如产生动态图片时</span><br><span class="line"></span><br><span class="line">tidy.clean_output = Off 清除功能是否开启，本文中为关闭状态</span><br><span class="line"></span><br><span class="line">[soap]</span><br><span class="line"></span><br><span class="line">soap.wsdl_cache_enabled=1 ——→ 打开或关闭WSDL缓冲特性.</span><br><span class="line"></span><br><span class="line">soap.wsdl_cache_dir=”/tmp” ——→ 设置SOAP扩展存放缓冲文件的目录</span><br><span class="line"></span><br><span class="line">soap.wsdl_cache_ttl=86400——→(存活时间)设置当缓冲文件被用来替换原有缓冲文件的秒数</span><br><span class="line"></span><br><span class="line">soap.wsdl_cache_limit = 5 ——→ 最小缓存</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="https://yaozihao.com/habitual_opening_summary/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zihao Yao">
-      <meta itemprop="description" content="由渐入深，记录程序人生。全栈工程师与你共勉。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zihao">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/habitual_opening_summary/" class="post-title-link" itemprop="url">习惯性开篇总结</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2015-08-26 19:23:34" itemprop="dateCreated datePublished" datetime="2015-08-26T19:23:34Z">2015-08-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-24 05:24:10" itemprop="dateModified" datetime="2022-11-24T05:24:10Z">2022-11-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Life/" itemprop="url" rel="index"><span itemprop="name">Life</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>520</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>终于抽出一点时间将博客站重新上线。</p>
-<p>为了节省时间采用了wordpress框架。对于程序，现在认为有可用即可用，存在即是合理，而不再执着于要用很多时间去自己写一个框架。</p>
-<p>高可用，敏捷快速是为建站灵魂。拿来主义，是为了释放时间精力做更加擅长的事情。</p>
-<p>在此分享自走上程序之路的一些思维方式，期望新加入程序大军的猿们可以有一个模糊的方向，更快的突破限制，走得更远更快。</p>
-<p>常认为能从零到有，从小白到建站技术都略懂一些能在短短时间如此大的跨步，得益于老大的指点：“代码就是工具，是让你来使用的，不要执着于什么语法，什么语言，仅仅是工具而已。但是它可以帮助你完成梦想。”。</p>
-<p>写代码和日常生活可能是一样的，师父领进门修行在个人，没有什么捷径，唯有勤学苦练。所以在纠结于要不要去培训班的同学，请先明确自己到底想付出什么，又想要得到什么。</p>
-<p>刚刚出学校时，没有任何经验，没有高校背景，找工作确实很难。这时候反省自己有没有努力，有没有决心从零开始在某个行业做下去。考虑好自己所想的，做自己喜欢的，坚持下去。</p>
-<p>关于培训的问题。。培训班可能对于一点基础没有的同学也是一个路。但是强烈建议一定要摒弃在培训过程中什么都依赖别人去教的习惯，学会自主解决问题，师父领进门，修行靠个人，切记。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/object_oriented_programming_one/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1015,7 +1234,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/27/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span>
+    <a class="extend prev" rel="prev" href="/page/27/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/29/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1081,20 +1300,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">278</span>
+          <span class="site-state-item-count">282</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-count">65</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1146,7 +1365,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -1156,13 +1375,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">796k</span>
+    <span title="站点总字数">922k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:04</span>
+    <span title="站点阅读时长">13:59</span>
 </div>
 
         
@@ -1342,6 +1561,15 @@ window.addEventListener('pjax:success', () => {
       });
   </script>
 
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "box";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "bottomCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
     </div>
 </body>
 </html>

@@ -20,18 +20,18 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="下载源码123wget http:&#x2F;&#x2F;dev.mysql.com&#x2F;get&#x2F;Downloads&#x2F;MySQL-5.6&#x2F;mysql-5.6.23.tar.gztar zxvf mysql-5.6.23.tar.gz  安装必要的包1sudo yum install cmake gcc gcc-c++ ncurses-devel perl-Data-Dumper cmake ncurses-devel b">
+  <meta name="description" content="本文介绍了如何在 CentOS 上进行 Mysql 编译。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Centos编译mysql">
+<meta property="og:title" content="CentOS 编译 mysql">
 <meta property="og:url" content="https://yaozihao.com/centos_mysql_compile/index.html">
 <meta property="og:site_name" content="Zihao">
-<meta property="og:description" content="下载源码123wget http:&#x2F;&#x2F;dev.mysql.com&#x2F;get&#x2F;Downloads&#x2F;MySQL-5.6&#x2F;mysql-5.6.23.tar.gztar zxvf mysql-5.6.23.tar.gz  安装必要的包1sudo yum install cmake gcc gcc-c++ ncurses-devel perl-Data-Dumper cmake ncurses-devel b">
+<meta property="og:description" content="本文介绍了如何在 CentOS 上进行 Mysql 编译。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2016-01-05T19:29:20.000Z">
-<meta property="article:modified_time" content="2022-11-24T05:24:10.385Z">
+<meta property="article:modified_time" content="2022-12-02T05:58:34.382Z">
 <meta property="article:author" content="Zihao Yao">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="centos">
@@ -50,8 +50,21 @@
     lang   : 'zh-CN'
   };
 </script>
-<script async src="/lib/fireworks.js"></script>
-  <title>Centos编译mysql | Zihao</title>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style><script async src="/lib/fireworks.js"></script>
+  <title>CentOS 编译 mysql | Zihao</title>
   
 
 
@@ -128,17 +141,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">64</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">65</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">19</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">278</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">282</span></a>
 
   </li>
         <li class="menu-item menu-item-about">
@@ -217,7 +230,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Centos编译mysql
+          CentOS 编译 mysql
         </h1>
 
         <div class="post-meta">
@@ -234,7 +247,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-24 05:24:10" itemprop="dateModified" datetime="2022-11-24T05:24:10Z">2022-11-24</time>
+                <time title="修改时间：2022-12-02 05:58:34" itemprop="dateModified" datetime="2022-12-02T05:58:34Z">2022-12-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -278,51 +291,72 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget http://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.23.tar.gz</span><br><span class="line"></span><br><span class="line">tar zxvf mysql-5.6.23.tar.gz</span><br></pre></td></tr></table></figure>
+        <blockquote>
+<p>本文介绍了如何在 CentOS 上进行 Mysql 编译。</p>
+</blockquote>
+<span id="more"></span>
 
-<h3 id="安装必要的包"><a href="#安装必要的包" class="headerlink" title="安装必要的包"></a>安装必要的包</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install cmake gcc gcc-c++ ncurses-devel perl-Data-Dumper cmake ncurses-devel bison autoconf automake zlib* fiex* libxml* libmcrypt* libtool-ltdl-devel*</span><br></pre></td></tr></table></figure>
+<h2 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget http://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.23.tar.gz</span><br><span class="line"></span><br><span class="line">tar zxvf mysql-5.6.23.tar.gz</span><br></pre></td></tr></table></figure>
 
-<h3 id="进入mysql源码目录，生成makefile"><a href="#进入mysql源码目录，生成makefile" class="headerlink" title="进入mysql源码目录，生成makefile"></a>进入mysql源码目录，生成makefile</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd mysql-5.6.23</span><br><span class="line">cmake .</span><br></pre></td></tr></table></figure>
+<h2 id="安装必要的包"><a href="#安装必要的包" class="headerlink" title="安装必要的包"></a>安装必要的包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install cmake gcc gcc-c++ ncurses-devel perl-Data-Dumper cmake ncurses-devel bison autoconf automake zlib* fiex* libxml* libmcrypt* libtool-ltdl-devel*</span><br></pre></td></tr></table></figure>
+
+<h2 id="进入mysql源码目录，生成makefile"><a href="#进入mysql源码目录，生成makefile" class="headerlink" title="进入mysql源码目录，生成makefile"></a>进入mysql源码目录，生成makefile</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> mysql-5.6.23</span><br><span class="line">cmake .</span><br></pre></td></tr></table></figure>
 
 <p>生成失败的的话</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -f CMakeCache.txt</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> -f CMakeCache.txt</span><br></pre></td></tr></table></figure>
 
 <p>查看问题，进行修复</p>
-<h3 id="编译并安装"><a href="#编译并安装" class="headerlink" title="编译并安装"></a>编译并安装</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
-<p>mysql将会安装到<code>/usr/local/mysql</code>路径。</p>
-<h3 id="添加mysql用户和组"><a href="#添加mysql用户和组" class="headerlink" title="添加mysql用户和组"></a>添加mysql用户和组</h3><p>先查看是否存在</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/passwd | grep mysql</span><br><span class="line"></span><br><span class="line">cat /etc/group | grep mysql</span><br></pre></td></tr></table></figure>
-<p>添加</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo groupadd mysql</span><br><span class="line">sudo useradd -r -g mysql mysql</span><br><span class="line">chown -R mysql:mysql /usr/local/mysql</span><br></pre></td></tr></table></figure>
+<h2 id="编译并安装"><a href="#编译并安装" class="headerlink" title="编译并安装"></a>编译并安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
 
-<h3 id="修改目录和文件权限，安装默认数据库"><a href="#修改目录和文件权限，安装默认数据库" class="headerlink" title="修改目录和文件权限，安装默认数据库"></a>修改目录和文件权限，安装默认数据库</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/mysql</span><br><span class="line">sudo scripts/mysql_install_db --user=mysql?--basedir=/usr/local/mysql --datadir=/usr/local/mysql/data</span><br></pre></td></tr></table></figure>
+<p>mysql将会安装到<code>/usr/local/mysql</code>路径。</p>
+<h2 id="添加mysql用户和组"><a href="#添加mysql用户和组" class="headerlink" title="添加mysql用户和组"></a>添加mysql用户和组</h2><p>先查看是否存在</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/passwd | grep mysql</span><br><span class="line"></span><br><span class="line"><span class="built_in">cat</span> /etc/group | grep mysql</span><br></pre></td></tr></table></figure>
+
+<p>添加</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo groupadd mysql</span><br><span class="line">sudo useradd -r -g mysql mysql</span><br><span class="line"><span class="built_in">chown</span> -R mysql:mysql /usr/local/mysql</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改目录和文件权限，安装默认数据库"><a href="#修改目录和文件权限，安装默认数据库" class="headerlink" title="修改目录和文件权限，安装默认数据库"></a>修改目录和文件权限，安装默认数据库</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/mysql</span><br><span class="line">sudo scripts/mysql_install_db --user=mysql?--basedir=/usr/local/mysql --datadir=/usr/local/mysql/data</span><br></pre></td></tr></table></figure>
+
 <p>至此，<code>mysql</code>就可以启动运行了。</p>
-<h3 id="启动mysql"><a href="#启动mysql" class="headerlink" title="启动mysql"></a>启动mysql</h3><p>CentOS7自带MariaDB的支持，<code>/etc</code>下默认存在<code>my.cnf</code>文件干扰mysql运行，需要先删掉</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /etc</span><br><span class="line">sudo rm -fr my.cnf my.cnf.d</span><br></pre></td></tr></table></figure>
+<h2 id="启动mysql"><a href="#启动mysql" class="headerlink" title="启动mysql"></a>启动mysql</h2><p>CentOS7自带MariaDB的支持，<code>/etc</code>下默认存在<code>my.cnf</code>文件干扰mysql运行，需要先删掉</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc</span><br><span class="line">sudo <span class="built_in">rm</span> -fr my.cnf my.cnf.d</span><br></pre></td></tr></table></figure>
+
 <p>然后再<code>/etc</code>下重建<code>my.cnf</code>文件，内容如下</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"># Foradvice onhow tochange settings please see</span><br><span class="line"># http://dev.mysql.com/doc/refman/5.6/en/server-configuration-defaults.html</span><br><span class="line">[mysqld]</span><br><span class="line"># Remove leading # andsettothe amount ofRAM forthe most important data</span><br><span class="line"># cache inMySQL. Start at70% oftotal RAM fordedicated server, else10%.</span><br><span class="line"># innodb_buffer_pool_size = 128M</span><br><span class="line"># Remove leading # toturn ona very important data integrity option: logging</span><br><span class="line"># changes tothe binarylog betweenbackups.</span><br><span class="line"># log_bin</span><br><span class="line"># These are commonly set, remove the # andsetasrequired.</span><br><span class="line"># basedir = .....</span><br><span class="line"># datadir = /data/mysql/data</span><br><span class="line">?port = .....</span><br><span class="line"># server_id = .....</span><br><span class="line"># socket = .....</span><br><span class="line"># Remove leading # tosetoptions mainly useful forreporting servers.</span><br><span class="line"># The server defaults are faster fortransactions andfast SELECTs.</span><br><span class="line"># Adjust sizes asneeded, experiment tofind the optimal values.</span><br><span class="line"># join_buffer_size = 128M</span><br><span class="line"># sort_buffer_size = 2M</span><br><span class="line"># read_rnd_buffer_size = 2M</span><br><span class="line">max_connection = 10000</span><br><span class="line">sql_mode = NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES</span><br><span class="line">#binarylog</span><br><span class="line">log-bin = mysql-bin</span><br><span class="line">binlog_format = mixed</span><br><span class="line">expire_logs_day = 30</span><br><span class="line">#slow query log</span><br><span class="line">slow_query_log = 1</span><br><span class="line">slow_query_log_file = /var/log/mysql/slow.log</span><br><span class="line">long_query_time = 3</span><br><span class="line">log-queries-not-using-indexes</span><br><span class="line">log-slow-admin-statements</span><br><span class="line">?</span><br><span class="line">innodb_log_files_in_group=2</span><br><span class="line">innodb_data_home_dir = /opt/data/mysql/</span><br><span class="line">innodb_data_file_path = ibdata1:2000M;ibdata2:2000M;ibdata3:20M:autoextend</span><br><span class="line">innodb_log_group_home_dir = /opt/data/mysql/</span><br><span class="line"></span><br><span class="line"># 4G RAM</span><br><span class="line">innodb_buffer_pool_size = 1G</span><br><span class="line">innodb_log_file_size = 256M</span><br><span class="line">innodb_log_buffer_size = 8M</span><br><span class="line">innodb_flush_log_at_trx_commit=0</span><br><span class="line">innodb_thread_concurrency=8</span><br><span class="line">innodb_flush_method=O_DIRECT</span><br><span class="line"></span><br><span class="line"># perform</span><br><span class="line">tmp_table_size = 512M</span><br><span class="line">max_heap_table_size=128M</span><br></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"># Foradvice onhow tochange settings please see</span><br><span class="line"># http://dev.mysql.<span class="keyword">com</span>/doc/refman/<span class="number">5.6</span>/<span class="keyword">en</span>/server-configuration-defaults.html</span><br><span class="line">[mysqld]</span><br><span class="line"># Remove leading # andsettothe amount ofRAM forthe most important data</span><br><span class="line"># cache inMySQL. Start at70% oftotal RAM fordedicated server, else10%.</span><br><span class="line"># innodb_buffer_pool_size = <span class="number">128</span>M</span><br><span class="line"># Remove leading # toturn ona very important data integrity option: logging</span><br><span class="line"># <span class="keyword">changes</span> tothe binarylog betweenbackups.</span><br><span class="line"># log_bin</span><br><span class="line"># These are commonly <span class="keyword">set</span>, <span class="built_in">remove</span> the # andsetasrequired.</span><br><span class="line"># basedir = .....</span><br><span class="line"># datadir = /data/mysql/data</span><br><span class="line">?port = .....</span><br><span class="line"># server_id = .....</span><br><span class="line"># socket = .....</span><br><span class="line"># Remove leading # tosetoptions mainly useful forreporting servers.</span><br><span class="line"># The server defaults are faster fortransactions andfast SELECTs.</span><br><span class="line"># Adjust sizes asneeded, experiment tofind the optimal <span class="built_in">values</span>.</span><br><span class="line"># join_buffer_size = <span class="number">128</span>M</span><br><span class="line"># sort_buffer_size = <span class="number">2</span>M</span><br><span class="line"># read_rnd_buffer_size = <span class="number">2</span>M</span><br><span class="line">max_connection = <span class="number">10000</span></span><br><span class="line">sql_mode = NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES</span><br><span class="line">#binarylog</span><br><span class="line"><span class="built_in">log</span>-bin = mysql-bin</span><br><span class="line">binlog_format = mixed</span><br><span class="line">expire_logs_day = <span class="number">30</span></span><br><span class="line">#slow query <span class="built_in">log</span></span><br><span class="line">slow_query_log = <span class="number">1</span></span><br><span class="line">slow_query_log_file = /var/<span class="built_in">log</span>/mysql/slow.<span class="built_in">log</span></span><br><span class="line">long_query_time = <span class="number">3</span></span><br><span class="line"><span class="built_in">log</span>-queries-not-using-indexes</span><br><span class="line"><span class="built_in">log</span>-slow-admin-statements</span><br><span class="line">?</span><br><span class="line">innodb_log_files_in_group=<span class="number">2</span></span><br><span class="line">innodb_data_home_dir = /<span class="keyword">opt</span>/data/mysql/</span><br><span class="line">innodb_data_file_path = ibdata1:<span class="number">2000</span>M;ibdata2:<span class="number">2000</span>M;ibdata3:<span class="number">20</span>M:autoextend</span><br><span class="line">innodb_log_group_home_dir = /<span class="keyword">opt</span>/data/mysql/</span><br><span class="line"></span><br><span class="line"># <span class="number">4</span>G RAM</span><br><span class="line">innodb_buffer_pool_size = <span class="number">1</span>G</span><br><span class="line">innodb_log_file_size = <span class="number">256</span>M</span><br><span class="line">innodb_log_buffer_size = <span class="number">8</span>M</span><br><span class="line">innodb_flush_log_at_trx_commit=<span class="number">0</span></span><br><span class="line">innodb_thread_concurrency=<span class="number">8</span></span><br><span class="line">innodb_flush_method=O_DIRECT</span><br><span class="line"></span><br><span class="line"># perform</span><br><span class="line">tmp_table_size = <span class="number">512</span>M</span><br><span class="line">max_heap_table_size=<span class="number">128</span>M</span><br></pre></td></tr></table></figure>
+
 <p>现在可以启动mysql了</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/local/mysql/bin/mysqld_safe --user=mysql &amp;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/local/mysql/bin/mysqld_safe --user=mysql &amp;</span><br></pre></td></tr></table></figure>
 
 <p>CentOS7 不能使用service控制mysql服务，而源码安装的mysql也没有提供<code>Systemd</code>的控制脚本。</p>
-<h3 id="开机启动"><a href="#开机启动" class="headerlink" title="开机启动"></a>开机启动</h3><p>于是编辑<code>/etc/rc.d/rc.local</code>文件，添加<code>mysql</code>的开机启动命令。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/mysql/bin/mysqld_safe --user=mysql &amp;</span><br></pre></td></tr></table></figure>
-<p>然后给<code>/etc/rc.d/rc.local</code>添加可执行权限</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod a+x /etc/rc.d/rc.local</span><br></pre></td></tr></table></figure>
-<p>如果开启时报错 ，重新初始化，注意用户名别用错了</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/local/mysql/bin/mysqld_safe --user=mysql &amp;</span><br></pre></td></tr></table></figure>
+<h2 id="开机启动"><a href="#开机启动" class="headerlink" title="开机启动"></a>开机启动</h2><p>于是编辑<code>/etc/rc.d/rc.local</code>文件，添加<code>mysql</code>的开机启动命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/mysql/bin/mysqld_safe --user=mysql &amp;</span><br></pre></td></tr></table></figure>
 
-<h3 id="修改root密码"><a href="#修改root密码" class="headerlink" title="修改root密码"></a>修改root密码</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/mysql/bin/mysql -uroot</span><br><span class="line">use mysql;</span><br><span class="line">select * from mysql?WHERE?user=?&#x27;root&#x27;;</span><br><span class="line">UPDATE user SET?password= PASSWORD(&#x27;123456&#x27;) WHERE?user= &#x27;root&#x27;;</span><br><span class="line"></span><br><span class="line">GRANT ALL PRIVILEGES ON *.*  TO root@&#x27;%&#x27; IDENTIFIED BY &#x27;123456&#x27;;</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
+<p>然后给<code>/etc/rc.d/rc.local</code>添加可执行权限</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">chmod</span> a+x /etc/rc.d/rc.local</span><br></pre></td></tr></table></figure>
+
+<p>如果开启时报错 ，重新初始化，注意用户名别用错了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/local/mysql/bin/mysqld_safe --user=mysql &amp;</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改root密码"><a href="#修改root密码" class="headerlink" title="修改root密码"></a>修改root密码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/mysql/bin/mysql -uroot</span><br><span class="line">use mysql;</span><br><span class="line">select * from mysql?WHERE?user=?<span class="string">&#x27;root&#x27;</span>;</span><br><span class="line">UPDATE user SET?password= PASSWORD(<span class="string">&#x27;123456&#x27;</span>) WHERE?user= <span class="string">&#x27;root&#x27;</span>;</span><br><span class="line"></span><br><span class="line">GRANT ALL PRIVILEGES ON *.*  TO root@<span class="string">&#x27;%&#x27;</span> IDENTIFIED BY <span class="string">&#x27;123456&#x27;</span>;</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
+
 <p>至此，安装基本完成了，一个mysql就能用了。</p>
-<h3 id="启动mysql-1"><a href="#启动mysql-1" class="headerlink" title="启动mysql"></a>启动mysql</h3><p>添加服务，拷贝服务脚本到init.d目录，并设置开机启动</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cp support-files/mysql.server /etc/init.d/mysql</span><br><span class="line">$ chkconfig mysql on</span><br><span class="line">$ service mysql start –启动MySQL</span><br></pre></td></tr></table></figure>
+<h2 id="服务启动mysql"><a href="#服务启动mysql" class="headerlink" title="服务启动mysql"></a>服务启动mysql</h2><p>添加服务，拷贝服务脚本到init.d目录，并设置开机启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> support-files/mysql.server /etc/init.d/mysql</span><br><span class="line">chkconfig mysql on</span><br><span class="line">service mysql start –启动MySQL</span><br></pre></td></tr></table></figure>
+
 <p>查看是否启动成功</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -lntp | grep 3306</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -lntp | grep 3306</span><br></pre></td></tr></table></figure>
+
     </div>
 
     
     
-    
+    <div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
         <div class="reward-container">
   <div></div>
   <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
@@ -347,7 +381,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://yaozihao.com/centos_mysql_compile/" title="Centos编译mysql">https://yaozihao.com/centos_mysql_compile/</a>
+    <a href="https://yaozihao.com/centos_mysql_compile/" title="CentOS 编译 mysql">https://yaozihao.com/centos_mysql_compile/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
@@ -464,7 +498,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81"><span class="nav-text">下载源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%BF%85%E8%A6%81%E7%9A%84%E5%8C%85"><span class="nav-text">安装必要的包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E5%85%A5mysql%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%EF%BC%8C%E7%94%9F%E6%88%90makefile"><span class="nav-text">进入mysql源码目录，生成makefile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%B9%B6%E5%AE%89%E8%A3%85"><span class="nav-text">编译并安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0mysql%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84"><span class="nav-text">添加mysql用户和组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E7%9B%AE%E5%BD%95%E5%92%8C%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90%EF%BC%8C%E5%AE%89%E8%A3%85%E9%BB%98%E8%AE%A4%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-text">修改目录和文件权限，安装默认数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8mysql"><span class="nav-text">启动mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8"><span class="nav-text">开机启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9root%E5%AF%86%E7%A0%81"><span class="nav-text">修改root密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8mysql-1"><span class="nav-text">启动mysql</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81"><span class="nav-text">下载源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%BF%85%E8%A6%81%E7%9A%84%E5%8C%85"><span class="nav-text">安装必要的包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E5%85%A5mysql%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%EF%BC%8C%E7%94%9F%E6%88%90makefile"><span class="nav-text">进入mysql源码目录，生成makefile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%B9%B6%E5%AE%89%E8%A3%85"><span class="nav-text">编译并安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0mysql%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84"><span class="nav-text">添加mysql用户和组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E7%9B%AE%E5%BD%95%E5%92%8C%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90%EF%BC%8C%E5%AE%89%E8%A3%85%E9%BB%98%E8%AE%A4%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-text">修改目录和文件权限，安装默认数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8mysql"><span class="nav-text">启动mysql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8"><span class="nav-text">开机启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9root%E5%AF%86%E7%A0%81"><span class="nav-text">修改root密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%90%AF%E5%8A%A8mysql"><span class="nav-text">服务启动mysql</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -478,20 +512,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">278</span>
+          <span class="site-state-item-count">282</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-count">65</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -543,7 +577,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -553,13 +587,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">796k</span>
+    <span title="站点总字数">922k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:04</span>
+    <span title="站点阅读时长">13:59</span>
 </div>
 
         
@@ -739,6 +773,15 @@ window.addEventListener('pjax:success', () => {
       });
   </script>
 
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "box";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "bottomCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
     </div>
 </body>
 </html>

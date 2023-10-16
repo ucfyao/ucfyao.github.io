@@ -20,18 +20,18 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"yaozihao.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":true,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="这篇文章记录我在使用git的过程中碰到远程分支和tag的相关内容，提纲：  查看远程分支 删除远程分支和tag 删除不存在对应远程分支的本地分支 重命名远程分支 把本地tag推送到远程 获取远程tag  查看远程分支加上-a参数可以查看远程分支，远程分支会用红色表示出来（如果你开了颜色支持的话）： 12345678910$ git branch -a  master  remote  tungwa">
+  <meta name="description" content="这篇文章记录我在使用git的过程中碰到远程分支和tag的相关内容，提纲：  查看远程分支 删除远程分支和tag 删除不存在对应远程分支的本地分支 重命名远程分支 把本地tag推送到远程 获取远程tag  可以通过这篇文章了解Git的基本操作。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git查看、删除、重命名远程分支和tag">
 <meta property="og:url" content="https://yaozihao.com/git_tag_use/index.html">
 <meta property="og:site_name" content="Zihao">
-<meta property="og:description" content="这篇文章记录我在使用git的过程中碰到远程分支和tag的相关内容，提纲：  查看远程分支 删除远程分支和tag 删除不存在对应远程分支的本地分支 重命名远程分支 把本地tag推送到远程 获取远程tag  查看远程分支加上-a参数可以查看远程分支，远程分支会用红色表示出来（如果你开了颜色支持的话）： 12345678910$ git branch -a  master  remote  tungwa">
+<meta property="og:description" content="这篇文章记录我在使用git的过程中碰到远程分支和tag的相关内容，提纲：  查看远程分支 删除远程分支和tag 删除不存在对应远程分支的本地分支 重命名远程分支 把本地tag推送到远程 获取远程tag  可以通过这篇文章了解Git的基本操作。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2016-12-05T17:37:05.000Z">
-<meta property="article:modified_time" content="2022-11-24T05:24:10.401Z">
+<meta property="article:modified_time" content="2022-12-02T05:38:25.029Z">
 <meta property="article:author" content="Zihao Yao">
 <meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary">
@@ -48,7 +48,20 @@
     lang   : 'zh-CN'
   };
 </script>
-<script async src="/lib/fireworks.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style><script async src="/lib/fireworks.js"></script>
   <title>Git查看、删除、重命名远程分支和tag | Zihao</title>
   
 
@@ -126,17 +139,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">64</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">65</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">19</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">278</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">282</span></a>
 
   </li>
         <li class="menu-item menu-item-about">
@@ -232,7 +245,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-24 05:24:10" itemprop="dateModified" datetime="2022-11-24T05:24:10Z">2022-11-24</time>
+                <time title="修改时间：2022-12-02 05:38:25" itemprop="dateModified" datetime="2022-12-02T05:38:25Z">2022-12-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,7 +270,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3k</span>
+              <span>3.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -285,20 +298,23 @@
 <li>把本地tag推送到远程</li>
 <li>获取远程tag</li>
 </ol>
-<h2 id="查看远程分支"><a href="#查看远程分支" class="headerlink" title="查看远程分支"></a>查看远程分支</h2><p>加上-a参数可以查看远程分支，远程分支会用红色表示出来（如果你开了颜色支持的话）：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -a</span><br><span class="line">  master</span><br><span class="line">  remote</span><br><span class="line">  tungway</span><br><span class="line">  v1.52</span><br><span class="line">* zrong</span><br><span class="line">  remotes/origin/master</span><br><span class="line">  remotes/origin/tungway</span><br><span class="line">  remotes/origin/v1.52</span><br><span class="line">  remotes/origin/zrong</span><br></pre></td></tr></table></figure>
+<p>可以通过这篇文章了解Git的基本操作。</p>
+<span id="more"></span>
 
-<h2 id="删除远程分支和tag"><a href="#删除远程分支和tag" class="headerlink" title="删除远程分支和tag"></a>删除远程分支和tag</h2><p>在Git v1.7.0 之后，可以使用这种语法删除远程分支：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin --delete</span><br></pre></td></tr></table></figure>
+<h2 id="查看远程分支"><a href="#查看远程分支" class="headerlink" title="查看远程分支"></a>查看远程分支</h2><p>加上-a参数可以查看远程分支，远程分支会用红色表示出来（如果你开了颜色支持的话）：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -a</span><br><span class="line">  master</span><br><span class="line">  remote</span><br><span class="line">  tungway</span><br><span class="line">  v1.52</span><br><span class="line">* zrong</span><br><span class="line">  remotes/origin/master</span><br><span class="line">  remotes/origin/tungway</span><br><span class="line">  remotes/origin/v1.52</span><br><span class="line">  remotes/origin/zrong</span><br></pre></td></tr></table></figure>
+
+<h2 id="删除远程分支和tag"><a href="#删除远程分支和tag" class="headerlink" title="删除远程分支和tag"></a>删除远程分支和tag</h2><p>在<code>Git v1.7.0</code> 之后，可以使用这种语法删除远程分支：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin --delete</span><br></pre></td></tr></table></figure>
 
 <p>删除tag这么用：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin --delete tag</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin --delete tag</span><br></pre></td></tr></table></figure>
 
 <p>否则，可以使用这种语法，推送一个空分支到远程分支，其实就相当于删除远程分支：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin :</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin :</span><br></pre></td></tr></table></figure>
 
 <p>这是删除tag的方法，推送一个空tag到远程tag：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git tag -d git </span><br><span class="line">push origin :refs/tags/ </span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git tag -d git </span><br><span class="line">push origin :refs/tags/ </span><br></pre></td></tr></table></figure>
 
 <p>两种语法作用完全相同。</p>
 <h2 id="删除不存在对应远程分支的本地分支"><a href="#删除不存在对应远程分支的本地分支" class="headerlink" title="删除不存在对应远程分支的本地分支"></a>删除不存在对应远程分支的本地分支</h2><p>假设这样一种情况：</p>
@@ -309,25 +325,25 @@
 <li>其他人再次执行fetch或者pull并不会删除这个他们本地的 <code>b1</code> 分支，运行 <code>git branch -a</code> 也不能看出这个branch被删除了，如何处理？</li>
 </ol>
 <p>使用下面的代码查看b1的状态：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ git remote show origin</span><br><span class="line">* remote origin</span><br><span class="line">  Fetch URL: git@github.com:xxx/xxx.git</span><br><span class="line">  Push  URL: git@github.com:xxx/xxx.git</span><br><span class="line">  HEAD branch: master</span><br><span class="line">  Remote branches:</span><br><span class="line">    master                 tracked</span><br><span class="line">    refs/remotes/origin/b1 stale (use &#x27;git remote prune&#x27; to remove)</span><br><span class="line">  Local branch configured for &#x27;git pull&#x27;:</span><br><span class="line">    master merges with remote master</span><br><span class="line">  Local ref configured for &#x27;git push&#x27;:</span><br><span class="line">    master pushes to master (up to date)</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ git remote show origin</span><br><span class="line">* remote origin</span><br><span class="line">  Fetch URL: git@github.com:xxx/xxx.git</span><br><span class="line">  Push  URL: git@github.com:xxx/xxx.git</span><br><span class="line">  HEAD branch: master</span><br><span class="line">  Remote branches:</span><br><span class="line">    master                 tracked</span><br><span class="line">    refs/remotes/origin/b1 stale (use <span class="string">&#x27;git remote prune&#x27;</span> to remove)</span><br><span class="line">  Local branch configured <span class="keyword">for</span> <span class="string">&#x27;git pull&#x27;</span>:</span><br><span class="line">    master merges with remote master</span><br><span class="line">  Local ref configured <span class="keyword">for</span> <span class="string">&#x27;git push&#x27;</span>:</span><br><span class="line">    master pushes to master (up to <span class="built_in">date</span>)</span><br></pre></td></tr></table></figure>
 
 <p>这时候能够看到b1是stale的，使用 <code>git remote prune origin</code> 可以将其从本地版本库中去除。 更简单的方法是使用这个命令，它在fetch之后删除掉没有与远程分支对应的本地分支：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch -p</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch -p</span><br></pre></td></tr></table></figure>
 
 <h2 id="重命名远程分支"><a href="#重命名远程分支" class="headerlink" title="重命名远程分支"></a>重命名远程分支</h2><p>在git中重命名远程分支，其实就是先删除远程分支，然后重命名本地分支，再重新提交一个远程分支。 例如下面的例子中，我需要把 devel 分支重命名为 develop 分支：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -av</span><br><span class="line">* devel                             752bb84 Merge pull request #158 from Gwill/devel</span><br><span class="line">  master                            53b27b8 Merge pull request #138 from tdlrobin/master</span><br><span class="line">  zrong                             2ae98d8 modify CCFileUtils, export getFileData</span><br><span class="line">  remotes/origin/HEAD               -&gt; origin/master</span><br><span class="line">  remotes/origin/add_build_script   d4a8c4f Merge branch &#x27;master&#x27; into add_build_script</span><br><span class="line">  remotes/origin/devel              752bb84 Merge pull request #158 from Gwill/devel</span><br><span class="line">  remotes/origin/devel_qt51         62208f1 update .gitignore</span><br><span class="line">  remotes/origin/master             53b27b8 Merge pull request #138 from tdlrobin/master</span><br><span class="line">  remotes/origin/zrong              2ae98d8 modify CCFileUtils, export getFileData</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -av</span><br><span class="line">* devel                             752bb84 Merge pull request <span class="comment">#158 from Gwill/devel</span></span><br><span class="line">  master                            53b27b8 Merge pull request <span class="comment">#138 from tdlrobin/master</span></span><br><span class="line">  zrong                             2ae98d8 modify CCFileUtils, <span class="built_in">export</span> getFileData</span><br><span class="line">  remotes/origin/HEAD               -&gt; origin/master</span><br><span class="line">  remotes/origin/add_build_script   d4a8c4f Merge branch <span class="string">&#x27;master&#x27;</span> into add_build_script</span><br><span class="line">  remotes/origin/devel              752bb84 Merge pull request <span class="comment">#158 from Gwill/devel</span></span><br><span class="line">  remotes/origin/devel_qt51         62208f1 update .gitignore</span><br><span class="line">  remotes/origin/master             53b27b8 Merge pull request <span class="comment">#138 from tdlrobin/master</span></span><br><span class="line">  remotes/origin/zrong              2ae98d8 modify CCFileUtils, <span class="built_in">export</span> getFileData</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>删除远程分支：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git push --delete origin devel</span><br><span class="line">To git@github.com:zrong/quick-cocos2d-x.git</span><br><span class="line"> - [deleted]         devel</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git push --delete origin devel</span><br><span class="line">To git@github.com:zrong/quick-cocos2d-x.git</span><br><span class="line"> - [deleted]         devel</span><br></pre></td></tr></table></figure>
 
 <p>重命名本地分支：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -m devel develop</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -m devel develop</span><br></pre></td></tr></table></figure>
 
 <p>推送本地分支：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin develop</span><br><span class="line">Counting objects: 92, done.</span><br><span class="line">Delta compression using up to 4 threads.</span><br><span class="line">Compressing objects: 100% (48/48), done.</span><br><span class="line">Writing objects: 100% (58/58), 1.38 MiB, done.</span><br><span class="line">Total 58 (delta 34), reused 12 (delta 5)</span><br><span class="line">To git@github.com:zrong/quick-cocos2d-x.git</span><br><span class="line"> * [new branch]      develop -&gt; develop</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin develop</span><br><span class="line">Counting objects: 92, <span class="keyword">done</span>.</span><br><span class="line">Delta compression using up to 4 threads.</span><br><span class="line">Compressing objects: 100% (48/48), <span class="keyword">done</span>.</span><br><span class="line">Writing objects: 100% (58/58), 1.38 MiB, <span class="keyword">done</span>.</span><br><span class="line">Total 58 (delta 34), reused 12 (delta 5)</span><br><span class="line">To git@github.com:zrong/quick-cocos2d-x.git</span><br><span class="line"> * [new branch]      develop -&gt; develop</span><br></pre></td></tr></table></figure>
 
 <p>然而，在 github 上操作的时候，我在删除远程分支时碰到这个错误：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git push --delete origin devel</span><br><span class="line">remote: error: refusing to delete the current branch: refs/heads/devel</span><br><span class="line">To git@github.com:zrong/quick-cocos2d-x.git</span><br><span class="line"> ! [remote rejected] devel (deletion of the current branch prohibited)</span><br><span class="line">error: failed to push some refs to &#x27;git@github.com:zrong/quick-cocos2d-x.git&#x27;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git push --delete origin devel</span><br><span class="line">remote: error: refusing to delete the current branch: refs/heads/devel</span><br><span class="line">To git@github.com:zrong/quick-cocos2d-x.git</span><br><span class="line"> ! [remote rejected] devel (deletion of the current branch prohibited)</span><br><span class="line">error: failed to push some refs to <span class="string">&#x27;git@github.com:zrong/quick-cocos2d-x.git&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <p>这是由于在 github 中，devel 是项目的默认分支。要解决此问题，这样操作：</p>
 <ol>
@@ -335,9 +351,9 @@
 <li>设置 Default Branch 为其他的分支（例如 master）；</li>
 <li>重新执行删除远程分支命令。</li>
 </ol>
-<h2 id="把本地tag推送到远程"><a href="#把本地tag推送到远程" class="headerlink" title="把本地tag推送到远程"></a>把本地tag推送到远程</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push --tags</span><br></pre></td></tr></table></figure>
+<h2 id="把本地tag推送到远程"><a href="#把本地tag推送到远程" class="headerlink" title="把本地tag推送到远程"></a>把本地tag推送到远程</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push --tags</span><br></pre></td></tr></table></figure>
 
-<h2 id="获取远程tag"><a href="#获取远程tag" class="headerlink" title="获取远程tag"></a>获取远程tag</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin tag</span><br></pre></td></tr></table></figure>
+<h2 id="获取远程tag"><a href="#获取远程tag" class="headerlink" title="获取远程tag"></a>获取远程tag</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin tag</span><br></pre></td></tr></table></figure>
 
 <h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ul>
 <li><span class="exturl" data-url="aHR0cHM6Ly9tYWthbmRyYWNhcmRzLmNvbS9tYWthbmRyYS82MjEtZ2l0LWRlbGV0ZS1hLWJyYW5jaC1sb2NhbC1vci1yZW1vdGU=">https://makandracards.com/makandra/621-git-delete-a-branch-local-or-remote<i class="fa fa-external-link-alt"></i></span></li>
@@ -351,7 +367,13 @@
 
     
     
-    
+    <div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
         <div class="reward-container">
   <div></div>
   <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
@@ -505,20 +527,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">278</span>
+          <span class="site-state-item-count">282</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-count">65</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -570,7 +592,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -580,13 +602,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">796k</span>
+    <span title="站点总字数">922k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:04</span>
+    <span title="站点阅读时长">13:59</span>
 </div>
 
         
@@ -766,6 +788,15 @@ window.addEventListener('pjax:success', () => {
       });
   </script>
 
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "box";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "bottomCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
     </div>
 </body>
 </html>
